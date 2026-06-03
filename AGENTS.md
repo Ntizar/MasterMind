@@ -1,106 +1,103 @@
----
-nombre: Ntizar Brain
-tipo: sistema
-descripcion: Sistema de inteligencia operativa general sobre Obsidian + OpenCode
-version: 3.1
-actualizado: 2026-06-03
----
+# Ntizar Mastermind v4.0 — Sistema de Agentes
 
-# Sistema de Agentes — Ntizar Brain v3
+> **Un orquestador, muchos especialistas.** Koldo clasifica, carga skills del dominio, y delega con `delegate_task`.
 
-## Qué es esto
-Sistema de inteligencia operativa general sobre Obsidian + OpenCode.
-Ejecuta cualquier tarea: técnica, estratégica, creativa, analítica, documental u operativa.
+---
 
 ## Arquitectura
 
-Dos capas, sin duplicación:
+```
+Koldo (SOUL.md)
+  │
+  ├── Clasifica tarea → dominio + complejidad
+  ├── Carga skills del dominio relevante
+  └── Decide: directo o delegate_task
+        │
+        ▼
+  delegate_task → Subagente especializado
+        │
+        ▼
+  Koldo integra y verifica
+```
 
-| Capa | Ubicación | Qué contiene |
-|------|-----------|-------------|
-| Documental | `agents/` | Definiciones completas con wikilinks, misión, contexto, conexiones (Obsidian) |
-| Ejecutable | `.opencode/agents/` | Config YAML + instrucciones operativas mínimas (OpenCode) |
-| Comandos | `.opencode/commands/` | `/ntizar-start`, `/ntizar-status`, `/ntizar-models`, `/ntizar-archive` |
+## Niveles de Ejecución
 
-Cada archivo `.opencode/` referencia su archivo Obsidian para detalle completo.
-Cada archivo Obsidian indica su ejecutable en la sección "Ejecutable OpenCode".
+| Nivel | Tool Calls | Archivos | Patrón | Ejemplo |
+|-------|-----------|----------|--------|---------|
+| **1 — Directo** | 1-3 | 1-2 | Koldo solo | Buscar, leer, commit |
+| **2 — Simple** | 4-8 | 3-5 | 1 delegate_task | Refactor de módulo |
+| **3 — Paralelo** | 8+ | 5+ | 2-3 delegate_tasks | Frontend + Backend + Tests |
+| **4 — Orquestación** | Proyecto completo | Multi-PR | Planner → Implementers → Reviewer | Feature completa |
 
-## Cómo activarlo
+## Especialización por Dominio
 
-**Opción A — Comando OpenCode (recomendado):**
-Usa `/ntizar-start` para arrancar.
+### 🔥 Core (HIGH) — Se cargan automáticamente
 
-**Opción B — Manual:**
-El orchestrator lee al arrancar:
-1. Este archivo (AGENTS.md)
-2. [[00-orchestrator]]
-3. [[_system-config]]
-4. [[_session-state]]
-5. [[_index|skills/_index]]
-6. [[_index|learnings/_index]]
-7. [[_clusters]]
+| Skill | Especialización |
+|-------|----------------|
+| `subagent-driven-development` | Planificar → delegar → 2-stage review |
+| `delegar-no-comprimir` | Paralelizar vs comprimir contexto |
+| `koldo-orchestration` | Patrón de delegación y niveles |
+| `github-workflow` | Git, PR lifecycle, deploy |
+| `systematic-debugging` | 4-phase root cause debugging |
 
-Los learnings individuales se cargan bajo demanda — filtrados por señal de relevancia Y decay R(t) > 0.3.
+### 📦 Dominio (MEDIUM) — Se cargan con `skill_view()`
 
-## Agentes
+| Dominio | Skills | Cuándo usar |
+|---------|--------|-------------|
+| **Software** | 17 skills | Código, refactor, debug, testing |
+| **GitHub** | 7 skills | PRs, issues, repo management |
+| **Frontend** | 3 skills | Dashboards, Aurora CSS |
+| **Backend** | 6 skills | APIs, ESM, fetch paralelo |
+| **Infra** | 6 skills | Docker, seguridad, cache, HTTP |
+| **DevOps** | 10 skills | Deploy NaN, cron jobs, pipelines |
+| **Data Science** | 8 skills | Simuladores, Monte Carlo |
+| **Creative** | 22 skills | Diagramas, ASCII, diseño |
 
-### Primarios (el humano elige uno al abrir OpenCode)
+### 🗄️ Archivo (LOW) — Solo si el usuario los pide
 
-| Agente | Modo | Cuándo usar |
-|--------|------|-------------|
-| `ntizar-build` | Trabajo completo (lee + escribe) | Sesiones de ejecución |
-| `ntizar-plan` | Solo lectura | Exploración y análisis sin modificar nada |
+Skills nicho que solo se cargan explícitamente.
 
-### Subagentes (delegados por el orchestrator via Task tool)
+## Human Loop
 
-| Agente | Documentación | Rol |
-|--------|--------------|-----|
-| ntizar-explorer | [[02-explorer]] | Analiza contexto sin modificar |
-| ntizar-planner | [[03-planner]] | Diseña estrategia y pasos |
-| ntizar-spec-writer | [[04-spec-writer]] | Genera spec ejecutable |
-| ntizar-implementer | [[05-implementer]] | Ejecuta la spec |
-| ntizar-reviewer | [[06-reviewer]] | Valida calidad — PASS/FAIL |
-| ntizar-critic | [[07-critic]] | Revisión adversarial (omitir antes que degradar) |
-| ntizar-synthesizer | [[08-synthesizer]] | Comunica resultados al humano |
-| ntizar-archiver | [[09-archiver]] | Destila aprendizaje con decay |
-| ntizar-librarian | [[10-librarian]] | Mantiene skills, índices, clusters |
+### Cuándo activar
 
-El [[01-classifier]] está integrado en el orchestrator (necesita contexto completo de conversación).
+| Criterio | Acción |
+|----------|--------|
+| >5 archivos modificados | Human loop obligatorio |
+| Decisiones de arquitectura | Human loop obligatorio |
+| Deploy a producción | Human loop obligatorio |
+| Migraciones | Human loop obligatorio |
 
-## Multi-modelo
+### Patrón
 
-Tras clasificar cada tarea, el orchestrator **propone** qué modelo usar para cada subagente.
-El humano siempre confirma o modifica. Si no se especifica modelo, hereda el del primary.
-Ver tabla de capacidad mínima en [[_system-config]].
+```
+1. PLANIFICAR → presentar diffs/plan
+2. ESPERAR → ✅ o feedback
+3. IMPLEMENTAR → ejecutar con diffs visibles
+4. ESPERAR → ✅ o feedback
+5. SINTEZAR → presentar resultado
+6. ESPERAR → ✅ para archivar
+```
 
-## Tipos de tarea soportados
-- **Software:** programación, refactorización, debugging, arquitectura
-- **Research:** análisis, síntesis, comparativas, validación de fuentes
-- **Estrategia:** planes, decisiones, evaluaciones, roadmaps
-- **Escritura:** documentos, briefs, emails, contenido, SOPs
-- **Operaciones:** procesos, flujos, automatizaciones, checklists
-- **Conocimiento:** organización en Obsidian, taxonomías, mapas mentales
-- **Creatividad:** brainstorming, conceptos, propuestas
-- **Análisis de datos:** interpretación, resúmenes ejecutivos, visualización
+## Migración desde v3.1
 
-## Cómo dar tareas
+| v3.1 Legacy | v4.0 Actual |
+|---|---|
+| 11 agentes OpenCode | 1 orquestador + 143 skills especializados |
+| Obsidian vault | GitHub repo (Markdown plano) |
+| OpenCode Task tool | `delegate_task` nativo |
+| Ebbinghaus decay manual | `memory` + `session_search` |
+| 15 skills propios | 143 skills Hermes |
+| 2 capas (docs+exec) | 1 capa (GitHub) |
+| 4 comandos slash | 0 comandos (lenguaje natural) |
 
-**Lenguaje natural** o con [[task-intake]] para tareas complejas.
+## Legacy
 
-**Checkpoints humanos:**
-- Después de CLASSIFY → confirma modelos propuestos (o di "ok")
-- Después de SPEC → aprueba con ✅ o da feedback
-- Después de SYNTHESIZE → aprueba con ✅ para archivar
+El sistema v3.1 (Obsidian+OpenCode) se ha movido a `legacy/`. No se ejecuta, solo se mantiene como referencia.
 
-## Reglas globales
+---
 
-Las reglas permanentes del sistema (R1-R12) están en [[_session-state]].
-Las más críticas:
-
-1. Flujo completo obligatorio — ningún agente se salta, aunque emita "PASS SIN HALLAZGOS"
-2. Spec aprobada antes de implementar
-3. No se archiva sin reviewer PASS y ✅ humano
-4. El orchestrator pregunta al humano antes de decidir diseño/arquitectura
-5. El orchestrator **propone** modelos — nunca decide en silencio
-6. Learnings con decay Ebbinghaus — ver [[_index|learnings/_index]]
-7. Sistema portátil — ver [[_system-config]] + `verify-system.bat`
+**Autor:** David Antizar  
+**Versión:** 4.0.0  
+**Fecha:** 2026-06-03

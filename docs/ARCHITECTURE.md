@@ -1,165 +1,304 @@
-# Ntizar Mastermind v3 -- Architecture Deep Dive
+# Ntizar Mastermind v4.0 — Architecture Deep Dive
 
-> This document provides a detailed technical explanation of the system architecture for contributors and advanced users.
+> **Framework de orquestación multi-agente con skills especializados por dominio.**
+> Ejecutándose en Hermes Agent sobre NaN.builders con GitHub como repositorio.
+
+---
 
 ## Overview
 
-Ntizar Mastermind v3 is a multi-agent AI orchestration framework built on two platforms:
+Ntizar Mastermind v4.0 es un sistema de orquestación multi-agente construido sobre:
 
-- **Obsidian** -- knowledge vault, documentation layer, human-readable graph
-- **OpenCode** -- execution engine, model routing, agent delegation via Task tool
+- **Hermes Agent** — motor de ejecución, memoria persistente, `delegate_task` nativo
+- **GitHub** — fuente de verdad, repositorio de código y documentación
+- **NaN.builders** — infraestructura (MicroVM 1vCPU/2GB/20GB)
 
-The system handles any type of task: software development, research, strategy, writing, operations, knowledge management, creativity, and data analysis.
+El sistema maneja cualquier tipo de tarea: software, investigación, estrategia, escritura, operaciones, conocimiento, creatividad y análisis de datos.
 
-## The Two-Layer Architecture
+## Cambios clave respecto a v3.1
 
-### Why Two Layers?
+La versión anterior (v3.1) se construyó sobre **OpenCode + Obsidian**. Ambas plataformas son externas y no están disponibles en la VM actual. v4.0 es 100% Hermes-native:
 
-Previous versions (v1, v2) stored everything in a single set of files. This led to:
-- Obsidian wikilinks breaking OpenCode YAML parsing
-- Duplicated content across documentation and execution configs
-- Bloated executable files that wasted tokens on every agent invocation
+| Aspecto | v3.1 (Legacy) | v4.0 (Actual) |
+|---------|---------------|----------------|
+| Motor de ejecución | OpenCode (Task tool) | **Hermes `delegate_task`** |
+| Documentación | Obsidian (wikilinks) | **GitHub (Markdown plano)** |
+| Agentes | 11 agentes genéricos | **1 orquestador + 143 skills** |
+| Memoria | Ebbinghaus decay manual | **`memory` + `session_search`** |
+| Arquitectura | 2 capas (docs + exec) | **1 capa (GitHub repo)** |
+| Skills | 15 skills propios | **143 skills Hermes** |
+| Comandos | 4 slash commands | **Lenguaje natural** |
 
-v3 solves this with strict separation:
+## El Modelo de Especialización
 
-```
-DOCUMENTAL LAYER                    EXECUTABLE LAYER
-agents/XX-name.md                   .opencode/agents/ntizar-XX.md
-|                                   |
-| - Full mission statement          | - YAML frontmatter (model, tools)
-| - Obsidian wikilinks              | - Minimal operational instructions
-| - Rich context & examples         | - Reference to Obsidian doc
-| - Interconnection map             | - Output format spec
-| - Human-readable format           | - Machine-executable format
-```
+### El problema con los agentes genéricos
 
-**Key rule:** The `.opencode/` file says `"Read agents/XX-name.md for full context"` instead of duplicating content. This achieved a 42% reduction in executable layer tokens.
-
-### Synchronization Protocol
-
-Changes follow this pattern:
-1. Modify the Obsidian doc (source of truth)
-2. Update the `.opencode/` file only if operational behavior changes
-3. Both files reference each other for traceability
-
-## Agent Pipeline
-
-### Classification (Integrated in Orchestrator)
-
-The Classifier was merged into the Orchestrator in v3 because it needs full conversation context, which OpenCode subagents don't receive. It evaluates:
-
-- **Type:** software, research, strategy, writing, operations, knowledge, creativity, data
-- **Complexity:** 1-5 scale
-- **Domain:** matched against skills index
-- **Ambiguity:** low/medium/high
-- **Impact:** low/medium/high
-
-### Flow Selection
-
-| Complexity | Flow |
-|-----------|------|
-| 1-2 (simple) | CLASSIFY -> IMPLEMENT -> REVIEW -> SYNTHESIZE |
-| 3 (medium) | CLASSIFY -> EXPLORE -> PLAN -> IMPLEMENT -> REVIEW -> SYNTHESIZE -> ARCHIVE |
-| 4-5 (complex) | CLASSIFY -> EXPLORE -> PLAN -> SPEC -> IMPLEMENT -> REVIEW -> CRITICIZE -> SYNTHESIZE -> ARCHIVE |
-
-### Agent Communication
-
-Agents communicate through **structured reports** with mandatory sections:
-- Explorer: `EXPLORER REPORT` (max 500 tokens)
-- Planner: `PLAN v1` with objective, criteria, steps, risks
-- Spec Writer: `SPEC v1` (max 700 tokens) -- requires human approval
-- Implementer: `IMPLEMENTER REPORT` + deliverables
-- Reviewer: `REVIEWER REPORT` with PASS/FAIL per criterion
-- Critic: `CRITIC REPORT` with APPROVE/REVIEW/REJECT
-- Synthesizer: `RESULTADO` with next action
-
-## Memory System
-
-### Ebbinghaus Decay Formula
+En v3.1, cada agente era un **rol genérico**:
 
 ```
-R(t) = a / (log(t+1))^b + c
+Orchestrator → Explorer → Planner → Spec-Writer → Implementer → Reviewer → Critic → Synthesizer → Archiver → Librarian
 ```
 
-Parameters per decay type:
+El Implementer no sabía de frontend, backend ni infra. Hacía todo y mal porque no tenía conocimiento especializado de ningún dominio.
 
-| Type | a | b | c | Behavior |
-|------|---|---|---|----------|
-| permanente | - | - | 1.0 | Always R=1.0 |
-| lento | 0.9 | 0.5 | 0.15 | Slow decline, high baseline |
-| normal | 0.8 | 0.7 | 0.08 | Standard decline |
-| rapido | 0.7 | 1.0 | 0.02 | Fast decline, near-zero baseline |
+### La solución: Skills especializados
 
-### Loading Protocol
+En v4.0, cada skill es un **especialista en un dominio concreto**:
 
-1. At session start, orchestrator reads `agents/learnings/_index.md` (lightweight table only)
-2. For each task, matches `signal_of_relevance` column against current task keywords
-3. Loads individual learning files only when: `R(t) > 0.3 AND signal matches`
-4. Under token pressure: raises threshold to `R(t) > 0.5`
-5. Learnings with `R(t) < 0.2` for 60+ days become candidates for archival
+```
+Koldo clasifica tarea → dominio: "frontend-dashboard"
+  → Carga: aurora-design-system (especialista en CSS)
+  → Carga: frontend-dashboard-patterns (especialista en APIs y fetch)
+  → delegate_task con contexto completo
+```
 
-### Archival Process
+**Resultado:** Cada skill tiene conocimiento profundo de su dominio (APIs, unidades, pitfalles, patrones), no conocimiento genérico.
 
-The Librarian agent periodically proposes archival of decayed learnings:
-1. Identifies learnings below threshold for extended periods
-2. Proposes archival to the human
-3. Human approves or rejects
-4. Archived learnings are removed from active index but preserved in the vault
+### Por qué funciona
 
-## Skills Architecture
+1. **Conocimiento especializado** — Cada skill sabe todo sobre su dominio: endpoints, unidades de medida, errores comunes, patrones probados
+2. **Carga bajo demanda** — No se cargan 143 skills indiscriminadamente, solo los del dominio relevante
+3. **Actualización independiente** — Actualizar un skill no afecta a los demás
+4. **Reutilización** — Un skill se usa en múltiples proyectos sin duplicación
 
-Skills are loaded on-demand when the Classifier detects a matching domain. Each skill defines:
+## La Arquitectura en Capas
 
-- **Phases:** ordered steps for the domain workflow
-- **Decision matrix:** when to apply which approach
-- **Rules:** domain-specific constraints
-- **Patterns:** proven solutions
-- **Anti-patterns:** common mistakes to avoid
+### Capa 1: Orquestador (Koldo)
 
-The `dashboard-dev` skill includes a unique feature: **dynamic re-learning**. The Librarian periodically reviews learnings tagged with the `datos` cluster and aggregates common patterns into the skill file itself, making the skill smarter over time.
+Koldo es el orquestador principal, definido en `SOUL.md`. Su trabajo:
 
-## Knowledge Graph
+1. **Clasificar** — Dominio (software, github, frontend, etc.) + complejidad (1-4)
+2. **Cargar skills** — `skill_view()` para los del dominio relevante
+3. **Decidir flujo** — Directo (N1), simple (N2), paralelo (N3), orquestación (N4)
+4. **Delegar** — `delegate_task` con contexto completo
+5. **Integrar** — Verificar resultados, resolver conflictos
+6. **Sintetizar** — Presentar resultados con human loop si aplica
+7. **Archivar** — `memory` + `skill_manage` para aprendizaje
 
-### Clusters
+### Capa 2: Skills Especializados (143)
 
-Clusters are dynamic categories that grow organically. They are never pre-defined as a closed set:
+Organizados en 33 categorías, con prioridad de carga:
 
-- `#sistema` -- the agent system itself
-- `#web` -- frontend, hosting, deployment
-- `#github` -- version control, CI/CD
-- `#arquitectura-software` -- APIs, integration patterns
-- `#datos` -- dashboards, data visualization
-- `#finanzas-tech` -- financial analysis with code
-- `#mobile` -- PWA, native apps
+| Prioridad | Categoría | Skills | Cuándo cargar |
+|-----------|-----------|--------|---------------|
+| 🔥 Core | software-development | 17 | Siempre |
+| 📦 Dominio | github, frontend, backend, infra, devops, data-science, creative | 56 | Cuando toca el dominio |
+| 🗄️ Archivo | vision, mlops, stem, media, etc. | 70 | Solo si el usuario los pide |
 
-### Cross-References
+### Capa 3: Memoria Persistente (Hermes-native)
 
-Projects reference clusters. Learnings reference projects and clusters. Skills reference clusters. This creates a navigable knowledge graph in Obsidian's graph view.
+| Sistema | Función | Reemplaza |
+|---------|---------|-----------|
+| `memory` | Hechos duraderos entre sesiones | Ebbinghaus decay + learnings |
+| `session_search` | Búsqueda de sesiones pasadas | Índice de learnings |
+| `skill_manage` | Crear/actualizar skills | Librarian + Archiver |
 
-## Model Allocation Strategy
+### Capa 4: GitHub (Fuente de verdad)
 
-The multi-model system works on a "propose-confirm" pattern:
+```
+NtizarBrainMasterMind/
+├── SOUL.md              ← Orquestador + principios
+├── AGENTS.md            ← Arquitectura
+├── skills/SKILLS-INDEX.md ← Índice de skills
+├── human-loop-control/  ← Sistema de control
+├── legacy/              ← v3.1 (referencia)
+├── projects/            ← Proyectos activos
+├── notes/               ← Notas de sesión
+└── docs/                ← Documentación
+```
 
-1. Orchestrator evaluates the task and proposes models per agent
-2. Human confirms or adjusts
-3. Each agent's `.opencode/` YAML specifies the assigned model
+## Flujo de Ejecución Detallado
 
-### Degradation Rules
+### Nivel 1 — Directo
 
-- **Critic:** NEVER degrades. Omit entirely if best model unavailable. Notify human.
-- **Orchestrator:** Requires high-capability model. No degradation.
-- **Explorer/Reviewer:** Can degrade one tier (e.g., Opus -> Sonnet)
-- **Synthesizer/Archiver/Librarian:** Can run on cheapest available model
+```
+Tarea: "Busca errores en el último log"
+→ Koldo usa terminal directamente
+→ Presenta resultado
+→ Fin
+```
 
-## File Reference
+### Nivel 2 — Delegación Simple
 
-| File | Purpose | Layer |
-|------|---------|-------|
-| `AGENTS.md` | System entry point, read first | Root |
-| `agents/state/_system-config.md` | Portable config, model tables | Documental |
-| `agents/state/_session-state.md` | Live session rules (R1-R12) | Documental |
-| `agents/learnings/_index.md` | Master learning index with decay | Documental |
-| `agents/skills/_index.md` | Skills registry | Documental |
-| `agents/projects/_clusters.md` | Knowledge graph | Documental |
-| `.opencode/commands/ntizar-start.md` | Boot sequence | Executable |
-| `verify-system.bat` | Installation verifier | Utility |
+```
+Tarea: "Refactoriza el módulo de API del dashboard"
+→ Koldo clasifica: dominio=frontend-dashboard, complejidad=2
+→ Carga: frontend-dashboard-patterns, fetch-paralelo-fallos-parciales
+→ Human loop: presenta plan → espera ✅
+→ delegate_task(goal="refactorizar", context="...", toolsets=["terminal","file"])
+→ Verifica resultado
+→ Presenta resultado
+```
+
+### Nivel 3 — Delegación Paralela
+
+```
+Tarea: "Añade tests, refactoriza frontend y optimiza backend"
+→ Koldo clasifica: dominios=múltiples, complejidad=3
+→ Carga skills de cada dominio
+→ Human loop: presenta plan → espera ✅
+→ delegate_task(tasks=[
+    {"goal": "frontend", ...},
+    {"goal": "tests", ...},
+    {"goal": "backend", ...}
+  ])
+→ Integra resultados
+→ Verifica
+→ Presenta
+```
+
+### Nivel 4 — Orquestación Completa
+
+```
+Tarea: "Crea feature completa: backend + frontend + docs + tests"
+→ Koldo clasifica: complejidad=4
+→ Human loop obligatorio: plan detallado → espera ✅
+→ Planner subagent diseña estrategia
+→ delegate_task paralelo para implementar
+→ Reviewer valida
+→ Koldo integra y merge
+→ Presenta resultado
+```
+
+## Human Loop — Sistema de Control
+
+### Cuándo se activa
+
+| Criterio | Acción |
+|----------|--------|
+| >5 archivos modificados | Human loop obligatorio |
+| Decisiones de arquitectura | Human loop obligatorio |
+| Deploy a producción | Human loop obligatorio |
+| Migraciones | Human loop obligatorio |
+| Usuario lo solicita | Human loop obligatorio |
+
+### El patrón exacto
+
+```
+FASE 1 — PLANIFICAR
+Koldo:
+  "📋 PLAN: [nombre del cambio]
+   ARCHIVOS: [lista]
+   CAMBIOS: [resumen]
+   RIESGOS: [posibles problemas]
+   ROLLBACK: [cómo revertir]
+   
+   ¿Aprobado? ✅ o feedback"
+
+Humano: ✅
+
+FASE 2 — IMPLEMENTAR
+Koldo ejecuta con diffs visibles:
+  "🔧 IMPLEMENTANDO
+   ARCHIVO 1: cambio A → B
+   ARCHIVO 2: cambio C → D
+   
+   ¿Aprobado? ✅ o feedback"
+
+Humano: ✅
+
+FASE 3 — VERIFICAR
+Koldo verifica:
+  "✅ VERIFICADO
+   ARCHIVOS: N
+   TESTS: PASS/FAIL
+   BUILD: OK/FAIL
+   
+   ¿Aprobado? ✅"
+
+Humano: ✅
+
+FASE 4 — SINTETIZAR
+Koldo presenta resultado final:
+  "📊 RESULTADO
+   HECHO: [resumen]
+   SIGUIENTE: [próximos pasos]"
+```
+
+### Reglas del Human Loop
+
+1. **Nunca silenciar** — terminar fase, presentar resultado, continuar inmediatamente
+2. **Máximo 2 reintentos** — si falla 2x, escalar al humano
+3. **Rollback siempre disponible** — `git reset --hard` si algo va mal
+4. **Diffs siempre visibles** — nunca commit sin mostrar cambios
+5. **Aprobación explícita** — ✅ o feedback, nunca asumir
+
+## Memoria y Aprendizaje Continuo
+
+### Cómo aprende Koldo
+
+Después de cada tarea compleja (5+ tool calls):
+
+1. **¿Merece skill?** → `skill_manage` para crear nuevo skill
+2. **¿Merece nota?** → `notes/YYYY-MM-DD-titulo.md`
+3. **¿Merece memoria?** → `memory` tool para hechos duraderos
+
+### Qué guardar en memory
+
+- Preferencias del usuario
+- Datos del entorno (OS, herramientas instaladas)
+- Convenciones del proyecto
+- Patrones que funcionan
+
+### Qué NO guardar en memory
+
+- Progreso de tareas
+- Resultados de sesiones
+- IDs de PRs/commits/issues
+- Datos que caducan en 7 días
+
+## Diferencias con v3.1
+
+### Flujo v3.1 (Legacy)
+
+```
+11 agentes genéricos:
+Orchestrator → Explorer → Planner → Spec-Writer → Implementer → Reviewer → Critic → Synthesizer → Archiver → Librarian
+         ↑                                                                                             ↑
+    Checkpoints humanos (3)                                                                      Ebbinghaus decay
+```
+
+**Problemas:**
+- Cada agente necesita su propio modelo (caro)
+- Flujo lineal lento (cada agente espera al anterior)
+- Checkpoints humanos rompen el flow
+- Spec-Writer y Planner hacen trabajo duplicado
+- Ebbinghaus decay es manual y frágil
+
+### Flujo v4.0 (Actual)
+
+```
+1 orquestador + 143 skills:
+Koldo → skill_view(dominio) → delegate_task → verifica → sintetiza
+   ↑                              ↑                    ↑
+Human loop (solo crítico)    Paralelo cuando        memory/skill_manage
+                             es posible              para aprender
+```
+
+**Ventajas:**
+- Un modelo para todo (qwen3.6)
+- Delegación paralela cuando es posible
+- Human loop solo en cambios críticos
+- Sin espec-writer ni planner redundantes
+- Memoria nativa de Hermes (más fiable)
+
+## Stack Técnico
+
+| Componente | Tecnología |
+|------------|-----------|
+| Modelo | qwen3.6 vía NaN (api.nan.builders/v1) |
+| Infraestructura | MicroVM 1vCPU/2GB/20GB, NaN.builders |
+| Repositorio | GitHub (https://github.com/Ntizar/NtizarBrainMasterMind) |
+| Framework | Hermes Agent |
+| Git auth | Token HTTPS (`GITHUB_TOKEN` en .env) |
+| TTS | Álvaro (es-ES-AlvaroNeural) |
+| CSS | Aurora Design System (Esios style) |
+| Lenguaje | Español (castellano) |
+| Deploy | NaN.builders + GitHub Pages |
+
+---
+
+**Autor:** David Antizar  
+**Versión:** 4.0.0  
+**Fecha:** 2026-06-03  
+**Stack:** Hermes Agent + NaN.builders + GitHub

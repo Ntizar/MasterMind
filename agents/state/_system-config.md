@@ -2,19 +2,22 @@
 
 ## Configuración portable del sistema
 
+> **v3.1 — Portabilidad total.** Ninguna ruta absoluta. Todo relativo al workspace.
+> Cambiar solo `workspace_root` y `github_local_root` al migrar.
+
 system_name: Ntizar Agent System
-version: 3.0
-workspace_root: MASTERTMIND/
+version: 3.1
+workspace_root: .
 default_language: es
 naming_convention: kebab-case
-github_local_root: C:\Users\d_ant\Documents\GitHub
+github_local_root: ./GitHub/  # relative to workspace_root — change if needed
 
 ## Arquitectura v3 — Multi-agente real
 
 > Desde v3, el sistema usa subagentes reales de OpenCode (no role-playing).
 > Cada agente es un archivo `.md` en `.opencode/agents/` con su propio modelo configurable.
 > Obsidian (`agents/`) es la fuente de verdad documental.
-> `.opencode/agents/` es la capa ejecutable. Verificar con `verify-system.bat`.
+> `.opencode/agents/` es la capa ejecutable. Verificar con `verify-system.sh` o `verify-system.bat`.
 
 ### Capas del sistema
 
@@ -99,14 +102,15 @@ Fórmula: `R(t) = a / (log(t+1))^b + c` donde t = días desde la fecha del learn
 ## Reglas de portabilidad
 - Usar siempre rutas relativas desde workspace_root
 - Nunca referenciar rutas absolutas en archivos del sistema
-- `agents/` = documentación completa (Obsidian). `.opencode/agents/` = config ejecutable (OpenCode)
+- `agents/` = documentación completa (Obsidian). `.opencode/agents/` = config ejecutable
 - En nuevo ordenador: copia carpeta completa y edita solo este archivo
+- Verificar con `verify-system.sh` (Linux/macOS/WSL) o `verify-system.bat` (Windows)
 
 ## Instalación en nuevo ordenador
-1. Copia la carpeta MASTERTMIND/ completa al nuevo vault (incluye `agents/` y `.opencode/`)
-2. Abre este archivo y ajusta github_local_root
-3. Verifica que [[_index|skills/_index]] no tenga rutas absolutas
-4. Ejecuta `verify-system.bat` para verificar que todos los archivos existen
+1. Copia la carpeta completa al nuevo vault (incluye `agents/` y `.opencode/`)
+2. Abre este archivo y ajusta `workspace_root` y `github_local_root`
+3. Verifica que `agents/skills/_index` no tenga rutas absolutas
+4. Ejecuta `verify-system.sh` (Linux/macOS/WSL) o `verify-system.bat` (Windows)
 5. Abre OpenCode apuntando al vault
 6. Usa `/ntizar-start` o [[session-prompt]] para activar
 
@@ -121,3 +125,15 @@ Fórmula: `R(t) = a / (log(t+1))^b + c` donde t = días desde la fecha del learn
 - Implementer con modelo de alta capacidad (Claude Opus, GPT-4o)
 - Archiver/Synthesizer con modelo económico (Haiku, Flash)
 - Ahorro de coste estimado ~40-60% manteniendo calidad
+
+## Activación objetiva del Critic (v3.1)
+
+> **Nuevo en v3.1.** El orchestrator activa el Critic automáticamente cuando se cumple ≥1 criterio:
+> 1. Complejidad ≥ 4 (según classifier)
+> 2. ≥ 3 reintentos en cualquier fase
+> 3. Entregables ≥ 3 archivos en tareas software
+> 4. Tarea software con impacto alto
+> 5. Reviewer emite WARNINGs (aunque PASS)
+> 6. Humano solicita explícitamente
+
+Si ninguno se cumple → Critic omitido con notificación al humano.

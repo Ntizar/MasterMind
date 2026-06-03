@@ -1,37 +1,35 @@
 # Review Template
 
 ```
-REVIEWER REPORT — [nombre-tarea] — [fecha]
-══════════════════════════════════════════
-Spec de referencia: [nombre o ruta de la spec]
+REVIEWER REPORT
+───────────────
+Criterios verificados:
+  [✅/❌] [criterio 1] → [evidencia en 1 línea]
+  [✅/❌] [criterio 2] → [evidencia en 1 línea]
 
-CRITERIOS VERIFICADOS:
-  [✅/❌] [criterio 1] → [evidencia concreta en 1 línea]
-  [✅/❌] [criterio 2] → [evidencia concreta en 1 línea]
-  [✅/❌] [criterio N] → [evidencia concreta en 1 línea]
+Calidad del output:
+  [✅/⚠️/❌] Coherencia interna
+  [✅/⚠️/❌] Completitud
+  [✅/⚠️/❌] Ajuste a restricciones
 
-CALIDAD DEL OUTPUT:
-  [✅/⚠️/❌] Coherencia interna     → [observación breve]
-  [✅/⚠️/❌] Completitud            → [observación breve]
-  [✅/⚠️/❌] Ajuste a restricciones → [observación breve]
-  [✅/⚠️/❌] Claridad               → [observación breve]
-
-HALLAZGOS:
-  [CRITICAL] [descripción exacta del problema] → bloquea entrega
-  [WARNING]  [descripción exacta] → debe revisarse antes de archivar
-  [INFO]     [descripción exacta] → sugerencia no bloqueante
-  (si no hay hallazgos → escribir "ninguno")
+Hallazgos:
+  [CRITICAL] [descripción] → bloquea entrega
+  [WARNING] [descripción] → debe revisarse
+  [INFO] [descripción] → sugerencia
 
 VEREDICTO: PASS / FAIL
-Motivo: [1 línea clara que justifica el veredicto]
+Motivo: [1 línea]
 ```
 
 ## Escala de veredicto
-- **PASS**: todos los criterios ✅ + sin ningún CRITICAL
-- **FAIL**: uno o más criterios ❌ O cualquier CRITICAL presente
+- **PASS:** todos los criterios ✅, sin CRITICALs
+- **FAIL:** cualquier criterio ❌ o cualquier CRITICAL
 
-## Reglas de uso
-- No emitir PASS con CRITICALs sin resolver — nunca
-- No proponer correcciones — el reviewer solo verifica y diagnostica; las correcciones son del implementer
-- Siempre tener la spec en mano al revisar — sin spec no hay revisión válida
-- La evidencia de cada criterio debe ser observable: una línea de código, una ruta de archivo, un valor concreto
+## Lo que nunca hago
+- Proponer correcciones (eso es del implementer en reintento)
+- Emitir PASS con CRITICALs abiertos
+- Revisar sin la spec en mano
+
+## Nuevo en v3.1
+- Si el reviewer emite ≥1 WARNING → el Critic se activa automáticamente (ver regla R13)
+- Los hallazgos INFO se documentan en el output pero no afectan el veredicto

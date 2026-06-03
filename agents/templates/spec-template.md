@@ -30,7 +30,8 @@ NOTAS PARA IMPLEMENTER:
 
 ## Reglas de uso
 - QUÉ y CRITERIOS deben poder verificarse sin interpretación subjetiva
-- Verbos prohibidos en criterios: "mejorar", "optimizar", "revisar" sin métrica concreta
+- **Verbos prohibidos en criterios:** "mejorar", "optimizar", "revisar" sin métrica concreta. Usar en su lugar: "añadir", "eliminar", "crear", "mover", "cambiar X por Y".
 - FUERA DE SCOPE es obligatorio cuando la tarea tiene límites que el implementer podría asumir
 - RESTRICCIONES "ninguna" es válido — no inventar restricciones innecesarias
-- Máx 700 tokens por spec — si se supera, la tarea es demasiado grande y hay que dividirla
+- **Máx 700 tokens por spec** — si se supera, la tarea es demasiado grande y hay que dividirla
+- **Nuevo en v3.1:** Si la spec tiene ≥3 entregables, el Critic se activa automáticamente (ver regla R13)

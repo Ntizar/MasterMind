@@ -2,8 +2,8 @@
 nombre: Ntizar Brain
 tipo: sistema
 descripcion: Sistema de inteligencia operativa general sobre Obsidian + OpenCode
-version: 3.0
-actualizado: 2026-03-26
+version: 3.1
+actualizado: 2026-06-03
 ---
 
 # Sistema de Agentes — Ntizar Brain v3

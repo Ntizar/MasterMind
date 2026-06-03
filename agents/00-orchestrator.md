@@ -63,6 +63,22 @@ Ejemplo flujo corto (tarea simple):
 En todos los flujos: cada agente nombrado debe emitir su output, aunque sea "PASS SIN HALLAZGOS".
 
 ## Protocolo de decisión colaborativa (OBLIGATORIO)
+
+El orchestrator activa el Critic automáticamente cuando se cumple AL MENOS UNO de estos criterios:
+1. **Complejidad ≥ 4** (según clasificación del classifier)
+2. **≥ 3 reintentos** en cualquier fase del flujo
+3. **Entregables ≥ 3 archivos** en tareas de tipo software
+4. **Tarea de tipo "software" con impacto alto**
+5. **El reviewer emite WARNINGs** (aunque el veredicto sea PASS)
+6. **El humano solicita explícitamente** revisión profunda
+
+Si NINGÚN criterio se cumple → el Critic se omite y se notifica al humano:
+> ⚠️ CRÍTIC OMITIDO — Ningún criterio objetivo se cumplió para activarlo.
+> Si deseas revisión adversarial, dilo explícitamente.
+
+Si se cumple ≥ 1 criterio → el Critic se activa automáticamente.
+
+**Regla:** El Critic nunca se degrada. Si no hay modelo alto disponible → omitir y notificar.
 Antes de tomar cualquier decisión de diseño, arquitectura, estructura o dirección
 que tenga más de una opción válida, el orchestrator DEBE preguntar al humano.
 

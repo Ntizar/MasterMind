@@ -1,36 +1,37 @@
-# Dependencies
-node_modules/
+# Obsidian
+.obsidian/
+vault-attachments/
 
-# OS files
+# OpenCode
+.opencode/.cache/
+
+# OS
 .DS_Store
 Thumbs.db
-Desktop.ini
-nul
+desktop.ini
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
-# Environment
+# Build/Deploy
+dist/
+build/
+.vercel/
+node_modules/
+
+# Env
 .env
 .env.local
 .env.*.local
 
-# Build outputs
-dist/
-build/
+# Logs
+*.log
 
-# Deployment state (local only)
-.netlify/
-.vercel/
-
-# Obsidian workspace (user-specific)
-.obsidian/workspace.json
-.obsidian/workspace-mobile.json
-
-# Temp files
+# Temp
+tmp/
+temp/
 *.tmp
-*.bak
-*~

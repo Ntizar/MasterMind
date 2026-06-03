@@ -16,9 +16,6 @@ concurrency:
 
 jobs:
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -41,10 +38,13 @@ jobs:
             assets/
             scripts/
             verify-system.bat
+            verify-system.sh
             CONTRIBUTING.md
             README.md
             README_EN.md
             LICENSE
+            CHANGELOG.md
+            skills/
 
       - name: Deploy to GitHub Pages
         id: deployment

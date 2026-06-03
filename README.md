@@ -2,376 +2,324 @@
   <img src="assets/banner.svg" alt="Ntizar Mastermind" width="800"/>
 </p>
 
-<h1 align="center">(OpenCode + Obsidian) ^ Ntizar Mastermind</h1>
+<h1 align="center">Ntizar Mastermind</h1>
 
 <p align="center">
-  <strong>Un sistema de orquestacion multi-agente que realmente recuerda, aprende y olvida.</strong>
+  <strong>Un framework open-source de orquestación multi-agente con memoria persistente,<br>decaimiento de Ebbinghaus y routing de modelos.</strong>
 </p>
 
 <p align="center">
-  <a href="#inicio-rapido">Inicio Rapido</a> |
-  <a href="README_EN.md">English</a> |
-  <a href="docs/ARCHITECTURE.md">Arquitectura</a> |
-  <a href="#plataforma-de-aprendizaje">Plataforma</a> |
-  <a href="#hoja-de-ruta">Roadmap</a>
+  <a href="https://ntizar.github.io/NtizarBrainMasterMind/">🌐 Web</a> ·
+  <a href="#inicio-rápido">Inicio Rápido</a> ·
+  <a href="docs/ARCHITECTURE.md">Arquitectura</a> ·
+  <a href="#roadmap">Roadmap</a> ·
+  <a href="README_EN.md">English</a>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-3.0-blue" alt="Version 3.0"/>
-  <img src="https://img.shields.io/badge/agentes-11-orange" alt="11 Agentes"/>
-  <img src="https://img.shields.io/badge/modelos-multi--modelo-green" alt="Multi-modelo"/>
-  <img src="https://img.shields.io/badge/memoria-Ebbinghaus%20decay-purple" alt="Sistema de Memoria"/>
-  <img src="https://img.shields.io/badge/licencia-MIT-lightgrey" alt="MIT License"/>
+  <img src="https://img.shields.io/badge/version-3.0-blue?style=flat-square" alt="Version 3.0"/>
+  <img src="https://img.shields.io/badge/agentes-11-orange?style=flat-square" alt="11 Agentes"/>
+  <img src="https://img.shields.io/badge/modelos-multi--modelo-green?style=flat-square" alt="Multi-modelo"/>
+  <img src="https://img.shields.io/badge/memoria-Ebbinghaus%20decay-purple?style=flat-square" alt="Sistema de Memoria"/>
+  <img src="https://img.shields.io/badge/licencia-MIT-lightgrey?style=flat-square" alt="MIT License"/>
+  <img src="https://img.shields.io/badge/web-live-blueviolet?style=flat-square" alt="Web en vivo"/>
 </p>
 
 ---
 
-## El Problema
+## Tu IA que realmente recuerda
 
-Usas IA todos los dias. Copias y pegas contexto. Re-explicas tu proyecto. Pierdes aprendizajes entre sesiones. Tus prompts son largos, caros y fragiles.
+Usas IA todos los días. Copias y pegas contexto. Re-explicas tu proyecto. Pierdes aprendizajes entre sesiones. Tus prompts son largos, caros y frágiles.
 
-**Y si tu IA tuviera cerebro?**
+**¿Y si tu IA tuviera cerebro?**
 
 No un chatbot. No un solo prompt. Un sistema estructurado, multi-agente, con memoria persistente, roles especializados y una curva de olvido que mantiene tu contexto ligero y relevante.
 
-## Que Es Ntizar Mastermind?
+---
 
-Ntizar Mastermind es un **framework open-source de orquestacion multi-agente** que funciona sobre [OpenCode](https://opencode.ai) + [Obsidian](https://obsidian.md). Transforma tu flujo de trabajo con IA de "una conversacion a la vez" a un **sistema de inteligencia persistente y auto-mejorable**.
+## ¿Qué es Ntizar Mastermind?
 
-### Como Funciona
+Ntizar Mastermind es un **framework open-source de orquestación multi-agente** sobre [OpenCode](https://opencode.ai) + [Obsidian](https://obsidian.md). Transforma tu flujo de trabajo de "una conversación a la vez" a un **sistema de inteligencia persistente y auto-mejorable**.
 
 ```
 Tu das una tarea
-    |
-    v
+    │
+    ▼
 El ORQUESTADOR la clasifica (tipo, complejidad, dominio)
-    |
-    v
-Selecciona el FLUJO optimo (3 a 10 agentes)
-    |
-    v
+    │
+    ▼
+Selecciona el FLUJO óptimo (2 a 10 agentes)
+    │
+    ▼
 Cada AGENTE se ejecuta en el mejor modelo para su rol
-    |
-    v
+    │
+    ▼
 Los resultados son REVISADOS, CRITICADOS y SINTETIZADOS
-    |
-    v
-Los aprendizajes se ARCHIVAN con curva de expiracion
-    |
-    v
-La siguiente sesion empieza mas inteligente, no desde cero
+    │
+    ▼
+Los aprendizajes se ARCHIVAN con curva de expiración
+    │
+    ▼
+La siguiente sesión empieza más inteligente, no desde cero
 ```
 
-### Diferenciadores Clave
+### Comparativa rápida
 
-| Caracteristica | Prompting Tradicional | Ntizar Mastermind v3 |
-|----------------|----------------------|---------------------|
-| Contexto | Se pierde cada sesion | Memoria persistente con decaimiento inteligente |
-| Agentes | Una sola personalidad | 11 agentes especializados con roles definidos |
-| Modelos | Un modelo hace todo | Cada agente usa su modelo optimo |
-| Coste | Contexto completo siempre | 40-60% ahorro en tokens via carga inteligente |
-| Calidad | Sin proceso de revision | Revision obligatoria + critico adversarial |
-| Aprendizaje | Empieza desde cero | Acumula patrones, skills y conocimiento de proyectos |
-| Control | La IA decide todo | Humano en el bucle en cada checkpoint critico |
+| Característica | Prompting tradicional | **Ntizar Mastermind v3** |
+|---|---|---|
+| Contexto | Se pierde cada sesión | **Memoria persistente con decaimiento inteligente** |
+| Agentes | Una sola personalidad | **11 agentes especializados con roles definidos** |
+| Modelos | Un modelo hace todo | **Cada agente usa su modelo óptimo** |
+| Coste | Contexto completo siempre | **40-60% ahorro vía carga inteligente** |
+| Calidad | Sin proceso de revisión | **Revisión obligatoria + crítico adversarial** |
+| Aprendizaje | Empieza desde cero | **Acumula patrones, skills y conocimiento** |
+| Control | La IA decide todo | **Humano en el bucle en cada checkpoint** |
 
 ---
 
 ## Los 11 Agentes
 
-El sistema opera como un **pipeline** donde cada agente tiene una unica responsabilidad:
-
-| # | Agente | Rol | Piensa en el como... |
-|---|--------|-----|---------------------|
-| 00 | **Orquestador** | Clasifica tareas, disena flujos, delega | El CEO |
-| 01 | **Clasificador** | Evalua complejidad, dominio, ambiguedad | El Triaje |
+| # | Agente | Rol | Piénsalo como... |
+|---|--------|-----|------------------|
+| 00 | **Orquestador** | Clasifica tareas, diseña flujos, delega | El CEO |
+| 01 | **Clasificador** | Evalúa complejidad, dominio, ambigüedad | El Triaje |
 | 02 | **Explorador** | Lee contexto sin modificar nada | El Scout |
-| 03 | **Planificador** | Define estrategia, pasos, criterios de exito | El Arquitecto |
-| 04 | **Spec Writer** | Convierte plan en spec ejecutable sin ambiguedad | El Abogado de Contratos |
+| 03 | **Planificador** | Define estrategia, pasos, criterios de éxito | El Arquitecto |
+| 04 | **Spec Writer** | Convierte plan en spec ejecutable | El Abogado de Contratos |
 | 05 | **Implementador** | Ejecuta la spec, produce entregables | El Constructor |
-| 06 | **Revisor** | Validacion PASS/FAIL contra criterios de la spec | El Inspector de Calidad |
-| 07 | **Critico** | Revision adversarial -- encuentra lo que otros no ven | El Abogado del Diablo |
+| 06 | **Revisor** | Validación PASS/FAIL contra criterios | El Inspector de Calidad |
+| 07 | **Crítico** | Revisión adversarial — encuentra lo que otros no ven | El Abogado del Diablo |
 | 08 | **Sintetizador** | Transforma reportes en resultados legibles | El Traductor |
 | 09 | **Archivador** | Destila aprendizajes con metadatos de decaimiento | El Bibliotecario |
 | 10 | **Bibliotecario** | Mantiene el grafo de conocimiento y salud del sistema | El Jardinero |
 
-**El Critico nunca se degrada.** Si el mejor modelo no esta disponible, el Critico se omite completamente en vez de ejecutarse en un modelo inferior. Calidad sobre cantidad.
+> **El Crítico nunca se degrada.** Si el mejor modelo no está disponible, el Crítico se omite completamente en vez de ejecutarse en un modelo inferior. Calidad sobre cantidad.
 
 ---
 
 ## Arquitectura Multi-Modelo
 
-No toda tarea necesita el modelo mas caro. Mastermind asigna a cada agente el modelo correcto para su trabajo:
+Cada agente usa el modelo correcto para su trabajo:
 
 ```
-Orquestador + Critico  -->  Claude Opus / GPT-4o     (alto razonamiento)
-Explorador             -->  Gemini 2.5 Pro           (contexto de 1M tokens)
-Implementador          -->  Claude Opus / Sonnet      (generacion de codigo)
-Revisor                -->  Claude Sonnet / Flash     (criterios concretos)
-Sintetizador + Archiv. -->  Claude Haiku / Flash      (tareas mecanicas)
+Orquestador + Crítico  ──►  Claude Opus / GPT-4o       (alto razonamiento)
+Explorador              ──►  Gemini 2.5 Pro              (contexto de 1M tokens)
+Implementador           ──►  Claude Opus / Sonnet         (generación de código)
+Revisor                 ──►  Claude Sonnet / Flash        (criterios concretos)
+Sintetizador + Archiv.  ──►  Claude Haiku / Flash         (tareas mecánicas)
 ```
 
-**Resultado:** Misma calidad de output, 40-60% menos coste. Tu eliges los modelos -- el sistema propone, tu confirmas.
+**Resultado:** Misma calidad de output, 40-60% menos coste. Tú eliges los modelos — el sistema propone, tú confirmas.
 
 ---
 
-## Memoria Que Olvida (A Proposito)
+## Memoria que olvida (a propósito)
 
-Cada aprendizaje capturado por el sistema tiene un **tipo de decaimiento** basado en la curva del olvido de Ebbinghaus:
+Cada aprendizaje tiene un **tipo de decaimiento** basado en la curva del olvido de Ebbinghaus:
 
 ```
-R(t) = a / (log(t+1))^b + c
+R(t) = a / (log(t+1))ᵇ + c
 ```
 
-| Tipo de Decaimiento | A los 30 dias | A los 90 dias | A los 180 dias | Usado Para |
-|--------------------|---------------|---------------|----------------|-----------|
+| Tipo | 30 días | 90 días | 180 días | Uso |
+|------|---------|---------|----------|-----|
 | **Permanente** | 100% | 100% | 100% | Reglas del sistema, patrones fundamentales |
-| **Lento** | 71% | 58% | 48% | Patrones tecnicos reutilizables |
-| **Normal** | 52% | 37% | 29% | Soluciones a problemas especificos |
-| **Rapido** | 30% | 18% | 12% | Fixes puntuales, contexto temporal |
+| **Lento** | 71% | 58% | 48% | Patrones técnicos reutilizables |
+| **Normal** | 52% | 37% | 29% | Soluciones a problemas específicos |
+| **Rápido** | 30% | 18% | 12% | Fixes puntuales, contexto temporal |
 
-**Por que?** Porque cargar 200 aprendizajes en cada sesion es caro y ruidoso. El sistema solo carga aprendizajes que son **relevantes para la tarea actual** Y que **no han decaido por debajo del umbral**. El conocimiento viejo e irrelevante se desvanece naturalmente. Los patrones criticos persisten para siempre.
-
----
-
-## Arquitectura de Dos Capas (Innovacion v3)
-
-El sistema vive en dos capas sincronizadas con **cero duplicacion**:
-
-```
-agents/                    .opencode/agents/
-(Obsidian - Documentacion)     (OpenCode - Ejecucion)
- |                              |
- |  Contexto rico, wikilinks,  |  Config YAML minima,
- |  misiones, interconexiones  |  instrucciones operativas,
- |                              |  asignacion de modelos
- |                              |
- +--- Fuente de verdad          +--- Motor de ejecucion
-      (legible por humanos)          (ejecutable por maquina)
-```
-
-Los archivos `.opencode/` referencian los docs de Obsidian para contexto completo. Los archivos de Obsidian referencian los de `.opencode/` para trazabilidad. **42% de reduccion** en contenido de la capa ejecutable vs v2, sin perdida de funcionalidad.
+Solo se cargan aprendizajes que son **relevantes para la tarea actual** Y que **no han decaído por debajo del umbral**. El conocimiento viejo e irrelevante se desvanece naturalmente. Los patrones críticos persisten para siempre.
 
 ---
 
-## Design System: Liquid Glass UI
+## Arquitectura de Dos Capas
 
-El proyecto incluye un **sistema de diseno completo** en `design-system/ntizar.css` (1,379 lineas) que define la identidad visual de todo el ecosistema Ntizar:
+Innovación v3: **cero duplicación** entre documentación y ejecución.
 
-- **Paleta:** Azul primario (`#3b82f6`) + Naranja acento (`#f97316`) sobre fondo oscuro (`#0a0f1e`)
-- **Efecto signature:** Cristal liquido con refraccion via filtros SVG (Chrome/Chromium)
-- **3 niveles de glass:** sutil, estandar, fuerte -- para jerarquia visual sin bordes duros
-- **Componentes completos:** botones, cards, badges, inputs, navbar, modal, progress bars, tooltips
-- **Layout utilities:** grid responsive, spacing, contenedores
-- **Light mode:** override completo para contextos claros
-- **Animaciones:** fade-up, gradient shifts, hover effects con transiciones fluidas
-
-El CSS es puro (sin preprocesador, sin build step) y se usa tanto en la learning platform como en cualquier proyecto del ecosistema. La demo visual esta disponible en `design-system/demo.html`.
-
-```css
-/* Ejemplo: aplicar glass a cualquier card */
-.mi-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
-}
 ```
+agents/                         .opencode/agents/
+(Capa Documental — Obsidian)       (Capa Ejecutable — OpenCode)
+ │                                  │
+ │  Contexto rico, wikilinks,      │  Config YAML mínima,
+ │  misiones, interconexiones      │  instrucciones operativas,
+ │                                  │  asignación de modelos
+ │                                  │
+ └── Fuente de verdad              └── Motor de ejecución
+      (legible por humanos)              (ejecutable por máquina)
+```
+
+Los archivos `.opencode/` referencian los docs de Obsidian para contexto completo. **42% de reducción** en tokens de la capa ejecutable vs v2.
 
 ---
 
-## Inicio Rapido
+## Inicio Rápido
 
-### Prerequisitos
+### Prerrequisitos
 
 - [Obsidian](https://obsidian.md) (gratis)
-- [OpenCode](https://opencode.ai) (herramienta CLI para desarrollo con IA)
-- Al menos una API key de un modelo de IA (Claude, GPT-4, Gemini, etc.)
+- [OpenCode](https://opencode.ai) (CLI para desarrollo con IA)
+- Al menos una API key de un modelo de IA
 
-### Instalacion
+### Instalación
 
 ```bash
-# 1. Clonar el repositorio
-git clone https://github.com/Ntizar/ntizar-mastermind.git
+# 1. Clonar
+git clone https://github.com/Ntizar/NtizarBrainMasterMind.git
+cd NtizarBrainMasterMind
 
-# 2. Abrir la carpeta como vault de Obsidian
-#    (Archivo > Abrir boveda > Abrir carpeta como boveda)
+# 2. Abrir como vault en Obsidian
+#    (Archivo → Abrir bóveda → Abrir carpeta como bóveda)
 
-# 3. Configurar tus API keys en OpenCode
+# 3. Configurar API keys en OpenCode
 #    (ver docs de OpenCode para setup)
 
-# 4. Verificar la instalacion
+# 4. Verificar instalación
 ./verify-system.bat    # Windows
-# o verificar manualmente: 11 agentes, 4 comandos, todos los directorios existen
 
-# 5. Iniciar el sistema
+# 5. Iniciar
 opencode
-# Luego ejecutar: /ntizar-start
+# Luego: /ntizar-start
 ```
 
-### Primera Tarea
+### Primera tarea
 
-Una vez que el sistema arranca, simplemente dale una tarea:
-
+```bash
+# Una vez arrancado, simplemente dale una tarea:
+"Crea una landing page para mi portfolio con modo oscuro"
 ```
-"Crea una landing page para mi portfolio con soporte de modo oscuro"
-```
 
-El orquestador:
-1. La clasificara (desarrollo web, complejidad media)
-2. Propondra un flujo y asignacion de modelos
-3. Esperara tu confirmacion
-4. Ejecutara el pipeline completo
-5. Archivara lo que aprendio
+El orquestador clasificará, propondrá un flujo, esperará tu confirmación y ejecutará el pipeline completo.
 
 ---
 
 ## Estructura del Proyecto
 
 ```
-ntizar-mastermind/
-|
-|-- AGENTS.md                    # Punto de entrada del sistema
-|-- verify-system.bat            # Verificador de instalacion
-|
-|-- agents/                      # CAPA DOCUMENTAL (Obsidian)
-|   |-- 00-orchestrator.md       # ... hasta 10-librarian.md
-|   |-- session-prompt.md        # Prompt de activacion manual
-|   |-- state/                   # Config del sistema + estado de sesion
-|   |-- templates/               # Intake de tareas, specs, reviews, proyectos, learnings
-|   |-- skills/                  # Conocimiento de dominio (4 activos)
-|   |-- learnings/               # Patrones capturados con metadatos de decaimiento
-|   |-- projects/                # Hubs de proyectos + clusters de conocimiento
-|
-|-- .opencode/                   # CAPA DE EJECUCION (OpenCode runtime)
-|   |-- agents/                  # Configs de agentes (YAML + instrucciones minimas)
-|   |-- commands/                # Comandos slash (/ntizar-start, etc.)
-|
-|-- learning-platform/           # Brain Academy — plataforma de aprendizaje interactiva
-|-- design-system/               # Framework CSS Liquid Glass (1,379 lineas)
-|-- docs/                        # Documentacion extendida
+NtizarBrainMasterMind/
+├── AGENTS.md                  # Punto de entrada del sistema
+├── index.html                 # 🌐 Web oficial (GitHub Pages)
+├── verify-system.bat          # Verificador de instalación
+│
+├── agents/                    # CAPA DOCUMENTAL (Obsidian)
+│   ├── 00-orchestrator.md     # ... hasta 10-librarian.md
+│   ├── session-prompt.md      # Prompt de activación
+│   ├── state/                 # Config del sistema + estado
+│   ├── templates/             # Plantillas de intake, spec, review
+│   ├── skills/                # Skills de dominio (4 activos)
+│   ├── learnings/             # Patrones con metadatos de decaimiento
+│   └── projects/              # Hubs de proyectos + clusters
+│
+├── .opencode/                 # CAPA DE EJECUCIÓN (OpenCode)
+│   ├── agents/                # Configs YAML de agentes
+│   └── commands/              # /ntizar-start, /ntizar-status, etc.
+│
+├── learning-platform/         # Brain Academy — plataforma interactiva
+├── design-system/             # Liquid Glass CSS (1,379 líneas)
+├── docs/                      # Documentación extendida
+└── assets/                    # Banner SVG
 ```
 
 ---
 
-## Sistema de Skills
+## Skills de Dominio
 
-Los skills son **playbooks de dominio** que los agentes cargan cuando son relevantes:
+Playbooks que los agentes cargan bajo demanda:
 
-| Skill | Dominio | Que Anade |
+| Skill | Dominio | Contenido |
 |-------|---------|-----------|
-| `software-dev` | Desarrollo de software universal | 6 fases obligatorias, matriz de decisiones, reglas de codigo |
-| `dashboard-dev` | Visualizacion de datos | Pipeline de 6 fases, re-aprendizaje dinamico de proyectos pasados |
-| `web-deploy` | Hosting compartido Apache | Patron de propagacion single-source, checklists de deploy |
-| `pwa-android` | PWA a APK Android | Stack completo: iconos, PWABuilder, verificacion binaria |
+| `software-dev` | Desarrollo | 6 fases obligatorias, matriz de decisiones |
+| `dashboard-dev` | Visualización de datos | Pipeline de 6 fases, re-aprendizaje dinámico |
+| `web-deploy` | Hosting compartido | Patrón de propagación single-source |
+| `pwa-android` | PWA → APK | Stack completo con verificación binaria |
 
-Los skills se cargan **bajo demanda** -- solo cuando el clasificador detecta un dominio que coincide. Puedes crear los tuyos usando la plantilla incluida.
+Los skills se cargan **bajo demanda** — solo cuando el clasificador detecta un dominio que coincide. Puedes crear los tuyos usando la plantilla incluida.
 
 ---
 
 ## Plataforma de Aprendizaje
 
-> **Brain Academy v3.0** — Completa y operativa
+> **Brain Academy v3.0** — En vivo: [ntizar-brain-learning.vercel.app](https://ntizar-brain-learning.vercel.app)
 
-Una plataforma web interactiva que ensena a cualquier persona como construir y usar el sistema Ntizar Mastermind. Disenada para **2 perfiles** — con y sin experiencia como programador — con contenido adaptativo, tono disruptivo y gamificacion real.
+Plataforma web interactiva que enseña a construir y usar Ntizar Mastermind. Diseñada para 2 perfiles (con/sin experiencia), con gamificación real.
 
-**En vivo:** [ntizar-brain-learning.vercel.app](https://ntizar-brain-learning.vercel.app)
-
-Caracteristicas:
-- 6 modulos interactivos (M0-M5) con contenido narrativo y disruptivo
-- 2 perfiles: "Con experiencia" (~1h 30min) y "Sin experiencia" (~2h 30min)
-- Quizzes funcionales con feedback inmediato
-- Gamificacion: XP, badges, confetti, notificaciones
-- Persistencia de estado (progreso guardado en localStorage)
-- Generacion de guia PDF con diseno Ntizar (4 paginas, tema oscuro)
-- Interfaz Liquid Glass UI con animaciones premium
-- Contenido personalizado con el nombre del usuario
+- 6 módulos interactivos (M0-M5)
+- 2 perfiles adaptativos
+- Quizzes con feedback inmediato
+- XP, badges, confetti
+- Guía PDF con diseño Ntizar
 
 ---
 
-## Hoja de Ruta
+## Roadmap
 
-### Actual: v3.0 (Marzo 2026)
-- [x] Arquitectura de dos capas (Obsidian + OpenCode)
-- [x] 11 agentes especializados con responsabilidad unica
-- [x] Asignacion multi-modelo por agente
-- [x] Sistema de memoria con decaimiento Ebbinghaus
-- [x] 4 skills de dominio
-- [x] 32+ aprendizajes indexados
-- [x] Instalacion portable con verificacion
-- [x] Plataforma de aprendizaje Brain Academy v3.0 (completa)
-- [x] Design System Liquid Glass CSS (1,379 lineas)
+### v3.0 actual (Marzo 2026)
+- [x] Arquitectura de dos capas
+- [x] 11 agentes especializados
+- [x] Multi-modelo por agente
+- [x] Memoria con decaimiento Ebbinghaus
+- [x] 4 skills de dominio · 32+ aprendizajes
+- [x] Plataforma Brain Academy v3.0
+- [x] Design System Liquid Glass
 
-### Siguiente: v3.1 -- Optimizacion MCP Multi-Agente
-- [ ] **Integracion nativa de servidor MCP** -- los agentes se comunican via Model Context Protocol en vez de delegacion por Task tool, habilitando ejecucion paralela real
-- [ ] **Sistema de presupuesto de tokens** -- cada agente declara su coste de tokens por adelantado; el orquestador optimiza la asignacion dentro de un presupuesto de sesion
-- [ ] **Handoffs de agentes en streaming** -- los agentes pasan resultados parciales al siguiente en el pipeline sin esperar a completarse
-- [ ] **Cache de resultados de agentes** -- sub-tareas identicas entre sesiones reutilizan outputs cacheados (con invalidacion consciente del decaimiento)
-- [ ] **Reescritura dinamica de flujos** -- el orquestador puede modificar el pipeline en medio de la ejecucion basandose en resultados intermedios
+### v3.1 — Optimización MCP
+- [ ] Integración nativa de servidor MCP
+- [ ] Sistema de presupuesto de tokens
+- [ ] Handoffs de agentes en streaming
+- [ ] Cache de resultados de agentes
+- [ ] Reescritura dinámica de flujos
 
-### Futuro: v4.0 -- Inteligencia Colaborativa
-- [ ] **Comparticion de conocimiento multi-usuario** -- equipos comparten aprendizajes entre vaults con resolucion de conflictos
-- [ ] **Marketplace de skills** -- skills contribuidos por la comunidad (como plugins de Obsidian)
-- [ ] **Deteccion de patrones cross-proyecto** -- el sistema identifica patrones entre todos tus proyectos automaticamente
-- [ ] **Editor visual de flujos** -- disena pipelines de agentes visualmente en Obsidian
-- [ ] **Suite de benchmarks** -- mide el rendimiento del sistema con sets de tareas estandarizados
-- [ ] **Plataforma de aprendizaje como motor de onboarding** -- nuevos miembros del equipo aprenden el sistema a traves de tours guiados interactivos
-
-### La Vision
-
-El objetivo final es un sistema donde:
-1. **Tu IA mejora cada dia** -- no solo dentro de una sesion, sino a lo largo de meses de conocimiento acumulado
-2. **El coste disminuye mientras la calidad aumenta** -- enrutamiento mas inteligente significa menos tokens desperdiciados
-3. **Cualquiera puede replicarlo** -- la plataforma de aprendizaje + este repo = transferencia de conocimiento completa
-4. **La comunidad lo mejora** -- skills abiertos, aprendizajes abiertos, patrones abiertos
-
----
-
-## Contribuir
-
-Las contribuciones son bienvenidas. Ver [CONTRIBUTING.md](CONTRIBUTING.md) para las directrices.
-
-Areas donde necesitamos ayuda:
-- **Nuevos skills** -- playbooks de dominio para tu area de experiencia
-- **Optimizaciones de agentes** -- mejores prompts, flujos mas inteligentes
-- **Plataforma de aprendizaje** -- contenido, traducciones, accesibilidad
-- **Integracion MCP** -- el trabajo del protocolo multi-agente de v3.1
-- **Documentacion** -- tutoriales, guias, videos
-- **Testing** -- tareas de benchmark y metricas de calidad
+### v4.0 — Inteligencia Colaborativa
+- [ ] Compartición de conocimiento multi-usuario
+- [ ] Marketplace de skills
+- [ ] Detección de patrones cross-proyecto
+- [ ] Editor visual de flujos
+- [ ] Suite de benchmarks
 
 ---
 
 ## Las 12 Reglas
 
-Estas reglas fueron destiladas de 13 ciclos de uso real y evolucion del sistema:
+Destiladas de 13 ciclos de uso real:
 
-1. **Flujo completo obligatorio** -- ningun agente se salta
-2. **Sincronizacion multi-archivo** -- propagar cambios a todos los archivos afectados
-3. **Verificar integridad binaria** -- comprobar magic bytes, no solo extensiones
-4. **Deploy consciente de la plataforma** -- conocer las limitaciones de tu hosting
-5. **README actualizado con cada version** -- siempre al dia
-6. **El humano decide la arquitectura** -- la IA propone, el humano dispone
-7. **Clusters dinamicos** -- las categorias de conocimiento crecen organicamente
-8. **Carga bajo demanda** -- aprendizajes cargados por relevancia + decaimiento, nunca todos a la vez
-9. **Capacidad minima documentada** -- cada agente tiene un suelo
-10. **Critico: omitir, nunca degradar** -- la calidad no es negociable
-11. **Verificar en vivo antes de entregar** -- siempre confirmar que el deploy funciona
-12. **Asignacion de modelos es colaborativa** -- el sistema propone, el humano confirma
+1. **Flujo completo obligatorio** — ningún agente se salta
+2. **Sincronización multi-archivo** — propagar cambios a todos los archivos
+3. **Verificar integridad binaria** — magic bytes, no solo extensiones
+4. **Deploy consciente de la plataforma** — conocer las limitaciones
+5. **README actualizado con cada versión** — siempre al día
+6. **El humano decide la arquitectura** — la IA propone, el humano dispone
+7. **Clusters dinámicos** — las categorías crecen orgánicamente
+8. **Carga bajo demanda** — por relevancia + decaimiento, nunca todos
+9. **Capacidad mínima documentada** — cada agente tiene un suelo
+10. **Crítico: omitir, nunca degradar** — la calidad no es negociable
+11. **Verificar en vivo antes de entregar** — siempre confirmar el deploy
+12. **Asignación de modelos es colaborativa** — el sistema propone, el humano confirma
+
+---
+
+## Contribuir
+
+Las contribuciones son bienvenidas. Ver [CONTRIBUTING.md](CONTRIBUTING.md).
+
+Áreas abiertas:
+- 🧩 **Nuevos skills** — playbooks para tu dominio
+- ⚡ **Optimización de agentes** — mejores prompts, flujos más inteligentes
+- 🌐 **Plataforma de aprendizaje** — contenido, traducciones, accesibilidad
+- 🔌 **Integración MCP** — trabajo del protocolo multi-agente de v3.1
+- 📖 **Documentación** — tutoriales, guías, videos
+- 🧪 **Testing** — benchmarks y métricas de calidad
 
 ---
 
 ## Licencia
 
-MIT License. Ver [LICENSE](LICENSE).
+MIT License — ver [LICENSE](LICENSE).
 
----
-
-## Por Que "Mastermind"?
-
-Porque un mastermind no es un solo genio -- es un grupo de mentes especializadas trabajando juntas hacia un objetivo comun. Eso es exactamente lo que hace este sistema: 11 agentes, cada uno brillante en una cosa, orquestados para resolver problemas que ningun prompt individual podria manejar.
+Usa este sistema, fórkealo, mejóralo. Si te ahorra tiempo, pásalo.
 
 ---
 
 <p align="center">
-  Construido con obsesion por <a href="https://github.com/Ntizar">@Ntizar</a>
+  Hecho con <span style="color: #f97316;">♡</span> por <strong><a href="https://github.com/Ntizar">David Antizar</a></strong>
   <br/>
-  <sub>Si este sistema te ahorra tiempo, pasalo.</sub>
+  <sub>Ntizar Mastermind — porque un mastermind no es un solo genio, sino un grupo de mentes especializadas trabajando juntas.</sub>
 </p>

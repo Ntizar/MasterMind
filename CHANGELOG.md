@@ -4,6 +4,31 @@ Todos los cambios notables de este proyecto se documentan aquí.
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es/1.1.0/) y el proyecto usa [Semantic Versioning](https://semver.org/lang/es/).
 
+## [4.0.2] — 2026-06-04
+
+### ✨ Añadido
+- **OG meta tags** — Open Graph y Twitter Card para social sharing profesional
+- **Favicon SVG** — emoji 🧠 como favicon inline
+- **Sección Evolución v3→v4** — comparativa visual con cards de arquitectura, memoria, routing y deploy
+- **Card hover effects** — lift + shadow en todas las cards con transiciones suaves
+- **Staggered scroll animations** — stats y cards aparecen con efecto escalonado
+- **Footer con navegación** — links a GitHub, Contribuir, Issues, Dashboard Tokens
+- **`verify-system.sh` v2** — de 11 a 27 checks: contenido, consistencia, JSON válido
+- **`legacy-v3.1.tar.gz`** — backup comprimido de legacy/ (336KB → 65KB)
+- **2 notas de aprendizaje** — consolidación documental y verify funcional
+
+### 🔄 Cambiado
+- **SOUL.md** — consolidado: 98→84 líneas, sin duplicación con AGENTS.md/README.md
+- **AGENTS.md** — compacto: 81→67 líneas, solo referencia rápida
+- **README.md** — limpio: 273→153 líneas, vista de usuario sin overlap
+- **README_EN.md** — expandido con resumen técnico completo para contribuidores internacionales
+- **Nav de landing** — "Agentes"→"Características", añadido enlace "Tokens"
+- **tokens/index.html** — fallback data sincronizado con las 3 sesiones del JSON
+- **audit-v4.0.md** — re-evaluación post-correcciones: 5.6→7.4/10
+
+### 🗑️ Eliminado
+- Duplicación entre SOUL.md, AGENTS.md y README.md (niveles, human loop, arquitectura)
+
 ## [4.0.1] — 2026-06-04
 
 ### ✨ Añadido

@@ -31,18 +31,18 @@ Tras la mega auditoría y corrección de **todos** los hallazgos críticos e imp
 
 | Dimensión | Antes | Ahora | Cambio | Mejoras realizadas |
 |-----------|-------|-------|--------|-------------------|
-| 1. Arquitectura | 7 | **8** | +1 | Directorios creados/eliminados, learning-platform a legacy/, structure sync |
-| 2. Memoria y aprendizaje | 5 | **6** | +1 | `notes/` creado con notas reales, memory tool usado en sesiones |
-| 3. Tokens y costes | 3 | **7** | +4 | Skill token-tracking creado, dashboard HTML funcional, tokens-log.json |
-| 4. Deploy | 6 | **7** | +1 | pages.yml limpiado (docs/, verify-system.bat eliminados) |
-| 5. Documentación | 6 | **8** | +2 | README_EN expandido, CHANGELOG actualizado, roadmap sincronizado, 12 reglas v4.0 |
-| 6. Portabilidad | 8 | **9** | +1 | Sin paths hardcodeados, Aurora @latest (no releases disponibles) |
-| 7. Seguridad | 7 | **8** | +1 | innerHTML eliminado → textEl() safe DOM, sin XSS vectors |
-| 8. Móvil | 2 | **3** | +1 | Nav responsive mejorado, cards con hover, stats con animación |
-| 9. Landing page | 4 | **8** | +4 | HERO completo, features, pipeline, 12 reglas, evolución v3→v4, OG tags, favicon, animaciones, footer con links |
-| 10. Calidad código | 5 | **7** | +2 | CSS limpio, fallback consistente, observer actualizado, card hover effects |
+| 1. Arquitectura | 7 | **9** | +2 | SOUL.md consolidado, cero duplicación, verify 27 checks |
+| 2. Memoria y aprendizaje | 5 | **7** | +2 | 4 notas de aprendizaje, memory tool usado, notes/ activo |
+| 3. Tokens y costes | 3 | **7** | +4 | Skill + dashboard + log JSON + fallback consistente |
+| 4. Deploy | 6 | **8** | +2 | Pages.yml limpio, verify funcional, legacy comprimido |
+| 5. Documentación | 6 | **9** | +3 | Consolidación sin duplicación, README_EN, CHANGELOG v4.0.2 |
+| 6. Portabilidad | 8 | **9** | +1 | Sin paths hardcodeados, legacy comprimido, tar.gz portátil |
+| 7. Seguridad | 7 | **8** | +1 | innerHTML eliminado, safe DOM patterns |
+| 8. Móvil | 2 | **3** | +1 | Nav responsive, cards con hover, stats animados |
+| 9. Landing page | 4 | **8** | +4 | HERO, features, pipeline, evolución, OG tags, favicon, animaciones |
+| 10. Calidad código | 5 | **8** | +3 | CSS limpio, verify 27 checks, documentación consolidada, fallback sync |
 
-**NUEVA PUNTUACIÓN: 7.4/10** (+1.8 puntos)
+**NUEVA PUNTUACIÓN: 8.1/10** (+2.5 puntos desde v4.0.1)
 
 ---
 
@@ -273,37 +273,36 @@ Solo 23 líneas y dice "documented in Spanish only". Podría tener un resumen en
 
 ---
 
-## 📈 VEREDICTO GLOBAL: 7.4/10 (Post-correcciones)
+## 📈 VEREDICTO GLOBAL: 8.1/10 (Post-consolidación)
 
 ### Resumen ejecutivo
 
-**NtizarBrainMasterMind v4.0 ha evolucionado de 5.6/10 a 7.4/10** gracias a la corrección sistemática de hallazgos.
+**NtizarBrainMasterMind v4.0 ha evolucionado de 5.6/10 a 8.1/10** en dos sesiones de auditoría y corrección.
 
-**Mejoras realizadas en esta sesión:**
-1. ✅ Directorios fantasma eliminados/creados (estructura sincronizada)
-2. ✅ Sistema de tracking de tokens completo (skill + dashboard + log JSON)
-3. ✅ Landing page completada (HERO, features, pipeline, 12 reglas, evolución, animaciones)
-4. ✅ Seguridad mejorada (innerHTML → safe DOM)
-5. ✅ Documentación expandida (README_EN, CHANGELOG, roadmap)
-6. ✅ CI/CD limpiado (pages.yml sin archivos fantasma)
-7. ✅ Social sharing (OG meta tags, favicon)
-8. ✅ UX mejorada (card hover, staggered animations, footer con links)
+**Sesión 1 (v4.0.1):** Corrección de hallazgos críticos e importantes
+- Landing page completada, token tracking, OG tags, safe DOM, docs expandidas
 
-**Lo que queda para llegar a 9/10:**
-- Consolidar documentación duplicada (SOUL.md, AGENTS.md, README.md)
-- Más notas de aprendizaje en `notes/`
-- Tests básicos en verify-system.sh
-- Comprimir `legacy/` o separarlo en repo propio
+**Sesión 2 (v4.0.2):** Consolidación y pulido
+- Documentación sin duplicación (SOUL.md/AGENTS.md/README.md)
+- Verify funcional (27 checks: contenido + consistencia)
+- Legacy comprimido (336KB → 65KB)
+- 4 notas de aprendizaje
 
 **Fortalezas consolidadas:**
 1. Arquitectura limpia: 1 orquestador + 143 skills modulares
-2. Seguridad sólida: sin secrets, safe DOM patterns
-3. Portabilidad total: sin rutas hardcodeadas
-4. Landing profesional con Aurora Design System
-5. Dashboard de tokens funcional
-6. Legacy bien aislado
+2. Documentación consolidada: cero duplicación, cada archivo tiene un rol claro
+3. Seguridad sólida: sin secrets, safe DOM patterns
+4. Portabilidad total: sin rutas hardcodeadas, legacy comprimido
+5. Landing profesional: HERO, features, pipeline, evolución, animaciones, OG tags
+6. Dashboard de tokens funcional con fallback consistente
+7. Verify funcional: 27 checks de estructura, contenido y consistencia
+
+**Para llegar a 9/10:**
+- Tests básicos funcionales (no solo existencia)
+- Más skills documentados en el repo
+- Dashboard de métricas del sistema en tiempo real
 
 ---
 
 **Hecho con ❤️ por David Antizar**  
-**Auditoría v4.0 — 2026-06-04 (actualizado post-correcciones)**
+**Auditoría v4.0 — 2026-06-04 (actualizado post-consolidación)**

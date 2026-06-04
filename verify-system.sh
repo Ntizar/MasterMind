@@ -42,8 +42,8 @@ check_file "index.html"
 echo ""
 
 echo "📦 Documentation"
-check_dir "docs"
 check_file "CONTRIBUTING.md"
+check_file "CHANGELOG.md"
 echo ""
 
 echo "📦 Deploy"

@@ -31,8 +31,8 @@ jobs:
           exclude: |
             .git/
             legacy/
-            docs/
             assets/
+            audit-v4.0.md
             verify-system.sh
             CONTRIBUTING.md
             README_EN.md

@@ -4,6 +4,29 @@ Todos los cambios notables de este proyecto se documentan aquí.
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es/1.1.0/) y el proyecto usa [Semantic Versioning](https://semver.org/lang/es/).
 
+## [4.0.1] — 2026-06-04
+
+### ✨ Añadido
+- **`tokens/tokens-log.json`** — Datos de tokens separados del HTML para carga dinámica
+- **Sección HERO completa** en landing page — badge v4.0, KPIs, CTAs
+- **Sección CARACTERÍSTICAS completa** — 4 cards + pipeline visual del flujo
+- **12 Reglas actualizadas** a conceptos v4.0 (orquestador, skills, memory, human loop)
+
+### 🔄 Cambiado
+- **Landing page** — secciones HERO y CARACTERÍSTICAS reescritas (estaban vacías)
+- **12 Reglas** — reemplazadas reglas v3.1 (agentes, Ebbinghaus, clusters) por v4.0
+- **Dashboard de tokens** — carga dinámica desde `tokens-log.json` con fallback, innerHTML sanitizado
+- **README.md** — roadmap actualizado, 12 reglas sincronizadas con index.html
+- **SOUL.md** — eliminada referencia a `docs/` inexistente
+- **verify-system.sh** — eliminado check de `docs/`, añadido check de `CHANGELOG.md`
+- **pages.yml** — eliminados excludes obsoletos (`docs/`, `verify-system.bat`), añadido `audit-v4.0.md`
+- **meta description** — eliminada referencia a "memoria Ebbinghaus"
+- **CSS** — eliminada clase `.ebbinghaus-eq` obsoleta
+- **(L)** → ❤️ en todos los archivos del repo
+
+### 🗑️ Eliminado
+- **`learning-platform/`** movido a `legacy/learning-platform/` — todo el código era v3.1 (Obsidian+OpenCode)
+
 ## [4.0.0] — 2026-06-03
 
 ### 🎯 Breaking Changes

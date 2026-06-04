@@ -35,4 +35,4 @@ Se ha creado un sistema de tracking de tokens completo:
 
 ---
 
-**Hecho con (L) por David Antizar**
+**Hecho con ❤️ por David Antizar**

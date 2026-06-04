@@ -20,5 +20,5 @@ Please refer to the [Spanish README](README.md) for full documentation.
 
 ---
 
-**Made with (L) by David Antizar**  
+**Made with ❤️ by David Antizar**  
 **v4.0.0 — 2026-06-04**

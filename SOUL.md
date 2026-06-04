@@ -31,10 +31,9 @@ NtizarBrainMasterMind/
 ├── SOUL.md              ← Orquestador (Koldo) + principios + reglas
 ├── AGENTS.md            ← Referencia rápida de arquitectura y niveles
 ├── legacy/              ← v3.1 (Obsidian+OpenCode) — referencia, no ejecución
-├── docs/                ← Documentación técnica
-├── design-system/       ← Aurora Design System
-├── learning-platform/   ← Brain Academy
+├── design-system/       ← Aurora Design System (CSS local + demo)
 ├── tokens/              ← Dashboard de tracking de tokens y costes (HTML estático)
+├── notes/               ← Notas de aprendizaje
 ├── assets/              ← Recursos estáticos (banners, imágenes)
 ├── .github/             ← Workflows CI/CD
 └── ...otros archivos raíz (CHANGELOG.md, CONTRIBUTING.md, etc.)
@@ -80,7 +79,7 @@ Las reglas del human loop son:
 5. Cada aprendizaje importante → commit al repo + `memory` si aplica
 6. No crear secrets en notes/commits/chat
 7. TODO en castellano — NUNCA inglés en repos, scripts, cron, informes
-8. Atribución correcta: "Hecho con (L) por David Antizar"
+8. Atribución correcta: "Hecho con ❤️ por David Antizar"
 9. Human loop en cambios críticos — nunca silenciar
 10. Si una nota de sesión es relevante, crear en `docs/` con formato `docs/YYYY-MM-DD-tema.md`
 
@@ -94,6 +93,6 @@ Las reglas del human loop son:
 
 ---
 
-**Hecho con (L) por David Antizar**  
+**Hecho con ❤️ por David Antizar**  
 **v4.0.0 — 2026-06-04**  
 **Stack:** Hermes Agent + NaN.builders + GitHub

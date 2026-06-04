@@ -580,33 +580,7 @@
   <!-- ========== STATIC DATA SCRIPT ========== -->
   <script>
     (function () {
-      // DATOS EMBEBIDOS — tokens-log.json inline
-      var ENTRIES = [
-        {
-          "date": "2026-06-04T06:43:00Z",
-          "session_id": "sesion-inicial",
-          "task": "Sesión inicial de auditoría del sistema — revisión de skills, salud del sistema y directrices",
-          "model": "deepseek-v4-flash",
-          "input_tokens": 350000,
-          "output_tokens": 7300,
-          "total_tokens": 357300,
-          "cost_estimate_usd": 0.179,
-          "provider": "nan.builders"
-        },
-        {
-          "date": "2026-06-04T06:43:00Z",
-          "session_id": "token-tracking-setup",
-          "task": "Creación del sistema de tracking de tokens: skill token-tracking, log JSON, dashboard HTML y actualización de SOUL.md",
-          "model": "deepseek-v4-flash",
-          "input_tokens": 50000,
-          "output_tokens": 4000,
-          "total_tokens": 54000,
-          "cost_estimate_usd": 0.027,
-          "provider": "nan.builders"
-        }
-      ];
-
-      // Normalize dates for display
+      // Helpers de formato
       function formatDate(iso) {
         var d = new Date(iso);
         var dd = String(d.getUTCDate()).padStart(2, '0');
@@ -627,100 +601,168 @@
         return '$' + n.toFixed(3);
       }
 
-      // Compute totals
-      var totalInput = 0, totalOutput = 0, totalTokens = 0, totalCost = 0;
-      for (var i = 0; i < ENTRIES.length; i++) {
-        var e = ENTRIES[i];
-        totalInput += e.input_tokens || 0;
-        totalOutput += e.output_tokens || 0;
-        totalTokens += e.total_tokens || 0;
-        totalCost += e.cost_estimate_usd || 0;
-      }
-      var avgCost = ENTRIES.length > 0 ? totalCost / ENTRIES.length : 0;
-
-      // Stats cards
-      document.getElementById('totalSessions').textContent = ENTRIES.length;
-      document.getElementById('totalTokens').textContent = formatTokens(totalTokens);
-      document.getElementById('totalCost').textContent = formatCost(totalCost);
-      document.getElementById('avgCost').textContent = formatCost(avgCost);
-
-      // Bar chart — find max for scaling
-      var maxInput = 0;
-      for (var i = 0; i < ENTRIES.length; i++) {
-        if (ENTRIES[i].input_tokens > maxInput) maxInput = ENTRIES[i].input_tokens;
-      }
-      // We want the chart max to be ~120% of max input for visual balance
-      var chartMax = maxInput * 1.2;
-      if (chartMax < 10000) chartMax = 10000;
-
-      var barChart = document.getElementById('barChart');
-      barChart.innerHTML = '';
-      for (var i = 0; i < ENTRIES.length; i++) {
-        var e = ENTRIES[i];
-        var inputPct = (e.input_tokens / chartMax) * 180;
-        var outputPct = (e.output_tokens / chartMax) * 180;
-        if (inputPct < 4) inputPct = 4;
-        if (outputPct < 4) outputPct = 4;
-
-        var group = document.createElement('div');
-        group.className = 'bar-group';
-
-        // Input bar
-        var inputVal = document.createElement('div');
-        inputVal.className = 'bar-value';
-        inputVal.textContent = formatTokens(e.input_tokens);
-        var inputBar = document.createElement('div');
-        inputBar.className = 'bar input';
-        inputBar.style.height = inputPct + 'px';
-
-        // Output bar
-        var outputVal = document.createElement('div');
-        outputVal.className = 'bar-value';
-        outputVal.textContent = formatTokens(e.output_tokens);
-        var outputBar = document.createElement('div');
-        outputBar.className = 'bar output';
-        outputBar.style.height = outputPct + 'px';
-
-        var label = document.createElement('div');
-        label.className = 'bar-label';
-        label.textContent = 'S' + (i + 1);
-
-        group.appendChild(inputVal);
-        group.appendChild(inputBar);
-        group.appendChild(outputVal);
-        group.appendChild(outputBar);
-        group.appendChild(label);
-        barChart.appendChild(group);
+      // Crear elemento de texto seguro (sin innerHTML)
+      function textEl(tag, className, text) {
+        var el = document.createElement(tag);
+        if (className) el.className = className;
+        el.textContent = text;
+        return el;
       }
 
-      // Table body
-      var tbody = document.getElementById('tableBody');
-      tbody.innerHTML = '';
-      for (var i = 0; i < ENTRIES.length; i++) {
-        var e = ENTRIES[i];
-        var tr = document.createElement('tr');
-        tr.innerHTML =
-          '<td class="date-cell">' + formatDate(e.date) + '</td>' +
-          '<td class="task-desc">' + e.task + '</td>' +
-          '<td><span class="model-badge">' + e.model + '</span></td>' +
-          '<td><span class="token-num">' + formatTokens(e.input_tokens) + '</span></td>' +
-          '<td><span class="token-num">' + formatTokens(e.output_tokens) + '</span></td>' +
-          '<td><span class="token-num">' + formatTokens(e.total_tokens) + '</span></td>' +
-          '<td><span class="cost-num">' + formatCost(e.cost_estimate_usd) + '</span></td>';
-        tbody.appendChild(tr);
+      // Renderizar todo con datos
+      function render(entries) {
+        if (!entries || entries.length === 0) return;
+
+        // Compute totals
+        var totalInput = 0, totalOutput = 0, totalTokens = 0, totalCost = 0;
+        for (var i = 0; i < entries.length; i++) {
+          var e = entries[i];
+          totalInput += e.input_tokens || 0;
+          totalOutput += e.output_tokens || 0;
+          totalTokens += e.total_tokens || 0;
+          totalCost += e.cost_estimate_usd || 0;
+        }
+        var avgCost = entries.length > 0 ? totalCost / entries.length : 0;
+
+        // Stats cards
+        document.getElementById('totalSessions').textContent = entries.length;
+        document.getElementById('totalTokens').textContent = formatTokens(totalTokens);
+        document.getElementById('totalCost').textContent = formatCost(totalCost);
+        document.getElementById('avgCost').textContent = formatCost(avgCost);
+
+        // Bar chart
+        var maxInput = 0;
+        for (var i = 0; i < entries.length; i++) {
+          if (entries[i].input_tokens > maxInput) maxInput = entries[i].input_tokens;
+        }
+        var chartMax = maxInput * 1.2;
+        if (chartMax < 10000) chartMax = 10000;
+
+        var barChart = document.getElementById('barChart');
+        barChart.innerHTML = '';
+        for (var i = 0; i < entries.length; i++) {
+          var e = entries[i];
+          var inputPct = (e.input_tokens / chartMax) * 180;
+          var outputPct = (e.output_tokens / chartMax) * 180;
+          if (inputPct < 4) inputPct = 4;
+          if (outputPct < 4) outputPct = 4;
+
+          var group = document.createElement('div');
+          group.className = 'bar-group';
+
+          var inputVal = textEl('div', 'bar-value', formatTokens(e.input_tokens));
+          var inputBar = document.createElement('div');
+          inputBar.className = 'bar input';
+          inputBar.style.height = inputPct + 'px';
+
+          var outputVal = textEl('div', 'bar-value', formatTokens(e.output_tokens));
+          var outputBar = document.createElement('div');
+          outputBar.className = 'bar output';
+          outputBar.style.height = outputPct + 'px';
+
+          var label = textEl('div', 'bar-label', 'S' + (i + 1));
+
+          group.appendChild(inputVal);
+          group.appendChild(inputBar);
+          group.appendChild(outputVal);
+          group.appendChild(outputBar);
+          group.appendChild(label);
+          barChart.appendChild(group);
+        }
+
+        // Table body — usando textContent (seguro, sin innerHTML con datos)
+        var tbody = document.getElementById('tableBody');
+        tbody.innerHTML = '';
+        for (var i = 0; i < entries.length; i++) {
+          var e = entries[i];
+          var tr = document.createElement('tr');
+
+          var tdDate = textEl('td', 'date-cell', formatDate(e.date));
+          var tdTask = textEl('td', 'task-desc', e.task);
+          var tdModel = document.createElement('td');
+          tdModel.appendChild(textEl('span', 'model-badge', e.model));
+          var tdInput = document.createElement('td');
+          tdInput.appendChild(textEl('span', 'token-num', formatTokens(e.input_tokens)));
+          var tdOutput = document.createElement('td');
+          tdOutput.appendChild(textEl('span', 'token-num', formatTokens(e.output_tokens)));
+          var tdTotal = document.createElement('td');
+          tdTotal.appendChild(textEl('span', 'token-num', formatTokens(e.total_tokens)));
+          var tdCost = document.createElement('td');
+          tdCost.appendChild(textEl('span', 'cost-num', formatCost(e.cost_estimate_usd)));
+
+          tr.appendChild(tdDate);
+          tr.appendChild(tdTask);
+          tr.appendChild(tdModel);
+          tr.appendChild(tdInput);
+          tr.appendChild(tdOutput);
+          tr.appendChild(tdTotal);
+          tr.appendChild(tdCost);
+          tbody.appendChild(tr);
+        }
+
+        // Total row
+        var totalTr = document.createElement('tr');
+        totalTr.className = 'total-row';
+        var tdTotalLabel = textEl('td', '', 'Total acumulado');
+        tdTotalLabel.colSpan = 2;
+        var strong = document.createElement('strong');
+        strong.textContent = 'Total acumulado';
+        tdTotalLabel.textContent = '';
+        tdTotalLabel.appendChild(strong);
+        var tdEmptyModel = document.createElement('td');
+        var tdTotalIn = document.createElement('td');
+        tdTotalIn.appendChild(textEl('span', 'token-num', formatTokens(totalInput)));
+        var tdTotalOut = document.createElement('td');
+        tdTotalOut.appendChild(textEl('span', 'token-num', formatTokens(totalOutput)));
+        var tdTotalAll = document.createElement('td');
+        tdTotalAll.appendChild(textEl('span', 'token-num', formatTokens(totalTokens)));
+        var tdTotalCost = document.createElement('td');
+        tdTotalCost.appendChild(textEl('span', 'cost-num', formatCost(totalCost)));
+
+        totalTr.appendChild(tdTotalLabel);
+        totalTr.appendChild(tdEmptyModel);
+        totalTr.appendChild(tdTotalIn);
+        totalTr.appendChild(tdTotalOut);
+        totalTr.appendChild(tdTotalAll);
+        totalTr.appendChild(tdTotalCost);
+        tbody.appendChild(totalTr);
       }
 
-      // Total row
-      var totalTr = document.createElement('tr');
-      totalTr.className = 'total-row';
-      totalTr.innerHTML =
-        '<td colspan="2"><strong>Total acumulado</strong></td>' +
-        '<td></td>' +
-        '<td><span class="token-num">' + formatTokens(totalInput) + '</span></td>' +
-        '<td><span class="token-num">' + formatTokens(totalOutput) + '</span></td>' +
-        '<td><span class="token-num">' + formatTokens(totalTokens) + '</span></td>' +
-        '<td><span class="cost-num">' + formatCost(totalCost) + '</span></td>';
-      tbody.appendChild(totalTr);
+      // Cargar datos desde tokens-log.json (mismo directorio)
+      fetch('tokens-log.json')
+        .then(function (res) {
+          if (!res.ok) throw new Error('No se pudo cargar tokens-log.json');
+          return res.json();
+        })
+        .then(function (data) { render(data); })
+        .catch(function () {
+          // Fallback: datos embebidos si fetch falla (GitHub Pages sin CORS)
+          var ENTRIES = [
+            {
+              "date": "2026-06-04T06:43:00Z",
+              "session_id": "sesion-inicial",
+              "task": "Sesión inicial de auditoría del sistema",
+              "model": "deepseek-v4-flash",
+              "input_tokens": 350000,
+              "output_tokens": 7300,
+              "total_tokens": 357300,
+              "cost_estimate_usd": 0.179,
+              "provider": "nan.builders"
+            },
+            {
+              "date": "2026-06-04T06:43:00Z",
+              "session_id": "token-tracking-setup",
+              "task": "Creación del sistema de tracking de tokens",
+              "model": "deepseek-v4-flash",
+              "input_tokens": 50000,
+              "output_tokens": 4000,
+              "total_tokens": 54000,
+              "cost_estimate_usd": 0.027,
+              "provider": "nan.builders"
+            }
+          ];
+          render(ENTRIES);
+        });
     })();
   </script>
 </body>

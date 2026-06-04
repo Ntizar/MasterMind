@@ -50,4 +50,4 @@ Abre un issue o empieza una discusión. Estamos aquí para ayudarte.
 
 ---
 
-**Hecho con (L) por David Antizar**
+**Hecho con ❤️ por David Antizar**

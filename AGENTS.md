@@ -77,5 +77,5 @@ Skills nicho que solo se cargan explícitamente (70 skills en categorías como v
 
 > Para reglas completas, principios del sistema y configuración del orquestador, consultar **[SOUL.md](SOUL.md)**.
 
-**Hecho con (L) por David Antizar**  
+**Hecho con ❤️ por David Antizar**  
 **v4.0.0 — 2026-06-04**

@@ -277,5 +277,5 @@ La migración de v3.1 a v4.0 fue exitosa en términos de simplificación: 11 age
 
 ---
 
-**Hecho con (L) por David Antizar**  
+**Hecho con ❤️ por David Antizar**  
 **Auditoría v4.0 — 2026-06-04**

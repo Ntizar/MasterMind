@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ntizar Mastermind — Orquestación Multi-Agente con Memoria Persistente</title>
-  <meta name="description" content="Framework open-source de orquestación multi-agente con 1 orquestador + 143 skills especializados, memoria Ebbinghaus y routing de modelos. Tu IA que realmente recuerda.">
+  <meta name="description" content="Framework open-source de orquestación multi-agente con 1 orquestador + 143 skills especializados, memoria persistente y deploy en la nube. Tu IA que realmente recuerda.">
 
   <!-- Aurora Core -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@latest/ntizar.css">
@@ -120,15 +120,6 @@
     /* Steps list */
     .steps-stack { display: flex; flex-direction: column; gap: var(--nz-space-3); }
 
-    /* Ebbinghaus equation */
-    .ebbinghaus-eq {
-      font-family: var(--nz-font-mono);
-      font-size: var(--nz-text-lg);
-      color: var(--nz-color-accent);
-      text-align: center;
-      padding: var(--nz-space-3);
-    }
-
     /* Two-column layout */
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--nz-space-3); }
     @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
@@ -158,10 +149,118 @@
   </nav>
 
   <!-- ═══════════ HERO ═══════════ -->
-  
+  <section class="section-gap" style="padding-top: var(--nz-space-8); padding-bottom: var(--nz-space-6);">
+    <div class="nz-container" style="max-width: 900px; padding: 0 1.5rem; text-align: center;">
+      <span class="nz-badge nz-badge--brand" style="margin-bottom: var(--nz-space-3); display: inline-block;">v4.0 — Hermes-Native</span>
+      <h1 class="hero-brain">
+        <span class="nz-gradient-text">Tu IA que</span><br>
+        <span class="nz-gradient-text">realmente recuerda</span>
+      </h1>
+      <p style="font-size: 1.15rem; color: var(--nz-text-muted); max-width: 620px; margin: 0 auto var(--nz-space-5); line-height: 1.6;">
+        Un framework open-source de orquestación multi-agente con <strong style="color: var(--nz-text-default);">1 orquestador</strong>,
+        <strong style="color: var(--nz-text-default);">143 skills especializados</strong> y <strong style="color: var(--nz-text-default);">memoria persistente</strong>.
+        Diseñado para la comunidad nan.builders.
+      </p>
+      <div class="stat-row" style="margin-bottom: var(--nz-space-5);">
+        <div style="text-align: center;">
+          <div style="font-size: 1.8rem; font-weight: 700; color: var(--nz-color-accent);">1</div>
+          <div style="font-size: var(--nz-text-xs); color: var(--nz-text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Orquestador</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 1.8rem; font-weight: 700; color: var(--nz-color-accent);">143</div>
+          <div style="font-size: var(--nz-text-xs); color: var(--nz-text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Skills</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 1.8rem; font-weight: 700; color: var(--nz-color-accent);">8</div>
+          <div style="font-size: var(--nz-text-xs); color: var(--nz-text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Dominios</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 1.8rem; font-weight: 700; color: var(--nz-color-accent);">∞</div>
+          <div style="font-size: var(--nz-text-xs); color: var(--nz-text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Memoria</div>
+        </div>
+      </div>
+      <div style="display: flex; gap: var(--nz-space-2); justify-content: center; flex-wrap: wrap;">
+        <a href="https://github.com/Ntizar/NtizarBrainMasterMind" class="nz-btn nz-btn--primary nz-btn--lg">Ver en GitHub ↗</a>
+        <a href="#inicio-rapido" class="nz-btn nz-btn--ghost nz-btn--lg">Inicio rápido</a>
+      </div>
+    </div>
+  </section>
 
   <!-- ═══════════ CARACTERÍSTICAS ═══════════ -->
-  
+  <section class="section-gap" id="agentes" style="background: var(--nz-surface-soft); margin: 0; padding: var(--nz-space-8) 0;">
+    <div class="nz-container" style="max-width: 900px; padding: 0 1.5rem;">
+      <div style="text-align: center; margin-bottom: var(--nz-space-5);">
+        <span class="nz-badge nz-badge--accent">Características</span>
+        <h2 class="nz-text-h2" style="margin-top: var(--nz-space-2);">¿Cómo funciona?</h2>
+      </div>
+
+      <div class="feature-grid">
+        <!-- Card 1 -->
+        <div class="nz-card">
+          <div class="nz-card__body">
+            <div style="font-size: 1.8rem; margin-bottom: var(--nz-space-2);">🧠</div>
+            <h3 class="nz-text-h4">Orquestación Inteligente</h3>
+            <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
+              Koldo clasifica cada tarea por dominio y complejidad. Decide si la resuelve directo, delega a 1 subagente o lanza varios en paralelo.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="nz-card">
+          <div class="nz-card__body">
+            <div style="font-size: 1.8rem; margin-bottom: var(--nz-space-2);">⚡</div>
+            <h3 class="nz-text-h4">143 Skills Especializados</h3>
+            <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
+              Software, GitHub, Frontend, Backend, Infra, DevOps, Data Science, Creative. Cada skill tiene conocimiento profundo de su dominio.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="nz-card">
+          <div class="nz-card__body">
+            <div style="font-size: 1.8rem; margin-bottom: var(--nz-space-2);">💾</div>
+            <h3 class="nz-text-h4">Memoria Persistente</h3>
+            <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
+              3 capas de memoria: preferencias con <code>memory</code>, procedimientos con skills, historial con <code>session_search</code>. Nunca empiezas desde cero.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="nz-card">
+          <div class="nz-card__body">
+            <div style="font-size: 1.8rem; margin-bottom: var(--nz-space-2);">🚀</div>
+            <h3 class="nz-text-h4">Deploy en la Nube</h3>
+            <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
+              MicroVM en NaN.builders con 1vCPU/2GB. Acceso vía Telegram y WebUI. Modelo qwen3.6 a ~$0.50/1M tokens.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pipeline visual -->
+      <div id="arquitectura" style="margin-top: var(--nz-space-6); text-align: center;">
+        <div class="nz-card" style="max-width: 700px; margin: 0 auto;">
+          <div class="nz-card__body">
+            <h3 class="nz-text-h4" style="margin-bottom: var(--nz-space-3);">El flujo en acción</h3>
+            <div class="flow-line" style="justify-content: center; gap: var(--nz-space-3); flex-wrap: wrap;">
+              <span style="padding: var(--nz-space-1) var(--nz-space-2); background: var(--nz-surface-soft); border-radius: var(--nz-radius-md); font-size: var(--nz-text-sm);">Tu das una tarea</span>
+              <span class="flow-arrow">→</span>
+              <span style="padding: var(--nz-space-1) var(--nz-space-2); background: var(--nz-surface-soft); border-radius: var(--nz-radius-md); font-size: var(--nz-text-sm); font-weight: 600;">Koldo clasifica</span>
+              <span class="flow-arrow">→</span>
+              <span style="padding: var(--nz-space-1) var(--nz-space-2); background: var(--nz-surface-soft); border-radius: var(--nz-radius-md); font-size: var(--nz-text-sm);">Carga skills del dominio</span>
+              <span class="flow-arrow">→</span>
+              <span style="padding: var(--nz-space-1) var(--nz-space-2); background: var(--nz-surface-soft); border-radius: var(--nz-radius-md); font-size: var(--nz-text-sm);">Ejecuta y verifica</span>
+              <span class="flow-arrow">→</span>
+              <span style="padding: var(--nz-space-1) var(--nz-space-2); background: var(--nz-surface-soft); border-radius: var(--nz-radius-md); font-size: var(--nz-text-sm);">Aprende para la próxima</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ═══════════ INICIO RÁPIDO ═══════════ -->
   <section class="section-gap" id="inicio-rapido" style="background: var(--nz-surface-soft); margin: 0; padding: var(--nz-space-8) 0;">
@@ -225,18 +324,18 @@ hermes .     # o tu IDE preferido</div>
       <div class="nz-card">
         <div class="nz-card__body">
           <ol class="rules-list">
-            <li><strong>Flujo completo obligatorio</strong> — ningún agente se salta</li>
-            <li><strong>Sincronización multi-archivo</strong> — propagar cambios a todos los archivos afectados</li>
-            <li><strong>Verificar integridad binaria</strong> — magic bytes, no solo extensiones</li>
-            <li><strong>Deploy consciente de la plataforma</strong> — conocer las limitaciones del hosting</li>
-            <li><strong>README actualizado con cada versión</strong> — siempre al día</li>
-            <li><strong>El humano decide la arquitectura</strong> — la IA propone, el humano dispone</li>
-            <li><strong>Clusters dinámicos</strong> — las categorías de conocimiento crecen orgánicamente</li>
-            <li><strong>Carga bajo demanda</strong> — aprendizajes por relevancia + decaimiento</li>
-            <li><strong>Capacidad mínima documentada</strong> — cada agente tiene un suelo</li>
-            <li><strong>Crítico: omitir, nunca degradar</strong> — la calidad no es negociable</li>
-            <li><strong>Verificar en vivo antes de entregar</strong> — confirmar que el deploy funciona</li>
-            <li><strong>Asignación de modelos es colaborativa</strong> — el sistema propone, el humano confirma</li>
+            <li><strong>Un orquestador, muchos especialistas</strong> — Koldo clasifica y delega, los skills ejecutan</li>
+            <li><strong>Skills bajo demanda por dominio</strong> — solo cargo los del dominio relevante</li>
+            <li><strong>Memoria persistente</strong> — memory + session_search entre sesiones</li>
+            <li><strong>GitHub como fuente de verdad</strong> — Markdown plano, sin dependencias externas</li>
+            <li><strong>NUNCA borrar del repo Koldo</strong> — solo crear o modificar</li>
+            <li><strong>Notas significativas</strong> → <code>notes/YYYY-MM-DD-titulo.md</code></li>
+            <li><strong>Skills nuevos</strong> → <code>/hermes-home/skills/</code></li>
+            <li><strong>Cada aprendizaje importante</strong> → commit al repo</li>
+            <li><strong>No crear secrets</strong> en notes/commits/chat</li>
+            <li><strong>SOUL.md es la fuente de verdad</strong> de la identidad del sistema</li>
+            <li><strong>TODO en castellano</strong> — NUNCA inglés en repos, scripts, informes</li>
+            <li><strong>Human loop en cambios críticos</strong> — presentar diffs y esperar aprobación ✅</li>
           </ol>
         </div>
       </div>

@@ -124,10 +124,11 @@ NtizarBrainMasterMind/
 ├── legacy/                  # v3.1 (OpenCode+Obsidian) archivado
 │   ├── agents/              # 11 agentes genéricos
 │   ├── skills/              # 15 skills originales
+│   ├── learning-platform/   # Brain Academy (v3.1)
 │   └── projects/            # Proyectos históricos
 ├── notes/                   # Notas de aprendizaje
 ├── tokens/                  # Dashboard de tracking de tokens
-└── design-system/           # Aurora Design System
+└── design-system/           # Aurora Design System (local)
 ```
 
 ---
@@ -202,16 +203,16 @@ El sistema rastrea el consumo de tokens en cada sesión:
 ### v4.0 actual (Junio 2026)
 - [x] Migración a Hermes Agent + GitHub
 - [x] 1 orquestador + 143 skills especializados
-- [x] Token tracking con dashboard
+- [x] Token tracking con dashboard dinámico
 - [x] SOUL.md unificado como fuente de verdad
 - [x] Legacy v3.1 archivado en `legacy/`
-- [x] Landing page con Aurora Design System
+- [x] Landing page completa con Aurora Design System
+- [x] Auditoría y corrección de todos los hallazgos
 
 ### v4.1 (Próximo)
-- [ ] Telegram bot para acceso móvil completo
-- [ ] Informes semanales de token usage
 - [ ] Más skills de dominio específico
-- [ ] Integración con APIs externas (ESIOS, etc.)
+- [ ] Informes semanales de token usage automatizados
+- [ ] Optimización de contexto para reducir costes
 
 ### v5.0 (Futuro)
 - [ ] Multi-usuario con compartición de skills
@@ -223,20 +224,20 @@ El sistema rastrea el consumo de tokens en cada sesión:
 
 ## Las 12 Reglas
 
-Destiladas de 13 ciclos de uso real:
+Destiladas de uso real:
 
-1. **Nivel de ejecución** — simple, media o compleja
-2. **Skills bajo demanda** — solo los del dominio relevante
-3. **Memoria persistente** — entre sesiones, no desde cero
-4. **GitHub como fuente de verdad** — todo en Markdown
+1. **Un orquestador, muchos especialistas** — Koldo clasifica y delega, los skills ejecutan
+2. **Skills bajo demanda por dominio** — solo cargo los del dominio relevante
+3. **Memoria persistente** — memory + session_search entre sesiones
+4. **GitHub como fuente de verdad** — Markdown plano, sin dependencias externas
 5. **NUNCA borrar del repo Koldo** — solo crear o modificar
 6. **Notas significativas** → `notes/YYYY-MM-DD-titulo.md`
-7. **Skills nuevos** → `/hermes-home/skills/koldo/`
-8. **Cada aprendizaje** → commit al repo
+7. **Skills nuevos** → `/hermes-home/skills/`
+8. **Cada aprendizaje importante** → commit al repo
 9. **No crear secrets** en notes/commits/chat
-10. **SOUL.md es la fuente de verdad** de la identidad
+10. **SOUL.md es la fuente de verdad** de la identidad del sistema
 11. **TODO en castellano** — NUNCA inglés en repos, scripts, informes
-12. **Hermes detecta external_dirs con /reset**
+12. **Human loop en cambios críticos** — presentar diffs y esperar aprobación ✅
 
 ---
 

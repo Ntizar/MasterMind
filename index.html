@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ntizar Mastermind v4 — Orquestación con Skills Especializados</title>
-  <meta name="description" content="Framework de orquestación multi-agente con 1 orquestador y 143 skills especializados. Ejecutándose en Hermes Agent sobre NaN.builders con GitHub como repositorio.">
+  <title>Ntizar Mastermind — Orquestación Multi-Agente con Memoria Persistente</title>
+  <meta name="description" content="Framework open-source de orquestación multi-agente con 1 orquestador + 143 skills especializados, memoria Ebbinghaus y routing de modelos. Tu IA que realmente recuerda.">
 
   <!-- Aurora Core -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@latest/ntizar.css">
@@ -17,8 +17,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@latest/ntizar.themes.css">
 
   <style>
-    /* ═══ Responsive + layout custom ═══ */
+    /* ═══ Responsive + layout custom (Aurora no cubre esto) ═══ */
 
+    /* Nav responsive */
     .nav-links { display: flex; gap: var(--nz-space-3); align-items: center; }
     .nav-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--nz-text-default); padding: var(--nz-space-1); }
 
@@ -39,37 +40,44 @@
       .nav-toggle { display: block; }
     }
 
+    /* Hero */
     .hero-brain {
       font-size: clamp(2.5rem, 8vw, 5rem);
       line-height: 1.05;
       margin-bottom: var(--nz-space-3);
     }
 
-    .skill-grid {
+    /* Agent pipeline — responsive grid */
+    .agent-pipeline {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       gap: var(--nz-space-3);
     }
     @media (max-width: 640px) {
-      .skill-grid { grid-template-columns: repeat(2, 1fr); gap: var(--nz-space-2); }
+      .agent-pipeline { grid-template-columns: repeat(2, 1fr); gap: var(--nz-space-2); }
     }
 
-    .skill-card {
+    .agent-card {
       text-align: center;
       padding: var(--nz-space-3) var(--nz-space-2);
     }
-    .skill-card__count {
-      font-size: var(--nz-text-2xl);
-      font-weight: 700;
+    .agent-card__number {
+      font-size: var(--nz-text-xs);
+      font-family: var(--nz-font-mono);
+      color: var(--nz-text-muted);
       margin-bottom: var(--nz-space-1);
     }
-    .skill-card__label { font-size: var(--nz-text-sm); color: var(--nz-text-muted); }
+    .agent-card__name { font-size: var(--nz-text-sm); font-weight: 600; margin-bottom: var(--nz-space-1); }
+    .agent-card__role { font-size: var(--nz-text-xs); color: var(--nz-text-muted); }
 
+    /* Flow arrows */
     .flow-arrow { display: flex; align-items: center; justify-content: center; color: var(--nz-color-accent); font-size: 1.5rem; }
     .flow-line { display: flex; align-items: center; justify-content: center; gap: var(--nz-space-2); flex-wrap: wrap; font-size: var(--nz-text-sm); }
 
+    /* Stats row */
     .stat-row { display: flex; gap: var(--nz-space-4); justify-content: center; flex-wrap: wrap; }
 
+    /* Feature grid */
     .feature-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -79,6 +87,7 @@
       .feature-grid { grid-template-columns: 1fr; }
     }
 
+    /* Code block */
     .code-block {
       background: var(--nz-surface-soft);
       border: 1px solid var(--nz-c-border);
@@ -91,9 +100,11 @@
       color: var(--nz-text-default);
     }
 
+    /* Section spacing */
     .section-gap { padding: var(--nz-space-8) 0; }
     @media (max-width: 640px) { .section-gap { padding: var(--nz-space-5) 0; } }
 
+    /* Comparison table — scroll on mobile */
     .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .comparison-table { width: 100%; border-collapse: collapse; min-width: 500px; }
     .comparison-table th,
@@ -106,11 +117,23 @@
     .comparison-table th { font-weight: 600; color: var(--nz-text-strong); white-space: nowrap; }
     .comparison-table tr:last-child td { border-bottom: none; }
 
+    /* Steps list */
     .steps-stack { display: flex; flex-direction: column; gap: var(--nz-space-3); }
 
+    /* Ebbinghaus equation */
+    .ebbinghaus-eq {
+      font-family: var(--nz-font-mono);
+      font-size: var(--nz-text-lg);
+      color: var(--nz-color-accent);
+      text-align: center;
+      padding: var(--nz-space-3);
+    }
+
+    /* Two-column layout */
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--nz-space-3); }
     @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
 
+    /* Rules list */
     .rules-list { padding-left: var(--nz-space-3); margin: 0; }
     .rules-list li { padding: var(--nz-space-1) 0; font-size: var(--nz-text-sm); }
   </style>
@@ -126,416 +149,157 @@
       </div>
       <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('is-open')" aria-label="Menú">☰</button>
       <div class="nav-links">
-        <a href="#como-funciona" class="nz-btn nz-btn--ghost" style="font-size: 0.85rem;">Cómo funciona</a>
+        <a href="#agentes" class="nz-btn nz-btn--ghost" style="font-size: 0.85rem;">Agentes</a>
         <a href="#arquitectura" class="nz-btn nz-btn--ghost" style="font-size: 0.85rem;">Arquitectura</a>
-        <a href="#migracion" class="nz-btn nz-btn--ghost" style="font-size: 0.85rem;">Migración</a>
+        <a href="#inicio-rapido" class="nz-btn nz-btn--ghost" style="font-size: 0.85rem;">Inicio rápido</a>
         <a href="https://github.com/Ntizar/NtizarBrainMasterMind" class="nz-btn nz-btn--primary" style="font-size: 0.85rem;">GitHub ↗</a>
       </div>
     </div>
   </nav>
 
   <!-- ═══════════ HERO ═══════════ -->
-  <section class="nz-hero nz-hero--centered" style="min-height: 85vh; display: flex; align-items: center; position: relative; overflow: hidden;">
-    <div class="nz-aurora-mesh nz-aurora-mesh--animated nz-aurora-mesh--hero" style="position: absolute; inset: 0; z-index: 0; opacity: 0.6;"></div>
+  
 
-    <div class="nz-container" style="position: relative; z-index: 1; max-width: 900px; text-align: center; padding: 4rem 1.5rem;">
-      <div class="nz-hero__eyebrow">
-        <span class="nz-badge nz-badge--accent">Open Source · MIT License</span>
-      </div>
+  <!-- ═══════════ CARACTERÍSTICAS ═══════════ -->
+  
 
-      <h1 class="nz-hero__title" style="margin-top: var(--nz-space-3);">
-        <span class="nz-gradient-text hero-brain">Tu IA que<br>realmente recuerda.</span>
-      </h1>
-
-      <p class="nz-hero__sub" style="font-size: clamp(1rem, 2.5vw, 1.2rem); max-width: 620px; margin: 0 auto var(--nz-space-4); color: var(--nz-text-muted);">
-        Un framework de orquestación con <strong style="color: var(--nz-text-default);">1 orquestador + 143 skills especializados</strong>,
-        memoria persistente nativa y ejecución en NaN.builders.
-        Tu siguiente sesión empieza más inteligente, no desde cero.
-      </p>
-
-      <div class="nz-hero__cta" style="display: flex; gap: var(--nz-space-2); justify-content: center; flex-wrap: wrap;">
-        <a href="#como-funciona" class="nz-btn nz-btn--primary nz-btn--lg">Empezar ahora</a>
-        <a href="https://github.com/Ntizar/NtizarBrainMasterMind" class="nz-btn nz-btn--ghost nz-btn--lg">Ver en GitHub ↗</a>
-      </div>
-
-      <!-- Stats -->
-      <div class="stat-row" style="margin-top: var(--nz-space-6);">
-        <div class="nz-kpi">
-          <div class="nz-kpi__value" style="color: var(--nz-color-brand);">1</div>
-          <div class="nz-kpi__label">Orquestador</div>
-        </div>
-        <div class="nz-kpi">
-          <div class="nz-kpi__value" style="color: var(--nz-color-accent);">143</div>
-          <div class="nz-kpi__label">Skills</div>
-        </div>
-        <div class="nz-kpi">
-          <div class="nz-kpi__value" style="color: var(--nz-color-success);">∞</div>
-          <div class="nz-kpi__label">Memoria</div>
-        </div>
-        <div class="nz-kpi">
-          <div class="nz-kpi__value">0</div>
-          <div class="nz-kpi__label">Dependencias</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════ EL PROBLEMA ═══════════ -->
-  <section class="section-gap" id="problema">
-    <div class="nz-container" style="max-width: 1000px; padding: 0 1.5rem;">
+  <!-- ═══════════ INICIO RÁPIDO ═══════════ -->
+  <section class="section-gap" id="inicio-rapido" style="background: var(--nz-surface-soft); margin: 0; padding: var(--nz-space-8) 0;">
+    <div class="nz-container" style="max-width: 800px; padding: 0 1.5rem;">
       <div style="text-align: center; margin-bottom: var(--nz-space-5);">
-        <span class="nz-badge nz-badge--danger">El problema</span>
-        <h2 class="nz-text-h2" style="margin-top: var(--nz-space-2);">Usas IA todos los días.<br>Tu IA no te recuerda.</h2>
-        <p class="nz-text-muted" style="max-width: 600px; margin: var(--nz-space-2) auto 0;">
-          Copias y pegas contexto. Re-explicas tu proyecto. Pierdes aprendizajes entre sesiones.
-          Tus prompts son largos, caros y frágiles.
-        </p>
+        <span class="nz-badge nz-badge--brand">Inicio rápido</span>
+        <h2 class="nz-text-h2" style="margin-top: var(--nz-space-2);">En 3 pasos</h2>
       </div>
 
-      <div class="nz-grid nz-grid--3">
+      <div class="steps-stack">
+        <!-- Paso 1 -->
         <div class="nz-card">
-          <div class="nz-card__body" style="text-align: center; padding: var(--nz-space-4);">
-            <div style="font-size: 2rem; margin-bottom: var(--nz-space-2);">🔄</div>
-            <h3 class="nz-text-h4">Contexto efímero</h3>
-            <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
-              Cada conversación empieza de cero. Tu proyecto de 3 meses no existe para tu IA.
-            </p>
+          <div class="nz-card__body" style="display: flex; gap: var(--nz-space-3); align-items: flex-start;">
+            <span class="nz-badge nz-badge--brand" style="font-size: 1.1rem; min-width: 2rem; text-align: center;">1</span>
+            <div style="min-width: 0;">
+              <h3 class="nz-text-h4">Clona el repositorio</h3>
+              <div class="code-block" style="margin-top: var(--nz-space-1);">git clone https://github.com/Ntizar/NtizarBrainMasterMind.git</div>
+            </div>
           </div>
         </div>
+
+        <!-- Paso 2 -->
         <div class="nz-card">
-          <div class="nz-card__body" style="text-align: center; padding: var(--nz-space-4);">
-            <div style="font-size: 2rem; margin-bottom: var(--nz-space-2);">💸</div>
-            <h3 class="nz-text-h4">Tokens caros</h3>
-            <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
-              Envías el contexto completo cada vez. Un solo modelo hace todo, mal.
-            </p>
+          <div class="nz-card__body" style="display: flex; gap: var(--nz-space-3); align-items: flex-start;">
+            <span class="nz-badge nz-badge--accent" style="font-size: 1.1rem; min-width: 2rem; text-align: center;">2</span>
+            <div style="min-width: 0;">
+              <h3 class="nz-text-h4">Abre con tu editor de agentes</h3>
+              <div class="code-block" style="margin-top: var(--nz-space-1);">cd NtizarBrainMasterMind
+hermes .     # o tu IDE preferido</div>
+            </div>
           </div>
         </div>
+
+        <!-- Paso 3 -->
         <div class="nz-card">
-          <div class="nz-card__body" style="text-align: center; padding: var(--nz-space-4);">
-            <div style="font-size: 2rem; margin-bottom: var(--nz-space-2);">🎯</div>
-            <h3 class="nz-text-h4">Sin proceso</h3>
-            <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
-              No hay revisión. No hay crítica adversarial. No hay aprendizaje acumulativo.
-            </p>
+          <div class="nz-card__body" style="display: flex; gap: var(--nz-space-3); align-items: flex-start;">
+            <span class="nz-badge nz-badge--success" style="font-size: 1.1rem; min-width: 2rem; text-align: center;">3</span>
+            <div style="min-width: 0;">
+              <h3 class="nz-text-h4">Activa el sistema</h3>
+              <div class="code-block" style="margin-top: var(--nz-space-1);">/ntizar-start</div>
+              <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
+                El orquestador arranca, clasifica tu primera tarea y delega automáticamente.
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════ LA SOLUCIÓN ═══════════ -->
-  <section class="section-gap" style="background: var(--nz-surface-soft); margin: 0; padding: var(--nz-space-8) 0;">
-    <div class="nz-container" style="max-width: 1000px; padding: 0 1.5rem;">
+  <!-- ═══════════ LAS 12 REGLAS ═══════════ -->
+  <section class="section-gap">
+    <div class="nz-container" style="max-width: 800px; padding: 0 1.5rem;">
       <div style="text-align: center; margin-bottom: var(--nz-space-5);">
-        <span class="nz-badge nz-badge--brand">La solución</span>
+        <span class="nz-badge nz-badge--accent">12 Reglas</span>
         <h2 class="nz-text-h2" style="margin-top: var(--nz-space-2);">
-          <span class="nz-gradient-text">Ntizar Mastermind v4</span>
+          <span class="nz-gradient-text">Derivadas de 13 ciclos de uso real</span>
         </h2>
-        <p class="nz-text-muted" style="max-width: 650px; margin: var(--nz-space-2) auto 0;">
-          Un sistema de inteligencia operativa con <strong>Koldo</strong> como orquestador y <strong>143 skills especializados</strong> que se especializan, recuerdan y aprenden.
-          Ejecutándose en Hermes Agent sobre NaN.builders con GitHub como fuente de verdad.
-        </p>
       </div>
 
-      <!-- Flujo visual -->
-      <div class="nz-card" style="padding: var(--nz-space-4); margin-bottom: var(--nz-space-5); border: 1px solid var(--nz-c-border);">
-        <div class="flow-line">
-          <span class="nz-badge nz-badge--brand">Tarea</span>
-          <span class="flow-arrow">→</span>
-          <span class="nz-badge nz-badge--brand">Koldo clasifica</span>
-          <span class="flow-arrow">→</span>
-          <span class="nz-badge nz-badge--accent">Carga skills</span>
-          <span class="flow-arrow">→</span>
-          <span class="nz-badge nz-badge--brand">delegate_task</span>
-          <span class="flow-arrow">→</span>
-          <span class="nz-badge nz-badge--neutral">Ejecuta</span>
-          <span class="flow-arrow">→</span>
-          <span class="nz-badge nz-badge--success">Resulta</span>
-        </div>
-      </div>
-
-      <!-- Comparativa -->
       <div class="nz-card">
         <div class="nz-card__body">
-          <div class="table-wrap">
-            <table class="comparison-table">
-              <thead>
-                <tr>
-                  <th>Característica</th>
-                  <th>Prompting tradicional</th>
-                  <th style="color: var(--nz-color-brand);">Ntizar Mastermind v4</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Contexto</td>
-                  <td class="nz-text-muted">Se pierde cada sesión</td>
-                  <td><strong>Memoria persistente nativa</strong></td>
-                </tr>
-                <tr>
-                  <td>Agentes</td>
-                  <td class="nz-text-muted">Una sola personalidad</td>
-                  <td><strong>1 orquestador + 143 skills especializados</strong></td>
-                </tr>
-                <tr>
-                  <td>Modelos</td>
-                  <td class="nz-text-muted">Multi-modelo manual</td>
-                  <td><strong>Modelo único (qwen3.6)</strong></td>
-                </tr>
-                <tr>
-                  <td>Coste</td>
-                  <td class="nz-text-muted">Contexto completo siempre</td>
-                  <td><strong>Carga inteligente por dominio</strong></td>
-                </tr>
-                <tr>
-                  <td>Calidad</td>
-                  <td class="nz-text-muted">Sin proceso de revisión</td>
-                  <td><strong>Human loop + revisión especializada</strong></td>
-                </tr>
-                <tr>
-                  <td>Aprendizaje</td>
-                  <td class="nz-text-muted">Empieza desde cero</td>
-                  <td><strong>Acumula patrones y conocimiento</strong></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <ol class="rules-list">
+            <li><strong>Flujo completo obligatorio</strong> — ningún agente se salta</li>
+            <li><strong>Sincronización multi-archivo</strong> — propagar cambios a todos los archivos afectados</li>
+            <li><strong>Verificar integridad binaria</strong> — magic bytes, no solo extensiones</li>
+            <li><strong>Deploy consciente de la plataforma</strong> — conocer las limitaciones del hosting</li>
+            <li><strong>README actualizado con cada versión</strong> — siempre al día</li>
+            <li><strong>El humano decide la arquitectura</strong> — la IA propone, el humano dispone</li>
+            <li><strong>Clusters dinámicos</strong> — las categorías de conocimiento crecen orgánicamente</li>
+            <li><strong>Carga bajo demanda</strong> — aprendizajes por relevancia + decaimiento</li>
+            <li><strong>Capacidad mínima documentada</strong> — cada agente tiene un suelo</li>
+            <li><strong>Crítico: omitir, nunca degradar</strong> — la calidad no es negociable</li>
+            <li><strong>Verificar en vivo antes de entregar</strong> — confirmar que el deploy funciona</li>
+            <li><strong>Asignación de modelos es colaborativa</strong> — el sistema propone, el humano confirma</li>
+          </ol>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════ CÓMO FUNCIONA ═══════════ -->
-  <section class="section-gap" id="como-funciona">
-    <div class="nz-container" style="max-width: 1100px; padding: 0 1.5rem;">
-      <div style="text-align: center; margin-bottom: var(--nz-space-5);">
-        <span class="nz-badge nz-badge--accent">Cómo funciona</span>
-        <h2 class="nz-text-h2" style="margin-top: var(--nz-space-2);">1 orquestador.<br>143 especialistas.</h2>
-        <p class="nz-text-muted" style="max-width: 600px; margin: var(--nz-space-2) auto 0;">
-          Koldo clasifica tu tarea, carga los skills del dominio relevante y delega con <code>delegate_task</code>.
-          Sin dependencias externas. Sin plataformas propietarias.
-        </p>
-      </div>
-
-      <div class="skill-grid">
-        <div class="nz-card skill-card">
-          <div class="skill-card__count" style="color: var(--nz-color-brand);">17</div>
-          <div class="skill-card__label">Software</div>
-          <div style="font-size: 0.7rem; color: var(--nz-text-muted); margin-top: 4px;">TDD, debug, code review</div>
-        </div>
-        <div class="nz-card skill-card">
-          <div class="skill-card__count" style="color: var(--nz-color-brand);">7</div>
-          <div class="skill-card__label">GitHub</div>
-          <div style="font-size: 0.7rem; color: var(--nz-text-muted); margin-top: 4px;">PR, issues, repo mgmt</div>
-        </div>
-        <div class="nz-card skill-card">
-          <div class="skill-card__count" style="color: var(--nz-color-accent);">3</div>
-          <div class="skill-card__label">Frontend</div>
-          <div style="font-size: 0.7rem; color: var(--nz-text-muted); margin-top: 4px;">Aurora, dashboards</div>
-        </div>
-        <div class="nz-card skill-card">
-          <div class="skill-card__count" style="color: var(--nz-color-accent);">6</div>
-          <div class="skill-card__label">Backend</div>
-          <div style="font-size: 0.7rem; color: var(--nz-text-muted); margin-top: 4px;">APIs, ESM, fetch</div>
-        </div>
-        <div class="nz-card skill-card">
-          <div class="skill-card__count" style="color: var(--nz-color-accent);">6</div>
-          <div class="skill-card__label">Infra</div>
-          <div style="font-size: 0.7rem; color: var(--nz-text-muted); margin-top: 4px;">Docker, seguridad, cache</div>
-        </div>
-        <div class="nz-card skill-card">
-          <div class="skill-card__count" style="color: var(--nz-color-accent);">10</div>
-          <div class="skill-card__label">DevOps</div>
-          <div style="font-size: 0.7rem; color: var(--nz-text-muted); margin-top: 4px;">Deploy NaN, cron jobs</div>
-        </div>
-        <div class="nz-card skill-card">
-          <div class="skill-card__count" style="color: var(--nz-color-accent);">8</div>
-          <div class="skill-card__label">Data Science</div>
-          <div style="font-size: 0.7rem; color: var(--nz-text-muted); margin-top: 4px;">Simuladores, Monte Carlo</div>
-        </div>
-        <div class="nz-card skill-card">
-          <div class="skill-card__count" style="color: var(--nz-color-accent);">22</div>
-          <div class="skill-card__label">Creative</div>
-          <div style="font-size: 0.7rem; color: var(--nz-text-muted); margin-top: 4px;">Diagramas, diseño, video</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════ ARQUITECTURA ═══════════ -->
-  <section class="section-gap" id="arquitectura" style="background: var(--nz-surface-soft); margin: 0; padding: var(--nz-space-8) 0;">
-    <div class="nz-container" style="max-width: 1000px; padding: 0 1.5rem;">
-      <div style="text-align: center; margin-bottom: var(--nz-space-5);">
-        <span class="nz-badge nz-badge--brand">Arquitectura</span>
-        <h2 class="nz-text-h2" style="margin-top: var(--nz-space-2);">
-          <span class="nz-gradient-text">Una capa. Cero dependencias.</span>
-        </h2>
-        <p class="nz-text-muted" style="max-width: 600px; margin: var(--nz-space-2) auto 0;">
-          GitHub como fuente de verdad. Markdown plano. Sin wikilinks, sin plataformas externas.
-        </p>
-      </div>
-
-      <div class="nz-card" style="padding: var(--nz-space-4); border: 1px solid var(--nz-c-border);">
-        <div class="code-block" style="margin: 0;">
-NtizarBrainMasterMind/
-├── SOUL.md              ← Orquestador (Koldo) + principios + reglas
-├── AGENTS.md            ← Referencia rápida de arquitectura y niveles
-├── CHANGELOG.md         ← Historial de cambios
-├── legacy/              ← v3.1 (Obsidian+OpenCode) — referencia
-├── docs/                ← Documentación técnica
-├── design-system/       ← Aurora Design System
-├── learning-platform/   ← Brain Academy
-├── assets/              ← Recursos estáticos (banners)
-└── .github/             ← Workflows CI/CD
-        </div>
-      </div>
-
-      <!-- Niveles de ejecución -->
-      <div class="nz-card" style="margin-top: var(--nz-space-4); border: 1px solid var(--nz-c-border);">
-        <div class="nz-card__body" style="padding: var(--nz-space-4);">
-          <h3 class="nz-text-h4" style="margin-bottom: var(--nz-space-3);">Niveles de ejecución</h3>
-          <div class="steps-stack">
-            <div style="display: flex; gap: var(--nz-space-2); align-items: baseline;">
-              <span class="nz-badge nz-badge--success" style="font-size: 0.7rem;">Nivel 1</span>
-              <span style="font-size: var(--nz-text-sm);">Directo (Koldo solo) — 1-3 tool calls</span>
-            </div>
-            <div style="display: flex; gap: var(--nz-space-2); align-items: baseline;">
-              <span class="nz-badge nz-badge--brand" style="font-size: 0.7rem;">Nivel 2</span>
-              <span style="font-size: var(--nz-text-sm);">Delegación simple — 1 delegate_task</span>
-            </div>
-            <div style="display: flex; gap: var(--nz-space-2); align-items: baseline;">
-              <span class="nz-badge nz-badge--accent" style="font-size: 0.7rem;">Nivel 3</span>
-              <span style="font-size: var(--nz-text-sm);">Paralelo — 2-3 delegate_tasks simultáneos</span>
-            </div>
-            <div style="display: flex; gap: var(--nz-space-2); align-items: baseline;">
-              <span class="nz-badge nz-badge--danger" style="font-size: 0.7rem;">Nivel 4</span>
-              <span style="font-size: var(--nz-text-sm);">Orquestación completa — Planner → Implementers → Reviewer</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════ MIGRACIÓN ═══════════ -->
-  <section class="section-gap" id="migracion">
-    <div class="nz-container" style="max-width: 1000px; padding: 0 1.5rem;">
-      <div style="text-align: center; margin-bottom: var(--nz-space-5);">
-        <span class="nz-badge nz-badge--brand">Migración</span>
-        <h2 class="nz-text-h2" style="margin-top: var(--nz-space-2);">
-          <span class="nz-gradient-text">De v3.1 a v4.0</span>
-        </h2>
-        <p class="nz-text-muted" style="max-width: 600px; margin: var(--nz-space-2) auto 0;">
-          De 11 agentes genéricos con dependencias externas a 1 orquestador + 143 skills especializados, 100% Hermes-native.
-        </p>
-      </div>
-
-      <div class="nz-card" style="border: 1px solid var(--nz-c-border);">
-        <div class="nz-card__body" style="padding: var(--nz-space-4);">
-          <div class="table-wrap">
-            <table class="comparison-table">
-              <thead>
-                <tr>
-                  <th>Aspecto</th>
-                  <th style="color: var(--nz-text-muted);">v3.1 (Legacy)</th>
-                  <th style="color: var(--nz-color-brand);">v4.0 (Actual)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Plataforma</td>
-                  <td class="nz-text-muted">OpenCode + Obsidian</td>
-                  <td><strong>Hermes Agent + GitHub</strong></td>
-                </tr>
-                <tr>
-                  <td>Agentes</td>
-                  <td class="nz-text-muted">11 genéricos</td>
-                  <td><strong>1 orquestador + 143 skills</strong></td>
-                </tr>
-                <tr>
-                  <td>Modelos</td>
-                  <td class="nz-text-muted">Multi-modelo manual</td>
-                  <td><strong>Modelo único (qwen3.6)</strong></td>
-                </tr>
-                <tr>
-                  <td>Memoria</td>
-                  <td class="nz-text-muted">Ebbinghaus decay manual</td>
-                  <td><strong><code>memory</code> + <code>session_search</code></strong></td>
-                </tr>
-                <tr>
-                  <td>Skills</td>
-                  <td class="nz-text-muted">15 propios</td>
-                  <td><strong>143 Hermes (carga bajo demanda)</strong></td>
-                </tr>
-                <tr>
-                  <td>Archivos</td>
-                  <td class="nz-text-muted">221 (2 capas)</td>
-                  <td><strong>136 (1 capa, Markdown plano)</strong></td>
-                </tr>
-                <tr>
-                  <td>Comandos</td>
-                  <td class="nz-text-muted">4 slash commands</td>
-                  <td><strong>Lenguaje natural</strong></td>
-                </tr>
-                <tr>
-                  <td>Stack</td>
-                  <td class="nz-text-muted">OpenCode + Obsidian</td>
-                  <td><strong>Hermes + NaN.builders + GitHub</strong></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════ STACK ═══════════ -->
-  <section class="section-gap" style="background: var(--nz-surface-soft); margin: 0; padding: var(--nz-space-8) 0;">
-    <div class="nz-container" style="max-width: 1000px; padding: 0 1.5rem;">
-      <div style="text-align: center; margin-bottom: var(--nz-space-5);">
-        <span class="nz-badge nz-badge--accent">Stack</span>
-        <h2 class="nz-text-h2" style="margin-top: var(--nz-space-2);">
-          <span class="nz-gradient-text">Tecnología</span>
-        </h2>
-      </div>
-
-      <div class="nz-grid nz-grid--3">
-        <div class="nz-card" style="text-align: center;">
-          <div class="nz-card__body" style="padding: var(--nz-space-4);">
-            <div style="font-size: 2rem; margin-bottom: var(--nz-space-2);">🤖</div>
-            <h3 class="nz-text-h4">Hermes Agent</h3>
-            <p class="nz-text-muted" style="font-size: var(--nz-text-sm);">Motor de ejecución, memoria persistente, delegate_task nativo</p>
-          </div>
-        </div>
-        <div class="nz-card" style="text-align: center;">
-          <div class="nz-card__body" style="padding: var(--nz-space-4);">
-            <div style="font-size: 2rem; margin-bottom: var(--nz-space-2);">☁️</div>
-            <h3 class="nz-text-h4">NaN.builders</h3>
-            <p class="nz-text-muted" style="font-size: var(--nz-text-sm);">MicroVM 1vCPU/2GB/20GB. Modelo qwen3.6</p>
-          </div>
-        </div>
-        <div class="nz-card" style="text-align: center;">
-          <div class="nz-card__body" style="padding: var(--nz-space-4);">
-            <div style="font-size: 2rem; margin-bottom: var(--nz-space-2);">📦</div>
-            <h3 class="nz-text-h4">GitHub</h3>
-            <p class="nz-text-muted" style="font-size: var(--nz-text-sm);">Fuente de verdad. Markdown plano. Sin dependencias.</p>
-          </div>
-        </div>
+  <!-- ═══════════ CTA FINAL ═══════════ -->
+  <section class="section-gap" style="text-align: center; position: relative; overflow: hidden;">
+    <div class="nz-aurora-mesh nz-aurora-mesh--animated" style="position: absolute; inset: 0; z-index: 0; opacity: 0.4;"></div>
+    <div class="nz-container" style="position: relative; z-index: 1; max-width: 700px; padding: 0 1.5rem;">
+      <h2 class="nz-text-h2" style="margin-bottom: var(--nz-space-2);">Tu IA merece un cerebro.</h2>
+      <p class="nz-text-muted" style="margin-bottom: var(--nz-space-4); font-size: 1.1rem;">
+        Open source. MIT License. Sin vendor lock-in.<br>
+        Fork, configura, y empieza a construir algo que recuerda.
+      </p>
+      <div style="display: flex; gap: var(--nz-space-2); justify-content: center; flex-wrap: wrap;">
+        <a href="https://github.com/Ntizar/NtizarBrainMasterMind" class="nz-btn nz-btn--primary nz-btn--lg">Ver en GitHub ↗</a>
+        <a href="https://github.com/Ntizar/NtizarBrainMasterMind/fork" class="nz-btn nz-btn--ghost nz-btn--lg">Hacer fork</a>
       </div>
     </div>
   </section>
 
   <!-- ═══════════ FOOTER ═══════════ -->
-  <footer style="padding: var(--nz-space-6) 0; text-align: center; border-top: 1px solid var(--nz-c-border);">
-    <div class="nz-container" style="max-width: 800px; padding: 0 1.5rem;">
-      <p class="nz-text-muted" style="font-size: var(--nz-text-sm);">
-        Hecho con (L) por David Antizar<br>
-        <span style="font-size: 0.8rem;">v4.0.0 · 2026-06-04 · Hermes Agent + NaN.builders + GitHub</span>
-      </p>
+  <footer style="border-top: 1px solid var(--nz-c-border-light);">
+    <div class="nz-container" style="max-width: 1100px; padding: 0 1.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--nz-space-2); padding: var(--nz-space-3) 0;">
+        <div style="display: flex; align-items: center; gap: var(--nz-space-2); flex-wrap: wrap;">
+          <span style="font-weight: 600;">Ntizar Mastermind</span>
+          <span class="nz-badge nz-badge--neutral" style="font-size: 0.65rem;">v4.0</span>
+          <span class="nz-badge nz-badge--neutral" style="font-size: 0.65rem;">MIT License</span>
+        </div>
+        <div style="font-size: var(--nz-text-sm); color: var(--nz-text-muted);">
+          Hecho con <span style="color: var(--nz-color-accent);">♡</span> por <strong>David Antizar</strong>
+        </div>
+      </div>
     </div>
   </footer>
+
+  <!-- ═══════════ SCROLL REVEAL ═══════════ -->
+  <script>
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.nz-card, .nz-kpi');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('nz-anim-fade-in');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Smooth scroll + close mobile nav
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+        // Close mobile nav
+        document.querySelector('.nav-links')?.classList.remove('is-open');
+      });
+    });
+  </script>
 
 </body>
 </html>

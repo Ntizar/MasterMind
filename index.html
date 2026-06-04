@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ntizar Mastermind — Orquestación Multi-Agente con Memoria Persistente</title>
-  <meta name="description" content="Framework open-source de orquestación multi-agente con 11 agentes especializados, memoria Ebbinghaus y routing de modelos. Tu IA que realmente recuerda.">
+  <meta name="description" content="Framework open-source de orquestación multi-agente con 1 orquestador + 143 skills especializados, memoria Ebbinghaus y routing de modelos. Tu IA que realmente recuerda.">
 
   <!-- Aurora Core -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.next.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.data.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.ui.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.patterns.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.motion.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.viz.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.themes.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@latest/ntizar.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@latest/ntizar.next.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@latest/ntizar.data.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@latest/ntizar.ui.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@latest/ntizar.patterns.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@latest/ntizar.motion.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@latest/ntizar.viz.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@latest/ntizar.themes.css">
 
   <style>
     /* ═══ Responsive + layout custom (Aurora no cubre esto) ═══ */
@@ -144,7 +144,7 @@
   <nav class="nz-nav--glass" style="position: sticky; top: 0; z-index: 100;">
     <div class="nz-container" style="display: flex; align-items: center; justify-content: space-between; padding: var(--nz-space-2) 1.5rem; max-width: 1100px; position: relative;">
       <div style="display: flex; align-items: center; gap: var(--nz-space-2);">
-        <span class="nz-badge nz-badge--brand nz-badge--no-dot" style="font-size: 0.7rem;">v3.0</span>
+        <span class="nz-badge nz-badge--brand nz-badge--no-dot" style="font-size: 0.7rem;">v4.0</span>
         <strong style="font-size: 1.1rem;">Ntizar Mastermind</strong>
       </div>
       <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('is-open')" aria-label="Menú">☰</button>
@@ -158,425 +158,10 @@
   </nav>
 
   <!-- ═══════════ HERO ═══════════ -->
-  <section class="nz-hero nz-hero--centered" style="min-height: 85vh; display: flex; align-items: center; position: relative; overflow: hidden;">
-    <div class="nz-aurora-mesh nz-aurora-mesh--animated nz-aurora-mesh--hero" style="position: absolute; inset: 0; z-index: 0; opacity: 0.6;"></div>
-
-    <div class="nz-container" style="position: relative; z-index: 1; max-width: 900px; text-align: center; padding: 4rem 1.5rem;">
-      <div class="nz-hero__eyebrow">
-        <span class="nz-badge nz-badge--accent">Open Source · MIT License</span>
-      </div>
-
-      <h1 class="nz-hero__title" style="margin-top: var(--nz-space-3);">
-        <span class="nz-gradient-text hero-brain">Tu IA que<br>realmente recuerda.</span>
-      </h1>
-
-      <p class="nz-hero__sub" style="font-size: clamp(1rem, 2.5vw, 1.2rem); max-width: 620px; margin: 0 auto var(--nz-space-4); color: var(--nz-text-muted);">
-        Un framework de orquestación multi-agente con <strong style="color: var(--nz-text-default);">11 agentes especializados</strong>,
-        memoria persistente con decaimiento de Ebbinghaus y routing de modelos por tarea.
-        Tu siguiente sesión empieza más inteligente, no desde cero.
-      </p>
-
-      <div class="nz-hero__cta" style="display: flex; gap: var(--nz-space-2); justify-content: center; flex-wrap: wrap;">
-        <a href="#inicio-rapido" class="nz-btn nz-btn--primary nz-btn--lg">Empezar ahora</a>
-        <a href="https://github.com/Ntizar/NtizarBrainMasterMind" class="nz-btn nz-btn--ghost nz-btn--lg">Ver en GitHub ↗</a>
-      </div>
-
-      <!-- Stats -->
-      <div class="stat-row" style="margin-top: var(--nz-space-6);">
-        <div class="nz-kpi">
-          <div class="nz-kpi__value" style="color: var(--nz-color-brand);">11</div>
-          <div class="nz-kpi__label">Agentes</div>
-        </div>
-        <div class="nz-kpi">
-          <div class="nz-kpi__value" style="color: var(--nz-color-accent);">42%</div>
-          <div class="nz-kpi__label">Ahorro tokens</div>
-        </div>
-        <div class="nz-kpi">
-          <div class="nz-kpi__value" style="color: var(--nz-color-success);">∞</div>
-          <div class="nz-kpi__label">Memoria</div>
-        </div>
-        <div class="nz-kpi">
-          <div class="nz-kpi__value">0</div>
-          <div class="nz-kpi__label">Desde cero</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════ EL PROBLEMA ═══════════ -->
-  <section class="section-gap" id="problema">
-    <div class="nz-container" style="max-width: 1000px; padding: 0 1.5rem;">
-      <div style="text-align: center; margin-bottom: var(--nz-space-5);">
-        <span class="nz-badge nz-badge--danger">El problema</span>
-        <h2 class="nz-text-h2" style="margin-top: var(--nz-space-2);">Usas IA todos los días.<br>Tu IA no te recuerda.</h2>
-        <p class="nz-text-muted" style="max-width: 600px; margin: var(--nz-space-2) auto 0;">
-          Copias y pegas contexto. Re-explicas tu proyecto. Pierdes aprendizajes entre sesiones.
-          Tus prompts son largos, caros y frágiles.
-        </p>
-      </div>
-
-      <div class="nz-grid nz-grid--3">
-        <div class="nz-card">
-          <div class="nz-card__body" style="text-align: center; padding: var(--nz-space-4);">
-            <div style="font-size: 2rem; margin-bottom: var(--nz-space-2);">🔄</div>
-            <h3 class="nz-text-h4">Contexto efímero</h3>
-            <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
-              Cada conversación empieza de cero. Tu proyecto de 3 meses no existe para tu IA.
-            </p>
-          </div>
-        </div>
-        <div class="nz-card">
-          <div class="nz-card__body" style="text-align: center; padding: var(--nz-space-4);">
-            <div style="font-size: 2rem; margin-bottom: var(--nz-space-2);">💸</div>
-            <h3 class="nz-text-h4">Tokens caros</h3>
-            <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
-              Envías el contexto completo cada vez. Un solo modelo hace todo, mal.
-            </p>
-          </div>
-        </div>
-        <div class="nz-card">
-          <div class="nz-card__body" style="text-align: center; padding: var(--nz-space-4);">
-            <div style="font-size: 2rem; margin-bottom: var(--nz-space-2);">🎯</div>
-            <h3 class="nz-text-h4">Sin proceso</h3>
-            <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
-              No hay revisión. No hay crítica adversarial. No hay aprendizaje acumulativo.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════ LA SOLUCIÓN ═══════════ -->
-  <section class="section-gap" style="background: var(--nz-surface-soft); margin: 0; padding: var(--nz-space-8) 0;">
-    <div class="nz-container" style="max-width: 1000px; padding: 0 1.5rem;">
-      <div style="text-align: center; margin-bottom: var(--nz-space-5);">
-        <span class="nz-badge nz-badge--brand">La solución</span>
-        <h2 class="nz-text-h2" style="margin-top: var(--nz-space-2);">
-          <span class="nz-gradient-text">Ntizar Mastermind v3</span>
-        </h2>
-        <p class="nz-text-muted" style="max-width: 650px; margin: var(--nz-space-2) auto 0;">
-          Un sistema de inteligencia operativa con 11 agentes que se especializan, recuerdan y aprenden.
-          Cada tarea usa los mejores modelos. Cada sesión acumula conocimiento.
-        </p>
-      </div>
-
-      <!-- Flujo visual -->
-      <div class="nz-card" style="padding: var(--nz-space-4); margin-bottom: var(--nz-space-5); border: 1px solid var(--nz-c-border);">
-        <div class="flow-line">
-          <span class="nz-badge nz-badge--brand">Tarea</span>
-          <span class="flow-arrow">→</span>
-          <span class="nz-badge nz-badge--accent">Clasificar</span>
-          <span class="flow-arrow">→</span>
-          <span class="nz-badge nz-badge--neutral">Explorar</span>
-          <span class="flow-arrow">→</span>
-          <span class="nz-badge nz-badge--neutral">Planificar</span>
-          <span class="flow-arrow">→</span>
-          <span class="nz-badge nz-badge--neutral">Especificar</span>
-          <span class="flow-arrow">→</span>
-          <span class="nz-badge nz-badge--brand">Implementar</span>
-          <span class="flow-arrow">→</span>
-          <span class="nz-badge nz-badge--accent">Revisar</span>
-          <span class="flow-arrow">→</span>
-          <span class="nz-badge nz-badge--danger">Criticar</span>
-          <span class="flow-arrow">→</span>
-          <span class="nz-badge nz-badge--neutral">Sintetizar</span>
-          <span class="flow-arrow">→</span>
-          <span class="nz-badge nz-badge--success">Archivar</span>
-        </div>
-      </div>
-
-      <!-- Comparativa -->
-      <div class="nz-card">
-        <div class="nz-card__body">
-          <div class="table-wrap">
-            <table class="comparison-table">
-              <thead>
-                <tr>
-                  <th>Característica</th>
-                  <th>Prompting tradicional</th>
-                  <th style="color: var(--nz-color-brand);">Ntizar Mastermind v3</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Contexto</td>
-                  <td class="nz-text-muted">Se pierde cada sesión</td>
-                  <td><strong>Memoria persistente con decaimiento inteligente</strong></td>
-                </tr>
-                <tr>
-                  <td>Agentes</td>
-                  <td class="nz-text-muted">Una sola personalidad</td>
-                  <td><strong>11 agentes con roles definidos</strong></td>
-                </tr>
-                <tr>
-                  <td>Modelos</td>
-                  <td class="nz-text-muted">Un modelo hace todo</td>
-                  <td><strong>Cada agente usa su modelo óptimo</strong></td>
-                </tr>
-                <tr>
-                  <td>Coste</td>
-                  <td class="nz-text-muted">Contexto completo siempre</td>
-                  <td><strong>40-60% ahorro vía carga inteligente</strong></td>
-                </tr>
-                <tr>
-                  <td>Calidad</td>
-                  <td class="nz-text-muted">Sin proceso de revisión</td>
-                  <td><strong>Revisión + crítico adversarial obligatorio</strong></td>
-                </tr>
-                <tr>
-                  <td>Aprendizaje</td>
-                  <td class="nz-text-muted">Empieza desde cero</td>
-                  <td><strong>Acumula patrones y conocimiento</strong></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════ LOS 11 AGENTES ═══════════ -->
-  <section class="section-gap" id="agentes">
-    <div class="nz-container" style="max-width: 1100px; padding: 0 1.5rem;">
-      <div style="text-align: center; margin-bottom: var(--nz-space-5);">
-        <span class="nz-badge nz-badge--accent">Los agentes</span>
-        <h2 class="nz-text-h2" style="margin-top: var(--nz-space-2);">11 especialistas.<br>Un cerebro.</h2>
-        <p class="nz-text-muted" style="max-width: 600px; margin: var(--nz-space-2) auto 0;">
-          Cada agente tiene un rol, un conjunto de herramientas y el modelo ideal para su trabajo.
-          El humano siempre está en el bucle.
-        </p>
-      </div>
-
-      <div class="agent-pipeline">
-        <div class="nz-card agent-card" style="border: 2px solid var(--nz-color-brand);">
-          <div class="agent-card__number">#00</div>
-          <div style="font-size: 1.5rem; margin-bottom: var(--nz-space-1);">🧠</div>
-          <div class="agent-card__name" style="color: var(--nz-color-brand);">Orquestador</div>
-          <div class="agent-card__role">Clasifica, diseña flujos, delega</div>
-          <div style="margin-top: var(--nz-space-1);"><span class="nz-badge nz-badge--brand" style="font-size: 0.6rem;">Opus / GPT-4o</span></div>
-        </div>
-
-        <div class="nz-card agent-card">
-          <div class="agent-card__number">#02</div>
-          <div style="font-size: 1.5rem; margin-bottom: var(--nz-space-1);">🔍</div>
-          <div class="agent-card__name">Explorador</div>
-          <div class="agent-card__role">Analiza sin modificar</div>
-          <div style="margin-top: var(--nz-space-1);"><span class="nz-badge nz-badge--neutral" style="font-size: 0.6rem;">Gemini 2.5</span></div>
-        </div>
-
-        <div class="nz-card agent-card">
-          <div class="agent-card__number">#03</div>
-          <div style="font-size: 1.5rem; margin-bottom: var(--nz-space-1);">🗺️</div>
-          <div class="agent-card__name">Planificador</div>
-          <div class="agent-card__role">Estrategia y pasos</div>
-        </div>
-
-        <div class="nz-card agent-card">
-          <div class="agent-card__number">#04</div>
-          <div style="font-size: 1.5rem; margin-bottom: var(--nz-space-1);">📐</div>
-          <div class="agent-card__name">Spec Writer</div>
-          <div class="agent-card__role">Convierte plan en spec</div>
-        </div>
-
-        <div class="nz-card agent-card" style="border: 2px solid var(--nz-color-accent);">
-          <div class="agent-card__number">#05</div>
-          <div style="font-size: 1.5rem; margin-bottom: var(--nz-space-1);">⚡</div>
-          <div class="agent-card__name" style="color: var(--nz-color-accent);">Implementador</div>
-          <div class="agent-card__role">Ejecuta y produce</div>
-          <div style="margin-top: var(--nz-space-1);"><span class="nz-badge nz-badge--accent" style="font-size: 0.6rem;">Opus / Sonnet</span></div>
-        </div>
-
-        <div class="nz-card agent-card">
-          <div class="agent-card__number">#06</div>
-          <div style="font-size: 1.5rem; margin-bottom: var(--nz-space-1);">✅</div>
-          <div class="agent-card__name">Revisor</div>
-          <div class="agent-card__role">Valida PASS/FAIL</div>
-          <div style="margin-top: var(--nz-space-1);"><span class="nz-badge nz-badge--neutral" style="font-size: 0.6rem;">Sonnet / Flash</span></div>
-        </div>
-
-        <div class="nz-card agent-card">
-          <div class="agent-card__number">#07</div>
-          <div style="font-size: 1.5rem; margin-bottom: var(--nz-space-1);">⚔️</div>
-          <div class="agent-card__name" style="color: var(--nz-color-danger);">Crítico</div>
-          <div class="agent-card__role">Revisión adversarial</div>
-          <div style="margin-top: var(--nz-space-1);"><span class="nz-badge nz-badge--danger" style="font-size: 0.6rem;">Solo Opus</span></div>
-        </div>
-
-        <div class="nz-card agent-card">
-          <div class="agent-card__number">#08</div>
-          <div style="font-size: 1.5rem; margin-bottom: var(--nz-space-1);">💬</div>
-          <div class="agent-card__name">Sintetizador</div>
-          <div class="agent-card__role">Comunica al humano</div>
-          <div style="margin-top: var(--nz-space-1);"><span class="nz-badge nz-badge--neutral" style="font-size: 0.6rem;">Haiku / Flash</span></div>
-        </div>
-
-        <div class="nz-card agent-card">
-          <div class="agent-card__number">#09</div>
-          <div style="font-size: 1.5rem; margin-bottom: var(--nz-space-1);">📦</div>
-          <div class="agent-card__name">Archivador</div>
-          <div class="agent-card__role">Destila con decay</div>
-          <div style="margin-top: var(--nz-space-1);"><span class="nz-badge nz-badge--neutral" style="font-size: 0.6rem;">Haiku / Flash</span></div>
-        </div>
-
-        <div class="nz-card agent-card">
-          <div class="agent-card__number">#10</div>
-          <div style="font-size: 1.5rem; margin-bottom: var(--nz-space-1);">📚</div>
-          <div class="agent-card__name">Bibliotecario</div>
-          <div class="agent-card__role">Grafo de conocimiento</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════ ARQUITECTURA ═══════════ -->
-  <section class="section-gap" id="arquitectura" style="background: var(--nz-surface-soft); margin: 0; padding: var(--nz-space-8) 0;">
-    <div class="nz-container" style="max-width: 1000px; padding: 0 1.5rem;">
-      <div style="text-align: center; margin-bottom: var(--nz-space-5);">
-        <span class="nz-badge nz-badge--brand">Arquitectura</span>
-        <h2 class="nz-text-h2" style="margin-top: var(--nz-space-2);">
-          <span class="nz-gradient-text">Dos capas. Cero duplicación.</span>
-        </h2>
-        <p class="nz-text-muted" style="max-width: 600px; margin: var(--nz-space-2) auto 0;">
-          Documentación legible por humanos separada de ejecución eficiente para máquinas.
-          42% menos tokens por invocación.
-        </p>
-      </div>
-
-      <div class="two-col">
-        <!-- Capa documental -->
-        <div class="nz-card" style="border-left: 3px solid var(--nz-color-brand);">
-          <div class="nz-card__header" style="display: flex; justify-content: space-between; align-items: center;">
-            <h3 class="nz-text-h4" style="margin: 0;">📄 Capa Documental</h3>
-            <span class="nz-badge nz-badge--brand">Obsidian</span>
-          </div>
-          <div class="nz-card__body">
-            <ul style="list-style: none; padding: 0; margin: 0;">
-              <li style="padding: var(--nz-space-1) 0; font-size: var(--nz-text-sm);">✦ Misión completa con wikilinks</li>
-              <li style="padding: var(--nz-space-1) 0; font-size: var(--nz-text-sm);">✦ Contexto rico y ejemplos</li>
-              <li style="padding: var(--nz-space-1) 0; font-size: var(--nz-text-sm);">✦ Mapa de conexiones entre agentes</li>
-              <li style="padding: var(--nz-space-1) 0; font-size: var(--nz-text-sm);">✦ Legible por humanos</li>
-              <li style="padding: var(--nz-space-1) 0; font-size: var(--nz-text-sm);">✦ Fuente de verdad</li>
-            </ul>
-          </div>
-          <div class="nz-card__footer">
-            <code style="font-size: 0.75rem; color: var(--nz-text-muted);">agents/XX-name.md</code>
-          </div>
-        </div>
-
-        <!-- Capa ejecutable -->
-        <div class="nz-card" style="border-left: 3px solid var(--nz-color-accent);">
-          <div class="nz-card__header" style="display: flex; justify-content: space-between; align-items: center;">
-            <h3 class="nz-text-h4" style="margin: 0;">⚙️ Capa Ejecutable</h3>
-            <span class="nz-badge nz-badge--accent">OpenCode</span>
-          </div>
-          <div class="nz-card__body">
-            <ul style="list-style: none; padding: 0; margin: 0;">
-              <li style="padding: var(--nz-space-1) 0; font-size: var(--nz-text-sm);">✦ YAML frontmatter (modelo, tools)</li>
-              <li style="padding: var(--nz-space-1) 0; font-size: var(--nz-text-sm);">✦ Instrucciones operativas mínimas</li>
-              <li style="padding: var(--nz-space-1) 0; font-size: var(--nz-text-sm);">✦ Referencia al doc Obsidian</li>
-              <li style="padding: var(--nz-space-1) 0; font-size: var(--nz-text-sm);">✦ Spec de output</li>
-              <li style="padding: var(--nz-space-1) 0; font-size: var(--nz-text-sm);">✦ Ejecutable por máquina</li>
-            </ul>
-          </div>
-          <div class="nz-card__footer">
-            <code style="font-size: 0.75rem; color: var(--nz-text-muted);">.opencode/agents/ntizar-XX.md</code>
-          </div>
-        </div>
-      </div>
-
-      <!-- Fórmula Ebbinghaus -->
-      <div class="nz-card" style="margin-top: var(--nz-space-4); text-align: center; border: 1px solid var(--nz-c-border);">
-        <div class="nz-card__body">
-          <h3 class="nz-text-h4" style="margin-bottom: var(--nz-space-2);">Decaimiento de Ebbinghaus</h3>
-          <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-bottom: var(--nz-space-2);">
-            Los aprendizajes se cargan bajo demanda, filtrados por relevancia Y decaimiento temporal.
-            Si R(t) &gt; 0.3, se incluye. Si no, se omite. Tu contexto siempre está optimizado.
-          </p>
-          <div class="ebbinghaus-eq">R(t) = a / (log(t+1))<sup>b</sup> + c</div>
-        </div>
-      </div>
-    </div>
-  </section>
+  
 
   <!-- ═══════════ CARACTERÍSTICAS ═══════════ -->
-  <section class="section-gap">
-    <div class="nz-container" style="max-width: 1100px; padding: 0 1.5rem;">
-      <div style="text-align: center; margin-bottom: var(--nz-space-5);">
-        <span class="nz-badge nz-badge--accent">Características</span>
-        <h2 class="nz-text-h2" style="margin-top: var(--nz-space-2);">Todo lo que necesitas.<br>Nada que no.</h2>
-      </div>
-
-      <div class="feature-grid">
-        <div class="nz-card nz-card--interactive">
-          <div class="nz-card__body">
-            <div style="font-size: 1.5rem; margin-bottom: var(--nz-space-1);">🧬</div>
-            <h3 class="nz-text-h4">Memoria Persistente</h3>
-            <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
-              Cada sesión archiva aprendizajes con metadatos de decaimiento.
-              La siguiente empieza más inteligente.
-            </p>
-          </div>
-        </div>
-
-        <div class="nz-card nz-card--interactive">
-          <div class="nz-card__body">
-            <div style="font-size: 1.5rem; margin-bottom: var(--nz-space-1);">🔀</div>
-            <h3 class="nz-text-h4">Multi-Modelo</h3>
-            <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
-              Opus para el crítico. Flash para sintetizar. Gemini para explorar.
-              Cada agente usa el mejor modelo para su rol.
-            </p>
-          </div>
-        </div>
-
-        <div class="nz-card nz-card--interactive">
-          <div class="nz-card__body">
-            <div style="font-size: 1.5rem; margin-bottom: var(--nz-space-1);">🛡️</div>
-            <h3 class="nz-text-h4">Crítico Adversarial</h3>
-            <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
-              Nunca se degrada. Si no puede ejecutar, omite.
-              La calidad no es negociable.
-            </p>
-          </div>
-        </div>
-
-        <div class="nz-card nz-card--interactive">
-          <div class="nz-card__body">
-            <div style="font-size: 1.5rem; margin-bottom: var(--nz-space-1);">📊</div>
-            <h3 class="nz-text-h4">3 Niveles Adaptativos</h3>
-            <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
-              Tareas simples: 2 agentes. Medias: 3-4.
-              Complejas: 5+ con flujo completo. Sin sobrecostes.
-            </p>
-          </div>
-        </div>
-
-        <div class="nz-card nz-card--interactive">
-          <div class="nz-card__body">
-            <div style="font-size: 1.5rem; margin-bottom: var(--nz-space-1);">🎯</div>
-            <h3 class="nz-text-h4">Human-in-the-Loop</h3>
-            <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
-              Checkpoints obligatorios. La IA propone modelos, el humano confirma.
-              Tú decides la arquitectura.
-            </p>
-          </div>
-        </div>
-
-        <div class="nz-card nz-card--interactive">
-          <div class="nz-card__body">
-            <div style="font-size: 1.5rem; margin-bottom: var(--nz-space-1);">⚡</div>
-            <h3 class="nz-text-h4">42% Menos Tokens</h3>
-            <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
-              Separación documental/ejecutable.
-              Carga inteligente por relevancia + decaimiento.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  
 
   <!-- ═══════════ INICIO RÁPIDO ═══════════ -->
   <section class="section-gap" id="inicio-rapido" style="background: var(--nz-surface-soft); margin: 0; padding: var(--nz-space-8) 0;">
@@ -605,7 +190,7 @@
             <div style="min-width: 0;">
               <h3 class="nz-text-h4">Abre con tu editor de agentes</h3>
               <div class="code-block" style="margin-top: var(--nz-space-1);">cd NtizarBrainMasterMind
-opencode .   # o tu IDE preferido</div>
+hermes .     # o tu IDE preferido</div>
             </div>
           </div>
         </div>
@@ -680,7 +265,7 @@ opencode .   # o tu IDE preferido</div>
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--nz-space-2); padding: var(--nz-space-3) 0;">
         <div style="display: flex; align-items: center; gap: var(--nz-space-2); flex-wrap: wrap;">
           <span style="font-weight: 600;">Ntizar Mastermind</span>
-          <span class="nz-badge nz-badge--neutral" style="font-size: 0.65rem;">v3.0</span>
+          <span class="nz-badge nz-badge--neutral" style="font-size: 0.65rem;">v4.0</span>
           <span class="nz-badge nz-badge--neutral" style="font-size: 0.65rem;">MIT License</span>
         </div>
         <div style="font-size: var(--nz-text-sm); color: var(--nz-text-muted);">

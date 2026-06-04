@@ -30,21 +30,16 @@ jobs:
           path: '.'
           exclude: |
             .git/
-            .opencode/
-            agents/
-            learning-platform/
-            design-system/
+            legacy/
             docs/
             assets/
-            scripts/
-            verify-system.bat
             verify-system.sh
             CONTRIBUTING.md
-            README.md
             README_EN.md
-            LICENSE
+            README.md
             CHANGELOG.md
-            skills/
+            LICENSE
+            .gitignore
 
       - name: Deploy to GitHub Pages
         id: deployment

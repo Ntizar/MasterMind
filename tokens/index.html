@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Token Tracker · Ntizar Mastermind</title>
+  <style>
+    /* === Aurora Design System (Constellation v5.1) — Tokens === */
+    :root {
+      --bg-deep: #0a0a0f;
+      --bg-surface: #12121a;
+      --bg-card: #1a1a26;
+      --bg-hover: #22223a;
+      --border: #2a2a3e;
+      --border-bright: #3a3a5e;
+      --text-primary: #e8e8f0;
+      --text-secondary: #999aab;
+      --text-muted: #6b6b80;
+      --accent: #6c5ce7;
+      --accent-alt: #a29bfe;
+      --accent-green: #00cec9;
+      --accent-orange: #fdcb6e;
+      --danger: #ff7675;
+      --glow-accent: rgba(108,92,231,0.12);
+      --radius: 10px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+
+    ::selection { background: var(--accent); color: var(--text-primary); }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* === Header === */
+    .header {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #fff;
+    }
+
+    .brand h1 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .brand small {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-bright);
+      padding: 0.4rem 0.9rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      display: inline-block;
+    }
+
+    /* === Main Container === */
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+      flex: 1;
+    }
+
+    /* === Stats Grid === */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1rem;
+      text-align: center;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .stat-card:hover {
+      border-color: var(--border-bright);
+      box-shadow: 0 0 20px var(--glow-accent);
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .stat-value.accent { color: var(--accent-alt); }
+    .stat-value.green { color: var(--accent-green); }
+    .stat-value.orange { color: var(--accent-orange); }
+    .stat-value.danger { color: var(--danger); }
+
+    .stat-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* === Section Title === */
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 1.2em;
+      background: linear-gradient(180deg, var(--accent), var(--accent-alt));
+      border-radius: 2px;
+      display: block;
+    }
+
+    /* === Bar Chart (CSS Pure) === */
+    .chart-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      overflow-x: auto;
+    }
+
+    .chart-title {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+    }
+
+    .bar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.6rem;
+      min-height: 200px;
+      padding-top: 1rem;
+    }
+
+    .bar-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 40px;
+    }
+
+    .bar {
+      width: 100%;
+      max-width: 48px;
+      border-radius: 4px 4px 0 0;
+      min-height: 4px;
+      transition: background 0.2s, opacity 0.2s;
+      position: relative;
+    }
+
+    .bar.input { background: linear-gradient(180deg, var(--accent), var(--accent-alt)); }
+    .bar.output { background: linear-gradient(180deg, var(--accent-green), #55efc4); }
+
+    .bar-label {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      text-align: center;
+      word-break: break-word;
+      max-width: 100%;
+      line-height: 1.2;
+    }
+
+    .bar-value {
+      font-size: 0.6rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.2rem;
+    }
+
+    .chart-legend {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .legend-swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+    }
+
+    .legend-swatch.input { background: linear-gradient(180deg, var(--accent), var(--accent-alt)); }
+    .legend-swatch.output { background: linear-gradient(180deg, var(--accent-green), #55efc4); }
+
+    /* === Table === */
+    .table-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 0.75rem 0.6rem;
+      font-weight: 600;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    tbody td {
+      padding: 0.7rem 0.6rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+
+    tbody tr:hover {
+      background: var(--bg-hover);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .task-desc {
+      color: var(--text-primary);
+      font-weight: 400;
+      max-width: 280px;
+    }
+
+    .token-num {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 0.8rem;
+      color: var(--text-primary);
+    }
+
+    .cost-num {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 0.8rem;
+      color: var(--accent-green);
+    }
+
+    .model-badge {
+      display: inline-block;
+      background: var(--bg-hover);
+      border: 1px solid var(--border);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-family: monospace;
+      color: var(--accent-alt);
+    }
+
+    .date-cell {
+      white-space: nowrap;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .total-row td {
+      font-weight: 600;
+      border-top: 2px solid var(--border-bright);
+      color: var(--text-primary);
+      background: var(--bg-hover);
+    }
+
+    .total-row .token-num,
+    .total-row .cost-num {
+      font-weight: 700;
+    }
+
+    /* === Info Box === */
+    .info-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-bottom: 2rem;
+      border-left: 3px solid var(--accent);
+    }
+
+    .info-box p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .info-box strong {
+      color: var(--text-primary);
+    }
+
+    .info-box code {
+      background: var(--bg-hover);
+      border: 1px solid var(--border);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      color: var(--accent-alt);
+    }
+
+    /* === Pricing Table === */
+    .pricing-table {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    .pricing-item {
+      background: var(--bg-hover);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+    }
+
+    .pricing-model {
+      font-family: monospace;
+      font-size: 0.8rem;
+      color: var(--accent-alt);
+      font-weight: 600;
+    }
+
+    .pricing-detail {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* === Footer === */
+    .footer {
+      border-top: 1px solid var(--border);
+      background: var(--bg-surface);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    .footer p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .footer .heart {
+      color: var(--danger);
+      display: inline-block;
+    }
+
+    /* === Responsive === */
+    @media (max-width: 768px) {
+      .header { padding: 1rem; }
+      .brand h1 { font-size: 1.1rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+      .stat-value { font-size: 1.4rem; }
+      .bar-chart { min-height: 150px; gap: 0.4rem; }
+      .bar-group { min-width: 30px; }
+      table { font-size: 0.75rem; }
+      thead th, tbody td { padding: 0.5rem 0.4rem; }
+      .task-desc { max-width: 140px; }
+      .chart-wrapper, .table-wrapper { padding: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .bar-group { min-width: 24px; }
+      .bar-label { font-size: 0.55rem; }
+      .task-desc { max-width: 100px; }
+      .header-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* === Scrollbar === */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-deep); }
+    ::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-icon">♾</div>
+        <div>
+          <h1>Token Tracker</h1>
+          <small>Ntizar Mastermind · Control de costes</small>
+        </div>
+      </div>
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        NaN.builders · qwen3.6 / deepseek-v4-flash
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== MAIN ========== -->
+  <main class="container">
+
+    <!-- Stats Cards -->
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-card">
+        <div class="stat-label">Sesiones</div>
+        <div class="stat-value" id="totalSessions">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Tokens totales</div>
+        <div class="stat-value accent" id="totalTokens">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Coste total</div>
+        <div class="stat-value green" id="totalCost">—</div>
+        <div class="stat-sub">USD estimado</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Coste medio / sesión</div>
+        <div class="stat-value orange" id="avgCost">—</div>
+        <div class="stat-sub">USD</div>
+      </div>
+    </div>
+
+    <!-- Bar Chart -->
+    <div class="chart-wrapper">
+      <div class="section-title">Tokens por sesión</div>
+      <div class="chart-title">Input (violeta) · Output (verde) · Lectura rápida de consumo</div>
+      <div class="bar-chart" id="barChart"></div>
+      <div class="chart-legend">
+        <div class="legend-item">
+          <span class="legend-swatch input"></span> Input
+        </div>
+        <div class="legend-item">
+          <span class="legend-swatch output"></span> Output
+        </div>
+      </div>
+    </div>
+
+    <!-- Sessions Table -->
+    <div class="section-title">Historial de sesiones</div>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Descripción</th>
+            <th>Modelo</th>
+            <th>Input</th>
+            <th>Output</th>
+            <th>Total</th>
+            <th>Coste (USD)</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Info: Pricing & Rules -->
+    <div class="info-box">
+      <p>
+        <strong>📊 ¿Cómo se calcula?</strong> Los precios son estimaciones basadas en los costes de <strong>NaN.builders</strong>
+        (api.nan.builders/v1). Actualmente:
+      </p>
+      <div class="pricing-table">
+        <div class="pricing-item">
+          <div class="pricing-model">qwen3.6 / deepseek-v4-flash</div>
+          <div class="pricing-detail">~$0.50 / 1M input · ~$0.50 / 1M output</div>
+        </div>
+      </div>
+      <p style="margin-top:0.75rem;">
+        <strong>⚙️ Tracking automático:</strong> Koldo registra cada tarea compleja (&gt;3 tool calls) en
+        <code>/hermes-home/tokens/tokens-log.json</code> al finalizarla.
+        Los valores de tokens son estimados cuando la API no devuelve metadatos exactos.
+      </p>
+    </div>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <p>Hecho con <span class="heart">❤</span> por David Antizar</p>
+  </footer>
+
+  <!-- ========== STATIC DATA SCRIPT ========== -->
+  <script>
+    (function () {
+      // DATOS EMBEBIDOS — tokens-log.json inline
+      var ENTRIES = [
+        {
+          "date": "2026-06-04T06:43:00Z",
+          "session_id": "sesion-inicial",
+          "task": "Sesión inicial de auditoría del sistema — revisión de skills, salud del sistema y directrices",
+          "model": "deepseek-v4-flash",
+          "input_tokens": 350000,
+          "output_tokens": 7300,
+          "total_tokens": 357300,
+          "cost_estimate_usd": 0.179,
+          "provider": "nan.builders"
+        },
+        {
+          "date": "2026-06-04T06:43:00Z",
+          "session_id": "token-tracking-setup",
+          "task": "Creación del sistema de tracking de tokens: skill token-tracking, log JSON, dashboard HTML y actualización de SOUL.md",
+          "model": "deepseek-v4-flash",
+          "input_tokens": 50000,
+          "output_tokens": 4000,
+          "total_tokens": 54000,
+          "cost_estimate_usd": 0.027,
+          "provider": "nan.builders"
+        }
+      ];
+
+      // Normalize dates for display
+      function formatDate(iso) {
+        var d = new Date(iso);
+        var dd = String(d.getUTCDate()).padStart(2, '0');
+        var mm = String(d.getUTCMonth() + 1).padStart(2, '0');
+        var yyyy = d.getUTCFullYear();
+        var hh = String(d.getUTCHours()).padStart(2, '0');
+        var mi = String(d.getUTCMinutes()).padStart(2, '0');
+        return dd + '/' + mm + '/' + yyyy + ' ' + hh + ':' + mi;
+      }
+
+      function formatTokens(n) {
+        if (n >= 1000000) return (n / 1000000).toFixed(2) + 'M';
+        if (n >= 1000) return (n / 1000).toFixed(1) + 'K';
+        return String(n);
+      }
+
+      function formatCost(n) {
+        return '$' + n.toFixed(3);
+      }
+
+      // Compute totals
+      var totalInput = 0, totalOutput = 0, totalTokens = 0, totalCost = 0;
+      for (var i = 0; i < ENTRIES.length; i++) {
+        var e = ENTRIES[i];
+        totalInput += e.input_tokens || 0;
+        totalOutput += e.output_tokens || 0;
+        totalTokens += e.total_tokens || 0;
+        totalCost += e.cost_estimate_usd || 0;
+      }
+      var avgCost = ENTRIES.length > 0 ? totalCost / ENTRIES.length : 0;
+
+      // Stats cards
+      document.getElementById('totalSessions').textContent = ENTRIES.length;
+      document.getElementById('totalTokens').textContent = formatTokens(totalTokens);
+      document.getElementById('totalCost').textContent = formatCost(totalCost);
+      document.getElementById('avgCost').textContent = formatCost(avgCost);
+
+      // Bar chart — find max for scaling
+      var maxInput = 0;
+      for (var i = 0; i < ENTRIES.length; i++) {
+        if (ENTRIES[i].input_tokens > maxInput) maxInput = ENTRIES[i].input_tokens;
+      }
+      // We want the chart max to be ~120% of max input for visual balance
+      var chartMax = maxInput * 1.2;
+      if (chartMax < 10000) chartMax = 10000;
+
+      var barChart = document.getElementById('barChart');
+      barChart.innerHTML = '';
+      for (var i = 0; i < ENTRIES.length; i++) {
+        var e = ENTRIES[i];
+        var inputPct = (e.input_tokens / chartMax) * 180;
+        var outputPct = (e.output_tokens / chartMax) * 180;
+        if (inputPct < 4) inputPct = 4;
+        if (outputPct < 4) outputPct = 4;
+
+        var group = document.createElement('div');
+        group.className = 'bar-group';
+
+        // Input bar
+        var inputVal = document.createElement('div');
+        inputVal.className = 'bar-value';
+        inputVal.textContent = formatTokens(e.input_tokens);
+        var inputBar = document.createElement('div');
+        inputBar.className = 'bar input';
+        inputBar.style.height = inputPct + 'px';
+
+        // Output bar
+        var outputVal = document.createElement('div');
+        outputVal.className = 'bar-value';
+        outputVal.textContent = formatTokens(e.output_tokens);
+        var outputBar = document.createElement('div');
+        outputBar.className = 'bar output';
+        outputBar.style.height = outputPct + 'px';
+
+        var label = document.createElement('div');
+        label.className = 'bar-label';
+        label.textContent = 'S' + (i + 1);
+
+        group.appendChild(inputVal);
+        group.appendChild(inputBar);
+        group.appendChild(outputVal);
+        group.appendChild(outputBar);
+        group.appendChild(label);
+        barChart.appendChild(group);
+      }
+
+      // Table body
+      var tbody = document.getElementById('tableBody');
+      tbody.innerHTML = '';
+      for (var i = 0; i < ENTRIES.length; i++) {
+        var e = ENTRIES[i];
+        var tr = document.createElement('tr');
+        tr.innerHTML =
+          '<td class="date-cell">' + formatDate(e.date) + '</td>' +
+          '<td class="task-desc">' + e.task + '</td>' +
+          '<td><span class="model-badge">' + e.model + '</span></td>' +
+          '<td><span class="token-num">' + formatTokens(e.input_tokens) + '</span></td>' +
+          '<td><span class="token-num">' + formatTokens(e.output_tokens) + '</span></td>' +
+          '<td><span class="token-num">' + formatTokens(e.total_tokens) + '</span></td>' +
+          '<td><span class="cost-num">' + formatCost(e.cost_estimate_usd) + '</span></td>';
+        tbody.appendChild(tr);
+      }
+
+      // Total row
+      var totalTr = document.createElement('tr');
+      totalTr.className = 'total-row';
+      totalTr.innerHTML =
+        '<td colspan="2"><strong>Total acumulado</strong></td>' +
+        '<td></td>' +
+        '<td><span class="token-num">' + formatTokens(totalInput) + '</span></td>' +
+        '<td><span class="token-num">' + formatTokens(totalOutput) + '</span></td>' +
+        '<td><span class="token-num">' + formatTokens(totalTokens) + '</span></td>' +
+        '<td><span class="cost-num">' + formatCost(totalCost) + '</span></td>';
+      tbody.appendChild(totalTr);
+    })();
+  </script>
+</body>
+</html>

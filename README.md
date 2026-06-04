@@ -11,7 +11,6 @@
 <p align="center">
   <a href="https://ntizar.github.io/NtizarBrainMasterMind/">🌐 Web</a> ·
   <a href="#inicio-rápido">Inicio Rápido</a> ·
-  <a href="docs/ARCHITECTURE.md">Arquitectura</a> ·
   <a href="#roadmap">Roadmap</a> ·
   <a href="README_EN.md">English</a>
 </p>
@@ -144,46 +143,34 @@ Tarea: "Refactoriza el frontend del dashboard"
 
 ```
 NtizarBrainMasterMind/
-├── SOUL.md              ← Orquestador (Koldo) + principios
-├── AGENTS.md            ← Arquitectura y niveles de ejecución
-├── SKILLS-INDEX.md      ← Índice de skills especializados por dominio
-├── human-loop-control/  ← Sistema de control y human loop
+├── SOUL.md              ← Orquestador (Koldo) + principios + reglas
+├── AGENTS.md            ← Referencia rápida de arquitectura y niveles
+├── CHANGELOG.md         ← Historial de cambios
+├── CONTRIBUTING.md      ← Guía para contribuir
+├── LICENSE              ← Licencia MIT
+├── README.md            ← Este archivo
+├── README_EN.md         ← Versión en inglés
 ├── legacy/              ← v3.1 (Obsidian+OpenCode) — referencia
 │   ├── agents/          ← 11 agentes documentales legacy
 │   ├── .opencode/       ← 11 agentes ejecutables legacy
 │   └── skills/          ← 15 skills propios legacy
-├── projects/            ← Proyectos activos
-├── notes/               ← Notas de sesión
 ├── docs/                ← Documentación técnica
 ├── design-system/       ← Aurora Design System
 ├── learning-platform/   ← Brain Academy
-└── assets/              ← Recursos estáticos
+└── assets/              ← Recursos estáticos (banners, imágenes)
 ```
 
----
-
-## Migración v3.1 → v4.0
-
-| v3.1 (Legacy) | v4.0 (Actual) |
-|---|---|
-| 11 agentes OpenCode | 1 orquestador + 143 skills especializados |
-| Obsidian vault | GitHub repo (Markdown plano) |
-| OpenCode Task tool | `delegate_task` nativo |
-| Ebbinghaus decay manual | `memory` + `session_search` |
-| 15 skills propios | 143 skills Hermes |
-| 2 capas (docs+exec) | 1 capa (GitHub) |
-| 4 comandos slash | 0 comandos (lenguaje natural) |
-| 221 archivos | 136 archivos |
+**Nota:** Los 143 skills especializados viven en `/hermes-home/skills/` (sistema nativo de Hermes Agent), no en el repositorio de GitHub.
 
 ---
 
 ## Roadmap
 
-- [ ] Migrar aprendizajes valiosos de `legacy/` a `memory` + `notes/`
+- [ ] Migrar aprendizajes valiosos de `legacy/` a `memory` + `docs/`
 - [ ] Crear skill `deployment-gate` para validación antes de deploy
-- [ ] Actualizar SOUL.md con reglas del human loop
-- [ ] Eliminar branches `master` (quedar solo `main`)
-- [ ] Actualizar GitHub Pages workflow
+- [ ] Eliminar branch `master` (quedar solo `main`)
+- [ ] Implementar tracking de tokens y costes por sesión
+- [ ] Explorar CDN Aurora Design System con tag de versión en lugar de `@master`
 
 ---
 
@@ -194,4 +181,4 @@ MIT License — David Antizar
 ---
 
 **Hecho con (L) por David Antizar**  
-**v4.0.0 — 2026-06-03**
+**v4.0.0 — 2026-06-04**

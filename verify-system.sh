@@ -43,7 +43,6 @@ echo ""
 
 echo "📦 Documentation"
 check_dir "docs"
-check_file "docs/ARCHITECTURE.md"
 check_file "CONTRIBUTING.md"
 echo ""
 

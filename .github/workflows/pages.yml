@@ -34,7 +34,6 @@ jobs:
             docs/
             assets/
             verify-system.sh
-            verify-system.bat
             CONTRIBUTING.md
             README_EN.md
             README.md

@@ -1,23 +1,26 @@
-# Ntizar Mastermind v4.0 — Sistema de Agentes
+# Ntizar Mastermind v4.0 — Referencia Rápida de Arquitectura
 
-> **Un orquestador, muchos especialistas.** Koldo clasifica, carga skills del dominio, y delega con `delegate_task`.
+> **Un orquestador (Koldo) + 143 skills especializados.**
+> Para reglas completas y principios del sistema, consultar **SOUL.md**.
 
 ---
 
-## Arquitectura
+## Diagrama de Flujo
 
 ```
-Koldo (SOUL.md)
-  │
-  ├── Clasifica tarea → dominio + complejidad
-  ├── Carga skills del dominio relevante
-  └── Decide: directo o delegate_task
+Tarea del usuario
+       │
+       ▼
+Koldo (orquestador)
+  ├── Clasifica → dominio + complejidad (1-4)
+  ├── Carga skills del dominio vía skill_view()
+  └── Decide nivel de ejecución
         │
         ▼
   delegate_task → Subagente especializado
         │
         ▼
-  Koldo integra y verifica
+  Koldo integra, verifica y presenta resultado
 ```
 
 ## Niveles de Ejecución
@@ -45,22 +48,20 @@ Koldo (SOUL.md)
 
 | Dominio | Skills | Cuándo usar |
 |---------|--------|-------------|
-| **Software** | 17 skills | Código, refactor, debug, testing |
-| **GitHub** | 7 skills | PRs, issues, repo management |
-| **Frontend** | 3 skills | Dashboards, Aurora CSS |
-| **Backend** | 6 skills | APIs, ESM, fetch paralelo |
-| **Infra** | 6 skills | Docker, seguridad, cache, HTTP |
-| **DevOps** | 10 skills | Deploy NaN, cron jobs, pipelines |
-| **Data Science** | 8 skills | Simuladores, Monte Carlo |
-| **Creative** | 22 skills | Diagramas, ASCII, diseño |
+| **Software** | 17 | Código, refactor, debug, testing |
+| **GitHub** | 7 | PRs, issues, repo management |
+| **Frontend** | 3 | Dashboards, Aurora CSS |
+| **Backend** | 6 | APIs, ESM, fetch paralelo |
+| **Infra** | 6 | Docker, seguridad, cache, HTTP |
+| **DevOps** | 10 | Deploy NaN, cron jobs, pipelines |
+| **Data Science** | 8 | Simuladores, Monte Carlo |
+| **Creative** | 22 | Diagramas, ASCII, diseño |
 
 ### 🗄️ Archivo (LOW) — Solo si el usuario los pide
 
-Skills nicho que solo se cargan explícitamente.
+Skills nicho que solo se cargan explícitamente (70 skills en categorías como visión, MLops, STEM, media, etc.).
 
-## Human Loop
-
-### Cuándo activar
+## Human Loop — Cuándo activar
 
 | Criterio | Acción |
 |----------|--------|
@@ -68,36 +69,13 @@ Skills nicho que solo se cargan explícitamente.
 | Decisiones de arquitectura | Human loop obligatorio |
 | Deploy a producción | Human loop obligatorio |
 | Migraciones | Human loop obligatorio |
+| Usuario lo solicita | Human loop obligatorio |
 
-### Patrón
-
-```
-1. PLANIFICAR → presentar diffs/plan
-2. ESPERAR → ✅ o feedback
-3. IMPLEMENTAR → ejecutar con diffs visibles
-4. ESPERAR → ✅ o feedback
-5. SINTEZAR → presentar resultado
-6. ESPERAR → ✅ para archivar
-```
-
-## Migración desde v3.1
-
-| v3.1 Legacy | v4.0 Actual |
-|---|---|
-| 11 agentes OpenCode | 1 orquestador + 143 skills especializados |
-| Obsidian vault | GitHub repo (Markdown plano) |
-| OpenCode Task tool | `delegate_task` nativo |
-| Ebbinghaus decay manual | `memory` + `session_search` |
-| 15 skills propios | 143 skills Hermes |
-| 2 capas (docs+exec) | 1 capa (GitHub) |
-| 4 comandos slash | 0 comandos (lenguaje natural) |
-
-## Legacy
-
-El sistema v3.1 (Obsidian+OpenCode) se ha movido a `legacy/`. No se ejecuta, solo se mantiene como referencia.
+**Patrón:** Planificar → Esperar ✅ → Implementar → Esperar ✅ → Sintetizar → Esperar ✅
 
 ---
 
-**Autor:** David Antizar  
-**Versión:** 4.0.0  
-**Fecha:** 2026-06-03
+> Para reglas completas, principios del sistema y configuración del orquestador, consultar **[SOUL.md](SOUL.md)**.
+
+**Hecho con (L) por David Antizar**  
+**v4.0.0 — 2026-06-04**

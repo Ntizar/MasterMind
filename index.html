@@ -5,8 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ntizar Mastermind — Orquestación Multi-Agente con Memoria Persistente</title>
   <meta name="description" content="Framework open-source de orquestación multi-agente con 1 orquestador + 143 skills especializados, memoria persistente y deploy en la nube. Tu IA que realmente recuerda.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 
-  <!-- Aurora Core -->
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ntizar Mastermind — Orquestación Multi-Agente con Memoria Persistente">
+  <meta property="og:description" content="1 orquestador + 143 skills especializados + memoria persistente. Framework open-source que ejecuta en Hermes Agent sobre NaN.builders.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/Ntizar/NtizarBrainMasterMind/main/assets/banner.svg">
+  <meta property="og:url" content="https://ntizar.github.io/NtizarBrainMasterMind/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ntizar Mastermind — Tu IA que realmente recuerda">
+  <meta name="twitter:description" content="Framework open-source de orquestación multi-agente. 1 orquestador, 143 skills, memoria persistente.">
+
+  <!-- Aurora Core (sin releases — usar @latest) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@latest/ntizar.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@latest/ntizar.next.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@latest/ntizar.data.css">
@@ -104,6 +115,38 @@
     .section-gap { padding: var(--nz-space-8) 0; }
     @media (max-width: 640px) { .section-gap { padding: var(--nz-space-5) 0; } }
 
+    /* Card hover — lift + shadow */
+    .nz-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .nz-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+
+    /* Fade-in up animation */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .anim-fade-in { opacity: 0; }
+    .anim-fade-in.visible { animation: fadeInUp 0.5s ease forwards; }
+
+    /* Staggered reveal */
+    .anim-stagger > * { opacity: 0; }
+    .anim-stagger.visible > *:nth-child(1) { animation: fadeInUp 0.4s 0.0s ease forwards; }
+    .anim-stagger.visible > *:nth-child(2) { animation: fadeInUp 0.4s 0.1s ease forwards; }
+    .anim-stagger.visible > *:nth-child(3) { animation: fadeInUp 0.4s 0.2s ease forwards; }
+    .anim-stagger.visible > *:nth-child(4) { animation: fadeInUp 0.4s 0.3s ease forwards; }
+
+    /* Stat pulse on hover */
+    .stat-item { transition: transform 0.2s ease; cursor: default; }
+    .stat-item:hover { transform: scale(1.08); }
+
+    /* Evolution cards */
+    .evo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--nz-space-3); }
+    .evo-item { display: flex; gap: var(--nz-space-2); align-items: flex-start; }
+    .evo-icon { font-size: 1.5rem; min-width: 2rem; text-align: center; }
+    .evo-text h4 { font-size: var(--nz-text-sm); font-weight: 600; margin-bottom: var(--nz-space-1); }
+    .evo-text p { font-size: var(--nz-text-xs); color: var(--nz-text-muted); margin: 0; }
+    .evo-before { color: var(--nz-text-muted); text-decoration: line-through; font-size: var(--nz-text-xs); }
+    .evo-after { color: var(--nz-color-success, #22c55e); font-weight: 600; font-size: var(--nz-text-xs); }
+
     /* Comparison table — scroll on mobile */
     .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .comparison-table { width: 100%; border-collapse: collapse; min-width: 500px; }
@@ -140,9 +183,9 @@
       </div>
       <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('is-open')" aria-label="Menú">☰</button>
       <div class="nav-links">
-        <a href="#agentes" class="nz-btn nz-btn--ghost" style="font-size: 0.85rem;">Agentes</a>
-        <a href="#arquitectura" class="nz-btn nz-btn--ghost" style="font-size: 0.85rem;">Arquitectura</a>
+        <a href="#agentes" class="nz-btn nz-btn--ghost" style="font-size: 0.85rem;">Características</a>
         <a href="#inicio-rapido" class="nz-btn nz-btn--ghost" style="font-size: 0.85rem;">Inicio rápido</a>
+        <a href="tokens/" class="nz-btn nz-btn--ghost" style="font-size: 0.85rem;">Tokens</a>
         <a href="https://github.com/Ntizar/NtizarBrainMasterMind" class="nz-btn nz-btn--primary" style="font-size: 0.85rem;">GitHub ↗</a>
       </div>
     </div>
@@ -161,20 +204,20 @@
         <strong style="color: var(--nz-text-default);">143 skills especializados</strong> y <strong style="color: var(--nz-text-default);">memoria persistente</strong>.
         Diseñado para la comunidad nan.builders.
       </p>
-      <div class="stat-row" style="margin-bottom: var(--nz-space-5);">
-        <div style="text-align: center;">
+      <div class="stat-row anim-stagger" style="margin-bottom: var(--nz-space-5);">
+        <div class="stat-item" style="text-align: center;">
           <div style="font-size: 1.8rem; font-weight: 700; color: var(--nz-color-accent);">1</div>
           <div style="font-size: var(--nz-text-xs); color: var(--nz-text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Orquestador</div>
         </div>
-        <div style="text-align: center;">
+        <div class="stat-item" style="text-align: center;">
           <div style="font-size: 1.8rem; font-weight: 700; color: var(--nz-color-accent);">143</div>
           <div style="font-size: var(--nz-text-xs); color: var(--nz-text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Skills</div>
         </div>
-        <div style="text-align: center;">
+        <div class="stat-item" style="text-align: center;">
           <div style="font-size: 1.8rem; font-weight: 700; color: var(--nz-color-accent);">8</div>
           <div style="font-size: var(--nz-text-xs); color: var(--nz-text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Dominios</div>
         </div>
-        <div style="text-align: center;">
+        <div class="stat-item" style="text-align: center;">
           <div style="font-size: 1.8rem; font-weight: 700; color: var(--nz-color-accent);">∞</div>
           <div style="font-size: var(--nz-text-xs); color: var(--nz-text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Memoria</div>
         </div>
@@ -342,6 +385,79 @@ hermes .     # o tu IDE preferido</div>
     </div>
   </section>
 
+  <!-- ═══════════ EVOLUCIÓN v3→v4 ═══════════ -->
+  <section class="section-gap" style="background: var(--nz-surface-soft); margin: 0; padding: var(--nz-space-8) 0;">
+    <div class="nz-container" style="max-width: 900px; padding: 0 1.5rem;">
+      <div style="text-align: center; margin-bottom: var(--nz-space-5);">
+        <span class="nz-badge nz-badge--accent">Evolución</span>
+        <h2 class="nz-text-h2" style="margin-top: var(--nz-space-2);">
+          <span class="nz-gradient-text">Lo que cambió de v3 a v4</span>
+        </h2>
+        <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
+          De un agente monolítico a un ecosistema modular con 143 skills reutilizables.
+        </p>
+      </div>
+
+      <div class="evo-grid">
+        <!-- Arquitectura -->
+        <div class="nz-card">
+          <div class="nz-card__body">
+            <div class="evo-item">
+              <div class="evo-icon">🏗️</div>
+              <div class="evo-text">
+                <h4>Arquitectura</h4>
+                <p><span class="evo-before">SOUL.md monolítico (900+ líneas)</span></p>
+                <p><span class="evo-after">SOUL.md orquestador + 143 skills modulares</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Memoria -->
+        <div class="nz-card">
+          <div class="nz-card__body">
+            <div class="evo-item">
+              <div class="evo-icon">🧠</div>
+              <div class="evo-text">
+                <h4>Memoria</h4>
+                <p><span class="evo-before">Decaimiento Ebbinghaus (5 niveles)</span></p>
+                <p><span class="evo-after">memory + skills + session_search (3 capas)</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Routing -->
+        <div class="nz-card">
+          <div class="nz-card__body">
+            <div class="evo-item">
+              <div class="evo-icon">🔀</div>
+              <div class="evo-text">
+                <h4>Routing</h4>
+                <p><span class="evo-before">Routing por modelo (flash/preferred)</span></p>
+                <p><span class="evo-after">Routing por dominio y complejidad</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deploy -->
+        <div class="nz-card">
+          <div class="nz-card__body">
+            <div class="evo-item">
+              <div class="evo-icon">☁️</div>
+              <div class="evo-text">
+                <h4>Deploy</h4>
+                <p><span class="evo-before">Local / dependiente del host</span></p>
+                <p><span class="evo-after">NaN.builders MicroVM + GitHub Pages</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══════════ CTA FINAL ═══════════ -->
   <section class="section-gap" style="text-align: center; position: relative; overflow: hidden;">
     <div class="nz-aurora-mesh nz-aurora-mesh--animated" style="position: absolute; inset: 0; z-index: 0; opacity: 0.4;"></div>
@@ -361,14 +477,20 @@ hermes .     # o tu IDE preferido</div>
   <!-- ═══════════ FOOTER ═══════════ -->
   <footer style="border-top: 1px solid var(--nz-c-border-light);">
     <div class="nz-container" style="max-width: 1100px; padding: 0 1.5rem;">
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--nz-space-2); padding: var(--nz-space-3) 0;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--nz-space-3); padding: var(--nz-space-4) 0;">
         <div style="display: flex; align-items: center; gap: var(--nz-space-2); flex-wrap: wrap;">
           <span style="font-weight: 600;">Ntizar Mastermind</span>
           <span class="nz-badge nz-badge--neutral" style="font-size: 0.65rem;">v4.0</span>
           <span class="nz-badge nz-badge--neutral" style="font-size: 0.65rem;">MIT License</span>
         </div>
-        <div style="font-size: var(--nz-text-sm); color: var(--nz-text-muted);">
-          Hecho con <span style="color: var(--nz-color-accent);">♡</span> por <strong>David Antizar</strong>
+        <nav style="display: flex; gap: var(--nz-space-3); flex-wrap: wrap;">
+          <a href="https://github.com/Ntizar/NtizarBrainMasterMind" style="font-size: var(--nz-text-sm); color: var(--nz-text-muted); text-decoration: none;">GitHub</a>
+          <a href="https://github.com/Ntizar/NtizarBrainMasterMind/blob/main/CONTRIBUTING.md" style="font-size: var(--nz-text-sm); color: var(--nz-text-muted); text-decoration: none;">Contribuir</a>
+          <a href="https://github.com/Ntizar/NtizarBrainMasterMind/issues" style="font-size: var(--nz-text-sm); color: var(--nz-text-muted); text-decoration: none;">Issues</a>
+          <a href="tokens/" style="font-size: var(--nz-text-sm); color: var(--nz-text-muted); text-decoration: none;">Dashboard Tokens</a>
+        </nav>
+        <div style="font-size: var(--nz-text-sm); color: var(--nz-text-muted); width: 100%; text-align: center; padding-top: var(--nz-space-2); border-top: 1px solid var(--nz-c-border-light);">
+          Hecho con <span style="color: var(--nz-color-accent);">❤️</span> por <strong>David Antizar</strong>
         </div>
       </div>
     </div>
@@ -376,16 +498,16 @@ hermes .     # o tu IDE preferido</div>
 
   <!-- ═══════════ SCROLL REVEAL ═══════════ -->
   <script>
-    // Reveal on scroll
-    const reveals = document.querySelectorAll('.nz-card, .nz-kpi');
+    // Reveal on scroll — cards, stats, evolution items
+    const reveals = document.querySelectorAll('.nz-card, .nz-kpi, .anim-fade-in, .anim-stagger');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
-          e.target.classList.add('nz-anim-fade-in');
+          e.target.classList.add('visible');
           observer.unobserve(e.target);
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.15 });
     reveals.forEach(el => observer.observe(el));
 
     // Smooth scroll + close mobile nav

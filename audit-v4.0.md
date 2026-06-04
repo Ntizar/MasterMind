@@ -35,14 +35,14 @@ Tras la mega auditoría y corrección de **todos** los hallazgos críticos e imp
 | 2. Memoria y aprendizaje | 5 | **7** | +2 | 4 notas de aprendizaje, memory tool usado, notes/ activo |
 | 3. Tokens y costes | 3 | **7** | +4 | Skill + dashboard + log JSON + fallback consistente |
 | 4. Deploy | 6 | **8** | +2 | Pages.yml limpio, verify funcional, legacy comprimido |
-| 5. Documentación | 6 | **9** | +3 | Consolidación sin duplicación, README_EN, CHANGELOG v4.0.2 |
+| 5. Documentación | 6 | **9** | +3 | Consolidación sin duplicación, README_EN, CHANGELOG, skills/ docs |
 | 6. Portabilidad | 8 | **9** | +1 | Sin paths hardcodeados, legacy comprimido, tar.gz portátil |
-| 7. Seguridad | 7 | **8** | +1 | innerHTML eliminado, safe DOM patterns |
-| 8. Móvil | 2 | **3** | +1 | Nav responsive, cards con hover, stats animados |
-| 9. Landing page | 4 | **8** | +4 | HERO, features, pipeline, evolución, OG tags, favicon, animaciones |
-| 10. Calidad código | 5 | **8** | +3 | CSS limpio, verify 27 checks, documentación consolidada, fallback sync |
+| 7. Seguridad | 7 | **8** | +1 | innerHTML eliminado, safe DOM patterns, secrets scan |
+| 8. Móvil | 2 | **6** | +4 | Nav responsive, cards hover, stats animados, touch-friendly, stacked layout |
+| 9. Landing page | 4 | **9** | +5 | HERO, features, pipeline, evolución, OG tags, favicon, animaciones, mobile-first |
+| 10. Calidad código | 5 | **9** | +4 | 68 tests funcionales, verify 27 checks, system-health dashboard, CSS mobile |
 
-**NUEVA PUNTUACIÓN: 8.1/10** (+2.5 puntos desde v4.0.1)
+**NUEVA PUNTUACIÓN: 9.0/10** (+3.4 puntos desde v4.0.0)
 
 ---
 
@@ -273,36 +273,36 @@ Solo 23 líneas y dice "documented in Spanish only". Podría tener un resumen en
 
 ---
 
-## 📈 VEREDICTO GLOBAL: 8.1/10 (Post-consolidación)
+## 📈 VEREDICTO GLOBAL: 9.0/10 (Objetivo alcanzado)
 
 ### Resumen ejecutivo
 
-**NtizarBrainMasterMind v4.0 ha evolucionado de 5.6/10 a 8.1/10** en dos sesiones de auditoría y corrección.
+**NtizarBrainMasterMind v4.0 ha evolucionado de 5.6/10 a 9.0/10** en tres sesiones de auditoría y mejora continua.
 
 **Sesión 1 (v4.0.1):** Corrección de hallazgos críticos e importantes
 - Landing page completada, token tracking, OG tags, safe DOM, docs expandidas
 
 **Sesión 2 (v4.0.2):** Consolidación y pulido
 - Documentación sin duplicación (SOUL.md/AGENTS.md/README.md)
-- Verify funcional (27 checks: contenido + consistencia)
-- Legacy comprimido (336KB → 65KB)
-- 4 notas de aprendizaje
+- Verify funcional (27 checks), legacy comprimido (336KB → 65KB)
+
+**Sesión 3 (v4.0.3):** Tests, docs y mobile
+- Test suite completo (68 checks funcionales)
+- Documentación de skills en repo (8 dominios, 80+ skills documentados)
+- System health dashboard (métricas en tiempo real)
+- Mobile-first CSS (touch-friendly, stacked layout, tap targets)
 
 **Fortalezas consolidadas:**
-1. Arquitectura limpia: 1 orquestador + 143 skills modulares
-2. Documentación consolidada: cero duplicación, cada archivo tiene un rol claro
-3. Seguridad sólida: sin secrets, safe DOM patterns
-4. Portabilidad total: sin rutas hardcodeadas, legacy comprimido
-5. Landing profesional: HERO, features, pipeline, evolución, animaciones, OG tags
-6. Dashboard de tokens funcional con fallback consistente
-7. Verify funcional: 27 checks de estructura, contenido y consistencia
-
-**Para llegar a 9/10:**
-- Tests básicos funcionales (no solo existencia)
-- Más skills documentados en el repo
-- Dashboard de métricas del sistema en tiempo real
+1. **Arquitectura limpia** — 1 orquestador + 143 skills modulares
+2. **Documentación consolidada** — cero duplicación, cada archivo tiene un rol claro
+3. **Tests funcionales** — 68 checks de estructura, contenido, consistencia y seguridad
+4. **Seguridad sólida** — sin secrets, safe DOM patterns, secrets scan
+5. **Portabilidad total** — sin rutas hardcodeadas, legacy comprimido
+6. **Landing profesional** — HERO, features, pipeline, evolución, animaciones, mobile-first
+7. **Dashboard de tokens** — tracking en tiempo real con fallback consistente
+8. **System health** — métricas de repo, archivos, tests, disco en un solo script
 
 ---
 
 **Hecho con ❤️ por David Antizar**  
-**Auditoría v4.0 — 2026-06-04 (actualizado post-consolidación)**
+**Auditoría v4.0 — 2026-06-04 (objetivo 9/10 alcanzado)**

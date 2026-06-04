@@ -170,6 +170,47 @@
     /* Rules list */
     .rules-list { padding-left: var(--nz-space-3); margin: 0; }
     .rules-list li { padding: var(--nz-space-1) 0; font-size: var(--nz-text-sm); }
+
+    /* ═══ Mobile-specific improvements ═══ */
+
+    /* Hero mobile */
+    @media (max-width: 640px) {
+      .hero-brain { font-size: clamp(2rem, 10vw, 3rem); }
+      .stat-row { gap: var(--nz-space-3); }
+      .stat-item > div:first-child { font-size: 1.4rem; }
+    }
+
+    /* Feature grid mobile — stack */
+    @media (max-width: 480px) {
+      .feature-grid { grid-template-columns: 1fr; }
+      .evo-grid { grid-template-columns: 1fr; }
+      .flow-line { font-size: var(--nz-text-xs); }
+      .flow-line span { padding: var(--nz-space-1); }
+    }
+
+    /* Evolution cards mobile */
+    @media (max-width: 640px) {
+      .evo-item { gap: var(--nz-space-1); }
+      .evo-icon { font-size: 1.2rem; min-width: 1.5rem; }
+    }
+
+    /* CTA buttons mobile — full width */
+    @media (max-width: 480px) {
+      .nz-btn--lg { width: 100%; text-align: center; }
+    }
+
+    /* Footer mobile — stack */
+    @media (max-width: 640px) {
+      footer .nz-container > div { flex-direction: column; text-align: center; }
+      footer nav { justify-content: center; }
+    }
+
+    /* Touch-friendly tap targets */
+    @media (hover: none) {
+      .nz-card:hover { transform: none; box-shadow: none; }
+      .stat-item:hover { transform: none; }
+      .nz-btn { min-height: 44px; }
+    }
   </style>
 </head>
 <body class="nz" data-nz-theme="light" data-nz-skin="aurora" data-nz-shape="default" data-nz-density="comfortable" data-nz-color-system="oklch">

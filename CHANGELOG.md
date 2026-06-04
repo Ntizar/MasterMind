@@ -4,6 +4,19 @@ Todos los cambios notables de este proyecto se documentan aquí.
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es/1.1.0/) y el proyecto usa [Semantic Versioning](https://semver.org/lang/es/).
 
+## [4.0.3] — 2026-06-04
+
+### ✨ Añadido
+- **`test-suite.sh`** — 68 tests funcionales: estructura, contenido, consistencia, seguridad, links
+- **`skills/README.md`** — Documentación de los 8 dominios y 80+ skills del sistema
+- **`system-health.sh`** — Dashboard de salud: git, archivos, docs, tokens, tests, disco
+- **Mobile-first CSS** — touch-friendly, stacked layout, tap targets 44px, responsive hero
+
+### 🔄 Cambiado
+- **`verify-system.sh`** — De 11 a 27 checks (contenido + consistencia + JSON válido)
+- **Mobile experience** — Hero, feature grid, evolution cards, CTA buttons, footer optimizados para táctil
+- **audit-v4.0.md** — Puntuación final: 9.0/10 (+3.4 desde v4.0.0)
+
 ## [4.0.2] — 2026-06-04
 
 ### ✨ Añadido

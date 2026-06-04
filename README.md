@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="assets/banner.svg" alt="Ntizar Mastermind" width="800"/>
-</p>
-
 <h1 align="center">Ntizar Mastermind</h1>
 
 <p align="center">

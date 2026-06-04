@@ -1,86 +1,53 @@
-# Contributing to Ntizar Mastermind
+# Cómo contribuir a Ntizar Mastermind
 
-First off, thanks for considering contributing to Ntizar Mastermind. This project thrives on community input.
+Gracias por querer contribuir. Este proyecto es un sistema de orquestación multi-agente que se ejecuta en **Hermes Agent** sobre **NaN.builders** con **GitHub** como repositorio.
 
-## How Can I Contribute?
+## 🧠 ¿Cómo funciona?
 
-### 1. New Skills
+El sistema tiene 1 orquestador (Koldo) que clasifica tareas y delega a 143 skills especializados por dominio. Todo está documentado en Markdown plano en este repo.
 
-Skills are domain-specific playbooks that agents load when relevant. To create a new skill:
+## 📦 Añadir un skill
 
-1. Copy `agents/skills/template-skill.md`
-2. Fill in the domain, phases, decision matrix, rules, patterns, and anti-patterns
-3. Register it in `agents/skills/_index.md`
-4. Submit a PR with the skill file + updated index
+Los skills son playbooks especializados que Koldo carga bajo demanda. Para crear uno:
 
-**Good skill candidates:** DevOps, data science, mobile development, content writing, project management, API design, testing strategies, etc.
+1. Escribe el skill en formato `SKILL.md` con YAML frontmatter
+2. Míralo a `/hermes-home/skills/<categoria>/<nombre>/`
+3. Si el dominio es nuevo, regístralo en la prioridad de carga
 
-### 2. Agent Optimizations
+**Buenos candidatos:** DevOps, data science, testing, diseño, análisis de datos, etc.
 
-The agent prompts in `.opencode/agents/` and `agents/` can always be improved:
+## 🔧 Mejorar documentación
 
-- Better classification accuracy
-- Smarter flow selection
-- More efficient token usage
-- Clearer output formats
+- **SOUL.md** — orquestador principal, reglas, principios
+- **AGENTS.md** — arquitectura, niveles de ejecución
+- **README.md** — visión general del proyecto
 
-### 3. Learning Platform
+## 🐛 Reportar bugs
 
-The learning platform (`learning-platform/`) needs:
+Abre un issue en GitHub describiendo:
+- Qué esperabas que pasara
+- Qué pasó realmente
+- Contexto (modelo, sesión, tarea)
 
-- Content improvements and corrections
-- New interactive examples
-- Accessibility improvements
-- Translations (currently Spanish-only)
-- Mobile responsiveness fixes
+## 🌐 Entorno
 
-### 4. Documentation
+- **Modelo:** qwen3.6 vía NaN (api.nan.builders/v1)
+- **Infra:** MicroVM 1vCPU/2GB/20GB, NaN.builders
+- **Repositorio:** GitHub (https://github.com/Ntizar/NtizarBrainMasterMind)
+- **Framework:** Hermes Agent
+- **Lenguaje:** Español (castellano)
 
-- Tutorials and how-to guides
-- Video walkthroughs
-- Use case examples
-- Translation of docs
+## 📝 Guías
 
-### 5. MCP Integration (v3.1)
+- TODO en castellano — NUNCA inglés en repos, scripts, cron, informes
+- Cambios >5 archivos → human loop (presentar plan, esperar ✅)
+- Nunca borrar del repo — solo crear o modificar
+- Cada aprendizaje importante → commit al repo
 
-This is the next major milestone. If you have experience with:
+## ❓ Preguntas
 
-- Model Context Protocol (MCP)
-- Multi-agent communication patterns
-- Token optimization strategies
-- Streaming/parallel execution
+Abre un issue o empieza una discusión. Estamos aquí para ayudarte.
 
-We'd love your input on the architecture.
+---
 
-## Development Setup
-
-1. Clone the repo
-2. Open as an Obsidian vault
-3. Configure OpenCode with your API keys
-4. Run `verify-system.bat` to confirm everything is in place
-5. Use `/ntizar-start` to boot the system
-
-## Pull Request Process
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/my-new-skill`)
-3. Make your changes
-4. Test that the system still boots correctly (`verify-system.bat`)
-5. Update relevant documentation
-6. Submit a PR with a clear description of what changed and why
-
-## Guidelines
-
-- **Keep the two-layer architecture** -- changes to agent behavior should update both the Obsidian doc (`agents/`) and the OpenCode config (`.opencode/agents/`)
-- **No duplication** -- the executable layer references the documental layer, not the other way around
-- **Test your changes** -- run at least one full task cycle through the system
-- **Follow existing patterns** -- look at how current skills, learnings, and templates are structured before creating new ones
-- **Document decay types** -- if adding learnings, assign appropriate decay types with reasoning
-
-## Code of Conduct
-
-Be respectful, constructive, and focused on making the system better. We're all here to learn.
-
-## Questions?
-
-Open an issue or start a discussion. We're happy to help you get started.
+**Hecho con (L) por David Antizar**

@@ -1,83 +1,75 @@
 # CHANGELOG
 
-All notable changes to this project will be documented in this file.
+Todos los cambios notables de este proyecto se documentan aquí.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+El formato sigue [Keep a Changelog](https://keepachangelog.com/es/1.1.0/) y el proyecto usa [Semantic Versioning](https://semver.org/lang/es/).
 
 ## [4.0.0] — 2026-06-03
 
 ### 🎯 Breaking Changes
-- **Migrated from OpenCode+Obsidian to Hermes Agent+GitHub** — the entire system now runs on Hermes native tools
-- **11 generic agents → 1 orchestrator + 143 specialized skills** — domain-based specialization replaces role-playing agents
-- **All OpenCode configs moved to `legacy/`** — `.opencode/`, `agents/`, `skills/` now under `legacy/` (reference only, not executed)
+- **Migrado de OpenCode+Obsidian a Hermes Agent+GitHub** — todo el sistema funciona ahora con herramientas nativas de Hermes
+- **11 agentes genéricos → 1 orquestador + 143 skills especializados** — especialización por dominio reemplaza agentes de rol
+- **Todo OpenCode movido a `legacy/`** — `.opencode/`, `agents/`, `skills/` ahora bajo `legacy/` (solo referencia, no se ejecuta)
 
-### ✨ Added
-- **`SOUL.md`** — Single orchestrator definition with principles, architecture, and rules
-- **`AGENTS.md`** — System overview with execution levels and specialization model
-- **`skills/SKILLS-INDEX.md`** — Complete index of 143 Hermes skills organized by domain with priority levels
-- **`human-loop-control` skill** — Approval gate system for critical changes (>5 files, architecture decisions, production deploy)
-- **Domain-based specialization model** — 8 skill domains (software, github, frontend, backend, infra, devops, data-science, creative) with HIGH/MEDIUM/LOW priority loading
-- **`legacy/README.md`** — Documentation explaining the legacy v3.1 system
+### ✨ Añadido
+- **`SOUL.md`** — Definición del orquestador único con principios, arquitectura y reglas
+- **`AGENTS.md`** — Visión general con niveles de ejecución y modelo de especialización
+- **`skills/SKILLS-INDEX.md`** — Índice completo de 143 skills Hermes organizados por dominio con prioridades
+- **`human-loop-control` skill** — Sistema de puertas de aprobación para cambios críticos (>5 archivos, decisiones de arquitectura, deploy a producción)
+- **Modelo de especialización por dominio** — 8 dominios de skills (software, github, frontend, backend, infra, devops, data-science, creative) con carga HIGH/MEDIUM/LOW
+- **`legacy/README.md`** — Documentación del sistema legacy v3.1
 
-### 🔄 Changed
-- **221 files → 136 files** — 108 legacy + 28 new
-- **2 layers (docs+exec) → 1 layer (GitHub Markdown)** — no more Obsidian wikilinks or OpenCode YAML
-- **Ebbinghaus decay manual → Hermes `memory` + `session_search`** — native persistence
-- **15 skills propios → 143 skills Hermes** — loaded on-demand by domain
-- **4 slash commands → language natural** — Koldo understands natural language
-- **Multi-model per agent → single model (qwen3.6)** — simplified model management
-- **README.md** — updated for v4.0 with comparison tables
-- **`docs/ARCHITECTURE.md`** — complete rewrite with specialization model, human loop, memory system
+### 🔄 Cambiado
+- **221 archivos → 136 archivos** — 108 legacy + 28 nuevos
+- **2 capas (docs+exec) → 1 capa (GitHub Markdown)** — sin wikilinks de Obsidian ni YAML de OpenCode
+- **Ebbinghaus decay manual → Hermes `memory` + `session_search`** — persistencia nativa
+- **15 skills propios → 143 skills Hermes** — carga bajo demanda por dominio
+- **4 comandos slash → lenguaje natural** — Koldo entiende lenguaje natural
+- **Multi-modelo por agente → modelo único (qwen3.6)** — gestión de modelos simplificada
+- **README.md** — actualizado para v4.0 con tablas comparativas
+- **docs/ARCHITECTURE.md** — reescrito completo con modelo de especialización, human loop, sistema de memoria
+- **index.html** — landing page actualizada a v4.0 (1 orquestador + 143 skills, sin referencias a v3.x)
 
-### 🗑️ Removed
-- **OpenCode dependency** — no more `.opencode/agents/` or `.opencode/commands/` in active code
-- **Obsidian dependency** — no more `agents/` with wikilinks in active code
-- **Ebbinghaus decay system** — replaced by Hermes native memory
-- **Classifier subagent** — classification integrated in Koldo (already was in v3)
-- **Spec-Writer subagent** — specs integrated into `delegate_task` goal
-- **Planner subagent** — planning integrated in Koldo's decision process
+### 🗑️ Eliminado
+- **Dependencia de OpenCode** — sin `.opencode/agents/` ni `.opencode/commands/` en código activo
+- **Dependencia de Obsidian** — sin `agents/` con wikilinks en código activo
+- **Sistema de Ebbinghaus decay** — reemplazado por memoria nativa de Hermes
+- **Clasificador subagente** — clasificación integrada en Koldo
+- **Spec-Writer subagente** — specs integradas en `delegate_task` goal
+- **Planificador subagente** — planificación integrada en decisión de Koldo
 
-### 📊 Migration Summary
+### 📊 Resumen de Migración
 
-| Aspect | v3.1 | v4.0 |
-|--------|------|------|
-| Platform | OpenCode + Obsidian | Hermes Agent + GitHub |
-| Agents | 11 generic | 1 orchestrator + 143 specialized |
+| Aspecto | v3.1 | v4.0 |
+|---------|------|------|
+| Plataforma | OpenCode + Obsidian | Hermes Agent + GitHub |
+| Agentes | 11 genéricos | 1 orquestador + 143 especializados |
 | Skills | 15 propios | 143 Hermes (carga bajo demanda) |
 | Memoria | Ebbinghaus manual | `memory` + `session_search` |
 | Archivos | 221 (2 capas) | 136 (1 capa) |
 | Comandos | 4 slash | 0 (lenguaje natural) |
-| Modelos | Multi-modelo manual | qwen3.6 único |
+
+## [3.1.0] — 2026-03-26
+
+### ✨ Añadido
+- Sistema multi-agente completo con 11 agentes y 4 comandos slash
+- Memoria con decaimiento de Ebbinghaus
+- Routing de modelos por tarea
+- GitHub Pages con landing page
+
+### 🔄 Cambiado
+- Migración de carpeta local a repositorio GitHub
+- README en español como idioma principal
+- SVG banner desde design system
+
+### 🗑️ Eliminado
+- Dependencia de GitHub CLI (gh)
+- Autenticación SSH → token HTTPS
+- Scripts Windows (verify-system.bat, start.bat)
 
 ---
 
-## [3.0.0] — 2026-03-26
-
-### Added
-- **Multi-agent real architecture** — 11 agents with OpenCode Task tool delegation
-- **Two-layer architecture** — `agents/` (Obsidian docs) + `.opencode/agents/` (executable configs)
-- **Ebbinghaus decay memory** — `R(t) = a/(log(t+1))^b + c` with 4 decay types
-- **Multi-model routing** — each agent can use a different model
-- **Classifier integrated** into orchestrator (needs full conversation context)
-- **Brain Academy v3.0** — learning platform with 2 profiles, 6 modules, gamification
-- **Design System** — Liquid Glass CSS (1,379 lines)
-- **GitHub Pages** — automated deploy via Actions
-- **Landing page** — Aurora Design System with mesh gradients and glassmorphism
-- **32 learnings** — indexed with decay, relevance signals, on-demand loading
-- **4 domain skills** — software-dev, dashboard-dev, web-deploy, pwa-android
-- **7 knowledge clusters** — dynamic, growing organically
-- **5 project hubs** — montecarlo, nap-dashboard, caedelcielo, medvisit, learning-platform
-- **12 system rules** — consolidated from 13 cycles of real use
-- **README.md** — professional with badges, comparison table, agent list
-- **README_EN.md** — English version
-- **CONTRIBUTING.md** — contribution guide
-- **verify-system.bat** — Windows verification script
-
-### Changed
-- Migrated from v2 (role-playing) to v3 (real OpenCode subagents)
-- 42% reduction in executable layer tokens via two-layer architecture
-- Classifier merged into orchestrator (needs full conversation context)
-
-### Fixed
-- Multiple structural gaps from v1/v2 identified and documented in learnings
+**Autor:** David Antizar
+**Versión:** 4.0.0
+**Fecha:** 2026-06-04
+**Stack:** Hermes Agent + NaN.builders + GitHub

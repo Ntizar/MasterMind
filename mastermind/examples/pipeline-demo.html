@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏭 Micro-Crons Pipeline - Demo Interactiva</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+        
+        .pipeline-visual {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        
+        .pipeline-stages {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .stage {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 0.75rem;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .stage.active {
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+            transform: scale(1.05);
+        }
+        
+        .stage.completed {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.1);
+        }
+        
+        .stage.pending {
+            border-color: #64748b;
+            opacity: 0.6;
+        }
+        
+        .stage-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stage-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .stage-desc {
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+        
+        .arrow {
+            font-size: 1.5rem;
+            color: #3b82f6;
+            flex-shrink: 0;
+        }
+        
+        .project-status {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-top: 0.25rem;
+        }
+        
+        .tasks-list {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            border-left: 4px solid transparent;
+        }
+        
+        .task-item.pending { border-left-color: #64748b; }
+        .task-item.active { border-left-color: #3b82f6; }
+        .task-item.completed { border-left-color: #22c55e; }
+        
+        .task-status {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        .task-item.pending .task-status { background: #64748b; }
+        .task-item.active .task-status { background: #3b82f6; animation: pulse 2s infinite; }
+        .task-item.completed .task-status { background: #22c55e; }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .task-content { flex: 1; }
+        .task-title { font-weight: 500; }
+        .task-meta { font-size: 0.8rem; color: #94a3b8; }
+        
+        .demo-controls {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 0.5rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(100, 116, 139, 0.3);
+            color: #e2e8f0;
+            border: 1px solid #64748b;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(100, 116, 139, 0.5);
+        }
+        
+        .console-output {
+            background: #0f172a;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.85rem;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #334155;
+        }
+        
+        .console-line {
+            margin-bottom: 0.25rem;
+        }
+        
+        .console-line.info { color: #60a5fa; }
+        .console-line.success { color: #4ade80; }
+        .console-line.warning { color: #fbbf24; }
+        .console-line.error { color: #f87171; }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+            color: #64748b;
+        }
+        
+        @media (max-width: 768px) {
+            .pipeline-stages {
+                flex-direction: column;
+            }
+            
+            .arrow {
+                transform: rotate(90deg);
+            }
+            
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏭 Micro-Crons Pipeline</h1>
+            <p class="subtitle">Línea de Montaje de Proyectos con Cron Jobs Automatizados</p>
+        </header>
+        
+        <section class="pipeline-visual">
+            <h2 style="text-align: center; margin-bottom: 1rem;">Flujo del Pipeline</h2>
+            
+            <div class="pipeline-stages">
+                <div class="stage completed" id="stage-plan">
+                    <div class="stage-icon">📝</div>
+                    <div class="stage-title">Planificación</div>
+                    <div class="stage-desc">Definir tareas y dependencias</div>
+                </div>
+                
+                <div class="arrow">→</div>
+                
+                <div class="stage active" id="stage-exec">
+                    <div class="stage-icon">⚙️</div>
+                    <div class="stage-title">Ejecución</div>
+                    <div class="stage-desc">Cron maestro procesa tareas</div>
+                </div>
+                
+                <div class="arrow">→</div>
+                
+                <div class="stage pending" id="stage-review">
+                    <div class="stage-icon">🔍</div>
+                    <div class="stage-title">Validación</div>
+                    <div class="stage-desc">Revisar calidad del output</div>
+                </div>
+                
+                <div class="arrow">→</div>
+                
+                <div class="stage pending" id="stage-done">
+                    <div class="stage-icon">✅</div>
+                    <div class="stage-title">Completado</div>
+                    <div class="stage-desc">Proyecto terminado</div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="pipeline-visual">
+            <h2 style="margin-bottom: 1rem;">📊 Estado del Proyecto: mi-dashboard</h2>
+            
+            <div class="project-status">
+                <div class="stat-card">
+                    <div class="stat-value" id="completed-count">2</div>
+                    <div class="stat-label">Completadas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="active-count">1</div>
+                    <div class="stat-label">En Progreso</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="pending-count">3</div>
+                    <div class="stat-label">Pendientes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="progress-pct">33%</div>
+                    <div class="stat-label">Progreso Total</div>
+                </div>
+            </div>
+            
+            <div class="tasks-list" id="tasks-container">
+                <!-- Las tareas se llenan dinámicamente -->
+            </div>
+        </section>
+        
+        <section class="demo-controls">
+            <button class="btn btn-primary" onclick="ejecutarIteracion()">
+                ▶️ Ejecutar Siguiente Iteración
+            </button>
+            <button class="btn btn-secondary" onclick="resetDemo()">
+                🔄 Reset Demo
+            </button>
+        </section>
+        
+        <div class="console-output" id="console">
+            <div class="console-line info">ℹ️ Pipeline inicializado. Esperando acción del usuario...</div>
+        </div>
+        
+        <footer>
+            <p>Hecho con ❤️ por David Antizar</p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">v1.0.0 - Micro-Crons Pipeline</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Estado del proyecto
+        const proyecto = {
+            nombre: "mi-dashboard",
+            tareas: [
+                {
+                    id: "task-001",
+                    titulo: "Estructura HTML base",
+                    estado: "done",
+                    prioridad: "alta"
+                },
+                {
+                    id: "task-002",
+                    titulo: "CSS con variables y reset",
+                    estado: "done",
+                    prioridad: "alta"
+                },
+                {
+                    id: "task-003",
+                    titulo: "Componente gráfico Chart.js",
+                    estado: "active",
+                    prioridad: "media"
+                },
+                {
+                    id: "task-004",
+                    titulo: "Sistema de notificaciones",
+                    estado: "pending",
+                    prioridad: "baja"
+                },
+                {
+                    id: "task-005",
+                    titulo: "Exportar a PDF",
+                    estado: "pending",
+                    prioridad: "baja"
+                },
+                {
+                    id: "task-006",
+                    titulo: "Documentación y README",
+                    estado: "pending",
+                    prioridad: "baja"
+                }
+            ]
+        };
+        
+        // Inicializar
+        function init() {
+            renderTasks();
+            updateStats();
+        }
+        
+        // Renderizar tareas
+        function renderTasks() {
+            const container = document.getElementById('tasks-container');
+            container.innerHTML = proyecto.tareas.map(task => `
+                <div class="task-item ${task.estado}">
+                    <div class="task-status">
+                        ${task.estado === 'done' ? '✓' : task.estado === 'active' ? '◉' : '○'}
+                    </div>
+                    <div class="task-content">
+                        <div class="task-title">${task.titulo}</div>
+                        <div class="task-meta">${task.id} • Prioridad: ${task.prioridad}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Actualizar estadísticas
+        function updateStats() {
+            const done = proyecto.tareas.filter(t => t.estado === 'done').length;
+            const active = proyecto.tareas.filter(t => t.estado === 'active').length;
+            const pending = proyecto.tareas.filter(t => t.estado === 'pending').length;
+            const total = proyecto.tareas.length;
+            const pct = Math.round((done / total) * 100);
+            
+            document.getElementById('completed-count').textContent = done;
+            document.getElementById('active-count').textContent = active;
+            document.getElementById('pending-count').textContent = pending;
+            document.getElementById('progress-pct').textContent = pct + '%';
+        }
+        
+        // Ejecutar iteración
+        function ejecutarIteracion() {
+            const console = document.getElementById('console');
+            
+            // Encontrar tarea activa
+            const activeTask = proyecto.tareas.find(t => t.estado === 'active');
+            
+            if (!activeTask) {
+                // Buscar siguiente tarea pending
+                const nextTask = proyecto.tareas.find(t => t.estado === 'pending');
+                if (nextTask) {
+                    nextTask.estado = 'active';
+                    addConsoleLine('info', `⏭️ Iniciando nueva tarea: ${nextTask.titulo}`);
+                } else {
+                    addConsoleLine('success', '🎉 ¡Proyecto completado! No hay más tareas pendientes.');
+                    return;
+                }
+            } else {
+                // "Completar" la tarea activa
+                addConsoleLine('info', `⚙️ Ejecutando: ${activeTask.titulo}...`);
+                
+                setTimeout(() => {
+                    activeTask.estado = 'done';
+                    addConsoleLine('success', `✅ Tarea completada: ${activeTask.titulo}`);
+                    
+                    // Iniciar siguiente
+                    const nextTask = proyecto.tareas.find(t => t.estado === 'pending');
+                    if (nextTask) {
+                        nextTask.estado = 'active';
+                        addConsoleLine('info', `▶️ Iniciando: ${nextTask.titulo}`);
+                    } else {
+                        addConsoleLine('success', '🎉 ¡Todas las tareas completadas!');
+                    }
+                    
+                    renderTasks();
+                    updateStats();
+                }, 1500);
+                
+                renderTasks();
+                return;
+            }
+            
+            renderTasks();
+            updateStats();
+        }
+        
+        // Agregar línea a consola
+        function addConsoleLine(type, text) {
+            const console = document.getElementById('console');
+            const line = document.createElement('div');
+            line.className = `console-line ${type}`;
+            line.textContent = text;
+            console.appendChild(line);
+            console.scrollTop = console.scrollHeight;
+        }
+        
+        // Reset demo
+        function resetDemo() {
+            proyecto.tareas[0].estado = 'done';
+            proyecto.tareas[1].estado = 'done';
+            proyecto.tareas[2].estado = 'active';
+            proyecto.tareas[3].estado = 'pending';
+            proyecto.tareas[4].estado = 'pending';
+            proyecto.tareas[5].estado = 'pending';
+            
+            document.getElementById('console').innerHTML = 
+                '<div class="console-line info">ℹ️ Pipeline reiniciado. Esperando acción del usuario...</div>';
+            
+            renderTasks();
+            updateStats();
+        }
+        
+        // Iniciar
+        init();
+    </script>
+</body>
+</html>

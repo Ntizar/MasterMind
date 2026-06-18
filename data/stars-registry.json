@@ -1,0 +1,972 @@
+{
+  "processed": {
+    "NousResearch/hermes-agent": {
+      "explored_at": "2026-06-16T10:54:11.951959+00:00",
+      "category": "pending",
+      "stars": 194892,
+      "language": "Python",
+      "skill_angles": [
+        "ci-cd-pipeline-patterns",
+        "voice-ai-integration"
+      ],
+      "skill_created": false
+    },
+    "microsoft/markitdown": {
+      "explored_at": "2026-06-16T10:54:17.100193+00:00",
+      "category": "pending",
+      "stars": 154380,
+      "language": "Python",
+      "skill_angles": [
+        "crm-erp-patterns",
+        "voice-ai-integration"
+      ],
+      "skill_created": false
+    },
+    "mattpocock/skills": {
+      "explored_at": "2026-06-16T10:58:09.929789+00:00",
+      "category": "reference",
+      "stars": 131117,
+      "language": "Shell",
+      "skill_angles": [
+        "pattern-architecture"
+      ],
+      "skill_created": false
+    },
+    "mrdoob/three.js": {
+      "explored_at": "2026-06-16T10:58:15.466166+00:00",
+      "category": "reference",
+      "stars": 113080,
+      "language": "JavaScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "harry0703/MoneyPrinterTurbo": {
+      "explored_at": "2026-06-16T10:58:21.902573+00:00",
+      "category": "pattern",
+      "stars": 88572,
+      "language": "Python",
+      "skill_angles": [
+        "geospatial-3d-visualization",
+        "voice-ai-integration"
+      ],
+      "skill_created": true
+    },
+    "3b1b/manim": {
+      "explored_at": "2026-06-16T11:05:47.144616+00:00",
+      "category": "skip",
+      "stars": 87658,
+      "language": "Python",
+      "skill_angles": [
+        "pattern-pipeline"
+      ],
+      "skill_created": false,
+      "reason": "Ya existe skill creative/manim-video (score 0.85) cubriendo el mismo patrón"
+    },
+    "twentyhq/twenty": {
+      "explored_at": "2026-06-16T11:05:53.529088+00:00",
+      "category": "skip",
+      "stars": 50093,
+      "language": "TypeScript",
+      "skill_angles": [
+        "ci-cd-pipeline-patterns",
+        "crm-erp-patterns"
+      ],
+      "skill_created": false,
+      "reason": "Ya existe mastermind/crm-erp-fullstack (score 0.79) cubriendo CRM/ERP"
+    },
+    "microsoft/VibeVoice": {
+      "explored_at": "2026-06-16T11:05:58.423324+00:00",
+      "category": "skip",
+      "stars": 49389,
+      "language": "Python",
+      "skill_angles": [
+        "voice-ai-integration"
+      ],
+      "skill_created": false,
+      "reason": "Ya existe media/voicebox (score 0.89) cubriendo TTS/STT/voice"
+    },
+    "metabase/metabase": {
+      "explored_at": "2026-06-16T11:06:50.907863+00:00",
+      "category": "pending",
+      "stars": 47695,
+      "language": "Clojure",
+      "skill_angles": [
+        "pattern-dashboard"
+      ],
+      "skill_created": false
+    },
+    "github/spec-kit": {
+      "explored_at": "2026-06-18T15:40:54.190587+00:00",
+      "category": "core",
+      "stars": 113789,
+      "language": "Python",
+      "skill_angles": [
+        "pattern-architecture"
+      ],
+      "skill_created": true,
+      "skill_name": "spec-driven-development"
+    },
+    "zohaibbashir/Google-Maps-Scrapper": {
+      "explored_at": "2026-06-18T16:12:43",
+      "category": "pending",
+      "stars": 1042,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "OpenCut-app/OpenCut": {
+      "explored_at": "2026-06-18T16:12:44",
+      "category": "pending",
+      "stars": 57059,
+      "language": "TypeScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "nihgni74-crypto/Wildfire-Monitor-Iberian-Peninsula": {
+      "explored_at": "2026-06-18T16:12:45",
+      "category": "pending",
+      "stars": 2,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "pmndrs/ecctrl": {
+      "explored_at": "2026-06-18T16:12:45",
+      "category": "pending",
+      "stars": 741,
+      "language": "TypeScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "lhapaipai/three-mini-map": {
+      "explored_at": "2026-06-18T16:12:46",
+      "category": "pending",
+      "stars": 15,
+      "language": "JavaScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "tentone/geo-three": {
+      "explored_at": "2026-06-18T16:12:47",
+      "category": "pending",
+      "stars": 937,
+      "language": "TypeScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "blaze33/map33.js": {
+      "explored_at": "2026-06-18T16:12:47",
+      "category": "pending",
+      "stars": 500,
+      "language": "JavaScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "songsummer920-dazzle/three-scope-map-skill": {
+      "explored_at": "2026-06-18T16:12:48",
+      "category": "pending",
+      "stars": 145,
+      "language": "Vue",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "lacrimae0rerum/cronicas-barbaras": {
+      "explored_at": "2026-06-18T16:12:49",
+      "category": "pending",
+      "stars": 1,
+      "language": "JavaScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "dgreenheck/ez-tree": {
+      "explored_at": "2026-06-18T16:12:49",
+      "category": "pending",
+      "stars": 1421,
+      "language": "JavaScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "google-research/timesfm": {
+      "explored_at": "2026-06-18T16:12:50",
+      "category": "domain",
+      "stars": 22681,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": true,
+      "skill_name": "timesfm-forecast"
+    },
+    "roboflow/rf-detr": {
+      "explored_at": "2026-06-18T16:12:51",
+      "category": "pending",
+      "stars": 7974,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "MattLeho/Three.js-London-Tube-Train-Model-Viewer": {
+      "explored_at": "2026-06-18T16:12:51",
+      "category": "pending",
+      "stars": 4,
+      "language": "HTML",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "visquill/visquill-lab": {
+      "explored_at": "2026-06-18T16:12:52",
+      "category": "pending",
+      "stars": 11,
+      "language": "TypeScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "microsoft/AirSim": {
+      "explored_at": "2026-06-18T16:12:53",
+      "category": "pending",
+      "stars": 18251,
+      "language": "C++",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "NVlabs/GR00T-WholeBodyControl": {
+      "explored_at": "2026-06-18T16:12:54",
+      "category": "pending",
+      "stars": 2562,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "swarm-subnet/sotapilot": {
+      "explored_at": "2026-06-18T16:12:55",
+      "category": "pending",
+      "stars": 17,
+      "language": null,
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "Panniantong/Agent-Reach": {
+      "explored_at": "2026-06-18T16:12:55",
+      "category": "pattern",
+      "stars": 34129,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": true,
+      "skill_name": "agent-reach"
+    },
+    "miguelfreb/ATOMCPDownloader": {
+      "explored_at": "2026-06-18T16:12:56",
+      "category": "pending",
+      "stars": 7,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "ioam/topographica": {
+      "explored_at": "2026-06-18T16:12:57",
+      "category": "pending",
+      "stars": 60,
+      "language": "Jupyter Notebook",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "IBM/topography-searcher": {
+      "explored_at": "2026-06-18T16:12:58",
+      "category": "pending",
+      "stars": 23,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "SFTtech/openage": {
+      "explored_at": "2026-06-18T16:12:58",
+      "category": "pending",
+      "stars": 14256,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "estevaofon/angry-birds-python": {
+      "explored_at": "2026-06-18T16:12:59",
+      "category": "pending",
+      "stars": 392,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "Trilarion/opensourcegames": {
+      "explored_at": "2026-06-18T16:13:00",
+      "category": "pending",
+      "stars": 983,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "opengeos/GeoLibre": {
+      "explored_at": "2026-06-18T16:13:00",
+      "category": "pending",
+      "stars": 962,
+      "language": "TypeScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "microsoft/presidio": {
+      "explored_at": "2026-06-18T16:13:01",
+      "category": "domain",
+      "stars": 8678,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": true,
+      "skill_name": "presidio-pii"
+    },
+    "queai-project/QueAI": {
+      "explored_at": "2026-06-18T16:13:02",
+      "category": "pending",
+      "stars": 17,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "karlhadwen/todoist": {
+      "explored_at": "2026-06-18T16:13:02",
+      "category": "pending",
+      "stars": 1395,
+      "language": "JavaScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "dannyconnell/qwitter": {
+      "explored_at": "2026-06-18T16:13:03",
+      "category": "pending",
+      "stars": 157,
+      "language": "Vue",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "GorvGoyl/Clone-Wars": {
+      "explored_at": "2026-06-18T16:13:04",
+      "category": "pending",
+      "stars": 35988,
+      "language": null,
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "AshishKumar4/FlyDreamer": {
+      "explored_at": "2026-06-18T16:13:05",
+      "category": "pending",
+      "stars": 16,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "owenyuwono/poseidon": {
+      "explored_at": "2026-06-18T16:13:06",
+      "category": "pending",
+      "stars": 50,
+      "language": "JavaScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "lvsantarosa/POSGRADO": {
+      "explored_at": "2026-06-18T16:13:06",
+      "category": "pending",
+      "stars": 6,
+      "language": "Jupyter Notebook",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "aipoch/medical-research-skills": {
+      "explored_at": "2026-06-18T16:13:07",
+      "category": "pending",
+      "stars": 1167,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "beltromatti/get-it": {
+      "explored_at": "2026-06-18T16:13:08",
+      "category": "pending",
+      "stars": 782,
+      "language": "JavaScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "roboflow/supervision": {
+      "explored_at": "2026-06-18T16:13:09",
+      "category": "pending",
+      "stars": 44585,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "Makisuo/maple": {
+      "explored_at": "2026-06-18T16:13:09",
+      "category": "pending",
+      "stars": 1451,
+      "language": "TypeScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "ni5arga/sightline": {
+      "explored_at": "2026-06-18T16:13:10",
+      "category": "pending",
+      "stars": 481,
+      "language": "TypeScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "Project-LINKS-mlitoss/LINKS-SOMA": {
+      "explored_at": "2026-06-18T16:13:11",
+      "category": "pending",
+      "stars": 23,
+      "language": "TypeScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "K-Dense-AI/science-superpowers": {
+      "explored_at": "2026-06-18T16:13:12",
+      "category": "pending",
+      "stars": 214,
+      "language": "Shell",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "supermemoryai/supermemory": {
+      "explored_at": "2026-06-18T16:13:12",
+      "category": "pending",
+      "stars": 27181,
+      "language": "TypeScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "pantaflex44/Tiquettes": {
+      "explored_at": "2026-06-18T16:13:13",
+      "category": "pending",
+      "stars": 123,
+      "language": "PHP",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "pixelx-jp/plateau-creative-mcp": {
+      "explored_at": "2026-06-18T16:13:14",
+      "category": "pending",
+      "stars": 30,
+      "language": "TypeScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "MaxMiksa/Auto-Company": {
+      "explored_at": "2026-06-18T16:13:14",
+      "category": "pending",
+      "stars": 1309,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "TrueRomanZe/IgniWise": {
+      "explored_at": "2026-06-18T16:13:15",
+      "category": "pending",
+      "stars": 2,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "NVlabs/Eagle": {
+      "explored_at": "2026-06-18T16:13:16",
+      "category": "pending",
+      "stars": 2626,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "LibreYOLO/libreyolo": {
+      "explored_at": "2026-06-18T16:13:17",
+      "category": "pending",
+      "stars": 384,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "Sage/jsurl": {
+      "explored_at": "2026-06-18T16:13:18",
+      "category": "pending",
+      "stars": 397,
+      "language": "JavaScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "computer-vision-with-marco/yolo-training-template": {
+      "explored_at": "2026-06-18T16:13:18",
+      "category": "pending",
+      "stars": 470,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "microsoft/qlib": {
+      "explored_at": "2026-06-18T16:14:34",
+      "category": "domain",
+      "stars": 44735,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": true,
+      "skill_name": "qlib-quant"
+    },
+    "NVIDIA/SkillSpector": {
+      "explored_at": "2026-06-18T16:14:34",
+      "category": "pending",
+      "stars": 7828,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "espocrm/espocrm": {
+      "explored_at": "2026-06-18T16:14:35",
+      "category": "pending",
+      "stars": 3060,
+      "language": "PHP",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "nocobase/nocobase": {
+      "explored_at": "2026-06-18T16:14:36",
+      "category": "domain",
+      "stars": 22999,
+      "language": "TypeScript",
+      "skill_angles": [],
+      "skill_created": true,
+      "skill_name": "nocobase-nocode-backend"
+    },
+    "hcengineering/platform": {
+      "explored_at": "2026-06-18T16:14:37",
+      "category": "domain",
+      "stars": 26228,
+      "language": "TypeScript",
+      "skill_angles": [],
+      "skill_created": true,
+      "skill_name": "huly-crm-erp-platform"
+    },
+    "SuiteCRM/SuiteCRM": {
+      "explored_at": "2026-06-18T16:14:38",
+      "category": "pending",
+      "stars": 5517,
+      "language": "PHP",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "stebiondi/pyCoastal": {
+      "explored_at": "2026-06-18T16:14:38",
+      "category": "pending",
+      "stars": 36,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "rcfdtools/R.HydroTools": {
+      "explored_at": "2026-06-18T16:14:39",
+      "category": "pending",
+      "stars": 26,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "gdfa-ugr/marinetools": {
+      "explored_at": "2026-06-18T16:14:40",
+      "category": "pending",
+      "stars": 3,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "run-llama/liteparse": {
+      "explored_at": "2026-06-18T16:14:40",
+      "category": "domain",
+      "stars": 10172,
+      "language": "Rust",
+      "skill_angles": [],
+      "skill_created": true,
+      "skill_name": "liteparse-document-ai-parsing"
+    },
+    "davidchicano/presuntamente": {
+      "explored_at": "2026-06-18T16:14:41",
+      "category": "pending",
+      "stars": 9,
+      "language": "Astro",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "shebinleo/pdf2html": {
+      "explored_at": "2026-06-18T16:14:42",
+      "category": "pending",
+      "stars": 208,
+      "language": "JavaScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "AbelVM/omt-router": {
+      "explored_at": "2026-06-18T16:14:42",
+      "category": "pending",
+      "stars": 28,
+      "language": "JavaScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "amir32002/3D_Street_View": {
+      "explored_at": "2026-06-18T16:14:43",
+      "category": "pending",
+      "stars": 510,
+      "language": null,
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "gabrielAHN/gtfs-viz": {
+      "explored_at": "2026-06-18T16:14:44",
+      "category": "pending",
+      "stars": 48,
+      "language": "TypeScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "MobilityData/awesome-transit": {
+      "explored_at": "2026-06-18T16:14:44",
+      "category": "pending",
+      "stars": 1780,
+      "language": null,
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "WRI-Cities/static-GTFS-manager": {
+      "explored_at": "2026-06-18T16:14:45",
+      "category": "pending",
+      "stars": 159,
+      "language": "JavaScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "WRI-Cities/payanam": {
+      "explored_at": "2026-06-18T16:14:46",
+      "category": "pending",
+      "stars": 17,
+      "language": "JavaScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "OneBusAway/onebusaway-gtfs-realtime-visualizer": {
+      "explored_at": "2026-06-18T16:14:47",
+      "category": "pending",
+      "stars": 68,
+      "language": "Java",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "fitomad/bicimad": {
+      "explored_at": "2026-06-18T16:14:47",
+      "category": "pending",
+      "stars": 4,
+      "language": "Swift",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "NangoHQ/nango": {
+      "explored_at": "2026-06-18T16:14:48",
+      "category": "pending",
+      "stars": 10642,
+      "language": "TypeScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "google/eng-practices": {
+      "explored_at": "2026-06-18T16:14:49",
+      "category": "pending",
+      "stars": 23261,
+      "language": null,
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "K-Dense-AI/scientific-agent-skills": {
+      "explored_at": "2026-06-18T16:14:49",
+      "category": "pending",
+      "stars": 28665,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "PINTO0309/PINTO_model_zoo": {
+      "explored_at": "2026-06-18T16:14:50",
+      "category": "pending",
+      "stars": 4445,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "acunap/praxis": {
+      "explored_at": "2026-06-18T16:14:51",
+      "category": "pending",
+      "stars": 3,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "munish0838/parali": {
+      "explored_at": "2026-06-18T16:14:51",
+      "category": "pending",
+      "stars": 4,
+      "language": "Jupyter Notebook",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "stablyai/orca": {
+      "explored_at": "2026-06-18T16:14:52",
+      "category": "pending",
+      "stars": 5314,
+      "language": "TypeScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "686f6c61/Workshop-IA-Agentes-Herramientas": {
+      "explored_at": "2026-06-18T16:14:53",
+      "category": "pending",
+      "stars": 39,
+      "language": "Astro",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "cporter202/API-mega-list": {
+      "explored_at": "2026-06-18T16:14:53",
+      "category": "pending",
+      "stars": 6666,
+      "language": "JavaScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "vasile/transit-map": {
+      "explored_at": "2026-06-18T16:14:54",
+      "category": "pending",
+      "stars": 372,
+      "language": "JavaScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "antoinelame/GazeTracking": {
+      "explored_at": "2026-06-18T16:14:55",
+      "category": "pending",
+      "stars": 2593,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "duy-phamduc68/TrafficLab-3D": {
+      "explored_at": "2026-06-18T16:14:56",
+      "category": "pending",
+      "stars": 311,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "Barath19/Boxer3D": {
+      "explored_at": "2026-06-18T16:14:56",
+      "category": "pending",
+      "stars": 401,
+      "language": "Swift",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "sparkyniner/DRISH-X-Satellite-powered-freight-intelligence-": {
+      "explored_at": "2026-06-18T16:14:57",
+      "category": "pending",
+      "stars": 270,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "htekdev/vidpipe": {
+      "explored_at": "2026-06-18T16:14:58",
+      "category": "pending",
+      "stars": 175,
+      "language": "TypeScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "alexpate/awesome-design-systems": {
+      "explored_at": "2026-06-18T16:14:58",
+      "category": "pending",
+      "stars": 25096,
+      "language": null,
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "orcunkok/AWS-Dem-Downloader": {
+      "explored_at": "2026-06-18T16:14:59",
+      "category": "pending",
+      "stars": 8,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "maptalks/maptalks.three": {
+      "explored_at": "2026-06-18T16:15:00",
+      "category": "pending",
+      "stars": 645,
+      "language": "HTML",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "Blaizzy/mlx-vlm": {
+      "explored_at": "2026-06-18T16:15:00",
+      "category": "pending",
+      "stars": 5070,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "ronvidev/modelo_lstm_lsp": {
+      "explored_at": "2026-06-18T16:15:01",
+      "category": "pending",
+      "stars": 30,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "NicAOB97/LSE-Detection": {
+      "explored_at": "2026-06-18T16:15:02",
+      "category": "pending",
+      "stars": 1,
+      "language": "Jupyter Notebook",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "DPhi-Space/SimSat": {
+      "explored_at": "2026-06-18T16:15:02",
+      "category": "pending",
+      "stars": 62,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "belubeluga/djturbo": {
+      "explored_at": "2026-06-18T16:15:03",
+      "category": "pending",
+      "stars": 7,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "KikeOnRails/YoloConteo": {
+      "explored_at": "2026-06-18T16:15:04",
+      "category": "pending",
+      "stars": 1,
+      "language": null,
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "XMihura/Kanvas": {
+      "explored_at": "2026-06-18T16:15:04",
+      "category": "pending",
+      "stars": 172,
+      "language": "JavaScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "c2g-dev/city2graph": {
+      "explored_at": "2026-06-18T16:15:05",
+      "category": "pending",
+      "stars": 1307,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "nagix/mini-tokyo-3d": {
+      "explored_at": "2026-06-18T16:15:06",
+      "category": "pending",
+      "stars": 4106,
+      "language": "JavaScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "nicolaswurtz/extras-opendata-sncf-reseau": {
+      "explored_at": "2026-06-18T16:15:06",
+      "category": "pending",
+      "stars": 47,
+      "language": null,
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "searchcraft-inc/searchcraft-client-php": {
+      "explored_at": "2026-06-18T16:15:07",
+      "category": "pending",
+      "stars": 15,
+      "language": "PHP",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "searchcraft-inc/searchcraft-mcp-server": {
+      "explored_at": "2026-06-18T16:15:08",
+      "category": "pending",
+      "stars": 8,
+      "language": "TypeScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "cristobal-GC/electriciPy_market": {
+      "explored_at": "2026-06-18T16:15:08",
+      "category": "pending",
+      "stars": 31,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "jamiepine/voicebox": {
+      "explored_at": "2026-06-18T16:15:09",
+      "category": "pending",
+      "stars": 30468,
+      "language": "TypeScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "PabloCastellano/libreborme": {
+      "explored_at": "2026-06-18T16:15:10",
+      "category": "pending",
+      "stars": 136,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "Aouei/remote-sensing-satellite-downloader": {
+      "explored_at": "2026-06-18T16:15:11",
+      "category": "pending",
+      "stars": 4,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "crystaldba/postgres-mcp": {
+      "explored_at": "2026-06-18T16:15:11",
+      "category": "pending",
+      "stars": 2932,
+      "language": "Python",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "Z1Code/glass-refraction": {
+      "explored_at": "2026-06-18T16:15:12",
+      "category": "pending",
+      "stars": 35,
+      "language": "TypeScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "BlinkTagInc/gtfs-to-html": {
+      "explored_at": "2026-06-18T16:15:13",
+      "category": "pending",
+      "stars": 225,
+      "language": "TypeScript",
+      "skill_angles": [],
+      "skill_created": false
+    }
+  },
+  "last_run": "2026-06-18T16:15:13",
+  "total_skills_created": 1,
+  "stats": {
+    "runs": 5,
+    "repos_explored": 116,
+    "skills_generated": 9
+  }
+}

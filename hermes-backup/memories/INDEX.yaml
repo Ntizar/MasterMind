@@ -1,0 +1,49 @@
+# Memory Index — Mastermind Structured Reference
+# Auto-synced with MEMORY.md and USER.md
+# Last updated: 2026-06-03
+
+memory:
+  infra:
+    - stack: qwen3.6 via NaN, MicroVM 1vCPU/2GB/20GB
+    - no_bind_port_80: NaN contenedor no-root
+    - browser_broken_nan: usar curl en *.apps.nan.builders
+    - hermes_reset_after_config: /reset tras cambiar config.yaml
+    - subagentes_timeout_9009: hacer directo patch/write_file
+
+  aurora:
+    - nightly: 4 jobs 01-04 UTC, custom/qwen3.6, skill aurora-nightly
+    - workflow: cargar INDEX.md + CHEATSHEET.md antes de HTML visual
+
+  esios:
+    - convert_function: convertEsiosValue() en esios-units.js
+    - time_trunc_hour: SUMA, no promedio
+    - buildSummary_recursive: NO, causa OOM
+    - charts_declaration: var charts = window.charts = {}
+    - sist_elect_futuro_v2: Ntizar/SistemaElectricoFuturo-v2 v2.0.2
+
+  skills:
+    - total: 144
+    - index: /hermes-home/skills/index.json
+    - scripts: generate-skill-index.sh, find-skills.sh
+    - mastermind_propios: 7 skills en mastermind/
+
+  pdf_pipeline:
+    - pipeline: PyMuPDF → HTML Aurora CDN → LinkedIn
+
+  lang:
+    - todo_castellano: repos, scripts, cron, informes
+
+user:
+  identity:
+    name: David Antizar
+    alias: Ntizar
+    agent_name: Mastermind
+    attribution: "Análisis por David Antizar"
+
+  preferences:
+    css: Aurora (azul#2563eb + naranja#f97316 + liquid glass)
+    tts: Álvaro (es-ES-AlvaroNeural)
+    stt: local
+    language: español tuteo informal
+    style: resumen chulo siempre
+    workflow: directo si simple, plan→aprobación si complejo

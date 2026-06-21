@@ -1,61 +1,87 @@
-# 🧪 Índice STEM — Ecosistema de Skills de Ciencias Básicas
+---
+name: STEM-INDEX
+version: "1.0.0"
+description: Índice maestro de todos los skills STEM del ecosistema Mastermind.
+---
 
-> **Mastermind** — Ecosistema completo de 10 skills STEM para el agente Hermes.
-> Todos los skills son autocontenidos, ejecutables y están en español.
+# Índice de Skills STEM
 
-## Bloque 1 — Matemáticas (4 skills)
+## Ecosistema completo — 10 skills en 3 bloques
 
-| # | Skill | Archivo | Tamaño | Líneas | Descripción |
-|---|-------|---------|--------|--------|-------------|
-| 1 | **Math Foundations** | `skill-math-foundations/SKILL.md` | 15 KB | 233 | Álgebra, geometría euclidiana, trigonometría, cálculo diferencial básico |
-| 2 | **Math Statistics** | `skill-math-statistics/SKILL.md` | 16 KB | 264 | Estadística descriptiva, probabilidad, distribuciones, inferencia |
-| 3 | **Math Linear Algebra** | `skill-math-linear-algebra/SKILL.md` | 18 KB | 307 | Vectores, matrices, espacios vectoriales, autovalores, sistemas lineales |
-| 4 | **Math Calculus** | `skill-math-calculus/SKILL.md` | 21 KB | 345 | Derivadas avanzadas, integrales, EDOs, optimización, series/Taylor |
+---
 
-## Bloque 2 — Física y Química (3 skills)
+### BLOQUE 1 — Matemáticas (4 skills)
 
-| # | Skill | Archivo | Tamaño | Líneas | Descripción |
-|---|-------|---------|--------|--------|-------------|
-| 5 | **Physics Mechanics** | `skill-physics-mechanics/SKILL.md` | 11 KB | 318 | Cinemática, dinámica, termodinámica, trabajo y energía |
-| 6 | **Physics Electromagnetism** | `skill-physics-electromagnetism/SKILL.md` | 13 KB | 407 | Electrostática, magnetismo, circuitos, ondas EM |
-| 7 | **Chemistry Basics** | `skill-chemistry-basics/SKILL.md` | 18 KB | 494 | Estructura atómica, tabla periódica, enlaces, estequiometría, reacciones |
+| # | Skill | Descripción |
+|---|-------|-------------|
+| 1 | `skill-math-foundations` | Álgebra, geometría euclidiana, trigonometría, números reales, potencias y raíces |
+| 2 | `skill-math-statistics` | Estadística descriptiva, probabilidad, distribuciones (Binomial, Normal, Poisson), inferencia |
+| 3 | `skill-math-linear-algebra` | Vectores, matrices, espacios vectoriales, transformaciones lineales, autovalores |
+| 4 | `skill-math-calculus` | Derivadas, integrales, EDOs, optimización, series de Taylor |
 
-## Bloque 3 — Biología y Ciencias de la Tierra (3 skills)
+---
 
-| # | Skill | Archivo | Tamaño | Líneas | Descripción |
-|---|-------|---------|--------|--------|-------------|
-| 8 | **Biology Cell** | `skill-biology-cell/SKILL.md` | 32 KB | 467 | Biología celular, genética, evolución, ecología |
-| 9 | **Earth Sciences** | `skill-earth-sciences/SKILL.md` | 44 KB | 635 | Geología, meteorología, oceanografía, climatología |
-| 10 | **Scientific Method** | `skill-scientific-method/SKILL.md` | 35 KB | 535 | Método científico, diseño experimental, análisis de datos, comunicación |
+### BLOQUE 2 — Física y Química (3 skills)
+
+| # | Skill | Descripción |
+|---|-------|-------------|
+| 5 | `skill-physics-mechanics` | Cinemática, dinámica, trabajo y energía, rotación, gravitación, termodinámica |
+| 6 | `skill-physics-electromagnetism` | Electrostática, circuitos, magnetismo, inducción, ondas electromagnéticas |
+| 7 | `skill-chemistry-basics` | Estequiometría, enlaces, reacciones, tabla periódica, ácidos y bases, equilibrio |
+
+---
+
+### BLOQUE 3 — Biología y Ciencias de la Tierra (3 skills)
+
+| # | Skill | Descripción |
+|---|-------|-------------|
+| 8 | `skill-biology-cell` | Biología celular, bioquímica, genética, evolución, ecología |
+| 9 | `skill-earth-sciences` | Geología, meteorología, climatología, oceanografía, hidrología |
+| 10 | `skill-scientific-method` | Método científico, diseño experimental, análisis de datos, incertidumbre |
+
+---
+
+## Estructura de directorios
+
+```
+/hermes-home/skills/
+├── skill-math-foundations/
+│   └── SKILL.md
+├── skill-math-statistics/
+│   └── SKILL.md
+├── skill-math-linear-algebra/
+│   └── SKILL.md
+├── skill-math-calculus/
+│   └── SKILL.md
+├── skill-physics-mechanics/
+│   └── SKILL.md
+├── skill-physics-electromagnetism/
+│   └── SKILL.md
+├── skill-chemistry-basics/
+│   └── SKILL.md
+├── skill-biology-cell/
+│   └── SKILL.md
+├── skill-earth-sciences/
+│   └── SKILL.md
+├── skill-scientific-method/
+│   └── SKILL.md
+└── STEM-INDEX.md  ← este archivo
+```
 
 ## Resumen
 
-- **Total:** 10 skills
-- **Tamaño total:** ~223 KB
-- **Total líneas:** ~4.325
-- **Bloques:** 3 (Matemáticas, Física/Química, Biología/Tierra)
-- **Idioma:** Español
-- **Estado:** ✅ Todos verificados y funcionales
+- **Total de skills:** 10
+- **Total de bloques:** 3
+- **Categorías:** math (4), physics (2), chemistry (1), biology (1), earth-science (1), research (1)
+- **Estado:** ✅ Todos creados y verificados
 
-## Referencias cruzadas con skills STEM existentes
+## Notas de uso
 
-Los nuevos skills referencian los skills STEM ya existentes en `/hermes-home/skills/stem/`:
+- Cada skill es **autocontenido** y puede cargarse independientemente
+- Los skills siguen el formato estándar: YAML frontmatter + markdown
+- Cada uno incluye: descripción, instrucciones, ejemplos de uso, referencias, pitfalls
+- Cargar con `skill_view(name='skill-math-foundations')` (o el nombre correspondiente)
 
-- **Math:** `math-calculo-diferencial`, `math-calculo-integral`, `math-ecuaciones`, `math-funciones`, `math-logaritmos-exponenciales`, `math-numeros-algebra`, `math-sucesiones-series`, `math-trigonometria`, `math-vectores-matrices`, `math-estadistica-probabilidad`, `math-estadistica-probabilidad-eng`
-- **Physics:** `physics-cinematica`, `physics-dinamica`, `physics-energia-trabajo`, `physics-fluidos`, `physics-termodinamica`, `physics-electrodinamica`, `physics-electrostatica`, `physics-magnetismo`, `physics-ondas-sonido`, `physics-expert`
-- **Chemistry:** Referencias a química general (sin skill específico existente)
-- **Biology:** Referencias a biología general (sin skills específicos existentes)
-- **Earth:** Referencias a ciencias de la tierra (sin skills específicos existentes)
-- **Scientific Method:** Referencias a `math-estadistica-probabilidad`, `math-estadistica-probabilidad-eng`
+---
 
-## Estructura común de cada skill
-
-Cada SKILL.md contiene:
-- YAML frontmatter (`name`, `version`, `category`, `description`, `tags`, `author`)
-- Descripción clara del alcance
-- Temas cubiertos detallados con subtemas y fórmulas
-- Instrucciones paso a paso para el agente
-- Ejemplos de prompts (4-10 por skill)
-- Referencias cruzadas a otros skills
-- Sección "Pitfalls" con errores comunes
-- Sección "Cuándo usar este skill"
+*Generado el 2026-06-21 — 10 skills STEM completos*

@@ -2,7 +2,7 @@
 §
 Atribución: artefactos HTML/posts → autor = David Antizar. Mastermind es ejecutor, no autor. Footer: "Hecho con ❤️ por David Antizar". Para contenido educativo: NO mencionar Mastermind ni Aurora.
 §
-[prefs] CSS: azul #2563eb + naranja #f97316. Fondo CLARO SIEMPRE. David odia "look de IA" (dark, neón, mono). Glass elegante/sutil. NUNCA inventar datos en dashboards. GeoDash: polígonos reales (nunca hexágonos ni bolas), explicar métricas con ℹ️, incluir datos externos, heatmap > Sankey para OD, Madrid por distritos.
+[prefs] CSS: azul #2563eb. David odia dark/neón Y cards con icono+titulo+texto (patrón IA). Para argumentos: bloques numerados (01, 02...). Datos económicos: costes ANUALES (€/año), nunca por minuto. Fondo blanco siempre en presentaciones business (McKinsey/BCG). NUNCA inventar datos.
 §
 [prefs] TTS voz Álvaro (es-ES-AlvaroNeural). STT local.
 §

@@ -1,77 +1,101 @@
-# Índice de Skills STEM — Ciencias Básicas
+---
+name: stem-basics
+description: Ecosistema completo de ciencias básicas: 10 skills en 3 bloques (Matemáticas, Física/Química, Biología/Ciencias de la Tierra). 40+ áreas de conocimiento.
+version: "1.0.0"
+---
 
-> **Fecha de creación:** 2026-06-23
-> **Total de skills:** 10
-> **Bloques:** 3 (Matemáticas, Física/Química, Biología/Ciencias de la Tierra)
+# 🧪 Ecosistema STEM — Índice General
+
+Ecosistema completo de skills de ciencias básicas para Mastermind. **10 skills organizados en 3 bloques**, cubriendo 40+ áreas de conocimiento.
+
+> Todo el contenido es autocontenido, en español, y ejecutable directamente por el agente.
 
 ---
 
-## 📐 BLOQUE 1 — Matemáticas (4 skills)
+## 📐 Bloque 1 — Matemáticas (4 skills)
 
-| # | Skill | Categoría | Descripción |
-|---|-------|-----------|-------------|
-| 1 | `skill-math-foundations` | stem/math | Álgebra, geometría, trigonometría, cálculo diferencial básico |
-| 2 | `skill-math-statistics` | stem/math | Estadística descriptiva, probabilidad, distribuciones, inferencia |
-| 3 | `skill-math-linear-algebra` | stem/math | Vectores, matrices, espacios vectoriales, transformaciones lineales, autovalores |
-| 4 | `skill-math-calculus` | stem/math | Derivadas, integrales, EDOs, optimización, series, cálculo multivariable |
+| # | Skill | Archivo | Contenido principal | Palabras |
+|---|-------|---------|-------------------|----------|
+| 1 | **Fundamentos Matemáticos** | `skill-math-foundations/skill.md` | Álgebra (ecuaciones, polinomios, factorización), Geometría (euclidiana, coordenada), Trigonometría (funciones, identidades), Cálculo diferencial básico (límites, continuidad) | ~1,142 |
+| 2 | **Estadística y Probabilidad** | `skill-math-statistics/skill.md` | Estadística descriptiva, Probabilidad (axiomas, Bayes), Distribuciones (binomial, Poisson, normal), Inferencia básica (intervalos, contraste) | ~1,251 |
+| 3 | **Álgebra Lineal** | `skill-math-linear-algebra/skill.md` | Vectores en R²/R³, Matrices (determinante, inversa), Espacios vectoriales (base, dimensión), Autovalores y diagonalización | ~1,372 |
+| 4 | **Cálculo** | `skill-math-calculus/skill.md` | Derivadas (reglas, optimización), Integrales (definida, indefinida, técnicas), EDOs, Series y sucesiones, Optimización multivariable | ~1,537 |
 
-## ⚛️ BLOQUE 2 — Física y Química (3 skills)
-
-| # | Skill | Categoría | Descripción |
-|---|-------|-----------|-------------|
-| 5 | `skill-physics-mechanics` | stem/physics | Mecánica clásica, cinemática, dinámica, trabajo y energía, termodinámica |
-| 6 | `skill-physics-electromagnetism` | stem/physics | Electrostática, magnetismo, circuitos, ondas electromagnéticas, ecuaciones de Maxwell |
-| 7 | `skill-chemistry-basics` | stem/chemistry | Estequiometría, enlaces, reacciones, tabla periódica, equilibrio, pH |
-
-## 🧬 BLOQUE 3 — Biología y Ciencias de la Tierra (3 skills)
-
-| # | Skill | Categoría | Descripción |
-|---|-------|-----------|-------------|
-| 8 | `skill-biology-cell` | stem/biology | Biología celular, bioquímica, genética, evolución, ecología |
-| 9 | `skill-earth-sciences` | stem/earth-science | Geología, meteorología, oceanografía, climatología, astrogeología |
-| 10 | `skill-scientific-method` | stem/research | Método científico, diseño experimental, análisis de datos, incertidumbre |
+**Niveles:** Secundaria → Bachillerato → 1º-2º universidad
 
 ---
 
-## Mapa de interconexiones
+## ⚡ Bloque 2 — Física y Química (3 skills)
+
+| # | Skill | Archivo | Contenido principal | Palabras |
+|---|-------|---------|-------------------|----------|
+| 5 | **Mecánica Clásica** | `skill-physics-mechanics/skill.md` | Cinemática (MRU, MRUA, MCU, tiro parabólico), Dinámica (3 leyes de Newton), Trabajo y energía, Termodinámica (leyes, gases ideales, entropía) | ~711 |
+| 6 | **Electromagnetismo** | `skill-physics-electromagnetism/skill.md` | Electrostática (Coulomb, campo eléctrico), Magnetismo (Ampère, Faraday), Circuitos (Ohm, Kirchhoff, RC/RL/RLC), Ondas EM | ~848 |
+| 7 | **Química Básica** | `skill-chemistry-basics/skill.md` | Estructura atómica, Tabla periódica, Enlaces químicos (iónico, covalente, metálico), Estequiometría, Reacciones químicas (cinética, equilibrio) | ~1,054 |
+
+**Niveles:** Secundaria → Bachillerato → 1º-2º universidad
+
+---
+
+## 🧬 Bloque 3 — Biología y Ciencias de la Tierra (3 skills)
+
+| # | Skill | Archivo | Contenido principal | Palabras |
+|---|-------|---------|-------------------|----------|
+| 8 | **Biología Celular** | `skill-biology-cell/skill.md` | Estructura celular (procariota/eucariota), Genética molecular (ADN/ARN), Evolución (selección natural), Ecología, División celular (mitosis, meiosis) | ~794 |
+| 9 | **Ciencias de la Tierra** | `skill-earth-sciences/skill.md` | Geología (tectónica de placas, volcanes), Meteorología (presión, vientos, nubosidad), Oceanografía (corrientes, mareas), Climatología (cambio climático) | ~914 |
+| 10 | **Método Científico** | `skill-scientific-method/skill.md` | Método científico completo, Diseño experimental (variables, controles), Análisis de datos, Errores experimentales, Comunicación científica, Pensamiento crítico | ~1,065 |
+
+**Niveles:** Secundaria → Bachillerato → 1º universidad
+
+---
+
+## 📊 Resumen del ecosistema
+
+- **Total de skills:** 10
+- **Total de palabras:** ~10,688
+- **Áreas de conocimiento:** 40+
+- **Todos en español** ✅
+- **Formato:** YAML frontmatter + markdown
+- **Ubicación:** `/hermes-home/skills/`
+
+---
+
+## 🔍 Cómo usar
+
+1. Cargar un skill específico con `skill_view(name='skill-math-foundations')`
+2. Cada skill contiene instrucciones detalladas para el agente
+3. Los ejemplos de uso muestran prompts reales que el usuario podría dar
+4. Las referencias apuntan a libros y recursos académicos de confianza
+
+---
+
+## 📁 Estructura de directorios
 
 ```
-                    ┌─────────────────────┐
-                    │  MATEMÁTICAS (4)     │
-                    ├─────────────────────┤
-                    │ foundations ────────┼──→ base para TODO
-                    │ statistics ─────────┼──→ análisis de datos
-                    │ linear-algebra ─────┼──→ vectores, campos
-                    │ calculus ───────────┼──→ física, optimización
-                    └─────────┬───────────┘
-                              │
-              ┌───────────────┼───────────────┐
-              ▼               ▼               ▼
-    ┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐
-    │  FÍSICA (2)     │ │  QUÍMICA (1)    │ │  BIOLOGÍA (1)   │
-    ├─────────────────┤ ├─────────────────┤ ├─────────────────┤
-    │ mechanics ──────┼→│ chemistry ──────┼→│ biology ────────┤
-    │ electromagnetism│ │                 │ │                 │
-    └────────┬────────┘ └────────┬────────┘ └────────┬────────┘
-             │                   │                   │
-             ▼                   ▼                   ▼
-    ┌─────────────────────────────────────────────────────────┐
-    │              CIENCIAS DE LA TIERRA (2)                   │
-    ├─────────────────────────────────────────────────────────┤
-    │ earth-sciences ←──→ ecosystems + ciclos biogeoquímicos  │
-    │ scientific-method ←──→ methodology for ALL sciences     │
-    └─────────────────────────────────────────────────────────┘
+/hermes-home/skills/
+├── STEM-INDEX.md                    ← Este archivo
+├── skill-math-foundations/
+│   └── skill.md
+├── skill-math-statistics/
+│   └── skill.md
+├── skill-math-linear-algebra/
+│   └── skill.md
+├── skill-math-calculus/
+│   └── skill.md
+├── skill-physics-mechanics/
+│   └── skill.md
+├── skill-physics-electromagnetism/
+│   └── skill.md
+├── skill-chemistry-basics/
+│   └── skill.md
+├── skill-biology-cell/
+│   └── skill.md
+├── skill-earth-sciences/
+│   └── skill.md
+└── skill-scientific-method/
+    └── skill.md
 ```
 
-## Dependencias recomendadas (orden de estudio)
+---
 
-1. **skill-math-foundations** → base absoluta
-2. **skill-math-statistics** → herramientas de análisis
-3. **skill-math-linear-algebra** → vectores y matrices
-4. **skill-math-calculus** → cálculo avanzado
-5. **skill-physics-mechanics** → aplica matemáticas a fenómenos físicos
-6. **skill-physics-electromagnetism** → física avanzada
-7. **skill-chemistry-basics** → química fundamental
-8. **skill-biology-cell** → biología celular
-9. **skill-earth-sciences** → ciencias de la Tierra
-10. **skill-scientific-method** → metodología transversal (puede usarse en paralelo)
+*Creado: 2026-06-24 | 10 skills | 10,688 palabras | Hecho con (L) por David Antizar*

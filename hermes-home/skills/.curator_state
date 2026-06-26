@@ -1,0 +1,9 @@
+{
+  "last_report_path": "/hermes-home/logs/curator/20260622-182627",
+  "last_run_at": "2026-06-22T18:26:27.593280+00:00",
+  "last_run_duration_seconds": 1366.492791,
+  "last_run_summary": "auto: no changes; llm: `chromadb-skills-vector-search` was already deleted in a previous round. Let me check the remaining skills from the\narchived 18 skill(s):\n  • dieta → personal-tracking-database\n  • diffusion-models → deep-learning-fundamentals\n  • llm-model-selection → deep-learning-fundamentals\n  • state-space-models → deep-learning-fundamentals\n  • chromadb-skills-vector-search — pruned (stale)\n  • code-audit-and-hardening — pruned (stale)\n  • cron-batch-orchestration — pruned (stale)\n  • cron-session-execution — pruned (stale)\n  • documentos-institucionales — pruned (stale)\n  • gtfs-transit-routing — pruned (stale)\n  … and 8 more\nfull report: hermes curator status\nkeep an umbrella stable: hermes curator pin deep-learning-fundamentals",
+  "last_run_summary_shown_at": null,
+  "paused": false,
+  "run_count": 4
+}

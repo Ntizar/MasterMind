@@ -1,0 +1,81 @@
+# Schema de normalización YAML+Markdown para informes CIAF
+# Este schema se usa como frontmatter YAML en cada archivo .md de informe
+# Los campos opcionales se omiten si no existen en el informe original
+
+---
+# === METADATOS ESTRUCTURADOS ===
+id: "IF-41-2025"                    # Identificador único: IF-{num}-{year}
+tipo_informe: "incidente_operacional"  # accidente | incidente | suceso
+fecha_suceso: "2025-05-22T21:53:00" # ISO 8601
+fecha_publicacion: "2025-06-24"
+gravidad: "menor"                   # menor | moderado | grave | muy_grave
+expediente: "041/2025"
+
+# === UBICACIÓN ===
+ubicacion:
+  estacion: "Cortes de Navarra"
+  provincia: "Navarra"
+  comunidad: "Navarra"
+  tramo: "Miraflores - Castejón"
+  pk: "PK 90+594"                   # Punto kilométrico (si existe)
+  coordenadas: [41.9931, -1.8769]   # [lat, lng] — geocodificar si no existe
+
+# === TIPO DE SUCESO ===
+tipo_suceso:
+  categoria: "operacional"          # operacional | infraestructura | material_rodante | humano | otro
+  subtipo: "rebase_señal"           # colision | descarrilamiento | rebase_señal | interceptacion_via | talonamiento_aguja | otro
+
+# === TRENES IMPLICADOS ===
+trenes:
+  - tipo: "Media Distancia"
+    numero: "18079"
+    operador: "Renfe Viajeros"
+    serie: "463"
+    origen: "Miraflores"
+    destino: "Castejón"
+    velocidad_max: 120
+
+# === ENTIDADES INVOLUCRADAS ===
+entidades:
+  - nombre: "ADIF"
+    rol: "administrador_infraestructura"
+  - nombre: "Renfe Viajeros"
+    rol: "empresa_ferroviaria"
+  - nombre: "AESF"
+    rol: "organismo_supervision"
+
+# === INFRAESTRUCTURA Y MATERIAL ===
+infraestructura:
+  - tipo: "vía"
+    detalle: "Vía 1, aguja 6, señal S1/1"
+  - tipo: "señalización"
+    detalle: "ASFA Digital"
+
+# === CONSECUENCIAS ===
+consecuencias:
+  victimas_fallecidas: 0
+  victimas_graves: 0
+  victimas_leves: 0
+  danos_materiales: true
+  horas_interrupcion: 1499
+  descripcion_danos: "Talón de aguja 6, encarrilamiento parcial, ventana rota"
+
+# === TRAZABILIDAD ===
+pdf_original: "./pdfs/2025/2025-41-0522-if.pdf"
+md_generado: "2026-06-24"
+estado: "pendiente"                 # pendiente | en_revision | revisado | validado
+fuente: "https://www.transportes.gob.es/organos-colegiados/ciaf/informes-finales-de-sucesos-investigados"
+---
+
+# Título del informe (copiar del PDF)
+
+## 1. [Título sección 1 del PDF]
+[Texto completo de la sección, tal cual]
+
+## 2. [Título sección 2 del PDF]
+[Texto completo]
+
+## ...
+
+---
+*Fuente: [PDF original](./pdfs/2025/2025-41-0522-if.pdf)*

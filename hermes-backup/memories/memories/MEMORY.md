@@ -2,7 +2,7 @@
 §
 [visor-leaflet-pattern] Visor GTFS con Kaizen Design System v4.0 (commit f8771f9). Sidebar 380px, geocodificación Nominatim, click → paradas, colores modo transporte, KPIs, carga ZIPs JSZip, panel horarios. Basemap: CARTO light (pendiente IGN gris CC BY 4.0). Repo: Ntizar/GTFSSpain.
 §
-[proyecto-timeineco] Repo Ntizar/TimeIneco (privado). Original, completo. server.mjs 941 líneas. JS v0.9. Último commit 1f48d81 (22/06): fixes CSV bug, docx vendor lib, ORS timeout 25s, .env.example. Deploy NaN: https://timeineco-ntizar-ntizar.apps.nan.builders/ . NAP_API_KEY debe configurarse en NaN Dashboard > Env. TimeIneco2 borrado (solo local).
+[proyecto-timeineco] Repo Ntizar/TimeIneco2 (privado). Sucesor de TimeIneco. URL actual: https://time-ntizar-ntizar.apps.nan.builders/ (Time v1). Plan maestro en AUDITORIA-Y-PLAN.md. 10 capas: mapa+geocoding, GTFS real NAP, isócrónas ORS, demografía INE, vivienda Idealista, GBFS CityBikes, costes, CO₂, teletrabajo, informes DOCX+CSV+SHP. Click = resultado completo. Stack: Vanilla JS + Leaflet + Kaizen CSS. 161 datasets NAP, 74 redes GBFS. APIs: ORS, IGN WMTS, Nominatim, CityBikes, INE, Idealista, AEAT.
 §
 NAP API (transportes.gob.es): 161 datasets, 662 MB GTFS. Repo GTFSSpain Ntizar/GTFSSpain (privado). Cron domingo 06:00 UTC. API key en /root/workspace/TimeIneco/.env.
 §

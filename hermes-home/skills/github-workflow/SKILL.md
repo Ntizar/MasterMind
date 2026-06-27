@@ -276,6 +276,27 @@ jobs:
 
 **Pitfall:** Para sites estáticos HTML (sin build), crear `.nojekyll` en la raíz del repo para evitar que GitHub procese con Jekyll.
 
+### 7.2a Deploy con datos JSON + frontend separados (patrón CIAF-visor)
+
+Cuando el proyecto tiene `frontend/` y `data/` como directorios separados, **no deployes solo `frontend/`** — los fetch a `../data/` fallarán. Solución: copiar datos al directorio de deploy en el workflow.
+
+```yaml
+- name: Prepare deployment
+  run: |
+    mkdir -p deploy/data
+    cp -r frontend/* deploy/
+    cp -r data/reports data/memorias data/train-tracks.geojson data/index.json data/relations.json deploy/data/
+
+- name: Upload artifact
+  uses: actions/upload-pages-artifact@v3
+  with:
+    path: 'deploy/'
+```
+
+Y en el HTML, usar rutas relativas al root: `fetch('data/index.json')` en vez de `fetch('../data/index.json')`.
+
+**Pitfall:** GitHub Pages solo sirve lo que esté en el directorio de deploy. Los directorios no incluidos (como `scripts/`, `pdfs/`) no están accesibles vía URL.
+
 ### 7.2 Vite + GitHub Pages con Service Worker (patrón crítico)
 
 Cuando usas Vite para build + GH Pages para deploy, hay 4 problemas que se repiten:

@@ -250,14 +250,14 @@
     "archived_at": null,
     "created_at": "2026-06-08T15:22:31.758081+00:00",
     "created_by": "agent",
-    "last_patched_at": "2026-06-25T18:21:38.718599+00:00",
-    "last_used_at": "2026-06-25T18:18:37.631820+00:00",
-    "last_viewed_at": "2026-06-25T18:18:37.617764+00:00",
-    "patch_count": 79,
+    "last_patched_at": "2026-06-26T14:26:21.760509+00:00",
+    "last_used_at": "2026-06-26T14:26:16.930290+00:00",
+    "last_viewed_at": "2026-06-26T14:26:16.921507+00:00",
+    "patch_count": 82,
     "pinned": false,
     "state": "active",
-    "use_count": 61,
-    "view_count": 59
+    "use_count": 65,
+    "view_count": 63
   },
   "aurora-design-system": {
     "archived_at": null,
@@ -796,14 +796,14 @@
     "archived_at": null,
     "created_at": "2026-06-01T15:45:40.699145+00:00",
     "created_by": null,
-    "last_patched_at": "2026-06-24T17:09:50.802415+00:00",
-    "last_used_at": "2026-06-26T11:17:11.234234+00:00",
-    "last_viewed_at": "2026-06-26T11:17:11.219467+00:00",
-    "patch_count": 112,
+    "last_patched_at": "2026-06-26T15:33:57.547440+00:00",
+    "last_used_at": "2026-06-26T22:19:38.137028+00:00",
+    "last_viewed_at": "2026-06-26T22:19:38.117642+00:00",
+    "patch_count": 113,
     "pinned": false,
     "state": "active",
-    "use_count": 127,
-    "view_count": 126
+    "use_count": 131,
+    "view_count": 130
   },
   "gaze-tracking": {
     "archived_at": null,
@@ -874,14 +874,14 @@
     "archived_at": null,
     "created_at": "2026-06-01T15:09:08.889738+00:00",
     "created_by": null,
-    "last_patched_at": "2026-06-25T15:45:16.670827+00:00",
-    "last_used_at": "2026-06-25T15:45:01.676934+00:00",
-    "last_viewed_at": "2026-06-25T15:45:01.665361+00:00",
-    "patch_count": 24,
+    "last_patched_at": "2026-06-26T12:12:48.581624+00:00",
+    "last_used_at": "2026-06-26T12:55:39.368734+00:00",
+    "last_viewed_at": "2026-06-26T12:55:39.358728+00:00",
+    "patch_count": 25,
     "pinned": false,
     "state": "active",
-    "use_count": 33,
-    "view_count": 33
+    "use_count": 36,
+    "view_count": 36
   },
   "github/github-repo-management": {
     "archived_at": null,
@@ -939,14 +939,14 @@
     "archived_at": null,
     "created_at": "2026-06-24T11:39:14.658094+00:00",
     "created_by": "agent",
-    "last_patched_at": "2026-06-26T11:17:18.359129+00:00",
-    "last_used_at": "2026-06-26T11:16:19.650185+00:00",
-    "last_viewed_at": "2026-06-26T11:16:19.642432+00:00",
-    "patch_count": 35,
+    "last_patched_at": "2026-06-26T22:19:34.737992+00:00",
+    "last_used_at": "2026-06-26T22:18:53.836801+00:00",
+    "last_viewed_at": "2026-06-26T22:18:53.824632+00:00",
+    "patch_count": 62,
     "pinned": false,
     "state": "active",
-    "use_count": 18,
-    "view_count": 18
+    "use_count": 33,
+    "view_count": 33
   },
   "graficos-jongonzlz-style": {
     "archived_at": null,
@@ -1330,13 +1330,13 @@
     "created_at": "2026-05-26T16:05:06.259326+00:00",
     "created_by": null,
     "last_patched_at": "2026-06-17T13:22:43.154723+00:00",
-    "last_used_at": "2026-06-24T17:44:48.652377+00:00",
-    "last_viewed_at": "2026-06-24T17:44:48.638593+00:00",
+    "last_used_at": "2026-06-26T22:02:46.728169+00:00",
+    "last_viewed_at": "2026-06-26T22:02:46.714866+00:00",
     "patch_count": 24,
     "pinned": false,
     "state": "active",
-    "use_count": 82,
-    "view_count": 82
+    "use_count": 83,
+    "view_count": 83
   },
   "mastermind-agente-principal": {
     "archived_at": null,
@@ -1381,14 +1381,14 @@
     "archived_at": null,
     "created_at": "2026-05-25T13:39:35.760254+00:00",
     "created_by": "agent",
-    "last_patched_at": "2026-06-25T05:55:49.339469+00:00",
-    "last_used_at": "2026-06-25T05:55:21.274531+00:00",
-    "last_viewed_at": "2026-06-25T05:55:21.260789+00:00",
-    "patch_count": 77,
+    "last_patched_at": "2026-06-26T12:09:02.930147+00:00",
+    "last_used_at": "2026-06-26T12:06:36.842318+00:00",
+    "last_viewed_at": "2026-06-26T12:06:36.828999+00:00",
+    "patch_count": 80,
     "pinned": false,
     "state": "active",
-    "use_count": 73,
-    "view_count": 73
+    "use_count": 75,
+    "view_count": 75
   },
   "mastermind/documentos-institucionales": {
     "archived_at": null,
@@ -1746,13 +1746,13 @@
     "created_at": "2026-06-23T07:32:46.939690+00:00",
     "created_by": "agent",
     "last_patched_at": "2026-06-23T07:34:01.852025+00:00",
-    "last_used_at": "2026-06-25T18:44:14.916202+00:00",
-    "last_viewed_at": "2026-06-25T18:44:14.905819+00:00",
+    "last_used_at": "2026-06-26T13:45:19.464857+00:00",
+    "last_viewed_at": "2026-06-26T13:45:19.455379+00:00",
     "patch_count": 1,
     "pinned": false,
     "state": "active",
-    "use_count": 2,
-    "view_count": 2
+    "use_count": 3,
+    "view_count": 3
   },
   "nap-deploy": {
     "archived_at": null,
@@ -1779,6 +1779,19 @@
     "state": "active",
     "use_count": 17,
     "view_count": 16
+  },
+  "nominatim-geocoding": {
+    "archived_at": null,
+    "created_at": "2026-06-26T12:12:43.178078+00:00",
+    "created_by": "agent",
+    "last_patched_at": "2026-06-26T13:46:32.486172+00:00",
+    "last_used_at": "2026-06-26T13:46:24.506027+00:00",
+    "last_viewed_at": "2026-06-26T13:46:24.493866+00:00",
+    "patch_count": 2,
+    "pinned": false,
+    "state": "active",
+    "use_count": 2,
+    "view_count": 2
   },
   "ntizar-aurora-css": {
     "archived_at": null,
@@ -1823,14 +1836,14 @@
     "archived_at": null,
     "created_at": "2026-06-25T11:26:00.095284+00:00",
     "created_by": null,
-    "last_patched_at": null,
-    "last_used_at": "2026-06-26T10:04:10.580905+00:00",
-    "last_viewed_at": "2026-06-26T10:04:10.573185+00:00",
-    "patch_count": 0,
+    "last_patched_at": "2026-06-26T12:56:35.748986+00:00",
+    "last_used_at": "2026-06-26T12:55:39.388887+00:00",
+    "last_viewed_at": "2026-06-26T12:55:39.381037+00:00",
+    "patch_count": 5,
     "pinned": false,
     "state": "active",
-    "use_count": 3,
-    "view_count": 3
+    "use_count": 6,
+    "view_count": 6
   },
   "open-source-release": {
     "archived_at": null,
@@ -2214,13 +2227,13 @@
     "created_at": "2026-05-30T22:42:33.687004+00:00",
     "created_by": null,
     "last_patched_at": "2026-06-01T15:10:27.371039+00:00",
-    "last_used_at": "2026-06-24T17:44:56.467224+00:00",
-    "last_viewed_at": "2026-06-24T17:44:56.447596+00:00",
+    "last_used_at": "2026-06-26T13:22:19.600873+00:00",
+    "last_viewed_at": "2026-06-26T13:22:19.582134+00:00",
     "patch_count": 1,
     "pinned": false,
     "state": "active",
-    "use_count": 16,
-    "view_count": 16
+    "use_count": 17,
+    "view_count": 17
   },
   "stem-basics": {
     "archived_at": null,

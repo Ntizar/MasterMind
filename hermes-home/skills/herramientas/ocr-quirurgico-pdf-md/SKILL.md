@@ -499,6 +499,17 @@ python3 ocr_quirurgico.py documento.pdf --output-format md|html --vectorize --ou
 
 ## Pitfalls
 
+### 🔴 poppler-utils no funciona en MicroVMs/contenedores
+`pdftotext` y `pdfimages` de poppler fallan con `libpoppler.so.147: cannot open shared object file` en muchas MicroVMs y contenedores Docker. `markitdown` también depende de poppler internamente y produce output vacío.
+**Solución:** Usar **PyMuPDF (`fitz`)** como engine principal. Funciona 100% en todas las arquitecturas sin dependencias del sistema. `fitz.open(pdf).get_text()` y `fitz.open(pdf).get_images()` cubren el 90% de los casos. Si el usuario instala poppler y funciona, bien. Si no, PyMuPDF es el fallback seguro.
+
+### 🔴 Extracción de texto masiva: dos pasos
+Para proyectos con cientos de PDFs, **NUNCA** geocodificar/enriquecer durante la fase de parsing:
+1. **Paso 1:** Extraer todo el texto de todos los PDFs (rápido, ~4s por PDF con PyMuPDF)
+2. **Paso 2:** Geocodificar/normalizar los campos únicos extraídos (con rate limits, delays)
+
+Mezclar ambos en un solo paso causa timeouts, rate limits de APIs externas, y datos incompletos.
+
 ### 🔴 Requisitos de hardware
 - **Fitz con DPI alto:** 300 DPI × página A4 = ~8MB por página → 100 páginas = 800MB en RAM
 - **ChromaDB:** ~500MB en RAM con 10.000 vectores
@@ -537,8 +548,29 @@ python3 ocr_quirurgico.py documento.pdf --output-format md|html --vectorize --ou
 - Si no, hacer por lotes de 10
 - Siempre manejar errores 429 (rate limit) con retry exponencial
 
+### 🔴 Nominatim: User-Agent con paréntesis → 403 Forbidden
+Nominatim rechaza peticiones cuyo User-Agent contiene paréntesis `()`. Ejemplo: `"CIAF-Visor/1.0 (proyecto educativo; contacto: x@y.com)"` → HTTP 403. User-Agent simple como `"CIAF-Visor/1.0"` funciona. Esto aplica a todas las APIs de OpenStreetMap.
+
+### 🔴 API rate limits → lookup local como alternativa
+Cuando se necesitan cientos de llamadas a una API con rate limits (Nominatim: 1 req/s), la mejor estrategia es:
+1. **Fase 1:** Extraer todos los valores únicos (ej: 206 estaciones)
+2. **Fase 2:** Geocodificar con delays apropiados O construir un JSON de lookup local
+3. **Fase 3:** Aplicar las coordenadas al dataset
+
+El lookup local (`station-coords.json`) es más rápido, no tiene rate limits, y funciona offline. Para ~300 entradas, un JSON hardcodeado es perfectamente viable.
+
+### 🔴 Entity normalization: regex captura texto basura
+Cuando se extraen entidades de PDFs con regex (ej: `r'renfe\s+mercanc'`), el match captura texto después del nombre: "Renfe Mercancías que había" en vez de "Renfe Mercancías". 
+
+**Solución (3 capas):**
+1. **Stop phrases** en `extract_estacion()`: filtrar "observa que", "donde se", "procedente de"
+2. **Trash suffixes** en `extract_entidades()`: lista de sufijos basura ("que había", "debían cruzarse", "hacía su", etc.)
+3. **Case-insensitive merging**: fusionar "RENFE" y "Renfe" → "RENFE" con un mapa final
+
 ## Referencias
 
+- `references/nominatim-geocoding-quirks.md` — Pitfalls de Nominatim: User-Agent, rate limits, lookup local
+- `references/entity-normalization-pdf.md` — Patrones para limpiar entidades extraídas de PDFs
 - `esios-complete` → API de ESIOS (para comparación con datos reales)
 - `chromadb-skills-vector-search` → Sistema de búsqueda semántica existente
 - `pdf-to-dashboard` → Extracción de datos estructurados de PDFs

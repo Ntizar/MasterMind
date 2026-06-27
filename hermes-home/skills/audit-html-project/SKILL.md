@@ -694,6 +694,10 @@ print('✅ Critical elements OK')
 
 Procedimiento específico para auditar Single Page Applications con backend. Ver `single-page-app-audit` para el procedimiento detallado de auditoría de aplicaciones web individuales.
 
+## Visores con JSON Backend (data-driven)
+
+Visores que cargan datos desde múltiples archivos JSON (reports, memorias, index) — patrones de auditoría distintos al SPA-backend. Ver `references/single-file-interactive-audit.md` → sección "Data-Driven Visor Audit" para checks de: consistencia entre fuentes JSON, enlaces no utilizados, existencia de archivos referenciados, claridad de títulos, y vistas ausentes.
+
 ### Checklist SPA
 1. Comparar rutas frontend vs backend (`grep -oP "fetch.*'/api/" dashboard.html` vs `grep -oP "app\.(get|post|put|delete)" server.js`)
 2. Verificar syncGitHub en cada endpoint mutador

@@ -4,10 +4,13 @@
 
 | Tipo | Cantidad | Ubicación |
 |------|----------|-----------|
-| Informes | 277 | `/root/workspace/CIAF/YYYY/*.pdf` |
-| Memorias | 17 | `/root/workspace/CIAF/memorias/` |
+| Informes (PDFs fuente) | 277 | `/root/workspace/CIAF/YYYY/*.pdf` |
+| Informes (JSONs en visor) | 270 | `data/reports/YYYY.json` en CIAF-visor |
+| Memorias | 17 | `data/memorias/YYYY.json` (2008-2024) |
 | Normativa | 7 | `/root/workspace/CIAF/normativa/` |
-| **Total** | **301** | |
+| **Total PDFs** | **301** | |
+
+**⚠️ Diferencia 277 vs 270:** El repo CIAF tiene 277 PDFs descargados, pero el visor GitHub Pages tiene 270 JSONs. La diferencia son PDFs duplicados o con nombres que no encajan en el patrón de parseo. Verificar al re-parsear.
 
 ### Distribución por año (informes)
 2007:4, 2008:53, 2009:43, 2010:28, 2011:24, 2012:22, 2013:23, 2014:14, 2015:10, 2016:11, 2017:12, 2018:2, 2019:3, 2020:3, 2021:6, 2022:5, 2023:3, 2024:3, 2025:1
@@ -54,6 +57,27 @@ ciaf-web/
 │   └── coherence-check.py      ← verificar consistencia memorias↔informes
 └── index.html                  ← dashboard principal
 ```
+
+### Memorias anuales (verificado 2026-06-26)
+- 17 memorias (2008-2024), PDFs en `pdfs/memorias/`
+- JSONs en `data/memorias/YYYY.json` — datos reales extraídos con PyMuPDF
+- **NO existe memoria 2007** (aunque hay 4 informes de ese año)
+- **NO existe memoria 2025** (año incompleto) — eliminar JSON fabricado
+- Alcance: memorias = TODOS los incidentes; informes = solo los investigados
+
+### Verificaciones de frontend (verificado 2026-06-26)
+- Enlace PDF informe: `enlaces.pdf_local` → `pdfs/YYYY/YYYY-NNN-MMDD-if.pdf`
+- Enlace PDF memoria: `pdfs/memorias/CIAF_Memoria_YYYY.pdf`
+- KPI entidades: iterar TODO el array `entities`, no solo `entities[0]`
+- Selector memorias: solo años con PDF real (2008-2024)
+
+### Parser v2 (verificado 2026-06-26)
+- **Script:** `scripts/parse_reports_v2.py` en repo CIAF-visor
+- **Métricas:** 99% fechas, 100% títulos, 96.7% conclusiones, 95.2% recomendaciones
+- **Enfoque:** Extracción por páginas (no regex sobre texto completo)
+- **4 patrones de título:** Pre-2009 (fecha en título), 2015-era ("CIAF Nº"), 2019-era ("expediente nº"), 2022+ ("Nº X/XXXX — Descripción")
+- **Campos en español:** `conclusiones`, `recomendaciones` (NO `conclusions`/`recommendations`)
+- **Validación:** después de parsear, verificar que cada JSON tiene campos `conclusiones` y `recomendaciones` (no null para >95% de informes)
 
 ### Relaciones entre entidades
 - **Empresas:** Renfe, Adif, operadores, fabricantes

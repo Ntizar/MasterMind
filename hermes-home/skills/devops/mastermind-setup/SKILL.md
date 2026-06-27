@@ -128,6 +128,7 @@ See `scripts/backup-hermes-memory.sh` for manual backup of memory to repo.
 See `references/backup-hermes-complete.md` for the complete backup procedure (vulnerability assessment → copy → commit → auto-sync cron).
 See `references/backup-pitfalls-2026-06-22.md` for backup pitfalls: double nesting with cp, duplicate commits, .hub/quarantine exclusion, skill-learning.log gitignore.
 See `references/backup-rsync-fallback.md` for rsync fallback: Python shutil-based implementation when rsync binary is not available on the VM.
+See `references/backup-cp-nesting.md` for the complete `cp -r` / `cp -a` double-nesting pitfall and safe copy patterns.
 
 ## Estructura del Repositorio
 
@@ -529,3 +530,5 @@ Para troubleshooting detallado (state desincronizado, quarantine infinito, timeo
 - **2026-06-26:** Backup pitfall: **rsync NO está disponible en la VM** de NaN. Si se pide usar `rsync`, hay que hacer fallback a Python con `shutil.copy2()` + `filecmp.cmp()` para solo copiar archivos nuevos/cambiados. Ver script de fallback en `references/backup-rsync-fallback.md`.
 
 - **2026-06-26:** Backup pitfall: **branch divergence `main` vs `master`**. El repo tiene ambas ramas. El auto-backup cron escribe en `origin/main`, pero el backup manual suele hacer push a `origin/master`. **Solución:** hacer `git fetch origin` → `git reset --hard origin/main` → rebase de commits locales → `git push origin main:master` para sincronizar ambas ramas. No intentar `git push origin main` si el remote main tiene commits que el local no tiene (non-fast-forward).
+
+- **2026-06-27:** Backup pitfall: **`cp -a` (archive) tiene el mismo doble nesting que `cp -r`**. `cp -a /source/ /dest/` cuando `/dest/` existe produce `/dest/source/`. **Solución OBLIGATORIA:** `rm -rf /dest/` antes de copiar, o usar `cp -a --no-dereference /source/ /dest/`. **Pitfall adicional:** Si el destino en el repo ya tiene la carpeta (ej. `hermes-home/skills/`), hay que `rm -rf` primero. La sintaxis de push debe ser `git push origin HEAD:master` (no `git push origin HEAD`) porque el remote usa `master` y el local `main`. **Nuevo en este backup:** 18 archivos cambiados, 10 nuevos skills copiados, 1147 total en `/hermes-home/skills`.

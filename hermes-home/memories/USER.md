@@ -8,6 +8,6 @@ Atribución: artefactos HTML/posts → autor = David Antizar. Mastermind es ejec
 §
 [prefs] Comunicación: español tuteo, informal, cercano. Resumen chulo al terminar. NUNCA frase seca. Regresión lineal en vez de medias simples si hay datos temporales.
 §
-[prefs] Multi-fix (3+): auditar → plan → presentar → OK → implementar. Nunca parar. Zero-install: si dice "no me deja Python", crear HTML en navegador (skill browser-local-tools).
+[prefs] Multi-fix (3+): auditar → plan → presentar → OK → implementar. Nunca parar. Zero-install: si dice "no me deja Python", crear HTML en navegador (skill browser-local-tools). Cuando dice "no cuadran" → auditar TODOS los datos visibles, no solo el caso reportado.
 §
 [proyectos] David genera multiples proyectos de programación, enfocados en mapas pero tienes que ser un modelo global..

@@ -30,7 +30,10 @@ Luego **todo se vectoriza** con qwen3-embedding (4096d) para búsqueda semántic
 
 - OCR de documentos escaneados con fotos (usar `documentos-institucionales`)
 - Extracción rápida sin preservación de layout (usar `markitdown` o `pdf-to-dashboard`)
+- **Extracción de datos estructurados de PDFs digitales** → usar `pdf-llm-extraction` (nuevo paradigma: font analysis + LLM, 100% confianza vs ~60% con regex)
 - Documentos con solo texto sin tablas ni imágenes (usar `pdf-to-artifacts-david-antizar`)
+
+> ⚠️ **Paradigma shift (2026-06):** Para PDFs digitales con texto seleccionable, el pipeline `pdf-llm-extraction` (PyMuPDF + Qwen 3.6) supera cualitativamente a cualquier enfoque regex o OCR. Usar OCR solo para PDFs escaneados/imágenes.
 
 ## Stack de herramientas
 
@@ -550,6 +553,9 @@ Mezclar ambos en un solo paso causa timeouts, rate limits de APIs externas, y da
 
 ### 🔴 Nominatim: User-Agent con paréntesis → 403 Forbidden
 Nominatim rechaza peticiones cuyo User-Agent contiene paréntesis `()`. Ejemplo: `"CIAF-Visor/1.0 (proyecto educativo; contacto: x@y.com)"` → HTTP 403. User-Agent simple como `"CIAF-Visor/1.0"` funciona. Esto aplica a todas las APIs de OpenStreetMap.
+
+### 🔴 PyMuPDF: `span["text"]` puede ser None
+En algunos PDFs, PyMuPDF retorna `None` en `span["text"]` en lugar de string vacío. Causa `TypeError` al concatenar. **SIEMPRE** usar `span.get("text") or ""`. Afecta ~25% de PDFs en batch processing.
 
 ### 🔴 API rate limits → lookup local como alternativa
 Cuando se necesitan cientos de llamadas a una API con rate limits (Nominatim: 1 req/s), la mejor estrategia es:

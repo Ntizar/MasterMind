@@ -55,6 +55,109 @@ result = parser.parse("factura.pdf", schema=schema)
 - Extracción de datos de facturas, contratos, informes
 - **Informes oficiales (CIAF)** — ingesta masiva de informes de la CIAF: scraping web → markitdown → LLM structuring → base de datos SQLite → mapa interactivo Leaflet
 
+## Auto-Learn Schema desde análisis de fuentes PDF
+
+**Señales clave:** "el sistema lo aprenda solo", "detectar estructura automáticamente", "proponer schema".
+
+Cuando el usuario tiene muchos PDFs del mismo tipo pero no sabe qué campos extraer, usar **análisis de fuentes** para auto-detectar la estructura.
+
+### Algoritmo: Detección de headings por tamaño de fuente
+
+```javascript
+// 1. Extraer texto con metadatos de fuente via PDF.js
+const content = await page.getTextContent();
+const items = content.items.map(item => ({
+  text: item.str,
+  fontSize: Math.round(Math.abs(item.transform[3]) * 10) / 10,
+  fontName: item.fontName || '',
+  hasEOL: item.hasEOL
+}));
+
+// 2. Encontrar tamaño de fuente del cuerpo (el más frecuente)
+const fontSizes = {};
+items.forEach(it => {
+  if (it.text.trim().length > 0) {
+    fontSizes[it.fontSize] = (fontSizes[it.fontSize] || 0) + it.text.length;
+  }
+});
+const bodySize = Object.entries(fontSizes).sort((a,b) => b[1] - a[1])[0][0];
+
+// 3. Detectar headings: fuente más grande + bold
+const headings = items.filter(it => {
+  const trimmed = it.text.trim();
+  if (trimmed.length < 3 || trimmed.length > 100) return false;
+  if (it.fontSize > parseFloat(bodySize) + 1) {
+    const isBold = /bold|black|heavy|semibold/i.test(it.fontName);
+    return isBold || it.fontSize > parseFloat(bodySize) + 3;
+  }
+  // También detectar secciones numeradas: "1. TITLE"
+  if (/^\d+[\.\)]\s+[A-ZÁÉÍÓÚÑ]/.test(trimmed) && trimmed.length < 80) return true;
+  return false;
+});
+```
+
+### Clustering de secciones across PDFs
+
+```javascript
+function clusterSections(allPdfHeadings) {
+  const normalize = s => s.toLowerCase()
+    .replace(/^\d+[\.\)]\s*/, '')
+    .trim();
+
+  const counts = {};
+  allPdfHeadings.forEach(pdfH => {
+    const seen = new Set();
+    pdfH.forEach(h => {
+      const norm = normalize(h.text);
+      if (!seen.has(norm)) {
+        seen.add(norm);
+        counts[norm] = (counts[norm] || 0) + 1;
+      }
+    });
+  });
+
+  // Secciones que aparecen en 2+ PDFs son candidatas a schema
+  return Object.entries(counts)
+    .filter(([_, c]) => c >= 2)
+    .sort((a, b) => b[1] - a[1])
+    .map(([heading, count]) => ({ heading, count }));
+}
+```
+
+### Generación de schema propuesto
+
+A partir de las secciones detectadas, generar campos con tipos inferidos:
+- `fecha|date|día` → type: "date"
+- `conclusión|recomendación|análisis` → type: "array"
+- `coordenada|ubicación` → type: "coordinates"
+- Todo lo demás → type: "string"
+
+El schema se guarda en localStorage para reutilización y se puede importar/exportar como JSON.
+
+### LLM Prompt para extracción estructurada
+
+```javascript
+const prompt = `Eres un asistente de extracción de datos estructurados.
+Extrae los campos del siguiente texto de un informe PDF y devuelve UN SOLO JSON válido.
+
+CAMPOS A EXTRAER:
+${JSON.stringify(schemaDesc, null, 2)}
+
+REGLAS:
+1. Devuelve SOLO un JSON válido, sin texto adicional
+2. Si un campo no se encuentra, usa null
+3. Para arrays sin elementos, devuelve []
+4. Para coordenadas, usa [lat, lng] o null
+5. Para fechas, usa formato ISO (YYYY-MM-DD)
+
+TEXTO DEL INFORME:
+${truncatedText}`;
+```
+
+**Configuración óptima:** temperature: 0.1 (determinista), max_tokens: 4096, truncar texto a 30K chars.
+
+**Parsing robusto:** Limpiar ```json fences, fallback a regex `{...}` si parse directo falla.
+
 ## Casos de uso: informes oficiales (CIAF)
 
 **Contexto:** La CIAF (Comisión de Investigación de Accidentes Ferroviarios) publica informes finales en PDF con estructura fija. Más de 20 años de datos en español.

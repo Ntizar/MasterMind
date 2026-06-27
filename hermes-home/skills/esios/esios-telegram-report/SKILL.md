@@ -123,6 +123,7 @@ cd /root/workspace/Koldo && node scripts/esios-telegram.js
 - **Cache en /tmp/esios-telegram-cache/** — se limpia tras envío
 - **Cron jobs no heredan variables del gateway** — el script lee `TELEGRAM_BOT_TOKEN` de `/proc/1/environ` y `TELEGRAM_CHAT_ID` de `/hermes-home/.env` como fallback
 - **Ruta del script:** `/root/workspace/Koldo/scripts/esios-telegram.js` — SIEMPRE esta (Koldo version). La del dashboard NO funciona en cron.
+- **⚠️ Cron config drift:** El prompt del cron job puede tener la ruta incorrecta (`Mastermind` en vez de `Koldo`). Verificar siempre con `cronjob action='list'` que el prompt apunta a `/root/workspace/Koldo/scripts/esios-telegram.js`. Si no, actualizar con `cronjob action='update'`.
 
 ## ⚠️ TELEGRAM_BOT_TOKEN ausente (2026-06-26)
 

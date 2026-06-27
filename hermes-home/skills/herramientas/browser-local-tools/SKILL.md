@@ -357,6 +357,110 @@ visor/
 
 **Ver enlace a:** `templates/gtfs-visor.html`
 
+## Patrón: Wizard multi-paso con progreso y LLM
+
+**Señales clave:** "herramienta que haga X con muchos archivos", "procesar en lote", "extraer datos de PDFs", "necesito validación".
+
+Cuando la herramienta requiere múltiples pasos (config → carga → procesamiento → validación → export), usar un **wizard steps** con indicador visual.
+
+### Estructura del wizard
+
+```html
+<!-- Step bar horizontal -->
+<div class="step-bar">
+  <div class="step-item active"><span class="num">1</span> Configuración</div>
+  <span class="step-arrow">▸</span>
+  <div class="step-item done"><span class="num">✓</span> Cargar</div>
+  <span class="step-arrow">▸</span>
+  <div class="step-item"><span class="num">3</span> Procesar</div>
+</div>
+
+<!-- Contenido por pasos -->
+<main>
+  <section id="step-1" class="step-section active">...</section>
+  <section id="step-2" class="step-section">...</section>
+  <section id="step-3" class="step-section">...</section>
+</main>
+```
+
+### JS: Navegación entre pasos
+
+```javascript
+function goToStep(n) {
+  S.step = n;
+  document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active'));
+  $('step-' + n).classList.add('active');
+  renderStepBar(); // Actualiza indicador: active/done/pending
+}
+```
+
+### Progress tracking para batch processing
+
+Cuando se procesan muchos archivos (100-1000), mostrar SIEMPRE:
+1. **% completado** — barra de progreso animada
+2. **Fase actual** — "Extrayendo texto...", "Enviando a LLM...", "Validando..."
+3. **ETA** — tiempo restante estimado (calcular con promedio de los procesados)
+4. **Estadísticas en vivo** — exitosos / advertencias / errores
+5. **Log** — últimas operaciones en caja monospace
+6. **Pausa/Reanudar** — botón para pausar el procesamiento
+7. **Cancelar** — botón para detener
+
+```javascript
+// Actualizar UI cada N archivos, no en cada uno (evitar reflows)
+const pct = Math.round(current / total * 100);
+$('procBar').style.width = pct + '%';
+$('procPct').textContent = pct + '%';
+$('procETA').textContent = formatTime(remaining);
+```
+
+### LLM calls desde el navegador
+
+Cuando la herramienta necesita llamar a una API de LLM desde el HTML:
+
+```javascript
+async function callLLM(text, schema, apiKey, model) {
+  const response = await fetch('https://api.nan.builders/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    },
+    body: JSON.stringify({
+      model: model || 'qwen3.6',
+      messages: [{ role: 'user', content: prompt }],
+      temperature: 0.1  // Bajo para extracción determinista
+    })
+  });
+  const result = await response.json();
+  let content = result.choices[0].message.content;
+  // Limpiar markdown fences si los hay
+  content = content.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
+  return JSON.parse(content);
+}
+```
+
+**Throttling:** Para 1000+ llamadas, usar delay entre requests (1.5-2s). Mostrar progreso.
+
+**API Key:** Guardar en localStorage, nunca enviar a terceros. Avisar al usuario.
+
+**Parsing robusto:** El LLM a veces devuelve JSON envuelto en ```json. Siempre limpiar antes de parsear. Fallback: buscar `{...}` con regex si el parse directo falla.
+
+### CSS: Kaizen vs Aurora para herramientas
+
+**Kaizen** (flat corporativo) es mejor para:
+- Herramientas de procesamiento/datos
+- Tools que se usan frecuentemente
+- Entorno corporativo/profesional
+- Cuando el usuario dice "estilo limpio", "corporativo", "sin florituras"
+
+**Aurora** (liquid glass, mesh) es mejor para:
+- Dashboards personales
+- Landings creativas
+- Apps visuales
+- Cuando el usuario pide "moderno", "glass", "aurora"
+
+**Regla:** Si no se especifica, preguntar. Para tools de procesamiento de datos, Kaizen por defecto.
+
 ## Preferencia del usuario (David)
 
 Cuando David dice "no me deja Python" o "algo más fácil", la respuesta **nunca** es "instala X" o "usa Y". La respuesta es: **crear un HTML que funcione en el navegador**. Cero dependencias, cero instalación, doble clic y listo.

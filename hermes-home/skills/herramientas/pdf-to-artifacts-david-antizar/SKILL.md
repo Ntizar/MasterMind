@@ -15,6 +15,12 @@ Pipeline completo que, dado un PDF de informe técnico (especialmente del sector
 2. **Post LinkedIn** — estilo David Antizar: datos duros, tono provocador-constructivo, estructura con secciones, emojis estratégicos, tesis clara
 3. **Nota de auditoría** — en `notes/` con fecha, hallazgos cuantificados, crítica metodológica
 
+## No es para
+
+- **Extracción de datos estructurados (JSON/CSV)** de PDFs → usar `pdf-llm-extraction` (nuevo paradigma validado: font analysis + LLM, 100% confianza)
+- OCR de documentos escaneados → usar `ocr-quirurgico-pdf-md`
+- Conversión PDF → Markdown navegable → usar `ocr-quirurgico-pdf-md`
+
 ## Atribución
 
 Siempre poner **David Antizar** como autor. **Mastermind** es el agente ejecutor, David es el autor visible.

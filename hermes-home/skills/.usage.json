@@ -264,13 +264,13 @@
     "created_at": "2026-06-01T19:40:03.251306+00:00",
     "created_by": null,
     "last_patched_at": "2026-06-25T13:20:51.702291+00:00",
-    "last_used_at": "2026-06-25T13:13:50.500794+00:00",
-    "last_viewed_at": "2026-06-25T13:13:50.484966+00:00",
+    "last_used_at": "2026-06-27T07:54:40.397810+00:00",
+    "last_viewed_at": "2026-06-27T07:54:40.385446+00:00",
     "patch_count": 44,
     "pinned": false,
     "state": "active",
-    "use_count": 67,
-    "view_count": 67
+    "use_count": 68,
+    "view_count": 68
   },
   "aurora-llm-optimization": {
     "archived_at": null,
@@ -315,14 +315,14 @@
     "archived_at": null,
     "created_at": "2026-06-10T09:48:16.032336+00:00",
     "created_by": "agent",
-    "last_patched_at": "2026-06-23T12:33:18.863720+00:00",
-    "last_used_at": "2026-06-23T12:32:03.077676+00:00",
-    "last_viewed_at": "2026-06-23T12:32:03.069752+00:00",
-    "patch_count": 13,
+    "last_patched_at": "2026-06-27T08:15:51.705763+00:00",
+    "last_used_at": "2026-06-27T08:16:13.890056+00:00",
+    "last_viewed_at": "2026-06-27T08:16:13.868942+00:00",
+    "patch_count": 15,
     "pinned": false,
     "state": "active",
-    "use_count": 12,
-    "view_count": 12
+    "use_count": 15,
+    "view_count": 15
   },
   "budget-comparison": {
     "archived_at": null,
@@ -524,13 +524,13 @@
     "created_at": "2026-06-20T17:18:41.305141+00:00",
     "created_by": null,
     "last_patched_at": null,
-    "last_used_at": "2026-06-20T17:18:41.320780+00:00",
-    "last_viewed_at": "2026-06-20T17:18:41.305175+00:00",
+    "last_used_at": "2026-06-27T06:12:21.724149+00:00",
+    "last_viewed_at": "2026-06-27T06:12:21.702875+00:00",
     "patch_count": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 1,
-    "view_count": 1
+    "use_count": 3,
+    "view_count": 3
   },
   "dieta-tracking": {
     "archived_at": null,
@@ -563,13 +563,13 @@
     "created_at": "2026-06-24T16:31:14.658967+00:00",
     "created_by": "agent",
     "last_patched_at": "2026-06-24T16:32:50.114944+00:00",
-    "last_used_at": "2026-06-24T17:02:27.089551+00:00",
-    "last_viewed_at": "2026-06-24T17:02:27.079376+00:00",
+    "last_used_at": "2026-06-27T07:31:55.951825+00:00",
+    "last_viewed_at": "2026-06-27T07:31:55.933504+00:00",
     "patch_count": 2,
     "pinned": false,
     "state": "active",
-    "use_count": 1,
-    "view_count": 1
+    "use_count": 2,
+    "view_count": 2
   },
   "empleady-employee-profitability": {
     "archived_at": null,
@@ -666,14 +666,14 @@
     "archived_at": null,
     "created_at": "2026-05-27T10:07:08.255309+00:00",
     "created_by": null,
-    "last_patched_at": "2026-06-26T09:06:16.212166+00:00",
-    "last_used_at": "2026-06-26T09:05:44.151464+00:00",
-    "last_viewed_at": "2026-06-26T09:05:44.136653+00:00",
-    "patch_count": 11,
+    "last_patched_at": "2026-06-27T09:01:34.896602+00:00",
+    "last_used_at": "2026-06-27T09:01:04.786129+00:00",
+    "last_viewed_at": "2026-06-27T09:01:04.779131+00:00",
+    "patch_count": 12,
     "pinned": false,
     "state": "active",
-    "use_count": 22,
-    "view_count": 22
+    "use_count": 24,
+    "view_count": 24
   },
   "esios/esios-api": {
     "archived_at": null,
@@ -1161,13 +1161,13 @@
     "created_at": "2026-06-25T13:28:55.176919+00:00",
     "created_by": "agent",
     "last_patched_at": "2026-06-25T17:10:36.046822+00:00",
-    "last_used_at": "2026-06-26T10:08:14.080731+00:00",
-    "last_viewed_at": "2026-06-26T10:08:14.062472+00:00",
+    "last_used_at": "2026-06-27T08:10:10.010508+00:00",
+    "last_viewed_at": "2026-06-27T08:10:10.001777+00:00",
     "patch_count": 3,
     "pinned": false,
     "state": "active",
-    "use_count": 4,
-    "view_count": 4
+    "use_count": 5,
+    "view_count": 5
   },
   "kdense-scientific-skills-pattern": {
     "archived_at": null,
@@ -1251,27 +1251,27 @@
     "archived_at": null,
     "created_at": "2026-06-24T11:30:48.895861+00:00",
     "created_by": null,
-    "last_patched_at": "2026-06-24T15:42:06.986280+00:00",
-    "last_used_at": "2026-06-25T11:26:00.125386+00:00",
-    "last_viewed_at": "2026-06-25T11:26:00.108896+00:00",
-    "patch_count": 15,
+    "last_patched_at": "2026-06-27T08:15:44.140660+00:00",
+    "last_used_at": "2026-06-27T07:31:55.942066+00:00",
+    "last_viewed_at": "2026-06-27T07:31:55.918328+00:00",
+    "patch_count": 16,
     "pinned": false,
     "state": "active",
-    "use_count": 10,
-    "view_count": 10
+    "use_count": 11,
+    "view_count": 11
   },
   "liteparse-rust-pdf-ocr": {
     "archived_at": null,
     "created_at": "2026-05-30T04:29:23.327640+00:00",
     "created_by": null,
     "last_patched_at": "2026-06-02T02:10:27.410608+00:00",
-    "last_used_at": "2026-06-18T13:09:20.504672+00:00",
-    "last_viewed_at": "2026-06-18T13:09:20.468141+00:00",
+    "last_used_at": "2026-06-27T07:31:52.581382+00:00",
+    "last_viewed_at": "2026-06-27T07:31:52.564059+00:00",
     "patch_count": 1,
     "pinned": false,
     "state": "active",
-    "use_count": 6,
-    "view_count": 6
+    "use_count": 7,
+    "view_count": 7
   },
   "madrid-3pixel": {
     "archived_at": null,
@@ -1317,13 +1317,13 @@
     "created_at": "2026-05-26T16:41:53.801837+00:00",
     "created_by": null,
     "last_patched_at": "2026-06-10T09:02:51.172954+00:00",
-    "last_used_at": "2026-06-26T10:47:02.823567+00:00",
-    "last_viewed_at": "2026-06-26T10:47:02.811202+00:00",
+    "last_used_at": "2026-06-27T07:31:55.899925+00:00",
+    "last_viewed_at": "2026-06-27T07:31:55.886772+00:00",
     "patch_count": 3,
     "pinned": false,
     "state": "active",
-    "use_count": 17,
-    "view_count": 17
+    "use_count": 18,
+    "view_count": 18
   },
   "mastermind": {
     "archived_at": null,
@@ -1381,14 +1381,14 @@
     "archived_at": null,
     "created_at": "2026-05-25T13:39:35.760254+00:00",
     "created_by": "agent",
-    "last_patched_at": "2026-06-27T00:10:20.009474+00:00",
-    "last_used_at": "2026-06-27T00:09:24.919996+00:00",
-    "last_viewed_at": "2026-06-27T00:09:24.906800+00:00",
-    "patch_count": 83,
+    "last_patched_at": "2026-06-27T06:12:47.194282+00:00",
+    "last_used_at": "2026-06-27T06:12:10.576938+00:00",
+    "last_viewed_at": "2026-06-27T06:12:10.559554+00:00",
+    "patch_count": 84,
     "pinned": false,
     "state": "active",
-    "use_count": 76,
-    "view_count": 76
+    "use_count": 77,
+    "view_count": 77
   },
   "mastermind/documentos-institucionales": {
     "archived_at": null,
@@ -1836,14 +1836,14 @@
     "archived_at": null,
     "created_at": "2026-06-25T11:26:00.095284+00:00",
     "created_by": null,
-    "last_patched_at": "2026-06-26T12:56:35.748986+00:00",
-    "last_used_at": "2026-06-26T12:55:39.388887+00:00",
-    "last_viewed_at": "2026-06-26T12:55:39.381037+00:00",
-    "patch_count": 5,
+    "last_patched_at": "2026-06-27T09:06:11.679893+00:00",
+    "last_used_at": "2026-06-27T09:04:32.467320+00:00",
+    "last_viewed_at": "2026-06-27T09:04:32.452988+00:00",
+    "patch_count": 7,
     "pinned": false,
     "state": "active",
-    "use_count": 6,
-    "view_count": 6
+    "use_count": 9,
+    "view_count": 9
   },
   "open-source-release": {
     "archived_at": null,
@@ -1858,18 +1858,31 @@
     "use_count": 4,
     "view_count": 4
   },
+  "pdf-llm-extraction": {
+    "archived_at": null,
+    "created_at": "2026-06-27T08:30:30.716707+00:00",
+    "created_by": "agent",
+    "last_patched_at": "2026-06-27T09:06:07.694464+00:00",
+    "last_used_at": "2026-06-27T09:06:30.836986+00:00",
+    "last_viewed_at": "2026-06-27T09:06:30.820525+00:00",
+    "patch_count": 8,
+    "pinned": false,
+    "state": "active",
+    "use_count": 2,
+    "view_count": 2
+  },
   "pdf-to-artifacts-david-antizar": {
     "archived_at": null,
     "created_at": "2026-06-03T07:24:20.289130+00:00",
     "created_by": null,
-    "last_patched_at": "2026-06-17T11:03:26.127610+00:00",
-    "last_used_at": "2026-06-25T11:26:00.062872+00:00",
-    "last_viewed_at": "2026-06-25T11:26:00.055147+00:00",
-    "patch_count": 7,
+    "last_patched_at": "2026-06-27T08:30:44.482698+00:00",
+    "last_used_at": "2026-06-27T09:04:32.441530+00:00",
+    "last_viewed_at": "2026-06-27T09:04:32.429520+00:00",
+    "patch_count": 8,
     "pinned": false,
     "state": "active",
-    "use_count": 11,
-    "view_count": 11
+    "use_count": 14,
+    "view_count": 14
   },
   "pdf-to-landing": {
     "archived_at": null,

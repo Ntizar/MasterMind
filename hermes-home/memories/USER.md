@@ -2,7 +2,7 @@
 §
 Atribución: artefactos HTML/posts → autor = David Antizar. Mastermind es ejecutor, no autor. Footer: "Hecho con ❤️ por David Antizar". Para contenido educativo: NO mencionar Mastermind ni Aurora.
 §
-[prefs] CSS: azul #2563eb. David odia dark/neón Y cards con icono+titulo+texto (patrón IA). Para argumentos: bloques numerados (01, 02...). Datos económicos: costes ANUALES (€/año), nunca por minuto. Fondo blanco siempre en presentaciones business (McKinsey/BCG). NUNCA inventar datos.
+[prefs] CSS: azul #2563eb. David odia dark/neón Y cards con icono+titulo+texto (patrón IA). Para argumentos: bloques numerados (01, 02...). Datos económicos: costes ANUALES (€/año), nunca por minuto. Fondo blanco siempre en presentaciones business (McKinsey/BCG). NUNCA inventar datos. Herramientas interactivas: Kaizen CSS (no Aurora).
 §
 [prefs] TTS voz Álvaro (es-ES-AlvaroNeural). STT local.
 §

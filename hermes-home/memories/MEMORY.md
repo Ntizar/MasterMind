@@ -8,8 +8,6 @@ NAP API (transportes.gob.es): 161 datasets, 662 MB GTFS. Repo GTFSSpain Ntizar/G
 §
 [proyecto-gbfsspain] Ntizar/GBFSSpain (PÚBLICO). Visor 68 sistemas GBFS bicicletas España (58 ciudades, 9 plataformas). 38 sistemas v3.0. Catálogo: data/systems.json. GitHub Pages: https://ntizar.github.io/GBFSSpain/ . Workflow pages.yml (build_type: workflow). Estilo GTFSSpain pero JSON.
 §
-[proyecto-ciaf-visor] CIAF-visor: 270 informes (PyMuPDF), parser v4 con geocoding local (328 estaciones, 203/270 coords). Entidades: 19 normalizadas (RENFE, ADIF, ADIF AV, etc.). Frontend v2: 1311 líneas, 5 tabs (Mapa markers, Dashboard 7 KPIs, Informes+panel detalle, Memorias enlace CIAF, Normativa). Repo: Ntizar/CIAF-visor. Pages: https://ntizar.github.io/CIAF-visor/
+[proyecto-ciaf-visor] CIAF-visor: 270 informes. JSONs: /root/workspace/ciaf-data/data/individual/. PDFs: /root/workspace/CIAF/{YYYY}/ (277). NO usar ciaf-data/pdfs/ (solo 38 viejos). Calidad JSON: 92.4% excelente. Repo: Ntizar/CIAF-visor. Pages: https://ntizar.github.io/CIAF-visor/
 §
 [proyecto-kaizen-design-system] Ntizar/kaizen-design-system (privado). Kaizen Design System v2.0 — CSS corporativo para Equipo Kaizen Ineco. Colores OFICIALES: Azul #1A4488 (Pantone 7687 C), Rojo #CB1823 (Pantone 485 C), Azul Medio #3463AC, Azul Claro #6B96CF. CDN: cdn.jsdelivr.net/gh/Ntizar/kaizen-design-system@master/kaizen.css. Clases: kz-*. index-standalone.html para vista previa.
-§
-[pdf-extraction] Para datos estructurados de PDFs: LLM (Qwen 3.6) vía regex → 100% vs ~60%. Pipeline: PyMuPDF + font analysis → schema → LLM → validación. Herramienta: PdfToJson (HTML+Kaizen, repo privado Ntizar/PdfToJson). Deploy: NaN puerto 4000 (pendiente).

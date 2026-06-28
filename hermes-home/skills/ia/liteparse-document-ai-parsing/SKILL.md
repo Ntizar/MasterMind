@@ -193,6 +193,8 @@ ${truncatedText}`;
 - **Referencia:** `references/ciaf-scraping.md` — Procedimiento de scraping de transportes.gob.es (URLs de PDFs, patrón de URLs, pitfalls de browser tools, estructura por años)
 - **Referencia:** `references/ciaf-pipeline.md` — Pipeline completo de ingesta: PDF → markitdown → Nominatim → OpenRailwayMap → YAML+MD, con regex útiles y estructura del repo
 - **Referencia:** `references/ciaf-dashboard-v2.md` — Patrón de dashboard v2.0: HTML+CSS inline, JS con datos incrustados, tabs (Resumen/Conclusiones/Recomendaciones/Datos), mapa Leaflet, filtros, responsive, GitHub Pages
+- **Referencia:** `references/ciaf-analysis.md` — Metodología de análisis post-extracción: carga masiva de JSONs, keywords de causas CIAF, producción de resumen ejecutivo narrativo, pitfalls del dataset (270 informes, 2007-2025)
+- **Referencia:** `references/ciaf-data-audit.md` — Auditoría de calidad JSON vs PDF: ubicaciones de datos (`/root/workspace/CIAF/` no `ciaf-data/pdfs/`), metodología de emparejamiento y comparación campo por campo con PyMuPDF, resultados (92.4% excelencia), pitfalls de fechas y naming
 
 ## Formato híbrido YAML+Markdown (v2.0 — normalización de informes)
 

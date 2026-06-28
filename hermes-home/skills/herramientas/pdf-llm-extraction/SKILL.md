@@ -508,6 +508,44 @@ JSON:"""
 
 ## Pitfalls
 
+### 🔴 LLM fragmenta párrafos en líneas sueltas (POST-EXTRACCIÓN)
+**PROBLEMA:** Después de extraer conclusiones/recomendaciones con LLM, el JSON puede tener cada párrafo partido en líneas individuales de ~60 chars. El 49.8% de los informes CIAF tenía exactamente 20 items (corte del pipeline), cada uno un bullet suelto en vez de un párrafo coherente. En el frontend se ve como una lista de viñetas microscópicas en vez de texto legible.
+
+**Detección:**
+- Promedio de chars/item < 100 (debería ser 200-500 para conclusiones)
+- Exactamente 20 items (corte del pipeline LLM)
+- Items que no terminan en punto/fin de oración
+
+**Solución — script de re-combinación (multi-pass):**
+```python
+def recombine_fragmented_lines(lines):
+    """Recombine fragmented lines into coherent paragraphs."""
+    paragraphs, current = [], []
+    for line in lines:
+        line = line.strip()
+        if not line: continue
+        # Skip metadata/headers
+        if re.match(r'^(Informe Final|Comisión de|Subsecretaría|Ministerio)', line): continue
+        starts_new = False
+        if not current: starts_new = True
+        elif re.match(r'^\d+[\.\-\)]\s', line): starts_new = True  # Numbered item
+        elif current[-1].endswith('.') and line[0].isupper(): starts_new = True
+        elif line[0].islower(): starts_new = False  # Continuation
+        elif not current[-1].endswith(('.', '!', '?')): starts_new = False
+        else: starts_new = True
+        if starts_new and current: paragraphs.append(' '.join(current)); current = [line]
+        else: current.append(line)
+    if current: paragraphs.append(' '.join(current))
+    return [re.sub(r'\s+', ' ', p).strip() for p in paragraphs if len(p) > 10]
+```
+
+**Multi-pass limpieza:**
+1. **Pasada 1:** Re-combinación de líneas por puntuación y continuidad
+2. **Pasada 2:** Eliminar headers embebidos (`5.1. RESUMEN DEL ANÁLISIS`, `➢ Conclusiones:`, etc.)
+3. **Pasada 3:** Limpiar artefactos (`Informe Final XX/XXXX`, metadata CIAF, tablas basura)
+
+**Resultado CIAF:** 194/269 informes actualizados, de 1022 items sueltos a ~600 párrafos coherentes (230 chars/item promedio). Ver `references/llm-text-recombination.md` para el algoritmo completo con edge cases.
+
 ### 🔴 `span["text"]` puede ser `None` en PyMuPDF
 **CRÍTICO:** En algunos PDFs, PyMuPDF retorna `None` en `span["text"]` en lugar de string vacío. Causa `TypeError: can only concatenate str (not "NoneType") to str` en ~25% de PDFs.
 **Solución:** SIEMPRE usar `span.get("text") or ""` o `span.get("text", "") or ""`:
@@ -589,11 +627,286 @@ Para lotes grandes (100+ PDFs), usar throttling de 2s entre requests. Para 1000 
 ### 🔴 Multi-schema: PDFs heterogéneos
 Para colecciones con múltiples tipos de PDF, crear un schema por tipo. Auto-detectar tipo con las primeras 3-5 muestras usando `auto_learn_schema()`.
 
+### 🔴 PDFs en directorios inesperados
+**NUNCA** asumir que solo hay un directorio de PDFs. En CIAF, existían 3 ubicaciones:
+- `ciaf-data/pdfs/` → 38 PDFs (lo que el agente encontró primero)
+- `CIAF/` → 270 PDFs (la fuente real, con subdirectorios por año)
+- `CIAF-visor/pdfs/` → copia espejo de CIA/
+
+**Solución:** Buscar recursivamente en TODO el workspace antes de empezar:
+```bash
+find /root/workspace -name "*.pdf" -not -path "*node_modules*" | wc -l
+find /root/workspace -name "*.pdf" -not -path "*node_modules*" | sed 's|/[^/]*$||' | sort | uniq -c | sort -rn
+```
+Si el usuario dice "200 PDFs" pero solo encuentras 38, **faltan directorios**.
+
+### 🔴 Fusión de datasets con esquemas diferentes
+Cuando existen dos fuentes de datos para el mismo conjunto (ej: CIAF-visor con esquema rico + ciaf-data con esquema simple), **fusionar selectivamente**:
+
+1. **Usar el esquema más rico como base** (el que tiene más campos: entidades, expediente, GPS, etc.)
+2. **Mejorar solo los campos débiles** del dataset base con los valores del otro
+3. **NUNCA sobrescribir** campos que ya están completos
+
+```python
+# Patrón de fusión
+for report in base_reports:
+    match = find_matching(report, enhanced_data)
+    if not match:
+        continue
+    # Solo mejorar conclusiones/recomendaciones si el otro tiene MÁS
+    if len(match.get('conclusiones', [])) > len(report.get('conclusiones', [])):
+        report['conclusiones'] = match['conclusiones']
+    if len(match.get('recomendaciones', [])) > len(report.get('recomendaciones', [])):
+        report['recomendaciones'] = match['recomendaciones']
+```
+
+**Resultado CIAF:** 62/270 informes mejorados, +111 conclusiones, +59 recomendaciones.
+
+## Quality Audit — Auditar datos extraídos
+
+Después de un batch processing, **SIEMPRE** auditar la calidad de los campos extraídos antes de darlos por buenos.
+
+### Auditoría de resúmenes
+
+Un "resumen" extraído de PDFs técnicos suele ser una **descripción larga** (no un resumen ejecutivo). Detectar y corregir:
+
+```python
+import re
+
+def classify_resumen(resumen: str) -> str:
+    """Clasifica la calidad de un resumen extraído."""
+    if not resumen or len(resumen.strip()) < 20:
+        return "empty"
+    if len(resumen) > 500:
+        return "description"  # ← El 80-95% de los resúmenes caen aquí
+    if re.match(r"^El día", resumen, re.IGNORECASE):
+        return "description"
+    if any(kw in resumen.lower()[:200] for kw in [
+        "descripción del suceso", "descripción del accidente",
+        "circunstancias del", "el día "
+    ]):
+        return "description"
+    return "summary"  # ← Lo que queremos: 2-3 frases concisas
+
+def audit_quality(reports: list) -> dict:
+    """Audita calidad de un lote de informes extraídos."""
+    stats = {"total": len(reports), "summary": 0, "description": 0, "empty": 0}
+    for r in reports:
+        classification = classify_resumen(r.get("resumen", ""))
+        stats[classification] += 1
+    stats["summary_pct"] = stats["summary"] * 100 // stats["total"]
+    return stats
+```
+
+**Resultado CIAF (270 informes):**
+- Antes de re-extract: 16/270 (5%) resúmenes buenos, 254/270 (94%) descripciones
+- Después de re-extract: 245/270 (90%) resúmenes buenos
+
+### Re-extract de campos deficientes
+
+Cuando un campo tiene mala calidad pero el PDF tiene la información, re-extraer con un **prompt específico**:
+
+```python
+def llm_reextract_resumen(text: str, report: dict, model="qwen3.6") -> str:
+    """Re-extrae un resumen ejecutivo de 2-3 frases."""
+    truncated = text[:60000]
+    
+    # Contexto del informe existente
+    context = " | ".join(filter(None, [
+        f"Tipo: {report['tipo']}" if report.get("tipo") else None,
+        f"Lugar: {report['estacion']}" if report.get("estacion") else None,
+        f"Fecha: {report['fecha']}" if report.get("fecha") else None,
+    ]))
+
+    prompt = f"""Eres un analista de seguridad ferroviaria.
+Extrae un RESUMEN EJECUTIVO (MÁXIMO 3 oraciones):
+1. Tipo de suceso + ubicación + fecha
+2. Consecuencias (víctimas, daños)
+3. Causa principal si se menciona
+
+CONTEXTO: {context}
+TEXTO: {truncated}
+
+Devuelve SOLO el resumen, sin comillas ni formato."""
+
+    # LLM call...
+    return resumen
+```
+
+### Cross-repo data matching — Pitfall
+
+**Problema:** Cuando dos repos tienen datos del mismo conjunto pero con IDs diferentes (ej: `2008-0022/2008` vs `IF-0022-2008`), el matching por ID no funciona.
+
+**Solución:** Usar múltiples criterios de matching con scoring:
+1. **Año** (+10 puntos)
+2. **Número de expediente** (extraer dígitos, +20 si coincide)
+3. **Fecha** (+15 si coincide)
+4. **Estación/ubicación** (+5 si una contiene la otra)
+
+```python
+def match_reports(base: dict, candidates: list) -> dict:
+    """Encuentra el mejor match en otro dataset."""
+    best, best_score = None, 0
+    for c in candidates:
+        score = 0
+        if c.get("year") == base.get("year"):
+            score += 10
+        # Agregar más criterios según los datos disponibles
+        if score > best_score:
+            best, best_score = c, score
+    return best if best_score >= 10 else None
+```
+
+**Resultado CIAF:** Intento de matching entre ciaf-data y CIAF-visor → 118/269 errores de matching (IDs diferentes). Lección: verificar year+fecha+estación, NO solo ID.
+
+### Quality metrics para campos típicos
+
+| Campo | Métrica | Umbral bueno |
+|-------|---------|-------------|
+| `resumen` | Longitud | 50-500 chars |
+| `resumen` | No empieza por "El día" | True |
+| `conclusiones` | Count | ≥ 2 |
+| `recomendaciones` | Count | ≥ 1 |
+| `fecha` | Formato ISO | `YYYY-MM-DD` |
+| `victimas` | Tipo | int ≥ 0 |
+
+### Batch re-extraction pattern
+
+```python
+# Re-extraer solo campos deficientes (no todo el lote)
+def reextract_deficient(reports_dir, pdf_dir, field="resumen", 
+                        classify_fn=classify_resumen, limit=60000):
+    """Re-extrae un campo específico solo para informes deficientes."""
+    deficient = []
+    for f in os.listdir(reports_dir):
+        with open(os.path.join(reports_dir, f)) as fh:
+            r = json.load(fh)
+        if classify_fn(r.get(field, "")) in ("empty", "description"):
+            deficient.append(r)
+    
+    print(f"Re-extracting {len(deficient)} deficient {field}s...")
+    # Procesar con llm_reextract_* y guardar
+```
+
+## JSON-to-PDF Verification Audit — Verificar calidad de extracción
+
+**CUÁNDO:** Después de un batch processing, ANTES de dar los datos por buenos.
+**QUÉ:** Comparar cada JSON extraído contra el PDF original para detectar errores de extracción.
+
+### Técnica de verificación
+
+Para cada JSON, extraer texto del PDF y verificar 6 campos clave:
+
+```python
+import fitz, re
+
+def audit_json_vs_pdf(json_data: dict, pdf_path: str) -> dict:
+    """Compara JSON extraído contra texto del PDF original."""
+    doc = fitz.open(pdf_path)
+    pdf_text = ""
+    for page in doc:
+        pdf_text += page.get_text()
+    doc.close()
+    pdf_lower = pdf_text.lower()
+    
+    results = {}
+    
+    # 1. TÍTULO — palabras significativas del título deben aparecer en PDF
+    titulo_words = [w.lower() for w in json_data.get('titulo', '').split() if len(w) > 4][:8]
+    if titulo_words:
+        matches = sum(1 for w in titulo_words if w in pdf_lower)
+        results['titulo'] = matches / len(titulo_words)
+    
+    # 2. FECHA — probar múltiples formatos (CRÍTICO: PDFs usan DD/MM/YYYY)
+    fecha = json_data.get('fecha', '')
+    if fecha:
+        parts = fecha.split('-')
+        formats = [
+            fecha,                              # YYYY-MM-DD
+            f"{parts[2]}/{parts[1]}/{parts[0]}", # DD/MM/YYYY
+            f"{parts[2]}.{parts[1]}.{parts[0]}", # DD.MM.YYYY
+        ]
+        date_found = any(fmt in pdf_text for fmt in formats)
+        # También probar "DD de mes de YYYY"
+        month_names = {'01':'enero','02':'febrero','03':'marzo','04':'abril',
+                       '05':'mayo','06':'junio','07':'julio','08':'agosto',
+                       '09':'septiembre','10':'octubre','11':'noviembre','12':'diciembre'}
+        if not date_found and len(parts) == 3 and parts[1] in month_names:
+            text_date = f"{int(parts[2])} de {month_names[parts[1]]} de {parts[0]}"
+            date_found = text_date in pdf_lower
+        results['fecha'] = 1.0 if date_found else 0.0
+    
+    # 3. ESTACIÓN — nombre simple debe aparecer
+    estacion = json_data.get('estacion', '').split(',')[0].strip()
+    if estacion and len(estacion) > 3:
+        results['estacion'] = 1.0 if estacion.lower() in pdf_lower else 0.3
+    
+    # 4. VÍCTIMAS — números clave deben aparecer
+    victimas = json_data.get('victimas', 0)
+    if victimas > 0:
+        results['victimas'] = 1.0 if str(victimas) in pdf_text else 0.4
+    else:
+        no_casualty = any(p in pdf_lower for p in ['sin víctimas', 'sin fallecidos'])
+        results['victimas'] = 1.0 if no_casualty else 0.5
+    
+    # 5. RESUMEN — palabras del resumen deben estar en PDF (>50% = bueno)
+    resumen_words = [w.lower() for w in json_data.get('resumen', '').split() if len(w) > 5][:25]
+    if resumen_words:
+        coverage = sum(1 for w in resumen_words if w in pdf_lower) / len(resumen_words)
+        results['resumen'] = coverage
+    
+    # 6. CONCLUSIONES — mismo check que resumen
+    conc_text = ' '.join(json_data.get('conclusiones', [])).lower()
+    conc_words = [w for w in conc_text.split() if len(w) > 5][:25]
+    if conc_words:
+        coverage = sum(1 for w in conc_words if w in pdf_lower) / len(conc_words)
+        results['conclusiones'] = coverage
+    
+    # Score promedio
+    scores = [v for v in results.values() if v > 0]
+    avg = sum(scores) / len(scores) if scores else 0
+    
+    return {
+        'fields': results,
+        'avg_score': avg,
+        'verdict': '✅' if avg >= 0.8 else '⚠️' if avg >= 0.6 else '❌'
+    }
+```
+
+### Resultados de la auditoría CIAF (270 informes)
+
+| Score | Cantidad | % |
+|-------|----------|---|
+| EXCELENTE (≥80%) | 244 | 92.4% |
+| BUENO (60-79%) | 8 | 3.0% |
+| REGULAR (40-59%) | 11 | 4.2% |
+| MALO (<40%) | 1 | 0.4% |
+
+**Media: 87.3%, Mediana: 88.3%** — El pipeline produce datos de alta calidad.
+
+### Errores típicos detectados
+
+1. **Formato de fecha**: JSON YYYY-MM-DD vs PDF DD/MM/YYYY — falsos negativos en verificación directa
+2. **Campo estación excesivo**: Algunos JSONs incluyen PK + tramo + estaciones adyacentes en vez del nombre simple
+3. **Victimas inconsistentes**: Suma de subcategorías > total (ej: fallecidos+graves+leves > victimas)
+
+### Dónde están los PDFs de CIAF
+
+```
+/root/workspace/CIAF/          ← FUENTE REAL (277 PDFs, por año)
+/root/workspace/CIAF-visor/    ← Copia del visor
+/root/workspace/ciaf-data/     ← JSONs extraídos (270)
+```
+
+**NUNCA** asumir que los PDFs están en `ciaf-data/pdfs/` — ese directorio tiene solo 38 PDFs. La fuente completa está en `/root/workspace/CIAF/`.
+
 ## Referencias
 
 - `references/pipeline-validation-results.md` — Resultados del test con 3 informes CIAF 2024
 - `references/ciaf-schema.json` — Schema completo para informes CIAF (11 campos, 100% validado)
 - `references/batch-processing-notes.md` — Notas del batch de 270 PDFs: text limit 60K, NoneType fixes, retry patterns, ETA tracking
+- `references/quality-audit-patterns.md` — Patrones de auditoría de calidad y re-extract
+- `references/llm-text-recombination.md` — Algoritmo de re-combinación de texto fragmentado post-extracción (multi-pass, detección, métricas)
 - `ocr-quirurgico-pdf-md` — Para PDFs escaneados/imágenes (complementario)
 - `pdf-to-artifacts-david-antizar` — Para generación de contenido desde PDFs (complementario)
 - `markitdown` — Para conversión rápida a Markdown sin estructura

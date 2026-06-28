@@ -24,7 +24,7 @@ La **NAP (Nodo de Acceso al Transporte Público)** del Ministerio de Transportes
 
 - **Base URL:** `https://nap.transportes.gob.es/api/v2/`
 - **Autenticación:** Header `ApiKey: <NAP_API_KEY>`
-- **API Key:** en `/hermes-home/.env` (variable `NAP_API_KEY`)
+- **API Key:** en `/root/workspace/Time/.env` (variable `NAP_API_KEY`)
 - **Swagger:** `https://nap.transportes.gob.es/api/v2/swagger.json`
 
 ## Endpoints principales
@@ -170,10 +170,11 @@ Mount `/root/workspace/GTFSSpain/data/` como directorio servible.
 2. **Solo GTFS-ZIP son descargables** — GTFS-RT, NetEx, SIRI no son ZIPs. Filtrar por `nombreTipoFichero`.
 3. **Algunos datasets tienen ficheros de 0 bytes** — son datasets con GTFS pero la API no devuelve fichero descargable. Ignorarlos.
 4. **161 datasets** — la llamada `GET /conjunto-dato` devuelve ~9 MB de JSON. No cachear indefinidamente.
-5. **NAP_API_KEY en .env** — no commit. Solo en servidor.
+5. **NAP_API_KEY en `/root/workspace/Time/.env`** — NO en `/hermes-home/.env` ni en `/root/workspace/TimeIneco/.env`. El script busca en ese orden: `TimeIneco/.env` → `Time/.env` → `/.env`.
 6. **Data directory gitignored** — los ZIPs nunca van a git. Solo metadatos ligeros.
 7. **Delta mode** — solo descarga lo actualizado en últimas 24h. Útil para actualizaciones semanales.
 8. **Algunos datasets se actualizan varias veces al día** (Tenerife TITSA: 2.3/día, Comunidad Valenciana: 4.2/día). El delta semanal cubre todos.
+9. **Log de "fallos" engañoso** — el script cuenta como fallos las descargas de GTFS-RT y SIRI (tamaño 0.0 MB, son streams en vivo, no ZIPs). Un resumen con "41 fallos" es normal y esperado. Solo los GTFS-ZIP son datos reales descargables. Los GTFS-RT/SIRI siempre fallarán en este script.
 
 ## Cron job
 
@@ -186,4 +187,4 @@ Mount `/root/workspace/GTFSSpain/data/` como directorio servible.
 ## Referencias
 
 - `references/nap-api-endpoints.md` — Endpoints API NAP con ejemplos de request/response
-- `references/nap-top-datasets.md` — Top datasets por tamaño y región
+- `references/disk-space-warning.md` — Alerta de espacio en disco (94% usado, 1.3 GB libres)

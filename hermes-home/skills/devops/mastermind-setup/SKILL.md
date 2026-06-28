@@ -103,7 +103,7 @@ curl http://localhost:8000/api/v1/version
 ```bash
 skill_view(name='chromadb-skills-vector-search', file_path='scripts/start-chromadb.sh')
 # O directamente:
-bash /hermes-home/skills/mastermind/chromadb-skills-vector-search/scripts/start-chromadb.sh
+bash /hermes-home/skills/chromadb-skills-vector-search/scripts/start-chromadb.sh
 ```
 
 **Datos persistentes:** `/hermes-home/chromadb-data/`
@@ -538,3 +538,7 @@ Para troubleshooting detallado (state desincronizado, quarantine infinito, timeo
 - **2026-06-27:** **Push workflow con branch divergence:** `git push origin HEAD` puede fallar con "non-fast-forward" si el remote tiene commits locales no tienen. **Patrón correcto:** `git pull --rebase origin main` → `git push origin HEAD` (si el remote está en `main`) o `git push origin HEAD:master` (si el remote usa `master`). Si el rebase reporta "skipped previously applied commits", eso es normal (commits ya estaban en remote). Siempre verificar con `git log --oneline -3` después del push.
 
 - **2026-06-27:** **`git add -A` detecta renames automáticamente:** Cuando se corrige doble nesting (ej. `memories/memories/` → `memories/`), `git add -A` detecta los cambios como renames (100%) si el contenido no ha cambiado. Esto produce un commit limpio con `rename hermes-home/memories/{memories => }/INDEX.yaml (100%)`. No es necesario renombar manualmente — git lo resuelve solo.
+
+- **2026-06-27:** **Diff-before-copy para actualizaciones selectivas:** En backups donde el repo ya tiene los archivos (solo algunos cambiaron), NO hay que copiar todo — usar `diff -rq` para comparar y solo copiar los archivos con cambios. Esto reduce tiempo, evita doble nesting innecesario y el commit queda más limpio. Patrón: `diff -rq /hermes-home/notes/ /root/workspace/Mastermind/hermes-home/notes/ | grep -v "IGUAL" | wc -l`. Si el resultado es 0, no copiar. **Optional files:** `INDEX.md` y `STEM-INDEX.md` pueden no existir en `/hermes-home/` — el backup debe omitirlos sin error (son generados). **Config check:** `config.yaml` y `SOUL.md` ya estaban actualizados en el repo tras el autoconfig cron — verificar con `diff` antes de hacer backup completo.
+
+- **2026-06-28:** **Cascading nesting bug (CRÍTICO):** Cuando se corrige el nesting raíz (`skills/skills/` → `skills/`), **CADA categoría top-level** tiene el mismo patrón anidado dentro: `ai-patterns/ai-patterns/`, `creative/creative/`, `stem/stem/`, etc. — **70+ directorios anidados**. `cp -a /hermes-home/skills/ /dest/skills/` produce nesting a DOS niveles: primero en la raíz (`skills/skills/`), luego dentro de CADA categoría. **Solución en dos pasos:** (1) Borrar nesting raíz: `rm -rf skills/skills/` y mover contenido arriba. (2) Loop sistemático para TODAS las categorías: `find . -mindepth 2 -maxdepth 2 -type d | while read dir; do parent=$(basename "$(dirname "$dir")"); child=$(basename "$dir"); if [ "$parent" = "$child" ]; then mv "$dir"/* "$dir"/.* . 2>/dev/null; rm -rf "$dir"; fi; done`. **Verificación post-fix:** `find . -mindepth 2 -maxdepth 2 -type d | while read dir; do parent=$(basename "$(dirname "$dir")"); child=$(basename "$dir"); if [ "$parent" = "$child" ]; then echo "STILL NESTED: $dir"; fi; done` — debe devolver vacío.

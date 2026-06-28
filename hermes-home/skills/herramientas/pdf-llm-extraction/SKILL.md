@@ -12,7 +12,7 @@ related_skills: [ocr-quirurgico-pdf-md, pdf-to-artifacts-david-antizar, markitdo
 
 Pipeline para extraer datos estructurados de PDFs digitales usando **análisis de fuentes + LLM** como motor principal. Reemplaza regex/heurísticas por un enfoque que funciona con **cualquier formato de PDF** sin configuración manual por tipo.
 
-**Validado:** 38 informes CIAF (2017-2025) → 100% confianza, ~0.3s extracción + ~8-15s LLM por PDF. Batch processing completo en ~11 minutos.
+**Validado:** 270 informes CIAF (2007-2025) → 99.6% éxito (231/232), ~0.3s extracción + ~15-20s LLM por PDF. Batch processing completo en ~71 minutos. Texto ampliado a 60K chars (antes 28K) para capturar conclusiones y recomendaciones completas.
 
 ## Cuándo usarlo
 
@@ -108,11 +108,46 @@ PDF digital
 └─────────────────────────────────┘
 ```
 
+## Fase 0 — Análisis de longitudes de texto (OBLIGATORIO antes del batch)
+
+**ANTES de procesar, SIEMPRE analizar las longitudes de texto del corpus:**
+
+```python
+import fitz, os, statistics
+
+pdf_dir = "/ruta/a/pdfs"
+lengths = []
+
+for fname in os.listdir(pdf_dir):
+    if not fname.endswith(".pdf"):
+        continue
+    doc = fitz.open(os.path.join(pdf_dir, fname))
+    text = ""
+    for page in doc:
+        text += page.get_text()
+    doc.close()
+    lengths.append(len(text))
+
+print(f"Mínimo: {min(lengths):,} chars")
+print(f"Máximo: {max(lengths):,} chars")
+print(f"Promedio: {statistics.mean(lengths):,.0f} chars")
+print(f"Mediana: {statistics.median(lengths):,.0f} chars")
+p95 = sorted(lengths)[int(len(lengths)*0.95)]
+print(f"P95: {p95:,} chars")
+print(f"→ Límite recomendado: {p95 + 5000:,} chars (P95 + margen)")
+```
+
+**Resultados CIAF (270 PDFs):** Mínimo 13K, Máximo 266K, Mediana 48K, P95 143K → Límite: 60K chars.
+
+**Regla:** Si el P95 > 50K, usar 60K como límite. Si P95 < 30K, usar 30K. El límite debe cubrir la mayoría de los documentos sin truncar las secciones finales (conclusiones, recomendaciones).
+
 ## Fase 1 — Extracción de texto + font metadata
 
 ```python
 import fitz
 import json
+
+TEXT_LIMIT = 60000  # chars — ajustar según análisis de Fase 0
 
 def extract_text_and_fonts(pdf_path: str) -> dict:
     """Extrae texto plano + metadata de fuentes de cada página."""
@@ -244,7 +279,7 @@ JSON:"""
             "model": model,
             "messages": [{"role": "user", "content": prompt}],
             "temperature": 0.1,
-            "max_tokens": 4000
+            "max_tokens": 8192
         },
         timeout=60
     )
@@ -311,17 +346,33 @@ import fitz, json, requests, time, os, sys, re
 from datetime import datetime
 
 NAN_API = os.getenv("NAN_API")
+TEXT_LIMIT = 60000  # Ajustar según análisis de Fase 0
+
+def find_all_pdfs(root_dir):
+    """Busca recursivamente TODOS los PDFs — no asumir ubicación."""
+    pdfs = []
+    for dirpath, _, filenames in os.walk(root_dir):
+        for f in filenames:
+            if f.lower().endswith('.pdf'):
+                pdfs.append(os.path.join(dirpath, f))
+    return sorted(pdfs)
 
 def batch_process(pdfs_dir, schema, throttle_ms=2000):
     """Procesa todos los PDFs de un directorio con retry y progress tracking."""
-    pdf_files = sorted([f for f in os.listdir(pdfs_dir) if f.lower().endswith('.pdf')])
+    pdf_files = find_all_pdfs(pdfs_dir)  # ← Buscar recursivamente
     results = []
     errors = []
     total = len(pdf_files)
+    start_time = time.time()
 
-    for i, filename in enumerate(pdf_files):
-        pdf_path = os.path.join(pdfs_dir, filename)
-        print(f"[{i+1}/{total}] {filename}", flush=True)
+    for i, pdf_path in enumerate(pdf_files):
+        filename = os.path.basename(pdf_path)
+        elapsed = time.time() - start_time
+        avg = elapsed / max(i, 1)
+        eta = avg * (total - i)
+        eta_str = f"~{int(eta//60)}m{int(eta%60):02d}s" if eta > 60 else f"~{int(eta)}s"
+
+        print(f"[{i+1}/{total}] {filename} — {eta_str}", flush=True)
 
         try:
             # Extract text
@@ -334,14 +385,14 @@ def batch_process(pdfs_dir, schema, throttle_ms=2000):
                         continue
                     for line in block.get("lines", []):
                         for span in line.get("spans", []):
-                            full_text += span.get("text") or ""  # ← CRÍTICO
+                            full_text += span.get("text") or ""  # ← CRÍTICO: NoneType
             doc.close()
 
             if len(full_text.strip()) < 100:
                 raise Exception(f"Texto insuficiente: {len(full_text)} chars")
 
-            # LLM extraction
-            data = llm_extract_structured(full_text[:28000], schema)
+            # LLM extraction — truncar a TEXT_LIMIT
+            data = llm_extract_structured(full_text[:TEXT_LIMIT], schema)
 
             # Validate
             validation = validate_extraction(data, list(schema.keys()))
@@ -427,32 +478,33 @@ JSON:"""
     return schema
 ```
 
-## Performance Observada (batch real)
+## Performance Observada (batch real — v4.0, 270 PDFs)
 
 | Métrica | Valor |
 |---------|-------|
 | Extracción PyMuPDF | ~0.3s por PDF |
 | Font analysis + sections | ~0.05s por PDF |
-| LLM structuring (Qwen 3.6) | ~8-15s por PDF |
+| LLM structuring (Qwen 3.6) | ~15-20s por PDF |
 | Validación | ~0.01s por PDF |
-| **Total por PDF** | **~9-16s** |
-| **38 PDFs CIAF** | **~11 minutos** (con throttling 2s) |
-| **1000 PDFs estimado** | **~55 minutos** (con throttling 2s) |
-| **Confianza media** | **99.2%** (1 PDF a 95%, resto 100%) |
-| **Tasa de éxito** | **100%** (38/38, incluyendo reintentos) |
+| **Total por PDF** | **~16-22s** |
+| **270 PDFs CIAF** | **~71 minutos** (con throttling 1.5s) |
+| **Tasa de éxito** | **99.6%** (231/232, 1 error API timeout, retry fixeado) |
+| **Text limit usado** | **60K chars** (P95 del corpus: 143K) |
+| **max_tokens** | **8192** (suficiente para docs con muchas conclusiones) |
 
 ## Comparativa: Regex vs LLM (demostrada con CIAF)
 
-| Métrica | Regex (v2.0) | LLM Qwen 3.6 (v3.0) |
-|---------|--------------|----------------------|
-| Conclusiones extraídas | 16/38 (42%) | **38/38 (100%)** |
-| Recomendaciones | 18/38 (47%) | **36/38 (95%)** |
-| Trenes identificados | 0/38 (0%) | **38/38 (100%)** |
-| Víctimas detectadas | 0 | **200 total** |
-| Texto limpio | Parcial, basura | **Literal del informe** |
-| Tiempo/PDF | <1s | ~10-15s |
-| Coste API | $0 | ~$0.01/PDF |
-| Configuración por tipo | Sí (regex por tipo) | **No (funciona con todos)** |
+| Métrica | Regex (v2.0) | LLM v3.0 (38 PDFs) | LLM v4.0 (270 PDFs) |
+|---------|--------------|---------------------|----------------------|
+| Conclusiones extraídas | 16/38 (42%) | 38/38 (100%) | **270/270 (100%)** |
+| Recomendaciones | 18/38 (47%) | 36/38 (95%) | **268/270 (99%)** |
+| Trenes identificados | 0/38 (0%) | 38/38 (100%) | **270/270 (100%)** |
+| Víctimas detectadas | 0 | 200 total | **517 total** |
+| Texto límite | N/A | 28K chars | **60K chars** |
+| Texto limpio | Parcial, basura | Literal del informe | **Literal del informe** |
+| Tiempo/PDF | <1s | ~10-15s | **~16-22s** |
+| Coste API | $0 | ~$0.01/PDF | **~$0.015/PDF** |
+| Configuración por tipo | Sí (regex por tipo) | No | **No** |
 
 ## Pitfalls
 
@@ -501,6 +553,32 @@ El factor 1.3 funciona bien para documentos técnicos españoles. Para documento
 ### 🔴 Chunks grandes saturan el LLM
 Si un PDF tiene secciones muy largas (>6000 chars), el LLM puede truncar o ignorar partes. Solución: dividir en chunks de ~4000-6000 chars y procesar por separado, luego consolidar.
 
+### 🔴 Text limit: analizar ANTES de elegir
+**NUNCA** asumir un límite de texto sin analizar el corpus primero. Los PDFs varían enormemente (13K a 266K chars en CIAF). Si el límite es muy bajo (28K), se trunca información crítica (conclusiones, recomendaciones que están al final del documento). Si es muy alto, se satura el contexto del LLM.
+
+**Proceso obligatorio:**
+1. Extraer texto de 20-50 PDFs representativos
+2. Calcular P95 de longitudes
+3. Límite = P95 + 5000 margen
+4. Si P95 > 80K, considerar enviar solo secciones relevantes (conclusiones, recomendaciones) en vez del texto completo
+
+### 🔴 Directorio de PDFs: buscar recursivamente
+**NUNCA** asumir que los PDFs están en un directorio conocido. Siempre buscar recursivamente con `os.walk()` o `find`. Los PDFs pueden estar distribuidos en subdirectorios por año, categoría, o fuente.
+
+```python
+# ❌ ROMPE si hay PDFs en subdirectorios
+pdf_files = [f for f in os.listdir(dir) if f.endswith('.pdf')]
+
+# ✅ BUSCA recursivamente
+for dirpath, _, filenames in os.walk(root_dir):
+    for f in filenames:
+        if f.lower().endswith('.pdf'):
+            pdf_files.append(os.path.join(dirpath, f))
+```
+
+### 🔴 API timeout en batch largo
+Para batches de 200+ PDFs, es normal encontrar 1-2 timeouts de API (524). No es un error del script — es la API temporalmente caída. Solución: registrar el error y continuar. Los PDFs fallidos se pueden reprocesar después.
+
 ### 🔴 Temperature 0.1, no 0
 Temperature 0 causa que el LLM repita exactamente el schema sin rellenar. Temperature 0.1 da consistencia + variación suficiente para llenar campos.
 
@@ -515,7 +593,7 @@ Para colecciones con múltiples tipos de PDF, crear un schema por tipo. Auto-det
 
 - `references/pipeline-validation-results.md` — Resultados del test con 3 informes CIAF 2024
 - `references/ciaf-schema.json` — Schema completo para informes CIAF (11 campos, 100% validado)
-- `references/batch-processing-notes.md` — Notas del batch de 38 PDFs: NoneType fixes, retry patterns
+- `references/batch-processing-notes.md` — Notas del batch de 270 PDFs: text limit 60K, NoneType fixes, retry patterns, ETA tracking
 - `ocr-quirurgico-pdf-md` — Para PDFs escaneados/imágenes (complementario)
 - `pdf-to-artifacts-david-antizar` — Para generación de contenido desde PDFs (complementario)
 - `markitdown` — Para conversión rápida a Markdown sin estructura

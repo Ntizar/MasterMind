@@ -939,14 +939,14 @@
     "archived_at": null,
     "created_at": "2026-06-24T11:39:14.658094+00:00",
     "created_by": "agent",
-    "last_patched_at": "2026-06-26T22:19:34.737992+00:00",
-    "last_used_at": "2026-06-26T22:18:53.836801+00:00",
-    "last_viewed_at": "2026-06-26T22:18:53.824632+00:00",
-    "patch_count": 62,
+    "last_patched_at": "2026-06-27T18:14:17.910457+00:00",
+    "last_used_at": "2026-06-27T18:14:04.530193+00:00",
+    "last_viewed_at": "2026-06-27T18:14:04.519114+00:00",
+    "patch_count": 64,
     "pinned": false,
     "state": "active",
-    "use_count": 33,
-    "view_count": 33
+    "use_count": 34,
+    "view_count": 34
   },
   "graficos-jongonzlz-style": {
     "archived_at": null,
@@ -1382,13 +1382,13 @@
     "created_at": "2026-05-25T13:39:35.760254+00:00",
     "created_by": "agent",
     "last_patched_at": "2026-06-27T06:12:47.194282+00:00",
-    "last_used_at": "2026-06-27T06:12:10.576938+00:00",
-    "last_viewed_at": "2026-06-27T06:12:10.559554+00:00",
+    "last_used_at": "2026-06-27T12:14:18.671162+00:00",
+    "last_viewed_at": "2026-06-27T12:14:18.637866+00:00",
     "patch_count": 84,
     "pinned": false,
     "state": "active",
-    "use_count": 77,
-    "view_count": 77
+    "use_count": 78,
+    "view_count": 78
   },
   "mastermind/documentos-institucionales": {
     "archived_at": null,
@@ -1837,13 +1837,13 @@
     "created_at": "2026-06-25T11:26:00.095284+00:00",
     "created_by": null,
     "last_patched_at": "2026-06-27T09:06:11.679893+00:00",
-    "last_used_at": "2026-06-27T09:04:32.467320+00:00",
-    "last_viewed_at": "2026-06-27T09:04:32.452988+00:00",
+    "last_used_at": "2026-06-27T18:12:38.365140+00:00",
+    "last_viewed_at": "2026-06-27T18:12:38.352179+00:00",
     "patch_count": 7,
     "pinned": false,
     "state": "active",
-    "use_count": 9,
-    "view_count": 9
+    "use_count": 10,
+    "view_count": 10
   },
   "open-source-release": {
     "archived_at": null,
@@ -1862,27 +1862,27 @@
     "archived_at": null,
     "created_at": "2026-06-27T08:30:30.716707+00:00",
     "created_by": "agent",
-    "last_patched_at": "2026-06-27T09:06:07.694464+00:00",
-    "last_used_at": "2026-06-27T09:06:30.836986+00:00",
-    "last_viewed_at": "2026-06-27T09:06:30.820525+00:00",
-    "patch_count": 8,
+    "last_patched_at": "2026-06-27T18:13:57.284675+00:00",
+    "last_used_at": "2026-06-27T18:12:49.723941+00:00",
+    "last_viewed_at": "2026-06-27T18:12:49.704254+00:00",
+    "patch_count": 17,
     "pinned": false,
     "state": "active",
-    "use_count": 2,
-    "view_count": 2
+    "use_count": 3,
+    "view_count": 3
   },
   "pdf-to-artifacts-david-antizar": {
     "archived_at": null,
     "created_at": "2026-06-03T07:24:20.289130+00:00",
     "created_by": null,
     "last_patched_at": "2026-06-27T08:30:44.482698+00:00",
-    "last_used_at": "2026-06-27T09:04:32.441530+00:00",
-    "last_viewed_at": "2026-06-27T09:04:32.429520+00:00",
+    "last_used_at": "2026-06-27T18:12:38.338100+00:00",
+    "last_viewed_at": "2026-06-27T18:12:38.328787+00:00",
     "patch_count": 8,
     "pinned": false,
     "state": "active",
-    "use_count": 14,
-    "view_count": 14
+    "use_count": 15,
+    "view_count": 15
   },
   "pdf-to-landing": {
     "archived_at": null,

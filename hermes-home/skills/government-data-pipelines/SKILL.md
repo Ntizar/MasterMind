@@ -213,7 +213,15 @@ for i in range(start + 1, min(start + 5, len(pages))):
 **Script completo:** `/root/workspace/CIAF-visor/scripts/parse_year_v2.py` — parser funcional con extracción por páginas, geocoding local, y manejo de 3 eras. Ver también: `references/page-based-pdf-extraction.md`, `references/station-coords-geocoding.md`, y `references/ciaf-memoria-parsing.md` (parseo de memorias anuales, diferente de informes individuales).
 
 ### Paso 3c: Extracción semántica de campos
-El mayor reto NO es extraer texto del PDF (PyMuPDF lo hace bien), sino **estructurar el texto libre en campos JSON**. Patrones verificados con CIAF:
+El mayor reto NO es extraer texto del PDF (PyMuPDF lo hace bien), sino **estructurar el texto libre en campos JSON**.
+
+**⚠️ PARADIGMA SHIFT (2026-06):** Para PDFs digitales con texto seleccionable, el enfoque LLM (`pdf-llm-extraction`) supera cualitativamente a los regex:
+- **LLM:** 270/270 conclusiones (100%), 268/270 recomendaciones (99%), 381 trenes
+- **Regex:** 194/270 conclusiones (72%), 149/270 recomendaciones (55%), 0 trenes
+
+**Usar `pdf-llm-extraction` para batch processing de PDFs digitales.** Los regex de abajo quedan como referencia para entender la estructura de los informes, pero no son la herramienta principal recomendada.
+
+Patrones verificados con CIAF (regex, referencia histórica):
 
 **Expediente/informe — 4 patrones de título según era (VERIFICADO 2026-06-26):**
 Los informes CIAF tienen 4 formatos de título distintos. Detectar por orden de prioridad:
@@ -269,7 +277,17 @@ title = f"Informe {expediente}"
 
 **Resultado verificado:** 126 informes antiguos (2007-2019) pasaron de "Informe NN/YYYY" a título descriptivo extraído del PDF. 270/270 informes con título (100%).
 
-**Métricas del parser v2 (ACTUALIZADO 2026-06-26, 270 informes):**
+**Métricas del parser v2 (ACTUALIZADO 2026-06-27, 270 informes):**
+
+**Con LLM (pdf-llm-extraction, v4.0 — RECOMENDADO):**
+| Campo | Éxito | % |
+|-------|-------|---|
+| Conclusiones | 270/270 | 100% |
+| Recomendaciones | 268/270 | 99% |
+| Trenes | 270/270 | 100% |
+| Víctimas | 270/270 | 100% (517 total) |
+
+**Con regex (parser v2, referencia histórica):**
 | Campo | Éxito | % |
 |-------|-------|---|
 | Fechas | 268/270 | 99.3% |
@@ -277,8 +295,6 @@ title = f"Informe {expediente}"
 | Estaciones | 195/270 | 72.2% |
 | Conclusiones | 194/270 | 71.9% |
 | Recomendaciones | 149/270 | 55.2% |
-
-**⚠️ NOTA:** Las métricas de conclusiones/recomendaciones bajaron vs. la versión anterior (96.7%/95.2%) porque la limpieza de estaciones eliminó datos fabricados por subagentes. Los datos reales del parser son más bajos pero honestos.
 
 **Estación/ubicación — múltiples patrones por era:**
 ```python

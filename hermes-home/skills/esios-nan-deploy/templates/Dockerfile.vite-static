@@ -1,0 +1,39 @@
+# ================================================
+# Dockerfile multi-etapa: Vite (Node 20) → Nginx
+# Para proyectos estáticos construidos con Vite
+# Puerto configurable vía ENV PORT
+# ================================================
+
+# --- Stage 1: Build ---
+FROM node:20-alpine AS builder
+WORKDIR /app
+
+# Cache de dependencias (solo si cambia lockfile)
+COPY package.json package-lock.json ./
+RUN npm ci
+
+# Construir
+COPY . .
+RUN npx vite build
+
+# --- Stage 2: Servir con Nginx ---
+FROM nginx:alpine
+
+# Puerto configurable (NaN usa EXPOSE para mapear tráfico)
+ARG PORT=3700
+ENV PORT=${PORT}
+
+# Copiar build
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Configurar nginx para SPA y puerto dinámico
+RUN sed -i "s/listen\s*80;/listen ${PORT};/" /etc/nginx/conf.d/default.conf \
+    && sed -i "s|root\s*/usr/share/nginx/html;|root /usr/share/nginx/html;|" /etc/nginx/conf.d/default.conf \
+    && sed -i '/index.htm/a\        try_files $uri $uri/ /index.html;' /etc/nginx/conf.d/default.conf
+
+EXPOSE ${PORT}
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD wget -qO- http://localhost:${PORT}/ || exit 1
+
+CMD ["nginx", "-g", "daemon off;"]

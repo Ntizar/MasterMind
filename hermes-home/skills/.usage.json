@@ -315,14 +315,14 @@
     "archived_at": null,
     "created_at": "2026-06-10T09:48:16.032336+00:00",
     "created_by": "agent",
-    "last_patched_at": "2026-06-27T08:15:51.705763+00:00",
-    "last_used_at": "2026-06-27T08:16:13.890056+00:00",
-    "last_viewed_at": "2026-06-27T08:16:13.868942+00:00",
-    "patch_count": 15,
+    "last_patched_at": "2026-06-28T12:39:02.547435+00:00",
+    "last_used_at": "2026-06-28T12:39:13.280072+00:00",
+    "last_viewed_at": "2026-06-28T12:39:13.263828+00:00",
+    "patch_count": 18,
     "pinned": false,
     "state": "active",
-    "use_count": 15,
-    "view_count": 15
+    "use_count": 18,
+    "view_count": 18
   },
   "budget-comparison": {
     "archived_at": null,
@@ -1286,6 +1286,19 @@
     "use_count": 7,
     "view_count": 7
   },
+  "live-visuals-body-tracking": {
+    "archived_at": null,
+    "created_at": "2026-06-28T13:45:30.461859+00:00",
+    "created_by": "agent",
+    "last_patched_at": "2026-06-28T13:46:01.348164+00:00",
+    "last_used_at": "2026-06-28T13:46:10.411355+00:00",
+    "last_viewed_at": "2026-06-28T13:46:10.404387+00:00",
+    "patch_count": 2,
+    "pinned": false,
+    "state": "active",
+    "use_count": 1,
+    "view_count": 1
+  },
   "madrid-3pixel": {
     "archived_at": null,
     "created_at": "2026-06-02T13:00:42.471957+00:00",
@@ -1857,6 +1870,19 @@
     "state": "active",
     "use_count": 12,
     "view_count": 12
+  },
+  "onnx-webgpu-inference": {
+    "archived_at": null,
+    "created_at": "2026-06-28T12:31:14.504610+00:00",
+    "created_by": null,
+    "last_patched_at": null,
+    "last_used_at": "2026-06-28T12:31:14.514734+00:00",
+    "last_viewed_at": "2026-06-28T12:31:14.504644+00:00",
+    "patch_count": 0,
+    "pinned": false,
+    "state": "active",
+    "use_count": 1,
+    "view_count": 1
   },
   "open-source-release": {
     "archived_at": null,

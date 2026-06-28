@@ -23,6 +23,13 @@ triggers:
   - "buscar paradas cercanas"
   - "GTFS a HTML"
   - "datos geoespaciales en navegador"
+  - "VJ processor"
+  - "visuales en vivo"
+  - "detección de cuerpo"
+  - "MediaPipe"
+  - "webcam effects"
+  - "real-time visuals"
+  - "audio reactive"
 ---
 
 # Browser Local Tools — Herramientas HTML que funcionan en local
@@ -356,6 +363,21 @@ visor/
 **Pitfall:** El visor NO necesita servidor. Los ZIPs se leen desde el sistema de archivos del usuario vía drag & drop o input file. Nunca usar `fetch()` para cargar ZIPs locales — el protocolo `file://` bloquea CORS.
 
 **Ver enlace a:** `templates/gtfs-visor.html`
+
+## Patrón: Visuales en tiempo real con detección de cuerpo
+
+**Señales clave:** "VJ processor", "visuales para concierto", "efectos con webcam", "detección de cuerpo", "MediaPipe", "audio reactive".
+
+Cuando el usuario quiere generar visuales en vivo que reaccionen al cuerpo y/o audio:
+
+1. **MediaPipe Pose** para detección de 33 landmarks del cuerpo (NO YOLO — YOLO solo da bounding box, MediaPipe da puntos precisos)
+2. **Web Audio API** para FFT y beat detection (NO p5.sound — raw API es más flexible)
+3. **Canvas 2D** para renderizado con trail effects (offscreen canvas + fade)
+4. **1 fichero HTML autocontenido** — webcam + detección + efectos + UI
+
+**Efectos típicos:** neon tracer (contour glow), grid distortion (body warping), particle burst (from hands), constellation (landmark connections), shockwave (beat-triggered), portal vortex (background).
+
+**Ver referencia completa:** `references/browser-realtime-visuals.md`
 
 ## Patrón: Wizard multi-paso con progreso y LLM
 

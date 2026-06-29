@@ -469,7 +469,7 @@ if re.search(r'sin\s+v[íi]ctimas|no\s+se\s+produjeron', text_lower):
 - **Gráficos:** Chart.js para tendencias temporales
 - **Filtros:** Año, tipo, ubicación, causa, operador
 - **Drill-down:** Clic en punto → ver informe completo
-- **Vías de tren (si ferroviario):** Descargar de OpenStreetMap vía Overpass API → GeoJSON local. **No** llamar Overpass en tiempo real desde el frontend (lento, rate-limited).
+- **Vías de tren (si ferroviario):** Usar WMS de Tramificación ADIF (`https://ideadif.adif.es/gservices/Tramificacion/wms`, capa `Tramificacion:TramificacionComun`) — mucho más detallado que el INSPIRE WMS. Para LTV (limitaciones de velocidad), usar FeatureServer ArcGIS (`services7.arcgis.com/.../LTV_2/FeatureServer/0`) — ⚠️ `outSR=4326` hace NULL las属性 X/Y, usar `f.geometry.coordinates`. Ver `references/adif-spatial-data-apis.md` para URLs, esquemas, pitfalls y código completo. **Fallback:** OpenStreetMap vía Overpass API → GeoJSON local. **No** llamar Overpass en tiempo real desde el frontend (lento, rate-limited).
 
 #### Simplificación de GeoJSON grande (PATRÓN VERIFICADO)
 Cuando el GeoJSON de referencia (vías de tren, carreteras, etc.) supera 10MB:
@@ -624,19 +624,28 @@ def geocode_station(station_name: str, province: str = "") -> tuple[float|None, 
 - **🔴 Servidor HTTP y rutas relativas:** Si el frontend usa `fetch('../data/index.json')`, el servidor HTTP DEBE arrancar desde la raíz del proyecto (no desde `frontend/`). Si arranca desde `frontend/`, `../data/` queda fuera del root y devuelve 404/HTML.
 - **🔴 GeoJSON de Overpass API muy grande:** 50K features de vías de tren = 24MB raw. Siempre simplificar antes de servir al frontend (reducir coords, eliminar features cortas). Técnica: precision 4 decimales (~11m), eliminar features <3 coords, subsamplear features >10 coords.
 - **⚠️ Mapeo de campos parser → frontend:** El parser genera campos en español (`tipo`, `fecha_suceso`, `ubicacion.estacion`), pero el frontend puede usar campos en inglés (`type`, `date`, `city`). Añadir capa de mapeo en `loadData()` para desacoplar parser de frontend.
-- **🔴 Nombres de estación contaminados con texto del PDF (VERIFICADO 2026-06-26):** El parser extrae oraciones completas como nombre de estación cuando el regex captura demasiado contexto. Ejemplo: `"Guillarei en condiciones normales a la circulación"` en vez de `"Guillarei"`. **Detección:** buscar estaciones >35 chars o que contengan verbos/frases (`"observa"`, `"condiciones"`, `"maquinista"`). **Limpieza:** truncar en primer punto + mayúscula, o en patrones conocidos (`" y el "`, `" por el "`, `" a la altura del "`). **Prevenir en parser:** limitar captura del regex de estación a 30 chars, o extraer solo hasta el primer punto/coma. **Ver `references/station-name-cleanup.md`** para patrones de limpieza.
+- **⚠️ Nombres de estación en mayúsculas + provincias (VERIFICADO 2026-06-29):** El visor puede tener estaciones en MAYÚSCULAS COMPLETAS ("MADRID-CHAMARTÍN") o con provincias entre paréntesis ("Pradell de la Teca (Tarragona)"). Limpieza: `.title()` + strip de paréntesis provinciales + truncar en puntos/comas + limpiar patrones PK. Ver `references/station-name-cleanup.md`.
+- **⚠️ Geocodificación por PK via LTV (VERIFICADO 2026-06-29):** El FeatureServer LTV de ADIF tiene ~1162 puntos con PKINI/PKFIN + coordenadas. Para un PK dado, encontrar el punto cuyo rango lo contiene. 49/61 líneas CIAF tienen cobertura LTV → 71% geocodificación. Las líneas sin cobertura son regionales cortas (Cercanías, FEVE, ramales). **Pitfall:** `outSR=4326` hace NULL las propiedades X/Y — usar SIEMPRE `geometry.coordinates`. Ver `references/adif-spatial-data-apis.md` y `references/excel-json-cross-reference.md`.
+- **⚠️ Estrategia de geocodificación multi-fuente (VERIFICADO 2026-06-29):** Cuando la geolocalización es crítica pero la precisión varía: (1) Excel con lat/lng reales → usar directo, (2) PK + línea → interpolar LTV (precisión ~100m), (3) nombre estación → DB local (station-coords.json, 328 entradas) + Nominatim fallback, (4) fix manual para los últimos 4-5. Orden de prioridad siempre: fuente primaria > interpolación > geocoding > manual. Resultado CIAF: de 3% a 100% geolocalizados.
 - **🔴 Campo `titulo` no mapeado en frontend (VERIFICADO 2026-06-26):** El parser escribe `titulo` en JSON pero el frontend no lo incluye en el data mapping (`loadData()`). Resultado: panel de detalle muestra `"Informe 64/2024"` en vez del título descriptivo. **Regla:** cuando se añade un campo nuevo al parser, SIEMPRE verificar que el frontend lo mapea en `loadData()`. Patrón: añadir `titulo: r.titulo || ''` en el objeto mapped.
 - **🔴 SUBAGENTE QUE INVENTA DATOS PARA AÑOS SIN FUENTE (VERIFICADO 2026-06-26):** Cuando se delega parseo de PDFs a subagentes, estos pueden crear JSONs con datos fabricados para años donde no existe el PDF fuente. Ejemplo: 17 memorias reales (2008-2024) + subagent genera 2025.json fabricado (sin PDF) y 2007.json con números inventados. **Detección:** después de delegar, verificar que cada JSON generado tiene un PDF correspondiente en `pdfs/`. `os.path.exists()` para cada año. **Corrección:** eliminar JSONs sin fuente. **Regla:** SIEMPRE validar que el subagente tiene acceso al PDF antes de confiar en su output. Los subagentes no distinguen "no pude parsear" de "inventé datos".
 - **⚠️ Contar solo la primera entidad en array (VERIFICADO 2026-06-26):** Cuando un informe tiene `entities: ["ADIF", "Renfe"]`, usar solo `r.entity` (= `r.entities[0]`) para KPIs subcuenta entidades. KPI mostraba 2 entidades cuando había 17 reales. **Corrección:** iterar sobre TODO el array `r.entities`, no solo el primero. Patrón: `new Set(reports.flatMap(r => r.entities || [r.entity]))`.
 - **🔴 LLM fragmenta párrafos en líneas sueltas (VERIFICADO 2026-06-28):** Cuando el pipeline LLM extrae texto de conclusiones/recomendaciones, puede partir cada párrafo en líneas individuales de ~60 chars. El 49.8% de los informes CIAF tenía exactamente 20 items (corte artificial del pipeline), cada uno era un bullet suelto en vez de un párrafo coherente. **Detección:** items < 100 chars que no terminan en punto, o exactamente 20 items (corte del pipeline). **Solución:** script de re-combinación que une líneas por puntuación (línea termina sin punto → siguiente es continuación), detecta párrafos por mayúsculas tras punto, y limpia headers embebidos (5.1. RESUMEN, RECOMENDACIONES). Ver `references/llm-text-recombination.md` para el algoritmo completo. **Multi-pass:** pasada 1 (re-combinación), pasada 2 (limpieza de headers), pasada 3 (limpieza final de artefactos). Resultado CIAF: de 1022 items sueltos a ~600 párrafos coherentes (230 chars/item promedio).
-- **⚠️ Fusión de datasets con esquemas diferentes (VERIFICADO 2026-06-27):** Cuando existen dos fuentes de datos para el mismo conjunto (ej: CIAF-visor con esquema rico + ciaf-data con esquema simple), fusionar selectivamente: (1) usar el esquema más rico como base, (2) mejorar solo los campos débiles del dataset base con los valores del otro, (3) NUNCA sobrescribir campos que ya están completos. Resultado CIAF: 62/270 informes mejorados, +111 conclusiones, +59 recomendaciones. **Clave de emparejamiento fiable:** número de expediente (ej: `0062/2007`), extraído con regex `Nº?\s*(\d{3,4}/\d{4})` del título. Ver `references/data-enrichment-merging.md` para el patrón completo con código.
+- **⚠️ Fusión de datasets con esquemas diferentes (VERIFICADO 2026-06-27):** Cuando existen dos fuentes de datos para el mismo conjunto (ej: CIAF-visor con esquema rico + ciaf-data con esquema simple), fusionar selectivamente: (1) usar el esquema más rico como base, (2) mejorar solo los campos débiles del dataset base con los valores del otro, (3) NUNCA sobrescribir campos que ya están completos. Resultado CIAF: 62/270 informes mejorados, +111 conclusiones, +59 recomendaciones. **Clave de emparejamiento fiable:** número de expediente (ej: `0062/2007`), extraído con regex `Nº?\\\\s*(\\\\d{3,4}/\\\\d{4})` del título. Ver `references/data-enrichment-merging.md` para el patrón completo con código.
+- **⚠️ Dos conjuntos de datos para el mismo proyecto (VERIFICADO 2026-06-29):** El visor CIAF lee de `data/reports/YYYY.json`, mientras el pipeline genera `individual/*.json`. Son estructuras diferentes (schema del visor vs schema del pipeline). Si se corrigen los individual, HAY QUE propagar los cambios al visor. No asumir sincronización automática. **Script de sync:** cruzar por expediente, aplicar correcciones al visor, backup antes de batch. Ver `references/visor-data-batch-fix.md`.
+- **⚠️ Severidad "fatal"/"leve" del visor vs RD 929/2022 (VERIFICADO 2026-06-29):** El visor original usa vocabulario legacy ("fatal"=199, "leve"=68, "grave"=2) pero la taxonomía oficial del RD 929/2022 es "muy grave"/"grave"/"menor". Siempre recalcular desde datos numéricos (víctimas) cuando haya fuente Excel. Mapeo: fatal→muy grave, leve→menor, grave→grave. El index.json del visor TAMBIÉN contiene gravedad — actualizar ahí también.
+- **⚠️ LIMPIEZA AGRESIVA DESTRUYÓ NOMBRES REALES (VERIFICADO 2026-06-29):** La limpieza de estaciones que elimina paréntesis y trunca en "de" destruyó nombres reales: "Vila-real (Castellón)" → "Vila", "Sama de Langreo (Asturias)" → "La". **Reglas:** (1) eliminar SOLO provincia entre paréntesis al FINAL, (2) preservar "de", "del", "la", "el", (3) si el resultado es < 4 chars, devolver el original y extraer del resumen. Ver `references/station-name-cleanup.md` sección "LIMPIEZA DEMASIADO AGRESIVA".
+- **⚠️ Excel tiene provincias equivocadas (VERIFICADO 2026-06-29):** El Excel tiene la provincia incorrecta para ~25% de los registros. La fuente fiable es el resumen del informe PDF. SIEMPRE cruzar provincia desde el resumen cuando esté disponible. Ver `references/excel-json-cross-reference.md` sección 8.
+- **⚠️ Cruce Excel ↔ JSONs con matching caótico (VERIFICADO 2026-06-29):**
 - **⚠️ LLM que inventa datos:** El prompt DEBE incluir: "NO inventes datos. Si un campo no existe en el PDF, pon null."
 - **⚠️ Consistencia de idioma en campos JSON (VERIFICADO 2026-06-26):** El parser escribe `conclusions` (inglés) pero el index generator y frontend esperan `conclusiones` (español).Resultado: 270 JSONs con campo `conclusions` → index.json no los encontraba → frontend mostraba 0 conclusiones. **Corrección:** mass find-replace `conclusions`→`conclusiones`, `recommendations`→`recomendaciones` en los 270 archivos. **Regla:** definir el schema de campos ANTES del parser y verificar que parser→index→frontend usan los mismos nombres. Preferir español si el frontend es en español.
+- **🔴 `patch()` con strings no únicos causa reemplazos múltiples (VERIFICADO 2026-06-29):** Al usar `patch()` en `execute_code` con `mode="replace"` (default), si el `old_string` aparece múltiples veces en el archivo, se reemplazan TODAS las ocurrencias. Esto destruyó un HTML de 1435 líneas al reemplazar `(r.severity||'').replace(/ /g,'-')` (que aparecía 6 veces) con un bloque JavaScript completo. **Solución:** (1) SIEMPRE verificar unicidad con `grep -c "old_string" archivo` antes de patchear, (2) usar strings contextualizados que solo aparezcan una vez (incluir función contenedora, comentarios, o contexto adicional), (3) si se necesita replace_all, ser explícito con `replace_all=true`, (4) como alternativa segura para reemplazos grandes, usar `write_file` con el contenido completo reconstruido.
 - **⚠️ Estructura variable:** Algunos PDFs pueden tener secciones ligeramente diferentes. Tener un fallback que procese sin schema estricto.
 - **⚠️ Paginación en webs gubernamentales:** Los listados de documentos suelen tener paginación. Recorrer todas las páginas antes de descargar PDFs.
 - **⚠️ Encoding en PDFs antiguos:** PDFs antes de 2015 pueden tener caracteres especiales mal codificados. Usar `chardet` o forzar UTF-8.
 - **⚠️ PATRÓN URL POR AÑOS:** Las webs gubernamentales cambian su estructura de URL entre años. Para CIAF: 2015-2016 usan `/AÑO`, 2017-2025 usan `/infofin-AÑO`. **Siempre probar ambas variantes antes de descartar años.**
 - **⚠️ 4 PATRONES DE PDF DIFERENTES:** Los PDFs del mismo repositorio pueden usar rutas distintas según el año de publicación (paginabasica/recursos/, pdf/UUID/, recursos_mfom/, comodin/recursos/). Usar múltiples patrones regex simultáneamente.
+- **🔴 NO hardcodear etiquetas geográficas aproximadas (VERIFICADO 2026-06-29):** Etiquetas de líneas ferroviarias con posiciones `[lat, lng]` inventadas se ven **terrible** — no se alinean con la geometría real del mapa WMS/WFS. **No crear capas de texto hardcodeado sobre mapas reales.** Si se necesitan nombres de líneas, usar atributos de las APIs oficiales (LTV `DESCLINEA`, WFS `nombre`) como popup/tooltip en interacción de clic. Ver `references/adif-spatial-data-apis.md`.
 
 ## Herramientas recomendadas
 
@@ -662,8 +671,57 @@ Este patrón funciona para cualquier tipo de transporte:
 ## Templates disponibles
 - `templates/ciaf-report-schema.json` → Schema para informes CIAF
 
+## Post-extracción: Limpieza y geocodificación batch (NUEVO 2026-06-29)
+
+Después de extraer datos del PDF/Excel, la fase crítica es **limpiar y geolocalizar**. Patrón verificado con CIAF (269 registros):
+
+### Cadena de geocodificación por prioridad
+1. **DB local** (`station-coords.json`, 355+ entradas) → fuente primaria, NO Nominatim
+2. **PK + línea → interpolación LTV** (FeatureServer ADIF, ~100m precisión)
+3. **Nominatim como último fallback** con `time.sleep(1.1)` entre requests
+4. **Fix manual** para los últimos 4-5 registros que fallan todo
+
+**⚠️ Nominatim bloquea IP tras ~50 requests.** SIEMPRE usar DB local como primaria. Nominatim solo para registros nuevos que la DB no tiene.
+
+### Extracción de estación desde resumen cuando el nombre está vacío o truncado
+Cuando `ubicacion.estacion` está vacío, es genérico ("La", "El", "Pk", "San", "Sant") o fue destruido por limpieza agresiva, extraer del resumen:
+
+**⚠️ LIMPIEZA AGRESIVA DESTRUYÓ NOMBRES REALES (VERIFICADO 2026-06-29):**
+"Vila-real (Castellón)" → limpieza eliminó "(Castellón)" + truncó en "de" → "Vila" (3 chars, destruido).
+**Regla:** si el nombre limpiado es < 4 chars o está en GENERIC_NAMES (`la`, `el`, `los`, `san`, `sant`, `de`, `del`, `que`, `pk`), NO limpiar — extraer del resumen.
+```python
+patterns = [
+    r'estaci[oó]n\s+de\s+([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s+(?:de|del|la|el)\s+[A-ZÁÉÍÓÚÑ]?[a-záéíóúñ]+)*)',
+    r'apeadero\s+de\s+([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)',
+    r'paso a nivel\s+(?:de\s+|entre\s+[^i]+y\s+)([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)',
+    r'en\s+([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s+(?:de|del|la|el)\s+[A-ZÁÉÍÓÚÑ]?[a-záéíóúñ]+)*)\s*,',
+]
+```
+
+### Detección de coords por defecto
+```python
+# Buscar registros con coordenadas idénticas (>5 = defecto)
+from collections import Counter
+coord_counts = Counter((r['lat'], r['lng']) for r in records if r.get('lat'))
+default_coords = [c for c, n in coord_counts.items() if n > 5]
+# Estos registros necesitan re-geolocalización
+```
+
+### Provincia: resumen > Excel (CRÍTICO)
+**El Excel tiene provincias equivocadas para ~25% de los registros.** La fuente fiable es el resumen del informe PDF, que menciona la provincia entre paréntesis después del nombre de la estación. Ver `references/excel-json-cross-reference.md` sección 8 para el patrón completo de extracción.
+
+**Regla:** cuando el Excel y el resumen discrepen en provincia, SIEMPRE confiar en el resumen. El Excel puede tener la provincia de la sede CIAF (Madrid) o de otro registro cercano.
+
+### Limpieza de nombres — reglas
+- `title()` para mayúsculas → Title Case
+- Eliminar `(Provincia)` del final
+- Eliminar suffixes: `desde`, `por`, `y éste`, `PK NNN`
+- **NUNCA** eliminar si el resultado queda <4 chars → usar fallback del resumen
+- Verificar que la provincia del nombre coincide con la provincia registrada
+
 ## Referencias
 - `references/ciaf-scraping.md` → Procedimiento completo de scraping: URLs, curl/Python, estructura nombres PDF, pitfalls
 - `references/ciaf-data-architecture-2026.md` → Arquitectura completa CIAF: inventario 277 informes, 3 eras de formato, JSON particionado, relaciones entidades, diseño del visor
 - `references/data-enrichment-merging.md` → Patrón de enriquecimiento/fusión de datasets: emparejamiento por expediente, fusión selectiva, geocodificación batch con DB local
 - `references/llm-text-recombination.md` → Algoritmo de re-combinación de texto fragmentado por LLM: detección, multi-pass limpieza, métricas de resultado
+- `references/adif-spatial-data-apis.md` → APIs espaciales de ADIF: WMS red ferroviaria, LTV (limitaciones velocidad) FeatureServer, Tramificación WFS. URLs, esquemas, código Leaflet, pitfalls

@@ -168,7 +168,8 @@ proyecto/
 9. **Versiones desalineadas:** JSON y JS pueden tener versions diferentes. Siempre actualizar ambos en el mismo commit.
 10. **Stats keys inconsistentes entre JSON y JS:** Keys con nombres distintos (ej: `con_coordenadas` vs `con_coords`) pero mismos valores es normal después de refactorizar una parte sin la otra. Comparar valores, no keys.
 11. **🔴 Múltiples formatos de PDF en la misma colección:** Los informes gubernamentales cambian de formato según la normativa vigente. Ejemplo CIAF: 3 eras (pre-RD810, RD810, RD623) con secciones diferentes. **Siempre detectar el formato ANTES de parsear** y tener un parser por era. No intentar un solo regex para todo.
-12. **🔴 Verificar inventario real antes de diseñar arquitectura:** No asumir el número de registros basándose en una fuente parcial. Contar los PDFs disponibles en el disco Y en la web ANTES de decidir JSON-partitioned vs single-file, lazy-loading vs eager, etc.
+13. **🔴 Verificar inventario real antes de diseñar arquitectura:** No asumir el número de registros basándose en una fuente parcial. Contar los PDFs disponibles en el disco Y en la web ANTES de decidir JSON-partitioned vs single-file, lazy-loading vs eager, etc.
+14. **🔴 NO hardcodear etiquetas geográficas aproximadas sobre mapas reales (VERIFICADO 2026-06-29):** Etiquetas de líneas/infraestructura con posiciones `[lat, lng]` inventadas se ven **terrible** — no se alinean con la geometría real del WMS/WFS de fondo. **No crear capas de texto hardcodeado sobre mapas.** Si se necesitan nombres de elementos, usar atributos de las APIs oficiales (popup/tooltip en clic).
 13. **🔴 Memorias anuales ≠ informes individuales:** Las memorias son resúmenes estadísticos (totales, tendencias). Los informes son casos individuales. Pueden tener datos inconsistentes (ej: la memoria dice "28 accidentes" pero hay 30 informes). Diseñar el sistema para detectar y reportar inconsistencias.
 
 ## Alternativas de hosting

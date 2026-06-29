@@ -2287,6 +2287,15 @@ function loadModulo() {
 - **NUNCA usar `const` o `let`** si el proyecto usa `var` consistentemente
 - **Siempre verificar null** del contenedor antes de manipularlo
 - **Siempre `.catch()`** en cada fetch — error silencioso = bug invisible
+
+### Decorative map labels must match data precision
+Cuando se añaden etiquetas decorativas (nombres de líneas, localizaciones) a un mapa con capas WMS/FeatureServer reales, las posiciones deben ser precisas o no añadirlas. David rechazó explícitamente etiquetas de líneas ferroviarias con posiciones aproximadas ("se ve fatal"). Si no hay datos GeoJSON oficiales de geolocalización, NO inventar posiciones decorativas — las capas de datos reales (WMS, LTV) ya dan contexto suficiente.
+
+### Limpiar código muerto al eliminar capas de mapas
+Al quitar una capa Leaflet: eliminar variable, inicialización, entrada en `overlays`, función de carga, referencia en leyenda, y cualquier `console.log` asociado. Dejar líneas vacías o variables sin usar causa bugs silenciosos.
+
+### Referencia CIAF-visor
+Ver `references/ciaf-visor-adif-layers.md` para integración completa con APIs ADIF (WMS, FeatureServer LTV, WFS Tramificación).
 - **Empty state honesto** cuando no hay datos, nunca inventar
 
 ### 4. Registrar en switchTab

@@ -119,6 +119,28 @@ def density_multiplier(density):
 - Cuando la fuente es un archivo local o base de datos interna
 - Cuando se necesita datos en tiempo real → la estimación es un snapshot
 
+## Fuentes que SÍ funcionan desde servidor
+
+| Fuente | Tipo | Notas |
+|--------|------|-------|
+| **ADIF (WMS/FeatureServer)** | GIS/WFS | WMS Tramificación muy detallado. FeatureServer LTV con coords en geometry (no attributes). Ver `references/adif-railway-data-sources.md` |
+| **IGN (WMTS)** | Tiles | Mapas base y red ferroviaria. Ver skill `ign-wmts-tiles` |
+| **Nominatim** | Geocoding | Gratis, 1 req/s. Ver skill `nominatim-geocoding` |
+| **Open-Meteo** | Clima | Gratis, sin API key. Ver skill `esios-complete` |
+
+### ArcGIS FeatureServer — Pitfall de coordenadas
+
+Cuando se consulta un FeatureServer de ArcGIS con `outSR=4326`, las coordenadas en los **atributos** (`X`, `Y`) pueden venir **NULL**, pero la **geometría** (`f.geometry.x`, `f.geometry.y`) sí tiene los valores correctos. Siempre usar `f.geometry.x/y` y añadir `returnGeometry=true` al query.
+
+```javascript
+// ❌ MAL — attributes X/Y vienen NULL con outSR=4326
+const a = f.attributes;
+L.marker([a.Y, a.X]);
+
+// ✅ BIEN — geometry siempre tiene las coordenadas
+L.marker([f.geometry.y, f.geometry.x]);
+```
+
 ## Pitfalls
 
 - **No confundir nombre de provincia con código postal** — "Guipúzcoa" ≠ "20xxx", "Vizcaya" ≠ "48xxx"

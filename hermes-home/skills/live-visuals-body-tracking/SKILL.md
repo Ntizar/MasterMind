@@ -251,6 +251,9 @@ curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
 - **AudioContext suspended** — browsers block audio until user interaction. Call `audioCtx.resume()` on first click/keypress.
 - **Landmark visibility** — always check `lm[i].visibility > 0.4` before using a landmark. Hidden landmarks produce erratic positions.
 - **Trail canvas memory** — use `fillRect` with alpha for fading, never `clearRect` (kills trails). Fade factor 0.15 = medium trails, 0.05 = long trails, 0.3 = short trails.
+- **Camera access blocks loading indefinitely** — if webcam is denied, unavailable, or MediaPipe init fails, `camera.start()` can hang forever. ALWAYS wrap MediaPipe init in try/catch + `Promise.race` with timeout (10-15s). The app must degrade gracefully: show message "Webcam no disponible — sube un vídeo o foto" and let the user continue with video/image backgrounds. See `references/defensive-loading-fallback.md`.
+- **Loading overlay blocks browser permission dialog** — a `loadingOverlay` with `z-index: 1000` and solid background (`background: var(--bg)`) covers the entire viewport and **prevents the user from seeing/accepting the browser's `getUserMedia` permission prompt**. Fix: hide the loading overlay BEFORE calling `getUserMedia` (so the permission dialog is visible), then show it again only for the MediaPipe WASM download (~3-5s). Also use `rgba()` with transparency + `backdrop-filter: blur()` instead of solid `background` so the dialog is always partially visible.
+- **`camera.start()` never rejects on some browsers** — MediaPipe's `Camera.start()` internally calls `getUserMedia`, but on some browsers it can stay in `pending` state forever (neither resolves nor rejects) if the user denies or the webcam is unavailable. Wrap in `Promise.race([camera.start(), timeoutPromise(12000)])` to guarantee progress.
 
 ## Performance Targets
 
@@ -280,3 +283,7 @@ All code inline in index.html. No build step, no npm, no bundler. CDN for MediaP
 - `touchdesigner-mcp` — Real-time visuals via TouchDesigner (requires TD installation)
 - `onnx-webgpu-inference` — YOLO object detection (bounding boxes, not body landmarks)
 - `creative--threejs-3d-web` — 3D WebGL scenes (different rendering approach)
+
+## References
+
+- `references/defensive-loading-fallback.md` — Patrón de fallback defensivo para MediaPipe/cámara: try/catch + timeout de 15s para evitar spinner infinito

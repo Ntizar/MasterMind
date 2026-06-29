@@ -87,6 +87,7 @@ El resumen debe incluir:
 - **Parser del catálogo usa tablas HTML, no listas**: El catálogo API-mega-list usa formato `| [name](url) | desc |`, NO listas con emojis. Si el parser usa detección de emojis o `\\p{Emoji}`, fallará con `re.PatternError`. **Siempre usar regex de tablas.**
 - **Duplicados por secciones múltiples**: Las APIs aparecen en múltiples secciones del catálogo. El parser debe usar un `seen_names` set para evitar duplicados. Sin esto, el script procesará la misma API 3-4 veces.
 - **`estado.json` puede tener `categorias: {}` vacío**: en junio 2026, el script dejó de llenar el campo `categorias` en `estado.json`. Las métricas globales (`procesadas`, `total_estimado`) siguen siendo válidas, pero el campo `categorias` puede estar vacío. Para obtener el desglose por categoría, confiar en el conteo de directorios reales.
+- **Desfase estado.json vs directorios DENTRO del mismo repo**: `estado.json['procesadas']` puede ser muy inferior al conteo real de directorios en disco (ej. 28/06: 1.475 en estado.json vs 4.364 directorios reales = 196% de desfase). El script crea directorios y hace commits pero no siempre actualiza estado.json con el conteo correcto. **Siempre validar con conteo de directorios reales** (`find`, `os.listdir`, `ls -d */`). Ver `references/estado-json-vs-directorios-2026-06-28.md`.
 
 ## Procesamiento (procesar-apis.py)
 
@@ -168,3 +169,4 @@ Si el script falla con `fatal: not a git repository`, verificar que `REPO_DIR` a
 - `references/resumen-diario-2026-06-21.md` — Lecciones de la sesión del 21/06: dual-repo divergence, `categorias: {}` vacío, patrón de conteo fiable.
 - `references/validacion-fuentes-2026-06-22.md` — Diagnóstico de divergencia de repos: cómo identificar cuál repo está sync'd con GitHub, reglas de verdad en orden de fiabilidad, hallazgos del 22/06.
 - `references/merge-historiales-no-relacionados-2026-06-26.md` — Procedimiento completo para unir historiales git no relacionados (`--allow-unrelated-histories`): resolución de 118 conflictos, cuándo usar `--theirs`, configurar upstream tracking.
+- `references/estado-json-vs-directorios-2026-06-28.md` — Diagnóstico del desfase entre `estado.json['procesadas']` y conteo real de directorios DENTRO del mismo repo (1.475 vs 4.364).

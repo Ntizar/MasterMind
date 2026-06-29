@@ -911,14 +911,127 @@ def audit_json_vs_pdf(json_data: dict, pdf_path: str) -> dict:
 - `pdf-to-artifacts-david-antizar` — Para generación de contenido desde PDFs (complementario)
 - `markitdown` — Para conversión rápida a Markdown sin estructura
 
-## Implementación existente
+## PdfToJson v2 — Herramienta general-purpose (refactoring del v1)
 
-**PdfToJson** — Herramienta HTML completa (7-step wizard):
-- Repo: `github.com/Ntizar/PdfToJson` (privado)
-- Archivo: `index.html` (~2687 líneas)
-- UI: Kaizen Design System
-- Client-side: PDF.js + browser processing
-- Deploy target: NaN port 4000
+El v1 era un script monolítico ligado a CIAF. El v2 (`/root/workspace/PdfToJson-v2/`) es un **módulo Python reutilizable** que funciona con cualquier tipo de PDF y múltiples proveedores de LLM.
+
+### Arquitectura modular
+
+```
+pdftojson/
+├── config.py        → Dataclasses: LLMConfig, ExtractionConfig, OutputConfig
+├── extractor.py     → PyMuPDF + chunking inteligente + estimación tokens
+├── llm_client.py    → Cliente unificado (Ollama, llama.cpp, vLLM, OpenAI, NaN)
+├── orchestrator.py  → Orquestador: process(), process_batch(), merge, save
+├── schemas.py       → 5 schemas predefinidos + carga de personalizados
+└── __main__.py      → CLI con argparse completo
+```
+
+### Qué cambió vs. v1
+
+| v1 (script) | v2 (herramienta) |
+|---|---|
+| CIAF-only | Cualquier PDF |
+| NaN API hardcodeada | 5 proveedores (Ollama, llama.cpp, vLLM, OpenAI, NaN) |
+| 28-60K chars fixos | Chunking automático según contexto del modelo |
+| 4 archivos duplicados | 6 módulos limpios, 0 duplicación |
+| Sin estimación de tokens | Estimación sin dependencias (1 token ≈ 3.5 chars español) |
+| Sin CLI | CLI completa (--analyze, --health-check, --schema, etc.) |
+| Paths hardcodeados | Configuración paramétrica |
+
+### Multi-backend: patrón cliente unificado
+
+Todos los proveedores usan formato OpenAI-compatible `/v1/chat/completions`:
+
+```python
+# El mismo cliente funciona con todos:
+config = LLMConfig(api_url="http://localhost:11434/v1/...", model="qwen2.5:7b")  # Ollama
+config = LLMConfig(api_url="http://localhost:8080/v1/...", model="local")          # llama.cpp
+config = LLMConfig(api_url="https://api.openai.com/v1/...", model="gpt-4o-mini")  # OpenAI
+```
+
+**Pitfall:** Ollama usa `/v1/chat/completions` pero su health check es `/api/tags`. El cliente detecta el proveedor por URL.
+
+### Chunking inteligente
+
+El chunking anterior era un simple `text[:60000]`. El v2:
+
+1. **Calcula el límite automáticamente** desde `context_window` del modelo
+2. **Corta por párrafos** (doble salto de línea) cuando es posible
+3. **Overlap** entre chunks para no perder contexto al cortar
+4. **Fusión inteligente** de resultados: combina arrays, toma strings más largos
+
+```python
+# Ejemplo de corte inteligente (de extractor.py):
+def _find_best_cut(text, start, end):
+    # Prioridad 1: doble salto de línea
+    # Prioridad 2: salto de línea
+    # Prioridad 3: punto y espacio
+    # Fallback: cortar donde esté
+```
+
+### Estimación de tokens sin dependencias
+
+```python
+# En español, 1 token ≈ 3-4 caracteres. Usamos 3.5 como estimación conservadora.
+CHARS_PER_TOKEN = 3.5
+def estimate_tokens(text): return int(len(text) / CHARS_PER_TOKEN)
+def estimate_chars_for_tokens(n): return int(n * CHARS_PER_TOKEN)
+```
+
+No necesita `tiktoken` ni `transformers`. Suficiente para planificación de chunks.
+
+### Modelos: contexto vs. calidad
+
+| Modelo | Contexto | Chars caben | Velocidad | Calidad |
+|---|---|---|---|---|
+| llama3.1:8b | 8K tokens | ~24K chars | 60-180s (CPU) | Básica |
+| qwen2.5:7b | 32K tokens | ~96K chars | 10-30s (GPU) | Buena |
+| qwen2.5:32b | 32K tokens | ~96K chars | 30-60s (GPU) | Muy buena |
+| gpt-4o-mini | 128K tokens | ~384K chars | 5-15s (API) | Excelente |
+| qwen3.6 (NaN) | 128K tokens | ~384K chars | 5-15s (API) | Excelente |
+
+**Regla práctica:** Para extracción simple (título, fecha, tipo), 7B basta. Para conclusiones largas y recomendaciones estructuradas, 32B+ o API remota.
+
+### Uso del CLI
+
+```bash
+# Análisis previo (sin LLM, solo PyMuPDF)
+python -m pdftojojo --analyze *.pdf
+
+# Health check del LLM
+python -m pdftojson --health-check --provider ollama
+
+# Procesamiento
+python -m pdftojson doc.pdf --schema generico --provider ollama
+python -m pdftojson informe.pdf --schema ciaf --provider nan --api-key $NAN_API
+
+# Batch con salida
+python -m pdftojson *.pdf --schema generico -o resultados/ --no-consolidated
+
+# Schema personalizado
+python -m pdftojson doc.pdf --schema-file mi_schema.json
+```
+
+### Schemas predefinidos
+
+- `generico` — título, autor, fecha, resumen, palabras clave, conclusiones
+- `ciaf` — id, fecha suceso, ubicación, trenes, víctimas, conclusiones, recomendaciones
+- `legal` — partes, objeto, cláusulas, obligaciones, plazos
+- `cientifico` — autores, problema, método, resultados, referencias
+- `financiero` — empresa, NIF, base imponible, IVA, líneas de detalle
+
+### Requisitos mínimos
+
+```bash
+pip install PyMuPDF requests
+# + Ollama o API key
+```
+
+### Referencias del v2
+
+- `references/model-context-limits.md` — Tabla completa de context windows por modelo
+- `references/multi-backend-pattern.md` — Patrón de cliente unificado para APIs OpenAI-compatible
 
 ## Atribución
 

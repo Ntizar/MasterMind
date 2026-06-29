@@ -1134,14 +1134,14 @@
     "archived_at": null,
     "created_at": "2026-06-07T22:04:33.049724+00:00",
     "created_by": "agent",
-    "last_patched_at": "2026-06-26T01:40:12.265432+00:00",
-    "last_used_at": "2026-06-27T22:00:41.594123+00:00",
-    "last_viewed_at": "2026-06-27T22:00:41.577091+00:00",
-    "patch_count": 35,
+    "last_patched_at": "2026-06-28T22:05:55.636429+00:00",
+    "last_used_at": "2026-06-28T22:04:17.602837+00:00",
+    "last_viewed_at": "2026-06-28T22:04:17.588290+00:00",
+    "patch_count": 38,
     "pinned": false,
     "state": "active",
-    "use_count": 51,
-    "view_count": 51
+    "use_count": 53,
+    "view_count": 53
   },
   "isochrone-routing-tools": {
     "archived_at": null,
@@ -1901,14 +1901,14 @@
     "archived_at": null,
     "created_at": "2026-06-27T08:30:30.716707+00:00",
     "created_by": "agent",
-    "last_patched_at": "2026-06-28T11:00:48.914224+00:00",
-    "last_used_at": "2026-06-28T10:59:40.373830+00:00",
-    "last_viewed_at": "2026-06-28T10:59:40.360408+00:00",
-    "patch_count": 24,
+    "last_patched_at": "2026-06-28T21:59:24.763189+00:00",
+    "last_used_at": "2026-06-28T21:59:29.791802+00:00",
+    "last_viewed_at": "2026-06-28T21:59:29.776981+00:00",
+    "patch_count": 27,
     "pinned": false,
     "state": "active",
-    "use_count": 9,
-    "view_count": 9
+    "use_count": 11,
+    "view_count": 11
   },
   "pdf-to-artifacts-david-antizar": {
     "archived_at": null,

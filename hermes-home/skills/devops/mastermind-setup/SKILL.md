@@ -1,7 +1,7 @@
 ---
 name: mastermind-setup
 description: "Configura y mantiene el sistema personal de agentes Mastermind — sincronización de repositorio GitHub, instalación de skills, configuración de SOUL.md y auto-configuración de cron para el segundo cerebro de Ntizar."
-version: 1.3.0
+version: 1.4.0
 author: Ntizar + Hermes Agent
 tags: [mastermind, setup, github, skills, soul, nan, identity]
 ---
@@ -179,47 +179,59 @@ Ejecutar cuando se pida o como cron.
 
 ### Pasos
 
-1. **Limpiar destino ANTES de copiar** (CRÍTICO — evita doble nesting):
+1. **Verificar que el destino existe:**
    ```bash
-   rm -rf /root/workspace/Mastermind/hermes-backup/
-   ```
-   Sin esto, los `cp -r` duplican rutas: `hermes-backup/notes/notes/`, `hermes-backup/memories/memories/`.
-
-2. **Copiar archivos/carpetas:**
-   ```bash
-   mkdir -p /root/workspace/Mastermind/hermes-backup/
-   cp /hermes-home/config.yaml /root/workspace/Mastermind/hermes-backup/
-   cp -r /hermes-home/memories/ /root/workspace/Mastermind/hermes-backup/memories/
-   cp -r /hermes-home/notes/ /root/workspace/Mastermind/hermes-backup/notes/
-   cp /hermes-home/skills/INDEX.md /root/workspace/Mastermind/hermes-backup/
-   cp /hermes-home/skills/STEM-INDEX.md /root/workspace/Mastermind/hermes-backup/
+   test -d /root/workspace/Mastermind/hermes-home/ || mkdir -p /root/workspace/Mastermind/hermes-home/
    ```
 
-3. **Comparar skills (Hermes vs repo):**
+2. **Copiar archivos/carpetas con rsync (NO cp -r):**
    ```bash
-   hermes_count=$(find /hermes-home/skills/ -name 'SKILL.md' | wc -l)
-   repo_count=$(find /root/workspace/Mastermind/skills/ -name 'SKILL.md' | wc -l)
-   echo "Hermes: $hermes_count, Repo: $repo_count"
+   # rsync maneja destinos existentes correctamente — no duplica rutas
+   rsync -av /hermes-home/skills/ /root/workspace/Mastermind/hermes-home/skills/
+   rsync -av /hermes-home/memories/ /root/workspace/Mastermind/hermes-home/memories/
+   rsync -av /hermes-home/notes/ /root/workspace/Mastermind/hermes-home/notes/
+   rsync -av /hermes-home/scripts/ /root/workspace/Mastermind/hermes-home/scripts/
+   cp /hermes-home/config.yaml /root/workspace/Mastermind/hermes-home/config.yaml
+   cp /hermes-home/SOUL.md /root/workspace/Mastermind/hermes-home/SOUL.md
+   cp /hermes-home/user.md /root/workspace/Mastermind/hermes-home/user.md
    ```
-   - Si repo tiene MÁS skills → no hay nada que copiar (repo está más actualizado). Saltar paso 4.
-   - Si Hermes tiene MÁS → copiar dirs faltantes (excluyendo `.hub/`, `audio/`, `gaming/`, `gifs/`).
+   > **Por qué rsync y no `cp -r`:** `cp -r /hermes-home/memories/ /dest/hermes-home/memories/` cuando el destino ya existe produce `/dest/hermes-home/memories/memories/`. `rsync -av` no tiene este problema.
 
-4. **git add, commit, push:**
+3. **Verificar que no hay nesting:**
+   ```bash
+   find /root/workspace/Mastermind/hermes-home/ -mindepth 2 -maxdepth 2 -type d | while read dir; do
+     parent=$(basename "$(dirname "$dir")")
+     child=$(basename "$dir")
+     if [ "$parent" = "$child" ]; then
+       echo "NESTED: $dir"
+     fi
+   done
+   ```
+   Si hay nesting, aplicar el fix cascading (ver pitfall 2026-06-28).
+
+4. **Contar archivos copiados:**
+   ```bash
+   find /root/workspace/Mastermind/hermes-home/skills -type f | wc -l
+   ```
+
+5. **git add, commit, push:**
    ```bash
    cd /root/workspace/Mastermind
-   git add hermes-backup/
-   git commit -m "🛡️ Auto-backup: config, memories, skills YYYY-MM-DD"
-   git push origin master
+   git add -A
+   git commit -m "Backup semanal: $(date +%Y-%m-%d)"
+   git push origin HEAD:master
    ```
 
 ### Pitfalls críticos del backup
 
-- **DOBLE NESTING (recurrente):** `cp -r /hermes-home/memories/ /dest/hermes-backup/memories/` cuando `/dest/hermes-backup/memories/` ya existe produce `/dest/hermes-backup/memories/memories/`. **SOLUCIÓN OBLIGATORIA:** `rm -rf hermes-backup/` antes de copiar. Siempre.
+- **DOBLE NESTING con `cp -r` (recurrente):** `cp -r /hermes-home/memories/ /dest/hermes-home/memories/` cuando `/dest/hermes-home/memories/` ya existe produce `/dest/hermes-home/memories/memories/`. **SOLUCIÓN OBLIGATORIA:** usar `rsync -av` en lugar de `cp -r`. Siempre.
+- **Cascading nesting en skills:** Cuando el nesting raíz se corrige (`skills/skills/` → `skills/`), CADA categoría top-level puede tener el mismo patrón: `ai-patterns/ai-patterns/`, `creative/creative/`, `stem/stem/` — 70+ directorios. **Fix:** loop sistemático `find . -mindepth 2 -maxdepth 2 -type d | while read dir; do parent=$(basename "$(dirname "$dir")"); child=$(basename "$dir"); if [ "$parent" = "$child" ]; then mv "$dir"/* "$dir"/.* . 2>/dev/null; rm -rf "$dir"; fi; done`.
 - **skill-learning.log:** puede no existir (gitignore, puede haber sido eliminado). No fallar si no está.
 - **Comparación de skills:** usar `find -name 'SKILL.md'` en ambos lados, EXCLUYENDO `.hub/`. El repo puede tener más skills que Hermes (skills propios del sistema, STEM, etc.). No es problema.
 - **`.hub/quarantine/` no va al backup.** Contiene installs fallidas.
 - **`.lock` files:** los archivos `.lock` de memories (MEMORY.md.lock, USER.md.lock) van al backup pero son inertes. Limpiarlos con `find -name '*.lock' -delete` antes de commit si se quiere repos limpio.
 - **`.hub/` en conteo:** no incluir `.hub/` al comparar conteos de SKILL.md.
+- **`rsync --delete` es destructivo:** solo usar si se quiere espejo exacto. Para backup incremental seguro, usar `rsync -av` SIN `--delete`.
 
 - **Hermes no detecta external_dirs mid-session** — reiniciar sesión (`/reset`) tras cambiar `config.yaml`
 - **SKILL.md requerido** — archivos `.md` individuales no se detectan sin un `SKILL.md` umbrella
@@ -542,3 +554,5 @@ Para troubleshooting detallado (state desincronizado, quarantine infinito, timeo
 - **2026-06-27:** **Diff-before-copy para actualizaciones selectivas:** En backups donde el repo ya tiene los archivos (solo algunos cambiaron), NO hay que copiar todo — usar `diff -rq` para comparar y solo copiar los archivos con cambios. Esto reduce tiempo, evita doble nesting innecesario y el commit queda más limpio. Patrón: `diff -rq /hermes-home/notes/ /root/workspace/Mastermind/hermes-home/notes/ | grep -v "IGUAL" | wc -l`. Si el resultado es 0, no copiar. **Optional files:** `INDEX.md` y `STEM-INDEX.md` pueden no existir en `/hermes-home/` — el backup debe omitirlos sin error (son generados). **Config check:** `config.yaml` y `SOUL.md` ya estaban actualizados en el repo tras el autoconfig cron — verificar con `diff` antes de hacer backup completo.
 
 - **2026-06-28:** **Cascading nesting bug (CRÍTICO):** Cuando se corrige el nesting raíz (`skills/skills/` → `skills/`), **CADA categoría top-level** tiene el mismo patrón anidado dentro: `ai-patterns/ai-patterns/`, `creative/creative/`, `stem/stem/`, etc. — **70+ directorios anidados**. `cp -a /hermes-home/skills/ /dest/skills/` produce nesting a DOS niveles: primero en la raíz (`skills/skills/`), luego dentro de CADA categoría. **Solución en dos pasos:** (1) Borrar nesting raíz: `rm -rf skills/skills/` y mover contenido arriba. (2) Loop sistemático para TODAS las categorías: `find . -mindepth 2 -maxdepth 2 -type d | while read dir; do parent=$(basename "$(dirname "$dir")"); child=$(basename "$dir"); if [ "$parent" = "$child" ]; then mv "$dir"/* "$dir"/.* . 2>/dev/null; rm -rf "$dir"; fi; done`. **Verificación post-fix:** `find . -mindepth 2 -maxdepth 2 -type d | while read dir; do parent=$(basename "$(dirname "$dir")"); child=$(basename "$dir"); if [ "$parent" = "$child" ]; then echo "STILL NESTED: $dir"; fi; done` — debe devolver vacío.
+
+- **2026-06-29:** **Backup con `hermes-home/` + `cp -r` = nesting triple (CRÍTICO):** Cuando el repo YA tiene `hermes-home/skills/`, `hermes-home/memories/`, `hermes-home/notes/` (del backup anterior), hacer `cp -r /hermes-home/skills/ /repo/hermes-home/skills/` produce `skills/skills/`. Y `cp -r /hermes-home/memories/ /repo/hermes-home/memories/` produce `memories/memories/`. **Solución en 3 pasos:** (1) Hacer `rsync -av` (NO `cp -r`) — rsync maneja destinos existentes correctamente, sobrescribe sin duplicar. (2) Después de rsync, verificar nesting: `find hermes-home/ -mindepth 2 -maxdepth 2 -type d -exec sh -c 'p=$(basename "$(dirname "$1")"); c=$(basename "$1"); [ "$p" = "$c" ] && echo "NESTED: $1"' _ {} \;` — debe devolver vacío. (3) Si hay nesting residual, limpiar con el loop cascading de arriba. **IMPORTANTE:** `rsync -av` SIN `--delete` es seguro para backup incremental. `rsync -av --delete` elimina archivos que ya no existen en origen — solo usar si se quiere espejo exacto.

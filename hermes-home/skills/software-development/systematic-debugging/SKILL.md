@@ -83,6 +83,8 @@ For JavaScript/TypeScript files, check for:
 - `const charts` vs `var charts = window.charts = {}` (must use `var` for Chart.js instances)
 - Mismatched function parameter names (e.g., function takes `objHidr` but caller passes `objetivoHidr`)
 - Missing variable declarations in closures/lambdas
+- **JavaScript class constructor crash — missing method call:** If a constructor calls `this.something()` but that method is NOT defined in the class, the constructor throws `TypeError: this.something is not a function` and **the entire class instantiation fails silently** (no method after the failing call executes). Symptom: app loads HTML but nothing works — no render loop, no event handlers, overlays stuck. Diagnosis: check that every `this.method()` called in the constructor is actually defined as a class method.
+- **Global function vs class method mismatch:** HTML `onclick="foo()"` calls a **global** function `foo()`, NOT `app.foo()`. If `foo` only exists as a class method, the call fails with `ReferenceError: foo is not defined`. Symptom: button clicks do nothing. Fix: either add a global wrapper (`function foo() { if (app) app.foo(); }`) or change the onclick to `app.foo()`.
 
 ```python
 # Check for undefined variable usage in a function scope

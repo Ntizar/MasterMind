@@ -166,8 +166,28 @@ if 'entity' not in frontend_filters and len(all_entities) > 3:
 ### Ejemplo real: CIAF-visor (2026-06-26)
 
 - 270 PDFs existen en repo, paths correctos en JSON → ✅
-- Frontend ignora `enlaces.pdf_local`, siempre enlaza a URL genérica → ❌ enlace roto
+- Frontend ignora `enlaces.pdf_local`, siempre enlacia a URL genérica → ❌ enlace roto
 - Memorias JSON dicen "58 accidents" pero solo hay 1 report → ❌ datos fabricados
 - 13 informes con títulos tipo nombre de archivo → 🟡 mejoras
 - 17 entidades pero sin vista por empresa → 💡 oportunidad
 - 17 memorias PDFs en repo pero no enlazadas desde el visor → ❌ recurso desperdiciado
+
+**Post-audit cleanup (2026-06-29):** After the audit, deleted all unused assets: `pdfs/` (322 MB), `data/images/` (249 MB), `data/train-tracks.geojson` (7.5 MB), `ltv_lookup.json`, `station-coords.json`, `relations.json`. Repo went from 330+ MB → 13 MB. **Lesson:** When a data-driven visor loads everything from JSON, any non-JSON asset (PDFs, images, geojson) that the frontend never references is dead weight. Delete aggressively — PDFs can always be re-downloaded from the source.
+
+### Pitfalls de visores data-driven
+
+- **🔴 Leaflet map instances leak on tab switch** — When a SPA has multiple tabs and one renders a Leaflet map, switching tabs without destroying the old map causes: (1) memory leak, (2) broken rendering when returning to the tab (tiles don't load, markers invisible), (3) duplicate event listeners. **Fix:** Store the map instance in a module-level variable (`let _mapInstance = null`), call `_mapInstance.remove()` before creating a new one, and use `requestAnimationFrame()` to init the map AFTER the DOM element is visible. Pattern:
+  ```javascript
+  let _mapInstance = null;
+  function showTab(tabName) {
+      if (_mapInstance) { _mapInstance.remove(); _mapInstance = null; }
+      // ... render tab content ...
+      requestAnimationFrame(() => {
+          const map = L.map('mapDiv').setView([40, -3.5], 6);
+          // ... add tiles, markers ...
+          _mapInstance = map;
+      });
+  }
+  ```
+- **🔴 Spanish government WAF blocks headless browsers** — Sites like `transportes.gob.es` return 403 to browser automation tools (Browserbase, Playwright, etc.). **Workaround:** Use `curl -H "User-Agent: Mozilla/5.0 ..."` to fetch the HTML, then parse with Python regex. This works because the WAF checks for headless browser fingerprints, not User-Agent alone. Applicable to: BOE, transportes.gob.es, minetur.gob.es, and most Spanish government portals.
+- **🔴 Normativa/legal links must match official source** — When a project references legal documents (laws, regulations, standards), NEVER invent or guess links. Always scrape the official source page (e.g., the Ministry's normativa page) and use only the documents listed there. BOE/EUR-Lex URLs may be correct but the document might not be on the official list — use the Ministry's own PDFs when available.

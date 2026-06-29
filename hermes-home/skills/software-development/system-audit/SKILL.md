@@ -338,6 +338,36 @@ grep -n "usuario_id" server.js | head -20
 grep -n "onboarding\|onboard" server.js
 ```
 
+## Adjunto: Auditoría de Frontend SPA — Data-Trace Audit
+
+Cuando el proyecto es un **frontend SPA** (HTML autocontenido, React, Vue, etc.) que carga datos de archivos JSON/GeoJSON/CSV, añadir esta dimensión específica:
+
+### Técnica: Data-Trace Audit
+
+El problema clásico: el repo acumula datos que el frontend **nunca carga** (PDFs, GeoJSONs, lookup tables, scripts de fix completados). Resultado: repos de 300+ MB cuando el frontend solo necesita 10 MB de JSONs.
+
+**Flujo:**
+1. **Extraer referencias del frontend** — buscar `fetch()`, `src=`, `href=` en HTML/JS
+2. **Cruzar con archivos del repo** — cada archivo del repo → ¿lo referencia el frontend?
+3. **Clasificar** — USADO / CANDIDATO A ELIMINACIÓN / ARCHIVO DERIVADO (regenerable)
+4. **Eliminar** — archivos huérfanos + archivos derivados que se pueden reconstruir
+5. **Regenerar derivados** — `index.json` etc. desde los datos fuente limpios
+
+**Patrones típicos de archivos huérfanos en frontends SPA:**
+
+| Tipo | Ejemplo | Por qué sobra |
+|------|---------|---------------|
+| PDFs originales | `pdfs/` (300+ MB) | Frontend no carga PDFs |
+| Imágenes extraídas | `data/images/` (200+ MB) | Frontend no muestra imágenes de PDFs |
+| GeoJSONs locales | `train-tracks.geojson` (7 MB) | Frontend usa WMS en vivo |
+| Lookup tables | `ltv_lookup.json` | Frontend fetcha API externa |
+| CSS/JS sueltos | `frontend/css/` | Todo inline en HTML |
+| Subdirectorios de índices | `reports/YYYY/index.json` | redundante con `reports/YYYY.json` |
+
+**Pitfall:** no eliminar archivos que el frontend SÍ carga (verificar con grep, no asumir). Los campos JSON que el frontend no renderiza pero son metadata (like `similares`, `enlaces.pdf_local`) pueden conservarse como referencia.
+
+Ver `references/frontend-data-trace-audit.md` para caso real CIAF-visor (330 MB → 13 MB).
+
 ## Audit de Skills del Ecosistema
 
 Cuando el usuario pide auditar el ecosistema de skills (detectar duplicados, project-readmes, CLI wrappers, skills sin tags), usar el patrón `skill-audit-pattern` como subsección:
@@ -370,6 +400,7 @@ Cuando el usuario pide auditar el ecosistema de skills (detectar duplicados, pro
 - **`references/nodejs-multiuser-audit-patterns.md`** — 5 patrones de bugs en apps Node.js multi-usuario (Express + SQLite): `sql_run` vs `sql_all`, `getMeta()` global, auth por token, onboarding conversacional, persistencia de chat.
 - **`references/terran-architecture-audit.md`** — Caso TerrAn iter 116: patrón "fixed pero no aplicado al schema base". 9 issues activos en una fase con 36 fijados. Verificar que los fixes documentados en comentarios realmente modificaron el schema base, no solo que exista una sección de FIX.
 - **`references/rls-gap-detection.md`** — Caso TerrAn v25: 24 issues SEC por RLS enabled sin policy. Detección sistemática con regex + set difference. Fixes: org_id en 7 tablas, 14 policies nuevas, superadmin_bypass corregido, encriptación DNI/NSS.
+- **`references/frontend-data-trace-audit.md`** — Caso CIAF-visor: técnica para detectar archivos huérfanos en frontends SPA. Frontend solo usa JSONs pero repo tenía 330 MB de PDFs, GeoJSONs, lookup tables. 330 MB → 13 MB con data-trace audit.
 
 ## Ejecución combinada Auditoría + Corrección
 
@@ -425,6 +456,8 @@ Más eficiente que `patch` individual para 5+ archivos. Usar `patch` para edicio
 - **Detección de secrets: patrones específicos, no genéricos** — `grep "token\|password\|secret"` produce falsos positivos con código legítimo (`token-tracking`, `input_tokens`, `href="tokens/"`). Usar patrones de formatos reales: `sk-[a-zA-Z0-9]{20,}` (API keys), `ghp_[a-zA-Z0-9]{36,}` (GitHub tokens), `AKIA[A-Z0-9]{16,}` (AWS keys). Separar en greps individuales y sumar, no usar OR en un solo grep (causa problemas con `wc -l`).
 - **Sobreingeniería: detectar y cortar** — El usuario corregirá explícitamente si el agente tiende a sobreingenierizar ("ten cuidado con la sobreingeniería que te gusta mucho"). Señales: arquitectura documentada que no se implementa, N agentes cuando M bastan, fórmulas complejas sin código, features descritas como "activas" cuando son diseños conceptuales. **Regla:** En cada auditoría, preguntar activamente "¿esto es funcional o es documentación aspiracional?" y marcar explícitamente la diferencia. Preferir simplificar sobre extender.
 - **Deployment ≠ Integración** — Que un componente esté desplegado y funcional técnicamente no significa que esté integrado en el flujo de trabajo. Ejemplo clásico: ChromaDB corriendo con 190 skills indexados pero Mastermind nunca lo consulta. En auditorías, verificar SIEMPRE que cada componente tiene un trigger real que lo invoca, no solo que existe. Añadir una dimensión de auditoría: "¿Se usa de verdad?"
+
+- **CI/CD workflow roto tras eliminar archivos** — Cuando eliminas archivos huérfanos del repo (PDFs, GeoJSONs, etc.), los workflows de CI/CD pueden tener `cp` o `reference` a esos archivos. **SIEMPRE** verificar después de limpieza: `grep -rn 'ARCHIVO_ELIMINADO' .github/workflows/`. Ejemplo real: CIAF-visor eliminó 330 MB de archivos, pero `pages.yml` tenía `cp data/train-tracks.geojson` → deploy falló con exit code 1.
 
 - **FIXED pero NO aplicado al schema base** — Cuando un documento de arquitectura tiene secciones de "FIX" documentadas (comentarios, secciones al final), verificar que el schema base (CREATE TABLEs principales) fue realmente modificado. Es muy común que las soluciones se documenten en comentarios pero el schema original se quede sin cambios. Esto produce:
   - RLS policies que referencian funciones/columnas inexistentes → RLS roto en runtime

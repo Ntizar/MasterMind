@@ -110,15 +110,6 @@ Categorías normalizadas:
 
 El Excel tiene ~58 categorías que se agrupan en ~18 normalizadas.
 
-## Scripts del pipeline
-
-| Script | Función |
-|--------|---------|
-| `scripts/cruce_datos.py` | Cruza JSON individuales con Excel |
-| `scripts/fix_visor_complete.py` | Fix completo: nombres, provincias, geocoding |
-| `scripts/geocode_visor.py` | Geocodificación agresiva con Nominatim |
-| `scripts/fix_visor_data.py` | Fix de gravedad y tipología |
-
 ## Restauración de datos originales tras cross-reference
 
 **Pitfall crítico:** el cross-reference script sobreescribe campos con contenido generado por IA o datos de otros años. SIEMPRE restaurar desde JSON individuales después del cruce.
@@ -226,6 +217,55 @@ Para que el proyecto sea mantenible sin su autor, el README debe incluir:
 ### Pitfall: README genérico
 Un README con solo "instalación" y "uso" no sirve para mantener el proyecto. Debe explicar el **porqué** de las decisiones de diseño y los **errores descubiertos** para que el siguiente desarrollador no los repita.
 
+## Detección de coordenadas duplicadas erróneas
+
+**Técnica para encontrar geolocalizaciones incorrectas:** agrupar registros por coordenadas redondeadas y buscar grupos donde estaciones de provincias diferentes comparten las mismas coords.
+
+```python
+from collections import defaultdict
+coord_groups = defaultdict(list)
+for r in all_records:
+    lat = r.get('ubicacion', {}).get('lat')
+    lng = r.get('ubicacion', {}).get('lng')
+    if lat and lng:
+        key = f"{lat:.4f},{lng:.4f}"
+        coord_groups[key].append(r)
+
+# Investigar grupos con >1 registro de provincias diferentes
+for coord, records in coord_groups.items():
+    if len(records) > 1:
+        provinces = set(r['ubicacion']['provincia'] for r in records)
+        if len(provinces) > 1:
+            print(f"DUPLICATE: {coord} — {len(records)} records from {provinces}")
+```
+
+**Ejemplo real:** 3 registros (Zaragoza, Soria, Lleida) compartían coords (41.63, 0.51) porque la interpolación PK asignó la misma ubicación a líneas diferentes.
+
+## Geolocalización por Nominatim cuando PK falla
+
+Cuando la interpolación PK da coordenadas claramente erróneas (verificación por provincia), usar Nominatim directamente:
+
+```python
+import requests, time
+
+def geocode_station(station, province):
+    """Geocodificar estación usando Nominatim"""
+    query = f"{station}, {province}, España"
+    url = f"https://nominatim.openstreetmap.org/search?q={query}&format=json&limit=1"
+    headers = {'User-Agent': 'CIAF-Visor/1.0'}
+    r = requests.get(url, headers=headers, timeout=10)
+    data = r.json()
+    if data:
+        return float(data[0]['lat']), float(data[0]['lon'])
+    return None, None
+
+# Rate limit: 1.1s entre peticiones
+lat, lng = geocode_station("Plasencia de Jalón", "Zaragoza")
+time.sleep(1.1)
+```
+
+**Regla:** si la provincia del registro no coincide con la ubicación de las coords, la geolocalización es incorrecta y debe rehacerse con Nominatim.
+
 ## Verificación post-fix
 
 ```python
@@ -238,18 +278,161 @@ Un README con solo "instalación" y "uso" no sirve para mantener el proyecto. De
 # 6. Títulos en formato original del PDF (no formato IA)
 # 7. Conclusiones extraídas del PDF (no generadas por IA)
 # 8. Estaciones > 3 caracteres, sin fragmentos ("clase C", etc.)
+# 9. Sin grupos de coords duplicadas con provincias diferentes
+# 10. Coords del JSON individual preferidas sobre LTV
 ```
 
-## Estructura de archivos
+### Verificación en GitHub después de push
+
+**Pitfall:** el usuario puede ver datos antiguos por caché del navegador. SIEMPRE verificar que GitHub sirve los datos correctos antes de informar "fix completado".
+
+```bash
+# 1. Verificar raw content en GitHub
+curl -s "https://raw.githubusercontent.com/Ntizar/CIAF-visor/master/data/reports/2012.json" | python3 -c "
+import sys,json; data=json.load(sys.stdin)
+for r in data:
+    if r.get('expediente') == '0050/2012':
+        print(f'lat={r[\"ubicacion\"][\"lat\"]}, lng={r[\"ubicacion\"][\"lng\"]}')
+"
+
+# 2. Verificar que el frontend carga los datos
+# Abrir DevTools → Console → ejecutar:
+# allReports.find(x => x.expediente === '0050/2012')
+```
+
+**Pitfall: caché del navegador** — si el usuario reporta "sigue mal" después de push correcto:
+1. Pedir `Ctrl+Shift+R` (hard refresh)
+2. O abrir en ventana incógnita
+3. Verificar con `curl` que GitHub sirve los datos nuevos
+4. Si persiste, puede haber un problema real → investigar
+
+### Verificación de que los datos están en GitHub
+
+```bash
+# Verificar que el push llegó
+cd /root/workspace/CIAF-visor && git log --oneline -3
+
+# Verificar raw content
+curl -s "https://raw.githubusercontent.com/Ntizar/CIAF-visor/master/data/reports/YYYY.json" | python3 -c "import sys,json; d=json.load(sys.stdin); print(len(d), 'records')"
+
+# Verificar que no hay diff local vs remote
+git diff origin/master --stat
+```
+
+## Estructura del proyecto (post-limpieza 2026-06-29)
 
 ```
-ciaf-data/
-  data/individual/       # JSONs originales del parser (fuente de verdad para resúmenes)
-  data/individual_backup_*/  # Backups antes de fixes
-  
 CIAF-visor/
-  data/reports/YYYY.json  # Datos para el visor (targets de fixes)
-  data/station-coords.json  # DB de coordenadas de estaciones
-  scripts/                # Scripts del pipeline
-  ltv_lookup.json         # Lookup PK → coords del ADIF
+├── data/
+│   ├── index.json              # Índice: años disponibles, stats globales
+│   ├── reports/YYYY.json       # 269 informes (2007-2025) — FUENTE DE VERDAD
+│   └── memorias/YYYY.json      # 18 resúmenes anuales (2007-2024)
+├── frontend/
+│   └── index.html              # SPA completa (CSS+JS inline)
+└── scripts/
+    ├── parse_all.py            # Pipeline: PDF → JSON
+    ├── parse_reports_v2.py     # Parser v2
+    ├── parse_year_v2.py        # Parser por año
+    ├── generate_index.py       # Genera index.json
+    ├── sync.py                 # Sincronización
+    ├── test_parser.py          # Tests
+    └── archive/                # Scripts de fix completados
 ```
+
+**Nota:** `pdfs/`, `data/images/`, `data/train-tracks.geojson`, `ltv_lookup.json`, `data/station-coords.json`, `data/relations.json` fueron eliminados en la limpieza de 2026-06-29. El frontend solo usa los JSONs de data/.
+
+## Limpieza post-auditoría
+
+### Qué eliminar (archivos que el frontend NUNCA usa)
+Tras auditar el frontend con `grep` de fetch/references, se confirmó que solo carga:
+1. `data/index.json` → lista de años
+2. `data/reports/YYYY.json` → informes
+3. `data/memorias/YYYY.json` → memorias anuales
+4. APIs externas: IGN WMTS, ADIF WMS, ArcGIS LTV
+
+**Archivos seguros de eliminar** (verificados con grep que no aparecen en index.html):
+- `pdfs/` — PDFs originales (322 MB). Útiles como archive, pero el frontend no los carga
+- `data/images/` — Imágenes extraídas de PDFs (249 MB). Nunca referenciadas
+- `data/train-tracks.geojson` — GeoJSON local (7.5 MB). Frontend usa WMS de ADIF
+- `ltv_lookup.json` — Lookup PK→coords (170 KB). Frontend carga LTV desde ArcGIS en vivo
+- `data/station-coords.json` — Coords de estaciones (32 KB). Nunca referenciado
+- `data/relations.json` — Relations pre-computadas (51 KB). Frontend calcula in-memory
+- `data/reports/YYYY/` — Subdirectorios con índices obsoletos
+- `frontend/css/kaizen.css` — CSS no referenciado (todo inline en HTML)
+- `frontend/js/` — Directorio vacío
+
+### ⚠️ Pitfall: verificar CI/CD tras eliminar archivos
+
+**Cuando elimines archivos del repo, SIEMPRE revisar `.github/workflows/`** por si algún workflow los referencia.
+
+```bash
+# Buscar referencias a archivos eliminados en workflows
+grep -rn 'train-tracks\|station-coords\|relations\|ltv_lookup\|kaizen.css' .github/workflows/
+```
+
+**Ejemplo real:** tras limpiar CIAF-visor (eliminar 330 MB), el workflow `pages.yml` intentaba `cp data/train-tracks.geojson data/relations.json frontend/css/` → deploy falló con exit code 1. Fix: reescribir el workflow para copiar solo lo que existe.
+
+### Regenerar index.json tras limpieza
+
+Si se eliminan archivos dependientes, regenerar `index.json`:
+
+```python
+import json, os
+from collections import defaultdict
+
+reports_dir = "data/reports"
+years, total, victims, heridos = [], 0, 0, 0
+types, severities, entities = defaultdict(int), defaultdict(int), defaultdict(int)
+stats_by_year = {}
+
+for fname in sorted(os.listdir(reports_dir)):
+    if not fname.endswith('.json'): continue
+    year = int(fname.replace('.json', ''))
+    years.append(year)
+    data = json.load(open(os.path.join(reports_dir, fname)))
+    yv, yh, yc = 0, 0, len(data)
+    for r in data:
+        v = r.get('consecuencias', {}).get('victimas_mortales', 0) or 0
+        h = r.get('consecuencias', {}).get('heridos', 0) or 0
+        total += 1; victims += v; heridos += h; yv += v; yh += h
+        types[r.get('tipo', 'desc')] += 1
+        severities[r.get('gravedad', 'desc')] += 1
+        for e in r.get('entidades', []): entities[e] += 1
+    stats_by_year[year] = {"total": yc, "victimas": yv, "heridos": yh}
+```
+
+## Rendering de recomendaciones en el frontend
+
+### Pitfall: esquemas de dict inconsistentes
+
+Las recomendaciones en los JSONs tienen **4 esquemas de dict** diferentes según el año/parser:
+
+| Frecuencia | Keys | Texto en |
+|-----------|------|----------|
+| 181x | `numero`, `destinatario`, `texto` | `texto` |
+| 52x | `numero`, `implementador`, `texto` | `texto` |
+| 26x | `numero`, `destinatario`, `contenido` | `contenido` ← NO `texto` |
+| 5x | `número`, `destinatario`, `texto` | `texto` ← tilde en `número` |
+
+**El frontend DEBE buscar todas las variantes:**
+```javascript
+const num = rec.numero || rec.número || '';
+const dest = rec.destinatario || rec.destinatarios || rec.implementador || '';
+const body = rec.texto || rec.text || rec.contenido || '';
+```
+
+Si solo busca `rec.texto`, los 26 informes con `contenido` muestran JSON crudo.
+
+## Scripts del pipeline
+
+| Script | Función |
+|--------|---------|
+| `scripts/parse_all.py` | Pipeline completo: PDF → JSON individuales |
+| `scripts/parse_reports_v2.py` | Parser v2 de informes CIAF |
+| `scripts/parse_year_v2.py` | Parser por año con batch processing |
+| `scripts/generate_index.py` | Genera index.json desde reports/ |
+| `scripts/sync.py` | Sincronización de datos |
+| `scripts/test_parser.py` | Tests del parser |
+
+Scripts archivados en `scripts/archive/` (ya no se ejecutan):
+- `cruce_datos.py`, `fix_visor_complete.py`, `fix_visor_data.py`, `geocode_all.py`, `geocode_visor.py`, `build-station-map.py`

@@ -115,8 +115,8 @@ cd /opt/hermes-work/inventario-apis && python3 procesar-apis.py 5
 Se corrigió `REPO_DIR` de `/tmp/inventario-apis` a `/opt/hermes-work/inventario-apis` en `procesar-apis.py`. **Siempre verificar esta línea antes de ejecutar:**
 
 ```python
-REPO_DIR = "/opt/hermes-work/inventario-apis"  # ✅ correcto
-# REPO_DIR = "/tmp/inventario-apis"  # ❌ incorrecto — git fallará con "not a git repository"
+REPO_DIR = "/opt/hermes-work/inventario-apis"  # ✅ correcto (v2, junio 2026)
+# REPO_DIR = "/tmp/inventario-apis"  # ❌ incorrecto — repo obsoleto, fue reemplazado
 ```
 
 Si el script falla con `fatal: not a git repository`, verificar que `REPO_DIR` apunte al directorio correcto con `.git`.

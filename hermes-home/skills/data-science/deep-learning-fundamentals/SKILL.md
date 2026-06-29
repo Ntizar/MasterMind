@@ -28,6 +28,11 @@ Serie de sesiones de aprendizaje profundo sobre arquitecturas de redes neuronale
 | 10 | FlashAttention v2/v3 | 2026-06-21 | `references/flashattention-cheatsheet.md` |
 | 11 | Vision Transformers (ViT) | 2026-06-22 | `notes/deep-learning/2026-06-22-vision-transformers.md` |
 | 12 | Rectified Flow | 2026-06-23 | `references/rectified-flow.md` |
+| 13 | Retrieval-Augmented Generation (RAG) | 2026-06-24 | `notes/deep-learning/2026-06-24-retrieval-augmented-generation.md` |
+| 14 | Self-Supervised Learning (Contrastive) | 2026-06-25 | `notes/deep-learning/2026-06-25-self-supervised-learning-contrastive.md` |
+| 15 | CLIP / Multimodal Learning | 2026-06-26 | `notes/deep-learning/2026-06-26-clip-multimodal-learning.md` |
+| 16 | Knowledge Distillation | 2026-06-27 | `notes/deep-learning/2026-06-27-knowledge-distillation.md` |
+| 17 | RLHF y Técnicas de Alineación (DPO, ORPO, KTO) | 2026-06-29 | `references/rlhf-alignment-cheatsheet.md` |
 
 ## Cómo se trabaja
 
@@ -42,20 +47,22 @@ Cada sesión sigue este patrón:
 ## Candidatos para Siguientes Sesiones
 
 ### Alta prioridad (relevante al stack):
-- **RAG (Retrieval-Augmented Generation)** — Integración con ChromaDB existente, búsqueda semántica aplicada. Conecta con LoRA/PEFT (modelo fine-tuneado + RAG = mejor resultado).
-- **Vision Transformers (ViT)** — Puente entre CV y transformers. Útil para imágenes satelitales.
-- **Diffusion Transformers (DiT)** — Evolución de diffusion models (SD3, Flux). Conecta con nota de diffusion models.
+- **Mixture of Tokenizers (MoT)** — Mezclar tokenizadores para vocabularios mixtos (texto+code+medicina). Conecta con LoRA/PEFT (adapter por tokenizador).
+- **Distillation de LLMs grandes a pequeños** — LLM distillation: Llama-70B → Llama-8B. Conecta con Knowledge Distillation (#16) y Quantización (#5).
+- **Chain-of-Thought & Reasoning LLMs** — CoT, ToT, GoT, self-consistency. Complementa generación con razonamiento estructurado.
 
 ### Media prioridad:
-- **Chain-of-Thought Reasoning** — Razonamiento en LLMs: prompting, training, evaluación. Complementa generación con razonamiento.
-- **Self-Supervised Learning / Contrastive Learning** — Paradigma fundamental pre-entrenamiento (CLIP, SimCLR, DINO).
-- **Multi-Modal Models (CLIP, etc.)** — Para imágenes satelitales y análisis visual.
+- **Diffusion Transformers (DiT)** — Evolución de diffusion models (SD3, Flux). Conecta con Diffusion Models (#2).
+- **Multi-Agent Systems & Agentic Workflows** — Sistemas de agentes que colaboran. Conecta con mastermind-orchestration.
+- **Edge AI / On-device LLMs** — Inferencia de LLMs en edge (Raspberry Pi, móvil). Conecta con Quantización (#5) y llama-cpp.
+- **Evaluation & Benchmarking de LLMs** — Medir calidad: MMLU, HumanEval,IFEval. Conecta con RLHF (#17).
 ## Referencias Cruzadas
 
 - `references/lora-peft-inventory.md` — Inventario completo de +30 métodos PEFT, inicializaciones, configs recomendadas
 - `references/quantization-model-compression.md` — FP32 → INT4 en la práctica
 - `references/flashattention-cheatsheet.md` — Cheatsheet rápido: decisión, API, benchmarks, CPU alternatives
 - `references/rectified-flow.md` — Flow matching, ODE solvers, consistency distillation, FLUX/SD3
+- `references/rlhf-alignment-cheatsheet.md` — RLHF clásico, DPO, ORPO, KTO, comparativa y decisión
 - **state-space-models** — SSM, Mamba, aplicaciones a series temporales
 - **diffusion-models** — Modelos de difusión, series temporales
 - **geoai-city2graph-pattern** — GNN para datos geoespaciales

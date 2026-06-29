@@ -484,14 +484,14 @@
     "archived_at": null,
     "created_at": "2026-06-16T03:02:56.027962+00:00",
     "created_by": "agent",
-    "last_patched_at": "2026-06-23T03:08:15.489288+00:00",
-    "last_used_at": "2026-06-25T03:01:23.597962+00:00",
-    "last_viewed_at": "2026-06-25T03:01:23.589584+00:00",
-    "patch_count": 16,
+    "last_patched_at": "2026-06-29T03:04:00.962858+00:00",
+    "last_used_at": "2026-06-29T03:02:43.173809+00:00",
+    "last_viewed_at": "2026-06-29T03:02:43.161338+00:00",
+    "patch_count": 20,
     "pinned": false,
     "state": "active",
-    "use_count": 12,
-    "view_count": 12
+    "use_count": 13,
+    "view_count": 13
   },
   "delegar-no-comprimir": {
     "archived_at": null,

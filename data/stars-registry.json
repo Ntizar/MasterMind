@@ -968,5 +968,27 @@
     "runs": 5,
     "repos_explored": 116,
     "skills_generated": 9
+  },
+  "roboflow/supervision": {
+    "explored_at": "2026-06-29T06:58:00",
+    "category": "tool",
+    "stars": 44585,
+    "language": "Python",
+    "skill_angles": [
+      "computer-vision-utilities"
+    ],
+    "skill_created": true,
+    "skill_name": "roboflow-supervision"
+  },
+  "NVIDIA/SkillSpector": {
+    "explored_at": "2026-06-29T06:58:00",
+    "category": "security",
+    "stars": 8500,
+    "language": "Python",
+    "skill_angles": [
+      "security-scanner"
+    ],
+    "skill_created": true,
+    "skill_name": "skillspector"
   }
 }

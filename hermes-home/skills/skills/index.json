@@ -1,0 +1,3226 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-06-03T07:51:11.687530+00:00",
+  "total_skills": 143,
+  "categories": {
+    "mcp": [
+      "native-mcp"
+    ],
+    "github-workflow": [
+      "github-workflow"
+    ],
+    "autonomous-ai-agents": [
+      "hermes-agent",
+      "codex",
+      "opencode",
+      "claude-code"
+    ],
+    "ia": [
+      "agent-memory"
+    ],
+    "mlops": [
+      "weights-and-biases",
+      "evaluating-llms-harness",
+      "serializable-ml-models",
+      "serving-llms-vllm",
+      "obliteratus",
+      "segment-anything-model",
+      "audiocraft-audio-generation",
+      "mlx-vlm-inference",
+      "dspy"
+    ],
+    "devops-operations": [
+      "devops-operations"
+    ],
+    "frontend-dashboard-patterns": [
+      "frontend-dashboard-patterns",
+      "aurora-design-system",
+      "static-digest-pipeline"
+    ],
+    "esios": [
+      "esios-indicators-correct",
+      "esios-nan-deploy",
+      "esios-telegram-report"
+    ],
+    "productivity": [
+      "apple-calendar",
+      "yuanbao"
+    ],
+    "skill-audit-pattern": [
+      "skill-audit-pattern"
+    ],
+    "media": [
+      "heartmula",
+      "voice-ai-landscape",
+      "songsee",
+      "youtube-content",
+      "voicebox",
+      "tts-setup"
+    ],
+    "pydantic": [
+      "pydantic-ai"
+    ],
+    "vision": [
+      "satellite-traffic-detection",
+      "satellite-gis-patterns",
+      "onnx-webgpu-inference",
+      "satellite-ai-vision"
+    ],
+    "red-teaming": [
+      "godmode"
+    ],
+    "testing": [
+      "testing-jest-mocks-api"
+    ],
+    "multi-agent": [
+      "orca-multi-agent-ide",
+      "canvas-workflow-protocol",
+      "kdense-scientific-skills-pattern",
+      "mastermind-multi-agent-orchestration"
+    ],
+    "apple": [
+      "apple-notes",
+      "imessage",
+      "macos-computer-use",
+      "findmy",
+      "apple-reminders"
+    ],
+    "data-science": [
+      "sistemaelectricofuturo-v2",
+      "geoai-city2graph-pattern",
+      "sistema-electrico-simulador",
+      "sistemaelectricofuturo",
+      "solar-shadow-computation",
+      "monte-carlo-stock-simulator",
+      "rail-lidar-qa-mvp",
+      "jupyter-live-kernel"
+    ],
+    "mastermind": [
+      "mastermind",
+      "freehands-architecture",
+      "auditoria-simulacion-energetica",
+      "documentos-institucionales"
+    ],
+    "herramientas": [
+      "markitdown",
+      "agentic-video-pipeline",
+      "liteparse-rust-pdf-ocr",
+      "pdf-to-artifacts-david-antizar",
+      "video-processing-pipeline"
+    ],
+    "creative": [
+      "madrid-visualization",
+      "baoyu-comic",
+      "sketch",
+      "comfyui",
+      "pixel-art",
+      "architecture-diagram",
+      "p5js",
+      "excalidraw",
+      "popular-web-designs",
+      "baoyu-infographic",
+      "songwriting-and-ai-music",
+      "ascii-art",
+      "humanizer",
+      "render-3d-isometrico-ciudad",
+      "liquid-glass-css",
+      "ideation",
+      "touchdesigner-mcp",
+      "pretext",
+      "design-md",
+      "ascii-video",
+      "claude-design",
+      "manim-video"
+    ],
+    "devops": [
+      "layered-agent-architecture",
+      "aurora-nightly",
+      "inventario-apis-procesamiento",
+      "mastermind-setup",
+      "postgres-mcp",
+      "nango-integrations",
+      "static-digest-pipeline",
+      "nango",
+      "postgres-mcp-pro",
+      "aurora-nightly-pipeline"
+    ],
+    "github": [
+      "github-pr-workflow",
+      "codebase-inspection",
+      "github-code-review",
+      "github-trending-research",
+      "github-repo-management",
+      "github-auth",
+      "github-issues"
+    ],
+    "software-development": [
+      "subagent-driven-development",
+      "delegar-no-comprimir",
+      "9009-multi-iteration",
+      "dogfood",
+      "web-research-fallback",
+      "iterative-algorithm-refinement",
+      "agent-skills-standard",
+      "typescript-cross-module-patterns",
+      "requesting-code-review",
+      "technical-audit-remediation",
+      "test-driven-development",
+      "writing-plans",
+      "web-audit",
+      "systematic-debugging",
+      "spike",
+      "refactor-nodejs-monolith",
+      "google-eng-practices"
+    ],
+    "esios-complete": [
+      "esios-complete"
+    ],
+    "arquitectura": [
+      "arquitectura-dashboard-datos-api"
+    ],
+    "solar-shadows-web-workers": [
+      "solar-shadows-web-workers"
+    ],
+    "business-intelligence": [
+      "competitive-intelligence"
+    ],
+    "backend": [
+      "fetch-paralelo-fallos-parciales",
+      "node-esm-interop",
+      "servicio-resumen-consolidado",
+      "endpoints-dashboard-rest",
+      "conversion-unidades-api-externa",
+      "forecast-montecarlo-escenarios"
+    ],
+    "computer-vision": [
+      "webgpu-onnx-detection",
+      "gaze-tracking",
+      "kalman-cursor-smoothing"
+    ],
+    "data": [
+      "gtfs-browser-parser"
+    ],
+    "infraestructura": [
+      "health-checks-metrics",
+      "cliente-http-robusto",
+      "cache-multicapa",
+      "seguridad-web-helmet-cors",
+      "validacion-config-estricta",
+      "docker-multistage-produccion"
+    ],
+    "research": [
+      "research-paper-writing",
+      "llm-wiki"
+    ]
+  },
+  "tags": {
+    "mcp": [
+      "native-mcp",
+      "postgres-mcp-pro"
+    ],
+    "native mcp": [
+      "native-mcp"
+    ],
+    "github": [
+      "github-workflow",
+      "mastermind-setup",
+      "github-pr-workflow",
+      "codebase-inspection",
+      "github-code-review",
+      "github-trending-research",
+      "github-repo-management",
+      "github-auth",
+      "github-issues"
+    ],
+    "git": [
+      "github-workflow"
+    ],
+    "workflow": [
+      "github-workflow",
+      "canvas-workflow-protocol"
+    ],
+    "deployment": [
+      "github-workflow"
+    ],
+    "knowledge-repo": [
+      "github-workflow"
+    ],
+    "recovery": [
+      "github-workflow"
+    ],
+    "autonomous-ai-agents": [
+      "hermes-agent",
+      "codex",
+      "opencode",
+      "claude-code"
+    ],
+    "hermes agent": [
+      "hermes-agent"
+    ],
+    "codex": [
+      "codex"
+    ],
+    "opencode": [
+      "opencode"
+    ],
+    "claude code": [
+      "claude-code"
+    ],
+    "ia": [
+      "agent-memory"
+    ],
+    "agent-memory": [
+      "agent-memory"
+    ],
+    "context": [
+      "agent-memory",
+      "delegar-no-comprimir"
+    ],
+    "rag": [
+      "agent-memory"
+    ],
+    "persistent-memory": [
+      "agent-memory"
+    ],
+    "mlops": [
+      "weights-and-biases",
+      "evaluating-llms-harness",
+      "serializable-ml-models",
+      "serving-llms-vllm",
+      "obliteratus",
+      "segment-anything-model",
+      "audiocraft-audio-generation",
+      "mlx-vlm-inference",
+      "dspy"
+    ],
+    "weights and biases": [
+      "weights-and-biases"
+    ],
+    "evaluating llms harness": [
+      "evaluating-llms-harness"
+    ],
+    "ml": [
+      "serializable-ml-models"
+    ],
+    "serialization": [
+      "serializable-ml-models"
+    ],
+    "pydantic": [
+      "serializable-ml-models",
+      "pydantic-ai"
+    ],
+    "serving llms vllm": [
+      "serving-llms-vllm"
+    ],
+    "obliteratus": [
+      "obliteratus"
+    ],
+    "segment anything model": [
+      "segment-anything-model"
+    ],
+    "audiocraft audio generation": [
+      "audiocraft-audio-generation"
+    ],
+    "mlx": [
+      "mlx-vlm-inference"
+    ],
+    "vlm": [
+      "mlx-vlm-inference"
+    ],
+    "vision-language": [
+      "mlx-vlm-inference"
+    ],
+    "inference": [
+      "mlx-vlm-inference"
+    ],
+    "dspy": [
+      "dspy"
+    ],
+    "devops": [
+      "devops-operations",
+      "layered-agent-architecture",
+      "postgres-mcp",
+      "nango-integrations",
+      "static-digest-pipeline",
+      "nango",
+      "postgres-mcp-pro",
+      "aurora-nightly-pipeline"
+    ],
+    "nan": [
+      "devops-operations",
+      "esios-nan-deploy",
+      "mastermind-setup",
+      "esios-complete"
+    ],
+    "deploy": [
+      "devops-operations",
+      "esios-nan-deploy",
+      "esios-complete"
+    ],
+    "cron": [
+      "devops-operations",
+      "esios-telegram-report",
+      "inventario-apis-procesamiento"
+    ],
+    "scripts": [
+      "devops-operations"
+    ],
+    "automation": [
+      "devops-operations"
+    ],
+    "production": [
+      "devops-operations"
+    ],
+    "github-pages": [
+      "devops-operations",
+      "static-digest-pipeline"
+    ],
+    "frontend": [
+      "frontend-dashboard-patterns"
+    ],
+    "dashboard": [
+      "frontend-dashboard-patterns"
+    ],
+    "patterns": [
+      "frontend-dashboard-patterns",
+      "typescript-cross-module-patterns"
+    ],
+    "vanilla-js": [
+      "frontend-dashboard-patterns"
+    ],
+    "resilience": [
+      "frontend-dashboard-patterns"
+    ],
+    "css": [
+      "aurora-design-system",
+      "popular-web-designs",
+      "liquid-glass-css",
+      "aurora-nightly"
+    ],
+    "design-system": [
+      "aurora-design-system",
+      "aurora-nightly"
+    ],
+    "aurora": [
+      "aurora-design-system",
+      "pdf-to-artifacts-david-antizar",
+      "liquid-glass-css",
+      "aurora-nightly",
+      "aurora-nightly-pipeline"
+    ],
+    "liquid-glass": [
+      "aurora-design-system",
+      "liquid-glass-css",
+      "aurora-nightly"
+    ],
+    "ntizar": [
+      "aurora-design-system"
+    ],
+    "pipeline": [
+      "static-digest-pipeline",
+      "agentic-video-pipeline",
+      "inventario-apis-procesamiento",
+      "aurora-nightly-pipeline"
+    ],
+    "datos-estaticos": [
+      "static-digest-pipeline"
+    ],
+    "digest": [
+      "static-digest-pipeline"
+    ],
+    "scraping": [
+      "static-digest-pipeline"
+    ],
+    "esios": [
+      "esios-indicators-correct",
+      "esios-nan-deploy",
+      "esios-telegram-report",
+      "sistemaelectricofuturo-v2",
+      "sistemaelectricofuturo",
+      "liquid-glass-css",
+      "esios-complete"
+    ],
+    "indicadores": [
+      "esios-indicators-correct"
+    ],
+    "unidades": [
+      "esios-indicators-correct"
+    ],
+    "ids": [
+      "esios-indicators-correct"
+    ],
+    "docker": [
+      "esios-nan-deploy",
+      "docker-multistage-produccion"
+    ],
+    "telegram": [
+      "esios-telegram-report",
+      "esios-complete"
+    ],
+    "informe": [
+      "esios-telegram-report"
+    ],
+    "productivity": [
+      "apple-calendar",
+      "yuanbao"
+    ],
+    "calendar": [
+      "apple-calendar"
+    ],
+    "icloud": [
+      "apple-calendar"
+    ],
+    "caldav": [
+      "apple-calendar"
+    ],
+    "yuanbao": [
+      "yuanbao"
+    ],
+    "audit": [
+      "skill-audit-pattern",
+      "technical-audit-remediation",
+      "web-audit"
+    ],
+    "maintenance": [
+      "skill-audit-pattern"
+    ],
+    "skills": [
+      "skill-audit-pattern",
+      "kdense-scientific-skills-pattern",
+      "mastermind-setup",
+      "github-trending-research",
+      "agent-skills-standard"
+    ],
+    "quality": [
+      "skill-audit-pattern"
+    ],
+    "cleanup": [
+      "skill-audit-pattern"
+    ],
+    "media": [
+      "heartmula",
+      "voice-ai-landscape",
+      "songsee",
+      "youtube-content",
+      "voicebox",
+      "tts-setup"
+    ],
+    "heartmula": [
+      "heartmula"
+    ],
+    "voice": [
+      "voice-ai-landscape",
+      "freehands-architecture"
+    ],
+    "tts": [
+      "voice-ai-landscape"
+    ],
+    "stt": [
+      "voice-ai-landscape"
+    ],
+    "voice-ai": [
+      "voice-ai-landscape"
+    ],
+    "songsee": [
+      "songsee"
+    ],
+    "youtube": [
+      "youtube-content"
+    ],
+    "transcripts": [
+      "youtube-content"
+    ],
+    "research": [
+      "youtube-content",
+      "github-trending-research",
+      "web-research-fallback",
+      "competitive-intelligence",
+      "research-paper-writing",
+      "llm-wiki"
+    ],
+    "voicebox": [
+      "voicebox"
+    ],
+    "tts setup": [
+      "tts-setup"
+    ],
+    "ai": [
+      "pydantic-ai",
+      "agentic-video-pipeline",
+      "video-processing-pipeline"
+    ],
+    "python": [
+      "pydantic-ai"
+    ],
+    "agent": [
+      "pydantic-ai"
+    ],
+    "testing": [
+      "pydantic-ai",
+      "testing-jest-mocks-api"
+    ],
+    "streaming": [
+      "pydantic-ai"
+    ],
+    "structured-output": [
+      "pydantic-ai"
+    ],
+    "tools": [
+      "pydantic-ai"
+    ],
+    "dependency-injection": [
+      "pydantic-ai"
+    ],
+    "vision": [
+      "satellite-traffic-detection",
+      "satellite-gis-patterns",
+      "satellite-ai-vision"
+    ],
+    "satellite": [
+      "satellite-traffic-detection",
+      "satellite-gis-patterns",
+      "satellite-ai-vision"
+    ],
+    "traffic": [
+      "satellite-traffic-detection"
+    ],
+    "drish-x": [
+      "satellite-traffic-detection"
+    ],
+    "gis": [
+      "satellite-gis-patterns",
+      "solar-shadow-computation"
+    ],
+    "sentinel-2": [
+      "satellite-gis-patterns"
+    ],
+    "onnx": [
+      "onnx-webgpu-inference",
+      "webgpu-onnx-detection"
+    ],
+    "webgpu": [
+      "onnx-webgpu-inference",
+      "webgpu-onnx-detection"
+    ],
+    "yolo": [
+      "onnx-webgpu-inference",
+      "webgpu-onnx-detection"
+    ],
+    "deteccion": [
+      "onnx-webgpu-inference"
+    ],
+    "navegador": [
+      "onnx-webgpu-inference",
+      "gtfs-browser-parser"
+    ],
+    "computer-vision": [
+      "satellite-ai-vision",
+      "webgpu-onnx-detection",
+      "gaze-tracking"
+    ],
+    "detection": [
+      "satellite-ai-vision"
+    ],
+    "red-teaming": [
+      "godmode"
+    ],
+    "godmode": [
+      "godmode"
+    ],
+    "testing jest mocks api": [
+      "testing-jest-mocks-api"
+    ],
+    "multi-agent": [
+      "orca-multi-agent-ide",
+      "canvas-workflow-protocol",
+      "kdense-scientific-skills-pattern",
+      "mastermind-multi-agent-orchestration"
+    ],
+    "orca": [
+      "orca-multi-agent-ide"
+    ],
+    "ide": [
+      "orca-multi-agent-ide"
+    ],
+    "code-orchestration": [
+      "orca-multi-agent-ide"
+    ],
+    "canvas": [
+      "canvas-workflow-protocol",
+      "madrid-visualization",
+      "render-3d-isometrico-ciudad"
+    ],
+    "kanvas": [
+      "canvas-workflow-protocol"
+    ],
+    "scientific": [
+      "kdense-scientific-skills-pattern"
+    ],
+    "kdense": [
+      "kdense-scientific-skills-pattern"
+    ],
+    "orchestration": [
+      "mastermind-multi-agent-orchestration"
+    ],
+    "mastermind": [
+      "mastermind-multi-agent-orchestration"
+    ],
+    "apple": [
+      "apple-notes",
+      "imessage",
+      "macos-computer-use",
+      "findmy",
+      "apple-reminders"
+    ],
+    "apple notes": [
+      "apple-notes"
+    ],
+    "imessage": [
+      "imessage"
+    ],
+    "macos computer use": [
+      "macos-computer-use"
+    ],
+    "findmy": [
+      "findmy"
+    ],
+    "apple reminders": [
+      "apple-reminders"
+    ],
+    "electricity": [
+      "sistemaelectricofuturo-v2",
+      "sistemaelectricofuturo"
+    ],
+    "energy": [
+      "sistemaelectricofuturo-v2",
+      "sistemaelectricofuturo"
+    ],
+    "simulation": [
+      "sistemaelectricofuturo-v2",
+      "sistemaelectricofuturo"
+    ],
+    "spain": [
+      "sistemaelectricofuturo-v2",
+      "sistema-electrico-simulador",
+      "sistemaelectricofuturo"
+    ],
+    "ree": [
+      "sistemaelectricofuturo-v2",
+      "sistemaelectricofuturo",
+      "esios-complete"
+    ],
+    "merit-order": [
+      "sistemaelectricofuturo-v2",
+      "sistemaelectricofuturo"
+    ],
+    "srmc": [
+      "sistemaelectricofuturo-v2",
+      "sistemaelectricofuturo"
+    ],
+    "monte-carlo": [
+      "sistemaelectricofuturo-v2",
+      "sistema-electrico-simulador",
+      "sistemaelectricofuturo",
+      "monte-carlo-stock-simulator"
+    ],
+    "typescript": [
+      "sistemaelectricofuturo-v2",
+      "typescript-cross-module-patterns"
+    ],
+    "vue": [
+      "sistemaelectricofuturo-v2"
+    ],
+    "data-science": [
+      "geoai-city2graph-pattern",
+      "monte-carlo-stock-simulator",
+      "rail-lidar-qa-mvp",
+      "jupyter-live-kernel",
+      "solar-shadows-web-workers"
+    ],
+    "geoai": [
+      "geoai-city2graph-pattern"
+    ],
+    "city2graph": [
+      "geoai-city2graph-pattern"
+    ],
+    "gnn": [
+      "geoai-city2graph-pattern"
+    ],
+    "energia": [
+      "sistema-electrico-simulador",
+      "auditoria-simulacion-energetica"
+    ],
+    "simulador": [
+      "sistema-electrico-simulador"
+    ],
+    "sistema-electrico": [
+      "sistema-electrico-simulador"
+    ],
+    "solar": [
+      "solar-shadow-computation",
+      "solar-shadows-web-workers"
+    ],
+    "sombras": [
+      "solar-shadow-computation",
+      "solar-shadows-web-workers"
+    ],
+    "web-workers": [
+      "solar-shadow-computation",
+      "solar-shadows-web-workers"
+    ],
+    "solmad": [
+      "solar-shadow-computation",
+      "solar-shadows-web-workers"
+    ],
+    "stocks": [
+      "monte-carlo-stock-simulator"
+    ],
+    "finance": [
+      "monte-carlo-stock-simulator"
+    ],
+    "lidar": [
+      "rail-lidar-qa-mvp"
+    ],
+    "railway": [
+      "rail-lidar-qa-mvp"
+    ],
+    "qa": [
+      "rail-lidar-qa-mvp"
+    ],
+    "jupyter live kernel": [
+      "jupyter-live-kernel"
+    ],
+    "mastermind": [
+      "mastermind",
+      "freehands-architecture",
+      "mastermind-setup"
+    ],
+    "umbrella": [
+      "mastermind"
+    ],
+    "system": [
+      "mastermind"
+    ],
+    "freehands": [
+      "freehands-architecture"
+    ],
+    "gaze": [
+      "freehands-architecture",
+      "gaze-tracking",
+      "kalman-cursor-smoothing"
+    ],
+    "gestures": [
+      "freehands-architecture"
+    ],
+    "auditoria": [
+      "auditoria-simulacion-energetica",
+      "documentos-institucionales"
+    ],
+    "simulacion": [
+      "auditoria-simulacion-energetica"
+    ],
+    "electricidad": [
+      "auditoria-simulacion-energetica",
+      "esios-complete"
+    ],
+    "modelo": [
+      "auditoria-simulacion-energetica"
+    ],
+    "validacion": [
+      "auditoria-simulacion-energetica",
+      "validacion-config-estricta"
+    ],
+    "calidad-dato": [
+      "auditoria-simulacion-energetica"
+    ],
+    "documentos": [
+      "documentos-institucionales"
+    ],
+    "informes": [
+      "documentos-institucionales"
+    ],
+    "cnmc": [
+      "documentos-institucionales"
+    ],
+    "regulacion": [
+      "documentos-institucionales"
+    ],
+    "contenido": [
+      "documentos-institucionales"
+    ],
+    "linkedin": [
+      "documentos-institucionales",
+      "pdf-to-artifacts-david-antizar"
+    ],
+    "html": [
+      "documentos-institucionales",
+      "pdf-to-artifacts-david-antizar",
+      "popular-web-designs"
+    ],
+    "herramientas": [
+      "markitdown",
+      "agentic-video-pipeline",
+      "liteparse-rust-pdf-ocr",
+      "video-processing-pipeline"
+    ],
+    "pdf": [
+      "markitdown",
+      "liteparse-rust-pdf-ocr",
+      "pdf-to-artifacts-david-antizar"
+    ],
+    "markdown": [
+      "markitdown"
+    ],
+    "conversion": [
+      "markitdown"
+    ],
+    "video": [
+      "agentic-video-pipeline",
+      "video-processing-pipeline",
+      "ascii-video"
+    ],
+    "ocr": [
+      "liteparse-rust-pdf-ocr"
+    ],
+    "rust": [
+      "liteparse-rust-pdf-ocr"
+    ],
+    "artifacts": [
+      "pdf-to-artifacts-david-antizar"
+    ],
+    "david-antizar": [
+      "pdf-to-artifacts-david-antizar"
+    ],
+    "vidpipe": [
+      "video-processing-pipeline"
+    ],
+    "madrid": [
+      "madrid-visualization",
+      "render-3d-isometrico-ciudad"
+    ],
+    "visualization": [
+      "madrid-visualization"
+    ],
+    "map": [
+      "madrid-visualization"
+    ],
+    "isometric": [
+      "madrid-visualization",
+      "render-3d-isometrico-ciudad"
+    ],
+    "3d": [
+      "madrid-visualization",
+      "render-3d-isometrico-ciudad"
+    ],
+    "webgl": [
+      "madrid-visualization"
+    ],
+    "city": [
+      "madrid-visualization",
+      "render-3d-isometrico-ciudad"
+    ],
+    "creative": [
+      "baoyu-comic",
+      "sketch",
+      "comfyui",
+      "pixel-art",
+      "architecture-diagram",
+      "p5js",
+      "excalidraw",
+      "baoyu-infographic",
+      "songwriting-and-ai-music",
+      "ascii-art",
+      "humanizer",
+      "ideation",
+      "touchdesigner-mcp",
+      "pretext",
+      "design-md",
+      "ascii-video",
+      "claude-design",
+      "manim-video"
+    ],
+    "baoyu comic": [
+      "baoyu-comic"
+    ],
+    "sketch": [
+      "sketch"
+    ],
+    "comfyui": [
+      "comfyui"
+    ],
+    "pixel art": [
+      "pixel-art"
+    ],
+    "architecture diagram": [
+      "architecture-diagram"
+    ],
+    "p5js": [
+      "p5js"
+    ],
+    "excalidraw": [
+      "excalidraw"
+    ],
+    "design": [
+      "popular-web-designs",
+      "liquid-glass-css"
+    ],
+    "ui": [
+      "popular-web-designs"
+    ],
+    "web-development": [
+      "popular-web-designs"
+    ],
+    "design-systems": [
+      "popular-web-designs"
+    ],
+    "templates": [
+      "popular-web-designs"
+    ],
+    "baoyu infographic": [
+      "baoyu-infographic"
+    ],
+    "songwriting": [
+      "songwriting-and-ai-music"
+    ],
+    "music": [
+      "songwriting-and-ai-music"
+    ],
+    "suno": [
+      "songwriting-and-ai-music"
+    ],
+    "parody": [
+      "songwriting-and-ai-music"
+    ],
+    "lyrics": [
+      "songwriting-and-ai-music"
+    ],
+    "ascii art": [
+      "ascii-art"
+    ],
+    "humanizer": [
+      "humanizer"
+    ],
+    "portfolio": [
+      "liquid-glass-css"
+    ],
+    "glassmorphism": [
+      "liquid-glass-css"
+    ],
+    "ideation": [
+      "ideation"
+    ],
+    "touchdesigner mcp": [
+      "touchdesigner-mcp"
+    ],
+    "pretext": [
+      "pretext"
+    ],
+    "design md": [
+      "design-md"
+    ],
+    "ascii": [
+      "ascii-video"
+    ],
+    "animation": [
+      "ascii-video",
+      "manim-video"
+    ],
+    "claude design": [
+      "claude-design"
+    ],
+    "manim": [
+      "manim-video"
+    ],
+    "math": [
+      "manim-video"
+    ],
+    "architecture": [
+      "layered-agent-architecture",
+      "typescript-cross-module-patterns",
+      "web-audit",
+      "refactor-nodejs-monolith"
+    ],
+    "multi-layer": [
+      "layered-agent-architecture"
+    ],
+    "agents": [
+      "layered-agent-architecture"
+    ],
+    "nightly": [
+      "aurora-nightly",
+      "aurora-nightly-pipeline"
+    ],
+    "continuous-improvement": [
+      "aurora-nightly"
+    ],
+    "inventario": [
+      "inventario-apis-procesamiento"
+    ],
+    "apis": [
+      "inventario-apis-procesamiento"
+    ],
+    "resumen": [
+      "inventario-apis-procesamiento"
+    ],
+    "setup": [
+      "mastermind-setup"
+    ],
+    "soul": [
+      "mastermind-setup"
+    ],
+    "identity": [
+      "mastermind-setup"
+    ],
+    "postgres mcp": [
+      "postgres-mcp"
+    ],
+    "nango": [
+      "nango-integrations",
+      "nango"
+    ],
+    "api": [
+      "nango-integrations",
+      "nango",
+      "esios-complete"
+    ],
+    "integrations": [
+      "nango-integrations",
+      "nango"
+    ],
+    "static": [
+      "static-digest-pipeline"
+    ],
+    "postgres": [
+      "postgres-mcp-pro"
+    ],
+    "database": [
+      "postgres-mcp-pro"
+    ],
+    "github pr workflow": [
+      "github-pr-workflow"
+    ],
+    "codebase inspection": [
+      "codebase-inspection"
+    ],
+    "github code review": [
+      "github-code-review"
+    ],
+    "trending": [
+      "github-trending-research"
+    ],
+    "discovery": [
+      "github-trending-research"
+    ],
+    "github repo management": [
+      "github-repo-management"
+    ],
+    "github auth": [
+      "github-auth"
+    ],
+    "github issues": [
+      "github-issues"
+    ],
+    "software-development": [
+      "subagent-driven-development",
+      "delegar-no-comprimir",
+      "9009-multi-iteration",
+      "dogfood",
+      "iterative-algorithm-refinement",
+      "agent-skills-standard",
+      "requesting-code-review",
+      "test-driven-development",
+      "writing-plans",
+      "systematic-debugging",
+      "spike",
+      "refactor-nodejs-monolith",
+      "google-eng-practices"
+    ],
+    "subagent driven development": [
+      "subagent-driven-development"
+    ],
+    "delegation": [
+      "delegar-no-comprimir"
+    ],
+    "subagents": [
+      "delegar-no-comprimir"
+    ],
+    "9009": [
+      "9009-multi-iteration"
+    ],
+    "improvement": [
+      "9009-multi-iteration"
+    ],
+    "iteration": [
+      "9009-multi-iteration"
+    ],
+    "dogfood": [
+      "dogfood"
+    ],
+    "web": [
+      "web-research-fallback"
+    ],
+    "browser": [
+      "web-research-fallback"
+    ],
+    "fallback": [
+      "web-research-fallback"
+    ],
+    "captcha": [
+      "web-research-fallback"
+    ],
+    "server": [
+      "web-research-fallback"
+    ],
+    "algorithm": [
+      "iterative-algorithm-refinement"
+    ],
+    "refinement": [
+      "iterative-algorithm-refinement"
+    ],
+    "iterative": [
+      "iterative-algorithm-refinement"
+    ],
+    "standard": [
+      "agent-skills-standard"
+    ],
+    "format": [
+      "agent-skills-standard"
+    ],
+    "ci-cd": [
+      "typescript-cross-module-patterns"
+    ],
+    "requesting code review": [
+      "requesting-code-review"
+    ],
+    "code-review": [
+      "technical-audit-remediation",
+      "web-audit",
+      "google-eng-practices"
+    ],
+    "remediation": [
+      "technical-audit-remediation"
+    ],
+    "prioritization": [
+      "technical-audit-remediation"
+    ],
+    "multi-phase": [
+      "technical-audit-remediation"
+    ],
+    "test driven development": [
+      "test-driven-development"
+    ],
+    "writing plans": [
+      "writing-plans"
+    ],
+    "security": [
+      "web-audit"
+    ],
+    "performance": [
+      "web-audit"
+    ],
+    "accessibility": [
+      "web-audit"
+    ],
+    "static-analysis": [
+      "web-audit"
+    ],
+    "systematic debugging": [
+      "systematic-debugging"
+    ],
+    "spike": [
+      "spike"
+    ],
+    "refactor": [
+      "refactor-nodejs-monolith"
+    ],
+    "nodejs": [
+      "refactor-nodejs-monolith",
+      "node-esm-interop",
+      "cliente-http-robusto",
+      "cache-multicapa",
+      "validacion-config-estricta"
+    ],
+    "google": [
+      "google-eng-practices"
+    ],
+    "best-practices": [
+      "google-eng-practices"
+    ],
+    "energía": [
+      "esios-complete"
+    ],
+    "arquitectura": [
+      "arquitectura-dashboard-datos-api"
+    ],
+    "arquitectura dashboard datos api": [
+      "arquitectura-dashboard-datos-api"
+    ],
+    "business-intelligence": [
+      "competitive-intelligence"
+    ],
+    "competitor-analysis": [
+      "competitive-intelligence"
+    ],
+    "meetings": [
+      "competitive-intelligence"
+    ],
+    "sales-intelligence": [
+      "competitive-intelligence"
+    ],
+    "backend": [
+      "fetch-paralelo-fallos-parciales",
+      "node-esm-interop",
+      "servicio-resumen-consolidado",
+      "endpoints-dashboard-rest",
+      "conversion-unidades-api-externa",
+      "forecast-montecarlo-escenarios"
+    ],
+    "fetch paralelo fallos parciales": [
+      "fetch-paralelo-fallos-parciales"
+    ],
+    "esm": [
+      "node-esm-interop"
+    ],
+    "commonjs": [
+      "node-esm-interop"
+    ],
+    "modules": [
+      "node-esm-interop"
+    ],
+    "servicio resumen consolidado": [
+      "servicio-resumen-consolidado"
+    ],
+    "endpoints dashboard rest": [
+      "endpoints-dashboard-rest"
+    ],
+    "conversion unidades api externa": [
+      "conversion-unidades-api-externa"
+    ],
+    "forecast montecarlo escenarios": [
+      "forecast-montecarlo-escenarios"
+    ],
+    "eye-tracking": [
+      "gaze-tracking"
+    ],
+    "mediapipe": [
+      "gaze-tracking"
+    ],
+    "kalman": [
+      "kalman-cursor-smoothing"
+    ],
+    "cursor": [
+      "kalman-cursor-smoothing"
+    ],
+    "smoothing": [
+      "kalman-cursor-smoothing"
+    ],
+    "signal-processing": [
+      "kalman-cursor-smoothing"
+    ],
+    "numpy": [
+      "kalman-cursor-smoothing"
+    ],
+    "gtfs": [
+      "gtfs-browser-parser"
+    ],
+    "transporte": [
+      "gtfs-browser-parser"
+    ],
+    "parser": [
+      "gtfs-browser-parser"
+    ],
+    "movilidad": [
+      "gtfs-browser-parser"
+    ],
+    "infraestructura": [
+      "health-checks-metrics",
+      "cliente-http-robusto",
+      "cache-multicapa",
+      "seguridad-web-helmet-cors",
+      "validacion-config-estricta",
+      "docker-multistage-produccion"
+    ],
+    "monitorizacion": [
+      "health-checks-metrics"
+    ],
+    "health": [
+      "health-checks-metrics"
+    ],
+    "metrics": [
+      "health-checks-metrics"
+    ],
+    "patrones": [
+      "health-checks-metrics",
+      "cliente-http-robusto",
+      "cache-multicapa",
+      "seguridad-web-helmet-cors",
+      "validacion-config-estricta",
+      "docker-multistage-produccion"
+    ],
+    "http": [
+      "cliente-http-robusto"
+    ],
+    "resiliencia": [
+      "cliente-http-robusto"
+    ],
+    "cache": [
+      "cache-multicapa"
+    ],
+    "rendimiento": [
+      "cache-multicapa"
+    ],
+    "seguridad": [
+      "seguridad-web-helmet-cors"
+    ],
+    "helmet": [
+      "seguridad-web-helmet-cors"
+    ],
+    "cors": [
+      "seguridad-web-helmet-cors"
+    ],
+    "configuracion": [
+      "validacion-config-estricta"
+    ],
+    "contenedores": [
+      "docker-multistage-produccion"
+    ],
+    "produccion": [
+      "docker-multistage-produccion"
+    ],
+    "paper": [
+      "research-paper-writing"
+    ],
+    "writing": [
+      "research-paper-writing"
+    ],
+    "ml/ai": [
+      "research-paper-writing"
+    ],
+    "llm wiki": [
+      "llm-wiki"
+    ]
+  },
+  "skills": [
+    {
+      "name": "sistemaelectricofuturo-v2",
+      "description": "Simulador interactivo del sistema eléctrico español 2026-2050 — motor headless TypeScript, datos climáticos reales Open-Meteo, merit-order SRMC, Monte Carlo multi-semilla.",
+      "tags": [
+        "electricity",
+        "energy",
+        "simulation",
+        "spain",
+        "esios",
+        "ree",
+        "merit-order",
+        "srmc",
+        "monte-carlo",
+        "typescript",
+        "vue"
+      ],
+      "category": "data-science",
+      "path": "data-science/sistemaelectricofuturo-v2/SKILL.md",
+      "size_bytes": 13366
+    },
+    {
+      "name": "sistemaelectricofuturo",
+      "description": "Simulador horario del sistema eléctrico español 2026-2035 — despacho por orden de mérito SRMC, políticas energéticas (CfD, tope ibérico, cierre nuclear ENRESA), Monte Carlo multi-semilla y KPIs de seguridad de suministro (ENS, LOLE).",
+      "tags": [
+        "electricity",
+        "energy",
+        "simulation",
+        "spain",
+        "esios",
+        "ree",
+        "merit-order",
+        "srmc",
+        "monte-carlo"
+      ],
+      "category": "data-science",
+      "path": "data-science/sistemaelectricofuturo/SKILL.md",
+      "size_bytes": 9210
+    },
+    {
+      "name": "devops-operations",
+      "description": "Patrones operativos de DevOps: deploy en NaN.builders (502, cache, env vars), cron jobs con scripts (no_agent=True), pipeline de digest estático, y GitHub Pages deployment. Todo para mantener apps en producción.",
+      "tags": [
+        "devops",
+        "nan",
+        "deploy",
+        "cron",
+        "scripts",
+        "automation",
+        "production",
+        "github-pages"
+      ],
+      "category": "devops-operations",
+      "path": "devops-operations/SKILL.md",
+      "size_bytes": 3354
+    },
+    {
+      "name": "documentos-institucionales",
+      "description": "Análisis de informes institucionales/regulatorios públicos (CNMC, REE, MITMS, BOE, Comisión Europea) — extracción PDF, auditoría estructurada y generación multi-formato (HTML resumen, LinkedIn/post, nota técnica).",
+      "tags": [
+        "documentos",
+        "auditoria",
+        "informes",
+        "cnmc",
+        "regulacion",
+        "contenido",
+        "linkedin",
+        "html"
+      ],
+      "category": "mastermind",
+      "path": "mastermind/documentos-institucionales/SKILL.md",
+      "size_bytes": 5394
+    },
+    {
+      "name": "esios-complete",
+      "description": "Conocimiento completo de ESIOS/REE: API, indicadores, unidades, deploy en NaN, troubleshooting frontend, informes Telegram, Open-Meteo, Yahoo Finance. Unificado de 5 skills en 1.",
+      "tags": [
+        "esios",
+        "ree",
+        "energía",
+        "electricidad",
+        "deploy",
+        "telegram",
+        "api",
+        "nan"
+      ],
+      "category": "esios-complete",
+      "path": "esios-complete/SKILL.md",
+      "size_bytes": 12618
+    },
+    {
+      "name": "madrid-visualization",
+      "description": "Madrid city visualization tools — isometric pixel art (Madrid3Pixel), 3D WebGL maps (NapMaps), and procedural city renderers. Stack decision guides: Canvas 2D vs MapLibre GL JS vs Three.js.",
+      "tags": [
+        "madrid",
+        "visualization",
+        "map",
+        "isometric",
+        "3d",
+        "webgl",
+        "canvas",
+        "city"
+      ],
+      "category": "creative",
+      "path": "creative/madrid-visualization/SKILL.md",
+      "size_bytes": 4281
+    },
+    {
+      "name": "pydantic-ai",
+      "description": "Framework completo de agentes GenAI para Python: fundamentos (agentes, tipos, validación), patrones de producción (DI, structured outputs, testing, streaming), sistema de tools, y 10 skills de programación fundamentales. Todo de Pydantic AI docs.",
+      "tags": [
+        "pydantic",
+        "ai",
+        "python",
+        "agent",
+        "testing",
+        "streaming",
+        "structured-output",
+        "tools",
+        "dependency-injection"
+      ],
+      "category": "pydantic",
+      "path": "pydantic/pydantic-ai/SKILL.md",
+      "size_bytes": 5028
+    },
+    {
+      "name": "auditoria-simulacion-energetica",
+      "description": "Auditoría técnica de simuladores/sistemas de modelado eléctrico — validación cuantitativa, calidad de dato, rigor del motor, alineamiento producto-pregunta.",
+      "tags": [
+        "auditoria",
+        "simulacion",
+        "electricidad",
+        "modelo",
+        "validacion",
+        "calidad-dato",
+        "energia"
+      ],
+      "category": "mastermind",
+      "path": "mastermind/auditoria-simulacion-energetica/SKILL.md",
+      "size_bytes": 8814
+    },
+    {
+      "name": "mastermind-setup",
+      "description": "Configura y mantiene el sistema personal de agentes Mastermind — sincronización de repositorio GitHub, instalación de skills, configuración de SOUL.md y auto-configuración de cron para el segundo cerebro de Ntizar.",
+      "tags": [
+        "mastermind",
+        "setup",
+        "github",
+        "skills",
+        "soul",
+        "nan",
+        "identity"
+      ],
+      "category": "devops",
+      "path": "devops/mastermind-setup/SKILL.md",
+      "size_bytes": 14242
+    },
+    {
+      "name": "liquid-glass-css",
+      "description": "CSS con efecto Liquid Glass estilo Esios/Aurora — gradientes azul+naranja, backdrop-filter glass, grid patterns y orbes radiales. Reutilizable para cualquier portfolio o dashboard de Ntizar.",
+      "tags": [
+        "css",
+        "liquid-glass",
+        "aurora",
+        "esios",
+        "portfolio",
+        "design",
+        "glassmorphism"
+      ],
+      "category": "creative",
+      "path": "creative/liquid-glass-css/SKILL.md",
+      "size_bytes": 13530
+    },
+    {
+      "name": "popular-web-designs",
+      "description": "54 real design systems (Stripe, Linear, Vercel) as HTML/CSS.",
+      "tags": [
+        "design",
+        "css",
+        "html",
+        "ui",
+        "web-development",
+        "design-systems",
+        "templates"
+      ],
+      "category": "creative",
+      "path": "creative/popular-web-designs/SKILL.md",
+      "size_bytes": 10424
+    },
+    {
+      "name": "web-audit",
+      "description": "Auditoría completa de aplicaciones web — análisis estático de código, seguridad, rendimiento, accesibilidad y arquitectura usando curl + lectura de archivos. Alternativa al browser tool cuando no está disponible o cuando se necesita auditoría profunda del código fuente.",
+      "tags": [
+        "audit",
+        "code-review",
+        "security",
+        "performance",
+        "accessibility",
+        "architecture",
+        "static-analysis"
+      ],
+      "category": "software-development",
+      "path": "software-development/web-audit/SKILL.md",
+      "size_bytes": 9698
+    },
+    {
+      "name": "aurora-nightly",
+      "description": "Mejora continua nocturna del sistema de diseño Ntizar Aurora — cada noche: investigación web → análisis gap → mejora CSS focalizada → commit → reaprendizaje. Bucle infinito de perfección.",
+      "tags": [
+        "aurora",
+        "css",
+        "design-system",
+        "nightly",
+        "continuous-improvement",
+        "liquid-glass"
+      ],
+      "category": "devops",
+      "path": "devops/aurora-nightly/SKILL.md",
+      "size_bytes": 8859
+    },
+    {
+      "name": "frontend-dashboard-patterns",
+      "description": "Patrones completos para dashboards frontend vanilla JS: cliente API robusto, orquestación de carga, error boundaries, tabs con navegación, persistencia, fechas, colores, sparklines, Web Workers y debugging. Todo lo que necesitas para construir dashboards resilientes sin bundler.",
+      "tags": [
+        "frontend",
+        "dashboard",
+        "patterns",
+        "vanilla-js",
+        "resilience",
+        "patterns"
+      ],
+      "category": "frontend-dashboard-patterns",
+      "path": "frontend-dashboard-patterns/SKILL.md",
+      "size_bytes": 17222
+    },
+    {
+      "name": "github-workflow",
+      "description": "Flujo completo de trabajo con GitHub: autenticación, gestión de repos, PR lifecycle, code review, issues, knowledge repo como base de conocimiento persistente, deploy estático en Pages, y recuperación de repos corruptos.",
+      "tags": [
+        "github",
+        "git",
+        "workflow",
+        "deployment",
+        "knowledge-repo",
+        "recovery"
+      ],
+      "category": "github-workflow",
+      "path": "github-workflow/SKILL.md",
+      "size_bytes": 8499
+    },
+    {
+      "name": "kalman-cursor-smoothing",
+      "description": "Kalman filter for gaze/gesture cursor smoothing — replaces EMA with 2-D constant-velocity model for better latency-smoothness tradeoff",
+      "tags": [
+        "kalman",
+        "cursor",
+        "smoothing",
+        "gaze",
+        "signal-processing",
+        "numpy"
+      ],
+      "category": "computer-vision",
+      "path": "computer-vision/kalman-cursor-smoothing/SKILL.md",
+      "size_bytes": 7208
+    },
+    {
+      "name": "pdf-to-artifacts-david-antizar",
+      "description": "Pipeline de transformación de PDF a 3 artefactos — análisis técnico, post LinkedIn, infografía HTML + comparativa. Con marca Ntizar David Antizar, sistema Aurora, atribución correcta.",
+      "tags": [
+        "pdf",
+        "artifacts",
+        "linkedin",
+        "html",
+        "aurora",
+        "david-antizar"
+      ],
+      "category": "herramientas",
+      "path": "herramientas/pdf-to-artifacts-david-antizar/SKILL.md",
+      "size_bytes": 3275
+    },
+    {
+      "name": "web-research-fallback",
+      "description": "When all search engines (Google, DuckDuckGo, Bing) block with CAPTCHA from server IPs, use fallback research patterns: Wikipedia/Wikidata APIs, direct site navigation, DOM extraction via browser_console, and curl patterns.",
+      "tags": [
+        "web",
+        "research",
+        "browser",
+        "fallback",
+        "captcha",
+        "server"
+      ],
+      "category": "software-development",
+      "path": "software-development/web-research-fallback/SKILL.md",
+      "size_bytes": 6991
+    },
+    {
+      "name": "aurora-design-system",
+      "description": "Design System Ntizar Aurora v5.1 Constellation — CSS puro, 11 packs opt-in, namespaced .nz, 5 skins, liquid glass real, OKLCH, multi-axis theming, agent-ready con CDN público. Derivado de Ntizar-Aurora.",
+      "tags": [
+        "css",
+        "design-system",
+        "aurora",
+        "liquid-glass",
+        "ntizar"
+      ],
+      "category": "frontend-dashboard-patterns",
+      "path": "frontend-dashboard-patterns/aurora-design-system/SKILL.md",
+      "size_bytes": 4680
+    },
+    {
+      "name": "gtfs-browser-parser",
+      "description": "Parser GTFS completo en navegador: descompresion ZIP en memoria con fflate, deteccion de encoding, tolerancia a ficheros malformados, logica completa de calendario GTFS (calendar.txt + calendar_dates.txt). Derivado de nap-dashboard.",
+      "tags": [
+        "gtfs",
+        "transporte",
+        "parser",
+        "navegador",
+        "movilidad"
+      ],
+      "category": "data",
+      "path": "data/gtfs-browser-parser/SKILL.md",
+      "size_bytes": 3648
+    },
+    {
+      "name": "inventario-apis-procesamiento",
+      "description": "Procedimiento para procesar el catálogo de 10.498+ APIs de API-mega-list en un inventario local estructurado por categorías. Incluye lectura de estado.json, análisis de progreso por categoría, y generación de resúmenes diarios.",
+      "tags": [
+        "inventario",
+        "apis",
+        "pipeline",
+        "resumen",
+        "cron"
+      ],
+      "category": "devops",
+      "path": "devops/inventario-apis-procesamiento/SKILL.md",
+      "size_bytes": 3979
+    },
+    {
+      "name": "onnx-webgpu-inference",
+      "description": "Ejecutar modelos YOLO ONNX en el navegador con WebGPU (20-40+ fps) o WASM fallback (5-15 fps). Deteccion de personas y vehiculos en tiempo real desde camara web. Derivado de YoloConteo.",
+      "tags": [
+        "onnx",
+        "webgpu",
+        "yolo",
+        "deteccion",
+        "navegador"
+      ],
+      "category": "vision",
+      "path": "vision/onnx-webgpu-inference/SKILL.md",
+      "size_bytes": 3223
+    },
+    {
+      "name": "render-3d-isometrico-ciudad",
+      "description": "Render 3D isométrico de ciudades en Canvas 2D — edificios con 3 caras (frontal/lateral/tejado), depth sorting, ciclo día/noche, clima y datos de coordenadas reales.",
+      "tags": [
+        "canvas",
+        "3d",
+        "isometric",
+        "city",
+        "madrid"
+      ],
+      "category": "creative",
+      "path": "creative/render-3d-isometrico-ciudad/SKILL.md",
+      "size_bytes": 5591
+    },
+    {
+      "name": "sistema-electrico-simulador",
+      "description": "Simulador interactivo del sistema electrico espanol 2026-2035: simulacion anual de 8.760 horas, trayectoria multianual, 17 escenarios, demanda sectorial, almacenamiento avanzado, politica energetica. Derivado de SistemaElectricoFuturo.",
+      "tags": [
+        "energia",
+        "simulador",
+        "sistema-electrico",
+        "monte-carlo",
+        "spain"
+      ],
+      "category": "data-science",
+      "path": "data-science/sistema-electrico-simulador/SKILL.md",
+      "size_bytes": 4638
+    },
+    {
+      "name": "skill-audit-pattern",
+      "description": "Auditoría sistemática del ecosistema de skills — detecta duplicados, project-readmes, CLI wrappers, skills sin tags, y genera plan de limpieza. Para mantener el ecosistema limpio al escalar.",
+      "tags": [
+        "audit",
+        "maintenance",
+        "skills",
+        "quality",
+        "cleanup"
+      ],
+      "category": "skill-audit-pattern",
+      "path": "skill-audit-pattern/SKILL.md",
+      "size_bytes": 8884
+    },
+    {
+      "name": "solar-shadow-computation",
+      "description": "Calculo de sombras solares con Web Workers + Comlink, cache por terraza/dia/franja, footprints OSM, estimacion de alturas de edificios. Derivado de solmad.",
+      "tags": [
+        "solar",
+        "sombras",
+        "web-workers",
+        "gis",
+        "solmad"
+      ],
+      "category": "data-science",
+      "path": "data-science/solar-shadow-computation/SKILL.md",
+      "size_bytes": 2827
+    },
+    {
+      "name": "solar-shadows-web-workers",
+      "description": "Patrón de cálculo de sombras solares con Web Workers + Comlink para no bloquear la UI",
+      "tags": [
+        "data-science",
+        "solar",
+        "sombras",
+        "web-workers",
+        "solmad"
+      ],
+      "category": "solar-shadows-web-workers",
+      "path": "solar-shadows-web-workers/SKILL.md",
+      "size_bytes": 2609
+    },
+    {
+      "name": "songwriting-and-ai-music",
+      "description": "Songwriting craft and Suno AI music prompts.",
+      "tags": [
+        "songwriting",
+        "music",
+        "suno",
+        "parody",
+        "lyrics",
+        "creative"
+      ],
+      "category": "creative",
+      "path": "creative/songwriting-and-ai-music/SKILL.md",
+      "size_bytes": 10236
+    },
+    {
+      "name": "static-digest-pipeline",
+      "description": "Pipeline de digest estatico: fetch API externa, normalizacion, ranking, publicacion GitHub Pages con GitHub Actions. Derivado de datos-gob-watch.",
+      "tags": [
+        "pipeline",
+        "datos-estaticos",
+        "github-pages",
+        "digest",
+        "scraping"
+      ],
+      "category": "frontend-dashboard-patterns",
+      "path": "frontend-dashboard-patterns/static-digest-pipeline/SKILL.md",
+      "size_bytes": 2537
+    },
+    {
+      "name": "technical-audit-remediation",
+      "description": "Ejecutar auditorías técnicas con hallazgos clasificados por severidad y plan de corrección en fases.",
+      "tags": [
+        "audit",
+        "code-review",
+        "remediation",
+        "prioritization",
+        "multi-phase"
+      ],
+      "category": "software-development",
+      "path": "software-development/technical-audit-remediation/SKILL.md",
+      "size_bytes": 13326
+    },
+    {
+      "name": "cache-multicapa",
+      "description": "Patrón de cache en dos capas (memoria + disco) con TTL, métricas de hit rate y limpieza automática. Reduce carga de APIs externas.",
+      "tags": [
+        "infraestructura",
+        "cache",
+        "rendimiento",
+        "patrones",
+        "nodejs"
+      ],
+      "category": "infraestructura",
+      "path": "infraestructura/cache-multicapa/SKILL.md",
+      "size_bytes": 7592
+    },
+    {
+      "name": "cliente-http-robusto",
+      "description": "Patrón de cliente HTTP con reintentos, backoff exponencial con jitter y timeouts. Para consumir APIs externas de forma resiliente.",
+      "tags": [
+        "infraestructura",
+        "http",
+        "resiliencia",
+        "patrones",
+        "nodejs"
+      ],
+      "category": "infraestructura",
+      "path": "infraestructura/cliente-http-robusto/SKILL.md",
+      "size_bytes": 7522
+    },
+    {
+      "name": "competitive-intelligence",
+      "description": "Inteligencia competitiva y análisis de negocio desde presencia web pública — extraer modelo de negocio, pricing, stack técnico, equipo y posicionamiento de un competidor/socio/partner a partir de su dominio, y preparar estrategia de reunión.",
+      "tags": [
+        "business-intelligence",
+        "competitor-analysis",
+        "research",
+        "meetings",
+        "sales-intelligence"
+      ],
+      "category": "business-intelligence",
+      "path": "business-intelligence/competitive-intelligence/SKILL.md",
+      "size_bytes": 5039
+    },
+    {
+      "name": "docker-multistage-produccion",
+      "description": "Patrón de Dockerfile multistage para Node.js con usuario no-root, health checks y build optimizado para plataformas serverless.",
+      "tags": [
+        "infraestructura",
+        "docker",
+        "contenedores",
+        "patrones",
+        "produccion"
+      ],
+      "category": "infraestructura",
+      "path": "infraestructura/docker-multistage-produccion/SKILL.md",
+      "size_bytes": 5544
+    },
+    {
+      "name": "freehands-architecture",
+      "description": "Arquitectura completa del proyecto FreeHands — control del PC sin manos: mirada + gestos + voz. Módulos, flujos de datos y patrón para añadir nuevas funcionalidades.",
+      "tags": [
+        "mastermind",
+        "freehands",
+        "gaze",
+        "gestures",
+        "voice"
+      ],
+      "category": "mastermind",
+      "path": "mastermind/freehands-architecture/SKILL.md",
+      "size_bytes": 20033
+    },
+    {
+      "name": "github-trending-research",
+      "description": "Exploración sistemática de GitHub Trending — curl + regex parsing, API enrichment, cross-reference con skills existentes, creación/actualización de skills para repos relevantes",
+      "tags": [
+        "github",
+        "trending",
+        "research",
+        "skills",
+        "discovery"
+      ],
+      "category": "github",
+      "path": "github/github-trending-research/SKILL.md",
+      "size_bytes": 8486
+    },
+    {
+      "name": "health-checks-metrics",
+      "description": "Patrón de health checks, readiness probes y métricas Prometheus para aplicaciones Node.js. Tres endpoints estándar: /healthz, /readyz y /metrics.",
+      "tags": [
+        "infraestructura",
+        "monitorizacion",
+        "health",
+        "metrics",
+        "patrones"
+      ],
+      "category": "infraestructura",
+      "path": "infraestructura/health-checks-metrics/SKILL.md",
+      "size_bytes": 7357
+    },
+    {
+      "name": "mlx-vlm-inference",
+      "description": ">",
+      "tags": [
+        "mlops",
+        "MLX",
+        "VLM",
+        "vision-language",
+        "inference"
+      ],
+      "category": "mlops",
+      "path": "mlops/mlx-vlm-inference/SKILL.md",
+      "size_bytes": 2374
+    },
+    {
+      "name": "node-esm-interop",
+      "description": "Patrones de interoperabilidad entre ESM y CommonJS/IIFE en Node.js — cargar módulos legacy en ESM, CLI headless, new Function vs eval, y exportación de APIs.",
+      "tags": [
+        "backend",
+        "nodejs",
+        "ESM",
+        "CommonJS",
+        "modules"
+      ],
+      "category": "backend",
+      "path": "backend/node-esm-interop/SKILL.md",
+      "size_bytes": 5704
+    },
+    {
+      "name": "seguridad-web-helmet-cors",
+      "description": "Patrón de seguridad web con Helmet (CSP, HSTS) y CORS por lista blanca. Para apps Express que cargan assets de CDNs externos.",
+      "tags": [
+        "infraestructura",
+        "seguridad",
+        "helmet",
+        "cors",
+        "patrones"
+      ],
+      "category": "infraestructura",
+      "path": "infraestructura/seguridad-web-helmet-cors/SKILL.md",
+      "size_bytes": 7847
+    },
+    {
+      "name": "typescript-cross-module-patterns",
+      "description": "Patrones TypeScript para proyectos multi-módulo — tipos flexibles para engine+tests+frontend, declaration files, typecheck antes de push, prevención de errores CI.",
+      "tags": [
+        "typescript",
+        "architecture",
+        "patterns",
+        "ci-cd"
+      ],
+      "category": "software-development",
+      "path": "software-development/typescript-cross-module-patterns/SKILL.md",
+      "size_bytes": 6534
+    },
+    {
+      "name": "validacion-config-estricta",
+      "description": "Patrón de validación estricta de variables de entorno con exit early, defaults tipados y readiness checks. Evita fallos silenciosos en producción.",
+      "tags": [
+        "infraestructura",
+        "configuracion",
+        "validacion",
+        "patrones",
+        "nodejs"
+      ],
+      "category": "infraestructura",
+      "path": "infraestructura/validacion-config-estricta/SKILL.md",
+      "size_bytes": 6309
+    },
+    {
+      "name": "voice-ai-landscape",
+      "description": "Panorama de herramientas Voice AI — VibeVoice (Microsoft), Voicebox, y patrones de TTS/ASR para agentes IA.",
+      "tags": [
+        "media",
+        "voice",
+        "tts",
+        "stt",
+        "voice-ai"
+      ],
+      "category": "media",
+      "path": "media/voice-ai-landscape/SKILL.md",
+      "size_bytes": 2836
+    },
+    {
+      "name": "9009-multi-iteration",
+      "description": "Patrón genérico para ejecutar mejoras 9009 en múltiples iteraciones sobre cualquier proyecto — análisis rápido, plan de mejoras, implementación directa con patch/write_file, y verificación. Optimizado para ejecución directa (NO subagentes) en batches de 20 mejoras.",
+      "tags": [
+        "software-development",
+        "9009",
+        "improvement",
+        "iteration"
+      ],
+      "category": "software-development",
+      "path": "software-development/9009-multi-iteration/SKILL.md",
+      "size_bytes": 9679
+    },
+    {
+      "name": "agent-memory",
+      "description": ">",
+      "tags": [
+        "ia",
+        "agent-memory",
+        "context",
+        "rag",
+        "persistent-memory"
+      ],
+      "category": "ia",
+      "path": "ia/agent-memory/SKILL.md",
+      "size_bytes": 3822
+    },
+    {
+      "name": "agent-skills-standard",
+      "description": ">",
+      "tags": [
+        "software-development",
+        "skills",
+        "standard",
+        "format"
+      ],
+      "category": "software-development",
+      "path": "software-development/agent-skills-standard/SKILL.md",
+      "size_bytes": 3313
+    },
+    {
+      "name": "agentic-video-pipeline",
+      "description": ">",
+      "tags": [
+        "herramientas",
+        "video",
+        "AI",
+        "pipeline"
+      ],
+      "category": "herramientas",
+      "path": "herramientas/agentic-video-pipeline/SKILL.md",
+      "size_bytes": 3835
+    },
+    {
+      "name": "apple-calendar",
+      "description": "Acceder, leer, crear, editar y eliminar eventos del calendario de Apple (iCloud CalDAV) de David Antizar. Usar para ver eventos próximos, organizar agenda, crear citas, editar o cancelar eventos.",
+      "tags": [
+        "productivity",
+        "calendar",
+        "icloud",
+        "caldav"
+      ],
+      "category": "productivity",
+      "path": "productivity/apple-calendar/SKILL.md",
+      "size_bytes": 8054
+    },
+    {
+      "name": "ascii-video",
+      "description": "ASCII video: convert video/audio to colored ASCII MP4/GIF.",
+      "tags": [
+        "creative",
+        "ASCII",
+        "video",
+        "animation"
+      ],
+      "category": "creative",
+      "path": "creative/ascii-video/SKILL.md",
+      "size_bytes": 14924
+    },
+    {
+      "name": "aurora-nightly-pipeline",
+      "description": "Pipeline de mejora continua nocturna automatica con lint, build, test y deploy. Basado en Ntizar Aurora v5.1.",
+      "tags": [
+        "devops",
+        "aurora",
+        "nightly",
+        "pipeline"
+      ],
+      "category": "devops",
+      "path": "devops/aurora-nightly-pipeline/SKILL.md",
+      "size_bytes": 2280
+    },
+    {
+      "name": "canvas-workflow-protocol",
+      "description": "Protocolo de flujo de trabajo Canvas (Kanvas) para gestión colaborativa de tareas entre humanos y agentes IA usando Obsidian Canvas. CLI tool como único medio de modificación, con ciclo de vida estricto de colores y detección de dependencias.",
+      "tags": [
+        "multi-agent",
+        "canvas",
+        "workflow",
+        "kanvas"
+      ],
+      "category": "multi-agent",
+      "path": "multi-agent/canvas-workflow-protocol/SKILL.md",
+      "size_bytes": 5387
+    },
+    {
+      "name": "delegar-no-comprimir",
+      "description": "Patrón para delegar tareas en subagentes en paralelo en vez de hacer compresiones de contexto con secuencias largas de herramientas",
+      "tags": [
+        "software-development",
+        "delegation",
+        "subagents",
+        "context"
+      ],
+      "category": "software-development",
+      "path": "software-development/delegar-no-comprimir/SKILL.md",
+      "size_bytes": 1597
+    },
+    {
+      "name": "esios-indicators-correct",
+      "description": "IDs correctos y unidades de indicadores ESIOS/REE — ACTUALIZADO 2026-05-29: ya no usar time_trunc=hour ni dividir entre 10. Nueva resolución 5min.",
+      "tags": [
+        "esios",
+        "indicadores",
+        "unidades",
+        "IDs"
+      ],
+      "category": "esios",
+      "path": "esios/esios-indicators-correct/SKILL.md",
+      "size_bytes": 5489
+    },
+    {
+      "name": "esios-nan-deploy",
+      "description": "Procedimiento de deploy de proyectos Node.js en NaN.builders — Dockerfile, Kaniko, variables de entorno, puertos y troubleshooting.",
+      "tags": [
+        "esios",
+        "deploy",
+        "nan",
+        "docker"
+      ],
+      "category": "esios",
+      "path": "esios/esios-nan-deploy/SKILL.md",
+      "size_bytes": 23413
+    },
+    {
+      "name": "esios-telegram-report",
+      "description": "Generar informe diario del mercado eléctrico español con gráficos Canvas/PNG y análisis automático vía Telegram — script esios-telegram.js.",
+      "tags": [
+        "esios",
+        "telegram",
+        "cron",
+        "informe"
+      ],
+      "category": "esios",
+      "path": "esios/esios-telegram-report/SKILL.md",
+      "size_bytes": 3589
+    },
+    {
+      "name": "gaze-tracking",
+      "description": ">",
+      "tags": [
+        "computer-vision",
+        "gaze",
+        "eye-tracking",
+        "MediaPipe"
+      ],
+      "category": "computer-vision",
+      "path": "computer-vision/gaze-tracking/SKILL.md",
+      "size_bytes": 2357
+    },
+    {
+      "name": "geoai-city2graph-pattern",
+      "description": "Patrón GeoAI con City2Graph: convertir datos geoespaciales en grafos para Graph Neural Networks y análisis de redes urbanas. Integración GeoPandas → NetworkX → PyTorch Geometric. Modelado de transporte, proximidad, flujo de movilidad.",
+      "tags": [
+        "data-science",
+        "geoai",
+        "city2graph",
+        "GNN"
+      ],
+      "category": "data-science",
+      "path": "data-science/geoai-city2graph-pattern/SKILL.md",
+      "size_bytes": 4221
+    },
+    {
+      "name": "google-eng-practices",
+      "description": "Google Engineering Practices — code review profesional, buenas prácticas de ingeniería, cultura de code health. 22.6k ⭐ en GitHub.",
+      "tags": [
+        "software-development",
+        "google",
+        "code-review",
+        "best-practices"
+      ],
+      "category": "software-development",
+      "path": "software-development/google-eng-practices/SKILL.md",
+      "size_bytes": 1777
+    },
+    {
+      "name": "iterative-algorithm-refinement",
+      "description": "Patrón iterativo para refinar algoritmos de estimación geométrica/sensorial: prototipar → testear con datos realista → diagnosticar fallos → corregir geometría → retestear. Captura el ciclo de debugging de algoritmos de visión por computadora donde los datos de entrada son simulados pero deben reproducir comportamientos reales.",
+      "tags": [
+        "software-development",
+        "algorithm",
+        "refinement",
+        "iterative"
+      ],
+      "category": "software-development",
+      "path": "software-development/iterative-algorithm-refinement/SKILL.md",
+      "size_bytes": 4225
+    },
+    {
+      "name": "kdense-scientific-skills-pattern",
+      "description": "Patrón de skills científicos de K-Dense (142 skills, 100+ bases de datos científicas, 160k+ usuarios). Estructura SKILL.md con frontmatter, composición multi-skill, y patrón de referencia externa para mantener contextos compactos.",
+      "tags": [
+        "multi-agent",
+        "skills",
+        "scientific",
+        "kdense"
+      ],
+      "category": "multi-agent",
+      "path": "multi-agent/kdense-scientific-skills-pattern/SKILL.md",
+      "size_bytes": 4079
+    },
+    {
+      "name": "layered-agent-architecture",
+      "description": ">",
+      "tags": [
+        "devops",
+        "architecture",
+        "multi-layer",
+        "agents"
+      ],
+      "category": "devops",
+      "path": "devops/layered-agent-architecture/SKILL.md",
+      "size_bytes": 4018
+    },
+    {
+      "name": "liteparse-rust-pdf-ocr",
+      "description": "Parser de PDF rápido en Rust con OCR, extracción espacial con bounding boxes, y bindings multi-lenguaje (Node.js, Python, WASM). 7.4k+ estrellas. Ideal para pipelines de documentos donde velocidad y layout importan.",
+      "tags": [
+        "herramientas",
+        "PDF",
+        "OCR",
+        "Rust"
+      ],
+      "category": "herramientas",
+      "path": "herramientas/liteparse-rust-pdf-ocr/SKILL.md",
+      "size_bytes": 4070
+    },
+    {
+      "name": "manim-video",
+      "description": "Manim CE animations: 3Blue1Brown math/algo videos.",
+      "tags": [
+        "creative",
+        "manim",
+        "animation",
+        "math"
+      ],
+      "category": "creative",
+      "path": "creative/manim-video/SKILL.md",
+      "size_bytes": 12065
+    },
+    {
+      "name": "markitdown",
+      "description": "Convert various file formats to Markdown for LLM consumption. Supports PDF, DOCX, PPTX, XLSX, images, audio, HTML, CSV, JSON, XML, ZIP, EPUB, YouTube URLs, and more via a plugin-based converter architecture.",
+      "tags": [
+        "herramientas",
+        "PDF",
+        "markdown",
+        "conversion"
+      ],
+      "category": "herramientas",
+      "path": "herramientas/markitdown/SKILL.md",
+      "size_bytes": 2845
+    },
+    {
+      "name": "monte-carlo-stock-simulator",
+      "description": "Simulador Monte Carlo de riesgos bursátiles en navegador: 5 modelos estocásticos (GBM, Heston, Jump-Diffusion, GARCH, Bootstrap), Web Worker, señales BUY/HOLD/SELL, VaR/CVaR, Sharpe/Sortino. Sin servidor, sin registro.",
+      "tags": [
+        "data-science",
+        "monte-carlo",
+        "stocks",
+        "finance"
+      ],
+      "category": "data-science",
+      "path": "data-science/monte-carlo-stock-simulator/SKILL.md",
+      "size_bytes": 5002
+    },
+    {
+      "name": "nango-integrations",
+      "description": ">",
+      "tags": [
+        "devops",
+        "nango",
+        "API",
+        "integrations"
+      ],
+      "category": "devops",
+      "path": "devops/nango-integrations/SKILL.md",
+      "size_bytes": 3624
+    },
+    {
+      "name": "orca-multi-agent-ide",
+      "description": ">",
+      "tags": [
+        "multi-agent",
+        "orca",
+        "IDE",
+        "code-orchestration"
+      ],
+      "category": "multi-agent",
+      "path": "multi-agent/orca-multi-agent-ide/SKILL.md",
+      "size_bytes": 2769
+    },
+    {
+      "name": "postgres-mcp-pro",
+      "description": ">",
+      "tags": [
+        "devops",
+        "postgres",
+        "MCP",
+        "database"
+      ],
+      "category": "devops",
+      "path": "devops/postgres-mcp-pro/SKILL.md",
+      "size_bytes": 3461
+    },
+    {
+      "name": "rail-lidar-qa-mvp",
+      "description": "Rail LiDAR QA MVP - Local LiDAR quality validation for railway infrastructure using drone simulation, point cloud metrics, and 3D visualization.",
+      "tags": [
+        "data-science",
+        "lidar",
+        "railway",
+        "QA"
+      ],
+      "category": "data-science",
+      "path": "data-science/rail-lidar-qa-mvp/SKILL.md",
+      "size_bytes": 3192
+    },
+    {
+      "name": "refactor-nodejs-monolith",
+      "description": "Refactorizar proyecto Node.js monolítico a arquitectura modular por dominios",
+      "tags": [
+        "software-development",
+        "refactor",
+        "nodejs",
+        "architecture"
+      ],
+      "category": "software-development",
+      "path": "software-development/refactor-nodejs-monolith/SKILL.md",
+      "size_bytes": 10268
+    },
+    {
+      "name": "research-paper-writing",
+      "description": "End-to-end pipeline for producing publication-ready ML/AI research papers targeting NeurIPS, ICML, ICLR.",
+      "tags": [
+        "research",
+        "paper",
+        "writing",
+        "ML/AI"
+      ],
+      "category": "research",
+      "path": "research/research-paper-writing/SKILL.md",
+      "size_bytes": 1391
+    },
+    {
+      "name": "satellite-ai-vision",
+      "description": "Herramientas de visión por satélite y computer vision para análisis de tráfico, terreno y detección de objetos con IA.",
+      "tags": [
+        "vision",
+        "satellite",
+        "computer-vision",
+        "detection"
+      ],
+      "category": "vision",
+      "path": "vision/satellite-ai-vision/SKILL.md",
+      "size_bytes": 3960
+    },
+    {
+      "name": "satellite-gis-patterns",
+      "description": "Patrones de procesamiento de datos satelitales y GIS — DRISH-X (tráfico por satélite), Sentinel-2, y herramientas client-side routing.",
+      "tags": [
+        "vision",
+        "satellite",
+        "GIS",
+        "Sentinel-2"
+      ],
+      "category": "vision",
+      "path": "vision/satellite-gis-patterns/SKILL.md",
+      "size_bytes": 3561
+    },
+    {
+      "name": "satellite-traffic-detection",
+      "description": "DRISH-X — detección de tráfico de vehículos desde imágenes satelitales Sentinel-2. Aprovecha el parpadeo RGB del sensor (1.01s entre canales) + YOLO para inteligencia de carga en carreteras",
+      "tags": [
+        "vision",
+        "satellite",
+        "traffic",
+        "DRISH-X"
+      ],
+      "category": "vision",
+      "path": "vision/satellite-traffic-detection/SKILL.md",
+      "size_bytes": 2569
+    },
+    {
+      "name": "serializable-ml-models",
+      "description": "Serializar modelos ML instance-based (KNN, etc.) en schemas Pydantic con tipos Union para compatibilidad con modelos paramétricos (Ridge, polinomiales).",
+      "tags": [
+        "mlops",
+        "ML",
+        "serialization",
+        "Pydantic"
+      ],
+      "category": "mlops",
+      "path": "mlops/serializable-ml-models/SKILL.md",
+      "size_bytes": 5908
+    },
+    {
+      "name": "static-digest-pipeline",
+      "description": "Pipeline de digest estático: fetch API externa → normalización → scoring heurístico → JSON → HTML → GitHub Pages. Patrón para repos tipo datos-gob-watch.",
+      "tags": [
+        "devops",
+        "pipeline",
+        "digest",
+        "static"
+      ],
+      "category": "devops",
+      "path": "devops/static-digest-pipeline/SKILL.md",
+      "size_bytes": 5503
+    },
+    {
+      "name": "video-processing-pipeline",
+      "description": "Pipeline de procesamiento de vídeo con IA — vidpipe: transcripción, edición automática, captions, shorts y posts para redes sociales.",
+      "tags": [
+        "herramientas",
+        "video",
+        "AI",
+        "vidpipe"
+      ],
+      "category": "herramientas",
+      "path": "herramientas/video-processing-pipeline/SKILL.md",
+      "size_bytes": 2468
+    },
+    {
+      "name": "webgpu-onnx-detection",
+      "description": "Ejecutar modelos de visión por computador (YOLO, etc.) en el navegador con WebGPU/ONNX sin servidor GPU. Basado en YoloConteo.",
+      "tags": [
+        "computer-vision",
+        "WebGPU",
+        "ONNX",
+        "YOLO"
+      ],
+      "category": "computer-vision",
+      "path": "computer-vision/webgpu-onnx-detection/SKILL.md",
+      "size_bytes": 4434
+    },
+    {
+      "name": "youtube-content",
+      "description": "YouTube transcripts to summaries, threads, blogs.",
+      "tags": [
+        "media",
+        "youtube",
+        "transcripts",
+        "research"
+      ],
+      "category": "media",
+      "path": "media/youtube-content/SKILL.md",
+      "size_bytes": 3282
+    },
+    {
+      "name": "mastermind",
+      "description": "Skills del sistema Mastermind - agente principal, dashboards, deploy, voz, APIs y automatización para Ntizar.",
+      "tags": [
+        "mastermind",
+        "umbrella",
+        "system"
+      ],
+      "category": "mastermind",
+      "path": "mastermind/SKILL.md",
+      "size_bytes": 23484
+    },
+    {
+      "name": "mastermind-multi-agent-orchestration",
+      "description": "Framework de orquestacion multi-agente con separacion documental/ejecutable, decaimiento Ebbinghaus y model routing. Basado en Ntizar Brain Mastermind v3.",
+      "tags": [
+        "multi-agent",
+        "orchestration",
+        "mastermind"
+      ],
+      "category": "multi-agent",
+      "path": "multi-agent/mastermind-multi-agent-orchestration/SKILL.md",
+      "size_bytes": 4965
+    },
+    {
+      "name": "nango",
+      "description": "Skill: Nango — plataforma open-source para construir integraciones de producto con 800+ APIs. Maneja OAuth, API keys, token refresh, proxy de requests y ejecución de funciones de integración.",
+      "tags": [
+        "devops",
+        "nango",
+        "API",
+        "integrations"
+      ],
+      "category": "devops",
+      "path": "devops/nango/SKILL.md",
+      "size_bytes": 4434
+    },
+    {
+      "name": "apple-notes",
+      "description": "Manage Apple Notes via memo CLI: create, search, edit.",
+      "tags": [
+        "apple",
+        "apple notes"
+      ],
+      "category": "apple",
+      "path": "apple/apple-notes/SKILL.md",
+      "size_bytes": 2169
+    },
+    {
+      "name": "apple-reminders",
+      "description": "Apple Reminders via remindctl: add, list, complete.",
+      "tags": [
+        "apple",
+        "apple reminders"
+      ],
+      "category": "apple",
+      "path": "apple/apple-reminders/SKILL.md",
+      "size_bytes": 2530
+    },
+    {
+      "name": "architecture-diagram",
+      "description": "Dark-themed SVG architecture/cloud/infra diagrams as HTML.",
+      "tags": [
+        "creative",
+        "architecture diagram"
+      ],
+      "category": "creative",
+      "path": "creative/architecture-diagram/SKILL.md",
+      "size_bytes": 5830
+    },
+    {
+      "name": "arquitectura-dashboard-datos-api",
+      "description": "Arquitectura completa de un dashboard web que consume APIs de datos externas. Patrón inspirado en ESIOS Dashboard — estructura de 5 capas: config, infra, dominio, shared, presentación.",
+      "tags": [
+        "arquitectura",
+        "arquitectura dashboard datos api"
+      ],
+      "category": "arquitectura",
+      "path": "arquitectura/arquitectura-dashboard-datos-api/SKILL.md",
+      "size_bytes": 3356
+    },
+    {
+      "name": "ascii-art",
+      "description": "ASCII art: pyfiglet, cowsay, boxes, image-to-ascii.",
+      "tags": [
+        "creative",
+        "ascii art"
+      ],
+      "category": "creative",
+      "path": "creative/ascii-art/SKILL.md",
+      "size_bytes": 10099
+    },
+    {
+      "name": "audiocraft-audio-generation",
+      "description": "AudioCraft: MusicGen text-to-music, AudioGen text-to-sound.",
+      "tags": [
+        "mlops",
+        "audiocraft audio generation"
+      ],
+      "category": "mlops",
+      "path": "mlops/models/audiocraft/SKILL.md",
+      "size_bytes": 16189
+    },
+    {
+      "name": "baoyu-comic",
+      "description": "Knowledge comics (知识漫画): educational, biography, tutorial.",
+      "tags": [
+        "creative",
+        "baoyu comic"
+      ],
+      "category": "creative",
+      "path": "creative/baoyu-comic/SKILL.md",
+      "size_bytes": 14621
+    },
+    {
+      "name": "baoyu-infographic",
+      "description": "Infographics: 21 layouts x 21 styles (信息图, 可视化).",
+      "tags": [
+        "creative",
+        "baoyu infographic"
+      ],
+      "category": "creative",
+      "path": "creative/baoyu-infographic/SKILL.md",
+      "size_bytes": 10434
+    },
+    {
+      "name": "claude-code",
+      "description": "Delegate coding to Claude Code CLI (features, PRs).",
+      "tags": [
+        "autonomous-ai-agents",
+        "claude code"
+      ],
+      "category": "autonomous-ai-agents",
+      "path": "autonomous-ai-agents/claude-code/SKILL.md",
+      "size_bytes": 34288
+    },
+    {
+      "name": "claude-design",
+      "description": "Design one-off HTML artifacts (landing, deck, prototype).",
+      "tags": [
+        "creative",
+        "claude design"
+      ],
+      "category": "creative",
+      "path": "creative/claude-design/SKILL.md",
+      "size_bytes": 19859
+    },
+    {
+      "name": "codebase-inspection",
+      "description": "Inspect codebases w/ pygount: LOC, languages, ratios.",
+      "tags": [
+        "github",
+        "codebase inspection"
+      ],
+      "category": "github",
+      "path": "github/codebase-inspection/SKILL.md",
+      "size_bytes": 3974
+    },
+    {
+      "name": "conversion-unidades-api-externa",
+      "description": "Conversión de valores crudos de API externa a unidades humanas. Patrón para APIs que devuelven valores en múltiplos (×10, ×100, ×1000).",
+      "tags": [
+        "backend",
+        "conversion unidades api externa"
+      ],
+      "category": "backend",
+      "path": "backend/conversion-unidades-api-externa/SKILL.md",
+      "size_bytes": 4013
+    },
+    {
+      "name": "design-md",
+      "description": "Author/validate/export Google's DESIGN.md token spec files.",
+      "tags": [
+        "creative",
+        "design md"
+      ],
+      "category": "creative",
+      "path": "creative/design-md/SKILL.md",
+      "size_bytes": 7023
+    },
+    {
+      "name": "endpoints-dashboard-rest",
+      "description": "Diseño de endpoints REST para un dashboard de datos — summary, indicator genérico, monthly, yearly, predicción. Patrón con endpoints en español.",
+      "tags": [
+        "backend",
+        "endpoints dashboard rest"
+      ],
+      "category": "backend",
+      "path": "backend/endpoints-dashboard-rest/SKILL.md",
+      "size_bytes": 4578
+    },
+    {
+      "name": "evaluating-llms-harness",
+      "description": "lm-eval-harness: benchmark LLMs (MMLU, GSM8K, etc.).",
+      "tags": [
+        "mlops",
+        "evaluating llms harness"
+      ],
+      "category": "mlops",
+      "path": "mlops/evaluation/lm-evaluation-harness/SKILL.md",
+      "size_bytes": 12020
+    },
+    {
+      "name": "fetch-paralelo-fallos-parciales",
+      "description": "Promise.all para fetch paralelo de múltiples endpoints con manejo de fallos parciales. Patrón para dashboards que consolidan muchos indicadores.",
+      "tags": [
+        "backend",
+        "fetch paralelo fallos parciales"
+      ],
+      "category": "backend",
+      "path": "backend/fetch-paralelo-fallos-parciales/SKILL.md",
+      "size_bytes": 4539
+    },
+    {
+      "name": "forecast-montecarlo-escenarios",
+      "description": "Simulación Monte Carlo con escenarios heurísticos para predicción de precios horarios. Integra drivers externos como viento, solar, demanda, temperatura, gas y CO2.",
+      "tags": [
+        "backend",
+        "forecast montecarlo escenarios"
+      ],
+      "category": "backend",
+      "path": "backend/forecast-montecarlo-escenarios/SKILL.md",
+      "size_bytes": 6478
+    },
+    {
+      "name": "github-auth",
+      "description": "GitHub auth setup: HTTPS tokens, SSH keys, gh CLI login.",
+      "tags": [
+        "github",
+        "github auth"
+      ],
+      "category": "github",
+      "path": "github/github-auth/SKILL.md",
+      "size_bytes": 9341
+    },
+    {
+      "name": "github-code-review",
+      "description": "Review PRs: diffs, inline comments via gh or REST.",
+      "tags": [
+        "github",
+        "github code review"
+      ],
+      "category": "github",
+      "path": "github/github-code-review/SKILL.md",
+      "size_bytes": 6170
+    },
+    {
+      "name": "github-issues",
+      "description": "Create, triage, label, assign GitHub issues via gh or REST.",
+      "tags": [
+        "github",
+        "github issues"
+      ],
+      "category": "github",
+      "path": "github/github-issues/SKILL.md",
+      "size_bytes": 9763
+    },
+    {
+      "name": "github-pr-workflow",
+      "description": "GitHub PR lifecycle: branch, commit, open, CI, merge.",
+      "tags": [
+        "github",
+        "github pr workflow"
+      ],
+      "category": "github",
+      "path": "github/github-pr-workflow/SKILL.md",
+      "size_bytes": 5915
+    },
+    {
+      "name": "github-repo-management",
+      "description": "Clone/create/fork repos; manage remotes, releases.",
+      "tags": [
+        "github",
+        "github repo management"
+      ],
+      "category": "github",
+      "path": "github/github-repo-management/SKILL.md",
+      "size_bytes": 7235
+    },
+    {
+      "name": "hermes-agent",
+      "description": "Configure, extend, or contribute to Hermes Agent.",
+      "tags": [
+        "autonomous-ai-agents",
+        "hermes agent"
+      ],
+      "category": "autonomous-ai-agents",
+      "path": "autonomous-ai-agents/hermes-agent/SKILL.md",
+      "size_bytes": 49465
+    },
+    {
+      "name": "jupyter-live-kernel",
+      "description": "Iterative Python via live Jupyter kernel (hamelnb).",
+      "tags": [
+        "data-science",
+        "jupyter live kernel"
+      ],
+      "category": "data-science",
+      "path": "data-science/jupyter-live-kernel/SKILL.md",
+      "size_bytes": 5285
+    },
+    {
+      "name": "llm-wiki",
+      "description": "Karpathy's LLM Wiki: build/query interlinked markdown KB.",
+      "tags": [
+        "research",
+        "llm wiki"
+      ],
+      "category": "research",
+      "path": "research/llm-wiki/SKILL.md",
+      "size_bytes": 20113
+    },
+    {
+      "name": "macos-computer-use",
+      "description": "|",
+      "tags": [
+        "apple",
+        "macos computer use"
+      ],
+      "category": "apple",
+      "path": "apple/macos-computer-use/SKILL.md",
+      "size_bytes": 7309
+    },
+    {
+      "name": "native-mcp",
+      "description": "MCP client: connect servers, register tools (stdio/HTTP).",
+      "tags": [
+        "mcp",
+        "native mcp"
+      ],
+      "category": "mcp",
+      "path": "mcp/native-mcp/SKILL.md",
+      "size_bytes": 12779
+    },
+    {
+      "name": "pixel-art",
+      "description": "Pixel art w/ era palettes (NES, Game Boy, PICO-8).",
+      "tags": [
+        "creative",
+        "pixel art"
+      ],
+      "category": "creative",
+      "path": "creative/pixel-art/SKILL.md",
+      "size_bytes": 7581
+    },
+    {
+      "name": "postgres-mcp",
+      "description": "PostgreSQL MCP Pro — expone PostgreSQL como servidor MCP para que agentes de IA realicen health checks, tuning de índices, exploración de esquema y ejecución segura de SQL.",
+      "tags": [
+        "devops",
+        "postgres mcp"
+      ],
+      "category": "devops",
+      "path": "devops/postgres-mcp/SKILL.md",
+      "size_bytes": 4563
+    },
+    {
+      "name": "requesting-code-review",
+      "description": "Pre-commit review: security scan, quality gates, auto-fix.",
+      "tags": [
+        "software-development",
+        "requesting code review"
+      ],
+      "category": "software-development",
+      "path": "software-development/requesting-code-review/SKILL.md",
+      "size_bytes": 8483
+    },
+    {
+      "name": "segment-anything-model",
+      "description": "SAM: zero-shot image segmentation via points, boxes, masks.",
+      "tags": [
+        "mlops",
+        "segment anything model"
+      ],
+      "category": "mlops",
+      "path": "mlops/models/segment-anything/SKILL.md",
+      "size_bytes": 13372
+    },
+    {
+      "name": "servicio-resumen-consolidado",
+      "description": "Construcción de un resumen consolidado desde múltiples series horarias con merge, stats y degradación graceful. Patrón para dashboards que combinan N indicadores.",
+      "tags": [
+        "backend",
+        "servicio resumen consolidado"
+      ],
+      "category": "backend",
+      "path": "backend/servicio-resumen-consolidado/SKILL.md",
+      "size_bytes": 4358
+    },
+    {
+      "name": "serving-llms-vllm",
+      "description": "vLLM: high-throughput LLM serving, OpenAI API, quantization.",
+      "tags": [
+        "mlops",
+        "serving llms vllm"
+      ],
+      "category": "mlops",
+      "path": "mlops/inference/vllm/SKILL.md",
+      "size_bytes": 9071
+    },
+    {
+      "name": "subagent-driven-development",
+      "description": "Execute plans via delegate_task subagents (2-stage review).",
+      "tags": [
+        "software-development",
+        "subagent driven development"
+      ],
+      "category": "software-development",
+      "path": "software-development/subagent-driven-development/SKILL.md",
+      "size_bytes": 12024
+    },
+    {
+      "name": "systematic-debugging",
+      "description": "4-phase root cause debugging: understand bugs before fixing.",
+      "tags": [
+        "software-development",
+        "systematic debugging"
+      ],
+      "category": "software-development",
+      "path": "software-development/systematic-debugging/SKILL.md",
+      "size_bytes": 14018
+    },
+    {
+      "name": "test-driven-development",
+      "description": "TDD: enforce RED-GREEN-REFACTOR, tests before code.",
+      "tags": [
+        "software-development",
+        "test driven development"
+      ],
+      "category": "software-development",
+      "path": "software-development/test-driven-development/SKILL.md",
+      "size_bytes": 11697
+    },
+    {
+      "name": "testing-jest-mocks-api",
+      "description": "Tests con Jest para servicios que consumen APIs externas. Mocks de HTTP, fixtures de datos, degradación de indicadores opcionales.",
+      "tags": [
+        "testing",
+        "testing jest mocks api"
+      ],
+      "category": "testing",
+      "path": "testing/testing-jest-mocks-api/SKILL.md",
+      "size_bytes": 4823
+    },
+    {
+      "name": "touchdesigner-mcp",
+      "description": "Control a running TouchDesigner instance via twozero MCP — create operators, set parameters, wire connections, execute Python, build real-time visuals. 36 native tools.",
+      "tags": [
+        "creative",
+        "touchdesigner mcp"
+      ],
+      "category": "creative",
+      "path": "creative/touchdesigner-mcp/SKILL.md",
+      "size_bytes": 11332
+    },
+    {
+      "name": "tts-setup",
+      "description": "Configure and troubleshoot Text-to-Speech in Hermes Agent — provider selection, voice discovery, language-specific voices, and config patching.",
+      "tags": [
+        "media",
+        "tts setup"
+      ],
+      "category": "media",
+      "path": "media/tts-setup/SKILL.md",
+      "size_bytes": 3603
+    },
+    {
+      "name": "weights-and-biases",
+      "description": "W&B: log ML experiments, sweeps, model registry, dashboards.",
+      "tags": [
+        "mlops",
+        "weights and biases"
+      ],
+      "category": "mlops",
+      "path": "mlops/evaluation/weights-and-biases/SKILL.md",
+      "size_bytes": 12395
+    },
+    {
+      "name": "writing-plans",
+      "description": "Write implementation plans: bite-sized tasks, paths, code.",
+      "tags": [
+        "software-development",
+        "writing plans"
+      ],
+      "category": "software-development",
+      "path": "software-development/writing-plans/SKILL.md",
+      "size_bytes": 9941
+    },
+    {
+      "name": "codex",
+      "description": "Delegate coding to OpenAI Codex CLI (features, PRs).",
+      "tags": [
+        "autonomous-ai-agents",
+        "codex"
+      ],
+      "category": "autonomous-ai-agents",
+      "path": "autonomous-ai-agents/codex/SKILL.md",
+      "size_bytes": 4557
+    },
+    {
+      "name": "comfyui",
+      "description": "Generate images, video, and audio with ComfyUI — install, launch, manage nodes/models, run workflows with parameter injection. Uses the official comfy-cli for lifecycle and direct REST/WebSocket API for execution.",
+      "tags": [
+        "creative",
+        "comfyui"
+      ],
+      "category": "creative",
+      "path": "creative/comfyui/SKILL.md",
+      "size_bytes": 24287
+    },
+    {
+      "name": "dogfood",
+      "description": "Exploratory QA of web apps: find bugs, evidence, reports.",
+      "tags": [
+        "software-development",
+        "dogfood"
+      ],
+      "category": "software-development",
+      "path": "software-development/dogfood/SKILL.md",
+      "size_bytes": 7080
+    },
+    {
+      "name": "dspy",
+      "description": "DSPy: declarative LM programs, auto-optimize prompts, RAG.",
+      "tags": [
+        "mlops",
+        "dspy"
+      ],
+      "category": "mlops",
+      "path": "mlops/research/dspy/SKILL.md",
+      "size_bytes": 15220
+    },
+    {
+      "name": "excalidraw",
+      "description": "Hand-drawn Excalidraw JSON diagrams (arch, flow, seq).",
+      "tags": [
+        "creative",
+        "excalidraw"
+      ],
+      "category": "creative",
+      "path": "creative/excalidraw/SKILL.md",
+      "size_bytes": 7300
+    },
+    {
+      "name": "findmy",
+      "description": "Track Apple devices/AirTags via FindMy.app on macOS.",
+      "tags": [
+        "apple",
+        "findmy"
+      ],
+      "category": "apple",
+      "path": "apple/findmy/SKILL.md",
+      "size_bytes": 3709
+    },
+    {
+      "name": "godmode",
+      "description": "Jailbreak LLMs: Parseltongue, GODMODE, ULTRAPLINIAN.",
+      "tags": [
+        "red-teaming",
+        "godmode"
+      ],
+      "category": "red-teaming",
+      "path": "red-teaming/godmode/SKILL.md",
+      "size_bytes": 20059
+    },
+    {
+      "name": "heartmula",
+      "description": "HeartMuLa: Suno-like song generation from lyrics + tags.",
+      "tags": [
+        "media",
+        "heartmula"
+      ],
+      "category": "media",
+      "path": "media/heartmula/SKILL.md",
+      "size_bytes": 6412
+    },
+    {
+      "name": "humanizer",
+      "description": "Humanize text: strip AI-isms and add real voice.",
+      "tags": [
+        "creative",
+        "humanizer"
+      ],
+      "category": "creative",
+      "path": "creative/humanizer/SKILL.md",
+      "size_bytes": 30025
+    },
+    {
+      "name": "ideation",
+      "description": "Generate project ideas via creative constraints.",
+      "tags": [
+        "creative",
+        "ideation"
+      ],
+      "category": "creative",
+      "path": "creative/creative-ideation/SKILL.md",
+      "size_bytes": 6318
+    },
+    {
+      "name": "imessage",
+      "description": "Send and receive iMessages/SMS via the imsg CLI on macOS.",
+      "tags": [
+        "apple",
+        "imessage"
+      ],
+      "category": "apple",
+      "path": "apple/imessage/SKILL.md",
+      "size_bytes": 2442
+    },
+    {
+      "name": "obliteratus",
+      "description": "OBLITERATUS: abliterate LLM refusals (diff-in-means).",
+      "tags": [
+        "mlops",
+        "obliteratus"
+      ],
+      "category": "mlops",
+      "path": "mlops/inference/obliteratus/SKILL.md",
+      "size_bytes": 15464
+    },
+    {
+      "name": "opencode",
+      "description": "Delegate coding to OpenCode CLI (features, PR review).",
+      "tags": [
+        "autonomous-ai-agents",
+        "opencode"
+      ],
+      "category": "autonomous-ai-agents",
+      "path": "autonomous-ai-agents/opencode/SKILL.md",
+      "size_bytes": 7259
+    },
+    {
+      "name": "p5js",
+      "description": "p5.js sketches: gen art, shaders, interactive, 3D.",
+      "tags": [
+        "creative",
+        "p5js"
+      ],
+      "category": "creative",
+      "path": "creative/p5js/SKILL.md",
+      "size_bytes": 27494
+    },
+    {
+      "name": "pretext",
+      "description": "Use when building creative browser demos with @chenglou/pretext — DOM-free text layout for ASCII art, typographic flow around obstacles, text-as-geometry games, kinetic typography, and text-powered generative art. Produces single-file HTML demos by default.",
+      "tags": [
+        "creative",
+        "pretext"
+      ],
+      "category": "creative",
+      "path": "creative/pretext/SKILL.md",
+      "size_bytes": 14168
+    },
+    {
+      "name": "sketch",
+      "description": "Throwaway HTML mockups: 2-3 design variants to compare.",
+      "tags": [
+        "creative",
+        "sketch"
+      ],
+      "category": "creative",
+      "path": "creative/sketch/SKILL.md",
+      "size_bytes": 9304
+    },
+    {
+      "name": "songsee",
+      "description": "Audio spectrograms/features (mel, chroma, MFCC) via CLI.",
+      "tags": [
+        "media",
+        "songsee"
+      ],
+      "category": "media",
+      "path": "media/songsee/SKILL.md",
+      "size_bytes": 2336
+    },
+    {
+      "name": "spike",
+      "description": "Throwaway experiments to validate an idea before build.",
+      "tags": [
+        "software-development",
+        "spike"
+      ],
+      "category": "software-development",
+      "path": "software-development/spike/SKILL.md",
+      "size_bytes": 8753
+    },
+    {
+      "name": "voicebox",
+      "description": "Voicebox — Estudio de voz AI local-first open-source. 7 motores TTS, clonación de voz, dictado global, transcripción STT, integración MCP. Alternativa local a ElevenLabs.",
+      "tags": [
+        "media",
+        "voicebox"
+      ],
+      "category": "media",
+      "path": "media/voicebox/SKILL.md",
+      "size_bytes": 4116
+    },
+    {
+      "name": "yuanbao",
+      "description": "Yuanbao (元宝) groups: @mention users, query info/members.",
+      "tags": [
+        "productivity",
+        "yuanbao"
+      ],
+      "category": "productivity",
+      "path": "productivity/yuanbao/SKILL.md",
+      "size_bytes": 3795
+    }
+  ]
+}

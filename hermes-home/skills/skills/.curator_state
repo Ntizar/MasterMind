@@ -1,0 +1,9 @@
+{
+  "last_report_path": "/hermes-home/logs/curator/20260629-191918",
+  "last_run_at": "2026-06-29T19:19:18.585095+00:00",
+  "last_run_duration_seconds": 966.58392,
+  "last_run_summary": "auto: no changes; llm: ## Consolidation Summary\n\nCompleted a systematic umbrella-building pass across the agent-created skill library. Processed 12 clusters, absorbing 23 narrow skills into 9 umbrella/class-level skills.\n\n### Clusters Processed\n\n| # | Cluster | A…\narchived 22 skill(s):\n  • chromadb-skills-vector-search → agent-memory\n  • ciaf-data-pipeline → government-data-pipelines\n  • data-pipeline-audit → government-data-pipelines\n  • knowledge-graph-analysis → agent-memory\n  • live-visuals-body-tracking → threejs-3d-web\n  • nap-data-pipeline → government-data-pipelines\n  • nominatim-geocoding → routing-isochrones\n  • spa-architecture-audit → system-audit\n  • spanish-open-data-collection → government-data-pipelines\n  • terran-schema-fix → terran-architecture\n  … and 12 more\nfull report: hermes curator status\nkeep an umbrella stable: hermes curator pin agent-memory",
+  "last_run_summary_shown_at": null,
+  "paused": false,
+  "run_count": 5
+}

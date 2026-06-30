@@ -1,0 +1,14 @@
+{
+  "current_index": 6,
+  "learned": [
+    "duckduckgo-search",
+    "searxng-search",
+    "scrapling",
+    "code-wiki",
+    "docker-management"
+  ],
+  "skipped": [
+    "rest-graphql-debug"
+  ],
+  "last_error": null
+}

@@ -1,0 +1,377 @@
+{
+  "jobs": [
+    {
+      "id": "9e7570152a99",
+      "name": "esios-daily-telegram",
+      "prompt": "Ejecuta el script de resumen diario ESIOS: node /root/workspace/Mastermind/scripts/esios-telegram.js",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 9 * * *",
+        "display": "0 9 * * *"
+      },
+      "schedule_display": "0 9 * * *",
+      "repeat": {
+        "times": 3650,
+        "completed": 39
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-05-25T19:13:44.410407+00:00",
+      "next_run_at": "2026-06-30T09:00:00+00:00",
+      "last_run_at": "2026-06-29T09:02:13.412744+00:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "deliver": "origin",
+      "origin": {
+        "platform": "telegram",
+        "chat_id": "7288273982",
+        "chat_name": "Nti",
+        "thread_id": null
+      },
+      "enabled_toolsets": null,
+      "workdir": null
+    },
+    {
+      "id": "d59848f0355e",
+      "name": "BiciMad \u2014 Tetu\u00e1n + 2 paradas (L-Mi\u00e9r)",
+      "prompt": "Ejecuta el script de resumen multi-parada BiciMad:\npython3 /hermes-home/scripts/bicimad-multi-alert.py\n\nSi el script falla, intenta:\npython3 /root/.hermes/scripts/bicimad-multi-alert.py\n\nSi ambos fallan, consulta directamente GBFS:\n- https://madrid.publicbikesystem.net/customer/gbfs/v2/en/station_information\n- https://madrid.publicbikesystem.net/customer/gbfs/v2/en/station_status\n\nEstaciones a consultar: 2002 (Bellver), 1612 (Metro Tetu\u00e1n), 1540 (Mar\u00eda de Guzm\u00e1n).\n\nDevuelve el resumen formateado con bicis y plazas de cada estaci\u00f3n.",
+      "skills": [],
+      "skill": null,
+      "model": "qwen3.6",
+      "provider": "custom",
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 6,13 * * 1,2,3",
+        "display": "30 6,13 * * 1,2,3"
+      },
+      "schedule_display": "30 6,13 * * 1,2,3",
+      "repeat": {
+        "times": null,
+        "completed": 34
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-05-26T16:15:25.721451+00:00",
+      "next_run_at": "2026-06-30T06:30:00+00:00",
+      "last_run_at": "2026-06-29T13:30:52.632562+00:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "deliver": "origin",
+      "origin": {
+        "platform": "telegram",
+        "chat_id": "7288273982",
+        "chat_name": "Nti",
+        "thread_id": null
+      },
+      "enabled_toolsets": null,
+      "workdir": null
+    },
+    {
+      "id": "b4c5260afe91",
+      "name": "inventario-apis-procesar",
+      "prompt": "Ejecuta el script de procesamiento del inventario de APIs v2:\ncd /opt/hermes-work/inventario-apis && python3 procesar-apis.py 5\n\nEl script:\n1. Descarga el cat\u00e1logo API-mega-list (9,236 APIs \u00fanicas)\n2. Reconcilia estado.json con directorios reales\n3. Procesa las siguientes 5 APIs sin procesar\n4. Crea carpeta con README.md + datos.json por cada API\n5. Git commit + push autom\u00e1tico\n\nReporta: cu\u00e1ntas APIs se procesaron, total en disco, y si hubo errores.",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "context_from": null,
+      "schedule": {
+        "kind": "interval",
+        "minutes": 30,
+        "display": "every 30m"
+      },
+      "schedule_display": "every 30m",
+      "repeat": {
+        "times": null,
+        "completed": 1502
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-05-26T19:16:37.352077+00:00",
+      "next_run_at": "2026-06-29T19:27:18.133845+00:00",
+      "last_run_at": "2026-06-29T18:57:18.133845+00:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "deliver": "local",
+      "origin": {
+        "platform": "telegram",
+        "chat_id": "7288273982",
+        "chat_name": "Nti",
+        "thread_id": null
+      },
+      "enabled_toolsets": null,
+      "workdir": "/opt/hermes-work/inventario-apis",
+      "profile": null,
+      "toast_notifications": true
+    },
+    {
+      "id": "7cfe9d7c9bc5",
+      "name": "inventario-apis-resumen-diario",
+      "prompt": "Genera un resumen diario del inventario de APIs procesado. Lee /opt/hermes-work/inventario-apis/estado.json y genera un reporte con:\n- Progreso global: X/Y APIs, Z%\n- Por categor\u00eda con barras de progreso\n- Actividad del d\u00eda (commits recientes)\n- APIs m\u00e1s interesantes procesadas hoy\nFormato: markdown con emojis, listo para Telegram.",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 22 * * *",
+        "display": "0 22 * * *"
+      },
+      "schedule_display": "0 22 * * *",
+      "repeat": {
+        "times": null,
+        "completed": 34
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-05-27T05:38:51.269464+00:00",
+      "next_run_at": "2026-06-29T22:00:00+00:00",
+      "last_run_at": "2026-06-28T22:04:03.472991+00:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "deliver": "origin",
+      "origin": {
+        "platform": "telegram",
+        "chat_id": "7288273982",
+        "chat_name": "Nti",
+        "thread_id": null
+      },
+      "enabled_toolsets": null,
+      "workdir": "/opt/hermes-work/inventario-apis"
+    },
+    {
+      "id": "83139c479ddb",
+      "name": "skill-maintenance",
+      "prompt": "Ejecutar auditor\u00eda mensual del ecosistema de skills de Mastermind.\n\nCarga el skill 'skill-audit-pattern' y ejecuta la auditor\u00eda completa:\n1. Revisa todos los skills en /hermes-home/skills/\n2. Identifica skills hu\u00e9rfanos, duplicados, desactualizados\n3. Genera informe con recomendaciones\n4. Si hay acciones correctivas simples, apl\u00edcalas directamente\n\nFormato del informe: lista clara con estado de cada skill y acciones tomadas.",
+      "skills": [
+        "skill-audit-pattern"
+      ],
+      "skill": "skill-audit-pattern",
+      "model": "qwen3.6",
+      "provider": "custom",
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 0 1 * *",
+        "display": "0 0 1 * *"
+      },
+      "schedule_display": "0 0 1 * *",
+      "repeat": {
+        "times": 12,
+        "completed": 0
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-06-01T10:14:51.228643+00:00",
+      "next_run_at": "2026-07-01T00:00:00+00:00",
+      "last_run_at": null,
+      "last_status": null,
+      "last_error": null,
+      "last_delivery_error": null,
+      "deliver": "origin",
+      "origin": {
+        "platform": "telegram",
+        "chat_id": "7288273982",
+        "chat_name": "Nti",
+        "thread_id": null
+      },
+      "enabled_toolsets": null,
+      "workdir": null
+    },
+    {
+      "id": "20e1c2c4adde",
+      "name": "deep-learning",
+      "prompt": "Eres Mastermind, agente de aprendizaje profundo. Tu misi\u00f3n es expandir el conocimiento real del sistema, no solo acumular informaci\u00f3n.\n\nCada ejecuci\u00f3n:\n1. **Elige un tema** de deep learning (redes convolucionales, transformers, GANs, RL, etc.)\n2. **Investiga**: busca papers recientes, tutoriales, implementaciones\n3. **Aprende activamente**: escribe un resumen t\u00e9cnico con c\u00f3digo de ejemplo\n4. **Almacena**: guarda el aprendizaje en /hermes-home/notes/deep-learning/ con fecha\n5. **Prop\u00f3n**: qu\u00e9 tema abordar en la siguiente sesi\u00f3n\n\nReglas:\n- Prioriza implementaciones pr\u00e1cticas sobre teor\u00eda abstracta\n- Incluye referencias a papers y repositorios\n- Si encuentras algo \u00fatil para el stack actual, documentalo como skill\n- No repitas temas ya cubiertos (revisa el directorio primero)",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 3 * * *",
+        "display": "0 3 * * *"
+      },
+      "schedule_display": "0 3 * * *",
+      "repeat": {
+        "times": 30,
+        "completed": 20
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-06-09T10:21:08.217041+00:00",
+      "next_run_at": "2026-06-30T03:00:00+00:00",
+      "last_run_at": "2026-06-29T03:02:38.920117+00:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "deliver": "origin",
+      "origin": {
+        "platform": "telegram",
+        "chat_id": "7288273982",
+        "chat_name": "Nti",
+        "thread_id": null
+      },
+      "enabled_toolsets": null,
+      "workdir": null
+    },
+    {
+      "id": "57419d411b79",
+      "name": "chromadb-reindex-semanal",
+      "prompt": "Ejecuta el script de re-indexaci\u00f3n de skills en ChromaDB. Corre: cd /hermes-home/scripts && NAN_API=\"$NAN_API\" /hermes-home/chromadb-venv/bin/python indexar-skills.py --reset 2>&1. Verifica que ChromaDB responde en http://localhost:8000 antes de ejecutar. Si no responde, ejecuta bash /hermes-home/scripts/start-chromadb.sh primero. Entrega el resultado como resumen: cu\u00e1ntos skills indexados, cu\u00e1nto tard\u00f3, y si hubo errores.",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 4 * * 0",
+        "display": "0 4 * * 0"
+      },
+      "schedule_display": "0 4 * * 0",
+      "repeat": {
+        "times": null,
+        "completed": 3
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-06-10T07:35:17.255102+00:00",
+      "next_run_at": "2026-07-05T04:00:00+00:00",
+      "last_run_at": "2026-06-28T04:20:58.174634+00:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "deliver": "local",
+      "origin": null,
+      "enabled_toolsets": null,
+      "workdir": null
+    },
+    {
+      "id": "55f6ed2e2da8",
+      "name": "skills-sync-to-github",
+      "prompt": "Backup completo de Hermes al repo Mastermind.\n\nPasos:\n1. Copiar estos archivos/carpetas al repo /root/workspace/Mastermind/:\n   - config.yaml\n   - INDEX.md\n   - STEM-INDEX.md\n   - skills/ (TODO el directorio con todos los subdirectorios y archivos)\n   - memories/\n   - notes/\n   - scripts/ (si hay cambios recientes)\n\n2. Usar rsync para copiar el directorio skills/ completo:\n   rsync -av --delete /hermes-home/skills/ /root/workspace/Mastermind/hermes-home/skills/\n\n3. Commit y push al repo Mastermind:\n   cd /root/workspace/Mastermind && git add -A && git commit -m \"Backup semanal: $(date +%Y-%m-%d)\" && git push\n\n4. Reportar cu\u00e1ntos archivos de skills se copiaron:\n   find /root/workspace/Mastermind/hermes-home/skills -type f | wc -l\n\nIMPORTANTE: NO omitir el directorio skills/. Debe copiarse TODO el contenido.",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "context_from": null,
+      "schedule": {
+        "kind": "interval",
+        "minutes": 360,
+        "display": "every 360m"
+      },
+      "schedule_display": "every 360m",
+      "repeat": {
+        "times": null,
+        "completed": 36
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-06-20T17:03:31.826693+00:00",
+      "next_run_at": "2026-06-30T00:38:06.241755+00:00",
+      "last_run_at": "2026-06-29T18:38:06.241755+00:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "deliver": "origin",
+      "origin": {
+        "platform": "telegram",
+        "chat_id": "7288273982",
+        "chat_name": "Nti",
+        "thread_id": null
+      },
+      "enabled_toolsets": null,
+      "workdir": null
+    },
+    {
+      "id": "5f3f06babb13",
+      "name": "gtfsspain-update",
+      "prompt": "Actualizar los datos GTFS de Espa\u00f1a desde la API NAP (nap.transportes.gob.es).\n\nEjecuta: python3 /root/workspace/GTFSSpain/descargar-nap.py --delta\n\nLuego verifica el resultado:\n- Tama\u00f1o de /root/workspace/GTFSSpain/data/ con du -sh\n- \u00daltimas l\u00edneas del log: cat /root/workspace/GTFSSpain/metadata/descarga.log | tail -10\n\nResponde con un resumen de:\n1. Cu\u00e1ntos datasets se actualizaron\n2. Tama\u00f1o total de data/\n3. Si hubo errores\n4. Espacio en disco restante\n\nSi hubo errores, indica cu\u00e1les datasets fallaron.",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 6 * * 0",
+        "display": "0 6 * * 0"
+      },
+      "schedule_display": "0 6 * * 0",
+      "repeat": {
+        "times": 52,
+        "completed": 1
+      },
+      "enabled": false,
+      "state": "paused",
+      "paused_at": "2026-06-29T07:07:01.224268+00:00",
+      "paused_reason": null,
+      "created_at": "2026-06-23T07:27:59.464085+00:00",
+      "next_run_at": "2026-07-05T06:00:00+00:00",
+      "last_run_at": "2026-06-28T06:03:28.625310+00:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "deliver": "origin",
+      "origin": null,
+      "enabled_toolsets": null,
+      "workdir": null
+    }
+  ],
+  "updated_at": "2026-06-29T18:57:18.134184+00:00"
+}

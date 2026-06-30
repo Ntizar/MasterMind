@@ -2,7 +2,7 @@
 §
 Atribución: artefactos HTML/posts → autor = David Antizar. Mastermind es ejecutor, no autor. Footer: "Hecho con ❤️ por David Antizar". Para contenido educativo: NO mencionar Mastermind ni Aurora.
 §
-[prefs] CSS: azul #2563eb. David odia dark/neón, cards IA, y datos approx en mapas ("se ve fatal"). NUNCA inventar datos. Bloques numerados. Costes ANUALES. Fondo blanco business. Kaizen CSS. Visual inspection: David checks every map marker manually and catches errors automated checks miss. Expects exact coords matching real location.
+[prefs] CSS/diseño: RECHAZA liquid glass, dark themes, border-left cards ("se nota mucho que es IA"). Usar: fondo blanco, sombras sutiles, hover elevación, fuentes compactas (12-14px labels, 14-17px values). azul #2563eb. NUNCA inventar datos. NO subagentes para archivos >3000 líneas. Rechaza pestañas con datos hardcodeados/estáticos inútiles — si API no funciona, eliminar pestaña.
 §
 [prefs] TTS voz Álvaro (es-ES-AlvaroNeural). STT local.
 §

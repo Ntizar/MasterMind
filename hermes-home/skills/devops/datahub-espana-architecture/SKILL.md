@@ -1,7 +1,7 @@
 ---
 name: datahub-espana-architecture
-description: Arquitectura completa de DataHub España — dashboard de datos en tiempo real con mapa, 16+ pestañas, tabs horizontales superiores, capas de mapa, APIs públicas sin auth, cron-based incremental building
-version: "2.7.0"
+description: Arquitectura completa de DataHub España — dashboard de datos en tiempo real con mapa, 35+ pestañas, tabs horizontales superiores, capas de mapa, APIs públicas sin auth, cron-based incremental building
+version: "3.0.0"
 tags: [datahub, dashboard, spain, esios, ign, leaflet, chartjs, vanilla-js, open-meteo, ine, air-quality]
 ---
 
@@ -53,15 +53,27 @@ DataHubEspana/
 - **Deploy:** GitHub Pages via GitHub Actions
 
 ## Layout v2.6 (2026-06-30) — Tabs horizontales + capas toggleables
-- **Pestañas en barra horizontal** `#tab-navbar` arriba del mapa (scrollable horizontal)
+- **Pestañas en barra horizontal** `#tab-navbar` arriba del mapa (scrollable horizontal) — **David: "las pestañas deberían salir arriba y se viesen más datos"**
 - **Sidebar solo muestra contenido** de la pestaña activa (no botones de tabs)
 - **Botón ☰** para colapsar/expandir sidebar
 - **Pronóstico 7 días fusionado en Clima** (ya no pestaña separada)
 - **Transporte ELIMINADO** (API DGT rota, datos estáticos inútiles — David: "no aporta información")
 - **Tipografía reducida:** KPIs 14-17px, títulos 12px, body 10-11px
-- **Total: 15 pestañas** (Panel, Energía, Clima, Agua, Economía, Ambiente, Catastro, Población, Economía Det., Calidad Aire, Demografía, Puertos, Polen, Inundaciones, Suelo)
+- **Total: 35+ pestañas** (Panel, Energía, Clima, Agua, Economía, Ambiente, Catastro, Población, Economía Det., Calidad Aire, Demografía, Puertos, Polen, Inundaciones, Suelo + 20 de cron: GBFS, Nieve, Mar, UV, Visibilidad, Ráfagas, Lluvia, Nubosidad, Presión, Fuego, ET0, CAPE, Horas Sol, Rocío, Temp Suelo, Radiación, Sensación, Aire Ext, Mareas, Eólica)
 
 ## Capas de datos (13+ pestañas)
+
+### Cron Job Orchestration (20+ tabs)
+Cuando se necesitan crear many tabs independientes, usar cron jobs one-shot espaciados 10 min:
+- Cada cron: `git pull` → modificar index.html → verificar DOM → commit → push
+- **IMPORTANTE:** cada cron debe hacer `git pull` ANTES de modificar para evitar conflictos
+- Verificación pre-commit OBLIGATORIA: DOM balance debe ser -1
+- Patrón de fix crons: después de crear tabs básicas, segunda tanda que añade selectores, alertas, corrige datos absurdos
+
+### Open-Meteo API — Parámetros current vs daily
+`sunrise` y `sunset` **NO** son válidos en `current=`. Solo en `daily=`. Falla silenciosa.
+- `snow_depth` viene en **METROS** (×100 para cm)
+- Parámetros current válidos: temperature_2m, relative_humidity_2m, apparent_temperature, precipitation, rain, snowfall, snow_depth, weather_code, cloud_cover, pressure_msl, surface_pressure, wind_speed_10m, wind_direction_10m, wind_gusts_10m
 
 ### 1. 📊 Panel (vista general)
 - KPIs: Población total, Provincias, PVPC, Demanda, Renovables, Temperatura Madrid
@@ -220,6 +232,86 @@ L.control.layers(baseMaps, overlayMaps).addTo(map);
 ## Cron Jobs existentes
 - `mastermind-autoconfig` — diario 09:00 UTC
 - `chromadb-reindex-semanal` — domingo 04:00 UTC
+- **DataHub 20 tabs creation** — 20 crons espaciados 10 min (12:15-15:25 UTC) — crear pestañas nuevas
+- **DataHub 20 tabs fixes** — 20 crons espaciados 10 min (16:00-19:10 UTC) — mejorar cada pestaña
+
+**Referencia completa:** `references/cron-development-pattern.md`
+
+## Patrón de desarrollo incremental con crons (Lección 2026-06-30)
+
+### Flujo de 2 oleadas
+1. **Oleada 1 — Creación:** 20 cron jobs, cada uno crea una pestaña nueva con API básica
+2. **Oleada 2 — Mejora:** 20 cron jobs, cada uno arregla y mejora la pestaña correspondiente
+
+### Por qué funciona
+- **Cada cron corre en sesión fresca** — no hay dependencias entre ellos
+- **Commits incrementales** — cada cron hace git commit + push, así siempre hay un estado funcional
+- **10 min de separación** — suficiente tiempo para que GitHub Pages despliegue antes del siguiente
+- **Fix crons mejoran lo creado** — la oleada 2 puede leer el estado actual y mejorarlo
+
+### Estructura de cada cron creation
+```
+REPO: cd /root/workspace/temp-datahub
+1. git pull origin main
+2. Leer index.html actual
+3. Añadir botón de pestaña en tab-navbar
+4. Añadir panel HTML en .tab-content (ANTES del cierre de tab-content)
+5. Añadir función JavaScript fetch + render
+6. Añadir llamada en init()
+7. Verificar DOM balance: python3 -c "..."
+8. git commit + push
+```
+
+### Estructura de cada cron fix
+```
+REPO: cd /root/workspace/temp-datahub
+1. git pull origin main
+2. Leer index.html, encontrar la pestaña específica
+3. AÑADIR selector de ciudad/región con 8-10 ciudades
+4. MEJORAR datos (clasificaciones, semáforos, alertas)
+5. AÑADIR gráficos o mejorar existentes
+6. Verificar DOM balance
+7. git commit + push
+```
+
+### APIs usadas en la creación masiva (20 tabs)
+| Tab | API | Endpoint |
+|-----|-----|----------|
+| GBFS | GBFS feeds | bike*.gbfs.com |
+| Nieve | Open-Meteo | snowfall, snow_depth |
+| Mar | Marine API | waves, swell, sea_temp |
+| UV | Open-Meteo | uv_index |
+| Visibilidad | Open-Meteo | visibility |
+| Ráfagas | Open-Meteo | wind_gusts_10m |
+| Lluvia | Open-Meteo | precipitation_probability |
+| Nubosidad | Open-Meteo | cloud_cover |
+| Presión | Open-Meteo | pressure_msl |
+| Fuego | Open-Meteo | cape + wind + humidity |
+| ET0 | Open-Meteo | et0_fao_evapotranspiration |
+| CAPE | Open-Meteo | cape |
+| Horas Sol | Open-Meteo | sunshine_duration |
+| Rocío | Open-Meteo | dew_point_2m |
+| Temp Suelo | Open-Meteo | soil_temperature_* |
+| Radiación | Open-Meteo | shortwave_radiation |
+| Sensación | Open-Meteo | apparent_temperature |
+| Aire Ext | Air Quality API | co, so2, nh3 |
+| Mareas | Marine API | ocean_current, wave_height |
+| Eólica | Open-Meteo | wind_speed + wind_gusts |
+
+### Open-Meteo — Parámetros completos válidos (v3.0)
+**Current:** temperature_2m, relative_humidity_2m, apparent_temperature, precipitation, rain, snowfall, snow_depth, weather_code, cloud_cover, pressure_msl, surface_pressure, wind_speed_10m, wind_direction_10m, wind_gusts_10m
+**Hourly:** temperature_2m, relative_humidity_2m, dew_point_2m, apparent_temperature, precipitation_probability, precipitation, rain, snowfall, snow_depth, weather_code, pressure_msl, surface_pressure, cloud_cover, cloud_cover_low, cloud_cover_mid, cloud_cover_high, visibility, wind_speed_10m, wind_direction_10m, wind_gusts_10m, uv_index, uv_index_clear_sky, cape, freezing_level_height, snowfall_height
+**Daily:** weather_code, temperature_2m_max, temperature_2m_min, apparent_temperature_max, apparent_temperature_min, sunrise, sunset, daylight_duration, sunshine_duration, uv_index_max, uv_index_clear_sky_max, precipitation_sum, precipitation_hours, precipitation_probability_max, rain_sum, snowfall_sum, wind_speed_10m_max, wind_gusts_10m_max, wind_direction_10m_dominant, shortwave_radiation_sum, et0_fao_evapotranspiration
+**⚠️ NO en current:** sunrise, sunset (solo daily)
+
+### Marine API — Parámetros
+**Current:** wave_height, wave_direction, wave_period, wind_wave_height, swell_wave_height
+**Hourly:** wave_height, wave_direction, wave_period, wind_wave_height, wind_wave_direction, wind_wave_period, swell_wave_height, swell_wave_direction, swell_wave_period
+
+### Air Quality API — Parámetros
+**Current:** european_aqi, us_aqi, pm10, pm2_5, nitrogen_dioxide, ozone, carbon_monoxide, sulphur_dioxide, dust, uv_index
+**Hourly:** pm10, pm2_5, nitrogen_dioxide, ozone, carbon_monoxide, sulphur_dioxide
+**Pollen (current):** alder_pollen, birch_pollen, grass_pollen, mugwort_pollen, olive_pollen, ragweed_pollen
 
 ## Datos provinciales extendidos (data/provincias-data.json)
 
@@ -360,8 +452,12 @@ El panel derecho debe mostrar TODOS estos campos (David quiere "muchísimos más
 - **⚠️ APIs marinas solo para costas:** Open-Meteo Marine solo funciona para coordenadas costeras/marítimas. Para provincias interiores (Madrid, Zaragoza), no llamar a Marine API.
 - **⚠️ Sincronización de pestañas:** Al seleccionar provincia, TODAS las pestañas deben actualizarse. David verifica que los datos se mantengan al cambiar de pestaña.
 - **⚠️ NO romper al mejorar (Lección 2026-06-30):** David dijo "creo que no estás planteando el crecimiento de la herramienta sin romper cosas". Flujo seguro: (1) diagnóstico antes de tocar, (2) cambios incrementales, (3) verificar braces/JS después de CADA patch, (4) commit por cambio, NO todo junto. Patrón de error: eliminar código JS deja `});` huérfanos que rompen todo silenciosamente.
+- **⚠️ Validar datos antes de mostrar (Lección 2026-06-30):** David rechazó "2 metros de nieve" en Madrid en verano. Cada pestaña debe validar que los datos tienen sentido: (1) nieve solo en estaciones de esquí o altitud >1500m, (2) marine API solo para coordenadas costeras, (3) PM2.5 > 100 es inusual en España (alertar), (4) temperaturas < -10 o > 50°C son sospechosas. Patrón: filtrar ciudades que no aplican (ej: pestaña nieve sin datos → "Sin nieve en esta ubicación").
 - **⚠️ Open-Meteo: sunrise/sunset NO son current parameters (Lección 2026-06-30):** `sunrise` y `sunset` solo existen como parámetros `daily`, NO como `current`. Si los pones en `current=...,sunrise,sunset` la API falla silenciosamente y el panel muestra "No disponible". Fix: `current=temperature_2m,...,weather_code&daily=sunrise,sunset`. Verificado con curl: Ávila 31.6°C.
 - **⚠️ CSS .tab-content selector (Lección 2026-06-30):** Al eliminar o reorganizar bloques CSS, verificar que `.tab-content { flex: 1; overflow-y: auto; padding: 16px; }` exista. Sin este selector, TODOS los paneles de pestañas se muestran simultáneamente (display:none no aplica). Síntoma: 13 paneles visibles en vez de 1. Causa: patch CSS que rompe la continuidad del bloque.
+- **⚠️ 2 cron batches pattern (Lección 2026-06-30):** Cuando se crean muchas pestañas nuevas, hacerlo en 2 oleadas: (1) creación básica con API, (2) fix/mejora de cada pestaña. Cada cron hace git pull al inicio para evitar conflictos. Separar 10 min entre crons para que Pages despliegue.
+- **⚠️ Datos absurdos por validación (Lección 2026-06-30):** snow_depth viene en METROS (no cm), así que "2 metros de nieve" en Madrid en verano es absurdo. Cada pestaña debe validar: (1) nieve solo >1500m altitud o estaciones de esquí, (2) marine API solo costas, (3) PM2.5 >100 alertar, (4) temp <-10 o >50 sospechoso. Filtrar ciudades que no aplican.
+- **⚠️ Tabs responsive wrap (Lección 2026-06-30):** `flex-wrap: nowrap` cause horizontal scroll en móvil. Usar `flex-wrap: wrap` para que las tabs saltan a segunda fila. En móvil: scroll horizontal con `scroll-snap-type: x proximity` + `scroll-snap-align: start` en cada tab.
 - **⚠️ DOM nesting al añadir tab panels (Lección 2026-06-30):** Al añadir nuevos `.tab-panel` con `patch()`, si el `old_string` incluye el cierre `</div>` del panel anterior pero el `new_string` no lo reincluye correctamente, los nuevos paneles se ANIDAN dentro del panel anterior en vez de ser hermanos. Síntoma: todos los paneles nuevos tienen `scrollHeight=0` y no se ven. **Debug rápido en consola:**
   ```javascript
   document.querySelectorAll('.tab-panel').forEach(p => {
@@ -451,7 +547,107 @@ El panel derecho debe mostrar TODOS estos campos (David quiere "muchísimos más
 - **Clima fix:** `fetchProvinceWeather()` arreglado — sunrise/sunset movidos a daily parameters
 - **Total: 15 pestañas, 30+ gráficos, 12+ APIs en tiempo real**
 
-### Patrón de cards que SÍ gusta a David
+### Patrón de selección interactiva por pestaña (Lección 2026-06-30)
+
+Cada pestaña debe tener su propio selector de ciudad/región para que el usuario pueda elegir dónde ver datos. No solo la selección global de provincia.
+
+### Selector de ciudad (8-10 ciudades representativas)
+```javascript
+const CIUDADES_CLIMA = [
+    { nombre: 'Madrid', lat: 40.42, lon: -3.70 },
+    { nombre: 'Barcelona', lat: 41.39, lon: 2.17 },
+    { nombre: 'Sevilla', lat: 37.39, lon: -6.00 },
+    { nombre: 'Valencia', lat: 39.47, lon: -0.38 },
+    { nombre: 'Bilbao', lat: 43.26, lon: -2.93 },
+    { nombre: 'Zaragoza', lat: 41.65, lon: -0.88 },
+    { nombre: 'Málaga', lat: 36.72, lon: -4.42 },
+    { nombre: 'Las Palmas', lat: 28.10, lon: -15.41 }
+];
+```
+
+### Selector de costa (para pestañas marinas)
+```javascript
+const COSTAS = [
+    { nombre: 'Algeciras', lat: 36.13, lon: -5.45 },
+    { nombre: 'Valencia', lat: 39.45, lon: -0.32 },
+    { nombre: 'Barcelona', lat: 41.34, lon: 2.18 },
+    // ... 10 puertos costeros
+];
+```
+
+## Autogeneración por CCAA (Lección 2026-06-30)
+
+Cada pestaña debe mostrar un grid de las 19 comunidades con datos en vivo al hacer click.
+
+### Patrón CCAA_CENTROIDS
+```javascript
+const CCAA_CENTROIDS = {
+    '01': { name: 'Andalucía', lat: 37.39, lon: -4.50, caps: ['Sevilla','Cádiz','Málaga','Granada'] },
+    '13': { name: 'Comunidad de Madrid', lat: 40.42, lon: -3.70, caps: ['Madrid'] },
+    // ... 19 comunidades
+};
+```
+
+### Función generateCCAATab(dataType)
+- Crea grid responsive: `grid-template-columns: repeat(auto-fill, minmax(220px, 1fr))`
+- Cada card es clickeable → `selectCCAA(code, dataType)`
+- Fetch en vivo de Open-Meteo al hacer click
+- Colores dinámicos: PM2.5 verde <10, amarillo <20, rojo >20
+
+### Init en init()
+```javascript
+generateCCAATab('clima');
+generateCCAATab('aire');
+generateCCAATab('nieve');
+generateCCAATab('mar');
+```
+
+## Responsive móvil (Lección 2026-06-30)
+
+3 breakpoints + landscape para cobertura completa:
+
+### Tablet (≤768px)
+- Sidebar: fixed bottom, 50vh, border-radius 12px top
+- Tabs: scroll horizontal con snap-to-start, 10px font
+- KPIs: 2 columnas, labels 9px, values 14px
+- Mapa: 35vh mínimo
+- CCAA grid: 2 columnas
+
+### Móvil (≤480px)
+- Sidebar: 55vh, border-radius 10px top
+- Tabs: 9px font, padding mínimo, scroll horizontal
+- KPIs: 2 columnas, labels 8px, values 13px
+- Mapa: 30vh mínimo
+- Info grid: 1 columna
+- CCAA grid: 1 columna
+
+### Landscape (≤500px alto)
+- Sidebar: 50% ancho a la derecha
+- KPIs: 4 columnas
+- Mapa: 60vh
+
+### CSS clave
+```css
+.tabs-row { flex-wrap: wrap; gap: 4px; }  /* wrap en vez de nowrap */
+.tab-btn { flex-shrink: 0; scroll-snap-align: start; }
+#sidebar { -webkit-overflow-scrolling: touch; }
+```
+
+### HTML del selector
+```html
+<div class="tab-selector">
+    <select id="ciudad-selector" onchange="fetchDatosCiudad(this.value)">
+        <option value="">-- Seleccionar ciudad --</option>
+    </select>
+</div>
+```
+
+### Cascada de selección
+1. **Selector global (mapa):** Click provincia → actualiza TODAS las pestañas
+2. **Selector por pestaña:** Dropdown específico → actualiza SOLO esa pestaña
+3. **Prioridad:** El selector de pestaña sobreescribe la selección global
+
+## Patrón de cards que SÍ gusta a David
 ```css
 .kpi {
     background: #f8fafc;

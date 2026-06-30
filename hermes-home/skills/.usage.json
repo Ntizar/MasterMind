@@ -458,14 +458,14 @@
     "archived_at": null,
     "created_at": "2026-06-30T09:49:04.941769+00:00",
     "created_by": null,
-    "last_patched_at": "2026-06-30T12:20:23.690074+00:00",
-    "last_used_at": "2026-06-30T12:20:10.470760+00:00",
-    "last_viewed_at": "2026-06-30T12:20:10.462291+00:00",
-    "patch_count": 56,
+    "last_patched_at": "2026-06-30T15:11:46.810473+00:00",
+    "last_used_at": "2026-06-30T15:11:42.313018+00:00",
+    "last_viewed_at": "2026-06-30T15:11:42.299457+00:00",
+    "patch_count": 70,
     "pinned": false,
     "state": "active",
-    "use_count": 18,
-    "view_count": 18
+    "use_count": 21,
+    "view_count": 21
   },
   "deep-learning-fundamentals": {
     "archived_at": null,
@@ -770,14 +770,14 @@
     "archived_at": null,
     "created_at": "2026-06-01T15:45:40.699145+00:00",
     "created_by": null,
-    "last_patched_at": "2026-06-30T12:19:56.671531+00:00",
-    "last_used_at": "2026-06-30T12:19:34.804174+00:00",
-    "last_viewed_at": "2026-06-30T12:19:34.795265+00:00",
-    "patch_count": 127,
+    "last_patched_at": "2026-06-30T15:11:22.192733+00:00",
+    "last_used_at": "2026-06-30T15:11:54.917194+00:00",
+    "last_viewed_at": "2026-06-30T15:11:54.898956+00:00",
+    "patch_count": 130,
     "pinned": false,
     "state": "active",
-    "use_count": 158,
-    "view_count": 157
+    "use_count": 162,
+    "view_count": 161
   },
   "gaze-tracking": {
     "archived_at": null,
@@ -849,13 +849,13 @@
     "created_at": "2026-06-01T15:09:08.889738+00:00",
     "created_by": null,
     "last_patched_at": "2026-06-26T12:12:48.581624+00:00",
-    "last_used_at": "2026-06-26T12:55:39.368734+00:00",
-    "last_viewed_at": "2026-06-26T12:55:39.358728+00:00",
+    "last_used_at": "2026-06-30T12:47:29.929603+00:00",
+    "last_viewed_at": "2026-06-30T12:47:29.917814+00:00",
     "patch_count": 25,
     "pinned": false,
     "state": "active",
-    "use_count": 36,
-    "view_count": 36
+    "use_count": 37,
+    "view_count": 37
   },
   "github/github-repo-management": {
     "archived_at": null,
@@ -1316,14 +1316,14 @@
     "archived_at": null,
     "created_at": "2026-05-25T13:39:35.760254+00:00",
     "created_by": "agent",
-    "last_patched_at": "2026-06-30T06:42:49.863794+00:00",
-    "last_used_at": "2026-06-30T06:42:10.391239+00:00",
-    "last_viewed_at": "2026-06-30T06:42:10.372474+00:00",
-    "patch_count": 97,
+    "last_patched_at": "2026-06-30T12:48:26.420726+00:00",
+    "last_used_at": "2026-06-30T12:47:59.977815+00:00",
+    "last_viewed_at": "2026-06-30T12:47:59.968360+00:00",
+    "patch_count": 98,
     "pinned": false,
     "state": "active",
-    "use_count": 98,
-    "view_count": 98
+    "use_count": 100,
+    "view_count": 100
   },
   "mastermind/documentos-institucionales": {
     "archived_at": null,

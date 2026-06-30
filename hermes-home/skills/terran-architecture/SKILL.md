@@ -215,3 +215,47 @@ La tabla activos_humanos tiene datos sensibles (DNI, NSS, datos médicos) que DE
 ### Pitfall: RLS enabled SIN policy = todo bloqueado (iter 144)
 
 Habilitar RLS sin crear políticas bloquea TODAS las operaciones. Cada `ALTER TABLE ENABLE ROW LEVEL SECURITY` debe ir inmediatamente seguido de su `CREATE POLICY`.
+
+## TerrAn Schema Fix — Resolución de Issues de Auditoría (absorbido de `terran-schema-fix`)
+
+### Procedimiento de 6 fases
+El auditor cíclico de TerrAn (`terran-audit-loop`) encuentra issues en 6 fases:
+| Fase | ID | Qué cubre |
+|------|-----|-----------|
+| 01 | DATA | Schema, constraints, triggers, tablas de referencia |
+| 02 | PERM | RBAC, roles_organizacion, RLS policies, inheritance |
+| 03 | ADV | Partitioning, autovacuum, retention policies, tablespaces, triggers |
+| 04 | API | Zod validation, Redis rate limiting, error middleware, CORS, Helmet, WebSocket |
+| 05 | PERF | Redis cache strategy, connection pooling, Sharp, code splitting, advisory locks |
+| 06 | SEC | argon2id/bcrypt hashing, GDPR export, trash can, ChromaDB isolation, HTTPS/TLS |
+
+### Flujo de trabajo
+1. **Verificar `max_issues_per_phase`** en `audit-state.json` — subir a 50+ (default 20 es insuficiente para SEC)
+2. **Identificar issues abiertos** por fase desde `audit-state.json`
+3. **Aplicar fixes** en 3 archivos de docs (NO en BD real): `ARQUITECTURA.md`, `DOCUMENTOS-Y-IA.md`, `RENDIMIENTO-Y-NEGOCIO.md`
+4. **Verificar fixes** en docs con assertions
+5. **Actualizar `audit-state.json`** — marcar issues como `fixed`
+6. **Verificación final** — contar issues abiertos restantes (debe ser 0)
+
+### Patrones SQL reutilizables
+- **CHECK regex:** `CONSTRAINT chk_formato CHECK (columna ~ '^[a-z]+:[a-z0-9_-]+$')`
+- **CHECK array no vacío:** `CONSTRAINT chk_no_vacio CHECK (array_length(columna, 1) > 0)`
+- **CHECK rango:** `EXISTS (SELECT 1 FROM unnest(columna) WHERE val < MIN OR val > MAX) = false`
+- **Trigger auto-incremento por grupo:** COALESCE(MAX(version), 0) + 1
+- **Partitioning por rango:** PARTITION BY RANGE (fecha) con tablas hijas por trimestre/año
+- **RLS policy por org_id:** `USING (org_id = current_setting('app.current_org_id')::UUID)`
+- **Partial UNIQUE:** `UNIQUE(email) WHERE deleted_at IS NULL` para reactivación de usuarios
+
+### Pitfalls críticos
+- **NO es repo git** — `/root/workspace/geoasset` sin `.git`
+- **Fixes en docs, no en BD real** — TerrAn en fase de diseño
+- **Overlaps entre fases** — SEC issues ya resueltos en DATA/PERM/API
+- **BIGSERIAL con doble coma** (SEC-096) — `BIGSERIAL PRIMARY KEY,,`
+- **security_log/login_attempts sin org_id** (SEC-097) — añadir columna + actualizar policies
+- **password_history en texto plano** (SEC-098) — encriptar con pgcrypto
+- **getTier() hardcodeado sin tabla tiers** (SEC-101) — crear tabla tiers + suscripciones
+- **RLS policy referencia columna inexistente** — verificar con `information_schema.columns`
+- **NUNCA confiar en `status: "fixed"` sin verificar en docs** — doble verificación obligatoria
+- **Documentos inconsistentes entre sí** — sincronizar ARQUITECTURA.md con RENDIMIENTO-Y-NEGOCIO.md
+- **CREATE POLICY y ON <table> en misma línea** — usar `line.split('ON')[1].split()[0]`
+- **docs_content truncado a ~30KB** — siempre leer archivos directamente con `read_file()`

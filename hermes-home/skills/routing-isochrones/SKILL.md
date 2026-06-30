@@ -1089,3 +1089,29 @@ polygon = MultiPoint([(n['x'], n['y']) for n in reachable_nodes]).convex_hull
 - `references/session-2026-06-19.md` — TimeIneco sesión: SHP in-browser, html2canvas map capture, NAP city detection, sea clipping
 - `references/gtfs-compact-cache.md` — Patrón GTFS compact cache: JSON pre-procesado, auto-load por ciudad, endpoint servidor, renderizado en mapa
 - `references/local-routing-engines.md` — Comparativa de motores de routing locales (Valhalla, OSMnx, OSRM, pgRouting) para isócronas sin API externa. Setup Docker, scripts Python, arquitectura propuesta.
+
+## Isochrone Routing Tools — Absorbido desde `isochrone-routing-tools`
+
+### Coastline Clipping (Sea Clipping)
+Recorta isocronas a tierra firme para evitar que los polígonos se extiendan sobre el mar.
+- Stack: Natural Earth 110m land (135KB) + turf.js (200KB) + turf.intersect()
+- Carga lazy: solo se descarga si esZonaCostera() detecta ciudad costera
+- Detección: 14 ciudades costeras (Gijón, Barcelona, Valencia, Málaga, Bilbao, Alicante, Cádiz, San Sebastián, A Coruña, Palma, Cartagena, Huelva, Santander, Vigo, Almería, Tarragona)
+- Fallback para polígonos marítimos: crear polígono mínimo 50m
+- Referencia: `references/coastline-clipping.md`
+
+### Proxy ORS con Node.js
+Implementación de servidor proxy que oculta la API key de ORS:
+- server.mjs con endpoint `/isochrone` que reenvía a openrouteservice.org
+- Arranque con `node --env-file=.env server.mjs` (⚠️ sin flag, process.env.ORS_API_KEY está vacío)
+- Health check endpoint para validar key con `typeof key === 'string' && key.length > 20`
+- Referencia: `references/ors-proxy-nodejs.md`
+
+### Simulación de isocronas (fallback visual)
+Motor de simulación multicapa para cuando ORS no está disponible:
+- 72 puntos base + 5 capas de ruido (frecuencias 0.7, 2.3, 5.1, 11.3, 17.1)
+- 12 corredores radiales simulando calles
+- Perfiles diferenciados: Andando (suave), Bici (estrellada con elevación), Coche (compacta)
+- Elevación simulada solo para bici: 5 capas de ruido orográfico
+- Suavizado Gaussiano de 3 puntos
+- Prioridad: ORS real → simulación multicapa → clipeo costero

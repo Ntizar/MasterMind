@@ -482,3 +482,59 @@ Más eficiente que `patch` individual para 5+ archivos. Usar `patch` para edicio
   5. Incrementar iteration y actualizar last_run
   6. Contar active/fixed para reporte final
   - Los fixes se hacen directo con execute_code (patch/write_file), NUNCA subagentes — los archivos son grandes (>100KB) y los subagentes timeout.
+
+## SPA Architecture Audit — Auditoría de Arquitectura Vanilla JS (absorbido de `spa-architecture-audit`)
+
+Procedimiento específico para auditar Single Page Applications vanilla JS con **architectural smells** — código mezclado entre HTML/CSS/JS de forma difícil de mantener.
+
+### Cuándo usar (vs system-audit general)
+- SPA vanilla JS con ~5-50 archivos (no proyectos educativos de 500+ HTML)
+- `app.js` es proporcionalmente diminuto vs index.html
+- JavaScript/CSS inline masivo en `<script>` y `<style>` tags
+- Lazy-loading con skeletons perpetuos (módulos existen pero nunca se invocan)
+- Datos duplicados en múltiples funciones/archivos
+
+### Checklist de detección (10 pasos)
+1. **Inventario:** `find` + `wc -l` — métricas clave: ratio `index.html/app.js`, total JS vs HTML
+2. **Inline code:** `grep -c '<style' index.html` (>100 líneas CSS inline = 🔴), `grep -c '<script[^>]*>[^<]' index.html` (>150 líneas JS inline = 🔴)
+3. **Module boundaries:** ¿`app.js` <30 líneas? ¿modules/ con 200-1000+ líneas? → "Tiny orchestrator" smell
+4. **Data duplication:** Mismos IDs/keys en 2+ archivos → unificar en archivo de datos
+5. **Lazy-loading roto:** `switchTab()` sin callback + skeleton HTML → módulo existe pero nunca se renderiza
+6. **Namespace pollution:** No IIFE → `window.X = function()` contamina global scope
+7. **Module size:** >1000 líneas en un módulo → debe dividirse
+8. **Version mismatch:** Diferentes `vX.Y.Z` en archivos → unificar
+9. **Error handling:** Cero try/catch globales → cualquier fallo rompe la app
+10. **Deployment:** Verificar `.nojekyll`, branch, GitHub Pages config
+
+### Architectural Smells (cheat sheet)
+| Smell | Detección | Severidad | Fix |
+|-------|-----------|-----------|-----|
+| Tiny orchestrator | `wc -l app.js` <30, `wc -l index.html` >500 | 🔴 | Mover lógica inline a módulos |
+| Inline JS/CSS | `grep -c '<script[^>]*>[^<]'` | 🔴 | Mover a archivos externos |
+| Skeleton perpetuo | `switchTab()` sin callback | 🔴 | Registrar callback en switchTab |
+| Data duplication | Mismos IDs/keys en 2+ archivos | 🟡 | Unificar en archivo de datos |
+| Namespace pollution | No IIFE, `window.X = function()` | 🟡 | Envolver en IIFE |
+| Module too large | >1000 líneas en un módulo | 🟡 | Separar datos de UI |
+
+### Estado ideal para SPA vanilla JS
+```
+proyecto/
+├── index.html              ← ~200-400 líneas: estructura HTML limpia
+├── css/custom.css          ← Todos los estilos custom
+├── js/app.js               ← Orquestador: tab router, init, error handling
+├── js/ley-data.js          ← Datos puros (sin lógica)
+├── js/modules/
+│   ├── tipos-contrato.js   ← IIFE encapsulado
+│   ├── generador-actas.js
+│   └── ...
+└── data/ley-texto.json
+```
+
+**Reglas:** index.html = estructura, app.js = orquestación, modules = IIFE + datos+lógica+render local, datos puros sin DOM.
+
+### Pitfalls
+- No confundir "proyecto grande" con "proyecto mal arquitecturado" — 500+ HTML bien estructurados ≠ SPA rota
+- Los módulos pueden estar bien pero el sistema de lazy-loading roto — verificar callback registration
+- No asumir `app.js` vacío = problema — a veces el orquestador es mínimo y todo está en index.html
+- El deploy puede estar roto por GitHub Pages config, no por código
+- Data duplication puede ser intencional — verificar antes de marcar como bug

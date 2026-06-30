@@ -184,18 +184,27 @@ Ejecutar cuando se pida o como cron.
    test -d /root/workspace/Mastermind/hermes-home/ || mkdir -p /root/workspace/Mastermind/hermes-home/
    ```
 
-2. **Copiar archivos/carpetas con rsync (NO cp -r):**
+2. **Copiar archivos/carpetas (rsync o fallback):**
    ```bash
-   # rsync maneja destinos existentes correctamente — no duplica rutas
+   # OPCIÓN A: rsync (si está disponible)
    rsync -av /hermes-home/skills/ /root/workspace/Mastermind/hermes-home/skills/
    rsync -av /hermes-home/memories/ /root/workspace/Mastermind/hermes-home/memories/
    rsync -av /hermes-home/notes/ /root/workspace/Mastermind/hermes-home/notes/
    rsync -av /hermes-home/scripts/ /root/workspace/Mastermind/hermes-home/scripts/
+   
+   # OPCIÓN B: rm -rf + cp -a (cuando rsync no está disponible — confirmado 2026-06-29)
+   rm -rf /root/workspace/Mastermind/hermes-home/skills/
+   cp -a /hermes-home/skills/ /root/workspace/Mastermind/hermes-home/skills/
+   rm -rf /root/workspace/Mastermind/hermes-home/memories/
+   cp -a /hermes-home/memories/ /root/workspace/Mastermind/hermes-home/memories/
+   rm -rf /root/workspace/Mastermind/hermes-home/notes/
+   cp -a /hermes-home/notes/ /root/workspace/Mastermind/hermes-home/notes/
+   rm -rf /root/workspace/Mastermind/hermes-home/scripts/
+   cp -a /hermes-home/scripts/ /root/workspace/Mastermind/hermes-home/scripts/
+   
    cp /hermes-home/config.yaml /root/workspace/Mastermind/hermes-home/config.yaml
-   cp /hermes-home/SOUL.md /root/workspace/Mastermind/hermes-home/SOUL.md
-   cp /hermes-home/user.md /root/workspace/Mastermind/hermes-home/user.md
    ```
-   > **Por qué rsync y no `cp -r`:** `cp -r /hermes-home/memories/ /dest/hermes-home/memories/` cuando el destino ya existe produce `/dest/hermes-home/memories/memories/`. `rsync -av` no tiene este problema.
+   > **Por qué rsync y no `cp -r`:** `cp -r /hermes-home/memories/ /dest/hermes-home/memories/` cuando el destino ya existe produce `/dest/hermes-home/memories/memories/`. `rsync -av` no tiene este problema. Si rsync no está, usar `rm -rf` + `cp -a` como fallback confirmado.
 
 3. **Verificar que no hay nesting:**
    ```bash
@@ -555,4 +564,6 @@ Para troubleshooting detallado (state desincronizado, quarantine infinito, timeo
 
 - **2026-06-28:** **Cascading nesting bug (CRÍTICO):** Cuando se corrige el nesting raíz (`skills/skills/` → `skills/`), **CADA categoría top-level** tiene el mismo patrón anidado dentro: `ai-patterns/ai-patterns/`, `creative/creative/`, `stem/stem/`, etc. — **70+ directorios anidados**. `cp -a /hermes-home/skills/ /dest/skills/` produce nesting a DOS niveles: primero en la raíz (`skills/skills/`), luego dentro de CADA categoría. **Solución en dos pasos:** (1) Borrar nesting raíz: `rm -rf skills/skills/` y mover contenido arriba. (2) Loop sistemático para TODAS las categorías: `find . -mindepth 2 -maxdepth 2 -type d | while read dir; do parent=$(basename "$(dirname "$dir")"); child=$(basename "$dir"); if [ "$parent" = "$child" ]; then mv "$dir"/* "$dir"/.* . 2>/dev/null; rm -rf "$dir"; fi; done`. **Verificación post-fix:** `find . -mindepth 2 -maxdepth 2 -type d | while read dir; do parent=$(basename "$(dirname "$dir")"); child=$(basename "$dir"); if [ "$parent" = "$child" ]; then echo "STILL NESTED: $dir"; fi; done` — debe devolver vacío.
 
-- **2026-06-29:** **Backup con `hermes-home/` + `cp -r` = nesting triple (CRÍTICO):** Cuando el repo YA tiene `hermes-home/skills/`, `hermes-home/memories/`, `hermes-home/notes/` (del backup anterior), hacer `cp -r /hermes-home/skills/ /repo/hermes-home/skills/` produce `skills/skills/`. Y `cp -r /hermes-home/memories/ /repo/hermes-home/memories/` produce `memories/memories/`. **Solución en 3 pasos:** (1) Hacer `rsync -av` (NO `cp -r`) — rsync maneja destinos existentes correctamente, sobrescribe sin duplicar. (2) Después de rsync, verificar nesting: `find hermes-home/ -mindepth 2 -maxdepth 2 -type d -exec sh -c 'p=$(basename "$(dirname "$1")"); c=$(basename "$1"); [ "$p" = "$c" ] && echo "NESTED: $1"' _ {} \;` — debe devolver vacío. (3) Si hay nesting residual, limpiar con el loop cascading de arriba. **IMPORTANTE:** `rsync -av` SIN `--delete` es seguro para backup incremental. `rsync -av --delete` elimina archivos que ya no existen en origen — solo usar si se quiere espejo exacto.
+- **2026-06-29:** **Backup con hermes-home/ + cp -r = nesting triple (CRÍTICO):** Cuando el repo YA tiene hermes-home/skills/, hermes-home/memories/, hermes-home/notes/ (del backup anterior), hacer cp -r /hermes-home/skills/ /repo/hermes-home/skills/ produce skills/skills/. Y cp -r /hermes-home/memories/ /repo/hermes-home/memories/ produce memories/memories/. **Solución en 3 pasos:** (1) Hacer rsync -av (NO cp -r) — rsync maneja destinos existentes correctamente, sobrescribe sin duplicar. (2) Después de rsync, verificar nesting: find hermes-home/ -mindepth 2 -maxdepth 2 -type d -exec sh -c 'p=$(basename "$(dirname "$1")"); c=$(basename "$1"); [ "$p" = "$c" ] && echo "NESTED: $1"' _ {} \; — debe devolver vacío. (3) Si hay nesting residual, limpiar con el loop cascading de arriba. **IMPORTANTE:** rsync -av SIN --delete es seguro para backup incremental. rsync -av --delete elimina archivos que ya no existen en origen — solo usar si se quiere espejo exacto.
+
+- **2026-06-29:** **Patrón confirmado sin rsync:** rm -rf /dest/ + cp -a /source/ /dest/ es el patrón que funciona de verdad cuando rsync no está disponible. rm -rf elimina el destino existente, luego cp -a copia todo desde cero sin nesting. Más rápido y fiable que Python fallback para directorios grandes. Ver references/backup-rsync-fallback.md.

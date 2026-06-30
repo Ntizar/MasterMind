@@ -2350,3 +2350,32 @@ curl -s https://<url>/api/health | grep '"status":"ok"'
 - **Olvidar `.catch()`**: Las llamadas API fallan silenciosamente — el usuario ve loading eterno
 - **Mezclar `const`/`let` con `var`**: Si el proyecto usa `var`, mantener consistencia o rompe en navegadores antiguos
 - **No verificar container null**: Si el JS se ejecuta antes de que el DOM exista, `getElementById` devuelve null → TypeError
+## Dashboard Building Patterns — Absorbidos desde `dashboard-estructurado-mapa`, `dashboard-ia-backend`, `dashboard-control-center`
+
+### Patrón A: Dashboard Estático con Mapa Leaflet (absorbido de `dashboard-estructurado-mapa`)
+Pipeline PDF → YAML+MD → dashboard estático → GitHub Pages.
+- Scraping de PDFs gubernamentales (curl, no browser tools)
+- markitdown para extracción de texto
+- JSON particionado por año para colecciones grandes (>100 registros)
+- GitHub Pages: datos embebidos en JS (no fetch de .json — 404)
+- Leaflet Canvas renderer para miles de puntos sin lag
+- Pitfalls: IDs duplicados, coordenadas en bloque equivocado, Nominatim sin URL encoding
+
+### Patrón B: Dashboard con Backend Express + IA (absorbido de `dashboard-ia-backend`)
+Express backend que lee datos locales + frontend vanilla JS + asistente IA.
+- Estructura: server.js + public/index.html + package.json
+- API REST que lee JSON/filesystem local
+- Endpoint IA: construye prompt con contexto del usuario → llama LLM
+- Estimación automática: usuario escribe descripción → blur → backend llama LLM → frontend rellena campos
+- Chat IA con burbujas, markdown formatting, loading states
+- Pitfalls: NAN_API como env var, XSS en chat messages, chat history keys en español vs inglés
+
+### Patrón C: Dashboard Control Center (absorbido de `dashboard-control-center`)
+Panel de control visual de infraestructura: Express + Aurora Liquid Glass.
+- Arquitectura dual: local (datos reales) + NaN (versión visual con fallbacks)
+- collect-status.py → status.json → push GitHub → redeploy NaN
+- Datos: CPU, RAM, procesos, crons, skills, agentes
+- Canvas animado con grafo radial de agentes (partículas)
+- Deploy NaN: Dockerfile con USER appuser (⚠️ NaN bloquea contenedores root)
+- Basic auth sobre endpoints /api/*
+- Pitfalls: NaN containers aislados del host, status.json debe estar en public/, port 6060

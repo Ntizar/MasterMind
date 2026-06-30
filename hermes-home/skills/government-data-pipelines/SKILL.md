@@ -725,3 +725,65 @@ default_coords = [c for c, n in coord_counts.items() if n > 5]
 - `references/data-enrichment-merging.md` → Patrón de enriquecimiento/fusión de datasets: emparejamiento por expediente, fusión selectiva, geocodificación batch con DB local
 - `references/llm-text-recombination.md` → Algoritmo de re-combinación de texto fragmentado por LLM: detección, multi-pass limpieza, métricas de resultado
 - `references/adif-spatial-data-apis.md` → APIs espaciales de ADIF: WMS red ferroviaria, LTV (limitaciones velocidad) FeatureServer, Tramificación WFS. URLs, esquemas, código Leaflet, pitfalls
+
+## Data Pipeline Absorbidos
+
+### CIAF Data Pipeline (absorbido de `ciaf-data-pipeline`)
+- **Cross-reference pitfall:** cruzar por expediente SIN año causa corrupción masiva. Normalizar: "50/2009" → "0050/2009"
+- **Estrategia de geolocalización:** (1) JSON individual coords → (2) PK+LTV → (3) station-coords.json → (4) Nominatim → (5) manual
+- **Rendering de recomendaciones:** 4 esquemas de dict diferentes según año/parser. Frontend DEBE buscar: `rec.texto || rec.contenido || rec.text`
+- **Limpieza post-auditoría:** frontend solo carga index.json + reports/YYYY.json. Eliminar: pdfs/, data/images/, train-tracks.geojson, ltv_lookup.json, station-coords.json
+- **Pitfall CI/CD:** eliminar archivos del repo → verificar .github/workflows por referencias rotas
+- **Verificación post-fix checklist:** 9 puntos obligatorios (sin resúmenes duplicados, estaciones >3 chars, coords consistentes, etc.)
+
+### Data Pipeline Audit (absorbido de `data-pipeline-audit`)
+Procedimiento sistemático de 6 fases:
+1. Inventario de fuentes (contar registros por fuente)
+2. Comparación por cobertura (gaps por año/categoría)
+3. Comparación campo a campo (discrepancias)
+4. Taxonomía y normalización (comparar granularidad)
+5. Campos de calidad (% nulls, formatos, textos)
+6. Informe de resultados (cubierta, faltantes, taxonomía, geolocalización, acciones)
+
+**Pitfalls clave:** matching por nombres caóticos, severidad mal clasificada, limpieza que destruye datos, coordenadas por defecto contaminando dataset.
+
+### NAP Data Pipeline (absorbido de `nap-data-pipeline`)
+- **161 datasets, 0.65 GB** de GTFS español desde NAP API
+- API: `https://nap.transportes.gob.es/api/v2/` con header `ApiKey`
+- Endpoints: `/conjunto-dato` → `/conjunto-dato/{id}` → `/fichero/{id}/descarga` → descarga ZIP
+- **⚠️ Enlaces S3 caducan en 15 min** — descargar rápido
+- **Solo GTFS-ZIP descargables** — filtrar por `nombreTipoFichero`
+- Script: `descargar-nap.py` con modos full/delta/dry-run
+- Cron: domingo 06:00 UTC, delta mode
+
+### Spanish Open Data Collection (absorbido de `spanish-open-data-collection`)
+- **Fuentes bloqueadas desde servidor:** datos.gob.es (403+CAPTCHA), Idealista, Fotocasa, Portal de Vivienda
+- **INE REST API SÍ funciona:** `https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/{id}?tip=AM&nult=1` — sin key, sin CAPTCHA
+- **Patrón de estimación:** precios base por provincia + multiplicadores intra-provincia
+- **ArcGIS FeatureServer pitfall:** `outSR=4326` → attributes X/Y NULL, usar `f.geometry.x/y`
+- Referencias internas: `references/blocked-sources-checklist.md`, `references/ine-rest-api-working.md`, `references/spanish-housing-province-prices-2024.md`
+
+## Embedded JSON Extraction — Parsear JSON desde Archivos de Código (absorbido de `embedded-json-extraction`)
+
+### Por qué falla bracket counting simple
+1. `]` dentro de strings (ej: `"trenes": []`) cierra prematuramente el depth counter
+2. Código trailing después de `];` se incluye en la extracción
+3. Secuencias double-escape (`\\n`, `\\s`) confunden la inspección de strings
+4. Smart quotes y chars UTF-8 son JSON válido pero activan falsos alarms
+
+### Patrones de extracción
+- **Pattern 1:** Bracket counter FUERA de strings (ignora corchetes dentro de comillas)
+- **Pattern 2:** Parsear objetos individuales cuando el array parsea mal
+- **Pattern 3:** Regex boundary detection (buscar patrón trailing como `];\n//`)
+- **Pattern 4:** `demjson3` para parsing leniente (maneja Python None, trailing commas)
+- **Pattern 5:** Wrap y validar (envolver entre `[` y `]`, probar `json.loads` → `demjson3`)
+
+### Pitfalls
+- `]` dentro de string cierra prematuramente depth counter ingenuo
+- Error "Extra data" de `json.loads()` = JSON válido pero contenido trailing
+- Newlines double-escaped en strings son JSON válido
+- Smart quotes en strings JSON están bien (UTF-8 válido)
+
+### Scripts
+- `scripts/extract-embedded-json.py` — Script completo para extracción
+- `references/ciaf-json-extraction.md` — Transcript completo con edge cases

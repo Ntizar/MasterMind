@@ -7,17 +7,27 @@
 
 `rsync` NO está disponible en la MicroVM de NaN.builders. Si un procedimiento lo requiere, usar alternativas.
 
-## Solución Confirmada (2026-06-29)
+## Solución Confirmada (2026-06-29/30)
 
-**`rm -rf` + `cp -a`** — el patrón que funciona de verdad:
+### Opción A: `cp -rf` con glob `*` (SINPLIFICADO — recomendado)
 
 ```bash
-# Borrar destino ANTES de copiar (evita nesting)
+mkdir -p /root/workspace/Mastermind/hermes-home/skills
+cp -rf /hermes-home/skills/* /root/workspace/Mastermind/hermes-home/skills/
+```
+
+**Por qué funciona:** El glob `*` expande el CONTENIDO del directorio, no el directorio en sí. `-r` para recursivo, `-f` para sobreescribir sin preguntar. Sin nesting porque NO se copia la carpeta raíz, solo su contenido.
+
+### Opción B: `rm -rf` + `cp -a` (el clásico)
+
+```bash
 rm -rf /root/workspace/Mastermind/hermes-home/skills/
 cp -a /hermes-home/skills/ /root/workspace/Mastermind/hermes-home/skills/
 ```
 
-**Por qué funciona:** `rm -rf` elimina el destino existente, luego `cp -a` copia todo desde cero sin nesting. `cp -a` preserva permisos, timestamps y enlaces simbólicos.
+**Por qué funciona:** `rm -rf` elimina el destino existente, luego `cp -a` copia todo desde cero. `cp -a` preserva permisos, timestamps y enlaces simbólicos.
+
+> **Ambas funcionan.** Opción A es más corta y menos destructiva (no borra antes de copiar). Opción B es más conservadora (borra todo lo viejo primero). Usar A para simplicidad, B si se necesita limpieza absoluta.
 
 **Qué copiar:**
 ```bash

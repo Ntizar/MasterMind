@@ -182,20 +182,123 @@ L.geoJSON(data, {
 
 ---
 
-## 4. Red de Ferrocarriles IGN (ArcGIS FeatureServer)
+## 4. Red de Ferrocarriles IGN (ArcGIS FeatureServer) — ⭐ SUPERIOR A ADIF WMS para datos vectoriales
 
 **URL:** `https://services1.arcgis.com/nCKYwcSONQTkPA4K/arcgis/rest/services/RedFerrocarrilesIGN/FeatureServer`
 **Propietario:** IGN (Instituto Geográfico Nacional)
+**Licencia:** CC-BY 4.0 (uso libre con atribución)
+**CRS:** EPSG:4258 (ETRS89)
+**Última actualización fuente:** 27/05/2024
+**Tamaño:** 256 MB (FeatureService completo)
+
+> **⚠️ COMPARACIÓN CON ADIF WMS (VERIFICADO 2026-06-30):** El FeatureServer del IGN es **vectorial con atributos ricos**, mientras ADIF WMS es solo raster para visualización. El IGN gana en: geometría consultable, ancho de vía, electrificación, titular, uso, estado. ADIF gana en: actualización casi real (LTV), capas operacionales (Tramificación). **Recomendación: usar AMBOS** — ADIF WMS para mapa base operacional + IGN FeatureServer para queries de atributos.
 
 ### Capas
 
-| ID | Nombre | Tipo |
-|----|--------|------|
-| 1 | estaciones | Feature Layer |
-| 2 | lineas | Feature Layer |
-| 3 | areaffcc | Feature Layer |
+| ID | Nombre | Tipo | Features | Descripción |
+|----|--------|------|----------|-------------|
+| 1 | estaciones | esriGeometryPoint | 3.035 | Estaciones de tren, apeaderos, apartaderos, cambiadores de ancho |
+| 2 | lineas | esriGeometryPolyline | 50.165 | Tramos de línea ferroviaria (segmentos individuales, NO líneas completas) |
+| 3 | areaffcc | esriGeometryPolygon | 8.167 | Áreas ferroviarias (playas de vías, instalaciones) |
 
-**Nota:** Datos del IGN, no de ADIF. Útil como referencia geográfica complementaria.
+### Campos — Capa Estaciones (ID 1)
+
+| Campo | Tipo | Descripción |
+|-------|------|-------------|
+| nombre | String | Nombre de la estación |
+| cod_est | String | Código de estación (puede ser "Desconocido") |
+| id_estfc | Double | Identificador único (clave primaria) |
+| tipo_estfc | SmallInteger | Tipo de estación (código) |
+| tipo_estfd | String | Tipo de estación (descripción): Estación de tren, Apeadero, Apartadero, Cambiador de Ancho, Estación de tranvía, Cargadero |
+| n_andenes | String | Número de andenes |
+| tipo_uso | SmallInteger | Uso actual (código) |
+| tipo_usod | String | Uso actual (descripción): Pasajeros, Mercancías, Mixto, Desconocido |
+| estadofis | SmallInteger | Estado físico (código) |
+| estadofisd | String | Estado físico (descripción): En servicio, etc. |
+| fecha_alta | Date | Fecha de alta o modificación en BD |
+
+### Campos — Capa Líneas (ID 2)
+
+| Campo | Tipo | Descripción |
+|-------|------|-------------|
+| nombre | String | Nombre de la línea ferroviaria |
+| codigo | String | Código de tramo de línea (ej: "10001003") |
+| id_tramo | Double | Identificador único del tramo (clave primaria) |
+| id_lineafc | Double | Identificador de la línea |
+| tipo_tramd | String | Tipo de tramo: playa de vías o no |
+| ancho_viad | String | **Ancho de vía**: Ibérico, International, Estrecho |
+| electrifid | String | **Electrificación**: Sí, No |
+| estadofisd | String | Estado físico: En servicio, abandonado, etc. |
+| tipo_lined | String | Tipo de transporte sobre raíl (ej: "Tren") |
+| uso_ppald | String | **Uso predominante**: Pasajeros, Mercancías, Mixto, Otros usos |
+| titulard | String | **Titular de la infraestructura**: Administración General del Estado, Desconocido, etc. |
+| red_tentd | String | **Pertenencia Red TenT**: Básica, Global, No Tent |
+| n_viasD / n_via | String | Número de vías |
+| situaciond | String | Posición vertical: nivel, elevated, tunel |
+| fuented / fuente_ld | String | Origen de los datos |
+| Shape__Length | Double | Longitud del tramo (en grados, CRS EPSG:4258) |
+
+### Valores únicos verificados (2026-06-30)
+
+**tipos de estación:** Estación de tren, Apeadero, Apartadero, Cambiador de Ancho, Estación de tranvía, Cargadero, Apartadero-cargadero, Apeadero-cargadero, Desconocido
+**usos:** Pasajeros, Mercancías, Mixto, Desconocido
+**anchos de vía:** Ibérico (1668mm), International (1435mm), Estrecho (1000mm)
+**electrificación:** Sí, No
+**titulares:** Administración General del Estado (ADIF), Desconocido
+**Red TenT:** Básica (TEN-T), Global, No Tent
+
+### Queries de ejemplo
+
+```bash
+# Contar features por capa
+curl -s "https://services1.arcgis.com/nCKYwcSONQTkPA4K/arcgis/rest/services/RedFerrocarrilesIGN/FeatureServer/1/query?where=1=1&returnCountOnly=true&f=json"
+# → {"count": 3035}
+
+# Estaciones de pasajeros con andenes
+curl -s "https://services1.arcgis.com/nCKYwcSONQTkPA4K/arcgis/rest/services/RedFerrocarrilesIGN/FeatureServer/1/query?where=tipo_usod='Pasajeros'&outFields=nombre,tipo_estfd,n_andenes,estadofisd&resultRecordCount=5&f=json"
+
+# Líneas electrificadas de la Red TenT Básica
+curl -s "https://services1.arcgis.com/nCKYwcSONQTkPA4K/arcgis/rest/services/RedFerrocarrilesIGN/FeatureServer/2/query?where=electrifid='Sí'+AND+red_tentd='Básica'&outFields=nombre,ancho_viad,uso_ppald,titulard,n_viasD&returnGeometry=false&f=json"
+
+# GeoJSON de estaciones para Leaflet
+curl -s "https://services1.arcgis.com/nCKYwcSONQTkPA4K/arcgis/rest/services/RedFerrocarrilesIGN/FeatureServer/1/query?where=1=1&outFields=nombre,tipo_estfd,tipo_usod&f=geojson&resultRecordCount=500"
+```
+
+### Integración Leaflet
+
+```javascript
+// Cargar estaciones IGN como GeoJSON
+fetch('https://services1.arcgis.com/nCKYwcSONQTkPA4K/arcgis/rest/services/RedFerrocarrilesIGN/FeatureServer/1/query?where=1=1&outFields=nombre,tipo_estfd,tipo_usod,n_andenes&f=geojson&resultRecordCount=5000')
+    .then(r => r.json())
+    .then(data => {
+        L.geoJSON(data, {
+            pointToLayer: (f, ll) => L.circleMarker(ll, {
+                radius: 5, fillColor: '#2563eb', color: '#1e40af', weight: 1, fillOpacity: 0.7
+            }),
+            onEachFeature: (f, layer) => {
+                const p = f.properties;
+                layer.bindPopup(`<b>${p.nombre}</b><br>${p.tipo_estfd}<br>${p.tipo_usod}<br>Andenes: ${p.n_andenes}`);
+            }
+        }).addTo(map);
+    });
+```
+
+### Comparación IGN vs ADIF WMS — ¿cuándo usar cada uno?
+
+| Criterio | IGN FeatureServer | ADIF WMS Tramificación |
+|----------|-------------------|------------------------|
+| Tipo | **Vectorial** (consultable) | **Raster** (tiles renderizados) |
+| Ancho de vía | ✅ Sí | ❌ No |
+| Electrificación | ✅ Sí | ❌ No |
+| Titularidad | ✅ Sí | ❌ No |
+| Uso (pasajeros/mercancías) | ✅ Sí | ❌ No |
+| Estaciones (3.035) | ✅ Con tipos y andenes | ❌ Sin atributos |
+| Actualización | ~anual (2024) | Casi real |
+| Velocidad de carga | Más lento (50K features) | Rápido (tiles) |
+| Interacción clic | ✅ Consultable | ❌ Solo visual |
+| **Uso recomendado** | **Queries, análisis, cruce con datos** | **Mapa base de red** |
+
+**Patrón recomendado:** ADIF WMS como capa base de visualización de vías + IGN FeatureServer para queries de atributos y cruce con datos de accidentes/servicios.
 
 ---
 

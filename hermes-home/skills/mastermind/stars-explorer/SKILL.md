@@ -348,7 +348,7 @@ git push
 
 - **Nombre:** `stars-explorer-nocturno`
 - **Schedule:** 0 3 * * * (03:00 UTC diario)
-- **Job ID:** `abcb79ec2e36`
+- **Job ID:** `f22516e4ab77`
 - **Batch:** 3 repos/run → 3 por noche
 - **Re-procesamiento:** Nunca (registry previene duplicados)
 - **ChromaDB:** Si ChromaDB no está corriendo, arrancar con `bash /hermes-home/scripts/start-chromadb.sh` antes de consultar. El cron puede ejecutarse en un momento donde ChromaDB se haya caído.

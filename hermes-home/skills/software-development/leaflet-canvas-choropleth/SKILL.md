@@ -232,8 +232,11 @@ function onEachFeature(feat, layer) {
 3. **Percentiles, no min/max:** Usar pct5/pct95 para rangos, no min/max (outliers rompen la escala)
 4. **Liberar memoria TopoJSON:** `topo = null` tras `topojson.feature()`
 5. **Canvas no soporta CSS:** Los estilos CSS no funcionan en Canvas renderer
-6. **clientWidth=0 en tabs lazy:** Cuando un contenedor está oculto (`display:none`), `container.clientWidth` es 0. SVGs/Charts creados en ese momento quedan con width negativo o cero → invisibles. Fix: `Math.max(600, container.clientWidth)` o `requestAnimationFrame` + retry.
+6. **clientWidth=0 en tabs lazy:** Cuando un contenedor está oculto (`display:none`), `container.clientWidth` es 0 → invisibles. Fix: `Math.max(600, container.clientWidth)` o `requestAnimationFrame` + retry.
 7. **GeoJSON property names:** SpainLayers usa `id`/`name`, no `CODMUN`/`NOMBRE`. Siempre verificar y mapear propiedades al cargar.
+8. **❌ NUNCA circle markers para choropleth** — David: "los cp en vez de puntos deberían ser áreas". Polígonos reales SIEMPRE. Si no hay GeoJSON, generar centroides con Douglas-Peucker como último recurso.
+9. **❌ NUNCA dark theme para dashboards públicos** — David odia fondos oscuros y neón. Fondo claro, sidebar blanca, acentos en borders.
+10. **❌ NUNCA "liquid glass" genérico** — backdrop-filter masivo = "diseño de IA". Usar cards sólidas con sombra sutil.
 
 ## GeoJSON de municipios españoles — SpainLayers
 

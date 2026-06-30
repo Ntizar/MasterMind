@@ -1,7 +1,7 @@
 ---
 name: government-data-pipelines
-version: "1.2.0"
-description: "Patrones para ingerir, estructurar y visualizar datos de fuentes gubernamentales — scraping de webs institucionales, parsers de PDFs con estructura fija, normalización a base de datos, dashboards interactivos. Incluye casos CIAF (ferroviario), CIAIAC (aviación), CIAIM (marítimo)."
+version: "1.4.0"
+description: "Patrones para ingerir, estructurar y visualizar datos de fuentes gubernamentales — scraping de webs institucionales, parsers de PDFs con estructura fija, normalización a base de datos, dashboards interactivos. Catálogo de 35+ APIs de datos abiertos españolas (BORME, AEMET, INE, ESIOS, etc.). Incluye casos CIAF (ferroviario), CIAIAC (aviación), CIAIM (marítimo). Patrón Agregador Multi-Fuente para combinar múltiples APIs en dashboards unificados."
 tags: [government, scraping, pdf-parsing, data-ingestion, dashboard, geolocation]
 ---
 
@@ -719,7 +719,123 @@ default_coords = [c for c, n in coord_counts.items() if n > 5]
 - **NUNCA** eliminar si el resultado queda <4 chars → usar fallback del resumen
 - Verificar que la provincia del nombre coincide con la provincia registrada
 
+## Patrón: Agregador Multi-Fuente de Datos Abiertos (NUEVO 2026-06-30)
+
+Cuando el usuario pide "scraping de TODOS los datos abiertos" o "herramientas grandes con datos del gobierno", el patrón es un **agregador multi-fuente** que combina múltiples APIs en un dashboard unificado.
+
+### Arquitectura del agregador
+
+```
+DataHubEspana/
+├── scrapers/           ← Un scraper por fuente de datos
+│   ├── borme_scraper.py
+│   ├── ine_scraper.py
+│   ├── esios_scraper.py
+│   ├── madrid_scraper.py
+│   ├── ign_scraper.py
+│   ├── catastro_scraper.py
+│   └── orchestrator.py  ← Ejecuta todos + genera índice maestro
+├── tools/              ← Herramientas HTML autocontenido
+│   ├── dashboard-economico/   (BORME + INE)
+│   ├── monitor-energia/       (ESIOS/REE)
+│   └── mapa-trafico/          (Madrid + DGT)
+├── data/               ← JSON descargados por fuente
+└── index.html          ← Landing page con links
+```
+
+### Flujo de trabajo
+
+1. **Descubrir APIs** → curl/requests contra endpoints documentados
+2. **Clasificar acceso** → REST público / CKAN / scraping / bloqueado
+3. **Crear scrapers individuales** → uno por fuente, output JSON normalizado
+4. **Orquestador** → ejecuta todos + genera `master_index.json`
+5. **Tools HTML** → fetch JSON local o embebido, Chart.js + Leaflet
+6. **Deploy** → GitHub Pages (JSON estático, zero-backend)
+
+### Verificación de APIs (ACTUALIZADO 2026-06-30)
+
+**✅ Funcionan con curl/requests (sin auth):**
+- BOE/BORME: `https://www.boe.es/datosabiertos/api/borme/sumario/YYYYMMDD` (Accept: application/json)
+- INE: `https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/{id}?tip=AM&nult=N`
+- Catastro: `https://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCallejero.svc/json/ObtenerProvincias`
+- ESIOS demanda realtime: `https://demanda.ree.es/vcc/curva?tun=1&curva=1`
+- IGN terremotos: `https://www.ign.es/web/resources/volcanologia/tproximos/consultas_ultimodia/40_30days.js`
+- **datos.gob.es catálogo:** `https://datos.gob.es/apidata/catalog/dataset.json?_page={n}` — API DCAT funciona sin WAF. Datos bajo `data["result"]["items"]` (⚠️ NO `data["items"]`). Ver `references/datos-gob-es-catalog-api.md`
+
+**✅ Funcionan con API CKAN (sin auth):**
+- datos.madrid.es: `https://datos.madrid.es/api/3/action/package_search?rows=50` (671 datasets)
+- opendata.aragon.es: `https://opendata.aragon.es/api/3/action/package_search?rows=50` (2,430 datasets)
+
+**⚠️ Bloqueados por WAF/Incapsula desde servidor:**
+- datos.gob.es portal web (116,921 datasets): devuelve HTML con Incapsula script. Usar browser tool o scraping con cookies.
+- opendata.asturias.es, catalogo.navarra.es, opendata.euskadi.eus, abertos.xunta.gal, analisi.transparenciacatalunya.cat, juntadeandalucia.es, carm.es, datosabiertos.jcyl.es: todos caídos o sin API CKAN
+
+
+
+**⚠️ Requieren key gratuita:**
+- ESIOS API completa: `https://api.esios.ree.es/indicators/{id}/data` (key en aemet.es o e-sios.org)
+- AEMET: `https://opendata.aemet.es/opendata/api/` (key gratuita)
+
+### Patrón de scraper CKAN (Madrid, Aragón)
+
+```python
+import requests
+
+CKAN_BASE = "https://datos.madrid.es/api/3/action"
+
+def fetch_ckan_datasets(rows=50):
+    resp = requests.get(f"{CKAN_BASE}/package_search", params={"rows": rows})
+    return resp.json().get("result", {}).get("results", [])
+
+def fetch_ckan_package(package_name):
+    resp = requests.get(f"{CKAN_BASE}/package_show", params={"id": package_name})
+    return resp.json().get("result", {})
+
+def fetch_ckan_resource_data(resource_url):
+    resp = requests.get(resource_url, timeout=60)
+    content_type = resp.headers.get("Content-Type", "")
+    if "json" in content_type:
+        return resp.json()
+    elif "csv" in content_type:
+        import csv, io
+        return list(csv.DictReader(io.StringIO(resp.text)))
+    return resp.json()
+```
+
+**⚠️ datasets.madrid.es tiene catálogo en mantenimiento** — la API CKAN funciona pero la web no. Usar solo la API.
+
+### Patrón de landing page + tools
+
+El `index.html` raíz es una landing page con:
+- KPIs del proyecto (nº herramientas, fuentes, datasets)
+- Grid de tarjetas linkando a cada tool
+- Sección de scrapers con comandos de uso
+- Footer con atribución
+
+Cada tool es un HTML autocontenido con:
+- CSS inline (Kaizen o custom)
+- CDN para Chart.js y Leaflet (Leaflet es aceptable por estabilidad)
+- Datos embebidos o fetch de JSON local
+- Footer: "Hecho con ❤️ por David Antizar"
+
+### Pitfalls del agregador multi-fuente
+
+- **🔴 NO usar curl contra datos.gob.es** desde servidor — WAF Incapsula bloquea. Usar browser tool o aceptar que solo funciona desde navegador.
+- **⚠️ CKAN APIs no están documentadas oficialmente** en todos los portales. Probar `package_search` y `package_list` — si devuelven JSON, es CKAN.
+- **⚠️ Rate limiting desigual por fuente:** BOE permite ~1 req/seg, Nominatim bloquea tras ~50, Catastro no tiene límites documentados. Usar `time.sleep()` entre requests.
+- **⚠️ JSON BOM en Catastro:** las respuestas tienen BOM UTF-8 (`\ufeff`). Usar `utf-8-sig` al decodificar.
+- **⚠️ INE tablas pueden tener 400+ series** por tabla. Parsear y guardar por separado, no todo en un JSON.
+
+### Referencia
+- `references/spanish-open-data-verified-apis.md` → Estado verificado de APIs españolas con código de prueba
+
+**APIs verificadas con código de prueba:** ver `references/spanish-open-data-verified-apis.md` — 11 fuentes mapeadas (BOE, INE, Catastro, ESIOS, IGN, Madrid CKAN, Aragón CKAN, AEMET, NAP Transportes) con endpoints exactos, IDs de tablas, y estado de acceso.
+
+## Templates disponibles
+- `templates/ckan-multi-portal-scraper.py` → Scraper CKAN reutilizable para cualquier portal (Aragón, Madrid, Chile, Argentina)
+
 ## Referencias
+- `references/datos-gob-es-catalog-api.md` → API catálogo nacional: endpoint, pitfall `result.items`, código de parseo
 - `references/ciaf-scraping.md` → Procedimiento completo de scraping: URLs, curl/Python, estructura nombres PDF, pitfalls
 - `references/ciaf-data-architecture-2026.md` → Arquitectura completa CIAF: inventario 277 informes, 3 eras de formato, JSON particionado, relaciones entidades, diseño del visor
 - `references/data-enrichment-merging.md` → Patrón de enriquecimiento/fusión de datasets: emparejamiento por expediente, fusión selectiva, geocodificación batch con DB local
@@ -762,6 +878,41 @@ Procedimiento sistemático de 6 fases:
 - **Patrón de estimación:** precios base por provincia + multiplicadores intra-provincia
 - **ArcGIS FeatureServer pitfall:** `outSR=4326` → attributes X/Y NULL, usar `f.geometry.x/y`
 - Referencias internas: `references/blocked-sources-checklist.md`, `references/ine-rest-api-working.md`, `references/spanish-housing-province-prices-2024.md`
+
+### Catálogo completo de APIs de datos abiertos españolas (NUEVO 2026-06-30)
+
+**Referencia detallada:** `references/spanish-open-data-api-catalog.md`
+
+Catálogo de 35+ fuentes mapeadas desde DatoAsturias.com. Incluye endpoints exactos, estructuras de respuesta, código de parseo y pitfalls.
+
+**Fuentes más valiosas para dashboards regionales:**
+1. **BOE/BORME** (registro mercantil) — API pública sin key, XML estructurado, 52 provincias. Código de parseo en la referencia.
+2. **AEMET** — API con key gratuita + XML público sin key
+3. **INE** — REST API sin key (paro, salarios, población, pensiones)
+4. **ESIOS/REE** — energía eléctrica (ver skill `esios-complete`)
+5. **Puertos del Estado** — oleaje y temperatura marina
+6. **SAIH** — embalses (cada confederación hidrográfica)
+7. **IGN** — terremotos (JSON público)
+8. **DGT** — tráfico (JSON oculto)
+9. **BDNS** — subvenciones (API pública)
+10. **Copernicus** — datos satelitales europeos
+
+**Patrón de descubrimiento de APIs** (verificado 2026-06-30):
+Cuando se analiza un sitio web gubernamental para descubrir sus fuentes de datos:
+1. Abrir DevTools → pestaña Network → filtrar por XHR/Fetch
+2. Navegar por las secciones del sitio
+3. Cada llamada a `/api/...` revela un endpoint de datos
+4. Inspeccionar la respuesta JSON para entender la estructura
+5. Buscar campos `source`, `sourceUrl` que indican la fuente original
+6. Verificar si la fuente original tiene API pública
+
+```javascript
+// Script rápido para mapear APIs de un sitio:
+const entries = performance.getEntriesByType('resource')
+  .filter(e => e.initiatorType === 'fetch' || e.initiatorType === 'xmlhttprequest')
+  .map(e => new URL(e.name).searchParams.get('action') || e.name);
+console.log(entries);
+```
 
 ## Embedded JSON Extraction — Parsear JSON desde Archivos de Código (absorbido de `embedded-json-extraction`)
 

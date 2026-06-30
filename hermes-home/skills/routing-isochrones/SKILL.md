@@ -1089,6 +1089,7 @@ polygon = MultiPoint([(n['x'], n['y']) for n in reachable_nodes]).convex_hull
 - `references/session-2026-06-19.md` — TimeIneco sesión: SHP in-browser, html2canvas map capture, NAP city detection, sea clipping
 - `references/gtfs-compact-cache.md` — Patrón GTFS compact cache: JSON pre-procesado, auto-load por ciudad, endpoint servidor, renderizado en mapa
 - `references/local-routing-engines.md` — Comparativa de motores de routing locales (Valhalla, OSMnx, OSRM, pgRouting) para isócronas sin API externa. Setup Docker, scripts Python, arquitectura propuesta.
+- `references/mitma-opendata-movilidad.md` — Open Data Movilidad MITMA: bucket S3 con matrices OD diarias (2022-hoy), rutas por carretera, zonificación shapefiles. Técnica de exploración S3 con curl, formato pipe-delimited, integración con TimeIneco/GBFSSpain.
 
 ## Isochrone Routing Tools — Absorbido desde `isochrone-routing-tools`
 

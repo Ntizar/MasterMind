@@ -101,6 +101,60 @@ git push origin main
 - **No añadir scripts externos** sin verificar que el CDN es fiable
 - **El browser tool de Hermes tiene cache agresivo** — si los cambios no se ven, navegar con `?t=<timestamp>`
 
+## ⚠️ CRÍTICO: No Romper al Mejorar (Lección DataHub 2026-06-30)
+
+**Señal de usuario:** *"creo que no estás planteando el crecimiento de la herramienta sin romper cosas"*
+
+Cuando el usuario pide "mejorar" un dashboard existente, el instinto es hacer todo junto: quitar código, añadir APIs, cambiar diseño. **Esto rompe todo.** El flujo seguro es:
+
+### 1. DIAGNÓSTICO ANTES DE TOCAR NADA
+```bash
+# Verificar estado actual
+curl -s "https://url-del-proyecto/" > /tmp/before.html
+# Contar líneas, verificar APIs
+curl -s "https://api-ejemplo.com/data" -H "Accept: application/json" | head -5
+# Verificar sintaxis JS actual
+node --check extracted.js  # o buscar con python
+```
+
+### 2. CAMBIOS INCREMENTALES (1 cosa a la vez)
+- **Primero:** solo fix de bugs (APIs rotas)
+- **Segundo:** solo limpieza (quitar código muerto)
+- **Tercero:** solo features nuevas
+- **NUNCA** hacer los 3 en el mismo commit
+
+### 3. VERIFICAR DESPUÉS DE CADA CAMBIO
+```bash
+# Después de cada patch:
+python3 -c "
+with open('index.html') as f:
+    c = f.read()
+opens = c.count('{'); closes = c.count('}')
+print(f'Braces: {opens} open, {closes} close, diff={opens-closes}')
+"
+# Si diff != 0, HAY UN ERROR — parar y arreglar
+```
+
+### Patrón de error común: Braces huérfanos al eliminar código
+
+Cuando eliminas un bloque de JS (como una función + event listeners), si no eliminas TODOS los `});` de cierre, el script entero deja de ejecutarse silenciosamente — sin errores en consola, solo KPIs vacíos.
+
+```javascript
+// ANTES (funciona)
+searchInput.addEventListener('focus', () => {  // ← abre {
+    if (searchInput.value.length >= 2) {       // ← abre {
+        searchResults.classList.add('show');    // ← cierra }
+    }                                            // ← cierra }
+});                                              // ← cierra addEventListener
+
+// DESPUÉS (ROTO — quedó un }); huérfano)
+// (código eliminado)
+    });  // ← ¡ESTE SE QUEDÓ! ← Error silencioso
+
+// VERIFICACIÓN: buscar }; huérfanos después de edits
+grep -n '^\s*});' index.html | tail -5
+```
+
 ## Referencias
 
 - `frontend-dashboard-patterns` — Patrones generales de dashboards frontend

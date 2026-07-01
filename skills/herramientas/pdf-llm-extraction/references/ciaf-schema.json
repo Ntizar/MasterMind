@@ -1,0 +1,76 @@
+{
+  "id_informe": {
+    "type": "string",
+    "description": "ID único del informe (ej: IF-64-2024)",
+    "required": true
+  },
+  "fecha_suceso": {
+    "type": "date",
+    "description": "Fecha del suceso en formato ISO (YYYY-MM-DD)",
+    "required": true
+  },
+  "tipo_suceso": {
+    "type": "string",
+    "description": "Tipo de suceso (ej: incidente, accidente)",
+    "required": true
+  },
+  "ubicacion": {
+    "type": "object",
+    "description": "Ubicación del suceso con estación, municipio, provincia y coordenadas",
+    "properties": {
+      "estacion": {"type": "string"},
+      "municipio": {"type": "string"},
+      "provincia": {"type": "string"},
+      "coordenadas": {"type": "object", "properties": {"lat": {"type": "number"}, "lon": {"type": "number"}}}
+    },
+    "required": true
+  },
+  "tren": {
+    "type": "string",
+    "description": "Identificación del tren (ej: 7931, 8446, 31204)",
+    "required": true
+  },
+  "conclusiones": {
+    "type": "array",
+    "description": "Lista de conclusiones del informe (texto literal del documento)",
+    "items": {"type": "string"},
+    "required": true
+  },
+  "recomendaciones": {
+    "type": "array",
+    "description": "Lista de recomendaciones del informe (texto literal del documento)",
+    "items": {"type": "string"},
+    "required": true
+  },
+  "victimas": {
+    "type": "object",
+    "description": "Número de víctimas por categoría",
+    "properties": {
+      "muertos": {"type": "number"},
+      "heridos_graves": {"type": "number"},
+      "heridos_leves": {"type": "number"}
+    },
+    "required": false
+  },
+  "entidades": {
+    "type": "array",
+    "description": "Entidades involucradas (operadores, infraestructura)",
+    "items": {"type": "string"},
+    "required": false
+  },
+  "texto_original": {
+    "type": "string",
+    "description": "Texto completo extraído del PDF (para referencia)",
+    "required": false
+  },
+  "metadatos": {
+    "type": "object",
+    "description": "Metadatos del PDF (autor, productor, fechas)",
+    "properties": {
+      "autor": {"type": "string"},
+      "productor": {"type": "string"},
+      "fecha_creacion": {"type": "date"}
+    },
+    "required": false
+  }
+}

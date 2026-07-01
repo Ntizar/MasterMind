@@ -4,6 +4,36 @@ Todos los cambios notables de este proyecto se documentan aquí.
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es/1.1.0/) y el proyecto usa [Semantic Versioning](https://semver.org/lang/es/).
 
+## [4.1.0] — 2026-07-01
+
+### 🏗️ Arquitectura
+- **ChromaDB operativo** con 240 skills indexados semánticamente vía qwen3-embedding
+- **Búsqueda semántica** — consultar-skills.py genera embedding de la consulta y busca por similitud coseno
+- **Indexación automática** — indexar-skills.py corre cada domingo 04:00 UTC vía cron Hermes
+- **Threshold 0.25** — filtro de relevancia para evitar ruido en contexto
+
+### 🔄 Scripts del sistema
+- **`consultar-skills.py`** — Búsqueda semántica en ChromaDB con query embedding y ranking por coseno
+- **`indexar-skills.py`** — Indexación batch de todos los SKILL.md, embeddings vía NaN API, lotes de 10
+- **`skill-lifecycle.py`** — Analiza uso real vía git log + notas (30 días), re-clasifica en HIGH/MEDIUM/LOW
+- **`skill-learning.sh`** — Cola priorizada de ~120 skills del hub Hermes, instala 1 por ejecución
+- **`backup-hermes-memory.sh`** — Backup con push automático a GitHub (descomentado)
+
+### 📚 Documentación
+- **README.md** reescrito — refleja la realidad: 240 skills, ChromaDB, Mastermind, sin marketing "framework open-source"
+- **AGENTS.md** actualizado — flujo real con búsqueda semántica, 240 skills, cron jobs activos
+- **Nuevo HTML explicativo** — ntizar-brain-mastermind-explained.html con diseño Aurora
+
+### 🐛 Fixes
+- **backup-hermes-memory.sh** — `git push` descomentado (antes solo commit, nunca subía a GitHub)
+- **Directorios faltantes** — `learning/` y `config/` creados (skill-lifecycle.py escribía a rutas que no existían)
+- **README decía "143 skills"** — corregido a 240
+- **README decía "Koldo"** — corregido a Mastermind
+- **README decía "framework open-source"** — corregido a sistema personal
+
+### 🤖 Cron Jobs Hermes (10 activos)
+- Verificados y documentados en AGENTS.md
+
 ## [4.0.3] — 2026-06-04
 
 ### ✨ Añadido
@@ -131,6 +161,6 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es/1.1.0/) y el p
 ---
 
 **Autor:** David Antizar
-**Versión:** 4.0.0
-**Fecha:** 2026-06-04
-**Stack:** Hermes Agent + NaN.builders + GitHub
+**Versión:** 4.1.0
+**Fecha:** 2026-07-01
+**Stack:** Hermes Agent + NaN.builders + GitHub + ChromaDB

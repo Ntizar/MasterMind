@@ -1,174 +1,126 @@
-<h1 align="center">Ntizar Mastermind</h1>
+<h1 align="center">NtizarBrainMasterMind</h1>
 
 <p align="center">
-  <strong>Un framework open-source de orquestación multi-agente con memoria persistente,<br>skills especializados y ejecución en la nube.</strong>
+  <strong>Mi agente IA personal con memoria persistente,<br>búsqueda semántica de skills y backup en GitHub.</strong>
 </p>
 
 <p align="center">
   <a href="https://ntizar.github.io/NtizarBrainMasterMind/">🌐 Web</a> ·
-  <a href="#inicio-rápido">Inicio Rápido</a> ·
-  <a href="#roadmap">Roadmap</a> ·
+  <a href="#cómo-funciona">Cómo funciona</a> ·
+  <a href="#stack">Stack</a> ·
   <a href="README_EN.md">English</a>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-4.0-blue?style=flat-square" alt="Version 4.0"/>
-  <img src="https://img.shields.io/badge/orquestador-1-purple?style=flat-square" alt="1 Orquestador"/>
-  <img src="https://img.shields.io/badge/skills-143-orange?style=flat-square" alt="143 Skills"/>
-  <img src="https://img.shields.io/badge/plataformas-Hermes+GitHub-green?style=flat-square" alt="Hermes + GitHub"/>
-  <img src="https://img.shields.io/badge/licencia-MIT-lightgrey?style=flat-square" alt="MIT License"/>
+  <img src="https://img.shields.io/badge/version-4.1-blue?style=flat-square" alt="Version 4.1"/>
+  <img src="https://img.shields.io/badge/skills-240-orange?style=flat-square" alt="240 Skills"/>
+  <img src="https://img.shields.io/badge/búsqueda-ChromaDB-purple?style=flat-square" alt="ChromaDB"/>
+  <img src="https://img.shields.io/badge/agente-Mastermind-green?style=flat-square" alt="Mastermind Agent"/>
 </p>
 
 ---
 
-## Tu IA que realmente recuerda
+## Qué es (y qué no es)
 
-Usas IA todos los días. Copias y pegas contexto. Re-explicas tu proyecto. Pierdes aprendizajes entre sesiones.
+**Esto no es un framework open-source.** No es un producto que puedas clonar y ejecutar. Es mi **sistema personal de agente IA** — una configuración muy específica de Hermes Agent + NaN.builders + ChromaDB + GitHub que he construido para mí.
 
-**¿Y si tu IA tuviera cerebro?**
-
-No un chatbot. No un solo prompt. Un sistema estructurado, con un orquestador inteligente, 143 skills especializados y memoria persistente.
-
-**Diseñado para la comunidad nan.builders** — ejecutándose en Hermes Agent sobre NaN.builders con GitHub como repositorio.
+Lo que sí es: una arquitectura de referencia de cómo un agente IA puede aprender de cada tarea, indexar su conocimiento en una base de datos vectorial, y persistir todo en GitHub.
 
 ---
 
-## ¿Qué es Ntizar Mastermind?
-
-Ntizar Mastermind es un **framework de orquestación multi-agente** que usa **Hermes Agent** como motor de ejecución y **GitHub** como fuente de verdad.
+## Cómo funciona
 
 ```
-Tu das una tarea
-    │
-    ▼
-Koldo (orquestador) la clasifica (dominio + complejidad)
-    │
-    ▼
-Carga los skills especializados del dominio relevante
-    │
-    ▼
-Cada skill ejecuta con conocimiento profundo de su dominio
-    │
-    ▼
-Koldo integra, verifica y presenta el resultado
-    │
-    ▼
-La siguiente sesión empieza más inteligente, no desde cero
+Tarea de David
+       │
+       ▼
+Mastermind (agente qwen3.6 en NaN.builders)
+       │
+       ├── 1. Consulta ChromaDB (búsqueda semántica)
+       │     └── consultar-skills.py "palabras clave" --json
+       │
+       ├── 2. Filtra skills con score > 0.25
+       │     └── Carga solo los relevantes con skill_view()
+       │
+       ├── 3. Ejecuta la tarea
+       │     └── Terminal, browser, file, delegate_task
+       │
+       └── 4. Aprendizaje continuo
+             ├── ¿Merece skill? → skill_manage(create)
+             ├── ¿Merece nota? → notes/YYYY-MM-DD-titulo.md
+             └── ¿Merece memoria? → memory(add)
 ```
 
-### Comparativa rápida
+### Las 3 capas de conocimiento
 
-| Característica | v3.1 (Legacy) | **v4.0 (Actual)** |
-|---|---|---|
-| Plataforma | OpenCode + Obsidian | **Hermes Agent + GitHub** |
-| Agentes | 11 agentes genéricos | **1 orquestador + 143 skills especializados** |
-| Modelos | Multi-modelo manual | **Modelo único (qwen3.6)** |
-| Memoria | Ebbinghaus decay manual | **`memory` + `session_search` nativo** |
-| Skills | 15 skills propios | **143 skills Hermes (carga bajo demanda)** |
-| Deploy | GitHub Pages | **NaN.builders + GitHub Pages** |
+| Capa | Dónde vive | Qué guarda | Persistencia |
+|------|-----------|------------|-------------|
+| 🧠 **Memoria Hermes** | `/hermes-home/memories/` | Preferencias, entorno, lecciones | Inyectada en cada turno |
+| 📚 **Skills** | `/hermes-home/skills/` | 240 procedimientos reutilizables | Carga bajo demanda vía ChromaDB |
+| 🔒 **Repo GitHub** | `NtizarBrainMasterMind` | Backup completo de todo | Push cada 6h (automático) |
 
-→ Detalles de arquitectura, niveles de ejecución y dominios → **[SOUL.md](SOUL.md)** | **[AGENTS.md](AGENTS.md)**
+### Búsqueda semántica (ChromaDB)
+
+El sistema no carga skills por nombre — busca por **significado**:
+
+1. Cada `SKILL.md` se convierte en un vector con `qwen3-embedding`
+2. Los 240 vectores se indexan en ChromaDB (localhost:8000, colección `mastermind-skills`)
+3. Cuando llega una petición, se genera su embedding y se buscan los skills más cercanos por similitud coseno
+4. Solo los que superan threshold 0.25 se cargan en contexto
+
+**Sin límite arbitrario:** si 50 skills son relevantes, se cargan los 50.
 
 ---
 
-## Inicio Rápido
+## Stack
 
-### Prerrequisitos
-
-- [GitHub](https://github.com) (repositorio)
-- [Hermes Agent](https://hermes-agent.nousresearch.com) (framework de agentes)
-- Una cuenta en [NaN.builders](https://nan.builders) (VM en la nube)
-- API key de un modelo de IA (qwen3.6 o deepseek-v4-flash)
-
-### Instalación
-
-```bash
-# 1. Clonar
-git clone https://github.com/Ntizar/NtizarBrainMasterMind.git
-cd NtizarBrainMasterMind
-
-# 2. Configurar API keys en .env
-
-# 3. Iniciar con Hermes
-hermes
-
-# 4. Koldo (orquestador) se encarga del resto
-```
-
-### Primera tarea
-
-```bash
-# Una vez arrancado, simplemente dale una tarea:
-"Crea una landing page para mi portfolio con modo oscuro"
-```
-
-El orquestador clasificará, cargará los skills necesarios y ejecutará el pipeline completo.
+| Componente | Qué es |
+|-----------|--------|
+| **Modelo** | qwen3.6 vía NaN API (api.nan.builders/v1) |
+| **Infra** | MicroVM 1vCPU / 2GB / 20GB — NaN.builders |
+| **Agente** | Hermes Agent — max_turns: 90, delegación: 3 subagentes |
+| **Vector DB** | ChromaDB v2 — colección mastermind-skills |
+| **Embeddings** | qwen3-embedding — distancia coseno |
+| **GitHub** | Ntizar/NtizarBrainMasterMind — auth token HTTPS |
+| **TTS** | Edge TTS — voz es-ES-AlvaroNeural |
+| **STT** | Whisper local (modelo base) |
+| **Cron** | 10 jobs Hermes (backup, ESIOS, deep learning, stars, re-index) |
+| **Idioma** | Español — todo el sistema |
 
 ---
 
-## Plataformas
+## Scripts del sistema
 
-### NaN.builders — Ejecución en la nube
-
-- **VM permanente** con 1vCPU/2GB/20GB
-- **Modelos:** qwen3.6, deepseek-v4-flash, Gemma4
-- **Coste:** ~$0.50/1M tokens
-- **Acceso móvil:** Telegram + WebUI
-
-### GitHub — Repositorio y web
-
-- **Código fuente** y documentación
-- **GitHub Pages** para la landing
-- **GitHub Actions** para deploy automático
-
----
-
-## Token Tracking
-
-El sistema rastrea el consumo de tokens en cada sesión:
-
-| Métrica | Valor |
-|---------|-------|
-| **Log** | `tokens/tokens-log.json` |
-| **Dashboard** | `tokens/index.html` |
-| **Skill** | `/hermes-home/skills/koldo/token-tracking/` |
-| **Precio qwen3.6** | $0.50/1M tokens (input+output) |
+| Script | Función |
+|--------|---------|
+| `consultar-skills.py` | Búsqueda semántica en ChromaDB |
+| `indexar-skills.py` | Indexa todos los SKILL.md en ChromaDB |
+| `skill-lifecycle.py` | Analiza uso real (git + notas) y re-clasifica skills |
+| `skill-learning.sh` | Instala 1 skill del hub Hermes cada ejecución |
+| `backup-hermes-memory.sh` | Backup de memoria al repo GitHub |
+| `start-chromadb.sh` | Auto-start de ChromaDB |
+| `explorar-stars.py` | Explora stars de GitHub y genera skills |
+| `ebbinghaus-decay.py` | Repaso espaciado (curva de olvido) |
 
 ---
 
 ## Roadmap
 
-### v4.0 actual (Junio 2026)
-- [x] Migración a Hermes Agent + GitHub
-- [x] 1 orquestador + 143 skills especializados
-- [x] Token tracking con dashboard dinámico
-- [x] SOUL.md unificado como fuente de verdad
-- [x] Legacy v3.1 archivado en `legacy/`
-- [x] Landing page completa con Aurora Design System
-- [x] Auditoría y corrección de todos los hallazgos
+### v4.1 (actual — Julio 2026)
+- [x] ChromaDB operativo con 240 skills indexados
+- [x] Búsqueda semántica por similitud coseno
+- [x] Cron jobs reales vía Hermes (10 jobs activos)
+- [x] Backup automático a GitHub cada 6h
+- [x] Re-indexación semanal de ChromaDB
+- [x] Aprendizaje continuo post-tarea
+- [ ] Push automático a GitHub en backup
+- [ ] Ejecución regular del lifecycle analysis
+- [ ] Smart threshold dinámico para ChromaDB
 
-### v4.1 (Próximo)
+### v4.2 (próximo)
 - [ ] Más skills de dominio específico
-- [ ] Informes semanales de token usage automatizados
-- [ ] Optimización de contexto para reducir costes
-
-### v5.0 (Futuro)
-- [ ] Multi-usuario con compartición de skills
-- [ ] Marketplace de skills
-- [ ] Editor visual de flujos
-- [ ] Suite de benchmarks
-
----
-
-## Contribuir
-
-Las contribuciones son bienvenidas. Ver [CONTRIBUTING.md](CONTRIBUTING.md).
-
-Áreas abiertas:
-- 🧩 **Nuevos skills** — playbooks para tu dominio
-- ⚡ **Optimización** — mejores prompts, flujos más inteligentes
-- 🌐 **Documentación** — tutoriales, guías, videos
-- 🧪 **Testing** — benchmarks y métricas de calidad
+- [ ] Informes semanales de token usage
+- [ ] Optimización de contexto
 
 ---
 
@@ -176,12 +128,10 @@ Las contribuciones son bienvenidas. Ver [CONTRIBUTING.md](CONTRIBUTING.md).
 
 MIT License — ver [LICENSE](LICENSE).
 
-Usa este sistema, fórzalo, mejóralo. Si te ahorra tiempo, pásalo.
-
 ---
 
 <p align="center">
   Hecho con <span style="color: #f97316;">❤️</span> por <strong><a href="https://github.com/Ntizar">David Antizar</a></strong>
   <br/>
-  <sub>Ntizar Mastermind — porque un mastermind no es un solo genio, sino un grupo de mentes especializadas trabajando juntas.</sub>
+  <sub>Mastermind es mi ejecutor, yo soy el autor.</sub>
 </p>

@@ -36,5 +36,5 @@ else
     git commit -m "auto: backup $(date +%Y-%m-%d)" 2>/dev/null || true
     echo "✓ Backup commit: $(date +%Y-%m-%d)"
     # No hacemos push automático para evitar conflictos
-    # git push origin main 2>/dev/null || echo "⚠ Push fallido"
+    git push origin main 2>/dev/null || echo "⚠ Push fallido"
 fi

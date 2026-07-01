@@ -1,51 +1,93 @@
-# Ntizar Mastermind v4.0 — Referencia Rápida
+# NtizarBrainMasterMind v4.1 — Referencia Rápida
 
-> **Un orquestador (Koldo) + 143 skills especializados.**
-> Reglas completas y principios → **[SOUL.md](SOUL.md)**
+> **Agente Mastermind + 240 skills indexados semánticamente.**
+> Reglas completas → **[SOUL.md](SOUL.md)**
 
 ---
 
-## Flujo
+## Flujo real
 
 ```
 Tarea del usuario
        │
        ▼
-Koldo (orquestador)
-  ├── Clasifica → dominio + complejidad (1-4)
-  ├── Carga skills del dominio vía skill_view()
-  └── Decide nivel de ejecución
-        │
-        ▼
-  delegate_task → Subagente especializado
-        │
-        ▼
-  Koldo integra, verifica y presenta resultado
+Mastermind (agente qwen3.6)
+  ├── 1. Consulta ChromaDB → consultar-skills.py
+  ├── 2. Filtra score > 0.25
+  ├── 3. Carga skills con skill_view()
+  ├── 4. Decide nivel de ejecución (1-4)
+  │     ├── 🟢 Directo (1-3 tool calls)
+  │     ├── 🟡 Simple (4-8 tool calls)
+  │     ├── 🟠 Paralelo (delegate_task)
+  │     └── 🔴 Orquestación (multi-subagente)
+  ├── 5. Ejecuta y verifica
+  └── 6. Aprendizaje continuo
+        ├── ¿Skill nuevo? → skill_manage(create)
+        ├── ¿Nota? → notes/YYYY-MM-DD-titulo.md
+        └── ¿Memoria? → memory(add)
 ```
+
+## ChromaDB — Búsqueda semántica
+
+**240 skills indexados por significado, no por nombre.**
+
+```bash
+# Consultar skills relevantes
+cd /hermes-home/scripts && python3 consultar-skills.py "tu consulta" --json
+
+# Re-indexar todos los skills
+python3 indexar-skills.py [--reset]
+```
+
+- **URL:** localhost:8000
+- **Colección:** mastermind-skills
+- **Modelo:** qwen3-embedding (NaN API)
+- **Distancia:** coseno
+- **Threshold:** > 0.25
+- **Re-indexación:** domingo 04:00 UTC (cron)
 
 ## Niveles de Ejecución
 
-| Nivel | Tool Calls | Archivos | Cuándo usar |
-|-------|-----------|----------|-------------|
-| **🟢 1 — Directo** | 1-3 | 1-2 | Buscar, leer, commit |
-| **🟡 2 — Simple** | 4-8 | 3-5 | Refactor de módulo |
-| **🟠 3 — Paralelo** | 8+ | 5+ | Frontend + Backend + Tests |
-| **🔴 4 — Orquestación** | Completo | Multi-PR | Feature completa |
+| Nivel | Tool Calls | Cuándo |
+|-------|-----------|--------|
+| **🟢 1 — Directo** | 1-3 | Buscar, leer, commit |
+| **🟡 2 — Simple** | 4-8 | Refactor de módulo |
+| **🟠 3 — Paralelo** | 8+ | Frontend + Backend + Tests |
+| **🔴 4 — Orquestación** | Completo | Feature completa, multi-subagente |
 
 ## Skills por Dominio
 
 | Dominio | Skills | Cuándo |
 |---------|--------|--------|
-| 🔥 **Core** | 17 | TDD, debug, code review, refactor |
-| 📦 **GitHub** | 7 | PR workflow, issues, repo mgmt |
-| 📦 **Frontend** | 3 | Aurora CSS, dashboards |
-| 📦 **Backend** | 6 | APIs REST, ESM, fetch paralelo |
-| 📦 **Infra** | 6 | Docker, seguridad, cache, HTTP |
-| 📦 **DevOps** | 10 | Deploy NaN, cron jobs, pipelines |
-| 📦 **Data Science** | 8 | Simuladores, Monte Carlo |
-| 📦 **Creative** | 22 | Diagramas, ASCII, diseño |
+| 🔥 **Core** | ~17 | TDD, debug, code review, refactor |
+| 📦 **GitHub** | ~7 | PR workflow, issues, repo mgmt |
+| 📦 **Frontend** | ~3 | Aurora CSS, dashboards |
+| 📦 **Backend** | ~6 | APIs REST, ESM, fetch paralelo |
+| 📦 **Infra** | ~6 | Docker, seguridad, cache, HTTP |
+| 📦 **DevOps** | ~10 | Deploy NaN, cron jobs, pipelines |
+| 📦 **Data Science** | ~8 | Simuladores, Monte Carlo |
+| 📦 **Creative** | ~22 | Diagramas, ASCII, diseño |
+| 🧠 **Mastermind** | ~10 | Orquestación, ChromaDB, deploy, backup |
+| 📚 **STEM** | ~40 | Matemáticas, física, dibujo técnico, química, biología |
+| 🔬 **Visión/ML** | ~15 | Object detection, segmentación, video |
+| Otros | ~100 | MCP, salud, crypto, finanzas, media, geoespacial |
 
-> Skills nicho (LOW): 70 en categorías como visión, MLops, STEM, media. Solo si el usuario los pide.
+**Total: 240 skills** — cargados bajo demanda vía ChromaDB.
+
+## Cron Jobs Activos (10 jobs Hermes)
+
+| Job | Schedule | Estado |
+|-----|----------|--------|
+| `esios-daily-telegram` | 09:00 UTC | ✅ |
+| `BiciMad Tetuán` | L-Mi 06:30, 13:00 | ✅ |
+| `inventario-apis-procesar` | cada 30m | ✅ |
+| `inventario-apis-resumen-diario` | 22:00 UTC | ✅ |
+| `skill-maintenance` | día 1 cada mes | ✅ |
+| `deep-learning` | 03:00 UTC | ✅ |
+| `chromadb-reindex-semanal` | domingo 04:00 UTC | ✅ |
+| `skills-sync-to-github` | cada 6h | ✅ |
+| `stars-explorer-nocturno` | 03:00 UTC | ✅ |
+| `gtfsspain-update` | domingo 06:00 UTC | ⏸️ pausado |
 
 ## Human Loop
 
@@ -63,4 +105,4 @@ Koldo (orquestador)
 
 ---
 
-**Hecho con ❤️ por David Antizar** · **v4.0.2 — 2026-06-04**
+**Hecho con ❤️ por David Antizar** · **v4.1 — 2026-07-01**

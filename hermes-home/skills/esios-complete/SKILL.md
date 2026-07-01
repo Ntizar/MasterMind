@@ -44,6 +44,27 @@ tags: [esios, ree, energía, electricidad, deploy, telegram, api, nan]
 
 **Solución:** Sin truncar → datos cada 5 min (288 slots/día) → promediar los 12 valores de cada hora con `convertEsiosValue()`.
 
+### 🔥 Auth variable por indicador
+
+NO todos los indicadores requieren token. Algunos funcionan sin auth:
+
+| Indicador | Sin auth | Con auth |
+|---|---|---|
+| 1001 (PVPC) | ✅ 120 values | ✅ |
+| 600 (Pool OMIE) | ✅ 288 values | ✅ |
+| 1293 (Demanda real) | ❌ 403 | ✅ |
+| 1294 (Renovables) | ❌ 403 | ✅ |
+| 2052 (Demanda prevista) | ❌ 403 | ✅ |
+
+**Diagnóstico rápido:**
+```bash
+curl -s "https://api.esios.ree.es/indicators/ID" -H "Accept: application/json" | python3 -c "
+import json,sys; d=json.load(sys.stdin)
+if 'Status' in d: print(f'AUTH REQUIRED: {d[\"Status\"]}')
+else: print(f'OK: {len(d.get(\"indicator\",{}).get(\"values\",[]))} values')
+"
+```
+
 ### Endpoints del dashboard
 
 - `/api/esios/summary` — 24 slots horarios (promedio de 5 min)

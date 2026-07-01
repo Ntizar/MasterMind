@@ -1,4 +1,33 @@
-# DataHub España — Estado y Preferencias (2026-06-30)
+# DataHub España — Estado (2026-06-30 21:00 UTC)
+
+## Fix applied tonight
+- **fetchFloods → fetchFlood naming bug:** `fetchFloods()` was called in init() but only `fetchFlood` was defined. Caused ReferenceError that broke the Inundaciones tab. Fixed by renaming the call.
+
+## Overnight fix plan (8 cron jobs)
+7 waves of 5 tabs each + final audit, running 21:10-22:10 UTC.
+
+### Tabs to fix per wave
+1. Panel, Energía, Clima, Agua, Economía
+2. Ambiente (EMPTY), Catastro (EMPTY), Población, EconDet, CalidadAire
+3. Demografía, Puertos, Polen, Inundaciones, Suelo
+4. TempSuelo, GBFS, Nieve, Mar, UV
+5. Visibilidad, Ráfagas, Lluvia, Presión, Fuego
+6. Evapo, CAPE, Sol, Rocío, Radiación
+7. Térmica, Mareas, Eólica, Nubosidad, AireExt
+
+### Known issues per tab
+- **Panel:** PVPC=0.18 (corrupt), Población="—", UV="—"
+- **Ambiente:** Panel empty (renderParks exists but panel has no HTML)
+- **Catastro:** Panel empty (no content at all)
+- **Población:** Population KPI not loading
+- **Many tabs:** Missing city selectors, missing Chart.js charts
+
+## Previous status (v2.6)
+- 35 tab buttons, 35 panels
+- DOM balanced (1186 divs)
+- ~120 JS functions defined
+- Map with choropleth, parks, layer control
+- 12+ APIs integrated
 
 ## Estado Actual del Proyecto
 

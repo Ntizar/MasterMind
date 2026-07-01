@@ -46,8 +46,57 @@ DESCRIPCIÓN: [Qué muestra la pestaña]
 - **GitHub Pages CDN:** Los cambios no se ven inmediatamente. Hard refresh necesario.
 - **Merge conflicts:** Si dos crons intentan modificar el mismo archivo simultáneamente, falla. Los crons deben ser secuenciales, no paralelos.
 
+## Batch overnight pattern (35+ tabs)
+
+Cuando el dashboard ya tiene muchas pestañas pero necesitan FIX (no creación):
+
+### Estructura: 7 oleadas + auditoría
+- **7 oleadas** de 5 pestañas, espaciadas 8 min
+- **1 cron auditoría final** que verifica todo
+- Total: ~1h de ejecución autónoma
+
+### Empaquetar por categoría
+Empaquetar pestañas relacionadas en la misma oleada (ej: meteorológicas juntas, datos juntas).
+
+### Cron de auditoría final
+Verifica: DOM balance, funciones definidas vs llamadas, paneles con contenido, naming mismatches.
+
+### Prompt para cada oleada fix
+```
+Eres Mastermind arreglando el DataHub. MEJORAR 5 pestañas.
+REPO: /root/workspace/DataHubEspana, ARCHIVO: index.html
+
+#### A) [EMOJI] NOMBRE (tab-id)
+- Verificar función existente
+- Añadir/MEJORAR: charts, selectors, alertas, datos
+- API: endpoint
+
+### Verificar DOM:
+python3 -c "c=open('index.html').read();assert c.count('<div')==c.count('</div>'),'BROKEN';print('OK')"
+### Commit + push:
+cd /root/workspace/DataHubEspana && git add index.html && git commit -m "fix waveN: ..." && git push origin main
+
+REGLAS: NO romper. Solo AÑADIR. Cards sin border-left. Chart.js 4.4.4.
+```
+
+## Naming mismatch verification
+
+Antes de commitear, SIEMPRE verificar que todas las llamadas a funciones tienen definición:
+```bash
+grep -n 'fetchNOMBRE\|fetchNOMBRE[^s]' index.html
+# O más completo:
+python3 -c "
+import re; c=open('index.html').read()
+init=re.search(r'async function init\(\)\s*\{(.*?)\n    \}',c,re.DOTALL)
+calls=set(re.findall(r'(\w+)\(\)',init.group(1)))
+for f in calls:
+    if f not in ['now','sort','init','parseInt'] and f'function {f}' not in c:
+        print(f'❌ {f}() called but NOT defined')
+"
+```
+
 ## Ejemplo real: DataHub España (2026-06-30)
-- 20 cron jobs one-shot, espaciados 10 minutos
-- Cada uno añade una pestaña con API de Open-Meteo
-- Total: 16→36 pestañas en ~3 horas
-- APIs: snow, marine, UV, visibility, wind gusts, precipitation, cloud cover, pressure, fire index, ET0, CAPE, sunshine, dew point, soil, radiation, apparent temp, air quality extended, tides, wind energy
+- **Creación:** 20 cron jobs one-shot, espaciados 10 minutos → 16→36 pestañas en ~3 horas
+- **Fix nocturno:** 7 oleadas de 5 pestañas + auditoría final → 35 pestañas mejoradas en ~1h
+- APIs: Open-Meteo (weather/marine/air-quality/flood/soil/pollen), INE, ESIOS, USGS
+- Design: cards sin border-left, gradientes sutiles, hover elevación (David rechazó liquid glass y border-left)

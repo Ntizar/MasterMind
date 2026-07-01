@@ -52,3 +52,27 @@ Si ves `<strong>` o `<em>` como texto plano en el navegador:
 1. Busca `escapeHtml` o `textContent` en la cadena de rendering
 2. Verifica que `escapeHtml` se aplica SOLO al contenido raw, no al HTML construido
 3. Si usas `textContent` en vez de `innerHTML`, las tags nunca se renderizan — cámbialo
+
+## El pitfall del `setTxt` utility
+
+Muchos dashboards definen una función helper como:
+```javascript
+const setTxt = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+};
+```
+
+Esto funciona para datos simples (números, texto), pero **escapa HTML silenciosamente**. Si construyes HTML con `<div>`, `<span>`, etc. y lo pasas por `setTxt`, se muestra como texto crudo.
+
+```javascript
+// ❌ MAL — el HTML se muestra como texto
+const html = `<div style="display:flex;">${name}</div>`;
+setTxt('tab-summary', html);  // Muestra: <div style="display:flex;">Energía</div>
+
+// ✅ BIEN — usar innerHTML directamente
+const el = document.getElementById('tab-summary');
+if (el) el.innerHTML = html;
+```
+
+**Regla:** Si el contenido contiene tags HTML, NUNCA usar `setTxt`/`textContent`. Usar `innerHTML` directamente.

@@ -370,25 +370,33 @@ Ver `references/frontend-data-trace-audit.md` para caso real CIAF-visor (330 MB 
 
 ## Audit de Skills del Ecosistema
 
-Cuando el usuario pide auditar el ecosistema de skills (detectar duplicados, project-readmes, CLI wrappers, skills sin tags), usar el patrón `skill-audit-pattern` como subsección:
+Cuando el usuario pide auditar el ecosistema de skills (detectar duplicados, project-readmes, CLI wrappers, skills sin tags), seguir este procedimiento integrado:
 
 ### Pasos
-1. **Inventario**: contar skills, verificar frontmatter (version, description, tags)
-2. **Detectar project-readmes**: skills con rutas absolutas de proyecto (>5 rutas = project-readme)
-3. **Detectar CLI wrappers**: skills con >3 comandos curl y <5KB
-4. **Detectar duplicados**: comparar nombres y descripciones entre hermes-home y repo
+1. **Inventario**: `find /hermes-home/skills/ -name 'SKILL.md'` — contar total, parsear frontmatter (version, description, tags)
+2. **Detectar project-readmes**: skills con >5 rutas absolutas (`/hermes-home/...` o `/root/workspace/...`) = project-readme
+3. **Detectar CLI wrappers**: skills con >3 comandos `curl` y <5KB
+4. **Detectar duplicados**: comparar nombres (misma carpeta padre) y descripciones normalizadas (lowercase, strip punctuation)
 5. **Detectar skills >30KB**: deberían usar refs pattern
-6. **Generar informe**: resumen con hallazgos categorizados por severidad
+6. **Verificar index.json**: comparar `total_skills` del índice con conteo real en disco — si delta > 5, está stale
+7. **Verificar quarantine**: items >7 días en `.hub/quarantine/` = cleanup necesario
+8. **Generar informe**: resumen con hallazgos categorizados por severidad
 
 ### Criterios de limpieza
-- **Eliminar**: project-readmes, CLI wrappers, duplicados
-- **Fusionar**: skills que cubren lo mismo
+- **Eliminar**: project-readmes, CLI wrappers, duplicados, quarantine stale
+- **Fusionar**: skills que cubren lo mismo (comparar descripciones normalizadas)
 - **Refactorizar**: skills >30KB → usar refs pattern
+- **Mantener**: directory-level SKILL.md que contienen patrones de diseño tienen valor
 
 ### Pitfalls
-- Subagentes fallan silenciosamente en `terminal rm` — siempre verificar post-ejecución
-- `/hermes-home/skills` ≠ `/root/workspace/Mastermind/skills` — siempre sync después
-- No todos los project-readmes son malos — los que contienen patrones de diseño tienen valor educativo
+- **Subagentes fallan silenciosamente en `terminal rm`** — siempre verificar post-ejecución
+- **`/hermes-home/skills` ≠ `/root/workspace/Mastermind/skills`** — siempre sync después
+- **No todos los project-readmes son malos** — los que contienen patrones de diseño tienen valor educativo
+- **Index.json puede estar muy stale** — el delta entre index y disco real puede ser 50+ skills. Regenerar siempre antes de confiar en métricas del índice
+- **Quarantine items se acumulan** — `fastmcp` se quedó 21 días en cuarentena. Limpiar >7 días
+- **`generate-skill-index.sh` puede no existir** — el script referenced en la documentación puede faltar. Generar índice manualmente con Python si es necesario
+- **Los tags manuales son opcionales pero recomendados** — skills sin tags manuales reciben auto-tags `[categoria, nombre]` que son poco útiles para ChromaDB
+- **No confundir duplicado de nombre con duplicado de contenido** — dos skills con el mismo nombre pueden tener contenido diferente (ej: `static-digest-pipeline` en `frontend-dashboard-patterns/` vs `devops/`)
 
 ## Referencias
 

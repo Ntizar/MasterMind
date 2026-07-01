@@ -67,9 +67,66 @@ SOLUCIÓN:
 6. git commit -m "fix: NOMBRE — mejoras" && git push
 ```
 
+## Batch overnight pattern (35+ tabs)
+
+Para arreglar un dashboard grande de forma nocturna:
+
+### Estructura: 7 oleadas + auditoría
+- **7 oleadas** de 5 pestañas, espaciadas 8 min (21:10 → 21:58 UTC)
+- **1 cron auditoría final** a los 12 min de la última oleada
+- Total: ~1h de ejecución autónoma
+
+### Empaquetar pestañas relacionadas
+| Oleada | Categoría | Pestañas |
+|--------|-----------|----------|
+| 1 | Core | Panel, Energía, Clima, Agua, Economía |
+| 2 | Datos base | Ambiente, Catastro, Población, EconDet, CalidadAire |
+| 3 | Geodatos | Demografía, Puertos, Polen, Inundaciones, Suelo |
+| 4 | Meteorología A | TempSuelo, GBFS, Nieve, Mar, UV |
+| 5 | Meteorología B | Visibilidad, Ráfagas, Lluvia, Presión, Fuego |
+| 6 | Especializados | Evapo, CAPE, Sol, Rocío, Radiación |
+| 7 | Resto | Térmica, Mareas, Eólica, Nubosidad, AireExt |
+
+### Cron de auditoría final
+```
+Eres Mastermind haciendo la auditoría final del DataHub después de las oleadas.
+
+1. Verificar DOM balance (python3: opens == closes)
+2. Verificar que cada init() call tiene función definida
+3. Verificar que cada panel tiene contenido (>500 bytes)
+4. Buscar bugs: naming mismatches, });
+5. Generar informe: X/35 funcionales, X con gráficos, X con selectores
+6. Si hay bugs críticos, arreglarlos y commitear
+```
+
+### Prompt template para cada oleada
+```
+Eres Mastermind arreglando el DataHub. MEJORAR 5 pestañas.
+
+REPO: /root/workspace/DataHubEspana, ARCHIVO: index.html
+
+## Fixear estas 5 pestañas:
+#### A) [EMOJI] NOMBRE (tab-id)
+- Verificar función existente
+- API: endpoint
+- KPIs: lista
+- Gráficos: Chart.js en canvas existente
+- Selector de ciudad (8 ciudades)
+
+### Verificar DOM:
+python3 -c "c=open('index.html').read();assert c.count('<div')==c.count('</div>'),'BROKEN';print('OK')"
+
+### Commit + push:
+cd /root/workspace/DataHubEspana && git add index.html && git commit -m "fix waveN: ..." && git push origin main
+
+REGLAS: NO romper. Solo AÑADIR. Cards sin border-left. Chart.js 4.4.4. Resumen al final.
+```
+
 ## Lecciones
-- **Spacing 10 min:** GitHub Pages necesita ~2-5 min para desplegar. 10 min da margen.
+- **Spacing 8-10 min:** GitHub Pages necesita ~2-5 min para desplegar. 8 min da margen sin ser lento.
 - **git pull al inicio:** Siempre pull antes de modificar para evitar conflictos.
-- **DOM balance = -1:** Verificar SIEMPRE después de añadir HTML.
-- **Commits incrementales:** Un commit por feature, no todo junto.
+- **DOM balance = 0:** Verificar SIEMPRE después de añadir HTML (opens == closes).
+- **Commits incrementales:** Un commit por oleada, no todo junto.
 - **Session fresca:** Cada cron no tiene contexto de los anteriores. Todo debe ser autocontenido.
+- **Auditoría final:** Siempre terminar con un cron que verifique TODO y genere informe.
+- **Naming mismatch:** Antes de commitear, verificar que todas las llamadas a funciones tienen definición correspondiente.

@@ -1,3006 +1,591 @@
 {
-  "version": "1.0.0",
-  "generated": "2026-06-03T07:51:11.687530+00:00",
-  "total_skills": 143,
+  "total_skills": 238,
+  "generated_at": "2026-07-01T00:00:00Z",
   "categories": {
-    "mcp": [
-      "native-mcp"
-    ],
-    "github-workflow": [
-      "github-workflow"
-    ],
-    "autonomous-ai-agents": [
-      "hermes-agent",
-      "codex",
-      "opencode",
-      "claude-code"
-    ],
-    "ia": [
-      "agent-memory"
-    ],
-    "mlops": [
-      "weights-and-biases",
-      "evaluating-llms-harness",
-      "serializable-ml-models",
-      "serving-llms-vllm",
-      "obliteratus",
-      "segment-anything-model",
-      "audiocraft-audio-generation",
-      "mlx-vlm-inference",
-      "dspy"
-    ],
-    "devops-operations": [
-      "devops-operations"
-    ],
-    "frontend-dashboard-patterns": [
-      "frontend-dashboard-patterns",
-      "aurora-design-system",
-      "static-digest-pipeline"
-    ],
-    "esios": [
-      "esios-indicators-correct",
-      "esios-nan-deploy",
-      "esios-telegram-report"
-    ],
-    "productivity": [
-      "apple-calendar",
-      "yuanbao"
-    ],
-    "skill-audit-pattern": [
-      "skill-audit-pattern"
-    ],
-    "media": [
-      "heartmula",
-      "voice-ai-landscape",
-      "songsee",
-      "youtube-content",
-      "voicebox",
-      "tts-setup"
-    ],
-    "pydantic": [
-      "pydantic-ai"
-    ],
-    "vision": [
-      "satellite-traffic-detection",
-      "satellite-gis-patterns",
-      "onnx-webgpu-inference",
-      "satellite-ai-vision"
-    ],
-    "red-teaming": [
-      "godmode"
-    ],
-    "testing": [
-      "testing-jest-mocks-api"
-    ],
-    "multi-agent": [
-      "orca-multi-agent-ide",
-      "canvas-workflow-protocol",
-      "kdense-scientific-skills-pattern",
-      "mastermind-multi-agent-orchestration"
-    ],
-    "apple": [
-      "apple-notes",
-      "imessage",
-      "macos-computer-use",
-      "findmy",
-      "apple-reminders"
-    ],
-    "data-science": [
-      "sistemaelectricofuturo-v2",
-      "geoai-city2graph-pattern",
-      "sistema-electrico-simulador",
-      "sistemaelectricofuturo",
-      "solar-shadow-computation",
-      "monte-carlo-stock-simulator",
-      "rail-lidar-qa-mvp",
-      "jupyter-live-kernel"
-    ],
-    "mastermind": [
-      "mastermind",
-      "freehands-architecture",
-      "auditoria-simulacion-energetica",
-      "documentos-institucionales"
-    ],
-    "herramientas": [
-      "markitdown",
-      "agentic-video-pipeline",
-      "liteparse-rust-pdf-ocr",
-      "pdf-to-artifacts-david-antizar",
-      "video-processing-pipeline"
-    ],
-    "creative": [
-      "madrid-visualization",
-      "baoyu-comic",
-      "sketch",
-      "comfyui",
-      "pixel-art",
-      "architecture-diagram",
-      "p5js",
-      "excalidraw",
-      "popular-web-designs",
-      "baoyu-infographic",
-      "songwriting-and-ai-music",
-      "ascii-art",
-      "humanizer",
-      "render-3d-isometrico-ciudad",
-      "liquid-glass-css",
-      "ideation",
-      "touchdesigner-mcp",
-      "pretext",
-      "design-md",
-      "ascii-video",
-      "claude-design",
-      "manim-video"
-    ],
-    "devops": [
-      "layered-agent-architecture",
-      "aurora-nightly",
-      "inventario-apis-procesamiento",
-      "mastermind-setup",
-      "postgres-mcp",
-      "nango-integrations",
-      "static-digest-pipeline",
-      "nango",
-      "postgres-mcp-pro",
-      "aurora-nightly-pipeline"
-    ],
-    "github": [
-      "github-pr-workflow",
-      "codebase-inspection",
-      "github-code-review",
-      "github-trending-research",
-      "github-repo-management",
-      "github-auth",
-      "github-issues"
-    ],
-    "software-development": [
-      "subagent-driven-development",
-      "delegar-no-comprimir",
-      "9009-multi-iteration",
-      "dogfood",
-      "web-research-fallback",
-      "iterative-algorithm-refinement",
-      "agent-skills-standard",
-      "typescript-cross-module-patterns",
-      "requesting-code-review",
-      "technical-audit-remediation",
-      "test-driven-development",
-      "writing-plans",
-      "web-audit",
-      "systematic-debugging",
-      "spike",
-      "refactor-nodejs-monolith",
-      "google-eng-practices"
-    ],
-    "esios-complete": [
-      "esios-complete"
-    ],
-    "arquitectura": [
-      "arquitectura-dashboard-datos-api"
-    ],
-    "solar-shadows-web-workers": [
-      "solar-shadows-web-workers"
-    ],
-    "business-intelligence": [
-      "competitive-intelligence"
-    ],
-    "backend": [
-      "fetch-paralelo-fallos-parciales",
-      "node-esm-interop",
-      "servicio-resumen-consolidado",
-      "endpoints-dashboard-rest",
-      "conversion-unidades-api-externa",
-      "forecast-montecarlo-escenarios"
-    ],
-    "computer-vision": [
-      "webgpu-onnx-detection",
-      "gaze-tracking",
-      "kalman-cursor-smoothing"
-    ],
-    "data": [
-      "gtfs-browser-parser"
-    ],
-    "infraestructura": [
-      "health-checks-metrics",
-      "cliente-http-robusto",
-      "cache-multicapa",
-      "seguridad-web-helmet-cors",
-      "validacion-config-estricta",
-      "docker-multistage-produccion"
-    ],
-    "research": [
-      "research-paper-writing",
-      "llm-wiki"
-    ]
-  },
-  "tags": {
-    "mcp": [
-      "native-mcp",
-      "postgres-mcp-pro"
-    ],
-    "native mcp": [
-      "native-mcp"
-    ],
-    "github": [
-      "github-workflow",
-      "mastermind-setup",
-      "github-pr-workflow",
-      "codebase-inspection",
-      "github-code-review",
-      "github-trending-research",
-      "github-repo-management",
-      "github-auth",
-      "github-issues"
-    ],
-    "git": [
-      "github-workflow"
-    ],
-    "workflow": [
-      "github-workflow",
-      "canvas-workflow-protocol"
-    ],
-    "deployment": [
-      "github-workflow"
-    ],
-    "knowledge-repo": [
-      "github-workflow"
-    ],
-    "recovery": [
-      "github-workflow"
-    ],
-    "autonomous-ai-agents": [
-      "hermes-agent",
-      "codex",
-      "opencode",
-      "claude-code"
-    ],
-    "hermes agent": [
-      "hermes-agent"
-    ],
-    "codex": [
-      "codex"
-    ],
-    "opencode": [
-      "opencode"
-    ],
-    "claude code": [
-      "claude-code"
-    ],
-    "ia": [
-      "agent-memory"
-    ],
-    "agent-memory": [
-      "agent-memory"
-    ],
-    "context": [
-      "agent-memory",
-      "delegar-no-comprimir"
-    ],
-    "rag": [
-      "agent-memory"
-    ],
-    "persistent-memory": [
-      "agent-memory"
-    ],
-    "mlops": [
-      "weights-and-biases",
-      "evaluating-llms-harness",
-      "serializable-ml-models",
-      "serving-llms-vllm",
-      "obliteratus",
-      "segment-anything-model",
-      "audiocraft-audio-generation",
-      "mlx-vlm-inference",
-      "dspy"
-    ],
-    "weights and biases": [
-      "weights-and-biases"
-    ],
-    "evaluating llms harness": [
-      "evaluating-llms-harness"
-    ],
-    "ml": [
-      "serializable-ml-models"
-    ],
-    "serialization": [
-      "serializable-ml-models"
-    ],
-    "pydantic": [
-      "serializable-ml-models",
-      "pydantic-ai"
-    ],
-    "serving llms vllm": [
-      "serving-llms-vllm"
-    ],
-    "obliteratus": [
-      "obliteratus"
-    ],
-    "segment anything model": [
-      "segment-anything-model"
-    ],
-    "audiocraft audio generation": [
-      "audiocraft-audio-generation"
-    ],
-    "mlx": [
-      "mlx-vlm-inference"
-    ],
-    "vlm": [
-      "mlx-vlm-inference"
-    ],
-    "vision-language": [
-      "mlx-vlm-inference"
-    ],
-    "inference": [
-      "mlx-vlm-inference"
-    ],
-    "dspy": [
-      "dspy"
-    ],
-    "devops": [
-      "devops-operations",
-      "layered-agent-architecture",
-      "postgres-mcp",
-      "nango-integrations",
-      "static-digest-pipeline",
-      "nango",
-      "postgres-mcp-pro",
-      "aurora-nightly-pipeline"
-    ],
-    "nan": [
-      "devops-operations",
-      "esios-nan-deploy",
-      "mastermind-setup",
-      "esios-complete"
-    ],
-    "deploy": [
-      "devops-operations",
-      "esios-nan-deploy",
-      "esios-complete"
-    ],
-    "cron": [
-      "devops-operations",
-      "esios-telegram-report",
-      "inventario-apis-procesamiento"
-    ],
-    "scripts": [
-      "devops-operations"
-    ],
-    "automation": [
-      "devops-operations"
-    ],
-    "production": [
-      "devops-operations"
-    ],
-    "github-pages": [
-      "devops-operations",
-      "static-digest-pipeline"
-    ],
-    "frontend": [
-      "frontend-dashboard-patterns"
-    ],
-    "dashboard": [
-      "frontend-dashboard-patterns"
-    ],
-    "patterns": [
-      "frontend-dashboard-patterns",
-      "typescript-cross-module-patterns"
-    ],
-    "vanilla-js": [
-      "frontend-dashboard-patterns"
-    ],
-    "resilience": [
-      "frontend-dashboard-patterns"
-    ],
-    "css": [
-      "aurora-design-system",
-      "popular-web-designs",
-      "liquid-glass-css",
-      "aurora-nightly"
-    ],
-    "design-system": [
-      "aurora-design-system",
-      "aurora-nightly"
-    ],
-    "aurora": [
-      "aurora-design-system",
-      "pdf-to-artifacts-david-antizar",
-      "liquid-glass-css",
-      "aurora-nightly",
-      "aurora-nightly-pipeline"
-    ],
-    "liquid-glass": [
-      "aurora-design-system",
-      "liquid-glass-css",
-      "aurora-nightly"
-    ],
-    "ntizar": [
-      "aurora-design-system"
-    ],
-    "pipeline": [
-      "static-digest-pipeline",
-      "agentic-video-pipeline",
-      "inventario-apis-procesamiento",
-      "aurora-nightly-pipeline"
-    ],
-    "datos-estaticos": [
-      "static-digest-pipeline"
-    ],
-    "digest": [
-      "static-digest-pipeline"
-    ],
-    "scraping": [
-      "static-digest-pipeline"
-    ],
-    "esios": [
-      "esios-indicators-correct",
-      "esios-nan-deploy",
-      "esios-telegram-report",
-      "sistemaelectricofuturo-v2",
-      "sistemaelectricofuturo",
-      "liquid-glass-css",
-      "esios-complete"
-    ],
-    "indicadores": [
-      "esios-indicators-correct"
-    ],
-    "unidades": [
-      "esios-indicators-correct"
-    ],
-    "ids": [
-      "esios-indicators-correct"
-    ],
-    "docker": [
-      "esios-nan-deploy",
-      "docker-multistage-produccion"
-    ],
-    "telegram": [
-      "esios-telegram-report",
-      "esios-complete"
-    ],
-    "informe": [
-      "esios-telegram-report"
-    ],
-    "productivity": [
-      "apple-calendar",
-      "yuanbao"
-    ],
-    "calendar": [
-      "apple-calendar"
-    ],
-    "icloud": [
-      "apple-calendar"
-    ],
-    "caldav": [
-      "apple-calendar"
-    ],
-    "yuanbao": [
-      "yuanbao"
-    ],
-    "audit": [
-      "skill-audit-pattern",
-      "technical-audit-remediation",
-      "web-audit"
-    ],
-    "maintenance": [
-      "skill-audit-pattern"
-    ],
-    "skills": [
-      "skill-audit-pattern",
-      "kdense-scientific-skills-pattern",
-      "mastermind-setup",
-      "github-trending-research",
-      "agent-skills-standard"
-    ],
-    "quality": [
-      "skill-audit-pattern"
-    ],
-    "cleanup": [
-      "skill-audit-pattern"
-    ],
-    "media": [
-      "heartmula",
-      "voice-ai-landscape",
-      "songsee",
-      "youtube-content",
-      "voicebox",
-      "tts-setup"
-    ],
-    "heartmula": [
-      "heartmula"
-    ],
-    "voice": [
-      "voice-ai-landscape",
-      "freehands-architecture"
-    ],
-    "tts": [
-      "voice-ai-landscape"
-    ],
-    "stt": [
-      "voice-ai-landscape"
-    ],
-    "voice-ai": [
-      "voice-ai-landscape"
-    ],
-    "songsee": [
-      "songsee"
-    ],
-    "youtube": [
-      "youtube-content"
-    ],
-    "transcripts": [
-      "youtube-content"
-    ],
-    "research": [
-      "youtube-content",
-      "github-trending-research",
-      "web-research-fallback",
-      "competitive-intelligence",
-      "research-paper-writing",
-      "llm-wiki"
-    ],
-    "voicebox": [
-      "voicebox"
-    ],
-    "tts setup": [
-      "tts-setup"
-    ],
-    "ai": [
-      "pydantic-ai",
-      "agentic-video-pipeline",
-      "video-processing-pipeline"
-    ],
-    "python": [
-      "pydantic-ai"
-    ],
-    "agent": [
-      "pydantic-ai"
-    ],
-    "testing": [
-      "pydantic-ai",
-      "testing-jest-mocks-api"
-    ],
-    "streaming": [
-      "pydantic-ai"
-    ],
-    "structured-output": [
-      "pydantic-ai"
-    ],
-    "tools": [
-      "pydantic-ai"
-    ],
-    "dependency-injection": [
-      "pydantic-ai"
-    ],
-    "vision": [
-      "satellite-traffic-detection",
-      "satellite-gis-patterns",
-      "satellite-ai-vision"
-    ],
-    "satellite": [
-      "satellite-traffic-detection",
-      "satellite-gis-patterns",
-      "satellite-ai-vision"
-    ],
-    "traffic": [
-      "satellite-traffic-detection"
-    ],
-    "drish-x": [
-      "satellite-traffic-detection"
-    ],
-    "gis": [
-      "satellite-gis-patterns",
-      "solar-shadow-computation"
-    ],
-    "sentinel-2": [
-      "satellite-gis-patterns"
-    ],
-    "onnx": [
-      "onnx-webgpu-inference",
-      "webgpu-onnx-detection"
-    ],
-    "webgpu": [
-      "onnx-webgpu-inference",
-      "webgpu-onnx-detection"
-    ],
-    "yolo": [
-      "onnx-webgpu-inference",
-      "webgpu-onnx-detection"
-    ],
-    "deteccion": [
-      "onnx-webgpu-inference"
-    ],
-    "navegador": [
-      "onnx-webgpu-inference",
-      "gtfs-browser-parser"
-    ],
-    "computer-vision": [
-      "satellite-ai-vision",
-      "webgpu-onnx-detection",
-      "gaze-tracking"
-    ],
-    "detection": [
-      "satellite-ai-vision"
-    ],
-    "red-teaming": [
-      "godmode"
-    ],
-    "godmode": [
-      "godmode"
-    ],
-    "testing jest mocks api": [
-      "testing-jest-mocks-api"
-    ],
-    "multi-agent": [
-      "orca-multi-agent-ide",
-      "canvas-workflow-protocol",
-      "kdense-scientific-skills-pattern",
-      "mastermind-multi-agent-orchestration"
-    ],
-    "orca": [
-      "orca-multi-agent-ide"
-    ],
-    "ide": [
-      "orca-multi-agent-ide"
-    ],
-    "code-orchestration": [
-      "orca-multi-agent-ide"
-    ],
-    "canvas": [
-      "canvas-workflow-protocol",
-      "madrid-visualization",
-      "render-3d-isometrico-ciudad"
-    ],
-    "kanvas": [
-      "canvas-workflow-protocol"
-    ],
-    "scientific": [
-      "kdense-scientific-skills-pattern"
-    ],
-    "kdense": [
-      "kdense-scientific-skills-pattern"
-    ],
-    "orchestration": [
-      "mastermind-multi-agent-orchestration"
-    ],
-    "mastermind": [
-      "mastermind-multi-agent-orchestration"
-    ],
-    "apple": [
-      "apple-notes",
-      "imessage",
-      "macos-computer-use",
-      "findmy",
-      "apple-reminders"
-    ],
-    "apple notes": [
-      "apple-notes"
-    ],
-    "imessage": [
-      "imessage"
-    ],
-    "macos computer use": [
-      "macos-computer-use"
-    ],
-    "findmy": [
-      "findmy"
-    ],
-    "apple reminders": [
-      "apple-reminders"
-    ],
-    "electricity": [
-      "sistemaelectricofuturo-v2",
-      "sistemaelectricofuturo"
-    ],
-    "energy": [
-      "sistemaelectricofuturo-v2",
-      "sistemaelectricofuturo"
-    ],
-    "simulation": [
-      "sistemaelectricofuturo-v2",
-      "sistemaelectricofuturo"
-    ],
-    "spain": [
-      "sistemaelectricofuturo-v2",
-      "sistema-electrico-simulador",
-      "sistemaelectricofuturo"
-    ],
-    "ree": [
-      "sistemaelectricofuturo-v2",
-      "sistemaelectricofuturo",
-      "esios-complete"
-    ],
-    "merit-order": [
-      "sistemaelectricofuturo-v2",
-      "sistemaelectricofuturo"
-    ],
-    "srmc": [
-      "sistemaelectricofuturo-v2",
-      "sistemaelectricofuturo"
-    ],
-    "monte-carlo": [
-      "sistemaelectricofuturo-v2",
-      "sistema-electrico-simulador",
-      "sistemaelectricofuturo",
-      "monte-carlo-stock-simulator"
-    ],
-    "typescript": [
-      "sistemaelectricofuturo-v2",
-      "typescript-cross-module-patterns"
-    ],
-    "vue": [
-      "sistemaelectricofuturo-v2"
-    ],
-    "data-science": [
-      "geoai-city2graph-pattern",
-      "monte-carlo-stock-simulator",
-      "rail-lidar-qa-mvp",
-      "jupyter-live-kernel",
-      "solar-shadows-web-workers"
-    ],
-    "geoai": [
-      "geoai-city2graph-pattern"
-    ],
-    "city2graph": [
-      "geoai-city2graph-pattern"
-    ],
-    "gnn": [
-      "geoai-city2graph-pattern"
-    ],
-    "energia": [
-      "sistema-electrico-simulador",
-      "auditoria-simulacion-energetica"
-    ],
-    "simulador": [
-      "sistema-electrico-simulador"
-    ],
-    "sistema-electrico": [
-      "sistema-electrico-simulador"
-    ],
-    "solar": [
-      "solar-shadow-computation",
-      "solar-shadows-web-workers"
-    ],
-    "sombras": [
-      "solar-shadow-computation",
-      "solar-shadows-web-workers"
-    ],
-    "web-workers": [
-      "solar-shadow-computation",
-      "solar-shadows-web-workers"
-    ],
-    "solmad": [
-      "solar-shadow-computation",
-      "solar-shadows-web-workers"
-    ],
-    "stocks": [
-      "monte-carlo-stock-simulator"
-    ],
-    "finance": [
-      "monte-carlo-stock-simulator"
-    ],
-    "lidar": [
-      "rail-lidar-qa-mvp"
-    ],
-    "railway": [
-      "rail-lidar-qa-mvp"
-    ],
-    "qa": [
-      "rail-lidar-qa-mvp"
-    ],
-    "jupyter live kernel": [
-      "jupyter-live-kernel"
-    ],
-    "mastermind": [
-      "mastermind",
-      "freehands-architecture",
-      "mastermind-setup"
-    ],
-    "umbrella": [
-      "mastermind"
-    ],
-    "system": [
-      "mastermind"
-    ],
-    "freehands": [
-      "freehands-architecture"
-    ],
-    "gaze": [
-      "freehands-architecture",
-      "gaze-tracking",
-      "kalman-cursor-smoothing"
-    ],
-    "gestures": [
-      "freehands-architecture"
-    ],
-    "auditoria": [
-      "auditoria-simulacion-energetica",
-      "documentos-institucionales"
-    ],
-    "simulacion": [
-      "auditoria-simulacion-energetica"
-    ],
-    "electricidad": [
-      "auditoria-simulacion-energetica",
-      "esios-complete"
-    ],
-    "modelo": [
-      "auditoria-simulacion-energetica"
-    ],
-    "validacion": [
-      "auditoria-simulacion-energetica",
-      "validacion-config-estricta"
-    ],
-    "calidad-dato": [
-      "auditoria-simulacion-energetica"
-    ],
-    "documentos": [
-      "documentos-institucionales"
-    ],
-    "informes": [
-      "documentos-institucionales"
-    ],
-    "cnmc": [
-      "documentos-institucionales"
-    ],
-    "regulacion": [
-      "documentos-institucionales"
-    ],
-    "contenido": [
-      "documentos-institucionales"
-    ],
-    "linkedin": [
-      "documentos-institucionales",
-      "pdf-to-artifacts-david-antizar"
-    ],
-    "html": [
-      "documentos-institucionales",
-      "pdf-to-artifacts-david-antizar",
-      "popular-web-designs"
-    ],
-    "herramientas": [
-      "markitdown",
-      "agentic-video-pipeline",
-      "liteparse-rust-pdf-ocr",
-      "video-processing-pipeline"
-    ],
-    "pdf": [
-      "markitdown",
-      "liteparse-rust-pdf-ocr",
-      "pdf-to-artifacts-david-antizar"
-    ],
-    "markdown": [
-      "markitdown"
-    ],
-    "conversion": [
-      "markitdown"
-    ],
-    "video": [
-      "agentic-video-pipeline",
-      "video-processing-pipeline",
-      "ascii-video"
-    ],
-    "ocr": [
-      "liteparse-rust-pdf-ocr"
-    ],
-    "rust": [
-      "liteparse-rust-pdf-ocr"
-    ],
-    "artifacts": [
-      "pdf-to-artifacts-david-antizar"
-    ],
-    "david-antizar": [
-      "pdf-to-artifacts-david-antizar"
-    ],
-    "vidpipe": [
-      "video-processing-pipeline"
-    ],
-    "madrid": [
-      "madrid-visualization",
-      "render-3d-isometrico-ciudad"
-    ],
-    "visualization": [
-      "madrid-visualization"
-    ],
-    "map": [
-      "madrid-visualization"
-    ],
-    "isometric": [
-      "madrid-visualization",
-      "render-3d-isometrico-ciudad"
-    ],
-    "3d": [
-      "madrid-visualization",
-      "render-3d-isometrico-ciudad"
-    ],
-    "webgl": [
-      "madrid-visualization"
-    ],
-    "city": [
-      "madrid-visualization",
-      "render-3d-isometrico-ciudad"
-    ],
-    "creative": [
-      "baoyu-comic",
-      "sketch",
-      "comfyui",
-      "pixel-art",
-      "architecture-diagram",
-      "p5js",
-      "excalidraw",
-      "baoyu-infographic",
-      "songwriting-and-ai-music",
-      "ascii-art",
-      "humanizer",
-      "ideation",
-      "touchdesigner-mcp",
-      "pretext",
-      "design-md",
-      "ascii-video",
-      "claude-design",
-      "manim-video"
-    ],
-    "baoyu comic": [
-      "baoyu-comic"
-    ],
-    "sketch": [
-      "sketch"
-    ],
-    "comfyui": [
-      "comfyui"
-    ],
-    "pixel art": [
-      "pixel-art"
-    ],
-    "architecture diagram": [
-      "architecture-diagram"
-    ],
-    "p5js": [
-      "p5js"
-    ],
-    "excalidraw": [
-      "excalidraw"
-    ],
-    "design": [
-      "popular-web-designs",
-      "liquid-glass-css"
-    ],
-    "ui": [
-      "popular-web-designs"
-    ],
-    "web-development": [
-      "popular-web-designs"
-    ],
-    "design-systems": [
-      "popular-web-designs"
-    ],
-    "templates": [
-      "popular-web-designs"
-    ],
-    "baoyu infographic": [
-      "baoyu-infographic"
-    ],
-    "songwriting": [
-      "songwriting-and-ai-music"
-    ],
-    "music": [
-      "songwriting-and-ai-music"
-    ],
-    "suno": [
-      "songwriting-and-ai-music"
-    ],
-    "parody": [
-      "songwriting-and-ai-music"
-    ],
-    "lyrics": [
-      "songwriting-and-ai-music"
-    ],
-    "ascii art": [
-      "ascii-art"
-    ],
-    "humanizer": [
-      "humanizer"
-    ],
-    "portfolio": [
-      "liquid-glass-css"
-    ],
-    "glassmorphism": [
-      "liquid-glass-css"
-    ],
-    "ideation": [
-      "ideation"
-    ],
-    "touchdesigner mcp": [
-      "touchdesigner-mcp"
-    ],
-    "pretext": [
-      "pretext"
-    ],
-    "design md": [
-      "design-md"
-    ],
-    "ascii": [
-      "ascii-video"
-    ],
-    "animation": [
-      "ascii-video",
-      "manim-video"
-    ],
-    "claude design": [
-      "claude-design"
-    ],
-    "manim": [
-      "manim-video"
-    ],
-    "math": [
-      "manim-video"
-    ],
-    "architecture": [
-      "layered-agent-architecture",
-      "typescript-cross-module-patterns",
-      "web-audit",
-      "refactor-nodejs-monolith"
-    ],
-    "multi-layer": [
-      "layered-agent-architecture"
-    ],
-    "agents": [
-      "layered-agent-architecture"
-    ],
-    "nightly": [
-      "aurora-nightly",
-      "aurora-nightly-pipeline"
-    ],
-    "continuous-improvement": [
-      "aurora-nightly"
-    ],
-    "inventario": [
-      "inventario-apis-procesamiento"
-    ],
-    "apis": [
-      "inventario-apis-procesamiento"
-    ],
-    "resumen": [
-      "inventario-apis-procesamiento"
-    ],
-    "setup": [
-      "mastermind-setup"
-    ],
-    "soul": [
-      "mastermind-setup"
-    ],
-    "identity": [
-      "mastermind-setup"
-    ],
-    "postgres mcp": [
-      "postgres-mcp"
-    ],
-    "nango": [
-      "nango-integrations",
-      "nango"
-    ],
-    "api": [
-      "nango-integrations",
-      "nango",
-      "esios-complete"
-    ],
-    "integrations": [
-      "nango-integrations",
-      "nango"
-    ],
-    "static": [
-      "static-digest-pipeline"
-    ],
-    "postgres": [
-      "postgres-mcp-pro"
-    ],
-    "database": [
-      "postgres-mcp-pro"
-    ],
-    "github pr workflow": [
-      "github-pr-workflow"
-    ],
-    "codebase inspection": [
-      "codebase-inspection"
-    ],
-    "github code review": [
-      "github-code-review"
-    ],
-    "trending": [
-      "github-trending-research"
-    ],
-    "discovery": [
-      "github-trending-research"
-    ],
-    "github repo management": [
-      "github-repo-management"
-    ],
-    "github auth": [
-      "github-auth"
-    ],
-    "github issues": [
-      "github-issues"
-    ],
-    "software-development": [
-      "subagent-driven-development",
-      "delegar-no-comprimir",
-      "9009-multi-iteration",
-      "dogfood",
-      "iterative-algorithm-refinement",
-      "agent-skills-standard",
-      "requesting-code-review",
-      "test-driven-development",
-      "writing-plans",
-      "systematic-debugging",
-      "spike",
-      "refactor-nodejs-monolith",
-      "google-eng-practices"
-    ],
-    "subagent driven development": [
-      "subagent-driven-development"
-    ],
-    "delegation": [
-      "delegar-no-comprimir"
-    ],
-    "subagents": [
-      "delegar-no-comprimir"
-    ],
-    "9009": [
-      "9009-multi-iteration"
-    ],
-    "improvement": [
-      "9009-multi-iteration"
-    ],
-    "iteration": [
-      "9009-multi-iteration"
-    ],
-    "dogfood": [
-      "dogfood"
-    ],
-    "web": [
-      "web-research-fallback"
-    ],
-    "browser": [
-      "web-research-fallback"
-    ],
-    "fallback": [
-      "web-research-fallback"
-    ],
-    "captcha": [
-      "web-research-fallback"
-    ],
-    "server": [
-      "web-research-fallback"
-    ],
-    "algorithm": [
-      "iterative-algorithm-refinement"
-    ],
-    "refinement": [
-      "iterative-algorithm-refinement"
-    ],
-    "iterative": [
-      "iterative-algorithm-refinement"
-    ],
-    "standard": [
-      "agent-skills-standard"
-    ],
-    "format": [
-      "agent-skills-standard"
-    ],
-    "ci-cd": [
-      "typescript-cross-module-patterns"
-    ],
-    "requesting code review": [
-      "requesting-code-review"
-    ],
-    "code-review": [
-      "technical-audit-remediation",
-      "web-audit",
-      "google-eng-practices"
-    ],
-    "remediation": [
-      "technical-audit-remediation"
-    ],
-    "prioritization": [
-      "technical-audit-remediation"
-    ],
-    "multi-phase": [
-      "technical-audit-remediation"
-    ],
-    "test driven development": [
-      "test-driven-development"
-    ],
-    "writing plans": [
-      "writing-plans"
-    ],
-    "security": [
-      "web-audit"
-    ],
-    "performance": [
-      "web-audit"
-    ],
-    "accessibility": [
-      "web-audit"
-    ],
-    "static-analysis": [
-      "web-audit"
-    ],
-    "systematic debugging": [
-      "systematic-debugging"
-    ],
-    "spike": [
-      "spike"
-    ],
-    "refactor": [
-      "refactor-nodejs-monolith"
-    ],
-    "nodejs": [
-      "refactor-nodejs-monolith",
-      "node-esm-interop",
-      "cliente-http-robusto",
-      "cache-multicapa",
-      "validacion-config-estricta"
-    ],
-    "google": [
-      "google-eng-practices"
-    ],
-    "best-practices": [
-      "google-eng-practices"
-    ],
-    "energía": [
-      "esios-complete"
-    ],
-    "arquitectura": [
-      "arquitectura-dashboard-datos-api"
-    ],
-    "arquitectura dashboard datos api": [
-      "arquitectura-dashboard-datos-api"
-    ],
-    "business-intelligence": [
-      "competitive-intelligence"
-    ],
-    "competitor-analysis": [
-      "competitive-intelligence"
-    ],
-    "meetings": [
-      "competitive-intelligence"
-    ],
-    "sales-intelligence": [
-      "competitive-intelligence"
-    ],
-    "backend": [
-      "fetch-paralelo-fallos-parciales",
-      "node-esm-interop",
-      "servicio-resumen-consolidado",
-      "endpoints-dashboard-rest",
-      "conversion-unidades-api-externa",
-      "forecast-montecarlo-escenarios"
-    ],
-    "fetch paralelo fallos parciales": [
-      "fetch-paralelo-fallos-parciales"
-    ],
-    "esm": [
-      "node-esm-interop"
-    ],
-    "commonjs": [
-      "node-esm-interop"
-    ],
-    "modules": [
-      "node-esm-interop"
-    ],
-    "servicio resumen consolidado": [
-      "servicio-resumen-consolidado"
-    ],
-    "endpoints dashboard rest": [
-      "endpoints-dashboard-rest"
-    ],
-    "conversion unidades api externa": [
-      "conversion-unidades-api-externa"
-    ],
-    "forecast montecarlo escenarios": [
-      "forecast-montecarlo-escenarios"
-    ],
-    "eye-tracking": [
-      "gaze-tracking"
-    ],
-    "mediapipe": [
-      "gaze-tracking"
-    ],
-    "kalman": [
-      "kalman-cursor-smoothing"
-    ],
-    "cursor": [
-      "kalman-cursor-smoothing"
-    ],
-    "smoothing": [
-      "kalman-cursor-smoothing"
-    ],
-    "signal-processing": [
-      "kalman-cursor-smoothing"
-    ],
-    "numpy": [
-      "kalman-cursor-smoothing"
-    ],
-    "gtfs": [
-      "gtfs-browser-parser"
-    ],
-    "transporte": [
-      "gtfs-browser-parser"
-    ],
-    "parser": [
-      "gtfs-browser-parser"
-    ],
-    "movilidad": [
-      "gtfs-browser-parser"
-    ],
-    "infraestructura": [
-      "health-checks-metrics",
-      "cliente-http-robusto",
-      "cache-multicapa",
-      "seguridad-web-helmet-cors",
-      "validacion-config-estricta",
-      "docker-multistage-produccion"
-    ],
-    "monitorizacion": [
-      "health-checks-metrics"
-    ],
-    "health": [
-      "health-checks-metrics"
-    ],
-    "metrics": [
-      "health-checks-metrics"
-    ],
-    "patrones": [
-      "health-checks-metrics",
-      "cliente-http-robusto",
-      "cache-multicapa",
-      "seguridad-web-helmet-cors",
-      "validacion-config-estricta",
-      "docker-multistage-produccion"
-    ],
-    "http": [
-      "cliente-http-robusto"
-    ],
-    "resiliencia": [
-      "cliente-http-robusto"
-    ],
-    "cache": [
-      "cache-multicapa"
-    ],
-    "rendimiento": [
-      "cache-multicapa"
-    ],
-    "seguridad": [
-      "seguridad-web-helmet-cors"
-    ],
-    "helmet": [
-      "seguridad-web-helmet-cors"
-    ],
-    "cors": [
-      "seguridad-web-helmet-cors"
-    ],
-    "configuracion": [
-      "validacion-config-estricta"
-    ],
-    "contenedores": [
-      "docker-multistage-produccion"
-    ],
-    "produccion": [
-      "docker-multistage-produccion"
-    ],
-    "paper": [
-      "research-paper-writing"
-    ],
-    "writing": [
-      "research-paper-writing"
-    ],
-    "ml/ai": [
-      "research-paper-writing"
-    ],
-    "llm wiki": [
-      "llm-wiki"
-    ]
+    "data-pipeline": 1,
+    "skills": 26,
+    "math": 11,
+    "physics": 12,
+    "engineering": 8,
+    "td": 12,
+    "mcp": 1,
+    "autonomous-ai-agents": 4,
+    "ia": 4,
+    "sales": 1,
+    "evaluation": 2,
+    "inference": 2,
+    "models": 2,
+    "mlops": 1,
+    "research": 6,
+    "deep-learning": 1,
+    "frontend-dashboard-patterns": 2,
+    "esios": 3,
+    "productivity": 2,
+    "ai-patterns": 1,
+    "media": 5,
+    "pydantic": 1,
+    "vision": 4,
+    "red-teaming": 1,
+    "health": 1,
+    "multi-agent": 1,
+    "apple": 5,
+    "data-science": 10,
+    "security": 2,
+    "architecture-patterns": 1,
+    "herramientas": 8,
+    "creative": 20,
+    "devops": 23,
+    "github": 5,
+    "geospatial": 1,
+    "software-development": 25,
+    "arquitectura": 1,
+    "business-intelligence": 1,
+    "mastermind": 11,
+    "crypto": 1,
+    "backend": 2,
+    "computer-vision": 4,
+    "data": 2,
+    "development": 1
   },
   "skills": [
     {
-      "name": "sistemaelectricofuturo-v2",
-      "description": "Simulador interactivo del sistema eléctrico español 2026-2050 — motor headless TypeScript, datos climáticos reales Open-Meteo, merit-order SRMC, Monte Carlo multi-semilla.",
+      "name": "embedded-json-extraction",
+      "description": "Extraer y parsear JSON arrays/objects embebidos en archivos de código (JS, Python, etc.) cuando el bracket counting simple falla por corchetes dentro de strings.",
       "tags": [
-        "electricity",
-        "energy",
-        "simulation",
-        "spain",
-        "esios",
-        "ree",
-        "merit-order",
-        "srmc",
-        "monte-carlo",
-        "typescript",
-        "vue"
+        "data-pipeline",
+        "embedded-json-extraction"
       ],
-      "category": "data-science",
-      "path": "data-science/sistemaelectricofuturo-v2/SKILL.md",
-      "size_bytes": 13366
+      "category": "data-pipeline",
+      "path": "/hermes-home/skills/data-pipeline/embedded-json-extraction/SKILL.md",
+      "size_bytes": 3964
     },
     {
-      "name": "sistemaelectricofuturo",
-      "description": "Simulador horario del sistema eléctrico español 2026-2035 — despacho por orden de mérito SRMC, políticas energéticas (CfD, tope ibérico, cierre nuclear ENRESA), Monte Carlo multi-semilla y KPIs de seguridad de suministro (ENS, LOLE).",
+      "name": "audit-html-project",
+      "description": "Procedimiento sistemático para auditar proyectos HTML masivos: detectar errores de navegación rota, atribuciones incorrectas, páginas huérfanas, inconsistencias de diseño y consistencia de contenido. ",
       "tags": [
-        "electricity",
-        "energy",
-        "simulation",
-        "spain",
-        "esios",
-        "ree",
-        "merit-order",
-        "srmc",
-        "monte-carlo"
-      ],
-      "category": "data-science",
-      "path": "data-science/sistemaelectricofuturo/SKILL.md",
-      "size_bytes": 9210
-    },
-    {
-      "name": "devops-operations",
-      "description": "Patrones operativos de DevOps: deploy en NaN.builders (502, cache, env vars), cron jobs con scripts (no_agent=True), pipeline de digest estático, y GitHub Pages deployment. Todo para mantener apps en producción.",
-      "tags": [
-        "devops",
-        "nan",
-        "deploy",
-        "cron",
-        "scripts",
-        "automation",
-        "production",
-        "github-pages"
-      ],
-      "category": "devops-operations",
-      "path": "devops-operations/SKILL.md",
-      "size_bytes": 3354
-    },
-    {
-      "name": "documentos-institucionales",
-      "description": "Análisis de informes institucionales/regulatorios públicos (CNMC, REE, MITMS, BOE, Comisión Europea) — extracción PDF, auditoría estructurada y generación multi-formato (HTML resumen, LinkedIn/post, nota técnica).",
-      "tags": [
-        "documentos",
-        "auditoria",
-        "informes",
-        "cnmc",
-        "regulacion",
-        "contenido",
-        "linkedin",
-        "html"
-      ],
-      "category": "mastermind",
-      "path": "mastermind/documentos-institucionales/SKILL.md",
-      "size_bytes": 5394
-    },
-    {
-      "name": "esios-complete",
-      "description": "Conocimiento completo de ESIOS/REE: API, indicadores, unidades, deploy en NaN, troubleshooting frontend, informes Telegram, Open-Meteo, Yahoo Finance. Unificado de 5 skills en 1.",
-      "tags": [
-        "esios",
-        "ree",
-        "energía",
-        "electricidad",
-        "deploy",
-        "telegram",
-        "api",
-        "nan"
-      ],
-      "category": "esios-complete",
-      "path": "esios-complete/SKILL.md",
-      "size_bytes": 12618
-    },
-    {
-      "name": "madrid-visualization",
-      "description": "Madrid city visualization tools — isometric pixel art (Madrid3Pixel), 3D WebGL maps (NapMaps), and procedural city renderers. Stack decision guides: Canvas 2D vs MapLibre GL JS vs Three.js.",
-      "tags": [
-        "madrid",
-        "visualization",
-        "map",
-        "isometric",
-        "3d",
-        "webgl",
-        "canvas",
-        "city"
-      ],
-      "category": "creative",
-      "path": "creative/madrid-visualization/SKILL.md",
-      "size_bytes": 4281
-    },
-    {
-      "name": "pydantic-ai",
-      "description": "Framework completo de agentes GenAI para Python: fundamentos (agentes, tipos, validación), patrones de producción (DI, structured outputs, testing, streaming), sistema de tools, y 10 skills de programación fundamentales. Todo de Pydantic AI docs.",
-      "tags": [
-        "pydantic",
-        "ai",
-        "python",
-        "agent",
-        "testing",
-        "streaming",
-        "structured-output",
-        "tools",
-        "dependency-injection"
-      ],
-      "category": "pydantic",
-      "path": "pydantic/pydantic-ai/SKILL.md",
-      "size_bytes": 5028
-    },
-    {
-      "name": "auditoria-simulacion-energetica",
-      "description": "Auditoría técnica de simuladores/sistemas de modelado eléctrico — validación cuantitativa, calidad de dato, rigor del motor, alineamiento producto-pregunta.",
-      "tags": [
-        "auditoria",
-        "simulacion",
-        "electricidad",
-        "modelo",
-        "validacion",
-        "calidad-dato",
-        "energia"
-      ],
-      "category": "mastermind",
-      "path": "mastermind/auditoria-simulacion-energetica/SKILL.md",
-      "size_bytes": 8814
-    },
-    {
-      "name": "mastermind-setup",
-      "description": "Configura y mantiene el sistema personal de agentes Mastermind — sincronización de repositorio GitHub, instalación de skills, configuración de SOUL.md y auto-configuración de cron para el segundo cerebro de Ntizar.",
-      "tags": [
-        "mastermind",
-        "setup",
-        "github",
         "skills",
-        "soul",
-        "nan",
-        "identity"
+        "audit-html-project"
       ],
-      "category": "devops",
-      "path": "devops/mastermind-setup/SKILL.md",
-      "size_bytes": 14242
+      "category": "skills",
+      "path": "/hermes-home/skills/audit-html-project/SKILL.md",
+      "size_bytes": 65173
     },
     {
-      "name": "liquid-glass-css",
-      "description": "CSS con efecto Liquid Glass estilo Esios/Aurora — gradientes azul+naranja, backdrop-filter glass, grid patterns y orbes radiales. Reutilizable para cualquier portfolio o dashboard de Ntizar.",
+      "name": "math-vectores-matrices",
+      "description": "Vectores en R2 y R3 (producto escalar, vectorial, mixto), matrices, determinantes, autovalores, autovectores, diagonalización y SVD conceptual.",
       "tags": [
-        "css",
-        "liquid-glass",
-        "aurora",
-        "esios",
-        "portfolio",
-        "design",
-        "glassmorphism"
+        "math",
+        "math-vectores-matrices"
       ],
-      "category": "creative",
-      "path": "creative/liquid-glass-css/SKILL.md",
-      "size_bytes": 13530
+      "category": "math",
+      "path": "/hermes-home/skills/stem/math/math-vectores-matrices/SKILL.md",
+      "size_bytes": 4127
     },
     {
-      "name": "popular-web-designs",
-      "description": "54 real design systems (Stripe, Linear, Vercel) as HTML/CSS.",
+      "name": "math-trigonometria",
+      "description": "Razones trigonométricas, identidades fundamentales, ecuaciones trigonométricas, funciones seno, coseno, tangente, teorema del seno y coseno.",
       "tags": [
-        "design",
-        "css",
-        "html",
-        "ui",
-        "web-development",
-        "design-systems",
-        "templates"
+        "math",
+        "math-trigonometria"
       ],
-      "category": "creative",
-      "path": "creative/popular-web-designs/SKILL.md",
-      "size_bytes": 10424
+      "category": "math",
+      "path": "/hermes-home/skills/stem/math/math-trigonometria/SKILL.md",
+      "size_bytes": 3733
     },
     {
-      "name": "web-audit",
-      "description": "Auditoría completa de aplicaciones web — análisis estático de código, seguridad, rendimiento, accesibilidad y arquitectura usando curl + lectura de archivos. Alternativa al browser tool cuando no está disponible o cuando se necesita auditoría profunda del código fuente.",
+      "name": "math-funciones",
+      "description": "Dominio, rango, tipos de funciones (lineal, cuadrática, polinómica, racional, exponencial, logarítmica), composición, inversión, simetría y transformaciones.",
       "tags": [
-        "audit",
-        "code-review",
-        "security",
-        "performance",
-        "accessibility",
-        "architecture",
-        "static-analysis"
+        "math",
+        "math-funciones"
       ],
-      "category": "software-development",
-      "path": "software-development/web-audit/SKILL.md",
-      "size_bytes": 9698
+      "category": "math",
+      "path": "/hermes-home/skills/stem/math/math-funciones/SKILL.md",
+      "size_bytes": 3889
     },
     {
-      "name": "aurora-nightly",
-      "description": "Mejora continua nocturna del sistema de diseño Ntizar Aurora — cada noche: investigación web → análisis gap → mejora CSS focalizada → commit → reaprendizaje. Bucle infinito de perfección.",
+      "name": "math-estadistica-probabilidad",
+      "description": "Estadística descriptiva e inferencial: media, varianza, desviación, distribución normal, intervalos de confianza, test de hipótesis, Bayes y regresión lineal.",
       "tags": [
-        "aurora",
-        "css",
-        "design-system",
-        "nightly",
-        "continuous-improvement",
-        "liquid-glass"
+        "math",
+        "math-estadistica-probabilidad"
       ],
-      "category": "devops",
-      "path": "devops/aurora-nightly/SKILL.md",
-      "size_bytes": 8859
+      "category": "math",
+      "path": "/hermes-home/skills/stem/math/math-estadistica-probabilidad/SKILL.md",
+      "size_bytes": 4627
     },
     {
-      "name": "frontend-dashboard-patterns",
-      "description": "Patrones completos para dashboards frontend vanilla JS: cliente API robusto, orquestación de carga, error boundaries, tabs con navegación, persistencia, fechas, colores, sparklines, Web Workers y debugging. Todo lo que necesitas para construir dashboards resilientes sin bundler.",
+      "name": "math-calculo-integral",
+      "description": "Integrales definidas e indefinidas, técnicas de integración (sustitución, partes, fracciones parciales), aplicaciones (áreas, volúmenes) y ecuaciones diferenciales elementales.",
       "tags": [
-        "frontend",
-        "dashboard",
-        "patterns",
-        "vanilla-js",
-        "resilience",
-        "patterns"
+        "math",
+        "math-calculo-integral"
       ],
-      "category": "frontend-dashboard-patterns",
-      "path": "frontend-dashboard-patterns/SKILL.md",
-      "size_bytes": 17222
+      "category": "math",
+      "path": "/hermes-home/skills/stem/math/math-calculo-integral/SKILL.md",
+      "size_bytes": 4035
     },
     {
-      "name": "github-workflow",
-      "description": "Flujo completo de trabajo con GitHub: autenticación, gestión de repos, PR lifecycle, code review, issues, knowledge repo como base de conocimiento persistente, deploy estático en Pages, y recuperación de repos corruptos.",
+      "name": "math-ecuaciones",
+      "description": "Ecuaciones de primer y segundo grado, sistemas de ecuaciones, inecuaciones, ecuaciones con valor absoluto y ecuaciones irracionales.",
       "tags": [
-        "github",
-        "git",
-        "workflow",
-        "deployment",
-        "knowledge-repo",
-        "recovery"
+        "math",
+        "math-ecuaciones"
       ],
-      "category": "github-workflow",
-      "path": "github-workflow/SKILL.md",
-      "size_bytes": 8499
+      "category": "math",
+      "path": "/hermes-home/skills/stem/math/math-ecuaciones/SKILL.md",
+      "size_bytes": 3301
     },
     {
-      "name": "kalman-cursor-smoothing",
-      "description": "Kalman filter for gaze/gesture cursor smoothing — replaces EMA with 2-D constant-velocity model for better latency-smoothness tradeoff",
+      "name": "math-logaritmos-exponenciales",
+      "description": "Funciones exponenciales y logarítmicas, propiedades de logaritmos, ecuaciones exponenciales y logarítmicas, crecimiento y decaimiento.",
       "tags": [
-        "kalman",
-        "cursor",
-        "smoothing",
-        "gaze",
-        "signal-processing",
-        "numpy"
+        "math",
+        "math-logaritmos-exponenciales"
       ],
-      "category": "computer-vision",
-      "path": "computer-vision/kalman-cursor-smoothing/SKILL.md",
-      "size_bytes": 7208
+      "category": "math",
+      "path": "/hermes-home/skills/stem/math/math-logaritmos-exponenciales/SKILL.md",
+      "size_bytes": 3088
     },
     {
-      "name": "pdf-to-artifacts-david-antizar",
-      "description": "Pipeline de transformación de PDF a 3 artefactos — análisis técnico, post LinkedIn, infografía HTML + comparativa. Con marca Ntizar David Antizar, sistema Aurora, atribución correcta.",
+      "name": "math-sucesiones-series",
+      "description": "Sucesiones (aritméticas, geométricas), series, sumatorios, convergencia y test de convergencia.",
       "tags": [
-        "pdf",
-        "artifacts",
-        "linkedin",
-        "html",
-        "aurora",
-        "david-antizar"
+        "math",
+        "math-sucesiones-series"
       ],
-      "category": "herramientas",
-      "path": "herramientas/pdf-to-artifacts-david-antizar/SKILL.md",
-      "size_bytes": 3275
+      "category": "math",
+      "path": "/hermes-home/skills/stem/math/math-sucesiones-series/SKILL.md",
+      "size_bytes": 3302
     },
     {
-      "name": "web-research-fallback",
-      "description": "When all search engines (Google, DuckDuckGo, Bing) block with CAPTCHA from server IPs, use fallback research patterns: Wikipedia/Wikidata APIs, direct site navigation, DOM extraction via browser_console, and curl patterns.",
+      "name": "math-numeros-algebra",
+      "description": "Números reales, potencias, raíces, radicales, notación científica, factorización, MCD/MCM, conjuntos numéricos y álgebra elemental básica.",
       "tags": [
-        "web",
-        "research",
-        "browser",
-        "fallback",
-        "captcha",
-        "server"
+        "math",
+        "math-numeros-algebra"
       ],
-      "category": "software-development",
-      "path": "software-development/web-research-fallback/SKILL.md",
-      "size_bytes": 6991
+      "category": "math",
+      "path": "/hermes-home/skills/stem/math/math-numeros-algebra/SKILL.md",
+      "size_bytes": 2882
     },
     {
-      "name": "aurora-design-system",
-      "description": "Design System Ntizar Aurora v5.1 Constellation — CSS puro, 11 packs opt-in, namespaced .nz, 5 skins, liquid glass real, OKLCH, multi-axis theming, agent-ready con CDN público. Derivado de Ntizar-Aurora.",
+      "name": "math-engineering",
+      "description": "Matemáticas para ingeniería: series de Fourier, transformada de Laplace, ecuaciones diferenciales de segundo orden, cálculo multivariable, integrales múltiples, campos vectoriales y teoremas de Green/",
       "tags": [
-        "css",
-        "design-system",
-        "aurora",
-        "liquid-glass",
-        "ntizar"
+        "math",
+        "math-engineering"
       ],
-      "category": "frontend-dashboard-patterns",
-      "path": "frontend-dashboard-patterns/aurora-design-system/SKILL.md",
-      "size_bytes": 4680
+      "category": "math",
+      "path": "/hermes-home/skills/stem/math/math-engineering/SKILL.md",
+      "size_bytes": 7228
     },
     {
-      "name": "gtfs-browser-parser",
-      "description": "Parser GTFS completo en navegador: descompresion ZIP en memoria con fflate, deteccion de encoding, tolerancia a ficheros malformados, logica completa de calendario GTFS (calendar.txt + calendar_dates.txt). Derivado de nap-dashboard.",
+      "name": "math-calculo-diferencial",
+      "description": "Límites, continuidad, derivadas (reglas de derivación, regla de cadena, optimización), teoremas del cálculo diferencial y series de Taylor/Maclaurin.",
       "tags": [
-        "gtfs",
-        "transporte",
-        "parser",
-        "navegador",
-        "movilidad"
+        "math",
+        "math-calculo-diferencial"
       ],
-      "category": "data",
-      "path": "data/gtfs-browser-parser/SKILL.md",
-      "size_bytes": 3648
+      "category": "math",
+      "path": "/hermes-home/skills/stem/math/math-calculo-diferencial/SKILL.md",
+      "size_bytes": 4261
     },
     {
-      "name": "inventario-apis-procesamiento",
-      "description": "Procedimiento para procesar el catálogo de 10.498+ APIs de API-mega-list en un inventario local estructurado por categorías. Incluye lectura de estado.json, análisis de progreso por categoría, y generación de resúmenes diarios.",
+      "name": "physics-optica",
+      "description": "Óptica geométrica: reflexión, refracción, ley de Snell, lentes delgadas, espejos, instrumentos ópticos. Óptica ondulatoria: interferencia, difracción, polarización.",
       "tags": [
-        "inventario",
-        "apis",
-        "pipeline",
-        "resumen",
-        "cron"
+        "physics",
+        "physics-optica"
       ],
-      "category": "devops",
-      "path": "devops/inventario-apis-procesamiento/SKILL.md",
-      "size_bytes": 3979
+      "category": "physics",
+      "path": "/hermes-home/skills/stem/physics/physics-optica/SKILL.md",
+      "size_bytes": 4750
     },
     {
-      "name": "onnx-webgpu-inference",
-      "description": "Ejecutar modelos YOLO ONNX en el navegador con WebGPU (20-40+ fps) o WASM fallback (5-15 fps). Deteccion de personas y vehiculos en tiempo real desde camara web. Derivado de YoloConteo.",
+      "name": "physics-engineering",
+      "description": "Física para ingeniería: ondas EM, circuitos CA, circuitos RLC, termodinámica avanzada, mecánica de fluidos, electricidad y magnetismo a nivel universitario.",
       "tags": [
-        "onnx",
-        "webgpu",
-        "yolo",
-        "deteccion",
-        "navegador"
+        "physics",
+        "physics-engineering"
       ],
-      "category": "vision",
-      "path": "vision/onnx-webgpu-inference/SKILL.md",
-      "size_bytes": 3223
+      "category": "physics",
+      "path": "/hermes-home/skills/stem/physics/physics-engineering/SKILL.md",
+      "size_bytes": 5410
     },
     {
-      "name": "render-3d-isometrico-ciudad",
-      "description": "Render 3D isométrico de ciudades en Canvas 2D — edificios con 3 caras (frontal/lateral/tejado), depth sorting, ciclo día/noche, clima y datos de coordenadas reales.",
+      "name": "physics-energia-trabajo",
+      "description": "Trabajo, energía cinética, potencial, conservación de energía, potencia, fuerzas conservativas y no conservativas, energía mecánica.",
       "tags": [
-        "canvas",
-        "3d",
-        "isometric",
-        "city",
-        "madrid"
+        "physics",
+        "physics-energia-trabajo"
       ],
-      "category": "creative",
-      "path": "creative/render-3d-isometrico-ciudad/SKILL.md",
-      "size_bytes": 5591
+      "category": "physics",
+      "path": "/hermes-home/skills/stem/physics/physics-energia-trabajo/SKILL.md",
+      "size_bytes": 3241
     },
     {
-      "name": "sistema-electrico-simulador",
-      "description": "Simulador interactivo del sistema electrico espanol 2026-2035: simulacion anual de 8.760 horas, trayectoria multianual, 17 escenarios, demanda sectorial, almacenamiento avanzado, politica energetica. Derivado de SistemaElectricoFuturo.",
+      "name": "physics-ondas-sonido",
+      "description": "Movimiento armónico simple, ondas mecánicas, sonido, efecto Doppler, interferencia y ondas estacionarias.",
       "tags": [
-        "energia",
-        "simulador",
-        "sistema-electrico",
-        "monte-carlo",
-        "spain"
+        "physics",
+        "physics-ondas-sonido"
       ],
-      "category": "data-science",
-      "path": "data-science/sistema-electrico-simulador/SKILL.md",
-      "size_bytes": 4638
+      "category": "physics",
+      "path": "/hermes-home/skills/stem/physics/physics-ondas-sonido/SKILL.md",
+      "size_bytes": 3482
     },
     {
-      "name": "skill-audit-pattern",
-      "description": "Auditoría sistemática del ecosistema de skills — detecta duplicados, project-readmes, CLI wrappers, skills sin tags, y genera plan de limpieza. Para mantener el ecosistema limpio al escalar.",
+      "name": "physics-expert",
+      "description": "Física experta: teoría cuántica de campos, física de partículas, cosmología y física de plasmas.",
       "tags": [
-        "audit",
-        "maintenance",
-        "skills",
-        "quality",
-        "cleanup"
+        "physics",
+        "physics-expert"
       ],
-      "category": "skill-audit-pattern",
-      "path": "skill-audit-pattern/SKILL.md",
-      "size_bytes": 8884
+      "category": "physics",
+      "path": "/hermes-home/skills/stem/physics/physics-expert/SKILL.md",
+      "size_bytes": 17356
     },
     {
-      "name": "solar-shadow-computation",
-      "description": "Calculo de sombras solares con Web Workers + Comlink, cache por terraza/dia/franja, footprints OSM, estimacion de alturas de edificios. Derivado de solmad.",
+      "name": "physics-cinematica",
+      "description": "Cinemática del punto material: MRU, MRUA, MCU, caída libre, tiro parabólico, composición de movimientos y movimiento relativo.",
       "tags": [
-        "solar",
-        "sombras",
-        "web-workers",
-        "gis",
-        "solmad"
+        "physics",
+        "physics-cinematica"
       ],
-      "category": "data-science",
-      "path": "data-science/solar-shadow-computation/SKILL.md",
-      "size_bytes": 2827
+      "category": "physics",
+      "path": "/hermes-home/skills/stem/physics/physics-cinematica/SKILL.md",
+      "size_bytes": 2890
     },
     {
-      "name": "solar-shadows-web-workers",
-      "description": "Patrón de cálculo de sombras solares con Web Workers + Comlink para no bloquear la UI",
+      "name": "physics-electrodinamica",
+      "description": "Electrodinámica: corriente eléctrica, Ley de Ohm, resistencias en serie/paralelo, circuitos, potencia eléctrica, Leyes de Kirchhoff y circuitos RC.",
       "tags": [
-        "data-science",
-        "solar",
-        "sombras",
-        "web-workers",
-        "solmad"
+        "physics",
+        "physics-electrodinamica"
       ],
-      "category": "solar-shadows-web-workers",
-      "path": "solar-shadows-web-workers/SKILL.md",
-      "size_bytes": 2609
+      "category": "physics",
+      "path": "/hermes-home/skills/stem/physics/physics-electrodinamica/SKILL.md",
+      "size_bytes": 3143
     },
     {
-      "name": "songwriting-and-ai-music",
-      "description": "Songwriting craft and Suno AI music prompts.",
+      "name": "physics-dinamica",
+      "description": "Dinámica del punto: 3 leyes de Newton, fuerzas, rozamiento, tensión, planos inclinados, fuerza elástica, centro de masas y cantidad de movimiento.",
       "tags": [
-        "songwriting",
-        "music",
-        "suno",
-        "parody",
-        "lyrics",
-        "creative"
+        "physics",
+        "physics-dinamica"
       ],
-      "category": "creative",
-      "path": "creative/songwriting-and-ai-music/SKILL.md",
-      "size_bytes": 10236
+      "category": "physics",
+      "path": "/hermes-home/skills/stem/physics/physics-dinamica/SKILL.md",
+      "size_bytes": 3505
     },
     {
-      "name": "static-digest-pipeline",
-      "description": "Pipeline de digest estatico: fetch API externa, normalizacion, ranking, publicacion GitHub Pages con GitHub Actions. Derivado de datos-gob-watch.",
+      "name": "physics-electrostatica",
+      "description": "Electroestática: Ley de Coulomb, campo eléctrico, potencial, ley de Gauss, capacitancia, dieléctricos y energía electrostática.",
       "tags": [
-        "pipeline",
-        "datos-estaticos",
-        "github-pages",
-        "digest",
-        "scraping"
+        "physics",
+        "physics-electrostatica"
       ],
-      "category": "frontend-dashboard-patterns",
-      "path": "frontend-dashboard-patterns/static-digest-pipeline/SKILL.md",
-      "size_bytes": 2537
+      "category": "physics",
+      "path": "/hermes-home/skills/stem/physics/physics-electrostatica/SKILL.md",
+      "size_bytes": 3509
     },
     {
-      "name": "technical-audit-remediation",
-      "description": "Ejecutar auditorías técnicas con hallazgos clasificados por severidad y plan de corrección en fases.",
+      "name": "physics-termodinamica",
+      "description": "Termodinámica: leyes, gases ideales, ciclos termodinámicos, entropía, trabajo termodinámico, calor y temperatura.",
       "tags": [
-        "audit",
-        "code-review",
-        "remediation",
-        "prioritization",
-        "multi-phase"
+        "physics",
+        "physics-termodinamica"
       ],
-      "category": "software-development",
-      "path": "software-development/technical-audit-remediation/SKILL.md",
-      "size_bytes": 13326
+      "category": "physics",
+      "path": "/hermes-home/skills/stem/physics/physics-termodinamica/SKILL.md",
+      "size_bytes": 3919
     },
     {
-      "name": "cache-multicapa",
-      "description": "Patrón de cache en dos capas (memoria + disco) con TTL, métricas de hit rate y limpieza automática. Reduce carga de APIs externas.",
+      "name": "physics-fluidos",
+      "description": "Hidrostática, presión, empuje de Arquímedes, ecuación de Bernoulli, caudal, viscosidad y tensión superficial.",
       "tags": [
-        "infraestructura",
-        "cache",
-        "rendimiento",
-        "patrones",
-        "nodejs"
+        "physics",
+        "physics-fluidos"
       ],
-      "category": "infraestructura",
-      "path": "infraestructura/cache-multicapa/SKILL.md",
-      "size_bytes": 7592
+      "category": "physics",
+      "path": "/hermes-home/skills/stem/physics/physics-fluidos/SKILL.md",
+      "size_bytes": 3201
     },
     {
-      "name": "cliente-http-robusto",
-      "description": "Patrón de cliente HTTP con reintentos, backoff exponencial con jitter y timeouts. Para consumir APIs externas de forma resiliente.",
+      "name": "physics-magnetismo",
+      "description": "Magnetismo: campo magnético, Ley de Ampere, fuerza de Lorentz, inducción de Faraday, Ley de Lenz, autoinducción y materiales magnéticos.",
       "tags": [
-        "infraestructura",
-        "http",
-        "resiliencia",
-        "patrones",
-        "nodejs"
+        "physics",
+        "physics-magnetismo"
       ],
-      "category": "infraestructura",
-      "path": "infraestructura/cliente-http-robusto/SKILL.md",
-      "size_bytes": 7522
+      "category": "physics",
+      "path": "/hermes-home/skills/stem/physics/physics-magnetismo/SKILL.md",
+      "size_bytes": 3578
     },
     {
-      "name": "competitive-intelligence",
-      "description": "Inteligencia competitiva y análisis de negocio desde presencia web pública — extraer modelo de negocio, pricing, stack técnico, equipo y posicionamiento de un competidor/socio/partner a partir de su dominio, y preparar estrategia de reunión.",
+      "name": "stem-transferencia",
+      "description": "Transferencia de calor y masa: conducción (estacionaria/transitoria), convección (forzada/natural), radiación, intercambiadores de calor y coeficientes de transferencia.",
       "tags": [
-        "business-intelligence",
-        "competitor-analysis",
-        "research",
-        "meetings",
-        "sales-intelligence"
+        "engineering",
+        "stem-transferencia"
       ],
-      "category": "business-intelligence",
-      "path": "business-intelligence/competitive-intelligence/SKILL.md",
-      "size_bytes": 5039
+      "category": "engineering",
+      "path": "/hermes-home/skills/stem/engineering/stem-transferencia/SKILL.md",
+      "size_bytes": 5487
     },
     {
-      "name": "docker-multistage-produccion",
-      "description": "Patrón de Dockerfile multistage para Node.js con usuario no-root, health checks y build optimizado para plataformas serverless.",
+      "name": "stem-estatica",
+      "description": "Estática de estructuras: vigas, armaduras (método nodos/secciones), cables, estructuras 2D/3D, métodos matriciales, energía de deformación y teoremas de Castigliano.",
       "tags": [
-        "infraestructura",
-        "docker",
-        "contenedores",
-        "patrones",
-        "produccion"
+        "engineering",
+        "stem-estatica"
       ],
-      "category": "infraestructura",
-      "path": "infraestructura/docker-multistage-produccion/SKILL.md",
-      "size_bytes": 5544
+      "category": "engineering",
+      "path": "/hermes-home/skills/stem/engineering/stem-estatica/SKILL.md",
+      "size_bytes": 6385
     },
     {
-      "name": "freehands-architecture",
-      "description": "Arquitectura completa del proyecto FreeHands — control del PC sin manos: mirada + gestos + voz. Módulos, flujos de datos y patrón para añadir nuevas funcionalidades.",
+      "name": "stem-hidraulica",
+      "description": "Hidráulica e hidráulica de tuberías: ecuación de Bernoulli, pérdida de carga, Darcy-Weisbach, Moody, bombas, caudal, régimen de flujo y redes de tuberías.",
       "tags": [
-        "mastermind",
-        "freehands",
-        "gaze",
-        "gestures",
-        "voice"
+        "engineering",
+        "stem-hidraulica"
       ],
-      "category": "mastermind",
-      "path": "mastermind/freehands-architecture/SKILL.md",
-      "size_bytes": 20033
+      "category": "engineering",
+      "path": "/hermes-home/skills/stem/engineering/stem-hidraulica/SKILL.md",
+      "size_bytes": 5346
     },
     {
-      "name": "github-trending-research",
-      "description": "Exploración sistemática de GitHub Trending — curl + regex parsing, API enrichment, cross-reference con skills existentes, creación/actualización de skills para repos relevantes",
+      "name": "stem-mecanica-solidos",
+      "description": "Mecánica de sólidos: esfuerzos y deformaciones, círculo de Mohr, vigas (flechas, cortante, momento), columnas, torsión y teoría de la elasticidad.",
       "tags": [
-        "github",
-        "trending",
-        "research",
-        "skills",
-        "discovery"
+        "engineering",
+        "stem-mecanica-solidos"
       ],
-      "category": "github",
-      "path": "github/github-trending-research/SKILL.md",
-      "size_bytes": 8486
+      "category": "engineering",
+      "path": "/hermes-home/skills/stem/engineering/stem-mecanica-solidos/SKILL.md",
+      "size_bytes": 5545
     },
     {
-      "name": "health-checks-metrics",
-      "description": "Patrón de health checks, readiness probes y métricas Prometheus para aplicaciones Node.js. Tres endpoints estándar: /healthz, /readyz y /metrics.",
+      "name": "stem-probabilidad-estadistica-eng",
+      "description": "Probabilidad y estadística para ingeniería: variables aleatorias, distribuciones, inferencia estadística, regresión, análisis de confiabilidad y teoría de colas.",
       "tags": [
-        "infraestructura",
-        "monitorizacion",
-        "health",
-        "metrics",
-        "patrones"
+        "engineering",
+        "stem-probabilidad-estadistica-eng"
       ],
-      "category": "infraestructura",
-      "path": "infraestructura/health-checks-metrics/SKILL.md",
-      "size_bytes": 7357
+      "category": "engineering",
+      "path": "/hermes-home/skills/stem/engineering/stem-probabilidad-estadistica-eng/SKILL.md",
+      "size_bytes": 7714
     },
     {
-      "name": "mlx-vlm-inference",
-      "description": ">",
+      "name": "stem-control",
+      "description": "Teoría de control: modelos en dominio del tiempo y frecuencia, función de transferencia, respuesta transitoria, estabilidad (Routh, Nyquist, Bode), compensadores y control PID.",
       "tags": [
-        "mlops",
-        "MLX",
-        "VLM",
-        "vision-language",
-        "inference"
+        "engineering",
+        "stem-control"
       ],
-      "category": "mlops",
-      "path": "mlops/mlx-vlm-inference/SKILL.md",
-      "size_bytes": 2374
+      "category": "engineering",
+      "path": "/hermes-home/skills/stem/engineering/stem-control/SKILL.md",
+      "size_bytes": 6039
     },
     {
-      "name": "node-esm-interop",
-      "description": "Patrones de interoperabilidad entre ESM y CommonJS/IIFE en Node.js — cargar módulos legacy en ESM, CLI headless, new Function vs eval, y exportación de APIs.",
+      "name": "stem-materiales",
+      "description": "Ciencia de materiales: estructura cristalina, diagramas de fase, ensayos mecánicos, deformación, fractura, tratamientos térmicos y selección de materiales.",
       "tags": [
-        "backend",
-        "nodejs",
-        "ESM",
-        "CommonJS",
-        "modules"
+        "engineering",
+        "stem-materiales"
       ],
-      "category": "backend",
-      "path": "backend/node-esm-interop/SKILL.md",
-      "size_bytes": 5704
+      "category": "engineering",
+      "path": "/hermes-home/skills/stem/engineering/stem-materiales/SKILL.md",
+      "size_bytes": 6320
     },
     {
-      "name": "seguridad-web-helmet-cors",
-      "description": "Patrón de seguridad web con Helmet (CSP, HSTS) y CORS por lista blanca. Para apps Express que cargan assets de CDNs externos.",
+      "name": "stem-electronica",
+      "description": "Electrónica analógica y digital: diodos, transistores BJT/FET, amplificadores operacionales, retroalimentación, filtros, lógica booleana, flip-flops y convertidores A/D.",
       "tags": [
-        "infraestructura",
-        "seguridad",
-        "helmet",
-        "cors",
-        "patrones"
+        "engineering",
+        "stem-electronica"
       ],
-      "category": "infraestructura",
-      "path": "infraestructura/seguridad-web-helmet-cors/SKILL.md",
-      "size_bytes": 7847
+      "category": "engineering",
+      "path": "/hermes-home/skills/stem/engineering/stem-electronica/SKILL.md",
+      "size_bytes": 6654
     },
     {
-      "name": "typescript-cross-module-patterns",
-      "description": "Patrones TypeScript para proyectos multi-módulo — tipos flexibles para engine+tests+frontend, declaration files, typecheck antes de push, prevención de errores CI.",
+      "name": "td-cortes-secciones",
+      "description": "Cortes y secciones según ISO 128-4: cortes totales, parciales, escalados, semicortes, secciones, roturas y representaciones normalizadas.",
       "tags": [
-        "typescript",
-        "architecture",
-        "patterns",
-        "ci-cd"
+        "td",
+        "td-cortes-secciones"
       ],
-      "category": "software-development",
-      "path": "software-development/typescript-cross-module-patterns/SKILL.md",
-      "size_bytes": 6534
+      "category": "td",
+      "path": "/hermes-home/skills/stem/td/td-cortes-secciones/SKILL.md",
+      "size_bytes": 5091
     },
     {
-      "name": "validacion-config-estricta",
-      "description": "Patrón de validación estricta de variables de entorno con exit early, defaults tipados y readiness checks. Evita fallos silenciosos en producción.",
+      "name": "td-planos-conjunto",
+      "description": "Planos de conjunto: despiece, lista de piezas, marcas, vistas de montaje, vistas explosivas, normalización industrial y representación de piezas complejas.",
       "tags": [
-        "infraestructura",
-        "configuracion",
-        "validacion",
-        "patrones",
-        "nodejs"
+        "td",
+        "td-planos-conjunto"
       ],
-      "category": "infraestructura",
-      "path": "infraestructura/validacion-config-estricta/SKILL.md",
-      "size_bytes": 6309
+      "category": "td",
+      "path": "/hermes-home/skills/stem/td/td-planos-conjunto/SKILL.md",
+      "size_bytes": 5557
     },
     {
-      "name": "voice-ai-landscape",
-      "description": "Panorama de herramientas Voice AI — VibeVoice (Microsoft), Voicebox, y patrones de TTS/ASR para agentes IA.",
+      "name": "td-basics",
+      "description": "Fundamentos de dibujo técnico: normalización ISO, sistemas de representación básicos, letra tipográfica, acotación, escalas y rotulación.",
       "tags": [
-        "media",
-        "voice",
-        "tts",
-        "stt",
-        "voice-ai"
+        "td",
+        "td-basics"
       ],
-      "category": "media",
-      "path": "media/voice-ai-landscape/SKILL.md",
-      "size_bytes": 2836
+      "category": "td",
+      "path": "/hermes-home/skills/stem/td/td-basics/SKILL.md",
+      "size_bytes": 9732
     },
     {
-      "name": "9009-multi-iteration",
-      "description": "Patrón genérico para ejecutar mejoras 9009 en múltiples iteraciones sobre cualquier proyecto — análisis rápido, plan de mejoras, implementación directa con patch/write_file, y verificación. Optimizado para ejecución directa (NO subagentes) en batches de 20 mejoras.",
+      "name": "td-abatimientos-giros",
+      "description": "Abatimiento, giros y cambio de plano en geometría descriptiva. Obtención de verdaderas magnitudes, distancias y ángulos.",
       "tags": [
-        "software-development",
-        "9009",
-        "improvement",
-        "iteration"
+        "td",
+        "td-abatimientos-giros"
       ],
-      "category": "software-development",
-      "path": "software-development/9009-multi-iteration/SKILL.md",
-      "size_bytes": 9679
+      "category": "td",
+      "path": "/hermes-home/skills/stem/td/td-abatimientos-giros/SKILL.md",
+      "size_bytes": 5850
     },
     {
-      "name": "agent-memory",
-      "description": ">",
+      "name": "td-diedrico-punto-recta-plano",
+      "description": "Sistema diédrico: punto, recta y plano. Pertenencia, incidencia, paralelismo, perpendicularidad, verdaderas magnitudes.",
       "tags": [
-        "ia",
-        "agent-memory",
-        "context",
-        "rag",
-        "persistent-memory"
+        "td",
+        "td-diedrico-punto-recta-plano"
       ],
-      "category": "ia",
-      "path": "ia/agent-memory/SKILL.md",
-      "size_bytes": 3822
+      "category": "td",
+      "path": "/hermes-home/skills/stem/td/td-diedrico-punto-recta-plano/SKILL.md",
+      "size_bytes": 5543
     },
     {
-      "name": "agent-skills-standard",
-      "description": ">",
+      "name": "td-acotacion",
+      "description": "Acotación según ISO 129: principios, elementos de cota, métodos de acotación (cadena, paralela, combinada, coordenadas), cotas funcionales, cotas auxiliares y reglas de acotación.",
       "tags": [
-        "software-development",
-        "skills",
-        "standard",
-        "format"
+        "td",
+        "td-acotacion"
       ],
-      "category": "software-development",
-      "path": "software-development/agent-skills-standard/SKILL.md",
-      "size_bytes": 3313
+      "category": "td",
+      "path": "/hermes-home/skills/stem/td/td-acotacion/SKILL.md",
+      "size_bytes": 4876
     },
     {
-      "name": "agentic-video-pipeline",
-      "description": ">",
+      "name": "td-tolerancias",
+      "description": "Tolerancias dimensionales (ISO 286), tolerancias geométricas (ISO 1101), GPS (ISO 8015), ajustes, sistemas agujero/eje y representación en planos.",
       "tags": [
-        "herramientas",
-        "video",
-        "AI",
-        "pipeline"
+        "td",
+        "td-tolerancias"
       ],
-      "category": "herramientas",
-      "path": "herramientas/agentic-video-pipeline/SKILL.md",
-      "size_bytes": 3835
+      "category": "td",
+      "path": "/hermes-home/skills/stem/td/td-tolerancias/SKILL.md",
+      "size_bytes": 5771
     },
     {
-      "name": "apple-calendar",
-      "description": "Acceder, leer, crear, editar y eliminar eventos del calendario de Apple (iCloud CalDAV) de David Antizar. Usar para ver eventos próximos, organizar agenda, crear citas, editar o cancelar eventos.",
+      "name": "td-intermediate",
+      "description": "Geometría descriptiva, perspectivas axonométricas, intersecciones y desarrollo de superficies en dibujo técnico intermedio.",
       "tags": [
-        "productivity",
-        "calendar",
-        "icloud",
-        "caldav"
+        "td",
+        "td-intermediate"
       ],
-      "category": "productivity",
-      "path": "productivity/apple-calendar/SKILL.md",
-      "size_bytes": 8054
+      "category": "td",
+      "path": "/hermes-home/skills/stem/td/td-intermediate/SKILL.md",
+      "size_bytes": 14103
     },
     {
-      "name": "ascii-video",
-      "description": "ASCII video: convert video/audio to colored ASCII MP4/GIF.",
+      "name": "td-advanced",
+      "description": "Normalización avanzada, tolerancias geométricas y dimensionales, cortes y secciones, representación de piezas complejas y planos de conjunto.",
       "tags": [
-        "creative",
-        "ASCII",
-        "video",
-        "animation"
+        "td",
+        "td-advanced"
       ],
-      "category": "creative",
-      "path": "creative/ascii-video/SKILL.md",
-      "size_bytes": 14924
+      "category": "td",
+      "path": "/hermes-home/skills/stem/td/td-advanced/SKILL.md",
+      "size_bytes": 15699
     },
     {
-      "name": "aurora-nightly-pipeline",
-      "description": "Pipeline de mejora continua nocturna automatica con lint, build, test y deploy. Basado en Ntizar Aurora v5.1.",
+      "name": "td-perspectivas",
+      "description": "Perspectivas axonométricas: isométrica (cabañera), caballera (oblicua), dimétrica, monométrica. Círculos como elipses, reducción de ejes, representación de piezas.",
       "tags": [
-        "devops",
-        "aurora",
-        "nightly",
-        "pipeline"
+        "td",
+        "td-perspectivas"
       ],
-      "category": "devops",
-      "path": "devops/aurora-nightly-pipeline/SKILL.md",
-      "size_bytes": 2280
+      "category": "td",
+      "path": "/hermes-home/skills/stem/td/td-perspectivas/SKILL.md",
+      "size_bytes": 4386
     },
     {
-      "name": "canvas-workflow-protocol",
-      "description": "Protocolo de flujo de trabajo Canvas (Kanvas) para gestión colaborativa de tareas entre humanos y agentes IA usando Obsidian Canvas. CLI tool como único medio de modificación, con ciclo de vida estricto de colores y detección de dependencias.",
+      "name": "td-proyecciones",
+      "description": "Sistema diédrico básico: proyección ortogonal, vistas principales (alzado, planta, perfil), correspondencia entre vistas, perspectivas axonométricas.",
       "tags": [
-        "multi-agent",
-        "canvas",
-        "workflow",
-        "kanvas"
+        "td",
+        "td-proyecciones"
       ],
-      "category": "multi-agent",
-      "path": "multi-agent/canvas-workflow-protocol/SKILL.md",
-      "size_bytes": 5387
+      "category": "td",
+      "path": "/hermes-home/skills/stem/td/td-proyecciones/SKILL.md",
+      "size_bytes": 4931
     },
     {
-      "name": "delegar-no-comprimir",
-      "description": "Patrón para delegar tareas en subagentes en paralelo en vez de hacer compresiones de contexto con secuencias largas de herramientas",
+      "name": "td-intersecciones-vm",
+      "description": "Intersecciones en geometría descriptiva: recta-plano, plano-plano, recta-recta. Verdadera magnitud de segmentos y ángulos.",
       "tags": [
-        "software-development",
-        "delegation",
-        "subagents",
-        "context"
+        "td",
+        "td-intersecciones-vm"
       ],
-      "category": "software-development",
-      "path": "software-development/delegar-no-comprimir/SKILL.md",
-      "size_bytes": 1597
-    },
-    {
-      "name": "esios-indicators-correct",
-      "description": "IDs correctos y unidades de indicadores ESIOS/REE — ACTUALIZADO 2026-05-29: ya no usar time_trunc=hour ni dividir entre 10. Nueva resolución 5min.",
-      "tags": [
-        "esios",
-        "indicadores",
-        "unidades",
-        "IDs"
-      ],
-      "category": "esios",
-      "path": "esios/esios-indicators-correct/SKILL.md",
-      "size_bytes": 5489
-    },
-    {
-      "name": "esios-nan-deploy",
-      "description": "Procedimiento de deploy de proyectos Node.js en NaN.builders — Dockerfile, Kaniko, variables de entorno, puertos y troubleshooting.",
-      "tags": [
-        "esios",
-        "deploy",
-        "nan",
-        "docker"
-      ],
-      "category": "esios",
-      "path": "esios/esios-nan-deploy/SKILL.md",
-      "size_bytes": 23413
-    },
-    {
-      "name": "esios-telegram-report",
-      "description": "Generar informe diario del mercado eléctrico español con gráficos Canvas/PNG y análisis automático vía Telegram — script esios-telegram.js.",
-      "tags": [
-        "esios",
-        "telegram",
-        "cron",
-        "informe"
-      ],
-      "category": "esios",
-      "path": "esios/esios-telegram-report/SKILL.md",
-      "size_bytes": 3589
-    },
-    {
-      "name": "gaze-tracking",
-      "description": ">",
-      "tags": [
-        "computer-vision",
-        "gaze",
-        "eye-tracking",
-        "MediaPipe"
-      ],
-      "category": "computer-vision",
-      "path": "computer-vision/gaze-tracking/SKILL.md",
-      "size_bytes": 2357
-    },
-    {
-      "name": "geoai-city2graph-pattern",
-      "description": "Patrón GeoAI con City2Graph: convertir datos geoespaciales en grafos para Graph Neural Networks y análisis de redes urbanas. Integración GeoPandas → NetworkX → PyTorch Geometric. Modelado de transporte, proximidad, flujo de movilidad.",
-      "tags": [
-        "data-science",
-        "geoai",
-        "city2graph",
-        "GNN"
-      ],
-      "category": "data-science",
-      "path": "data-science/geoai-city2graph-pattern/SKILL.md",
-      "size_bytes": 4221
-    },
-    {
-      "name": "google-eng-practices",
-      "description": "Google Engineering Practices — code review profesional, buenas prácticas de ingeniería, cultura de code health. 22.6k ⭐ en GitHub.",
-      "tags": [
-        "software-development",
-        "google",
-        "code-review",
-        "best-practices"
-      ],
-      "category": "software-development",
-      "path": "software-development/google-eng-practices/SKILL.md",
-      "size_bytes": 1777
-    },
-    {
-      "name": "iterative-algorithm-refinement",
-      "description": "Patrón iterativo para refinar algoritmos de estimación geométrica/sensorial: prototipar → testear con datos realista → diagnosticar fallos → corregir geometría → retestear. Captura el ciclo de debugging de algoritmos de visión por computadora donde los datos de entrada son simulados pero deben reproducir comportamientos reales.",
-      "tags": [
-        "software-development",
-        "algorithm",
-        "refinement",
-        "iterative"
-      ],
-      "category": "software-development",
-      "path": "software-development/iterative-algorithm-refinement/SKILL.md",
-      "size_bytes": 4225
-    },
-    {
-      "name": "kdense-scientific-skills-pattern",
-      "description": "Patrón de skills científicos de K-Dense (142 skills, 100+ bases de datos científicas, 160k+ usuarios). Estructura SKILL.md con frontmatter, composición multi-skill, y patrón de referencia externa para mantener contextos compactos.",
-      "tags": [
-        "multi-agent",
-        "skills",
-        "scientific",
-        "kdense"
-      ],
-      "category": "multi-agent",
-      "path": "multi-agent/kdense-scientific-skills-pattern/SKILL.md",
-      "size_bytes": 4079
-    },
-    {
-      "name": "layered-agent-architecture",
-      "description": ">",
-      "tags": [
-        "devops",
-        "architecture",
-        "multi-layer",
-        "agents"
-      ],
-      "category": "devops",
-      "path": "devops/layered-agent-architecture/SKILL.md",
-      "size_bytes": 4018
-    },
-    {
-      "name": "liteparse-rust-pdf-ocr",
-      "description": "Parser de PDF rápido en Rust con OCR, extracción espacial con bounding boxes, y bindings multi-lenguaje (Node.js, Python, WASM). 7.4k+ estrellas. Ideal para pipelines de documentos donde velocidad y layout importan.",
-      "tags": [
-        "herramientas",
-        "PDF",
-        "OCR",
-        "Rust"
-      ],
-      "category": "herramientas",
-      "path": "herramientas/liteparse-rust-pdf-ocr/SKILL.md",
-      "size_bytes": 4070
-    },
-    {
-      "name": "manim-video",
-      "description": "Manim CE animations: 3Blue1Brown math/algo videos.",
-      "tags": [
-        "creative",
-        "manim",
-        "animation",
-        "math"
-      ],
-      "category": "creative",
-      "path": "creative/manim-video/SKILL.md",
-      "size_bytes": 12065
-    },
-    {
-      "name": "markitdown",
-      "description": "Convert various file formats to Markdown for LLM consumption. Supports PDF, DOCX, PPTX, XLSX, images, audio, HTML, CSV, JSON, XML, ZIP, EPUB, YouTube URLs, and more via a plugin-based converter architecture.",
-      "tags": [
-        "herramientas",
-        "PDF",
-        "markdown",
-        "conversion"
-      ],
-      "category": "herramientas",
-      "path": "herramientas/markitdown/SKILL.md",
-      "size_bytes": 2845
-    },
-    {
-      "name": "monte-carlo-stock-simulator",
-      "description": "Simulador Monte Carlo de riesgos bursátiles en navegador: 5 modelos estocásticos (GBM, Heston, Jump-Diffusion, GARCH, Bootstrap), Web Worker, señales BUY/HOLD/SELL, VaR/CVaR, Sharpe/Sortino. Sin servidor, sin registro.",
-      "tags": [
-        "data-science",
-        "monte-carlo",
-        "stocks",
-        "finance"
-      ],
-      "category": "data-science",
-      "path": "data-science/monte-carlo-stock-simulator/SKILL.md",
-      "size_bytes": 5002
-    },
-    {
-      "name": "nango-integrations",
-      "description": ">",
-      "tags": [
-        "devops",
-        "nango",
-        "API",
-        "integrations"
-      ],
-      "category": "devops",
-      "path": "devops/nango-integrations/SKILL.md",
-      "size_bytes": 3624
-    },
-    {
-      "name": "orca-multi-agent-ide",
-      "description": ">",
-      "tags": [
-        "multi-agent",
-        "orca",
-        "IDE",
-        "code-orchestration"
-      ],
-      "category": "multi-agent",
-      "path": "multi-agent/orca-multi-agent-ide/SKILL.md",
-      "size_bytes": 2769
-    },
-    {
-      "name": "postgres-mcp-pro",
-      "description": ">",
-      "tags": [
-        "devops",
-        "postgres",
-        "MCP",
-        "database"
-      ],
-      "category": "devops",
-      "path": "devops/postgres-mcp-pro/SKILL.md",
-      "size_bytes": 3461
-    },
-    {
-      "name": "rail-lidar-qa-mvp",
-      "description": "Rail LiDAR QA MVP - Local LiDAR quality validation for railway infrastructure using drone simulation, point cloud metrics, and 3D visualization.",
-      "tags": [
-        "data-science",
-        "lidar",
-        "railway",
-        "QA"
-      ],
-      "category": "data-science",
-      "path": "data-science/rail-lidar-qa-mvp/SKILL.md",
-      "size_bytes": 3192
-    },
-    {
-      "name": "refactor-nodejs-monolith",
-      "description": "Refactorizar proyecto Node.js monolítico a arquitectura modular por dominios",
-      "tags": [
-        "software-development",
-        "refactor",
-        "nodejs",
-        "architecture"
-      ],
-      "category": "software-development",
-      "path": "software-development/refactor-nodejs-monolith/SKILL.md",
-      "size_bytes": 10268
-    },
-    {
-      "name": "research-paper-writing",
-      "description": "End-to-end pipeline for producing publication-ready ML/AI research papers targeting NeurIPS, ICML, ICLR.",
-      "tags": [
-        "research",
-        "paper",
-        "writing",
-        "ML/AI"
-      ],
-      "category": "research",
-      "path": "research/research-paper-writing/SKILL.md",
-      "size_bytes": 1391
-    },
-    {
-      "name": "satellite-ai-vision",
-      "description": "Herramientas de visión por satélite y computer vision para análisis de tráfico, terreno y detección de objetos con IA.",
-      "tags": [
-        "vision",
-        "satellite",
-        "computer-vision",
-        "detection"
-      ],
-      "category": "vision",
-      "path": "vision/satellite-ai-vision/SKILL.md",
-      "size_bytes": 3960
-    },
-    {
-      "name": "satellite-gis-patterns",
-      "description": "Patrones de procesamiento de datos satelitales y GIS — DRISH-X (tráfico por satélite), Sentinel-2, y herramientas client-side routing.",
-      "tags": [
-        "vision",
-        "satellite",
-        "GIS",
-        "Sentinel-2"
-      ],
-      "category": "vision",
-      "path": "vision/satellite-gis-patterns/SKILL.md",
-      "size_bytes": 3561
-    },
-    {
-      "name": "satellite-traffic-detection",
-      "description": "DRISH-X — detección de tráfico de vehículos desde imágenes satelitales Sentinel-2. Aprovecha el parpadeo RGB del sensor (1.01s entre canales) + YOLO para inteligencia de carga en carreteras",
-      "tags": [
-        "vision",
-        "satellite",
-        "traffic",
-        "DRISH-X"
-      ],
-      "category": "vision",
-      "path": "vision/satellite-traffic-detection/SKILL.md",
-      "size_bytes": 2569
-    },
-    {
-      "name": "serializable-ml-models",
-      "description": "Serializar modelos ML instance-based (KNN, etc.) en schemas Pydantic con tipos Union para compatibilidad con modelos paramétricos (Ridge, polinomiales).",
-      "tags": [
-        "mlops",
-        "ML",
-        "serialization",
-        "Pydantic"
-      ],
-      "category": "mlops",
-      "path": "mlops/serializable-ml-models/SKILL.md",
-      "size_bytes": 5908
-    },
-    {
-      "name": "static-digest-pipeline",
-      "description": "Pipeline de digest estático: fetch API externa → normalización → scoring heurístico → JSON → HTML → GitHub Pages. Patrón para repos tipo datos-gob-watch.",
-      "tags": [
-        "devops",
-        "pipeline",
-        "digest",
-        "static"
-      ],
-      "category": "devops",
-      "path": "devops/static-digest-pipeline/SKILL.md",
-      "size_bytes": 5503
-    },
-    {
-      "name": "video-processing-pipeline",
-      "description": "Pipeline de procesamiento de vídeo con IA — vidpipe: transcripción, edición automática, captions, shorts y posts para redes sociales.",
-      "tags": [
-        "herramientas",
-        "video",
-        "AI",
-        "vidpipe"
-      ],
-      "category": "herramientas",
-      "path": "herramientas/video-processing-pipeline/SKILL.md",
-      "size_bytes": 2468
-    },
-    {
-      "name": "webgpu-onnx-detection",
-      "description": "Ejecutar modelos de visión por computador (YOLO, etc.) en el navegador con WebGPU/ONNX sin servidor GPU. Basado en YoloConteo.",
-      "tags": [
-        "computer-vision",
-        "WebGPU",
-        "ONNX",
-        "YOLO"
-      ],
-      "category": "computer-vision",
-      "path": "computer-vision/webgpu-onnx-detection/SKILL.md",
-      "size_bytes": 4434
-    },
-    {
-      "name": "youtube-content",
-      "description": "YouTube transcripts to summaries, threads, blogs.",
-      "tags": [
-        "media",
-        "youtube",
-        "transcripts",
-        "research"
-      ],
-      "category": "media",
-      "path": "media/youtube-content/SKILL.md",
-      "size_bytes": 3282
-    },
-    {
-      "name": "mastermind",
-      "description": "Skills del sistema Mastermind - agente principal, dashboards, deploy, voz, APIs y automatización para Ntizar.",
-      "tags": [
-        "mastermind",
-        "umbrella",
-        "system"
-      ],
-      "category": "mastermind",
-      "path": "mastermind/SKILL.md",
-      "size_bytes": 23484
-    },
-    {
-      "name": "mastermind-multi-agent-orchestration",
-      "description": "Framework de orquestacion multi-agente con separacion documental/ejecutable, decaimiento Ebbinghaus y model routing. Basado en Ntizar Brain Mastermind v3.",
-      "tags": [
-        "multi-agent",
-        "orchestration",
-        "mastermind"
-      ],
-      "category": "multi-agent",
-      "path": "multi-agent/mastermind-multi-agent-orchestration/SKILL.md",
-      "size_bytes": 4965
-    },
-    {
-      "name": "nango",
-      "description": "Skill: Nango — plataforma open-source para construir integraciones de producto con 800+ APIs. Maneja OAuth, API keys, token refresh, proxy de requests y ejecución de funciones de integración.",
-      "tags": [
-        "devops",
-        "nango",
-        "API",
-        "integrations"
-      ],
-      "category": "devops",
-      "path": "devops/nango/SKILL.md",
-      "size_bytes": 4434
-    },
-    {
-      "name": "apple-notes",
-      "description": "Manage Apple Notes via memo CLI: create, search, edit.",
-      "tags": [
-        "apple",
-        "apple notes"
-      ],
-      "category": "apple",
-      "path": "apple/apple-notes/SKILL.md",
-      "size_bytes": 2169
-    },
-    {
-      "name": "apple-reminders",
-      "description": "Apple Reminders via remindctl: add, list, complete.",
-      "tags": [
-        "apple",
-        "apple reminders"
-      ],
-      "category": "apple",
-      "path": "apple/apple-reminders/SKILL.md",
-      "size_bytes": 2530
-    },
-    {
-      "name": "architecture-diagram",
-      "description": "Dark-themed SVG architecture/cloud/infra diagrams as HTML.",
-      "tags": [
-        "creative",
-        "architecture diagram"
-      ],
-      "category": "creative",
-      "path": "creative/architecture-diagram/SKILL.md",
-      "size_bytes": 5830
-    },
-    {
-      "name": "arquitectura-dashboard-datos-api",
-      "description": "Arquitectura completa de un dashboard web que consume APIs de datos externas. Patrón inspirado en ESIOS Dashboard — estructura de 5 capas: config, infra, dominio, shared, presentación.",
-      "tags": [
-        "arquitectura",
-        "arquitectura dashboard datos api"
-      ],
-      "category": "arquitectura",
-      "path": "arquitectura/arquitectura-dashboard-datos-api/SKILL.md",
-      "size_bytes": 3356
-    },
-    {
-      "name": "ascii-art",
-      "description": "ASCII art: pyfiglet, cowsay, boxes, image-to-ascii.",
-      "tags": [
-        "creative",
-        "ascii art"
-      ],
-      "category": "creative",
-      "path": "creative/ascii-art/SKILL.md",
-      "size_bytes": 10099
-    },
-    {
-      "name": "audiocraft-audio-generation",
-      "description": "AudioCraft: MusicGen text-to-music, AudioGen text-to-sound.",
-      "tags": [
-        "mlops",
-        "audiocraft audio generation"
-      ],
-      "category": "mlops",
-      "path": "mlops/models/audiocraft/SKILL.md",
-      "size_bytes": 16189
-    },
-    {
-      "name": "baoyu-comic",
-      "description": "Knowledge comics (知识漫画): educational, biography, tutorial.",
-      "tags": [
-        "creative",
-        "baoyu comic"
-      ],
-      "category": "creative",
-      "path": "creative/baoyu-comic/SKILL.md",
-      "size_bytes": 14621
-    },
-    {
-      "name": "baoyu-infographic",
-      "description": "Infographics: 21 layouts x 21 styles (信息图, 可视化).",
-      "tags": [
-        "creative",
-        "baoyu infographic"
-      ],
-      "category": "creative",
-      "path": "creative/baoyu-infographic/SKILL.md",
-      "size_bytes": 10434
-    },
-    {
-      "name": "claude-code",
-      "description": "Delegate coding to Claude Code CLI (features, PRs).",
-      "tags": [
-        "autonomous-ai-agents",
-        "claude code"
-      ],
-      "category": "autonomous-ai-agents",
-      "path": "autonomous-ai-agents/claude-code/SKILL.md",
-      "size_bytes": 34288
-    },
-    {
-      "name": "claude-design",
-      "description": "Design one-off HTML artifacts (landing, deck, prototype).",
-      "tags": [
-        "creative",
-        "claude design"
-      ],
-      "category": "creative",
-      "path": "creative/claude-design/SKILL.md",
-      "size_bytes": 19859
-    },
-    {
-      "name": "codebase-inspection",
-      "description": "Inspect codebases w/ pygount: LOC, languages, ratios.",
-      "tags": [
-        "github",
-        "codebase inspection"
-      ],
-      "category": "github",
-      "path": "github/codebase-inspection/SKILL.md",
-      "size_bytes": 3974
-    },
-    {
-      "name": "conversion-unidades-api-externa",
-      "description": "Conversión de valores crudos de API externa a unidades humanas. Patrón para APIs que devuelven valores en múltiplos (×10, ×100, ×1000).",
-      "tags": [
-        "backend",
-        "conversion unidades api externa"
-      ],
-      "category": "backend",
-      "path": "backend/conversion-unidades-api-externa/SKILL.md",
-      "size_bytes": 4013
-    },
-    {
-      "name": "design-md",
-      "description": "Author/validate/export Google's DESIGN.md token spec files.",
-      "tags": [
-        "creative",
-        "design md"
-      ],
-      "category": "creative",
-      "path": "creative/design-md/SKILL.md",
-      "size_bytes": 7023
-    },
-    {
-      "name": "endpoints-dashboard-rest",
-      "description": "Diseño de endpoints REST para un dashboard de datos — summary, indicator genérico, monthly, yearly, predicción. Patrón con endpoints en español.",
-      "tags": [
-        "backend",
-        "endpoints dashboard rest"
-      ],
-      "category": "backend",
-      "path": "backend/endpoints-dashboard-rest/SKILL.md",
-      "size_bytes": 4578
-    },
-    {
-      "name": "evaluating-llms-harness",
-      "description": "lm-eval-harness: benchmark LLMs (MMLU, GSM8K, etc.).",
-      "tags": [
-        "mlops",
-        "evaluating llms harness"
-      ],
-      "category": "mlops",
-      "path": "mlops/evaluation/lm-evaluation-harness/SKILL.md",
-      "size_bytes": 12020
-    },
-    {
-      "name": "fetch-paralelo-fallos-parciales",
-      "description": "Promise.all para fetch paralelo de múltiples endpoints con manejo de fallos parciales. Patrón para dashboards que consolidan muchos indicadores.",
-      "tags": [
-        "backend",
-        "fetch paralelo fallos parciales"
-      ],
-      "category": "backend",
-      "path": "backend/fetch-paralelo-fallos-parciales/SKILL.md",
-      "size_bytes": 4539
-    },
-    {
-      "name": "forecast-montecarlo-escenarios",
-      "description": "Simulación Monte Carlo con escenarios heurísticos para predicción de precios horarios. Integra drivers externos como viento, solar, demanda, temperatura, gas y CO2.",
-      "tags": [
-        "backend",
-        "forecast montecarlo escenarios"
-      ],
-      "category": "backend",
-      "path": "backend/forecast-montecarlo-escenarios/SKILL.md",
-      "size_bytes": 6478
-    },
-    {
-      "name": "github-auth",
-      "description": "GitHub auth setup: HTTPS tokens, SSH keys, gh CLI login.",
-      "tags": [
-        "github",
-        "github auth"
-      ],
-      "category": "github",
-      "path": "github/github-auth/SKILL.md",
-      "size_bytes": 9341
-    },
-    {
-      "name": "github-code-review",
-      "description": "Review PRs: diffs, inline comments via gh or REST.",
-      "tags": [
-        "github",
-        "github code review"
-      ],
-      "category": "github",
-      "path": "github/github-code-review/SKILL.md",
-      "size_bytes": 6170
-    },
-    {
-      "name": "github-issues",
-      "description": "Create, triage, label, assign GitHub issues via gh or REST.",
-      "tags": [
-        "github",
-        "github issues"
-      ],
-      "category": "github",
-      "path": "github/github-issues/SKILL.md",
-      "size_bytes": 9763
-    },
-    {
-      "name": "github-pr-workflow",
-      "description": "GitHub PR lifecycle: branch, commit, open, CI, merge.",
-      "tags": [
-        "github",
-        "github pr workflow"
-      ],
-      "category": "github",
-      "path": "github/github-pr-workflow/SKILL.md",
-      "size_bytes": 5915
-    },
-    {
-      "name": "github-repo-management",
-      "description": "Clone/create/fork repos; manage remotes, releases.",
-      "tags": [
-        "github",
-        "github repo management"
-      ],
-      "category": "github",
-      "path": "github/github-repo-management/SKILL.md",
-      "size_bytes": 7235
-    },
-    {
-      "name": "hermes-agent",
-      "description": "Configure, extend, or contribute to Hermes Agent.",
-      "tags": [
-        "autonomous-ai-agents",
-        "hermes agent"
-      ],
-      "category": "autonomous-ai-agents",
-      "path": "autonomous-ai-agents/hermes-agent/SKILL.md",
-      "size_bytes": 49465
-    },
-    {
-      "name": "jupyter-live-kernel",
-      "description": "Iterative Python via live Jupyter kernel (hamelnb).",
-      "tags": [
-        "data-science",
-        "jupyter live kernel"
-      ],
-      "category": "data-science",
-      "path": "data-science/jupyter-live-kernel/SKILL.md",
-      "size_bytes": 5285
-    },
-    {
-      "name": "llm-wiki",
-      "description": "Karpathy's LLM Wiki: build/query interlinked markdown KB.",
-      "tags": [
-        "research",
-        "llm wiki"
-      ],
-      "category": "research",
-      "path": "research/llm-wiki/SKILL.md",
-      "size_bytes": 20113
-    },
-    {
-      "name": "macos-computer-use",
-      "description": "|",
-      "tags": [
-        "apple",
-        "macos computer use"
-      ],
-      "category": "apple",
-      "path": "apple/macos-computer-use/SKILL.md",
-      "size_bytes": 7309
+      "category": "td",
+      "path": "/hermes-home/skills/stem/td/td-intersecciones-vm/SKILL.md",
+      "size_bytes": 5144
     },
     {
       "name": "native-mcp",
       "description": "MCP client: connect servers, register tools (stdio/HTTP).",
       "tags": [
         "mcp",
-        "native mcp"
+        "native-mcp"
       ],
       "category": "mcp",
-      "path": "mcp/native-mcp/SKILL.md",
+      "path": "/hermes-home/skills/mcp/native-mcp/SKILL.md",
       "size_bytes": 12779
     },
     {
-      "name": "pixel-art",
-      "description": "Pixel art w/ era palettes (NES, Game Boy, PICO-8).",
+      "name": "human-loop-control",
+      "description": "Sistema de control y human loop para cambios críticos — checkpoints, approval gates, y rollback.",
       "tags": [
-        "creative",
-        "pixel art"
+        "skills",
+        "human-loop-control"
       ],
-      "category": "creative",
-      "path": "creative/pixel-art/SKILL.md",
-      "size_bytes": 7581
+      "category": "skills",
+      "path": "/hermes-home/skills/human-loop-control/SKILL.md",
+      "size_bytes": 3032
     },
     {
-      "name": "postgres-mcp",
-      "description": "PostgreSQL MCP Pro — expone PostgreSQL como servidor MCP para que agentes de IA realicen health checks, tuning de índices, exploración de esquema y ejecución segura de SQL.",
+      "name": "github-workflow",
+      "description": "Flujo completo de trabajo con GitHub: autenticación, gestión de repos, PR lifecycle, code review, issues, knowledge repo como base de conocimiento persistente, deploy estático en Pages, y recuperación",
       "tags": [
-        "devops",
-        "postgres mcp"
+        "skills",
+        "github-workflow"
       ],
-      "category": "devops",
-      "path": "devops/postgres-mcp/SKILL.md",
-      "size_bytes": 4563
+      "category": "skills",
+      "path": "/hermes-home/skills/github-workflow/SKILL.md",
+      "size_bytes": 26956
     },
     {
-      "name": "requesting-code-review",
-      "description": "Pre-commit review: security scan, quality gates, auto-fix.",
+      "name": "hermes-agent",
+      "description": "Configure, extend, or contribute to Hermes Agent.",
       "tags": [
-        "software-development",
-        "requesting code review"
+        "autonomous-ai-agents",
+        "hermes-agent"
       ],
-      "category": "software-development",
-      "path": "software-development/requesting-code-review/SKILL.md",
-      "size_bytes": 8483
-    },
-    {
-      "name": "segment-anything-model",
-      "description": "SAM: zero-shot image segmentation via points, boxes, masks.",
-      "tags": [
-        "mlops",
-        "segment anything model"
-      ],
-      "category": "mlops",
-      "path": "mlops/models/segment-anything/SKILL.md",
-      "size_bytes": 13372
-    },
-    {
-      "name": "servicio-resumen-consolidado",
-      "description": "Construcción de un resumen consolidado desde múltiples series horarias con merge, stats y degradación graceful. Patrón para dashboards que combinan N indicadores.",
-      "tags": [
-        "backend",
-        "servicio resumen consolidado"
-      ],
-      "category": "backend",
-      "path": "backend/servicio-resumen-consolidado/SKILL.md",
-      "size_bytes": 4358
-    },
-    {
-      "name": "serving-llms-vllm",
-      "description": "vLLM: high-throughput LLM serving, OpenAI API, quantization.",
-      "tags": [
-        "mlops",
-        "serving llms vllm"
-      ],
-      "category": "mlops",
-      "path": "mlops/inference/vllm/SKILL.md",
-      "size_bytes": 9071
-    },
-    {
-      "name": "subagent-driven-development",
-      "description": "Execute plans via delegate_task subagents (2-stage review).",
-      "tags": [
-        "software-development",
-        "subagent driven development"
-      ],
-      "category": "software-development",
-      "path": "software-development/subagent-driven-development/SKILL.md",
-      "size_bytes": 12024
-    },
-    {
-      "name": "systematic-debugging",
-      "description": "4-phase root cause debugging: understand bugs before fixing.",
-      "tags": [
-        "software-development",
-        "systematic debugging"
-      ],
-      "category": "software-development",
-      "path": "software-development/systematic-debugging/SKILL.md",
-      "size_bytes": 14018
-    },
-    {
-      "name": "test-driven-development",
-      "description": "TDD: enforce RED-GREEN-REFACTOR, tests before code.",
-      "tags": [
-        "software-development",
-        "test driven development"
-      ],
-      "category": "software-development",
-      "path": "software-development/test-driven-development/SKILL.md",
-      "size_bytes": 11697
-    },
-    {
-      "name": "testing-jest-mocks-api",
-      "description": "Tests con Jest para servicios que consumen APIs externas. Mocks de HTTP, fixtures de datos, degradación de indicadores opcionales.",
-      "tags": [
-        "testing",
-        "testing jest mocks api"
-      ],
-      "category": "testing",
-      "path": "testing/testing-jest-mocks-api/SKILL.md",
-      "size_bytes": 4823
-    },
-    {
-      "name": "touchdesigner-mcp",
-      "description": "Control a running TouchDesigner instance via twozero MCP — create operators, set parameters, wire connections, execute Python, build real-time visuals. 36 native tools.",
-      "tags": [
-        "creative",
-        "touchdesigner mcp"
-      ],
-      "category": "creative",
-      "path": "creative/touchdesigner-mcp/SKILL.md",
-      "size_bytes": 11332
-    },
-    {
-      "name": "tts-setup",
-      "description": "Configure and troubleshoot Text-to-Speech in Hermes Agent — provider selection, voice discovery, language-specific voices, and config patching.",
-      "tags": [
-        "media",
-        "tts setup"
-      ],
-      "category": "media",
-      "path": "media/tts-setup/SKILL.md",
-      "size_bytes": 3603
-    },
-    {
-      "name": "weights-and-biases",
-      "description": "W&B: log ML experiments, sweeps, model registry, dashboards.",
-      "tags": [
-        "mlops",
-        "weights and biases"
-      ],
-      "category": "mlops",
-      "path": "mlops/evaluation/weights-and-biases/SKILL.md",
-      "size_bytes": 12395
-    },
-    {
-      "name": "writing-plans",
-      "description": "Write implementation plans: bite-sized tasks, paths, code.",
-      "tags": [
-        "software-development",
-        "writing plans"
-      ],
-      "category": "software-development",
-      "path": "software-development/writing-plans/SKILL.md",
-      "size_bytes": 9941
+      "category": "autonomous-ai-agents",
+      "path": "/hermes-home/skills/autonomous-ai-agents/hermes-agent/SKILL.md",
+      "size_bytes": 50285
     },
     {
       "name": "codex",
@@ -3010,129 +595,8 @@
         "codex"
       ],
       "category": "autonomous-ai-agents",
-      "path": "autonomous-ai-agents/codex/SKILL.md",
+      "path": "/hermes-home/skills/autonomous-ai-agents/codex/SKILL.md",
       "size_bytes": 4557
-    },
-    {
-      "name": "comfyui",
-      "description": "Generate images, video, and audio with ComfyUI — install, launch, manage nodes/models, run workflows with parameter injection. Uses the official comfy-cli for lifecycle and direct REST/WebSocket API for execution.",
-      "tags": [
-        "creative",
-        "comfyui"
-      ],
-      "category": "creative",
-      "path": "creative/comfyui/SKILL.md",
-      "size_bytes": 24287
-    },
-    {
-      "name": "dogfood",
-      "description": "Exploratory QA of web apps: find bugs, evidence, reports.",
-      "tags": [
-        "software-development",
-        "dogfood"
-      ],
-      "category": "software-development",
-      "path": "software-development/dogfood/SKILL.md",
-      "size_bytes": 7080
-    },
-    {
-      "name": "dspy",
-      "description": "DSPy: declarative LM programs, auto-optimize prompts, RAG.",
-      "tags": [
-        "mlops",
-        "dspy"
-      ],
-      "category": "mlops",
-      "path": "mlops/research/dspy/SKILL.md",
-      "size_bytes": 15220
-    },
-    {
-      "name": "excalidraw",
-      "description": "Hand-drawn Excalidraw JSON diagrams (arch, flow, seq).",
-      "tags": [
-        "creative",
-        "excalidraw"
-      ],
-      "category": "creative",
-      "path": "creative/excalidraw/SKILL.md",
-      "size_bytes": 7300
-    },
-    {
-      "name": "findmy",
-      "description": "Track Apple devices/AirTags via FindMy.app on macOS.",
-      "tags": [
-        "apple",
-        "findmy"
-      ],
-      "category": "apple",
-      "path": "apple/findmy/SKILL.md",
-      "size_bytes": 3709
-    },
-    {
-      "name": "godmode",
-      "description": "Jailbreak LLMs: Parseltongue, GODMODE, ULTRAPLINIAN.",
-      "tags": [
-        "red-teaming",
-        "godmode"
-      ],
-      "category": "red-teaming",
-      "path": "red-teaming/godmode/SKILL.md",
-      "size_bytes": 20059
-    },
-    {
-      "name": "heartmula",
-      "description": "HeartMuLa: Suno-like song generation from lyrics + tags.",
-      "tags": [
-        "media",
-        "heartmula"
-      ],
-      "category": "media",
-      "path": "media/heartmula/SKILL.md",
-      "size_bytes": 6412
-    },
-    {
-      "name": "humanizer",
-      "description": "Humanize text: strip AI-isms and add real voice.",
-      "tags": [
-        "creative",
-        "humanizer"
-      ],
-      "category": "creative",
-      "path": "creative/humanizer/SKILL.md",
-      "size_bytes": 30025
-    },
-    {
-      "name": "ideation",
-      "description": "Generate project ideas via creative constraints.",
-      "tags": [
-        "creative",
-        "ideation"
-      ],
-      "category": "creative",
-      "path": "creative/creative-ideation/SKILL.md",
-      "size_bytes": 6318
-    },
-    {
-      "name": "imessage",
-      "description": "Send and receive iMessages/SMS via the imsg CLI on macOS.",
-      "tags": [
-        "apple",
-        "imessage"
-      ],
-      "category": "apple",
-      "path": "apple/imessage/SKILL.md",
-      "size_bytes": 2442
-    },
-    {
-      "name": "obliteratus",
-      "description": "OBLITERATUS: abliterate LLM refusals (diff-in-means).",
-      "tags": [
-        "mlops",
-        "obliteratus"
-      ],
-      "category": "mlops",
-      "path": "mlops/inference/obliteratus/SKILL.md",
-      "size_bytes": 15464
     },
     {
       "name": "opencode",
@@ -3142,74 +606,327 @@
         "opencode"
       ],
       "category": "autonomous-ai-agents",
-      "path": "autonomous-ai-agents/opencode/SKILL.md",
+      "path": "/hermes-home/skills/autonomous-ai-agents/opencode/SKILL.md",
       "size_bytes": 7259
     },
     {
-      "name": "p5js",
-      "description": "p5.js sketches: gen art, shaders, interactive, 3D.",
+      "name": "claude-code",
+      "description": "Delegate coding to Claude Code CLI (features, PRs).",
       "tags": [
-        "creative",
-        "p5js"
+        "autonomous-ai-agents",
+        "claude-code"
       ],
-      "category": "creative",
-      "path": "creative/p5js/SKILL.md",
-      "size_bytes": 27494
+      "category": "autonomous-ai-agents",
+      "path": "/hermes-home/skills/autonomous-ai-agents/claude-code/SKILL.md",
+      "size_bytes": 34288
     },
     {
-      "name": "pretext",
-      "description": "Use when building creative browser demos with @chenglou/pretext — DOM-free text layout for ASCII art, typographic flow around obstacles, text-as-geometry games, kinetic typography, and text-powered generative art. Produces single-file HTML demos by default.",
+      "name": "agent-memory",
+      "description": ">",
       "tags": [
-        "creative",
-        "pretext"
+        "ia",
+        "agent-memory"
       ],
-      "category": "creative",
-      "path": "creative/pretext/SKILL.md",
-      "size_bytes": 14168
+      "category": "ia",
+      "path": "/hermes-home/skills/ia/agent-memory/SKILL.md",
+      "size_bytes": 3837
     },
     {
-      "name": "sketch",
-      "description": "Throwaway HTML mockups: 2-3 design variants to compare.",
+      "name": "rag-knowledge-base",
+      "description": "Construir y gestionar un sistema RAG (Retrieval-Augmented Generation) sobre el corpus de notas, skills y repos de Mastermind — usando ChromaDB + qwen3-embedding de NaN API.",
       "tags": [
-        "creative",
-        "sketch"
+        "ia",
+        "rag-knowledge-base"
       ],
-      "category": "creative",
-      "path": "creative/sketch/SKILL.md",
-      "size_bytes": 9304
+      "category": "ia",
+      "path": "/hermes-home/skills/ia/rag-knowledge-base/SKILL.md",
+      "size_bytes": 5301
     },
     {
-      "name": "songsee",
-      "description": "Audio spectrograms/features (mel, chroma, MFCC) via CLI.",
+      "name": "liteparse-document-ai-parsing",
+      "description": "Liteparse — parser de documentos con IA del equipo LlamaIndex (10K⭐). Extrae datos estructurados (JSON/CSV) de PDFs, HTML, markdown, imágenes usando LLMs. Rápido (Rust).",
       "tags": [
-        "media",
-        "songsee"
+        "ia",
+        "liteparse-document-ai-parsing"
       ],
-      "category": "media",
-      "path": "media/songsee/SKILL.md",
-      "size_bytes": 2336
+      "category": "ia",
+      "path": "/hermes-home/skills/ia/liteparse-document-ai-parsing/SKILL.md",
+      "size_bytes": 14249
     },
     {
-      "name": "spike",
-      "description": "Throwaway experiments to validate an idea before build.",
+      "name": "agent-reach",
+      "description": "Agent-Reach — herramienta para dar a los agentes IA acceso a 13+ plataformas web. Lectura y escritura en cualquier web (internet, APIs, redes sociales). 34K⭐.",
       "tags": [
-        "software-development",
-        "spike"
+        "ia",
+        "agent-reach"
       ],
-      "category": "software-development",
-      "path": "software-development/spike/SKILL.md",
-      "size_bytes": 8753
+      "category": "ia",
+      "path": "/hermes-home/skills/ia/agent-reach/SKILL.md",
+      "size_bytes": 2116
     },
     {
-      "name": "voicebox",
-      "description": "Voicebox — Estudio de voz AI local-first open-source. 7 motores TTS, clonación de voz, dictado global, transcripción STT, integración MCP. Alternativa local a ElevenLabs.",
+      "name": "linkedin-david-antizar-style",
+      "description": "Crear posts para LinkedIn, Substack, newsletters o cualquier escritura pública al estilo de David Antizar — análisis de export, extracción de patrón de escritura, generación de contenido con tono pers",
       "tags": [
-        "media",
-        "voicebox"
+        "skills",
+        "linkedin-david-antizar-style"
       ],
-      "category": "media",
-      "path": "media/voicebox/SKILL.md",
-      "size_bytes": 4116
+      "category": "skills",
+      "path": "/hermes-home/skills/linkedin-david-antizar-style/SKILL.md",
+      "size_bytes": 6106
+    },
+    {
+      "name": "terran-architecture",
+      "description": "Arquitectura completa de TerrAn — ERP municipal con vista 3D, gestión documental, IA y datos en tiempo real. Referencia para hardware, escalabilidad, RBAC y patrones.",
+      "tags": [
+        "skills",
+        "terran-architecture"
+      ],
+      "category": "skills",
+      "path": "/hermes-home/skills/terran-architecture/SKILL.md",
+      "size_bytes": 13329
+    },
+    {
+      "name": "skill-biology-cell",
+      "description": "Biología celular — Estructura celular, genética, evolución, ecología, bioquímica básica.",
+      "tags": [
+        "skills",
+        "skill-biology-cell"
+      ],
+      "category": "skills",
+      "path": "/hermes-home/skills/skill-biology-cell/SKILL.md",
+      "size_bytes": 3731
+    },
+    {
+      "name": "skill-chemistry-basics",
+      "description": "Química básica — Estequiometría, enlaces, reacciones, tabla periódica, termodinámica química.",
+      "tags": [
+        "skills",
+        "skill-chemistry-basics"
+      ],
+      "category": "skills",
+      "path": "/hermes-home/skills/skill-chemistry-basics/SKILL.md",
+      "size_bytes": 3305
+    },
+    {
+      "name": "sales-account-intelligence",
+      "description": "Account Intelligence para venta de Control-M — análisis profundo de cuentas, detección de pains, tech stack, oportunidades comerciales y plan de acción. Usa datos CRM (Salesforce) + fuentes públicas p",
+      "tags": [
+        "sales",
+        "sales-account-intelligence"
+      ],
+      "category": "sales",
+      "path": "/hermes-home/skills/sales/sales-account-intelligence/SKILL.md",
+      "size_bytes": 15824
+    },
+    {
+      "name": "budget-comparison",
+      "description": ">",
+      "tags": [
+        "skills",
+        "budget-comparison"
+      ],
+      "category": "skills",
+      "path": "/hermes-home/skills/budget-comparison/SKILL.md",
+      "size_bytes": 22102
+    },
+    {
+      "name": "aurora-llm-optimization",
+      "description": "Procedimiento para optimizar cualquier design system CSS para que sea infalible con LLMs: LLM.md decision guide, components.json machine-readable, examples/, validation scripts, updated AGENTS.md/INDE",
+      "tags": [
+        "skills",
+        "aurora-llm-optimization"
+      ],
+      "category": "skills",
+      "path": "/hermes-home/skills/aurora-llm-optimization/SKILL.md",
+      "size_bytes": 7176
+    },
+    {
+      "name": "weights-and-biases",
+      "description": "W&B: log ML experiments, sweeps, model registry, dashboards.",
+      "tags": [
+        "evaluation",
+        "weights-and-biases"
+      ],
+      "category": "evaluation",
+      "path": "/hermes-home/skills/mlops/evaluation/weights-and-biases/SKILL.md",
+      "size_bytes": 12395
+    },
+    {
+      "name": "lm-evaluation-harness",
+      "description": "lm-eval-harness: benchmark LLMs (MMLU, GSM8K, etc.).",
+      "tags": [
+        "evaluation",
+        "lm-evaluation-harness"
+      ],
+      "category": "evaluation",
+      "path": "/hermes-home/skills/mlops/evaluation/lm-evaluation-harness/SKILL.md",
+      "size_bytes": 12020
+    },
+    {
+      "name": "vllm",
+      "description": "vLLM: high-throughput LLM serving, OpenAI API, quantization.",
+      "tags": [
+        "inference",
+        "vllm"
+      ],
+      "category": "inference",
+      "path": "/hermes-home/skills/mlops/inference/vllm/SKILL.md",
+      "size_bytes": 9071
+    },
+    {
+      "name": "obliteratus",
+      "description": "OBLITERATUS: abliterate LLM refusals (diff-in-means).",
+      "tags": [
+        "inference",
+        "obliteratus"
+      ],
+      "category": "inference",
+      "path": "/hermes-home/skills/mlops/inference/obliteratus/SKILL.md",
+      "size_bytes": 15464
+    },
+    {
+      "name": "segment-anything",
+      "description": "SAM: zero-shot image segmentation via points, boxes, masks.",
+      "tags": [
+        "models",
+        "segment-anything"
+      ],
+      "category": "models",
+      "path": "/hermes-home/skills/mlops/models/segment-anything/SKILL.md",
+      "size_bytes": 13372
+    },
+    {
+      "name": "audiocraft",
+      "description": "AudioCraft: MusicGen text-to-music, AudioGen text-to-sound.",
+      "tags": [
+        "models",
+        "audiocraft"
+      ],
+      "category": "models",
+      "path": "/hermes-home/skills/mlops/models/audiocraft/SKILL.md",
+      "size_bytes": 16189
+    },
+    {
+      "name": "mlx-vlm-inference",
+      "description": ">",
+      "tags": [
+        "mlops",
+        "mlx-vlm-inference"
+      ],
+      "category": "mlops",
+      "path": "/hermes-home/skills/mlops/mlx-vlm-inference/SKILL.md",
+      "size_bytes": 2374
+    },
+    {
+      "name": "dspy",
+      "description": "DSPy: declarative LM programs, auto-optimize prompts, RAG.",
+      "tags": [
+        "research",
+        "dspy"
+      ],
+      "category": "research",
+      "path": "/hermes-home/skills/mlops/research/dspy/SKILL.md",
+      "size_bytes": 15220
+    },
+    {
+      "name": "devops-operations",
+      "description": "Patrones operativos de DevOps: deploy en NaN.builders (502, cache, env vars), cron jobs con scripts (no_agent=True), pipeline de digest estático, y GitHub Pages deployment. Todo para mantener apps en ",
+      "tags": [
+        "skills",
+        "devops-operations"
+      ],
+      "category": "skills",
+      "path": "/hermes-home/skills/devops-operations/SKILL.md",
+      "size_bytes": 22463
+    },
+    {
+      "name": "clip-multimodal",
+      "description": "Procedimiento para usar CLIP (Contrastive Language-Image Pretraining) para embedding de imágenes y texto, búsqueda semántica, y clasificación zero-shot",
+      "tags": [
+        "deep-learning",
+        "clip-multimodal"
+      ],
+      "category": "deep-learning",
+      "path": "/hermes-home/skills/deep-learning/clip-multimodal/SKILL.md",
+      "size_bytes": 2511
+    },
+    {
+      "name": "frontend-dashboard-patterns",
+      "description": "Patrones completos para dashboards frontend vanilla JS: cliente API robusto, orquestación de carga, error boundaries, tabs con navegación, persistencia, fechas, colores, sparklines, Web Workers y debu",
+      "tags": [
+        "skills",
+        "frontend-dashboard-patterns"
+      ],
+      "category": "skills",
+      "path": "/hermes-home/skills/frontend-dashboard-patterns/SKILL.md",
+      "size_bytes": 103395
+    },
+    {
+      "name": "aurora-design-system",
+      "description": "Design System Ntizar Aurora v5.1 Constellation — CSS puro, 11 packs opt-in, namespaced .nz, 5 skins, liquid glass real, OKLCH, multi-axis theming, agent-ready con CDN público. Derivado de Ntizar-Auror",
+      "tags": [
+        "frontend-dashboard-patterns",
+        "aurora-design-system"
+      ],
+      "category": "frontend-dashboard-patterns",
+      "path": "/hermes-home/skills/frontend-dashboard-patterns/aurora-design-system/SKILL.md",
+      "size_bytes": 40230
+    },
+    {
+      "name": "static-digest-pipeline",
+      "description": "Pipeline de digest estatico: fetch API externa, normalizacion, ranking, publicacion GitHub Pages con GitHub Actions. Derivado de datos-gob-watch.",
+      "tags": [
+        "frontend-dashboard-patterns",
+        "static-digest-pipeline"
+      ],
+      "category": "frontend-dashboard-patterns",
+      "path": "/hermes-home/skills/frontend-dashboard-patterns/static-digest-pipeline/SKILL.md",
+      "size_bytes": 2537
+    },
+    {
+      "name": "esios-indicators-correct",
+      "description": "IDs correctos y unidades de indicadores ESIOS/REE — ACTUALIZADO 2026-05-29: ya no usar time_trunc=hour ni dividir entre 10. Nueva resolución 5min.",
+      "tags": [
+        "esios",
+        "esios-indicators-correct"
+      ],
+      "category": "esios",
+      "path": "/hermes-home/skills/esios/esios-indicators-correct/SKILL.md",
+      "size_bytes": 5494
+    },
+    {
+      "name": "esios-nan-deploy",
+      "description": "Procedimiento de deploy de proyectos Node.js en NaN.builders — Dockerfile, Kaniko, variables de entorno, puertos y troubleshooting.",
+      "tags": [
+        "esios",
+        "esios-nan-deploy"
+      ],
+      "category": "esios",
+      "path": "/hermes-home/skills/esios/esios-nan-deploy/SKILL.md",
+      "size_bytes": 58552
+    },
+    {
+      "name": "esios-telegram-report",
+      "description": "Generar informe diario del mercado eléctrico español con gráficos Canvas/PNG y análisis automático vía Telegram — script esios-telegram.js.",
+      "tags": [
+        "esios",
+        "esios-telegram-report"
+      ],
+      "category": "esios",
+      "path": "/hermes-home/skills/esios/esios-telegram-report/SKILL.md",
+      "size_bytes": 7138
+    },
+    {
+      "name": "apple-calendar",
+      "description": "Acceder, leer, crear, editar y eliminar eventos del calendario de Apple (iCloud CalDAV) de David Antizar. Usar para ver eventos próximos, organizar agenda, crear citas, editar o cancelar eventos.",
+      "tags": [
+        "productivity",
+        "apple-calendar"
+      ],
+      "category": "productivity",
+      "path": "/hermes-home/skills/productivity/apple-calendar/SKILL.md",
+      "size_bytes": 8089
     },
     {
       "name": "yuanbao",
@@ -3219,8 +936,1735 @@
         "yuanbao"
       ],
       "category": "productivity",
-      "path": "productivity/yuanbao/SKILL.md",
+      "path": "/hermes-home/skills/productivity/yuanbao/SKILL.md",
       "size_bytes": 3795
+    },
+    {
+      "name": "design-systems-ecosystem",
+      "description": "Ecosistema completo de design systems CSS: creación desde cero (scaffold), estilos corporativos flat (Kaizen), glassmorphism liquid (Aurora/Esios), y optimización para LLMs. Incluye Aurora Constellati",
+      "tags": [
+        "skills",
+        "design-systems-ecosystem"
+      ],
+      "category": "skills",
+      "path": "/hermes-home/skills/design-systems-ecosystem/SKILL.md",
+      "size_bytes": 5916
+    },
+    {
+      "name": "workspace-cleanup",
+      "description": "Procedimiento sistemático para auditar y limpiar el workspace de un agente AI — identificar espacio ocupado, clasificar por utilidad, eliminar lo innecesario.",
+      "tags": [
+        "skills",
+        "workspace-cleanup"
+      ],
+      "category": "skills",
+      "path": "/hermes-home/skills/workspace-cleanup/SKILL.md",
+      "size_bytes": 6407
+    },
+    {
+      "name": "ai-coach-personalizado",
+      "description": ">",
+      "tags": [
+        "ai-patterns",
+        "ai-coach-personalizado"
+      ],
+      "category": "ai-patterns",
+      "path": "/hermes-home/skills/ai-patterns/ai-coach-personalizado/SKILL.md",
+      "size_bytes": 3124
+    },
+    {
+      "name": "heartmula",
+      "description": "HeartMuLa: Suno-like song generation from lyrics + tags.",
+      "tags": [
+        "media",
+        "heartmula"
+      ],
+      "category": "media",
+      "path": "/hermes-home/skills/media/heartmula/SKILL.md",
+      "size_bytes": 6412
+    },
+    {
+      "name": "songsee",
+      "description": "Audio spectrograms/features (mel, chroma, MFCC) via CLI.",
+      "tags": [
+        "media",
+        "songsee"
+      ],
+      "category": "media",
+      "path": "/hermes-home/skills/media/songsee/SKILL.md",
+      "size_bytes": 2336
+    },
+    {
+      "name": "youtube-content",
+      "description": "YouTube transcripts to summaries, threads, blogs.",
+      "tags": [
+        "media",
+        "youtube-content"
+      ],
+      "category": "media",
+      "path": "/hermes-home/skills/media/youtube-content/SKILL.md",
+      "size_bytes": 3282
+    },
+    {
+      "name": "voicebox",
+      "description": "Voicebox — Estudio de voz AI local-first open-source. 7 motores TTS, clonación de voz, dictado global, transcripción STT, integración MCP. Alternativa local a ElevenLabs.",
+      "tags": [
+        "media",
+        "voicebox"
+      ],
+      "category": "media",
+      "path": "/hermes-home/skills/media/voicebox/SKILL.md",
+      "size_bytes": 4121
+    },
+    {
+      "name": "tts-setup",
+      "description": "Configure and troubleshoot Text-to-Speech in Hermes Agent — provider selection, voice discovery, language-specific voices, and config patching.",
+      "tags": [
+        "media",
+        "tts-setup"
+      ],
+      "category": "media",
+      "path": "/hermes-home/skills/media/tts-setup/SKILL.md",
+      "size_bytes": 3603
+    },
+    {
+      "name": "pydantic-ai",
+      "description": "Framework completo de agentes GenAI para Python: fundamentos (agentes, tipos, validación), patrones de producción (DI, structured outputs, testing, streaming), sistema de tools, y 10 skills de program",
+      "tags": [
+        "pydantic",
+        "pydantic-ai"
+      ],
+      "category": "pydantic",
+      "path": "/hermes-home/skills/pydantic/pydantic-ai/SKILL.md",
+      "size_bytes": 5028
+    },
+    {
+      "name": "satellite-traffic-detection",
+      "description": "DRISH-X/DRISH-ES — detección de tráfico de vehículos desde imágenes satelitales Sentinel-2. RGB offset 1.01s + Random Forest. Fork español en Ntizar/drish-es con autopistas españolas",
+      "tags": [
+        "vision",
+        "satellite-traffic-detection"
+      ],
+      "category": "vision",
+      "path": "/hermes-home/skills/vision/satellite-traffic-detection/SKILL.md",
+      "size_bytes": 6944
+    },
+    {
+      "name": "satellite-gis-patterns",
+      "description": "Patrones de procesamiento de datos satelitales y GIS — DRISH-X (tráfico por satélite), Sentinel-2, y herramientas client-side routing.",
+      "tags": [
+        "vision",
+        "satellite-gis-patterns"
+      ],
+      "category": "vision",
+      "path": "/hermes-home/skills/vision/satellite-gis-patterns/SKILL.md",
+      "size_bytes": 5983
+    },
+    {
+      "name": "onnx-webgpu-inference",
+      "description": "Ejecutar modelos YOLO ONNX en el navegador con WebGPU (20-40+ fps) o WASM fallback (5-15 fps). Deteccion de personas y vehiculos en tiempo real desde camara web. Derivado de YoloConteo.",
+      "tags": [
+        "vision",
+        "onnx-webgpu-inference"
+      ],
+      "category": "vision",
+      "path": "/hermes-home/skills/vision/onnx-webgpu-inference/SKILL.md",
+      "size_bytes": 3223
+    },
+    {
+      "name": "satellite-ai-vision",
+      "description": "Herramientas de visión por satélite y computer vision para análisis de tráfico, terreno y detección de objetos con IA.",
+      "tags": [
+        "vision",
+        "satellite-ai-vision"
+      ],
+      "category": "vision",
+      "path": "/hermes-home/skills/vision/satellite-ai-vision/SKILL.md",
+      "size_bytes": 8593
+    },
+    {
+      "name": "godmode",
+      "description": "Jailbreak LLMs: Parseltongue, GODMODE, ULTRAPLINIAN.",
+      "tags": [
+        "red-teaming",
+        "godmode"
+      ],
+      "category": "red-teaming",
+      "path": "/hermes-home/skills/red-teaming/godmode/SKILL.md",
+      "size_bytes": 20059
+    },
+    {
+      "name": "dieta-tracking",
+      "description": "Seguimiento de dieta y nutrición — cálculo de macros, registro de comidas en el repo /root/workspace/dieta/, estimación de kcal y macronutrientes a partir de descripciones o fotos de packaging.",
+      "tags": [
+        "health",
+        "dieta-tracking"
+      ],
+      "category": "health",
+      "path": "/hermes-home/skills/health/dieta-tracking/SKILL.md",
+      "size_bytes": 2620
+    },
+    {
+      "name": "mastermind-orchestration",
+      "description": "Orquestación multi-agente unificada para Mastermind en Hermes+GitHub. Reemplaza mastermind, orca y canvas-workflow. Usa delegate_task nativo de Hermes.",
+      "tags": [
+        "multi-agent",
+        "mastermind-orchestration"
+      ],
+      "category": "multi-agent",
+      "path": "/hermes-home/skills/multi-agent/mastermind-orchestration/SKILL.md",
+      "size_bytes": 30355
+    },
+    {
+      "name": "apple-notes",
+      "description": "Manage Apple Notes via memo CLI: create, search, edit.",
+      "tags": [
+        "apple",
+        "apple-notes"
+      ],
+      "category": "apple",
+      "path": "/hermes-home/skills/apple/apple-notes/SKILL.md",
+      "size_bytes": 2169
+    },
+    {
+      "name": "imessage",
+      "description": "Send and receive iMessages/SMS via the imsg CLI on macOS.",
+      "tags": [
+        "apple",
+        "imessage"
+      ],
+      "category": "apple",
+      "path": "/hermes-home/skills/apple/imessage/SKILL.md",
+      "size_bytes": 2442
+    },
+    {
+      "name": "macos-computer-use",
+      "description": "|",
+      "tags": [
+        "apple",
+        "macos-computer-use"
+      ],
+      "category": "apple",
+      "path": "/hermes-home/skills/apple/macos-computer-use/SKILL.md",
+      "size_bytes": 7309
+    },
+    {
+      "name": "findmy",
+      "description": "Track Apple devices/AirTags via FindMy.app on macOS.",
+      "tags": [
+        "apple",
+        "findmy"
+      ],
+      "category": "apple",
+      "path": "/hermes-home/skills/apple/findmy/SKILL.md",
+      "size_bytes": 3709
+    },
+    {
+      "name": "apple-reminders",
+      "description": "Apple Reminders via remindctl: add, list, complete.",
+      "tags": [
+        "apple",
+        "apple-reminders"
+      ],
+      "category": "apple",
+      "path": "/hermes-home/skills/apple/apple-reminders/SKILL.md",
+      "size_bytes": 2530
+    },
+    {
+      "name": "matematicas-curso-educativo",
+      "description": "DeSumarIntegrar — Curso completo de matemáticas de 1º Primaria a 1º Carrera: 107+ HTML interactivos con KaTeX, Plotly.js, ejercicios con feedback. Sistema de mejora continua con cron cada 30min. CALID",
+      "tags": [
+        "data-science",
+        "matematicas-curso-educativo"
+      ],
+      "category": "data-science",
+      "path": "/hermes-home/skills/data-science/matematicas-curso-educativo/SKILL.md",
+      "size_bytes": 51650
+    },
+    {
+      "name": "geoai-city2graph-pattern",
+      "description": "Patrón GeoAI con City2Graph: convertir datos geoespaciales en grafos para Graph Neural Networks y análisis de redes urbanas. Integración GeoPandas → NetworkX → PyTorch Geometric. Modelado de transport",
+      "tags": [
+        "data-science",
+        "geoai-city2graph-pattern"
+      ],
+      "category": "data-science",
+      "path": "/hermes-home/skills/data-science/geoai-city2graph-pattern/SKILL.md",
+      "size_bytes": 4221
+    },
+    {
+      "name": "deep-learning-fundamentals",
+      "description": "Serie de aprendizaje profundo sobre arquitecturas de redes neuronales modernas — SSMs, Diffusion, MoE, Quantization, y más. Notas técnicas con código, papers de referencia y aplicaciones al stack ESIO",
+      "tags": [
+        "data-science",
+        "deep-learning-fundamentals"
+      ],
+      "category": "data-science",
+      "path": "/hermes-home/skills/data-science/deep-learning-fundamentals/SKILL.md",
+      "size_bytes": 4844
+    },
+    {
+      "name": "sistemaelectricofuturo",
+      "description": "Simulador horario del sistema eléctrico español 2026-2035 — despacho por orden de mérito SRMC, políticas energéticas (CfD, tope ibérico, cierre nuclear ENRESA), Monte Carlo multi-semilla y KPIs de seg",
+      "tags": [
+        "data-science",
+        "sistemaelectricofuturo"
+      ],
+      "category": "data-science",
+      "path": "/hermes-home/skills/data-science/sistemaelectricofuturo/SKILL.md",
+      "size_bytes": 10985
+    },
+    {
+      "name": "qlib-quant",
+      "description": "Qlib — plataforma de inversión cuantitativa con IA de Microsoft (44K⭐). Modelos ML, factor mining, backtesting, RL trading.",
+      "tags": [
+        "data-science",
+        "qlib-quant"
+      ],
+      "category": "data-science",
+      "path": "/hermes-home/skills/data-science/qlib-quant/SKILL.md",
+      "size_bytes": 1625
+    },
+    {
+      "name": "solar-shadow-computation",
+      "description": "Calculo de sombras solares con Web Workers + Comlink, cache por terraza/dia/franja, footprints OSM, estimacion de alturas de edificios. Derivado de solmad.",
+      "tags": [
+        "data-science",
+        "solar-shadow-computation"
+      ],
+      "category": "data-science",
+      "path": "/hermes-home/skills/data-science/solar-shadow-computation/SKILL.md",
+      "size_bytes": 2827
+    },
+    {
+      "name": "monte-carlo-stock-simulator",
+      "description": "Simulador Monte Carlo de riesgos bursátiles en navegador: 5 modelos estocásticos (GBM, Heston, Jump-Diffusion, GARCH, Bootstrap), Web Worker, señales BUY/HOLD/SELL, VaR/CVaR, Sharpe/Sortino. Sin servi",
+      "tags": [
+        "data-science",
+        "monte-carlo-stock-simulator"
+      ],
+      "category": "data-science",
+      "path": "/hermes-home/skills/data-science/monte-carlo-stock-simulator/SKILL.md",
+      "size_bytes": 5002
+    },
+    {
+      "name": "rail-lidar-qa-mvp",
+      "description": "Rail LiDAR QA MVP - Local LiDAR quality validation for railway infrastructure using drone simulation, point cloud metrics, and 3D visualization.",
+      "tags": [
+        "data-science",
+        "rail-lidar-qa-mvp"
+      ],
+      "category": "data-science",
+      "path": "/hermes-home/skills/data-science/rail-lidar-qa-mvp/SKILL.md",
+      "size_bytes": 3192
+    },
+    {
+      "name": "timesfm-forecast",
+      "description": "TimesFM — Time Series Foundation Model de Google Research (22K⭐). Modelo fundacional pre-entrenado para forecasting de series temporales. 100M+ timepoints.",
+      "tags": [
+        "data-science",
+        "timesfm-forecast"
+      ],
+      "category": "data-science",
+      "path": "/hermes-home/skills/data-science/timesfm-forecast/SKILL.md",
+      "size_bytes": 1805
+    },
+    {
+      "name": "jupyter-live-kernel",
+      "description": "Iterative Python via live Jupyter kernel (hamelnb).",
+      "tags": [
+        "data-science",
+        "jupyter-live-kernel"
+      ],
+      "category": "data-science",
+      "path": "/hermes-home/skills/data-science/jupyter-live-kernel/SKILL.md",
+      "size_bytes": 5285
+    },
+    {
+      "name": "skillspector",
+      "description": "SkillSpector — scanner de seguridad para skills de agentes IA (Claude Code, Codex, Gemini). 64 patrones de vulnerabilidad en 16 categorías. Dos etapas: análisis estático + LLM semántico. Score 0-100 c",
+      "tags": [
+        "security",
+        "skillspector"
+      ],
+      "category": "security",
+      "path": "/hermes-home/skills/security/skillspector/SKILL.md",
+      "size_bytes": 3425
+    },
+    {
+      "name": "presidio-pii",
+      "description": "Presidio — framework de Microsoft para detección y anonimización de PII (datos personales) en texto e imágenes. 8.6K⭐. Análisis, redacción, masking.",
+      "tags": [
+        "security",
+        "presidio-pii"
+      ],
+      "category": "security",
+      "path": "/hermes-home/skills/security/presidio-pii/SKILL.md",
+      "size_bytes": 1812
+    },
+    {
+      "name": "multi-tenant-rbac",
+      "description": "Patrones de diseño para sistemas de permisos multi-tenant en SaaS. Roles por tenant, RLS en BD, herencia, grupos, permisos temporales, admin override, lock release automático. Anti-patrones típicos de",
+      "tags": [
+        "architecture-patterns",
+        "multi-tenant-rbac"
+      ],
+      "category": "architecture-patterns",
+      "path": "/hermes-home/skills/architecture-patterns/multi-tenant-rbac/SKILL.md",
+      "size_bytes": 9342
+    },
+    {
+      "name": "node-backend-patterns",
+      "description": "Patrones completos para aplicaciones backend en Node.js — autenticación con sesiones, SQLite/sql.js, ESM/CommonJS interop, migración a fullstack.",
+      "tags": [
+        "skills",
+        "node-backend-patterns"
+      ],
+      "category": "skills",
+      "path": "/hermes-home/skills/node-backend-patterns/SKILL.md",
+      "size_bytes": 13895
+    },
+    {
+      "name": "browser-local-tools",
+      "description": ">",
+      "tags": [
+        "herramientas",
+        "browser-local-tools"
+      ],
+      "category": "herramientas",
+      "path": "/hermes-home/skills/herramientas/browser-local-tools/SKILL.md",
+      "size_bytes": 19901
+    },
+    {
+      "name": "markitdown",
+      "description": "Convert various file formats to Markdown for LLM consumption. Supports PDF, DOCX, PPTX, XLSX, images, audio, HTML, CSV, JSON, XML, ZIP, EPUB, YouTube URLs, and more via a plugin-based converter archit",
+      "tags": [
+        "herramientas",
+        "markitdown"
+      ],
+      "category": "herramientas",
+      "path": "/hermes-home/skills/herramientas/markitdown/SKILL.md",
+      "size_bytes": 6622
+    },
+    {
+      "name": "agentic-video-pipeline",
+      "description": ">",
+      "tags": [
+        "herramientas",
+        "agentic-video-pipeline"
+      ],
+      "category": "herramientas",
+      "path": "/hermes-home/skills/herramientas/agentic-video-pipeline/SKILL.md",
+      "size_bytes": 4574
+    },
+    {
+      "name": "ocr-quirurgico-pdf-md",
+      "description": "Pipeline completo OCR quirúrgico: PDF → página a página → Markdown/HTML con precisión total. Detecta tablas, firmas, diagramas, imágenes. Si no entiende algo, captura y graba en posición exacta. Vecto",
+      "tags": [
+        "herramientas",
+        "ocr-quirurgico-pdf-md"
+      ],
+      "category": "herramientas",
+      "path": "/hermes-home/skills/herramientas/ocr-quirurgico-pdf-md/SKILL.md",
+      "size_bytes": 24084
+    },
+    {
+      "name": "video-gen-from-topic",
+      "description": "Pipeline de generación automática de videos cortos desde un tema o keyword — texto → TTS → footage → subtítulos → BGM → output",
+      "tags": [
+        "herramientas",
+        "video-gen-from-topic"
+      ],
+      "category": "herramientas",
+      "path": "/hermes-home/skills/herramientas/video-gen-from-topic/SKILL.md",
+      "size_bytes": 2265
+    },
+    {
+      "name": "liteparse-rust-pdf-ocr",
+      "description": "Parser de PDF rápido en Rust con OCR, extracción espacial con bounding boxes, y bindings multi-lenguaje (Node.js, Python, WASM). 7.4k+ estrellas. Ideal para pipelines de documentos donde velocidad y l",
+      "tags": [
+        "herramientas",
+        "liteparse-rust-pdf-ocr"
+      ],
+      "category": "herramientas",
+      "path": "/hermes-home/skills/herramientas/liteparse-rust-pdf-ocr/SKILL.md",
+      "size_bytes": 4070
+    },
+    {
+      "name": "pdf-llm-extraction",
+      "description": "Extracción inteligente de datos estructurados de PDFs usando análisis de fuentes + LLM. Paradigma: PyMuPDF font analysis → section detection → LLM schema filling → JSON validation. Para PDFs digitales",
+      "tags": [
+        "herramientas",
+        "pdf-llm-extraction"
+      ],
+      "category": "herramientas",
+      "path": "/hermes-home/skills/herramientas/pdf-llm-extraction/SKILL.md",
+      "size_bytes": 41948
+    },
+    {
+      "name": "pdf-to-artifacts-david-antizar",
+      "description": "Pipeline de transformación de PDF a 3 artefactos — análisis técnico, post LinkedIn, infografía HTML + comparativa. Con marca Ntizar David Antizar, sistema Aurora, atribución correcta.",
+      "tags": [
+        "herramientas",
+        "pdf-to-artifacts-david-antizar"
+      ],
+      "category": "herramientas",
+      "path": "/hermes-home/skills/herramientas/pdf-to-artifacts-david-antizar/SKILL.md",
+      "size_bytes": 5275
+    },
+    {
+      "name": "stem-basics",
+      "description": "Ecosistema de ciencias básicas: navegación por los 40+ skills granulares de la clase stem/. Incluye matemáticas, física, química, biología, ciencias de la Tierra, dibujo técnico y metodología científi",
+      "tags": [
+        "skills",
+        "stem-basics"
+      ],
+      "category": "skills",
+      "path": "/hermes-home/skills/stem-basics/SKILL.md",
+      "size_bytes": 9271
+    },
+    {
+      "name": "baoyu-comic",
+      "description": "Knowledge comics (知识漫画): educational, biography, tutorial.",
+      "tags": [
+        "creative",
+        "baoyu-comic"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/baoyu-comic/SKILL.md",
+      "size_bytes": 14621
+    },
+    {
+      "name": "sketch",
+      "description": "Throwaway HTML mockups: 2-3 design variants to compare.",
+      "tags": [
+        "creative",
+        "sketch"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/sketch/SKILL.md",
+      "size_bytes": 9304
+    },
+    {
+      "name": "comfyui",
+      "description": "Generate images, video, and audio with ComfyUI — install, launch, manage nodes/models, run workflows with parameter injection. Uses the official comfy-cli for lifecycle and direct REST/WebSocket API f",
+      "tags": [
+        "creative",
+        "comfyui"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/comfyui/SKILL.md",
+      "size_bytes": 24287
+    },
+    {
+      "name": "pixel-art",
+      "description": "Pixel art w/ era palettes (NES, Game Boy, PICO-8).",
+      "tags": [
+        "creative",
+        "pixel-art"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/pixel-art/SKILL.md",
+      "size_bytes": 7581
+    },
+    {
+      "name": "architecture-diagram",
+      "description": "Dark-themed SVG architecture/cloud/infra diagrams as HTML.",
+      "tags": [
+        "creative",
+        "architecture-diagram"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/architecture-diagram/SKILL.md",
+      "size_bytes": 5830
+    },
+    {
+      "name": "p5js",
+      "description": "p5.js sketches: gen art, shaders, interactive, 3D.",
+      "tags": [
+        "creative",
+        "p5js"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/p5js/SKILL.md",
+      "size_bytes": 27494
+    },
+    {
+      "name": "excalidraw",
+      "description": "Hand-drawn Excalidraw JSON diagrams (arch, flow, seq).",
+      "tags": [
+        "creative",
+        "excalidraw"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/excalidraw/SKILL.md",
+      "size_bytes": 7300
+    },
+    {
+      "name": "popular-web-designs",
+      "description": "54 real design systems (Stripe, Linear, Vercel) as HTML/CSS.",
+      "tags": [
+        "creative",
+        "popular-web-designs"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/popular-web-designs/SKILL.md",
+      "size_bytes": 10687
+    },
+    {
+      "name": "baoyu-infographic",
+      "description": "Infographics: 21 layouts x 21 styles (信息图, 可视化).",
+      "tags": [
+        "creative",
+        "baoyu-infographic"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/baoyu-infographic/SKILL.md",
+      "size_bytes": 10434
+    },
+    {
+      "name": "songwriting-and-ai-music",
+      "description": "Songwriting craft and Suno AI music prompts.",
+      "tags": [
+        "creative",
+        "songwriting-and-ai-music"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/songwriting-and-ai-music/SKILL.md",
+      "size_bytes": 10236
+    },
+    {
+      "name": "threejs-3d-web",
+      "description": "Crear escenas 3D interactivas en el navegador con Three.js o Canvas 2D puro — gemelos digitales, visualizaciones, partículas. Autocontenido sin build step. Incluye patrón mármol procedural.",
+      "tags": [
+        "creative",
+        "threejs-3d-web"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/threejs-3d-web/SKILL.md",
+      "size_bytes": 17696
+    },
+    {
+      "name": "ascii-art",
+      "description": "ASCII art: pyfiglet, cowsay, boxes, image-to-ascii.",
+      "tags": [
+        "creative",
+        "ascii-art"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/ascii-art/SKILL.md",
+      "size_bytes": 10099
+    },
+    {
+      "name": "humanizer",
+      "description": "Humanize text: strip AI-isms and add real voice.",
+      "tags": [
+        "creative",
+        "humanizer"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/humanizer/SKILL.md",
+      "size_bytes": 30025
+    },
+    {
+      "name": "creative-ideation",
+      "description": "Generate project ideas via creative constraints.",
+      "tags": [
+        "creative",
+        "creative-ideation"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/creative-ideation/SKILL.md",
+      "size_bytes": 6318
+    },
+    {
+      "name": "touchdesigner-mcp",
+      "description": "Control a running TouchDesigner instance via twozero MCP — create operators, set parameters, wire connections, execute Python, build real-time visuals. 36 native tools.",
+      "tags": [
+        "creative",
+        "touchdesigner-mcp"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/touchdesigner-mcp/SKILL.md",
+      "size_bytes": 11332
+    },
+    {
+      "name": "pretext",
+      "description": "Use when building creative browser demos with @chenglou/pretext — DOM-free text layout for ASCII art, typographic flow around obstacles, text-as-geometry games, kinetic typography, and text-powered ge",
+      "tags": [
+        "creative",
+        "pretext"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/pretext/SKILL.md",
+      "size_bytes": 14168
+    },
+    {
+      "name": "design-md",
+      "description": "Author/validate/export Google's DESIGN.md token spec files.",
+      "tags": [
+        "creative",
+        "design-md"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/design-md/SKILL.md",
+      "size_bytes": 7023
+    },
+    {
+      "name": "ascii-video",
+      "description": "ASCII video: convert video/audio to colored ASCII MP4/GIF.",
+      "tags": [
+        "creative",
+        "ascii-video"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/ascii-video/SKILL.md",
+      "size_bytes": 14924
+    },
+    {
+      "name": "claude-design",
+      "description": "Design one-off HTML artifacts (landing, deck, prototype).",
+      "tags": [
+        "creative",
+        "claude-design"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/claude-design/SKILL.md",
+      "size_bytes": 25489
+    },
+    {
+      "name": "manim-video",
+      "description": "Manim CE animations: 3Blue1Brown math/algo videos.",
+      "tags": [
+        "creative",
+        "manim-video"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/manim-video/SKILL.md",
+      "size_bytes": 12065
+    },
+    {
+      "name": "educational-html-pipeline",
+      "description": "Pipeline completo de HTML educativos: generación desde template (Dibujo Técnico), mejora nocturna iterativa (DeSumarIntegrar), quality gates, SVG interactivo, quizzes, y deploy a GitHub Pages. Incluye",
+      "tags": [
+        "skills",
+        "educational-html-pipeline"
+      ],
+      "category": "skills",
+      "path": "/hermes-home/skills/educational-html-pipeline/SKILL.md",
+      "size_bytes": 9789
+    },
+    {
+      "name": "routing-isochrones",
+      "description": "Patrones para construir herramientas de isocronas y routing: OpenRouteService, OpenTripPlanner, GTFS/NAP, geocodificación Nominatim. Arquitectura de plugins para motores de routing intercambiables.",
+      "tags": [
+        "skills",
+        "routing-isochrones"
+      ],
+      "category": "skills",
+      "path": "/hermes-home/skills/routing-isochrones/SKILL.md",
+      "size_bytes": 63317
+    },
+    {
+      "name": "modular-component-ecosystem",
+      "description": "Diseñar un ecosistema de módulos base reutilizables (@namespace/*) para construir proyectos multi-usuario sin arrastrar deuda técnica — desde análisis de señales (GitHub stars, proyectos existentes) h",
+      "tags": [
+        "skills",
+        "modular-component-ecosystem"
+      ],
+      "category": "skills",
+      "path": "/hermes-home/skills/modular-component-ecosystem/SKILL.md",
+      "size_bytes": 12988
+    },
+    {
+      "name": "layered-agent-architecture",
+      "description": "Patrón de arquitectura de agentes LLM en capas (L0-pure → L7-app) inspirado en vidpipe. Define cómo estructurar sistemas multi-agente con separación clara.",
+      "tags": [
+        "devops",
+        "layered-agent-architecture"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/layered-agent-architecture/SKILL.md",
+      "size_bytes": 2049
+    },
+    {
+      "name": "terral-architecture",
+      "description": "Arquitectura completa de TerrAn — ERP municipal con vista 3D, gestión documental, IA y datos en tiempo real. Referencia para hardware, escalabilidad y patrones.",
+      "tags": [
+        "devops",
+        "terral-architecture"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/terral-architecture/SKILL.md",
+      "size_bytes": 38131
+    },
+    {
+      "name": "time-isochrones-precalculated",
+      "description": "Pre-cálculo de isócronas reales con OSMnx + NetworkX para el proyecto Time. Genera GeoJSON basado en red viaria OSM real. Patrón para calcular isócronas sin API externa.",
+      "tags": [
+        "devops",
+        "time-isochrones-precalculated"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/time-isochrones-precalculated/SKILL.md",
+      "size_bytes": 9072
+    },
+    {
+      "name": "docker-management",
+      "description": "Manage Docker containers, images, volumes, networks, and Compose stacks — lifecycle ops, debugging, cleanup, and Dockerfile optimization.",
+      "tags": [
+        "devops",
+        "docker-management"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/docker-management/SKILL.md",
+      "size_bytes": 10440
+    },
+    {
+      "name": "ign-wmts-tiles",
+      "description": ">-",
+      "tags": [
+        "devops",
+        "ign-wmts-tiles"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/ign-wmts-tiles/SKILL.md",
+      "size_bytes": 6092
+    },
+    {
+      "name": "open-source-release",
+      "description": "Procedimiento para preparar un proyecto personal para publicación open-source — sanitizar datos personales, limpiar referencias, crear template genérico, y generar guía de instalación.",
+      "tags": [
+        "devops",
+        "open-source-release"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/open-source-release/SKILL.md",
+      "size_bytes": 12085
+    },
+    {
+      "name": "datahub-espana-architecture",
+      "description": "Arquitectura completa de DataHub España — dashboard de datos en tiempo real con mapa, 35+ pestañas, tabs horizontales superiores, capas de mapa, APIs públicas sin auth, cron-based incremental building",
+      "tags": [
+        "devops",
+        "datahub-espana-architecture"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/datahub-espana-architecture/SKILL.md",
+      "size_bytes": 41878
+    },
+    {
+      "name": "opendata-movilidad-mitma",
+      "description": ">",
+      "tags": [
+        "devops",
+        "opendata-movilidad-mitma"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/opendata-movilidad-mitma/SKILL.md",
+      "size_bytes": 5924
+    },
+    {
+      "name": "siu-urbano",
+      "description": "SIU (Sistema de Información Urbana) — datos gráficos de suelo urbanístico de España. Clases de suelo, recintos, sectores, CORINE Land Cover, SIOSE. SHP descargable + WMS/WFS en vivo. Nacional, 5.898 m",
+      "tags": [
+        "devops",
+        "siu-urbano"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/siu-urbano/SKILL.md",
+      "size_bytes": 7166
+    },
+    {
+      "name": "postgres-mcp",
+      "description": "PostgreSQL MCP Pro — expone PostgreSQL como servidor MCP para que agentes de IA realicen health checks, tuning de índices, exploración de esquema y ejecución segura de SQL.",
+      "tags": [
+        "devops",
+        "postgres-mcp"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/postgres-mcp/SKILL.md",
+      "size_bytes": 4568
+    },
+    {
+      "name": "terral-hardware-sizing",
+      "description": "Dimensionado de hardware para Terral — cómo calcular RAM, CPU, disco y ancho de banda según volumen de datos, usuarios concurrentes yfeatures activas.",
+      "tags": [
+        "devops",
+        "terral-hardware-sizing"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/terral-hardware-sizing/SKILL.md",
+      "size_bytes": 5842
+    },
+    {
+      "name": "inventario-apis",
+      "description": "Leer y resumir el inventario de APIs procesado en /tmp/inventario-apis/. Incluye parsing de estado.json, resumen por categorías, progreso global, y actividad reciente.",
+      "tags": [
+        "devops",
+        "inventario-apis"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/inventario-apis/SKILL.md",
+      "size_bytes": 15158
+    },
+    {
+      "name": "static-digest-pipeline",
+      "description": "Pipeline de digest estático: fetch API externa → normalización → scoring heurístico → JSON → HTML → GitHub Pages. Patrón para repos tipo datos-gob-watch.",
+      "tags": [
+        "devops",
+        "static-digest-pipeline"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/static-digest-pipeline/SKILL.md",
+      "size_bytes": 5503
+    },
+    {
+      "name": "nango",
+      "description": "Skill: Nango — plataforma open-source para construir integraciones de producto con 800+ APIs. Maneja OAuth, API keys, token refresh, proxy de requests y ejecución de funciones de integración.",
+      "tags": [
+        "devops",
+        "nango"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/nango/SKILL.md",
+      "size_bytes": 4434
+    },
+    {
+      "name": "santander-ai-lab",
+      "description": "Conocimiento de los repositorios open-source de Santander AI Lab — 11 proyectos Apache 2.0 cubriendo grafos ML, RAG, Bayesian networks, LLM clients, causal inference y más. Documenta qué repos existen",
+      "tags": [
+        "devops",
+        "santander-ai-lab"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/santander-ai-lab/SKILL.md",
+      "size_bytes": 2401
+    },
+    {
+      "name": "ineapy-ine-espana",
+      "description": ">",
+      "tags": [
+        "devops",
+        "ineapy-ine-espana"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/ineapy-ine-espana/SKILL.md",
+      "size_bytes": 11067
+    },
+    {
+      "name": "mastermind-setup",
+      "description": "Configura y mantiene el sistema personal de agentes Mastermind — sincronización de repositorio GitHub, instalación de skills, configuración de SOUL.md y auto-configuración de cron para el segundo cere",
+      "tags": [
+        "devops",
+        "mastermind-setup"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/mastermind-setup/SKILL.md",
+      "size_bytes": 38218
+    },
+    {
+      "name": "visor-hermes-fomento",
+      "description": ">",
+      "tags": [
+        "devops",
+        "visor-hermes-fomento"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/visor-hermes-fomento/SKILL.md",
+      "size_bytes": 4188
+    },
+    {
+      "name": "catastro-api",
+      "description": "API pública del Catastro español (DGC). Callejero, datos catastrales no protegidos, conversión de coordenadas. SOAP/REST/JSON. 48 provincias (excepto País Vasco y Navarra). Sin autenticación.",
+      "tags": [
+        "devops",
+        "catastro-api"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/catastro-api/SKILL.md",
+      "size_bytes": 8482
+    },
+    {
+      "name": "nap-dgt",
+      "description": ">",
+      "tags": [
+        "devops",
+        "nap-dgt"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/nap-dgt/SKILL.md",
+      "size_bytes": 3626
+    },
+    {
+      "name": "boe-borme-api",
+      "description": "API oficial del BOE/BORME: datos abiertos del Boletín Oficial del Estado y Registro Mercantil. Sumarios diarios, XML de actos mercantiles, legislación consolidada, datos auxiliares. 52 provincias, sin",
+      "tags": [
+        "devops",
+        "boe-borme-api"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/boe-borme-api/SKILL.md",
+      "size_bytes": 10791
+    },
+    {
+      "name": "parques-nacionales-oapn",
+      "description": "Datos geográficos de la Red de Parques Nacionales españoles (OAPN/MITECO). Shapefiles, KMZ, WMS services, metadatos. Límites, zonas de protección, sistemas naturales, aves, fitosanitario, medio marino",
+      "tags": [
+        "devops",
+        "parques-nacionales-oapn"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/parques-nacionales-oapn/SKILL.md",
+      "size_bytes": 10489
+    },
+    {
+      "name": "government-cms-scraping",
+      "description": "Extraer datos de sitios web gubernamentales (principalmente Drupal) donde el contenido se carga dinámicamente vía AJAX — patrones de URL, cookies de sesión, manejo de Cloudflare, múltiples path patter",
+      "tags": [
+        "devops",
+        "government-cms-scraping"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/government-cms-scraping/SKILL.md",
+      "size_bytes": 5184
+    },
+    {
+      "name": "codebase-inspection",
+      "description": "Inspect codebases w/ pygount: LOC, languages, ratios.",
+      "tags": [
+        "github",
+        "codebase-inspection"
+      ],
+      "category": "github",
+      "path": "/hermes-home/skills/github/codebase-inspection/SKILL.md",
+      "size_bytes": 3974
+    },
+    {
+      "name": "github-trending-research",
+      "description": "Exploración sistemática de GitHub Trending — curl + regex parsing, API enrichment, cross-reference con Python scan de SKILL.md, creación/actualización de skills para repos relevantes",
+      "tags": [
+        "github",
+        "github-trending-research"
+      ],
+      "category": "github",
+      "path": "/hermes-home/skills/github/github-trending-research/SKILL.md",
+      "size_bytes": 16652
+    },
+    {
+      "name": "github-repo-management",
+      "description": "Clone/create/fork repos; manage remotes, releases.",
+      "tags": [
+        "github",
+        "github-repo-management"
+      ],
+      "category": "github",
+      "path": "/hermes-home/skills/github/github-repo-management/SKILL.md",
+      "size_bytes": 12156
+    },
+    {
+      "name": "github-auth",
+      "description": "GitHub auth setup: HTTPS tokens, SSH keys, gh CLI login.",
+      "tags": [
+        "github",
+        "github-auth"
+      ],
+      "category": "github",
+      "path": "/hermes-home/skills/github/github-auth/SKILL.md",
+      "size_bytes": 9341
+    },
+    {
+      "name": "github-issues",
+      "description": "Create, triage, label, assign GitHub issues via gh or REST.",
+      "tags": [
+        "github",
+        "github-issues"
+      ],
+      "category": "github",
+      "path": "/hermes-home/skills/github/github-issues/SKILL.md",
+      "size_bytes": 9763
+    },
+    {
+      "name": "cesium-3d-tiles-vector-data",
+      "description": "Conocimiento completo sobre el soporte de datos vectoriales nativos en 3D Tiles 2.0 de Cesium: especificación, glTF extensions, pipeline de tiling, integración con CesiumJS/Unreal.",
+      "tags": [
+        "geospatial",
+        "cesium-3d-tiles-vector-data"
+      ],
+      "category": "geospatial",
+      "path": "/hermes-home/skills/geospatial/cesium-3d-tiles-vector-data/SKILL.md",
+      "size_bytes": 5278
+    },
+    {
+      "name": "pdf-to-landing",
+      "description": "Patrón completo para crear una webapp que convierte PDFs de propuestas de diseño en landing pages generadas por IA — extracción de texto, análisis de diseño, generación HTML, descarga directa o deploy",
+      "tags": [
+        "skills",
+        "pdf-to-landing"
+      ],
+      "category": "skills",
+      "path": "/hermes-home/skills/pdf-to-landing/SKILL.md",
+      "size_bytes": 20629
+    },
+    {
+      "name": "skill-earth-sciences",
+      "description": "Ciencias de la Tierra — Geología, meteorología, oceanografía, climatología, astrogeología.",
+      "tags": [
+        "skills",
+        "skill-earth-sciences"
+      ],
+      "category": "skills",
+      "path": "/hermes-home/skills/skill-earth-sciences/SKILL.md",
+      "size_bytes": 3858
+    },
+    {
+      "name": "subagent-driven-development",
+      "description": "Execute plans via delegate_task subagents (2-stage review).",
+      "tags": [
+        "software-development",
+        "subagent-driven-development"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/subagent-driven-development/SKILL.md",
+      "size_bytes": 12797
+    },
+    {
+      "name": "map-optimization-patterns",
+      "description": "Patrones para construir herramientas de optimización combinatoria sobre mapas: p-median, p-center, TSP, problema de transporte. Heurísticas JS, integración ORS/OSRM, UI con Leaflet.",
+      "tags": [
+        "software-development",
+        "map-optimization-patterns"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/map-optimization-patterns/SKILL.md",
+      "size_bytes": 21470
+    },
+    {
+      "name": "hash-index-data",
+      "description": "Índice hash para acceso O(1) a registros en datasets grandes. Patrón IDX: array → objeto hash por key, merge de datasets, precomputación de métricas derivadas. Base para dashboards con 1K-100K registr",
+      "tags": [
+        "software-development",
+        "hash-index-data"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/hash-index-data/SKILL.md",
+      "size_bytes": 6729
+    },
+    {
+      "name": "geospatial-asset-platform",
+      "description": "Patrón completo para construir plataformas SaaS de gestión de activos georreferenciados con vista 3D — municipal, hospitalario, logístico. PostgreSQL+PostGIS, Three.js, optimistic locking, audit trail",
+      "tags": [
+        "software-development",
+        "geospatial-asset-platform"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/geospatial-asset-platform/SKILL.md",
+      "size_bytes": 8881
+    },
+    {
+      "name": "lazy-dataset-loading",
+      "description": "Carga progresiva de datasets: solo lo que el usuario necesita, cuando lo necesita. Patrón con ensureDataset, cache de estado, merge en hash index, y precarga idle. reduce tiempo de carga inicial de 10",
+      "tags": [
+        "software-development",
+        "lazy-dataset-loading"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/lazy-dataset-loading/SKILL.md",
+      "size_bytes": 7837
+    },
+    {
+      "name": "delegar-no-comprimir",
+      "description": "Patrón para delegar tareas en subagentes en paralelo en vez de hacer compresiones de contexto con secuencias largas de herramientas",
+      "tags": [
+        "software-development",
+        "delegar-no-comprimir"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/delegar-no-comprimir/SKILL.md",
+      "size_bytes": 6943
+    },
+    {
+      "name": "9009-multi-iteration",
+      "description": "Patrón genérico para ejecutar mejoras 9009 en múltiples iteraciones sobre cualquier proyecto — análisis rápido, plan de mejoras, implementación directa con patch/write_file, y verificación. Optimizado",
+      "tags": [
+        "software-development",
+        "9009-multi-iteration"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/9009-multi-iteration/SKILL.md",
+      "size_bytes": 9684
+    },
+    {
+      "name": "dogfood",
+      "description": "Exploratory QA of web apps: find bugs, evidence, reports.",
+      "tags": [
+        "software-development",
+        "dogfood"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/dogfood/SKILL.md",
+      "size_bytes": 7080
+    },
+    {
+      "name": "web-research-fallback",
+      "description": "When all search engines (Google, DuckDuckGo, Bing) block with CAPTCHA from server IPs, use fallback research patterns: Wikipedia/Wikidata APIs, direct site navigation, DOM extraction via browser_conso",
+      "tags": [
+        "software-development",
+        "web-research-fallback"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/web-research-fallback/SKILL.md",
+      "size_bytes": 7319
+    },
+    {
+      "name": "agent-skills-standard",
+      "description": ">",
+      "tags": [
+        "software-development",
+        "agent-skills-standard"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/agent-skills-standard/SKILL.md",
+      "size_bytes": 3313
+    },
+    {
+      "name": "safe-refactoring-checklist",
+      "description": ">",
+      "tags": [
+        "software-development",
+        "safe-refactoring-checklist"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/safe-refactoring-checklist/SKILL.md",
+      "size_bytes": 12629
+    },
+    {
+      "name": "typescript-cross-module-patterns",
+      "description": "Patrones TypeScript para proyectos multi-módulo — tipos flexibles para engine+tests+frontend, declaration files, typecheck antes de push, prevención de errores CI.",
+      "tags": [
+        "software-development",
+        "typescript-cross-module-patterns"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/typescript-cross-module-patterns/SKILL.md",
+      "size_bytes": 6534
+    },
+    {
+      "name": "topojson-performance",
+      "description": "Compresión geográfica con TopoJSON: 70% menos de tamaño que GeoJSON, conversión en runtime, liberación de memoria. Patrón para cargar geometrías de países, municipios o barrios en dashboards web.",
+      "tags": [
+        "software-development",
+        "topojson-performance"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/topojson-performance/SKILL.md",
+      "size_bytes": 4310
+    },
+    {
+      "name": "pin-auth-nodejs-sqlite",
+      "description": ">",
+      "tags": [
+        "software-development",
+        "pin-auth-nodejs-sqlite"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/pin-auth-nodejs-sqlite/SKILL.md",
+      "size_bytes": 6038
+    },
+    {
+      "name": "system-audit",
+      "description": "Procedimiento sistemático para auditar repositorios de sistemas de software — analizar arquitectura, identificar fortalezas, detectar problemas y proponer mejoras con criterios objetivos.",
+      "tags": [
+        "software-development",
+        "system-audit"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/system-audit/SKILL.md",
+      "size_bytes": 31960
+    },
+    {
+      "name": "rebranding-proyecto-web",
+      "description": ">",
+      "tags": [
+        "software-development",
+        "rebranding-proyecto-web"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/rebranding-proyecto-web/SKILL.md",
+      "size_bytes": 6479
+    },
+    {
+      "name": "requesting-code-review",
+      "description": "Pre-commit review: security scan, quality gates, auto-fix.",
+      "tags": [
+        "software-development",
+        "requesting-code-review"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/requesting-code-review/SKILL.md",
+      "size_bytes": 8483
+    },
+    {
+      "name": "test-driven-development",
+      "description": "TDD: enforce RED-GREEN-REFACTOR, tests before code.",
+      "tags": [
+        "software-development",
+        "test-driven-development"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/test-driven-development/SKILL.md",
+      "size_bytes": 11697
+    },
+    {
+      "name": "sparse-json-format",
+      "description": "Formato JSON sparse para datasets grandes: 40-60% menos de tamaño. Clave-valores en arrays en vez de objetos repetidos. Ideal para datos tabulares por entidad (municipios, empresas, usuarios) donde mu",
+      "tags": [
+        "software-development",
+        "sparse-json-format"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/sparse-json-format/SKILL.md",
+      "size_bytes": 5399
+    },
+    {
+      "name": "writing-plans",
+      "description": "Write implementation plans: bite-sized tasks, paths, code.",
+      "tags": [
+        "software-development",
+        "writing-plans"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/writing-plans/SKILL.md",
+      "size_bytes": 9941
+    },
+    {
+      "name": "leaflet-canvas-choropleth",
+      "description": "Patrón completo de choropleth interactivo con Leaflet + Canvas renderer. Miles de polígonos sin lag. 4 escalas de color, pane system, lazy dataset switching. Base para dashboards geodatos vanilla JS.",
+      "tags": [
+        "software-development",
+        "leaflet-canvas-choropleth"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/leaflet-canvas-choropleth/SKILL.md",
+      "size_bytes": 13162
+    },
+    {
+      "name": "systematic-debugging",
+      "description": "4-phase root cause debugging: understand bugs before fixing.",
+      "tags": [
+        "software-development",
+        "systematic-debugging"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/systematic-debugging/SKILL.md",
+      "size_bytes": 31169
+    },
+    {
+      "name": "spike",
+      "description": "Throwaway experiments to validate an idea before build.",
+      "tags": [
+        "software-development",
+        "spike"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/spike/SKILL.md",
+      "size_bytes": 8753
+    },
+    {
+      "name": "refactor-nodejs-monolith",
+      "description": "Refactorizar proyecto Node.js monolítico a arquitectura modular por dominios",
+      "tags": [
+        "software-development",
+        "refactor-nodejs-monolith"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/refactor-nodejs-monolith/SKILL.md",
+      "size_bytes": 11252
+    },
+    {
+      "name": "google-eng-practices",
+      "description": "Google Engineering Practices — code review profesional, buenas prácticas de ingeniería, cultura de code health. 22.6k ⭐ en GitHub.",
+      "tags": [
+        "software-development",
+        "google-eng-practices"
+      ],
+      "category": "software-development",
+      "path": "/hermes-home/skills/software-development/google-eng-practices/SKILL.md",
+      "size_bytes": 1777
+    },
+    {
+      "name": "hub-skill-discovery",
+      "description": "Descubrir, comparar y planificar la instalación de skills del hub oficial de Hermes Agent — escaneo del catálogo, comparación con skills instalados, priorización por relevancia y planificación de cron",
+      "tags": [
+        "skills",
+        "hub-skill-discovery"
+      ],
+      "category": "skills",
+      "path": "/hermes-home/skills/hub-skill-discovery/SKILL.md",
+      "size_bytes": 9396
+    },
+    {
+      "name": "esios-complete",
+      "description": "Conocimiento completo de ESIOS/REE: API, indicadores, unidades, deploy en NaN, troubleshooting frontend, informes Telegram, Open-Meteo, Yahoo Finance. Unificado de 5 skills en 1.",
+      "tags": [
+        "skills",
+        "esios-complete"
+      ],
+      "category": "skills",
+      "path": "/hermes-home/skills/esios-complete/SKILL.md",
+      "size_bytes": 12965
+    },
+    {
+      "name": "arquitectura-dashboard-datos-api",
+      "description": "Arquitectura completa de un dashboard web que consume APIs de datos externas. Patrón inspirado en ESIOS Dashboard — estructura de 5 capas: config, infra, dominio, shared, presentación.",
+      "tags": [
+        "arquitectura",
+        "arquitectura-dashboard-datos-api"
+      ],
+      "category": "arquitectura",
+      "path": "/hermes-home/skills/arquitectura/arquitectura-dashboard-datos-api/SKILL.md",
+      "size_bytes": 3356
+    },
+    {
+      "name": "solar-shadows-web-workers",
+      "description": "Patrón de cálculo de sombras solares con Web Workers + Comlink para no bloquear la UI",
+      "tags": [
+        "skills",
+        "solar-shadows-web-workers"
+      ],
+      "category": "skills",
+      "path": "/hermes-home/skills/solar-shadows-web-workers/SKILL.md",
+      "size_bytes": 2609
+    },
+    {
+      "name": "competitive-intelligence",
+      "description": "Inteligencia competitiva y análisis de negocio desde presencia web pública — extraer modelo de negocio, pricing, stack técnico, equipo y posicionamiento de un competidor/socio/partner a partir de su d",
+      "tags": [
+        "business-intelligence",
+        "competitive-intelligence"
+      ],
+      "category": "business-intelligence",
+      "path": "/hermes-home/skills/business-intelligence/competitive-intelligence/SKILL.md",
+      "size_bytes": 7164
+    },
+    {
+      "name": "mastermind",
+      "description": "Skills del sistema Mastermind - agente principal, dashboards, deploy, voz, APIs y automatización para Ntizar.",
+      "tags": [
+        "skills",
+        "mastermind"
+      ],
+      "category": "skills",
+      "path": "/hermes-home/skills/mastermind/SKILL.md",
+      "size_bytes": 28165
+    },
+    {
+      "name": "time",
+      "description": "Time — herramienta definitiva de análisis de movilidad laboral en España. Isócrónas ORS/GTFS, datos INE, GBFS, costes, CO₂, teletrabajo, informes DOCX 15 secciones. Click = resultado completo.",
+      "tags": [
+        "mastermind",
+        "time"
+      ],
+      "category": "mastermind",
+      "path": "/hermes-home/skills/mastermind/time/SKILL.md",
+      "size_bytes": 11951
+    },
+    {
+      "name": "agent-canvas-visualization",
+      "description": "Visualización de agentes IA en Canvas 2D — grafo radial con partículas animadas que simulan comunicación entre agentes. Para dashboards de control y monitorización multi-agente.",
+      "tags": [
+        "mastermind",
+        "agent-canvas-visualization"
+      ],
+      "category": "mastermind",
+      "path": "/hermes-home/skills/mastermind/agent-canvas-visualization/SKILL.md",
+      "size_bytes": 4794
+    },
+    {
+      "name": "stars-explorer",
+      "description": "Pipeline nocturno que explora las stars de GitHub de David, analiza repos, extrae patrones y crea skills automáticamente. Cada run procesa un batch de repos, genera análisis profundo, y propone skills",
+      "tags": [
+        "mastermind",
+        "stars-explorer"
+      ],
+      "category": "mastermind",
+      "path": "/hermes-home/skills/mastermind/stars-explorer/SKILL.md",
+      "size_bytes": 16419
+    },
+    {
+      "name": "timeineco",
+      "description": "Time — visor de isocronas multi-modo con ORS, IGN maps, GTFS upload, GBFS, Kaizen Design, CSV export, interpretaciones automáticas. Informes profesionales DOCX. Desplegado en NaN.builders.",
+      "tags": [
+        "mastermind",
+        "timeineco"
+      ],
+      "category": "mastermind",
+      "path": "/hermes-home/skills/mastermind/timeineco/SKILL.md",
+      "size_bytes": 14289
+    },
+    {
+      "name": "freehands-architecture",
+      "description": "Arquitectura completa del proyecto FreeHands — control del PC sin manos: mirada + gestos + voz. Módulos, flujos de datos y patrón para añadir nuevas funcionalidades.",
+      "tags": [
+        "mastermind",
+        "freehands-architecture"
+      ],
+      "category": "mastermind",
+      "path": "/hermes-home/skills/mastermind/freehands-architecture/SKILL.md",
+      "size_bytes": 22658
+    },
+    {
+      "name": "graficos-jongonzlz-style",
+      "description": "Patrón visual de gráficos estilo @jongonzlz — gráficos de datos macroeconómicos y demográficos españoles con estilo limpio, minimalista y periodístico. Tipos: small multiples, dumbbell plots, divergin",
+      "tags": [
+        "mastermind",
+        "graficos-jongonzlz-style"
+      ],
+      "category": "mastermind",
+      "path": "/hermes-home/skills/mastermind/graficos-jongonzlz-style/SKILL.md",
+      "size_bytes": 11855
+    },
+    {
+      "name": "espanatlas-architecture",
+      "description": "Arquitectura completa de España Atlas (espanatlas.es) — atlas municipal español con 8.132 municipios, choropleth Leaflet, TopoJSON, 20+ datasets, Canvas renderer, lazy loading. Patrón de referencia pa",
+      "tags": [
+        "mastermind",
+        "espanatlas-architecture"
+      ],
+      "category": "mastermind",
+      "path": "/hermes-home/skills/mastermind/espanatlas-architecture/SKILL.md",
+      "size_bytes": 16806
+    },
+    {
+      "name": "adela-new-module",
+      "description": "Scaffold y creación de nuevos módulos Adela siguiendo el ecosistema de piezas intercambiables",
+      "tags": [
+        "mastermind",
+        "adela-new-module"
+      ],
+      "category": "mastermind",
+      "path": "/hermes-home/skills/mastermind/adela-new-module/SKILL.md",
+      "size_bytes": 34380
+    },
+    {
+      "name": "adela-audit",
+      "description": "Auditoría de calidad de módulos Adela — verifica que cumplen los estándares del ecosistema",
+      "tags": [
+        "mastermind",
+        "adela-audit"
+      ],
+      "category": "mastermind",
+      "path": "/hermes-home/skills/mastermind/adela-audit/SKILL.md",
+      "size_bytes": 13966
+    },
+    {
+      "name": "token-tracking",
+      "description": ">-",
+      "tags": [
+        "mastermind",
+        "token-tracking"
+      ],
+      "category": "mastermind",
+      "path": "/hermes-home/skills/mastermind/token-tracking/SKILL.md",
+      "size_bytes": 4844
+    },
+    {
+      "name": "adela-integrate",
+      "description": "Integrar módulos Adela en un proyecto Express o añadir nuevos tabs/frontend a un CRM Adela existente",
+      "tags": [
+        "mastermind",
+        "adela-integrate"
+      ],
+      "category": "mastermind",
+      "path": "/hermes-home/skills/mastermind/adela-integrate/SKILL.md",
+      "size_bytes": 12141
+    },
+    {
+      "name": "memecoin-trading-guide",
+      "description": "Guía completa de trading de memecoins: fundamentos, plataformas, costes, análisis on-chain, psicología y seguridad",
+      "tags": [
+        "crypto",
+        "memecoin-trading-guide"
+      ],
+      "category": "crypto",
+      "path": "/hermes-home/skills/crypto/memecoin-trading-guide/SKILL.md",
+      "size_bytes": 10806
+    },
+    {
+      "name": "nocobase-nocode-backend",
+      "description": "NocoBase — plataforma open-source AI + no-code para construir backends, APIs y workflows visualmente. 22K⭐. Sistema de plugins extensible.",
+      "tags": [
+        "backend",
+        "nocobase-nocode-backend"
+      ],
+      "category": "backend",
+      "path": "/hermes-home/skills/backend/nocobase-nocode-backend/SKILL.md",
+      "size_bytes": 1818
+    },
+    {
+      "name": "huly-crm-erp-platform",
+      "description": "Huly — plataforma open-source todo-en-uno de gestión empresarial (CRM+ERP). Alternativa a Linear, Notion, Jira. 26K⭐. Proyectos, ventas, HR, contabilidad.",
+      "tags": [
+        "backend",
+        "huly-crm-erp-platform"
+      ],
+      "category": "backend",
+      "path": "/hermes-home/skills/backend/huly-crm-erp-platform/SKILL.md",
+      "size_bytes": 1613
+    },
+    {
+      "name": "rf-detr",
+      "description": "RF-DETR — Real-Time SOTA object detection, instance segmentation y keypoint detection de Roboflow. Backbone DINOv2, 7 modelos (N→2XL). SOTA en COCO y RF100-VL con latencia <7ms para detección en T4. A",
+      "tags": [
+        "computer-vision",
+        "rf-detr"
+      ],
+      "category": "computer-vision",
+      "path": "/hermes-home/skills/computer-vision/rf-detr/SKILL.md",
+      "size_bytes": 3303
+    },
+    {
+      "name": "webgpu-onnx-detection",
+      "description": "Ejecutar modelos de visión por computador (YOLO, etc.) en el navegador con WebGPU/ONNX sin servidor GPU. Basado en YoloConteo.",
+      "tags": [
+        "computer-vision",
+        "webgpu-onnx-detection"
+      ],
+      "category": "computer-vision",
+      "path": "/hermes-home/skills/computer-vision/webgpu-onnx-detection/SKILL.md",
+      "size_bytes": 4434
+    },
+    {
+      "name": "gaze-tracking",
+      "description": ">",
+      "tags": [
+        "computer-vision",
+        "gaze-tracking"
+      ],
+      "category": "computer-vision",
+      "path": "/hermes-home/skills/computer-vision/gaze-tracking/SKILL.md",
+      "size_bytes": 2357
+    },
+    {
+      "name": "roboflow-supervision",
+      "description": "Supervision — librería de visualización, post-procesamiento y utilidades para computer vision de Roboflow. Annotators, metrics, datasets, tracking. Complemento esencial de RF-DETR y otras CV libs.",
+      "tags": [
+        "computer-vision",
+        "roboflow-supervision"
+      ],
+      "category": "computer-vision",
+      "path": "/hermes-home/skills/computer-vision/roboflow-supervision/SKILL.md",
+      "size_bytes": 3163
+    },
+    {
+      "name": "gtfs-browser-parser",
+      "description": "Parser GTFS completo en navegador + catalogo de operadores por ciudad, busqueda por proximidad, fuentes multiples (cache, ZIP subido, localStorage, proxy), integracion mapa y PDF",
+      "tags": [
+        "data",
+        "gtfs-browser-parser"
+      ],
+      "category": "data",
+      "path": "/hermes-home/skills/data/gtfs-browser-parser/SKILL.md",
+      "size_bytes": 36402
+    },
+    {
+      "name": "personal-tracking-database",
+      "description": "Patrón para construir sistemas de seguimiento personal con base de datos JSON estructurada + dashboard HTML interactivo + scripts de registro rápido. Reutilizable para dieta, finanzas, hábitos, produc",
+      "tags": [
+        "data",
+        "personal-tracking-database"
+      ],
+      "category": "data",
+      "path": "/hermes-home/skills/data/personal-tracking-database/SKILL.md",
+      "size_bytes": 10232
+    },
+    {
+      "name": "government-data-pipelines",
+      "description": "Patrones para ingerir, estructurar y visualizar datos de fuentes gubernamentales — scraping de webs institucionales, parsers de PDFs con estructura fija, normalización a base de datos, dashboards inte",
+      "tags": [
+        "skills",
+        "government-data-pipelines"
+      ],
+      "category": "skills",
+      "path": "/hermes-home/skills/government-data-pipelines/SKILL.md",
+      "size_bytes": 60524
+    },
+    {
+      "name": "infraestructura",
+      "description": "Patrones de infraestructura para aplicaciones Node.js en producción — cliente HTTP resiliente, cache multicapa, validación de config, health checks, seguridad Helmet/CORS y Docker multistage.",
+      "tags": [
+        "skills",
+        "infraestructura"
+      ],
+      "category": "skills",
+      "path": "/hermes-home/skills/infraestructura/SKILL.md",
+      "size_bytes": 4590
+    },
+    {
+      "name": "spec-driven-development",
+      "description": "Spec-Driven Development — metodología para construir software basado en specs (PRD, planes, constituciones) en vez de 'vibe coding'. Basado en el toolkit de GitHub spec-kit (113K⭐).",
+      "tags": [
+        "development",
+        "spec-driven-development"
+      ],
+      "category": "development",
+      "path": "/hermes-home/skills/development/spec-driven-development/SKILL.md",
+      "size_bytes": 2702
+    },
+    {
+      "name": "research-paper-writing",
+      "description": "End-to-end pipeline for producing publication-ready ML/AI research papers targeting NeurIPS, ICML, ICLR.",
+      "tags": [
+        "research",
+        "research-paper-writing"
+      ],
+      "category": "research",
+      "path": "/hermes-home/skills/research/research-paper-writing/SKILL.md",
+      "size_bytes": 1391
+    },
+    {
+      "name": "llm-wiki",
+      "description": "Karpathy's LLM Wiki: build/query interlinked markdown KB.",
+      "tags": [
+        "research",
+        "llm-wiki"
+      ],
+      "category": "research",
+      "path": "/hermes-home/skills/research/llm-wiki/SKILL.md",
+      "size_bytes": 20113
+    },
+    {
+      "name": "searxng-search",
+      "description": "Free meta-search via SearXNG — aggregates results from 70+ search engines. Self-hosted or use a public instance. No API key needed. Falls back automatically when the web search toolset is unavailable.",
+      "tags": [
+        "research",
+        "searxng-search"
+      ],
+      "category": "research",
+      "path": "/hermes-home/skills/research/searxng-search/SKILL.md",
+      "size_bytes": 7224
+    },
+    {
+      "name": "duckduckgo-search",
+      "description": "Free web search via DuckDuckGo — text, news, images, videos. No API key needed. Prefer the `ddgs` CLI when installed; use the Python DDGS library only after verifying that `ddgs` is available in the c",
+      "tags": [
+        "research",
+        "duckduckgo-search"
+      ],
+      "category": "research",
+      "path": "/hermes-home/skills/research/duckduckgo-search/SKILL.md",
+      "size_bytes": 8447
+    },
+    {
+      "name": "prisma-systematic-review",
+      "description": "Sistema completo de revisiones sistemáticas PRISMA 2020 sobre infraestructura Hermes Agent. Orquestación multi-fase, auditoría automática, DOI-first, gate editorial, paquetes publicables.",
+      "tags": [
+        "research",
+        "prisma-systematic-review"
+      ],
+      "category": "research",
+      "path": "/hermes-home/skills/research/prisma-systematic-review/SKILL.md",
+      "size_bytes": 16889
     }
   ]
 }

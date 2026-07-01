@@ -1,7 +1,7 @@
 ---
 name: routing-isochrones
 description: "Patrones para construir herramientas de isocronas y routing: OpenRouteService, OpenTripPlanner, GTFS/NAP, geocodificación Nominatim. Arquitectura de plugins para motores de routing intercambiables."
-version: "1.1.0"
+version: "1.2.0"
 author: David Antizar
 tags: [routing, isochrones, gtfs, openrouteservice, opentripplanner, nominatim, leaflet, vanilla-js, mobility]
 ---
@@ -150,9 +150,11 @@ class IRouter {
 
 **CRITICAL:** The v2 API changed from the v1 format shown in old docs. The correct endpoint and body format are below.
 
-### Endpoint (server-side proxy)
+### Dos patrones de acceso a ORS
 
-**DO NOT call ORS directly from the browser** — the API key would be exposed. Always use a server-side proxy:
+#### Patrón A: Server-side proxy (recomendado para apps privadas/produción)
+
+**NO llamar a ORS directamente desde el navegador** si la API key es del servidor — se expondría. Usar proxy:
 
 ```javascript
 // server.mjs — proxy endpoint
@@ -281,6 +283,51 @@ res.end(JSON.stringify({
 }));
 // ↑ Más robusto que !!ORS_KEY (detecta strings vacíos)
 ```
+
+#### Patrón B: Client-side directo (para herramientas públicas con key del usuario)
+
+**Cuándo usar:** Herramientas públicas tipo Pages donde el usuario provee su propia API key de ORS (free tier 2000 req/día). La key se almacena en `localStorage` del usuario, no en el código.
+
+**Ventaja:** Sin servidor. Despliegue 100% estático (GitHub Pages, Netlify, etc.)
+**Riesgo:** La key es visible en DevTools. Aceptable para keys free-tier de uso personal.
+
+**ISOTime** (`github.com/Ntizar/ISOTime`) es un ejemplo funcional de este patrón:
+- HTML único + ES modules, sin bundler
+- ORS API v2 llamado directamente desde `fetch()` con `Authorization: key`
+- Key en `localStorage` (modal de setup首次, luego se lee)
+- Fallback simulado si no hay key (polígono con jitter)
+- Export GeoJSON + SHP binario en-browser (JSZip)
+- Tiles IGN WMTS (EPSG:3857) como alternativa a CARTO light
+
+```javascript
+// Patrón ISOTime: acceso directo ORS desde el navegador
+async function calcularIsocrona(lng, lat, modo, minutos) {
+  const apiKey = localStorage.getItem('ors_api_key');
+  if (!apiKey) return calcularIsocronaSim(lng, lat, modo, minutos);
+
+  const profile = { car: 'driving-car', walk: 'foot-walking', bike: 'cycling-regular' }[modo];
+  const resp = await fetch(`https://api.openrouteservice.org/v2/isochrones/${profile}`, {
+    method: 'POST',
+    headers: {
+      'Authorization': apiKey,
+      'Content-Type': 'application/json; charset=utf-8'
+    },
+    body: JSON.stringify({
+      locations: [[lng, lat]],
+      range: [minutos * 60],
+      range_type: 'time',
+      attributes: ['area']
+    })
+  });
+
+  if (!resp.ok) return calcularIsocronaSim(lng, lat, modo, minutos);
+  const data = await resp.json();
+  const areaKm2 = (data.features?.[0]?.properties?.area || 0) / 1_000_000;
+  return { geojson: data, areaKm2, real: true };
+}
+```
+
+**Ver:** `references/isotime-client-side-pattern.md` para arquitectura completa, estructura de archivos, y patrones de export.
 
 ### Simulación de isocronas (fallback)
 
@@ -722,6 +769,8 @@ const resp = await fetch(
 25. **GTFS compact cache: auto-load sin JSZip:** En vez de parsear ZIPs GTFS en el navegador con JSZip (lento, RAM-intensive), pre-procesar los GTFS en JSON compacto (`{stops, routes, route_trip_counts, stop_trip_map}`) y servirlos desde el servidor. Auto-cargar al detectar la ciudad. Ventajas: ~150-350KB por ciudad (vs 50-200MB ZIP), carga instantánea, sin dependencia JSZip. Endpoint: `GET /gtfs-cache/:city`. Ver `references/gtfs-compact-cache.md`.
 
 26. **Subagentes en paralelo + archivos compartidos = duplicación silenciosa:** Cuando se delegan 3 tareas en paralelo y dos subagentes modifican el mismo archivo (ej: `nap.js`), ambos pueden añadir la misma función (`renderSeccionParadas`), resultando en declaración duplicada. El error de sintaxis es invisible en `node --check` (válido en módulos independientes) pero rompe la app en el navegador (`Identifier 'x' has already been declared`). **Debug:** `import('/js/main.js').catch(e => e.message)` en la consola del navegador. **Prevención:** Si dos subagentes necesitan modificar el mismo archivo, hacerlos en serie o dar a cada uno una sección/clase distinta del archivo.
+27. **Convex hull produce círculos de mierda para isócronas** — David lo probó y corrigió: "Hace cálculos de mierda… solo hace un círculo roro alrededor". El convex hull conecta los puntos más exteriores alcanzables, pero ignora la forma real de la isócrona. **Solución:** usar boundary detection por dirección (72 direcciones × 8 radios, interpolación lineal entre último alcanzable y primero que excede). Ver sección "Isochrone Boundary Detection".
+28. **GitHub Pages ES module cache — hard refresh NO basta** — Después de push a GitHub Pages, el browser puede seguir sirviendo JS antiguo aunque hagas hard refresh. Causa: ES modules se cachean POR URL, separado del HTTP cache. **Solución completa:** (1) Añadir `?v=N` al `<script src="js/main.js?v=N">` en el HTML, (2) Navegar a `index.html?t=hash` (no solo `/`), (3) Para testing, cambiar a dominio completamente diferente entre pruebas. `?v=N` en el HTML NO propaga a los imports estáticos del módulo — cada `import`也需要 su propio `?v=N`.
 
 ---
 
@@ -1069,6 +1118,7 @@ polygon = MultiPoint([(n['x'], n['y']) for n in reachable_nodes]).convex_hull
 - **`gtfs-transit-routing`** — Motor de routing con transbordos, horarios reales (`stop_times.txt`), calendar filtering, ranking de rutas. Va más allá de la búsqueda de paradas: calcula rutas completas con transbordos y horarios.
 - **`gtfs-browser-parser`** — Parser GTFS + catálogo de operadores + búsqueda de paradas cercanas. No calcula rutas con transbordos.
 - **`time`** (antes `timeineco`) — Visor de isocronas multi-modo con GBFS, NAP/GTFS, datos INE por CP. Repo: `github.com/Ntizar/Time`.
+- **ISOTime** (`github.com/Ntizar/ISOTime`) — Isocronas 100% client-side con ORS API directa + tiles IGN. Template funcional para herramientas de isocronas en Pages sin servidor. Ver `references/isotime-client-side-pattern.md`.
 
 ## Overlap con otros skills
 
@@ -1092,6 +1142,64 @@ polygon = MultiPoint([(n['x'], n['y']) for n in reachable_nodes]).convex_hull
 - `references/mitma-opendata-movilidad.md` — Open Data Movilidad MITMA: bucket S3 con matrices OD diarias (2022-hoy), rutas por carretera, zonificación shapefiles. Técnica de exploración S3 con curl, formato pipe-delimited, integración con TimeIneco/GBFSSpain.
 
 ## Isochrone Routing Tools — Absorbido desde `isochrone-routing-tools`
+
+### Isochrone Boundary Detection (OSRM sin API key)
+
+**⚠️ CRÍTICO: NO usar convex hull con OSRM** — David lo probó y los resultados son un círculo de mierda. El convex hull conecta los puntos más exteriores alcanzables, pero ignora que la isócrona real tiene forma irregular: se estira por autovías y se comprime por ríos/montañas.
+
+**Algoritmo correcto: Boundary Detection por dirección**
+
+```
+72 direcciones × 8 radios = 576 puntos
+  → OSRM Table endpoint (multi-batch)
+  → Para cada dirección: interpolación lineal entre último alcanzable y primero que excede
+  → Polígono irregular que sigue la red de carreteras real
+```
+
+**Implementación (probada en ISOTime):**
+
+1. **Generar puntos radiales:** 72 direcciones (cada 5°) × radios adaptativos según tiempo
+   - Radios: `[2, 5, 8, 12, 18, 25, 35, 50, 65, 80]` filtrados por `radioMax = max(minutos * 0.9, 5)`
+   - Ejemplo 30min: radios `[2, 5, 8, 12, 18, 25]` → 432 puntos
+
+2. **Query OSRM `table` por batches** (max 89 coords por llamada):
+   ```
+   GET https://router.project-osrm.org/table/v1/driving/{coords}?annotations=duration
+   ```
+   - Coords: `lng1,lat1;lng2,lat2;...` (origen primero)
+   - Respuesta: `durations[0]` = array de tiempos desde origen
+   - Stagger 80ms entre batches para no saturar
+
+3. **Para cada dirección, encontrar boundary:**
+   ```javascript
+   // Para cada dirección d (0-71):
+   const ptsDir = resultados.filter(r => r.dir === d).sort((a,b) => a.radioKm - b.radioKm);
+   let lastReach = null, firstOver = null;
+   for (const p of ptsDir) {
+     if (p.dur <= targetSec) lastReach = p;
+     else if (!firstOver) { firstOver = p; break; }
+   }
+   // Interpolación lineal
+   if (lastReach && firstOver) {
+     const frac = (targetSec - lastReach.dur) / (firstOver.dur - lastReach.dur);
+     rBoundary = lastReach.radioKm + frac * (firstOver.radioKm - lastReach.radioKm);
+   }
+   // Convertir a coordenadas y añadir al polígono
+   ```
+
+4. **Cerrar polígono** (primer punto = último punto, sin convex hull)
+
+**Resultados comparados (Madrid, 30min coche):**
+| Método | Área | Forma |
+|--------|------|-------|
+| Convex hull | 1250 km² | Círculo irregular |
+| Boundary detection | 879 km² | Forma irregular real, sigue carreteras |
+
+**Pitfalls:**
+1. **OSRM público solo tiene `driving`** — No hay `foot` o `bicycle`. Para andar, usar ORS o simulación.
+2. **Variable case-sensitive** — `dlat` ≠ `dLat`. JS no da error, solo `undefined`.
+3. **Cache de GitHub Pages** — El CDN cachea JS agresivamente. Después de push, necesitas: (1) `?v=N` en `<script src>`, (2) navegar a `index.html?t=hash` para bust HTML cache. El ES module cache es SEPARADO del HTTP cache.
+4. **Radios adaptativos** — Si el radio máximo estimado es muy bajo (ej: 5min), puedes no tener suficientes radios. Asegurar al menos `[2, 5]` km.
 
 ### Coastline Clipping (Sea Clipping)
 Recorta isocronas a tierra firme para evitar que los polígonos se extiendan sobre el mar.

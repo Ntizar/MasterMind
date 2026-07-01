@@ -132,6 +132,38 @@ document.querySelectorAll('[id^="detail-"]').forEach(el => {
 
 **Prevención:** Cuando hay dos funciones con API similar, comparar los parámetros fetch lado a lado antes de asumir que "la API funciona".
 
+## Commits Corruptos → REVERT, no parchear
+
+Cuando un commit breaka un HTML/JS monolítico (>3000 líneas) con **3+ corrupciones estructurales** (líneas fusionadas, declaraciones truncadas, braces/parens desbalanceados), intentar parchear cada línea individualmente **no funciona** — cada fix revela más corrupción.
+
+**Síntomas de commit masivamente corrupto:**
+- `SyntaxError: Unexpected token 'const'` (const sin nombre de variable)
+- `});` fusionado con texto (`});nubo-cities');`)
+- Comentarios fusionados con código (`// ===== CHART:eolica-parques');`)
+- Balance de braces/parens desbalanceado tras fixes incrementales
+
+**Patrón correcto — REVERT:**
+```bash
+git log --oneline -5                    # encontrar el commit corrupto
+git revert --no-commit <commit_hash>   # revert sin crear commit aún
+# Verificar syntax
+node -e "const fs=require('fs');const vm=require('vm');const html=fs.readFileSync('index.html','utf8');const m=html.match(/<script>([\\s\\S]*?)<\\/script>/);try{new vm.Script(m[1]);console.log('OK')}catch(e){console.log('ERROR:',e.message)}"
+# Si OK, commit
+git commit -m "Revert: commit corrupto"
+git push
+```
+
+**Regla:** Si tras 2 intentos de fix la situación empeora o el balance no cuadra → revert. No intentar un tercero.
+
+## Validación JS Pre-Commit Obligatoria
+
+Para HTML con `<script>` inline, **SIEMPRE** validar syntax antes de push:
+```bash
+node -e "const fs=require('fs');const vm=require('vm');const html=fs.readFileSync('index.html','utf8');const m=html.match(/<script>([\\s\\S]*?)<\\/script>/);try{new vm.Script(m[1]);console.log('✅ JS syntax OK')}catch(e){console.log('❌',e.message)}"
+```
+
+Captura: truncated variables, merged lines, brace imbalance, missing semicolons en destructuring.
+
 ## Cron-Based Feature Building
 
 Para dashboards grandes que necesitan muchas features nuevas, usar cron jobs one-shot espaciados 10-15 min. Ver `references/cron-based-dashboard-building.md` para el patrón completo.

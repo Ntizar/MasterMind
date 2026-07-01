@@ -236,7 +236,22 @@ git remote add origin <url> && git push --force origin main
 - 4GB RAM hard limit, sin swap
 - Fix: reemplazar recursión con fetch único
 
-## 2. Cron Jobs con Scripts
+**🔥 Verificar que `patch` realmente modificó el archivo**
+
+El tool `patch` puede reportar éxito sin modificar el archivo (fuzzy matching no encontró el string exacto, o el archivo fue leído parcialmente con offset/limit). Siempre verificar después de cada patch:
+
+```bash
+# Verificar que el archivo cambió
+git diff --stat
+# O verificar contenido específico
+grep "nuevo_contenido" js/archivo.js
+```
+
+**Síntoma:** `patch` dice `success: true` pero el archivo en disco sigue igual. El commit pusha código viejo. El deploy sirve versión obsoleta. Bugs "fantasma" que no se explican.
+
+**Fix:** Si el patch no aplicó, usar `write_file` para reescribir el archivo completo en vez de intentar otro patch. Es más seguro para archivos pequeños (<500 líneas).
+
+## 8. Cron Jobs con Scripts
 
 **⚠️ `cronjob` tool no disponible en esta VM:**
 - El `cronjob` tool no existe en el entorno actual — no hay `crontab`, no hay daemon cron, no hay systemd timers
@@ -338,6 +353,56 @@ Pitfalls comunes al desplegar proyectos Vite en GitHub Pages. Referencia complet
 - [ ] El JS fuente no tiene strings sin cerrar (comillas simples sin par)
 - [ ] GitHub Pages activado y build desplegado en `gh-pages`
 - [ ] El repo es público (requisito en plan free)
+
+**🔥 GitHub Pages CDN cachea JS agresivamente — versión vieja tras push**
+
+**Causa:** GitHub Pages usa un CDN (Fastly/Cloudflare) que cachea archivos estáticos (JS, CSS) con `max-age` prolongado. Cuando haces push con cambios en JS, el CDN puede seguir sirviendo la versión vieja durante minutos. El `curl` desde terminal sirve el HTML nuevo, pero los archivos JS referenciados en el HTML siguen siendo los viejos.
+
+**Síntomas:**
+- `curl -s https://user.github.io/repo/` muestra HTML con `<script src="js/main.js?v=1">` (nuevo)
+- Pero el contenido de `js/main.js?v=1` es la versión vieja (el CDN no invalidó)
+- El navegador ejecuta código JS obsoleto → NaN, bugs fantasma
+- Los features nuevos no aparecen aunque el commit está en main
+
+**Fix: Cache busting con version query en script tags**
+
+```html
+<!-- ❌ MAL — CDN cachea el archivo sin version -->
+<script type="module" src="js/main.js"></script>
+
+<!-- ✅ BIEN — version query fuerza descarga nueva -->
+<script type="module" src="js/main.js?v=4"></script>
+```
+
+**Patrón:** Incrementar `?v=N` en CADA push que modifique JS/CSS:
+```html
+<script type="module" src="js/main.js?v=4"></script>
+<link rel="stylesheet" href="css/style.css?v=3">
+```
+
+**Verificación de que el browser cargó la versión nueva:**
+```javascript
+// En browser console:
+document.querySelectorAll('script[type="module"]')[0].src
+// Debe mostrar "?v=4" (la versión nueva), no "?v=1" (la vieja)
+```
+
+**Verificación de que el CDN sirve el contenido nuevo:**
+```bash
+# El HTML puede estar cacheado — verificar el JS directamente
+curl -s "https://user.github.io/repo/js/main.js?v=4" | head -5
+# Debe mostrar el código nuevo, no el viejo
+```
+
+**Pitfall: HTML cacheado por el browser**
+A veces el browser cachea el HTML mismo (no solo el JS). Aunque el CDN tiene el HTML nuevo, el browser sigue con el viejo. Fix: `?t=timestamp` en la URL del HTML:
+```
+https://user.github.io/repo/index.html?t=20260630
+```
+O hard refresh: `Ctrl+Shift+R` / `Cmd+Shift+R`.
+
+**Pitfall: `curl` sirve nuevo pero browser sirve viejo**
+El curl bypassa el browser cache pero no el CDN cache. Si `curl` muestra el HTML nuevo pero el browser no, es browser cache. Si `curl` también muestra viejo, es CDN cache (esperar 2-5 min o forzar con otro push).
 
 **🔥 GitHub Pages NO funciona en repos privados con plan free**
 

@@ -160,6 +160,86 @@ geojson = mapping(polygon)
 7. **Primera ejecución** — Descarga datos de Overpass API. Necesita internet solo la primera vez.
 8. **Actualizaciones** — Los datos OSM cambian. Recalcular periódicamente (mensual recomendado).
 
+## Alternativa: OSRM Real-time (sin API key) — Boundary Detection
+
+Cuando necesites calcular isócronas **en tiempo real** desde el navegador sin depender de APIs premium, usar el endpoint público de OSRM con **boundary detection por dirección**.
+
+**⚠️ NO usar convex hull** — Produce círculos de mierda. David lo probó y corrigió. Usar boundary detection que genera formas irregulares siguiendo la red de carreteras.
+
+### Concepto
+
+```
+72 direcciones × 8 radios = 576 puntos radiales
+  → OSRM Table endpoint (multi-batch de 89 coords)
+  → Para cada dirección: interpolación lineal último alcanzable / primero que excede
+  → Polígono irregular que sigue la red vial real
+```
+
+### Algoritmo
+
+1. **Generar puntos radiales:** 72 direcciones (cada 5°) × radios adaptativos
+   - Radios: `[2, 5, 8, 12, 18, 25, 35, 50, 65, 80]` filtrados por `max(minutos * 0.9, 5)`
+   - Ejemplo 30min: `[2, 5, 8, 12, 18, 25]` → 432 puntos
+
+2. **Query OSRM `table` por batches** (max 89 coords, stagger 80ms):
+   ```
+   GET https://router.project-osrm.org/table/v1/driving/{coords}?annotations=duration
+   ```
+
+3. **Para cada dirección, encontrar boundary:**
+   ```javascript
+   const ptsDir = resultados.filter(r => r.dir === d).sort((a,b) => a.radioKm - b.radioKm);
+   let lastReach = null, firstOver = null;
+   for (const p of ptsDir) {
+     if (p.dur <= targetSec) lastReach = p;
+     else if (!firstOver) { firstOver = p; break; }
+   }
+   // Interpolación lineal
+   if (lastReach && firstOver && firstOver.dur > lastReach.dur) {
+     const frac = (targetSec - lastReach.dur) / (firstOver.dur - lastReach.dur);
+     rBoundary = lastReach.radioKm + frac * (firstOver.radioKm - lastReach.radioKm);
+   }
+   ```
+
+4. **Cerrar polígono** — Conectar boundary points en orden angular (sin convex hull)
+
+### Resultados comparados (Madrid, 30min coche)
+
+| Método | Área | Forma |
+|--------|------|-------|
+| ❌ Convex hull | 1250 km² | Círculo irregular |
+| ✅ Boundary detection | 879 km² | Forma irregular real, sigue carreteras |
+
+### Pitfalls OSRM
+
+1. **OSRM público solo tiene `driving`** — No hay perfil `foot` o `bicycle`. Para andar, usar ORS o simulación.
+2. **Variable case-sensitive** — `dlat` ≠ `dLat`. JS no da error, solo `undefined`.
+3. **Max ~89 coordenadas por llamada `table`** — Dividir en batches, stagger 80ms.
+4. **Rate limit no documentado** — En la práctica tolerante con stagger.
+5. **Sin semáforos ni restricciones horarias** — OSRM usa datos OSM básicos.
+6. **No hay datos de elevación** — La velocidad es plana. Para pendientes, usar Valhalla con DEM.
+7. **Radios muy bajos = pocos puntos** — Asegurar al menos `[2, 5]` km para tiempos cortos.
+
+### Cadena de fallback recomendada
+
+```javascript
+async function calcularIsocrona(lng, lat, modo, minutos) {
+  // 1. ORS (si hay key — más preciso)
+  const apiKey = localStorage.getItem('isotime_ors_key');
+  if (apiKey) {
+    try { return await calcularIsocronaORS(lng, lat, modo, minutos, apiKey); }
+    catch (e) { console.warn('ORS failed:', e.message); }
+  }
+  // 2. OSRM (solo coche — routing real sin key)
+  if (modo === 'car') {
+    try { return await calcularIsocronaOSRM(lng, lat, minutos); }
+    catch (e) { console.warn('OSRM failed:', e.message); }
+  }
+  // 3. Simulación (fallback final)
+  return calcularIsocronaSim(lng, lat, modo, minutos);
+}
+```
+
 ## Futuras mejoras
 
 1. **Shoreline clipping** — Recortar isócronas costeras con Natural Earth data

@@ -475,11 +475,18 @@ El panel derecho debe mostrar TODOS estos campos (David quiere "muchísimos más
   ```
 - **⚠️ GitHub Pages CDN caching (Lección 2026-06-30):** Tras push a `main`, GitHub Pages puede servir versión cacheada durante 2-5 minutos. Añadir `?v=N` al reload no siempre invalida. Si el navegador muestra datos viejos tras push correcto → hard refresh (`Ctrl+Shift+R`) o nueva ventana incógnito. Para verificar que el deploy es correcto: `curl -s raw.githubusercontent.com/Ntizar/DataHubEspana/main/index.html | grep 'NUEVO_TEXT'`.
 - **⚠️ Crecimiento sin romper (patrón David):** Cada feature nueva debe: (1) no modificar código existente que funciona, (2) añadir en bloques separados, (3) hacer commit incremental, (4) verificar que pestañas anteriores siguen funcionando. David revisa el dashboard después de cada push y detecta regresiones al instante.
-- **⚠️ Helper setTxt() para updates seguros (v2.5):** Al actualizar DOM desde APIs, usar helper que verifica que el elemento existe antes de escribir:
+- **⚠️ Helper setTxt() global (v2.7):** `setTxt` es ahora un helper GLOBAL definido en el scope principal del script:
   ```javascript
   const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; else console.warn('Element not found:', id); };
   ```
-  Esto evita errores silenciosos cuando un ID de elemento no existe o fue renombrado.
+  Usar SIEMPRE `setTxt()` en vez de `document.getElementById(id).textContent` en cualquier función. Evita errores silenciosos cuando un ID no existe o fue renombrado.
+- **⚠️ ESIOS 403 handling explícito (v2.7):** Las APIs de ESIOS devuelven 403 Forbidden cuando requieren auth. Pattern correcto:
+  ```javascript
+  const res = await fetch('https://api.esios.ree.es/indicators/1001', { headers: { 'Accept': 'application/json' } });
+  if (res.status === 403) { /* auth required — usar fallback */ }
+  else if (res.ok) { /* parsear datos */ }
+  ```
+  Si falla: mostrar "N/D" (no "—" ni "0.18" — datos corruptos). Validar `latest.value > 0` antes de mostrar (valores 0 = datos stale).
 - **⚠️ showToast en errores de API (v2.5):** Cuando una API falla al cargar datos de provincia, mostrar toast de error + valores fallback en vez de dejar la UI con "—" o "Cargando…" eterno:
   ```javascript
   } catch (err) {
@@ -678,6 +685,17 @@ generateCCAATab('mar');
 - Token necesita scope `pages: write` + `id-token: write`
 
 ## Prompts cron para capas adicionales
+
+### Naming mismatch pitfall (Lección 2026-06-30)
+Cuando se renombra una función, SIEMPRE buscar TODAS las referencias. Un mismatch causa `ReferenceError` silencioso en init() que rompe la pestaña entera.
+
+### Batch overnight cron pattern (Lección 2026-06-30)
+Para arreglar un dashboard grande (35+ pestañas) de forma nocturna:
+- **7 oleadas** de 5 pestañas cada una, espaciadas 8 min
+- **1 cron de auditoría final** que verifica todo y genera informe
+- **Cada cron es autocontenido:** lee el archivo, hace sus fixes, verifica DOM, commitea
+- **Empaquetar pestañas relacionadas** en la misma oleada (ej: meteorológicas juntas, datos juntas)
+- **Auditoría final** al final: verifica DOM balance, funciones definidas, paneles con contenido
 
 ### Cron: Actualización Energía (cada hora)
 ```

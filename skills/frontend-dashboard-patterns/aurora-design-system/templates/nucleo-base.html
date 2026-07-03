@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Núcleo</title>
+
+  <!-- Aurora CDN: core + nucleo (colores sólidos) + data + motion + patterns -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.themes.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.nucleo.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.data.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.motion.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.patterns.css">
+
+  <!-- Para mapas: añadir ntizar.maps.css -->
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.maps.css"> -->
+
+  <!-- Para Chart.js: añadir ntizar.charts.css -->
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.charts.css"> -->
+
+  <style>
+    /* Shell mínimo — adaptar según necesidad */
+    .shell { max-width: 76rem; margin: 0 auto; padding: 0 var(--nz-space-4); }
+    .shell__footer { text-align: center; padding: var(--nz-space-6) 0; color: var(--nz-text-muted); font-size: var(--nz-text-sm); border-top: 1px solid var(--nz-border-soft); }
+  </style>
+</head>
+
+<body class="nz" data-nz-theme="light" data-nz-skin="aurora" data-nz-color-system="hex">
+
+  <div class="shell">
+
+    <!-- Nav sólida -->
+    <nav class="nz-solid-nav">
+      <div class="nz-solid-nav__brand"><span class="nz-solid-nav__dot"></span>App</div>
+      <ul class="nz-solid-nav__links">
+        <li><a href="#" class="is-active">Inicio</a></li>
+        <li><a href="#">Datos</a></li>
+        <li><a href="#">Ajustes</a></li>
+      </ul>
+      <button class="nz-solid-nav__cta">+ Nuevo</button>
+    </nav>
+
+    <!-- Stats bar — bloques sólidos alternando azul/naranja -->
+    <section class="nz-stats-bar" style="margin: var(--nz-space-5) 0;">
+      <div class="nz-stat nz-stat--azul">
+        <span class="nz-stat__value">42.380</span>
+        <span class="nz-stat__label">Métrica 1</span>
+        <span class="nz-stat__trend">↑ 12,4%</span>
+      </div>
+      <div class="nz-stat nz-stat--naranja">
+        <span class="nz-stat__value">8.924</span>
+        <span class="nz-stat__label">Métrica 2</span>
+        <span class="nz-stat__trend">↑ 3,8%</span>
+      </div>
+      <div class="nz-stat nz-stat--azul">
+        <span class="nz-stat__value">4,7%</span>
+        <span class="nz-stat__label">Métrica 3</span>
+        <span class="nz-stat__trend">↓ 0,3%</span>
+      </div>
+      <div class="nz-stat nz-stat--naranja">
+        <span class="nz-stat__value">9,2</span>
+        <span class="nz-stat__label">Métrica 4</span>
+        <span class="nz-stat__trend">↑ 8,1%</span>
+      </div>
+    </section>
+
+    <!-- Bento grid — bloques de color sólido -->
+    <section class="nz-bento" style="margin-bottom: var(--nz-space-6);">
+      <!-- Card blanca con barras CSS -->
+      <div class="nz-bento__cell nz-bento__cell--white nz-bento__cell--wide">
+        <h3 style="font-size:var(--nz-text-xs);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;opacity:0.7;margin-bottom:var(--nz-space-2);">Tráfico semanal</h3>
+        <div class="nz-bars">
+          <div class="nz-bars__col nz-bars__col--azul" style="height:45%"></div>
+          <div class="nz-bars__col nz-bars__col--azul" style="height:62%"></div>
+          <div class="nz-bars__col nz-bars__col--naranja" style="height:38%"></div>
+          <div class="nz-bars__col nz-bars__col--azul" style="height:78%"></div>
+          <div class="nz-bars__col nz-bars__col--active" style="height:92%"></div>
+          <div class="nz-bars__col nz-bars__col--azul" style="height:55%"></div>
+          <div class="nz-bars__col nz-bars__col--naranja" style="height:68%"></div>
+        </div>
+      </div>
+
+      <!-- Card naranja con ring chart -->
+      <div class="nz-bento__cell nz-bento__cell--naranja">
+        <h3 style="font-size:var(--nz-text-xs);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;opacity:0.7;margin-bottom:var(--nz-space-2);">Objetivo</h3>
+        <div class="nz-ring" style="--nz-ring-pct:72;"><div class="nz-ring__inner">72%</div></div>
+      </div>
+
+      <!-- Card azul con número -->
+      <div class="nz-bento__cell nz-bento__cell--azul">
+        <h3 style="font-size:var(--nz-text-xs);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;opacity:0.7;margin-bottom:var(--nz-space-2);">Pedidos</h3>
+        <div style="font-size:2rem;font-weight:900;letter-spacing:-0.02em;">34</div>
+      </div>
+
+      <!-- Card dark con actividad -->
+      <div class="nz-bento__cell nz-bento__cell--dark">
+        <h3 style="font-size:var(--nz-text-xs);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;opacity:0.7;margin-bottom:var(--nz-space-2);">Actividad</h3>
+        <div class="nz-activity">
+          <div class="nz-activity__item">
+            <span class="nz-activity__dot nz-activity__dot--naranja"></span>
+            Nuevo evento
+            <span class="nz-activity__time">hace 2 min</span>
+          </div>
+          <div class="nz-activity__item">
+            <span class="nz-activity__dot nz-activity__dot--azul"></span>
+            Otro evento
+            <span class="nz-activity__time">hace 8 min</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="shell__footer">Hecho con ❤️ por David Antizar</footer>
+
+  </div>
+
+</body>
+</html>

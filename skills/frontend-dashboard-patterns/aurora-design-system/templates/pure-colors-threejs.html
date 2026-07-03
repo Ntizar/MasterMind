@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel — Colores Puros + Three.js</title>
+
+  <!--
+    TEMPLATE: Colores sólidos puros + Three.js interactivo
+    CUÁNDO USAR: David rechaza gradientes azul→naranja (sRGB produce morado).
+    Este template usa colores sólidos, cero gradientes, Three.js para visual.
+    
+    PALETA:
+    - Azul: #2563eb (brand), #1e40af (profundo), #60a5fa (claro)
+    - Naranja: #f97316 (accent), #ea580c (profundo), #fdba74 (claro)
+    - Neutro: #0a0a0a (negro), #6b7280 (gris), #f3f4f6 (gris claro), #ffffff
+    
+    REGLAS:
+    - CERO gradientes entre azul y naranja
+    - Colores sólidos en bloques
+    - Three.js para elementos visuales (partículas, wireframes, geometría)
+    - Layout bento asimétrico (no grid de cards iguales)
+    - Mobile-first: 1 col base → 2-3 col desktop
+    - Footer: "Hecho con ❤️ por David Antizar"
+  -->
+
+  <script type="importmap">
+  { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js" } }
+  </script>
+
+  <style>
+    :root {
+      --azul: #2563eb; --azul-profundo: #1e40af; --azul-claro: #60a5fa;
+      --naranja: #f97316; --naranja-profundo: #ea580c; --naranja-claro: #fdba74;
+      --negro: #0a0a0a; --gris: #6b7280; --gris-claro: #f3f4f6; --blanco: #ffffff;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, system-ui, sans-serif; background: var(--blanco); color: var(--negro); overflow-x: hidden; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* Nav */
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--gris-claro); }
+    .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: -0.03em; display: flex; align-items: center; gap: 8px; }
+    .logo__dot { width: 14px; height: 14px; background: var(--naranja); border-radius: 50%; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--gris); font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--azul); }
+    .nav-links a.active { color: var(--negro); font-weight: 600; }
+    .nav-cta { background: var(--azul); color: var(--blanco); border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 0.875rem; cursor: pointer; transition: transform 0.15s, background 0.2s; }
+    .nav-cta:hover { background: var(--azul-profundo); transform: translateY(-1px); }
+
+    /* Hero */
+    .hero { display: grid; grid-template-columns: 1fr; gap: 40px; padding: 60px 0 40px; align-items: center; }
+    .hero__text h1 { font-size: clamp(2.5rem, 7vw, 4.5rem); font-weight: 900; line-height: 0.95; letter-spacing: -0.04em; margin-bottom: 20px; }
+    .hero__text h1 .azul { color: var(--azul); }
+    .hero__text h1 .naranja { color: var(--naranja); }
+    .hero__text p { font-size: 1.125rem; color: var(--gris); line-height: 1.6; max-width: 460px; margin-bottom: 28px; }
+    .hero__actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary { background: var(--naranja); color: var(--blanco); border: none; padding: 14px 28px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: transform 0.15s, box-shadow 0.2s; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(249,115,22,0.35); }
+    .btn-secondary { background: transparent; color: var(--azul); border: 2px solid var(--azul); padding: 12px 26px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+    .btn-secondary:hover { background: var(--azul); color: var(--blanco); }
+
+    /* Three.js canvas */
+    .hero__visual { position: relative; width: 100%; height: 420px; border-radius: 20px; overflow: hidden; background: var(--negro); }
+    #three-canvas { width: 100%; height: 100%; display: block; cursor: grab; }
+    #three-canvas:active { cursor: grabbing; }
+    .hero__visual-badge { position: absolute; top: 16px; left: 16px; background: var(--naranja); color: var(--blanco); padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+    .hero__visual-hint { position: absolute; bottom: 16px; right: 16px; color: rgba(255,255,255,0.5); font-size: 0.75rem; }
+
+    /* Stats bar — bloques sólidos alternando azul/naranja */
+    .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 40px 0; border-radius: 16px; overflow: hidden; }
+    .stat { padding: 32px 28px; display: flex; flex-direction: column; gap: 6px; }
+    .stat--azul { background: var(--azul); color: var(--blanco); }
+    .stat--naranja { background: var(--naranja); color: var(--blanco); }
+    .stat__value { font-size: 2.5rem; font-weight: 900; letter-spacing: -0.03em; }
+    .stat__label { font-size: 0.875rem; opacity: 0.85; font-weight: 500; }
+    .stat__trend { font-size: 0.8rem; opacity: 0.7; margin-top: 4px; }
+
+    /* Bento grid asimétrico */
+    .bento { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 60px; }
+    .bento__card { border-radius: 16px; padding: 28px; transition: transform 0.2s; }
+    .bento__card:hover { transform: translateY(-3px); }
+    .bento__card--white { background: var(--blanco); border: 1px solid var(--gris-claro); }
+    .bento__card--azul { background: var(--azul); color: var(--blanco); }
+    .bento__card--naranja { background: var(--naranja); color: var(--blanco); }
+    .bento__card--dark { background: var(--negro); color: var(--blanco); }
+    .bento__card h3 { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.7; margin-bottom: 12px; }
+    .bento__card .num { font-size: 2rem; font-weight: 900; }
+    .bento__card .desc { font-size: 0.875rem; opacity: 0.8; margin-top: 8px; line-height: 1.5; }
+
+    /* CSS-only bar chart */
+    .bars { display: flex; align-items: flex-end; gap: 6px; height: 80px; margin-top: 16px; }
+    .bars__col { flex: 1; border-radius: 4px 4px 0 0; transition: height 0.6s ease; }
+    .bars__col--azul { background: var(--azul-claro); }
+    .bars__col--naranja { background: var(--naranja-claro); }
+    .bars__col--active { background: var(--naranja); }
+
+    /* CSS-only ring chart */
+    .ring { width: 100px; height: 100px; border-radius: 50%; background: conic-gradient(var(--naranja) 0% 72%, var(--gris-claro) 72% 100%); display: flex; align-items: center; justify-content: center; margin-top: 12px; }
+    .ring__inner { width: 72px; height: 72px; background: var(--blanco); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.25rem; }
+
+    /* Activity list */
+    .activity { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+    .activity__item { display: flex; align-items: center; gap: 12px; font-size: 0.875rem; }
+    .activity__dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .activity__dot--azul { background: var(--azul); }
+    .activity__dot--naranja { background: var(--naranja); }
+    .activity__time { margin-left: auto; opacity: 0.5; font-size: 0.75rem; }
+
+    footer { text-align: center; padding: 40px 0; color: var(--gris); font-size: 0.875rem; border-top: 1px solid var(--gris-claro); }
+
+    @media (min-width: 768px) {
+      .hero { grid-template-columns: 1fr 1fr; padding: 80px 0 60px; }
+      .hero__visual { height: 480px; }
+      .stats { grid-template-columns: repeat(4, 1fr); }
+      .bento { grid-template-columns: repeat(3, 1fr); }
+      .bento__card--wide { grid-column: span 2; }
+      .bento__card--full { grid-column: span 3; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Nav -->
+    <nav>
+      <div class="logo"><span class="logo__dot"></span>Marca</div>
+      <ul class="nav-links">
+        <li><a href="#" class="active">Panel</a></li>
+        <li><a href="#">Métricas</a></li>
+        <li><a href="#">Actividad</a></li>
+        <li><a href="#">Ajustes</a></li>
+      </ul>
+      <button class="nav-cta">+ Nuevo</button>
+    </nav>
+
+    <!-- Hero con Three.js -->
+    <section class="hero">
+      <div class="hero__text">
+        <h1>Datos en<br><span class="azul">azul</span> y<br><span class="naranja">naranja</span>.</h1>
+        <p>Colores puros, geometría viva, información clara. Sin degradados.</p>
+        <div class="hero__actions">
+          <button class="btn-primary">Ver métricas</button>
+          <button class="btn-secondary">Documentación</button>
+        </div>
+      </div>
+      <div class="hero__visual">
+        <canvas id="three-canvas"></canvas>
+        <span class="hero__visual-badge">● Tiempo real</span>
+        <span class="hero__visual-hint">Arrastra para rotar</span>
+      </div>
+    </section>
+
+    <!-- Stats bar -->
+    <section class="stats">
+      <div class="stat stat--azul"><span class="stat__value">42.380€</span><span class="stat__label">Ingresos</span><span class="stat__trend">↑ 12,4%</span></div>
+      <div class="stat stat--naranja"><span class="stat__value">8.924</span><span class="stat__label">Usuarios</span><span class="stat__trend">↑ 3,8%</span></div>
+      <div class="stat stat--azul"><span class="stat__value">4,7%</span><span class="stat__label">Conversión</span><span class="stat__trend">↓ 0,3%</span></div>
+      <div class="stat stat--naranja"><span class="stat__value">9,2</span><span class="stat__label">NPS</span><span class="stat__trend">↑ 8,1%</span></div>
+    </section>
+
+    <!-- Bento grid -->
+    <section class="bento">
+      <div class="bento__card bento__card--white bento__card--wide">
+        <h3>Tráfico semanal</h3>
+        <div class="bars">
+          <div class="bars__col bars__col--azul" style="height:45%"></div>
+          <div class="bars__col bars__col--azul" style="height:62%"></div>
+          <div class="bars__col bars__col--naranja" style="height:38%"></div>
+          <div class="bars__col bars__col--azul" style="height:78%"></div>
+          <div class="bars__col bars__col--active" style="height:92%"></div>
+          <div class="bars__col bars__col--azul" style="height:55%"></div>
+          <div class="bars__col bars__col--naranja" style="height:68%"></div>
+        </div>
+        <div class="desc">Pico de tráfico el viernes</div>
+      </div>
+      <div class="bento__card bento__card--naranja">
+        <h3>Objetivo</h3>
+        <div class="ring"><div class="ring__inner">72%</div></div>
+        <div class="desc">Meta trimestral</div>
+      </div>
+      <div class="bento__card bento__card--azul">
+        <h3>Pedidos</h3>
+        <div class="num">34</div>
+        <div class="desc">Pendientes</div>
+      </div>
+      <div class="bento__card bento__card--dark">
+        <h3>Actividad</h3>
+        <div class="activity">
+          <div class="activity__item"><span class="activity__dot activity__dot--naranja"></span>Nuevo pedido<span class="activity__time">2m</span></div>
+          <div class="activity__item"><span class="activity__dot activity__dot--azul"></span>Usuario registrado<span class="activity__time">8m</span></div>
+          <div class="activity__item"><span class="activity__dot activity__dot--naranja"></span>Pago confirmado<span class="activity__time">15m</span></div>
+        </div>
+      </div>
+      <div class="bento__card bento__card--white bento__card--wide">
+        <h3>Rendimiento</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;">
+          <div><div style="font-size:0.75rem;color:var(--gris);font-weight:600;margin-bottom:6px;">CPU</div><div style="height:6px;background:var(--gris-claro);border-radius:3px;overflow:hidden;"><div style="height:100%;width:34%;background:var(--azul);border-radius:3px;"></div></div></div>
+          <div><div style="font-size:0.75rem;color:var(--gris);font-weight:600;margin-bottom:6px;">RAM</div><div style="height:6px;background:var(--gris-claro);border-radius:3px;overflow:hidden;"><div style="height:100%;width:68%;background:var(--naranja);border-radius:3px;"></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <footer>Hecho con ❤️ por David Antizar</footer>
+  </div>
+
+  <!-- Three.js: partículas azul+naranja, wireframe, núcleo sólido -->
+  <script type="module">
+    import * as THREE from 'three';
+    const canvas = document.getElementById('three-canvas');
+    const container = canvas.parentElement;
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0a0a0a);
+    const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
+    camera.position.set(0, 0, 8);
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    // Icosaedro wireframe azul
+    const ico = new THREE.Mesh(
+      new THREE.IcosahedronGeometry(2.2, 1),
+      new THREE.MeshBasicMaterial({ color: 0x2563eb, wireframe: true, transparent: true, opacity: 0.6 })
+    );
+    group.add(ico);
+
+    // Núcleo sólido naranja
+    const core = new THREE.Mesh(
+      new THREE.IcosahedronGeometry(0.5, 0),
+      new THREE.MeshBasicMaterial({ color: 0xf97316 })
+    );
+    group.add(core);
+
+    // Anillos
+    const rings = [];
+    [0x2563eb, 0xf97316, 0x60a5fa].forEach((color, i) => {
+      const ring = new THREE.Mesh(
+        new THREE.TorusGeometry(3 + i * 0.6, 0.015, 8, 80),
+        new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.3 })
+      );
+      ring.rotation.x = Math.PI / 2 + i * 0.4;
+      group.add(ring);
+      rings.push(ring);
+    });
+
+    // Partículas orbitales (60% naranja, 40% azul)
+    const N = 200;
+    const pos = new Float32Array(N * 3);
+    const col = new Float32Array(N * 3);
+    const orbits = [];
+    for (let i = 0; i < N; i++) {
+      const r = 3 + Math.random() * 2.5;
+      const a = Math.random() * Math.PI * 2;
+      const s = 0.3 + Math.random() * 0.7;
+      const inc = (Math.random() - 0.5) * 0.8;
+      orbits.push({ r, a, s, inc });
+      pos[i*3] = Math.cos(a)*r; pos[i*3+1] = inc*r; pos[i*3+2] = Math.sin(a)*r;
+      if (Math.random() > 0.4) { col[i*3]=0.976; col[i*3+1]=0.451; col[i*3+2]=0.086; }
+      else { col[i*3]=0.145; col[i*3+1]=0.388; col[i*3+2]=0.922; }
+    }
+    const pGeo = new THREE.BufferGeometry();
+    pGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    pGeo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+    const particles = new THREE.Points(pGeo, new THREE.PointsMaterial({ size: 0.06, vertexColors: true, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending, depthWrite: false }));
+    group.add(particles);
+
+    // Drag
+    let drag = false, px = 0, py = 0, rx = 0, ry = 0, trx = 0, try_ = 0;
+    canvas.addEventListener('pointerdown', e => { drag = true; px = e.clientX; py = e.clientY; });
+    window.addEventListener('pointerup', () => drag = false);
+    window.addEventListener('pointermove', e => { if (!drag) return; try_ += (e.clientX-px)*0.005; trx += (e.clientY-py)*0.005; px = e.clientX; py = e.clientY; });
+    window.addEventListener('resize', () => { const w = container.clientWidth, h = container.clientHeight; camera.aspect = w/h; camera.updateProjectionMatrix(); renderer.setSize(w, h); });
+
+    const clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+      const t = clock.getElapsedTime();
+      rx += (trx-rx)*0.05; ry += (try_-ry)*0.05;
+      group.rotation.x = rx + Math.sin(t*0.15)*0.1;
+      group.rotation.y = ry + t*0.08;
+      ico.rotation.x = t*0.2; ico.rotation.y = t*0.15;
+      core.rotation.x = t*0.5; core.rotation.y = t*0.4;
+      rings.forEach((r,i) => r.rotation.z = t*(0.1+i*0.05));
+      const p = pGeo.attributes.position.array;
+      for (let i = 0; i < N; i++) { const o = orbits[i]; o.a += o.s*0.005; p[i*3]=Math.cos(o.a)*o.r; p[i*3+1]=o.inc*o.r+Math.sin(t+i)*0.1; p[i*3+2]=Math.sin(o.a)*o.r; }
+      pGeo.attributes.position.needsUpdate = true;
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>

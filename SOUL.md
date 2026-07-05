@@ -41,7 +41,7 @@ NtizarBrainMasterMind/
 └── ...otros archivos raíz (CHANGELOG.md, CONTRIBUTING.md, etc.)
 ```
 
-**Nota:** Los 247 skills viven en `/hermes-home/skills/`, no en el repo. Se cargan bajo demanda con `skill_view()`.
+**Nota:** Los 265 skills viven en `/hermes-home/skills/`, no en el repo. Se cargan bajo demanda con `skill_view()`.
 
 ## Niveles de Ejecución
 

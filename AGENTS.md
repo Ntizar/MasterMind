@@ -1,6 +1,6 @@
 # NtizarBrainMasterMind v4.1 — Referencia Rápida
 
-> **Agente Mastermind + 247 skills indexados semánticamente.**
+> **Agente Mastermind + 265 skills indexados semánticamente.**
 > Reglas completas → **[SOUL.md](SOUL.md)**
 
 ---
@@ -29,7 +29,7 @@ Mastermind (agente qwen3.6)
 
 ## ChromaDB — Búsqueda semántica
 
-**247 skills indexados por significado, no por nombre.**
+**265 skills indexados por significado, no por nombre.**
 
 ```bash
 # Consultar skills relevantes
@@ -72,7 +72,7 @@ python3 indexar-skills.py [--reset]
 | 🔬 **Visión/ML** | ~15 | Object detection, segmentación, video |
 | Otros | ~100 | MCP, salud, crypto, finanzas, media, geoespacial |
 
-**Total: 247 skills** — cargados bajo demanda vía ChromaDB.
+**Total: 265 skills** — cargados bajo demanda vía ChromaDB.
 
 ## Cron Jobs Activos (10 jobs Hermes)
 

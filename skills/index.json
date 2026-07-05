@@ -1,32 +1,32 @@
 {
-  "total_skills": 247,
+  "total_skills": 265,
   "generated_at": "2026-07-05T00:00:00Z",
   "categories": {
     "software-development": 26,
-    "devops": 24,
-    "creative": 20,
+    "devops": 25,
+    "creative": 24,
     "mastermind": 13,
+    "geospatial": 12,
     "physics": 12,
     "td": 12,
     "math": 11,
     "data-science": 10,
     "herramientas": 8,
+    "ia": 8,
     "mlops": 8,
     "engineering": 8,
     "apple": 5,
     "github": 5,
-    "ia": 5,
     "media": 5,
     "research": 5,
     "autonomous-ai-agents": 4,
     "computer-vision": 4,
-    "geospatial": 4,
+    "data-pipeline": 4,
     "vision": 4,
     "esios": 3,
     "frontend-dashboard-patterns": 3,
     "backend": 2,
     "data": 2,
-    "data-pipeline": 2,
     "productivity": 2,
     "security": 2,
     "ai-patterns": 1,
@@ -444,6 +444,17 @@
       "size_bytes": 30025
     },
     {
+      "name": "liquid-glass-refraction",
+      "description": "Efecto Liquid Glass con refracción SVG — design system CSS + React con refracción, specular highlights y blur. Inspirado en Z1Code/glass-refraction (⭐36).",
+      "tags": [
+        "creative",
+        "liquid-glass-refraction"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/liquid-glass-refraction/SKILL.md",
+      "size_bytes": 3797
+    },
+    {
       "name": "manim-video",
       "description": "Manim CE animations: 3Blue1Brown math/algo videos.",
       "tags": [
@@ -521,6 +532,17 @@
       "size_bytes": 10236
     },
     {
+      "name": "streetview-3d-cities-dataset",
+      "description": "Dataset de Street View Image, Pose y 3D Cities para computer vision. Inspirado en amir32002/3D_Street_View (⭐509). Datos para 3D reconstruction, pose estimation y city understanding.",
+      "tags": [
+        "creative",
+        "streetview-3d-cities-dataset"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/streetview-3d-cities-dataset/SKILL.md",
+      "size_bytes": 3059
+    },
+    {
       "name": "threejs-3d-web",
       "description": "Crear escenas 3D interactivas en el navegador con Three.js o Canvas 2D puro — gemelos digitales, visualizaciones, partículas. Autocontenido sin build step. Incluye patrón mármol procedural.",
       "tags": [
@@ -530,6 +552,28 @@
       "category": "creative",
       "path": "/hermes-home/skills/creative/threejs-3d-web/SKILL.md",
       "size_bytes": 24750
+    },
+    {
+      "name": "threejs-procedural-trees",
+      "description": "Generación procedural de árboles 3D con three.js — L-systems, recursive branching, procedural geometry. Inspirado en dgreenheck/ez-tree (⭐1.5K).",
+      "tags": [
+        "creative",
+        "threejs-procedural-trees"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/threejs-procedural-trees/SKILL.md",
+      "size_bytes": 3691
+    },
+    {
+      "name": "threejs-webgpu-ocean",
+      "description": "Simulación de océano FFT en tiempo real GPU-driven con three.js + WebGPU/TSL. Inspirado en owenyuwono/poseidon (⭐56). Olas realistas con FFT spectrum, normal mapping y foam.",
+      "tags": [
+        "creative",
+        "threejs-webgpu-ocean"
+      ],
+      "category": "creative",
+      "path": "/hermes-home/skills/creative/threejs-webgpu-ocean/SKILL.md",
+      "size_bytes": 3122
     },
     {
       "name": "touchdesigner-mcp",
@@ -576,6 +620,17 @@
       "size_bytes": 10232
     },
     {
+      "name": "adaptive-web-scraping",
+      "description": "Scraping web adaptativo con Scrapling — framework que maneja todo desde una sola request, con detección de cambios, anti-bot bypass y auto-matching. Inspirado en D4Vinci/Scrapling (⭐68K).",
+      "tags": [
+        "data-pipeline",
+        "adaptive-web-scraping"
+      ],
+      "category": "data-pipeline",
+      "path": "/hermes-home/skills/data-pipeline/adaptive-web-scraping/SKILL.md",
+      "size_bytes": 2613
+    },
+    {
       "name": "embedded-json-extraction",
       "description": "Extraer y parsear JSON arrays/objects embebidos en archivos de código (JS, Python, etc.) cuando el bracket counting simple falla por corchetes dentro de strings.",
       "tags": [
@@ -585,6 +640,17 @@
       "category": "data-pipeline",
       "path": "/hermes-home/skills/data-pipeline/embedded-json-extraction/SKILL.md",
       "size_bytes": 3964
+    },
+    {
+      "name": "llm-friendly-web-crawler",
+      "description": "Crawling web LLM-friendly con crawl4ai — output optimizado para LLMs, scraping asíncrono, extracción estructurada. Inspirado en unclecode/crawl4ai (⭐71K).",
+      "tags": [
+        "data-pipeline",
+        "llm-friendly-web-crawler"
+      ],
+      "category": "data-pipeline",
+      "path": "/hermes-home/skills/data-pipeline/llm-friendly-web-crawler/SKILL.md",
+      "size_bytes": 3131
     },
     {
       "name": "pdf-regex-structured-extraction",
@@ -739,6 +805,17 @@
       "category": "development",
       "path": "/hermes-home/skills/development/spec-driven-development/SKILL.md",
       "size_bytes": 2702
+    },
+    {
+      "name": "api-mega-catalog",
+      "description": "Catálogo masivo de APIs públicas listas para usar — 6000+ APIs organizadas por categoría. Inspirado en cporter202/API-mega-list (⭐7K).",
+      "tags": [
+        "devops",
+        "api-mega-catalog"
+      ],
+      "category": "devops",
+      "path": "/hermes-home/skills/devops/api-mega-catalog/SKILL.md",
+      "size_bytes": 3492
     },
     {
       "name": "boe-borme-api",
@@ -1126,6 +1203,61 @@
       "size_bytes": 3173
     },
     {
+      "name": "gtfs-client-side-viz",
+      "description": "Visualización de GTFS a escala en el cliente sin backend. Inspirado en gabrielAHN/gtfs-viz (⭐50). Renderiza rutas, paradas y horarios directamente en el navegador.",
+      "tags": [
+        "geospatial",
+        "gtfs-client-side-viz"
+      ],
+      "category": "geospatial",
+      "path": "/hermes-home/skills/geospatial/gtfs-client-side-viz/SKILL.md",
+      "size_bytes": 3220
+    },
+    {
+      "name": "gtfs-static-editor",
+      "description": "Editor GUI para crear, editar y exportar datos GTFS estáticos. Inspirado en WRI-Cities/static-GTFS-manager (⭐159). Interfaz visual para gestionar agencias, rutas, paradas y horarios.",
+      "tags": [
+        "geospatial",
+        "gtfs-static-editor"
+      ],
+      "category": "geospatial",
+      "path": "/hermes-home/skills/geospatial/gtfs-static-editor/SKILL.md",
+      "size_bytes": 4100
+    },
+    {
+      "name": "gtfs-to-html-timetables",
+      "description": "Generar horarios de tránsito legibles como HTML o PDF desde datos GTFS estáticos. Inspirado en BlinkTagInc/gtfs-to-html (⭐226).",
+      "tags": [
+        "geospatial",
+        "gtfs-to-html-timetables"
+      ],
+      "category": "geospatial",
+      "path": "/hermes-home/skills/geospatial/gtfs-to-html-timetables/SKILL.md",
+      "size_bytes": 2019
+    },
+    {
+      "name": "osm-infrastructure-mapping",
+      "description": "Motor OSINT para mapear infraestructura del mundo real desde datos OpenStreetMap. Inspirado en ni5arga/sightline (⭐496). Descubre, mapea y visualiza infraestructura crítica.",
+      "tags": [
+        "geospatial",
+        "osm-infrastructure-mapping"
+      ],
+      "category": "geospatial",
+      "path": "/hermes-home/skills/geospatial/osm-infrastructure-mapping/SKILL.md",
+      "size_bytes": 3210
+    },
+    {
+      "name": "plateau-3d-city-mcp",
+      "description": "MCP server para datos 3D city de Project PLATEAU — scene-editing y glTF export de modelos 3D de ciudades japonesas. Inspirado en pixelx-jp/plateau-creative-mcp (⭐30).",
+      "tags": [
+        "geospatial",
+        "plateau-3d-city-mcp"
+      ],
+      "category": "geospatial",
+      "path": "/hermes-home/skills/geospatial/plateau-3d-city-mcp/SKILL.md",
+      "size_bytes": 2699
+    },
+    {
       "name": "threejs-3d-maps",
       "description": "Mapas 3D con three.js — geo-three, maptalks.three, map33.js. Visualización geoespacial 3D en navegador con tile providers (OSM, Bing, MapBox), terrain height maps, y extrude polygons GeoJSON.",
       "tags": [
@@ -1137,6 +1269,17 @@
       "size_bytes": 5350
     },
     {
+      "name": "traffic-digital-twin-cctv",
+      "description": "Digital twin de tráfico desde footage CCTV — detecta, cuenta y rastrea vehículos usando solo video mp4 de cámaras. Inspirado en duy-phamduc68/TrafficLab-3D (⭐315).",
+      "tags": [
+        "geospatial",
+        "traffic-digital-twin-cctv"
+      ],
+      "category": "geospatial",
+      "path": "/hermes-home/skills/geospatial/traffic-digital-twin-cctv/SKILL.md",
+      "size_bytes": 3777
+    },
+    {
       "name": "transit-3d-realtime",
       "description": "Visualización 3D de tránsito urbano en tiempo real — patrón inspirado en Mini Tokyo 3D. Mapa 3D de transporte público con trenes/metros/buses animados, tracking de vehículos, y datos GTFS-realtime.",
       "tags": [
@@ -1146,6 +1289,28 @@
       "category": "geospatial",
       "path": "/hermes-home/skills/geospatial/transit-3d-realtime/SKILL.md",
       "size_bytes": 5519
+    },
+    {
+      "name": "transit-data-resources",
+      "description": "Catálogo de APIs, datasets, apps y software de transporte público mundial. Inspirado en MobilityData/awesome-transit (⭐1.8K). Recursos GTFS, GTFS-realtime, APIs de tránsito, datasets abiertos.",
+      "tags": [
+        "geospatial",
+        "transit-data-resources"
+      ],
+      "category": "geospatial",
+      "path": "/hermes-home/skills/geospatial/transit-data-resources/SKILL.md",
+      "size_bytes": 3064
+    },
+    {
+      "name": "transit-map-simulation",
+      "description": "Mapas de tránsito animados tipo Swiss Trains — patrón inspirado en vasile/transit-map (⭐372). Servidor + cliente para simulaciones de mapas de transporte en tiempo real.",
+      "tags": [
+        "geospatial",
+        "transit-map-simulation"
+      ],
+      "category": "geospatial",
+      "path": "/hermes-home/skills/geospatial/transit-map-simulation/SKILL.md",
+      "size_bytes": 2927
     },
     {
       "name": "codebase-inspection",
@@ -1390,6 +1555,39 @@
       "size_bytes": 14249
     },
     {
+      "name": "memory-context-engine",
+      "description": "Motor de memoria y contexto para agentes IA — rápido, escalable, self-hosted. Inspirado en supermemoryai/supermemory (⭐28K).",
+      "tags": [
+        "ia",
+        "memory-context-engine"
+      ],
+      "category": "ia",
+      "path": "/hermes-home/skills/ia/memory-context-engine/SKILL.md",
+      "size_bytes": 3121
+    },
+    {
+      "name": "open-source-voice-studio",
+      "description": "Estudio de voz AI open-source local-first — clonación de voz, dictado, creación. Inspirado en jamiepine/voicebox (⭐38K).",
+      "tags": [
+        "ia",
+        "open-source-voice-studio"
+      ],
+      "category": "ia",
+      "path": "/hermes-home/skills/ia/open-source-voice-studio/SKILL.md",
+      "size_bytes": 2658
+    },
+    {
+      "name": "parallel-agent-fleet",
+      "description": "Flota de agentes paralelos con Orca — ADE (Agent Development Environment) para ejecutar múltiples coding agents en paralelo. Inspirado en stablyai/orca (⭐12K).",
+      "tags": [
+        "ia",
+        "parallel-agent-fleet"
+      ],
+      "category": "ia",
+      "path": "/hermes-home/skills/ia/parallel-agent-fleet/SKILL.md",
+      "size_bytes": 2678
+    },
+    {
       "name": "rag-knowledge-base",
       "description": "Construir y gestionar un sistema RAG (Retrieval-Augmented Generation) sobre el corpus de notas, skills y repos de Mastermind — usando ChromaDB + qwen3-embedding de NaN API.",
       "tags": [
@@ -1431,7 +1629,7 @@
       ],
       "category": "mastermind",
       "path": "/hermes-home/skills/mastermind/SKILL.md",
-      "size_bytes": 28231
+      "size_bytes": 28339
     },
     {
       "name": "adela-audit",
@@ -1530,7 +1728,7 @@
       ],
       "category": "mastermind",
       "path": "/hermes-home/skills/mastermind/stars-explorer/SKILL.md",
-      "size_bytes": 16442
+      "size_bytes": 18004
     },
     {
       "name": "time",

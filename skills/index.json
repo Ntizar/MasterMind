@@ -1,5 +1,5 @@
 {
-  "total_skills": 244,
+  "total_skills": 247,
   "generated_at": "2026-07-05T00:00:00Z",
   "categories": {
     "software-development": 26,
@@ -20,6 +20,7 @@
     "research": 5,
     "autonomous-ai-agents": 4,
     "computer-vision": 4,
+    "geospatial": 4,
     "vision": 4,
     "esios": 3,
     "frontend-dashboard-patterns": 3,
@@ -43,7 +44,6 @@
     "devops-operations": 1,
     "educational-html-pipeline": 1,
     "esios-complete": 1,
-    "geospatial": 1,
     "github-workflow": 1,
     "government-data-pipelines": 1,
     "health": 1,
@@ -77,7 +77,7 @@
         "ai-coach-personalizado"
       ],
       "category": "ai-patterns",
-      "path": "/root/workspace/Mastermind/skills/ai-patterns/ai-coach-personalizado/SKILL.md",
+      "path": "/hermes-home/skills/ai-patterns/ai-coach-personalizado/SKILL.md",
       "size_bytes": 3124
     },
     {
@@ -88,7 +88,7 @@
         "apple-notes"
       ],
       "category": "apple",
-      "path": "/root/workspace/Mastermind/skills/apple/apple-notes/SKILL.md",
+      "path": "/hermes-home/skills/apple/apple-notes/SKILL.md",
       "size_bytes": 2169
     },
     {
@@ -99,7 +99,7 @@
         "apple-reminders"
       ],
       "category": "apple",
-      "path": "/root/workspace/Mastermind/skills/apple/apple-reminders/SKILL.md",
+      "path": "/hermes-home/skills/apple/apple-reminders/SKILL.md",
       "size_bytes": 2530
     },
     {
@@ -110,7 +110,7 @@
         "findmy"
       ],
       "category": "apple",
-      "path": "/root/workspace/Mastermind/skills/apple/findmy/SKILL.md",
+      "path": "/hermes-home/skills/apple/findmy/SKILL.md",
       "size_bytes": 3709
     },
     {
@@ -121,7 +121,7 @@
         "imessage"
       ],
       "category": "apple",
-      "path": "/root/workspace/Mastermind/skills/apple/imessage/SKILL.md",
+      "path": "/hermes-home/skills/apple/imessage/SKILL.md",
       "size_bytes": 2442
     },
     {
@@ -132,7 +132,7 @@
         "macos-computer-use"
       ],
       "category": "apple",
-      "path": "/root/workspace/Mastermind/skills/apple/macos-computer-use/SKILL.md",
+      "path": "/hermes-home/skills/apple/macos-computer-use/SKILL.md",
       "size_bytes": 7309
     },
     {
@@ -143,7 +143,7 @@
         "multi-tenant-rbac"
       ],
       "category": "architecture-patterns",
-      "path": "/root/workspace/Mastermind/skills/architecture-patterns/multi-tenant-rbac/SKILL.md",
+      "path": "/hermes-home/skills/architecture-patterns/multi-tenant-rbac/SKILL.md",
       "size_bytes": 9342
     },
     {
@@ -154,7 +154,7 @@
         "arquitectura-dashboard-datos-api"
       ],
       "category": "arquitectura",
-      "path": "/root/workspace/Mastermind/skills/arquitectura/arquitectura-dashboard-datos-api/SKILL.md",
+      "path": "/hermes-home/skills/arquitectura/arquitectura-dashboard-datos-api/SKILL.md",
       "size_bytes": 3356
     },
     {
@@ -165,8 +165,8 @@
         "audit-html-project"
       ],
       "category": "audit-html-project",
-      "path": "/root/workspace/Mastermind/skills/audit-html-project/SKILL.md",
-      "size_bytes": 62133
+      "path": "/hermes-home/skills/audit-html-project/SKILL.md",
+      "size_bytes": 69924
     },
     {
       "name": "aurora-llm-optimization",
@@ -176,8 +176,8 @@
         "aurora-llm-optimization"
       ],
       "category": "aurora-llm-optimization",
-      "path": "/root/workspace/Mastermind/skills/aurora-llm-optimization/SKILL.md",
-      "size_bytes": 7176
+      "path": "/hermes-home/skills/aurora-llm-optimization/SKILL.md",
+      "size_bytes": 8240
     },
     {
       "name": "claude-code",
@@ -187,7 +187,7 @@
         "claude-code"
       ],
       "category": "autonomous-ai-agents",
-      "path": "/root/workspace/Mastermind/skills/autonomous-ai-agents/claude-code/SKILL.md",
+      "path": "/hermes-home/skills/autonomous-ai-agents/claude-code/SKILL.md",
       "size_bytes": 34288
     },
     {
@@ -198,7 +198,7 @@
         "codex"
       ],
       "category": "autonomous-ai-agents",
-      "path": "/root/workspace/Mastermind/skills/autonomous-ai-agents/codex/SKILL.md",
+      "path": "/hermes-home/skills/autonomous-ai-agents/codex/SKILL.md",
       "size_bytes": 4557
     },
     {
@@ -209,7 +209,7 @@
         "hermes-agent"
       ],
       "category": "autonomous-ai-agents",
-      "path": "/root/workspace/Mastermind/skills/autonomous-ai-agents/hermes-agent/SKILL.md",
+      "path": "/hermes-home/skills/autonomous-ai-agents/hermes-agent/SKILL.md",
       "size_bytes": 50285
     },
     {
@@ -220,7 +220,7 @@
         "opencode"
       ],
       "category": "autonomous-ai-agents",
-      "path": "/root/workspace/Mastermind/skills/autonomous-ai-agents/opencode/SKILL.md",
+      "path": "/hermes-home/skills/autonomous-ai-agents/opencode/SKILL.md",
       "size_bytes": 7259
     },
     {
@@ -231,7 +231,7 @@
         "huly-crm-erp-platform"
       ],
       "category": "backend",
-      "path": "/root/workspace/Mastermind/skills/backend/huly-crm-erp-platform/SKILL.md",
+      "path": "/hermes-home/skills/backend/huly-crm-erp-platform/SKILL.md",
       "size_bytes": 1613
     },
     {
@@ -242,7 +242,7 @@
         "nocobase-nocode-backend"
       ],
       "category": "backend",
-      "path": "/root/workspace/Mastermind/skills/backend/nocobase-nocode-backend/SKILL.md",
+      "path": "/hermes-home/skills/backend/nocobase-nocode-backend/SKILL.md",
       "size_bytes": 1818
     },
     {
@@ -253,8 +253,8 @@
         "budget-comparison"
       ],
       "category": "budget-comparison",
-      "path": "/root/workspace/Mastermind/skills/budget-comparison/SKILL.md",
-      "size_bytes": 20209
+      "path": "/hermes-home/skills/budget-comparison/SKILL.md",
+      "size_bytes": 22102
     },
     {
       "name": "competitive-intelligence",
@@ -264,7 +264,7 @@
         "competitive-intelligence"
       ],
       "category": "business-intelligence",
-      "path": "/root/workspace/Mastermind/skills/business-intelligence/competitive-intelligence/SKILL.md",
+      "path": "/hermes-home/skills/business-intelligence/competitive-intelligence/SKILL.md",
       "size_bytes": 7164
     },
     {
@@ -275,7 +275,7 @@
         "chromadb-skills-vector-search"
       ],
       "category": "chromadb-skills-vector-search",
-      "path": "/root/workspace/Mastermind/skills/chromadb-skills-vector-search/SKILL.md",
+      "path": "/hermes-home/skills/chromadb-skills-vector-search/SKILL.md",
       "size_bytes": 2538
     },
     {
@@ -286,7 +286,7 @@
         "gaze-tracking"
       ],
       "category": "computer-vision",
-      "path": "/root/workspace/Mastermind/skills/computer-vision/gaze-tracking/SKILL.md",
+      "path": "/hermes-home/skills/computer-vision/gaze-tracking/SKILL.md",
       "size_bytes": 2357
     },
     {
@@ -297,7 +297,7 @@
         "rf-detr"
       ],
       "category": "computer-vision",
-      "path": "/root/workspace/Mastermind/skills/computer-vision/rf-detr/SKILL.md",
+      "path": "/hermes-home/skills/computer-vision/rf-detr/SKILL.md",
       "size_bytes": 3303
     },
     {
@@ -308,7 +308,7 @@
         "roboflow-supervision"
       ],
       "category": "computer-vision",
-      "path": "/root/workspace/Mastermind/skills/computer-vision/roboflow-supervision/SKILL.md",
+      "path": "/hermes-home/skills/computer-vision/roboflow-supervision/SKILL.md",
       "size_bytes": 3163
     },
     {
@@ -319,7 +319,7 @@
         "webgpu-onnx-detection"
       ],
       "category": "computer-vision",
-      "path": "/root/workspace/Mastermind/skills/computer-vision/webgpu-onnx-detection/SKILL.md",
+      "path": "/hermes-home/skills/computer-vision/webgpu-onnx-detection/SKILL.md",
       "size_bytes": 4434
     },
     {
@@ -330,7 +330,7 @@
         "architecture-diagram"
       ],
       "category": "creative",
-      "path": "/root/workspace/Mastermind/skills/creative/architecture-diagram/SKILL.md",
+      "path": "/hermes-home/skills/creative/architecture-diagram/SKILL.md",
       "size_bytes": 5830
     },
     {
@@ -341,7 +341,7 @@
         "ascii-art"
       ],
       "category": "creative",
-      "path": "/root/workspace/Mastermind/skills/creative/ascii-art/SKILL.md",
+      "path": "/hermes-home/skills/creative/ascii-art/SKILL.md",
       "size_bytes": 10099
     },
     {
@@ -352,7 +352,7 @@
         "ascii-video"
       ],
       "category": "creative",
-      "path": "/root/workspace/Mastermind/skills/creative/ascii-video/SKILL.md",
+      "path": "/hermes-home/skills/creative/ascii-video/SKILL.md",
       "size_bytes": 14924
     },
     {
@@ -363,7 +363,7 @@
         "baoyu-comic"
       ],
       "category": "creative",
-      "path": "/root/workspace/Mastermind/skills/creative/baoyu-comic/SKILL.md",
+      "path": "/hermes-home/skills/creative/baoyu-comic/SKILL.md",
       "size_bytes": 14621
     },
     {
@@ -374,7 +374,7 @@
         "baoyu-infographic"
       ],
       "category": "creative",
-      "path": "/root/workspace/Mastermind/skills/creative/baoyu-infographic/SKILL.md",
+      "path": "/hermes-home/skills/creative/baoyu-infographic/SKILL.md",
       "size_bytes": 10434
     },
     {
@@ -385,8 +385,8 @@
         "claude-design"
       ],
       "category": "creative",
-      "path": "/root/workspace/Mastermind/skills/creative/claude-design/SKILL.md",
-      "size_bytes": 20661
+      "path": "/hermes-home/skills/creative/claude-design/SKILL.md",
+      "size_bytes": 29820
     },
     {
       "name": "comfyui",
@@ -396,7 +396,7 @@
         "comfyui"
       ],
       "category": "creative",
-      "path": "/root/workspace/Mastermind/skills/creative/comfyui/SKILL.md",
+      "path": "/hermes-home/skills/creative/comfyui/SKILL.md",
       "size_bytes": 24287
     },
     {
@@ -407,7 +407,7 @@
         "ideation"
       ],
       "category": "creative",
-      "path": "/root/workspace/Mastermind/skills/creative/creative-ideation/SKILL.md",
+      "path": "/hermes-home/skills/creative/creative-ideation/SKILL.md",
       "size_bytes": 6318
     },
     {
@@ -418,7 +418,7 @@
         "design-md"
       ],
       "category": "creative",
-      "path": "/root/workspace/Mastermind/skills/creative/design-md/SKILL.md",
+      "path": "/hermes-home/skills/creative/design-md/SKILL.md",
       "size_bytes": 7023
     },
     {
@@ -429,7 +429,7 @@
         "excalidraw"
       ],
       "category": "creative",
-      "path": "/root/workspace/Mastermind/skills/creative/excalidraw/SKILL.md",
+      "path": "/hermes-home/skills/creative/excalidraw/SKILL.md",
       "size_bytes": 7300
     },
     {
@@ -440,7 +440,7 @@
         "humanizer"
       ],
       "category": "creative",
-      "path": "/root/workspace/Mastermind/skills/creative/humanizer/SKILL.md",
+      "path": "/hermes-home/skills/creative/humanizer/SKILL.md",
       "size_bytes": 30025
     },
     {
@@ -451,7 +451,7 @@
         "manim-video"
       ],
       "category": "creative",
-      "path": "/root/workspace/Mastermind/skills/creative/manim-video/SKILL.md",
+      "path": "/hermes-home/skills/creative/manim-video/SKILL.md",
       "size_bytes": 12065
     },
     {
@@ -462,7 +462,7 @@
         "p5js"
       ],
       "category": "creative",
-      "path": "/root/workspace/Mastermind/skills/creative/p5js/SKILL.md",
+      "path": "/hermes-home/skills/creative/p5js/SKILL.md",
       "size_bytes": 27494
     },
     {
@@ -473,7 +473,7 @@
         "pixel-art"
       ],
       "category": "creative",
-      "path": "/root/workspace/Mastermind/skills/creative/pixel-art/SKILL.md",
+      "path": "/hermes-home/skills/creative/pixel-art/SKILL.md",
       "size_bytes": 7581
     },
     {
@@ -484,8 +484,8 @@
         "popular-web-designs"
       ],
       "category": "creative",
-      "path": "/root/workspace/Mastermind/skills/creative/popular-web-designs/SKILL.md",
-      "size_bytes": 10424
+      "path": "/hermes-home/skills/creative/popular-web-designs/SKILL.md",
+      "size_bytes": 10687
     },
     {
       "name": "pretext",
@@ -495,7 +495,7 @@
         "pretext"
       ],
       "category": "creative",
-      "path": "/root/workspace/Mastermind/skills/creative/pretext/SKILL.md",
+      "path": "/hermes-home/skills/creative/pretext/SKILL.md",
       "size_bytes": 14168
     },
     {
@@ -506,7 +506,7 @@
         "sketch"
       ],
       "category": "creative",
-      "path": "/root/workspace/Mastermind/skills/creative/sketch/SKILL.md",
+      "path": "/hermes-home/skills/creative/sketch/SKILL.md",
       "size_bytes": 9304
     },
     {
@@ -517,7 +517,7 @@
         "songwriting-and-ai-music"
       ],
       "category": "creative",
-      "path": "/root/workspace/Mastermind/skills/creative/songwriting-and-ai-music/SKILL.md",
+      "path": "/hermes-home/skills/creative/songwriting-and-ai-music/SKILL.md",
       "size_bytes": 10236
     },
     {
@@ -528,8 +528,8 @@
         "threejs-3d-web"
       ],
       "category": "creative",
-      "path": "/root/workspace/Mastermind/skills/creative/threejs-3d-web/SKILL.md",
-      "size_bytes": 15890
+      "path": "/hermes-home/skills/creative/threejs-3d-web/SKILL.md",
+      "size_bytes": 24750
     },
     {
       "name": "touchdesigner-mcp",
@@ -539,7 +539,7 @@
         "touchdesigner-mcp"
       ],
       "category": "creative",
-      "path": "/root/workspace/Mastermind/skills/creative/touchdesigner-mcp/SKILL.md",
+      "path": "/hermes-home/skills/creative/touchdesigner-mcp/SKILL.md",
       "size_bytes": 11332
     },
     {
@@ -550,19 +550,19 @@
         "memecoin-trading-guide"
       ],
       "category": "crypto",
-      "path": "/root/workspace/Mastermind/skills/crypto/memecoin-trading-guide/SKILL.md",
+      "path": "/hermes-home/skills/crypto/memecoin-trading-guide/SKILL.md",
       "size_bytes": 10806
     },
     {
       "name": "gtfs-browser-parser",
-      "description": "Parser GTFS completo en navegador + catalogo de operadores por ciudad, busqueda por proximidad, fuentes multiples (cache, ZIP subido, localStorage, proxy), integracion mapa y PDF",
+      "description": "Parser GTFS completo en navegador + catalogo de operadores por ciudad, busqueda por proximidad, fuentes multiples (cache, ZIP subido, localStorage, proxy), integracion mapa, PDF, y v2.3 con parseo com",
       "tags": [
         "data",
         "gtfs-browser-parser"
       ],
       "category": "data",
-      "path": "/root/workspace/Mastermind/skills/data/gtfs-browser-parser/SKILL.md",
-      "size_bytes": 10333
+      "path": "/hermes-home/skills/data/gtfs-browser-parser/SKILL.md",
+      "size_bytes": 49397
     },
     {
       "name": "personal-tracking-database",
@@ -572,7 +572,7 @@
         "personal-tracking-database"
       ],
       "category": "data",
-      "path": "/root/workspace/Mastermind/skills/data/personal-tracking-database/SKILL.md",
+      "path": "/hermes-home/skills/data/personal-tracking-database/SKILL.md",
       "size_bytes": 10232
     },
     {
@@ -583,7 +583,7 @@
         "embedded-json-extraction"
       ],
       "category": "data-pipeline",
-      "path": "/root/workspace/Mastermind/skills/data-pipeline/embedded-json-extraction/SKILL.md",
+      "path": "/hermes-home/skills/data-pipeline/embedded-json-extraction/SKILL.md",
       "size_bytes": 3964
     },
     {
@@ -594,7 +594,7 @@
         "pdf-regex-structured-extraction"
       ],
       "category": "data-pipeline",
-      "path": "/root/workspace/Mastermind/skills/data-pipeline/pdf-regex-structured-extraction/SKILL.md",
+      "path": "/hermes-home/skills/data-pipeline/pdf-regex-structured-extraction/SKILL.md",
       "size_bytes": 5947
     },
     {
@@ -605,8 +605,8 @@
         "deep-learning-fundamentals"
       ],
       "category": "data-science",
-      "path": "/root/workspace/Mastermind/skills/data-science/deep-learning-fundamentals/SKILL.md",
-      "size_bytes": 3245
+      "path": "/hermes-home/skills/data-science/deep-learning-fundamentals/SKILL.md",
+      "size_bytes": 5553
     },
     {
       "name": "geoai-city2graph-pattern",
@@ -616,7 +616,7 @@
         "geoai-city2graph-pattern"
       ],
       "category": "data-science",
-      "path": "/root/workspace/Mastermind/skills/data-science/geoai-city2graph-pattern/SKILL.md",
+      "path": "/hermes-home/skills/data-science/geoai-city2graph-pattern/SKILL.md",
       "size_bytes": 4221
     },
     {
@@ -627,7 +627,7 @@
         "jupyter-live-kernel"
       ],
       "category": "data-science",
-      "path": "/root/workspace/Mastermind/skills/data-science/jupyter-live-kernel/SKILL.md",
+      "path": "/hermes-home/skills/data-science/jupyter-live-kernel/SKILL.md",
       "size_bytes": 5285
     },
     {
@@ -638,7 +638,7 @@
         "matematicas-curso-educativo"
       ],
       "category": "data-science",
-      "path": "/root/workspace/Mastermind/skills/data-science/matematicas-curso-educativo/SKILL.md",
+      "path": "/hermes-home/skills/data-science/matematicas-curso-educativo/SKILL.md",
       "size_bytes": 51650
     },
     {
@@ -649,7 +649,7 @@
         "monte-carlo-stock-simulator"
       ],
       "category": "data-science",
-      "path": "/root/workspace/Mastermind/skills/data-science/monte-carlo-stock-simulator/SKILL.md",
+      "path": "/hermes-home/skills/data-science/monte-carlo-stock-simulator/SKILL.md",
       "size_bytes": 5002
     },
     {
@@ -660,7 +660,7 @@
         "qlib-quant"
       ],
       "category": "data-science",
-      "path": "/root/workspace/Mastermind/skills/data-science/qlib-quant/SKILL.md",
+      "path": "/hermes-home/skills/data-science/qlib-quant/SKILL.md",
       "size_bytes": 1625
     },
     {
@@ -671,7 +671,7 @@
         "rail-lidar-qa-mvp"
       ],
       "category": "data-science",
-      "path": "/root/workspace/Mastermind/skills/data-science/rail-lidar-qa-mvp/SKILL.md",
+      "path": "/hermes-home/skills/data-science/rail-lidar-qa-mvp/SKILL.md",
       "size_bytes": 3192
     },
     {
@@ -682,7 +682,7 @@
         "sistemaelectricofuturo"
       ],
       "category": "data-science",
-      "path": "/root/workspace/Mastermind/skills/data-science/sistemaelectricofuturo/SKILL.md",
+      "path": "/hermes-home/skills/data-science/sistemaelectricofuturo/SKILL.md",
       "size_bytes": 10985
     },
     {
@@ -693,7 +693,7 @@
         "solar-shadow-computation"
       ],
       "category": "data-science",
-      "path": "/root/workspace/Mastermind/skills/data-science/solar-shadow-computation/SKILL.md",
+      "path": "/hermes-home/skills/data-science/solar-shadow-computation/SKILL.md",
       "size_bytes": 2827
     },
     {
@@ -704,7 +704,7 @@
         "timesfm-forecast"
       ],
       "category": "data-science",
-      "path": "/root/workspace/Mastermind/skills/data-science/timesfm-forecast/SKILL.md",
+      "path": "/hermes-home/skills/data-science/timesfm-forecast/SKILL.md",
       "size_bytes": 1805
     },
     {
@@ -715,7 +715,7 @@
         "clip-multimodal"
       ],
       "category": "deep-learning",
-      "path": "/root/workspace/Mastermind/skills/deep-learning/clip-multimodal/SKILL.md",
+      "path": "/hermes-home/skills/deep-learning/clip-multimodal/SKILL.md",
       "size_bytes": 2511
     },
     {
@@ -726,8 +726,8 @@
         "design-systems-ecosystem"
       ],
       "category": "design-systems-ecosystem",
-      "path": "/root/workspace/Mastermind/skills/design-systems-ecosystem/SKILL.md",
-      "size_bytes": 5916
+      "path": "/hermes-home/skills/design-systems-ecosystem/SKILL.md",
+      "size_bytes": 7779
     },
     {
       "name": "spec-driven-development",
@@ -737,7 +737,7 @@
         "spec-driven-development"
       ],
       "category": "development",
-      "path": "/root/workspace/Mastermind/skills/development/spec-driven-development/SKILL.md",
+      "path": "/hermes-home/skills/development/spec-driven-development/SKILL.md",
       "size_bytes": 2702
     },
     {
@@ -748,7 +748,7 @@
         "boe-borme-api"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/boe-borme-api/SKILL.md",
+      "path": "/hermes-home/skills/devops/boe-borme-api/SKILL.md",
       "size_bytes": 10791
     },
     {
@@ -759,7 +759,7 @@
         "catastro-api"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/catastro-api/SKILL.md",
+      "path": "/hermes-home/skills/devops/catastro-api/SKILL.md",
       "size_bytes": 8482
     },
     {
@@ -770,8 +770,8 @@
         "datahub-espana-architecture"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/datahub-espana-architecture/SKILL.md",
-      "size_bytes": 41878
+      "path": "/hermes-home/skills/devops/datahub-espana-architecture/SKILL.md",
+      "size_bytes": 44621
     },
     {
       "name": "docker-management",
@@ -781,7 +781,7 @@
         "docker-management"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/docker-management/SKILL.md",
+      "path": "/hermes-home/skills/devops/docker-management/SKILL.md",
       "size_bytes": 10440
     },
     {
@@ -792,7 +792,7 @@
         "firecrawl-web-scraping"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/firecrawl-web-scraping/SKILL.md",
+      "path": "/hermes-home/skills/devops/firecrawl-web-scraping/SKILL.md",
       "size_bytes": 2195
     },
     {
@@ -803,7 +803,7 @@
         "government-cms-scraping"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/government-cms-scraping/SKILL.md",
+      "path": "/hermes-home/skills/devops/government-cms-scraping/SKILL.md",
       "size_bytes": 5184
     },
     {
@@ -814,7 +814,7 @@
         "ign-wmts-tiles"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/ign-wmts-tiles/SKILL.md",
+      "path": "/hermes-home/skills/devops/ign-wmts-tiles/SKILL.md",
       "size_bytes": 6092
     },
     {
@@ -825,7 +825,7 @@
         "ineapy-ine-espana"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/ineapy-ine-espana/SKILL.md",
+      "path": "/hermes-home/skills/devops/ineapy-ine-espana/SKILL.md",
       "size_bytes": 11067
     },
     {
@@ -836,8 +836,8 @@
         "inventario-apis"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/inventario-apis/SKILL.md",
-      "size_bytes": 10655
+      "path": "/hermes-home/skills/devops/inventario-apis/SKILL.md",
+      "size_bytes": 15158
     },
     {
       "name": "layered-agent-architecture",
@@ -847,7 +847,7 @@
         "layered-agent-architecture"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/layered-agent-architecture/SKILL.md",
+      "path": "/hermes-home/skills/devops/layered-agent-architecture/SKILL.md",
       "size_bytes": 2049
     },
     {
@@ -858,8 +858,8 @@
         "mastermind-setup"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/mastermind-setup/SKILL.md",
-      "size_bytes": 24431
+      "path": "/hermes-home/skills/devops/mastermind-setup/SKILL.md",
+      "size_bytes": 45099
     },
     {
       "name": "nango",
@@ -869,7 +869,7 @@
         "nango"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/nango/SKILL.md",
+      "path": "/hermes-home/skills/devops/nango/SKILL.md",
       "size_bytes": 4434
     },
     {
@@ -880,7 +880,7 @@
         "nap-dgt"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/nap-dgt/SKILL.md",
+      "path": "/hermes-home/skills/devops/nap-dgt/SKILL.md",
       "size_bytes": 3626
     },
     {
@@ -891,7 +891,7 @@
         "open-source-release"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/open-source-release/SKILL.md",
+      "path": "/hermes-home/skills/devops/open-source-release/SKILL.md",
       "size_bytes": 12085
     },
     {
@@ -902,7 +902,7 @@
         "opendata-movilidad-mitma"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/opendata-movilidad-mitma/SKILL.md",
+      "path": "/hermes-home/skills/devops/opendata-movilidad-mitma/SKILL.md",
       "size_bytes": 5924
     },
     {
@@ -913,7 +913,7 @@
         "parques-nacionales-oapn"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/parques-nacionales-oapn/SKILL.md",
+      "path": "/hermes-home/skills/devops/parques-nacionales-oapn/SKILL.md",
       "size_bytes": 10489
     },
     {
@@ -924,7 +924,7 @@
         "postgres-mcp"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/postgres-mcp/SKILL.md",
+      "path": "/hermes-home/skills/devops/postgres-mcp/SKILL.md",
       "size_bytes": 4568
     },
     {
@@ -935,7 +935,7 @@
         "santander-ai-lab"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/santander-ai-lab/SKILL.md",
+      "path": "/hermes-home/skills/devops/santander-ai-lab/SKILL.md",
       "size_bytes": 2401
     },
     {
@@ -946,7 +946,7 @@
         "siu-urbano"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/siu-urbano/SKILL.md",
+      "path": "/hermes-home/skills/devops/siu-urbano/SKILL.md",
       "size_bytes": 7166
     },
     {
@@ -957,7 +957,7 @@
         "static-digest-pipeline"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/static-digest-pipeline/SKILL.md",
+      "path": "/hermes-home/skills/devops/static-digest-pipeline/SKILL.md",
       "size_bytes": 5503
     },
     {
@@ -968,8 +968,8 @@
         "terral-architecture"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/terral-architecture/SKILL.md",
-      "size_bytes": 33969
+      "path": "/hermes-home/skills/devops/terral-architecture/SKILL.md",
+      "size_bytes": 38131
     },
     {
       "name": "terral-hardware-sizing",
@@ -979,7 +979,7 @@
         "terral-hardware-sizing"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/terral-hardware-sizing/SKILL.md",
+      "path": "/hermes-home/skills/devops/terral-hardware-sizing/SKILL.md",
       "size_bytes": 5842
     },
     {
@@ -990,7 +990,7 @@
         "time-isochrones-precalculated"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/time-isochrones-precalculated/SKILL.md",
+      "path": "/hermes-home/skills/devops/time-isochrones-precalculated/SKILL.md",
       "size_bytes": 10445
     },
     {
@@ -1001,7 +1001,7 @@
         "visor-hermes-fomento"
       ],
       "category": "devops",
-      "path": "/root/workspace/Mastermind/skills/devops/visor-hermes-fomento/SKILL.md",
+      "path": "/hermes-home/skills/devops/visor-hermes-fomento/SKILL.md",
       "size_bytes": 4188
     },
     {
@@ -1012,8 +1012,8 @@
         "devops-operations"
       ],
       "category": "devops-operations",
-      "path": "/root/workspace/Mastermind/skills/devops-operations/SKILL.md",
-      "size_bytes": 16846
+      "path": "/hermes-home/skills/devops-operations/SKILL.md",
+      "size_bytes": 22463
     },
     {
       "name": "educational-html-pipeline",
@@ -1023,7 +1023,7 @@
         "educational-html-pipeline"
       ],
       "category": "educational-html-pipeline",
-      "path": "/root/workspace/Mastermind/skills/educational-html-pipeline/SKILL.md",
+      "path": "/hermes-home/skills/educational-html-pipeline/SKILL.md",
       "size_bytes": 9789
     },
     {
@@ -1034,7 +1034,7 @@
         "esios-indicators-correct"
       ],
       "category": "esios",
-      "path": "/root/workspace/Mastermind/skills/esios/esios-indicators-correct/SKILL.md",
+      "path": "/hermes-home/skills/esios/esios-indicators-correct/SKILL.md",
       "size_bytes": 5494
     },
     {
@@ -1045,8 +1045,8 @@
         "esios-nan-deploy"
       ],
       "category": "esios",
-      "path": "/root/workspace/Mastermind/skills/esios/esios-nan-deploy/SKILL.md",
-      "size_bytes": 46392
+      "path": "/hermes-home/skills/esios/esios-nan-deploy/SKILL.md",
+      "size_bytes": 58552
     },
     {
       "name": "esios-telegram-report",
@@ -1056,8 +1056,8 @@
         "esios-telegram-report"
       ],
       "category": "esios",
-      "path": "/root/workspace/Mastermind/skills/esios/esios-telegram-report/SKILL.md",
-      "size_bytes": 5953
+      "path": "/hermes-home/skills/esios/esios-telegram-report/SKILL.md",
+      "size_bytes": 7889
     },
     {
       "name": "esios-complete",
@@ -1067,8 +1067,8 @@
         "esios-complete"
       ],
       "category": "esios-complete",
-      "path": "/root/workspace/Mastermind/skills/esios-complete/SKILL.md",
-      "size_bytes": 12965
+      "path": "/hermes-home/skills/esios-complete/SKILL.md",
+      "size_bytes": 13705
     },
     {
       "name": "frontend-dashboard-patterns",
@@ -1078,19 +1078,19 @@
         "frontend-dashboard-patterns"
       ],
       "category": "frontend-dashboard-patterns",
-      "path": "/root/workspace/Mastermind/skills/frontend-dashboard-patterns/SKILL.md",
-      "size_bytes": 100542
+      "path": "/hermes-home/skills/frontend-dashboard-patterns/SKILL.md",
+      "size_bytes": 1878
     },
     {
       "name": "aurora-design-system",
-      "description": "Design System Ntizar Aurora v5.1 Constellation — CSS puro, 11 packs opt-in, namespaced .nz, 5 skins, liquid glass real, OKLCH, multi-axis theming, agent-ready con CDN público. Derivado de Ntizar-Auror",
+      "description": "Design System Ntizar Aurora v5.2 — CSS puro, 11 packs opt-in, namespaced .nz, dos modos (Núcleo default con colores sólidos azul+naranja, Glass opcional con liquid glass). CDN público en jsDelivr. Der",
       "tags": [
         "frontend-dashboard-patterns",
         "aurora-design-system"
       ],
       "category": "frontend-dashboard-patterns",
-      "path": "/root/workspace/Mastermind/skills/frontend-dashboard-patterns/aurora-design-system/SKILL.md",
-      "size_bytes": 25451
+      "path": "/hermes-home/skills/frontend-dashboard-patterns/aurora-design-system/SKILL.md",
+      "size_bytes": 15430
     },
     {
       "name": "static-digest-pipeline",
@@ -1100,7 +1100,7 @@
         "static-digest-pipeline"
       ],
       "category": "frontend-dashboard-patterns",
-      "path": "/root/workspace/Mastermind/skills/frontend-dashboard-patterns/static-digest-pipeline/SKILL.md",
+      "path": "/hermes-home/skills/frontend-dashboard-patterns/static-digest-pipeline/SKILL.md",
       "size_bytes": 2537
     },
     {
@@ -1111,8 +1111,41 @@
         "cesium-3d-tiles-vector-data"
       ],
       "category": "geospatial",
-      "path": "/root/workspace/Mastermind/skills/geospatial/cesium-3d-tiles-vector-data/SKILL.md",
+      "path": "/hermes-home/skills/geospatial/cesium-3d-tiles-vector-data/SKILL.md",
       "size_bytes": 5278
+    },
+    {
+      "name": "geolibre-gis-platform",
+      "description": "GeoLibre — plataforma GIS ligera cloud-native para visualizar, explorar y analizar datos geoespaciales. Funciona en navegador, desktop, mobile y Jupyter. Stack: MapLibre GL + DuckDB + Tauri.",
+      "tags": [
+        "geospatial",
+        "geolibre-gis-platform"
+      ],
+      "category": "geospatial",
+      "path": "/hermes-home/skills/geospatial/geolibre-gis-platform/SKILL.md",
+      "size_bytes": 3173
+    },
+    {
+      "name": "threejs-3d-maps",
+      "description": "Mapas 3D con three.js — geo-three, maptalks.three, map33.js. Visualización geoespacial 3D en navegador con tile providers (OSM, Bing, MapBox), terrain height maps, y extrude polygons GeoJSON.",
+      "tags": [
+        "geospatial",
+        "threejs-3d-maps"
+      ],
+      "category": "geospatial",
+      "path": "/hermes-home/skills/geospatial/threejs-3d-maps/SKILL.md",
+      "size_bytes": 5350
+    },
+    {
+      "name": "transit-3d-realtime",
+      "description": "Visualización 3D de tránsito urbano en tiempo real — patrón inspirado en Mini Tokyo 3D. Mapa 3D de transporte público con trenes/metros/buses animados, tracking de vehículos, y datos GTFS-realtime.",
+      "tags": [
+        "geospatial",
+        "transit-3d-realtime"
+      ],
+      "category": "geospatial",
+      "path": "/hermes-home/skills/geospatial/transit-3d-realtime/SKILL.md",
+      "size_bytes": 5519
     },
     {
       "name": "codebase-inspection",
@@ -1122,7 +1155,7 @@
         "codebase-inspection"
       ],
       "category": "github",
-      "path": "/root/workspace/Mastermind/skills/github/codebase-inspection/SKILL.md",
+      "path": "/hermes-home/skills/github/codebase-inspection/SKILL.md",
       "size_bytes": 3974
     },
     {
@@ -1133,7 +1166,7 @@
         "github-auth"
       ],
       "category": "github",
-      "path": "/root/workspace/Mastermind/skills/github/github-auth/SKILL.md",
+      "path": "/hermes-home/skills/github/github-auth/SKILL.md",
       "size_bytes": 9341
     },
     {
@@ -1144,7 +1177,7 @@
         "github-issues"
       ],
       "category": "github",
-      "path": "/root/workspace/Mastermind/skills/github/github-issues/SKILL.md",
+      "path": "/hermes-home/skills/github/github-issues/SKILL.md",
       "size_bytes": 9763
     },
     {
@@ -1155,7 +1188,7 @@
         "github-repo-management"
       ],
       "category": "github",
-      "path": "/root/workspace/Mastermind/skills/github/github-repo-management/SKILL.md",
+      "path": "/hermes-home/skills/github/github-repo-management/SKILL.md",
       "size_bytes": 12156
     },
     {
@@ -1166,7 +1199,7 @@
         "github-trending-research"
       ],
       "category": "github",
-      "path": "/root/workspace/Mastermind/skills/github/github-trending-research/SKILL.md",
+      "path": "/hermes-home/skills/github/github-trending-research/SKILL.md",
       "size_bytes": 16652
     },
     {
@@ -1177,8 +1210,8 @@
         "github-workflow"
       ],
       "category": "github-workflow",
-      "path": "/root/workspace/Mastermind/skills/github-workflow/SKILL.md",
-      "size_bytes": 22905
+      "path": "/hermes-home/skills/github-workflow/SKILL.md",
+      "size_bytes": 28339
     },
     {
       "name": "government-data-pipelines",
@@ -1188,8 +1221,8 @@
         "government-data-pipelines"
       ],
       "category": "government-data-pipelines",
-      "path": "/root/workspace/Mastermind/skills/government-data-pipelines/SKILL.md",
-      "size_bytes": 6945
+      "path": "/hermes-home/skills/government-data-pipelines/SKILL.md",
+      "size_bytes": 62397
     },
     {
       "name": "dieta",
@@ -1199,7 +1232,7 @@
         "dieta"
       ],
       "category": "health",
-      "path": "/root/workspace/Mastermind/skills/health/dieta-tracking/SKILL.md",
+      "path": "/hermes-home/skills/health/dieta-tracking/SKILL.md",
       "size_bytes": 2620
     },
     {
@@ -1210,7 +1243,7 @@
         "agentic-video-pipeline"
       ],
       "category": "herramientas",
-      "path": "/root/workspace/Mastermind/skills/herramientas/agentic-video-pipeline/SKILL.md",
+      "path": "/hermes-home/skills/herramientas/agentic-video-pipeline/SKILL.md",
       "size_bytes": 4574
     },
     {
@@ -1221,8 +1254,8 @@
         "browser-local-tools"
       ],
       "category": "herramientas",
-      "path": "/root/workspace/Mastermind/skills/herramientas/browser-local-tools/SKILL.md",
-      "size_bytes": 10070
+      "path": "/hermes-home/skills/herramientas/browser-local-tools/SKILL.md",
+      "size_bytes": 22888
     },
     {
       "name": "liteparse-rust-pdf-ocr",
@@ -1232,7 +1265,7 @@
         "liteparse-rust-pdf-ocr"
       ],
       "category": "herramientas",
-      "path": "/root/workspace/Mastermind/skills/herramientas/liteparse-rust-pdf-ocr/SKILL.md",
+      "path": "/hermes-home/skills/herramientas/liteparse-rust-pdf-ocr/SKILL.md",
       "size_bytes": 4070
     },
     {
@@ -1243,7 +1276,7 @@
         "markitdown"
       ],
       "category": "herramientas",
-      "path": "/root/workspace/Mastermind/skills/herramientas/markitdown/SKILL.md",
+      "path": "/hermes-home/skills/herramientas/markitdown/SKILL.md",
       "size_bytes": 6622
     },
     {
@@ -1254,8 +1287,8 @@
         "ocr-quirurgico-pdf-md"
       ],
       "category": "herramientas",
-      "path": "/root/workspace/Mastermind/skills/herramientas/ocr-quirurgico-pdf-md/SKILL.md",
-      "size_bytes": 20759
+      "path": "/hermes-home/skills/herramientas/ocr-quirurgico-pdf-md/SKILL.md",
+      "size_bytes": 24084
     },
     {
       "name": "pdf-llm-extraction",
@@ -1265,8 +1298,8 @@
         "pdf-llm-extraction"
       ],
       "category": "herramientas",
-      "path": "/root/workspace/Mastermind/skills/herramientas/pdf-llm-extraction/SKILL.md",
-      "size_bytes": 41948
+      "path": "/hermes-home/skills/herramientas/pdf-llm-extraction/SKILL.md",
+      "size_bytes": 42115
     },
     {
       "name": "pdf-to-artifacts-david-antizar",
@@ -1276,8 +1309,8 @@
         "pdf-to-artifacts-david-antizar"
       ],
       "category": "herramientas",
-      "path": "/root/workspace/Mastermind/skills/herramientas/pdf-to-artifacts-david-antizar/SKILL.md",
-      "size_bytes": 4967
+      "path": "/hermes-home/skills/herramientas/pdf-to-artifacts-david-antizar/SKILL.md",
+      "size_bytes": 5763
     },
     {
       "name": "video-gen-from-topic",
@@ -1287,7 +1320,7 @@
         "video-gen-from-topic"
       ],
       "category": "herramientas",
-      "path": "/root/workspace/Mastermind/skills/herramientas/video-gen-from-topic/SKILL.md",
+      "path": "/hermes-home/skills/herramientas/video-gen-from-topic/SKILL.md",
       "size_bytes": 2265
     },
     {
@@ -1298,7 +1331,7 @@
         "hub-skill-discovery"
       ],
       "category": "hub-skill-discovery",
-      "path": "/root/workspace/Mastermind/skills/hub-skill-discovery/SKILL.md",
+      "path": "/hermes-home/skills/hub-skill-discovery/SKILL.md",
       "size_bytes": 9396
     },
     {
@@ -1309,7 +1342,7 @@
         "human-loop-control"
       ],
       "category": "human-loop-control",
-      "path": "/root/workspace/Mastermind/skills/human-loop-control/SKILL.md",
+      "path": "/hermes-home/skills/human-loop-control/SKILL.md",
       "size_bytes": 3032
     },
     {
@@ -1320,7 +1353,7 @@
         "agent-memory"
       ],
       "category": "ia",
-      "path": "/root/workspace/Mastermind/skills/ia/agent-memory/SKILL.md",
+      "path": "/hermes-home/skills/ia/agent-memory/SKILL.md",
       "size_bytes": 3837
     },
     {
@@ -1331,7 +1364,7 @@
         "agent-reach"
       ],
       "category": "ia",
-      "path": "/root/workspace/Mastermind/skills/ia/agent-reach/SKILL.md",
+      "path": "/hermes-home/skills/ia/agent-reach/SKILL.md",
       "size_bytes": 2116
     },
     {
@@ -1342,7 +1375,7 @@
         "browser-use-agent-automation"
       ],
       "category": "ia",
-      "path": "/root/workspace/Mastermind/skills/ia/browser-use-agent-automation/SKILL.md",
+      "path": "/hermes-home/skills/ia/browser-use-agent-automation/SKILL.md",
       "size_bytes": 1997
     },
     {
@@ -1353,8 +1386,8 @@
         "liteparse-document-ai-parsing"
       ],
       "category": "ia",
-      "path": "/root/workspace/Mastermind/skills/ia/liteparse-document-ai-parsing/SKILL.md",
-      "size_bytes": 2205
+      "path": "/hermes-home/skills/ia/liteparse-document-ai-parsing/SKILL.md",
+      "size_bytes": 14249
     },
     {
       "name": "rag-knowledge-base",
@@ -1364,7 +1397,7 @@
         "rag-knowledge-base"
       ],
       "category": "ia",
-      "path": "/root/workspace/Mastermind/skills/ia/rag-knowledge-base/SKILL.md",
+      "path": "/hermes-home/skills/ia/rag-knowledge-base/SKILL.md",
       "size_bytes": 5301
     },
     {
@@ -1375,19 +1408,19 @@
         "infraestructura-nodejs"
       ],
       "category": "infraestructura",
-      "path": "/root/workspace/Mastermind/skills/infraestructura/SKILL.md",
+      "path": "/hermes-home/skills/infraestructura/SKILL.md",
       "size_bytes": 4590
     },
     {
       "name": "linkedin-david-antizar-style",
-      "description": "Crear posts LinkedIn al estilo de David Antizar — análisis de export, extracción de patrón de escritura, generación de contenido con tono personal.",
+      "description": "Crear posts para LinkedIn, Substack, newsletters o cualquier escritura pública al estilo de David Antizar — análisis de export, extracción de patrón de escritura, generación de contenido con tono pers",
       "tags": [
         "linkedin-david-antizar-style",
         "linkedin-david-antizar-style"
       ],
       "category": "linkedin-david-antizar-style",
-      "path": "/root/workspace/Mastermind/skills/linkedin-david-antizar-style/SKILL.md",
-      "size_bytes": 3851
+      "path": "/hermes-home/skills/linkedin-david-antizar-style/SKILL.md",
+      "size_bytes": 6106
     },
     {
       "name": "mastermind",
@@ -1397,8 +1430,8 @@
         "mastermind"
       ],
       "category": "mastermind",
-      "path": "/root/workspace/Mastermind/skills/mastermind/SKILL.md",
-      "size_bytes": 28165
+      "path": "/hermes-home/skills/mastermind/SKILL.md",
+      "size_bytes": 28231
     },
     {
       "name": "adela-audit",
@@ -1408,7 +1441,7 @@
         "adela-audit"
       ],
       "category": "mastermind",
-      "path": "/root/workspace/Mastermind/skills/mastermind/adela-audit/SKILL.md",
+      "path": "/hermes-home/skills/mastermind/adela-audit/SKILL.md",
       "size_bytes": 13966
     },
     {
@@ -1419,7 +1452,7 @@
         "adela-integrate"
       ],
       "category": "mastermind",
-      "path": "/root/workspace/Mastermind/skills/mastermind/adela-integrate/SKILL.md",
+      "path": "/hermes-home/skills/mastermind/adela-integrate/SKILL.md",
       "size_bytes": 12141
     },
     {
@@ -1430,7 +1463,7 @@
         "adela-new-module"
       ],
       "category": "mastermind",
-      "path": "/root/workspace/Mastermind/skills/mastermind/adela-new-module/SKILL.md",
+      "path": "/hermes-home/skills/mastermind/adela-new-module/SKILL.md",
       "size_bytes": 34380
     },
     {
@@ -1441,7 +1474,7 @@
         "agent-canvas-visualization"
       ],
       "category": "mastermind",
-      "path": "/root/workspace/Mastermind/skills/mastermind/agent-canvas-visualization/SKILL.md",
+      "path": "/hermes-home/skills/mastermind/agent-canvas-visualization/SKILL.md",
       "size_bytes": 4794
     },
     {
@@ -1452,7 +1485,7 @@
         "espanatlas-architecture"
       ],
       "category": "mastermind",
-      "path": "/root/workspace/Mastermind/skills/mastermind/espanatlas-architecture/SKILL.md",
+      "path": "/hermes-home/skills/mastermind/espanatlas-architecture/SKILL.md",
       "size_bytes": 16806
     },
     {
@@ -1463,7 +1496,7 @@
         "freehands-architecture"
       ],
       "category": "mastermind",
-      "path": "/root/workspace/Mastermind/skills/mastermind/freehands-architecture/SKILL.md",
+      "path": "/hermes-home/skills/mastermind/freehands-architecture/SKILL.md",
       "size_bytes": 22658
     },
     {
@@ -1474,7 +1507,7 @@
         "graficos-jongonzlz-style"
       ],
       "category": "mastermind",
-      "path": "/root/workspace/Mastermind/skills/mastermind/graficos-jongonzlz-style/SKILL.md",
+      "path": "/hermes-home/skills/mastermind/graficos-jongonzlz-style/SKILL.md",
       "size_bytes": 11855
     },
     {
@@ -1485,7 +1518,7 @@
         "nta-spain-design-pattern"
       ],
       "category": "mastermind",
-      "path": "/root/workspace/Mastermind/skills/mastermind/nta-spain-design-pattern/SKILL.md",
+      "path": "/hermes-home/skills/mastermind/nta-spain-design-pattern/SKILL.md",
       "size_bytes": 9036
     },
     {
@@ -1496,30 +1529,30 @@
         "stars-explorer"
       ],
       "category": "mastermind",
-      "path": "/root/workspace/Mastermind/skills/mastermind/stars-explorer/SKILL.md",
-      "size_bytes": 16419
+      "path": "/hermes-home/skills/mastermind/stars-explorer/SKILL.md",
+      "size_bytes": 16442
     },
     {
       "name": "time",
-      "description": "Time — herramienta definitiva de análisis de movilidad laboral en España. Isócrónas ORS/GTFS, datos INE, GBFS, costes, CO₂, teletrabajo, informes DOCX 15 secciones. Click = resultado completo.",
+      "description": "Time — Plan de Movida. Herramienta de análisis de oferta de transporte para reubicaciones de personal. Cruza INE, GTFS/NAP, GBFS, parkings OSM, rutas ORS. Informes DOCX por empleado. Local, sin datos ",
       "tags": [
         "mastermind",
         "time"
       ],
       "category": "mastermind",
-      "path": "/root/workspace/Mastermind/skills/mastermind/time/SKILL.md",
-      "size_bytes": 11951
+      "path": "/hermes-home/skills/mastermind/time/SKILL.md",
+      "size_bytes": 15424
     },
     {
-      "name": "timeineco",
-      "description": "TimeIneco — visor de isocronas multi-modo (coche, bus, metro, tranvía, bici, andando) con motor ORS real, fallback simulación orgánica, datos demográficos reales por código postal (salarios INE, preci",
+      "name": "time",
+      "description": "Time — visor de isocronas multi-modo con ORS, IGN maps, GTFS upload, GBFS, Kaizen Design, CSV export, interpretaciones automáticas. Informes profesionales DOCX. Desplegado en NaN.builders.",
       "tags": [
         "mastermind",
-        "timeineco"
+        "time"
       ],
       "category": "mastermind",
-      "path": "/root/workspace/Mastermind/skills/mastermind/timeineco/SKILL.md",
-      "size_bytes": 22541
+      "path": "/hermes-home/skills/mastermind/timeineco/SKILL.md",
+      "size_bytes": 14289
     },
     {
       "name": "token-tracking",
@@ -1529,7 +1562,7 @@
         "token-tracking"
       ],
       "category": "mastermind",
-      "path": "/root/workspace/Mastermind/skills/mastermind/token-tracking/SKILL.md",
+      "path": "/hermes-home/skills/mastermind/token-tracking/SKILL.md",
       "size_bytes": 4844
     },
     {
@@ -1540,7 +1573,7 @@
         "native-mcp"
       ],
       "category": "mcp",
-      "path": "/root/workspace/Mastermind/skills/mcp/native-mcp/SKILL.md",
+      "path": "/hermes-home/skills/mcp/native-mcp/SKILL.md",
       "size_bytes": 12779
     },
     {
@@ -1551,7 +1584,7 @@
         "heartmula"
       ],
       "category": "media",
-      "path": "/root/workspace/Mastermind/skills/media/heartmula/SKILL.md",
+      "path": "/hermes-home/skills/media/heartmula/SKILL.md",
       "size_bytes": 6412
     },
     {
@@ -1562,7 +1595,7 @@
         "songsee"
       ],
       "category": "media",
-      "path": "/root/workspace/Mastermind/skills/media/songsee/SKILL.md",
+      "path": "/hermes-home/skills/media/songsee/SKILL.md",
       "size_bytes": 2336
     },
     {
@@ -1573,7 +1606,7 @@
         "tts-setup"
       ],
       "category": "media",
-      "path": "/root/workspace/Mastermind/skills/media/tts-setup/SKILL.md",
+      "path": "/hermes-home/skills/media/tts-setup/SKILL.md",
       "size_bytes": 3603
     },
     {
@@ -1584,7 +1617,7 @@
         "voicebox"
       ],
       "category": "media",
-      "path": "/root/workspace/Mastermind/skills/media/voicebox/SKILL.md",
+      "path": "/hermes-home/skills/media/voicebox/SKILL.md",
       "size_bytes": 4121
     },
     {
@@ -1595,7 +1628,7 @@
         "youtube-content"
       ],
       "category": "media",
-      "path": "/root/workspace/Mastermind/skills/media/youtube-content/SKILL.md",
+      "path": "/hermes-home/skills/media/youtube-content/SKILL.md",
       "size_bytes": 3282
     },
     {
@@ -1606,7 +1639,7 @@
         "evaluating-llms-harness"
       ],
       "category": "mlops",
-      "path": "/root/workspace/Mastermind/skills/mlops/evaluation/lm-evaluation-harness/SKILL.md",
+      "path": "/hermes-home/skills/mlops/evaluation/lm-evaluation-harness/SKILL.md",
       "size_bytes": 12020
     },
     {
@@ -1617,7 +1650,7 @@
         "weights-and-biases"
       ],
       "category": "mlops",
-      "path": "/root/workspace/Mastermind/skills/mlops/evaluation/weights-and-biases/SKILL.md",
+      "path": "/hermes-home/skills/mlops/evaluation/weights-and-biases/SKILL.md",
       "size_bytes": 12395
     },
     {
@@ -1628,7 +1661,7 @@
         "obliteratus"
       ],
       "category": "mlops",
-      "path": "/root/workspace/Mastermind/skills/mlops/inference/obliteratus/SKILL.md",
+      "path": "/hermes-home/skills/mlops/inference/obliteratus/SKILL.md",
       "size_bytes": 15464
     },
     {
@@ -1639,7 +1672,7 @@
         "serving-llms-vllm"
       ],
       "category": "mlops",
-      "path": "/root/workspace/Mastermind/skills/mlops/inference/vllm/SKILL.md",
+      "path": "/hermes-home/skills/mlops/inference/vllm/SKILL.md",
       "size_bytes": 9071
     },
     {
@@ -1650,7 +1683,7 @@
         "mlx-vlm-inference"
       ],
       "category": "mlops",
-      "path": "/root/workspace/Mastermind/skills/mlops/mlx-vlm-inference/SKILL.md",
+      "path": "/hermes-home/skills/mlops/mlx-vlm-inference/SKILL.md",
       "size_bytes": 2374
     },
     {
@@ -1661,7 +1694,7 @@
         "audiocraft-audio-generation"
       ],
       "category": "mlops",
-      "path": "/root/workspace/Mastermind/skills/mlops/models/audiocraft/SKILL.md",
+      "path": "/hermes-home/skills/mlops/models/audiocraft/SKILL.md",
       "size_bytes": 16189
     },
     {
@@ -1672,7 +1705,7 @@
         "segment-anything-model"
       ],
       "category": "mlops",
-      "path": "/root/workspace/Mastermind/skills/mlops/models/segment-anything/SKILL.md",
+      "path": "/hermes-home/skills/mlops/models/segment-anything/SKILL.md",
       "size_bytes": 13372
     },
     {
@@ -1683,7 +1716,7 @@
         "dspy"
       ],
       "category": "mlops",
-      "path": "/root/workspace/Mastermind/skills/mlops/research/dspy/SKILL.md",
+      "path": "/hermes-home/skills/mlops/research/dspy/SKILL.md",
       "size_bytes": 15220
     },
     {
@@ -1694,7 +1727,7 @@
         "modular-component-ecosystem"
       ],
       "category": "modular-component-ecosystem",
-      "path": "/root/workspace/Mastermind/skills/modular-component-ecosystem/SKILL.md",
+      "path": "/hermes-home/skills/modular-component-ecosystem/SKILL.md",
       "size_bytes": 12988
     },
     {
@@ -1705,8 +1738,8 @@
         "mastermind-orchestration"
       ],
       "category": "multi-agent",
-      "path": "/root/workspace/Mastermind/skills/multi-agent/mastermind-orchestration/SKILL.md",
-      "size_bytes": 29841
+      "path": "/hermes-home/skills/multi-agent/mastermind-orchestration/SKILL.md",
+      "size_bytes": 30964
     },
     {
       "name": "node-backend-patterns",
@@ -1716,7 +1749,7 @@
         "node-backend-patterns"
       ],
       "category": "node-backend-patterns",
-      "path": "/root/workspace/Mastermind/skills/node-backend-patterns/SKILL.md",
+      "path": "/hermes-home/skills/node-backend-patterns/SKILL.md",
       "size_bytes": 13895
     },
     {
@@ -1727,7 +1760,7 @@
         "pdf-to-landing"
       ],
       "category": "pdf-to-landing",
-      "path": "/root/workspace/Mastermind/skills/pdf-to-landing/SKILL.md",
+      "path": "/hermes-home/skills/pdf-to-landing/SKILL.md",
       "size_bytes": 20629
     },
     {
@@ -1738,7 +1771,7 @@
         "apple-calendar"
       ],
       "category": "productivity",
-      "path": "/root/workspace/Mastermind/skills/productivity/apple-calendar/SKILL.md",
+      "path": "/hermes-home/skills/productivity/apple-calendar/SKILL.md",
       "size_bytes": 8089
     },
     {
@@ -1749,7 +1782,7 @@
         "yuanbao"
       ],
       "category": "productivity",
-      "path": "/root/workspace/Mastermind/skills/productivity/yuanbao/SKILL.md",
+      "path": "/hermes-home/skills/productivity/yuanbao/SKILL.md",
       "size_bytes": 3795
     },
     {
@@ -1760,7 +1793,7 @@
         "pydantic-ai"
       ],
       "category": "pydantic",
-      "path": "/root/workspace/Mastermind/skills/pydantic/pydantic-ai/SKILL.md",
+      "path": "/hermes-home/skills/pydantic/pydantic-ai/SKILL.md",
       "size_bytes": 5028
     },
     {
@@ -1771,7 +1804,7 @@
         "godmode"
       ],
       "category": "red-teaming",
-      "path": "/root/workspace/Mastermind/skills/red-teaming/godmode/SKILL.md",
+      "path": "/hermes-home/skills/red-teaming/godmode/SKILL.md",
       "size_bytes": 20059
     },
     {
@@ -1782,7 +1815,7 @@
         "duckduckgo-search"
       ],
       "category": "research",
-      "path": "/root/workspace/Mastermind/skills/research/duckduckgo-search/SKILL.md",
+      "path": "/hermes-home/skills/research/duckduckgo-search/SKILL.md",
       "size_bytes": 8447
     },
     {
@@ -1793,7 +1826,7 @@
         "llm-wiki"
       ],
       "category": "research",
-      "path": "/root/workspace/Mastermind/skills/research/llm-wiki/SKILL.md",
+      "path": "/hermes-home/skills/research/llm-wiki/SKILL.md",
       "size_bytes": 20113
     },
     {
@@ -1804,7 +1837,7 @@
         "prisma-systematic-review"
       ],
       "category": "research",
-      "path": "/root/workspace/Mastermind/skills/research/prisma-systematic-review/SKILL.md",
+      "path": "/hermes-home/skills/research/prisma-systematic-review/SKILL.md",
       "size_bytes": 16889
     },
     {
@@ -1815,7 +1848,7 @@
         "research-paper-writing"
       ],
       "category": "research",
-      "path": "/root/workspace/Mastermind/skills/research/research-paper-writing/SKILL.md",
+      "path": "/hermes-home/skills/research/research-paper-writing/SKILL.md",
       "size_bytes": 1391
     },
     {
@@ -1826,7 +1859,7 @@
         "searxng-search"
       ],
       "category": "research",
-      "path": "/root/workspace/Mastermind/skills/research/searxng-search/SKILL.md",
+      "path": "/hermes-home/skills/research/searxng-search/SKILL.md",
       "size_bytes": 7224
     },
     {
@@ -1837,8 +1870,8 @@
         "routing-isochrones"
       ],
       "category": "routing-isochrones",
-      "path": "/root/workspace/Mastermind/skills/routing-isochrones/SKILL.md",
-      "size_bytes": 25894
+      "path": "/hermes-home/skills/routing-isochrones/SKILL.md",
+      "size_bytes": 68580
     },
     {
       "name": "sales-account-intelligence",
@@ -1848,7 +1881,7 @@
         "sales-account-intelligence"
       ],
       "category": "sales",
-      "path": "/root/workspace/Mastermind/skills/sales/sales-account-intelligence/SKILL.md",
+      "path": "/hermes-home/skills/sales/sales-account-intelligence/SKILL.md",
       "size_bytes": 15824
     },
     {
@@ -1859,7 +1892,7 @@
         "presidio-pii"
       ],
       "category": "security",
-      "path": "/root/workspace/Mastermind/skills/security/presidio-pii/SKILL.md",
+      "path": "/hermes-home/skills/security/presidio-pii/SKILL.md",
       "size_bytes": 1812
     },
     {
@@ -1870,41 +1903,41 @@
         "skillspector"
       ],
       "category": "security",
-      "path": "/root/workspace/Mastermind/skills/security/skillspector/SKILL.md",
+      "path": "/hermes-home/skills/security/skillspector/SKILL.md",
       "size_bytes": 3425
     },
     {
       "name": "skill-biology-cell",
-      "description": "Biología celular, genética, evolución y ecología — Estructura celular, orgánulos, membrana, transporte, ADN, ARN, replicación, transcripción, traducción, herencia mendeliana, selección natural, deriva",
+      "description": "Biología celular — Estructura celular, genética, evolución, ecología, bioquímica básica.",
       "tags": [
         "skill-biology-cell",
         "skill-biology-cell"
       ],
       "category": "skill-biology-cell",
-      "path": "/root/workspace/Mastermind/skills/skill-biology-cell/SKILL.md",
-      "size_bytes": 32476
+      "path": "/hermes-home/skills/skill-biology-cell/SKILL.md",
+      "size_bytes": 3731
     },
     {
       "name": "skill-chemistry-basics",
-      "description": "Skill integral de Química general: Estructura atómica, tabla periódica, enlaces químicos, estequiometría y reacciones químicas. Cubre números cuánticos, configuración electrónica, propiedades periódic",
+      "description": "Química básica — Estequiometría, enlaces, reacciones, tabla periódica, termodinámica química.",
       "tags": [
         "skill-chemistry-basics",
         "skill-chemistry-basics"
       ],
       "category": "skill-chemistry-basics",
-      "path": "/root/workspace/Mastermind/skills/skill-chemistry-basics/SKILL.md",
-      "size_bytes": 18162
+      "path": "/hermes-home/skills/skill-chemistry-basics/SKILL.md",
+      "size_bytes": 3305
     },
     {
       "name": "skill-earth-sciences",
-      "description": "Geología, meteorología, oceanografía y climatología — Minerales, rocas, tectónica de placas, vulcanismo, sismología, atmósfera, presión, vientos, nubosidad, precipitaciones, corrientes, mareas, salini",
+      "description": "Ciencias de la Tierra — Geología, meteorología, oceanografía, climatología, astrogeología.",
       "tags": [
         "skill-earth-sciences",
         "skill-earth-sciences"
       ],
       "category": "skill-earth-sciences",
-      "path": "/root/workspace/Mastermind/skills/skill-earth-sciences/SKILL.md",
-      "size_bytes": 44101
+      "path": "/hermes-home/skills/skill-earth-sciences/SKILL.md",
+      "size_bytes": 3858
     },
     {
       "name": "9009-multi-iteration",
@@ -1914,7 +1947,7 @@
         "9009-multi-iteration"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/9009-multi-iteration/SKILL.md",
+      "path": "/hermes-home/skills/software-development/9009-multi-iteration/SKILL.md",
       "size_bytes": 9684
     },
     {
@@ -1925,7 +1958,7 @@
         "agent-skills-standard"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/agent-skills-standard/SKILL.md",
+      "path": "/hermes-home/skills/software-development/agent-skills-standard/SKILL.md",
       "size_bytes": 3313
     },
     {
@@ -1936,7 +1969,7 @@
         "codebase-handoff-documentation"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/codebase-handoff-documentation/SKILL.md",
+      "path": "/hermes-home/skills/software-development/codebase-handoff-documentation/SKILL.md",
       "size_bytes": 6237
     },
     {
@@ -1947,7 +1980,7 @@
         "delegar-no-comprimir"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/delegar-no-comprimir/SKILL.md",
+      "path": "/hermes-home/skills/software-development/delegar-no-comprimir/SKILL.md",
       "size_bytes": 6943
     },
     {
@@ -1958,7 +1991,7 @@
         "dogfood"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/dogfood/SKILL.md",
+      "path": "/hermes-home/skills/software-development/dogfood/SKILL.md",
       "size_bytes": 7080
     },
     {
@@ -1969,7 +2002,7 @@
         "geospatial-asset-platform"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/geospatial-asset-platform/SKILL.md",
+      "path": "/hermes-home/skills/software-development/geospatial-asset-platform/SKILL.md",
       "size_bytes": 8881
     },
     {
@@ -1980,7 +2013,7 @@
         "google-eng-practices"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/google-eng-practices/SKILL.md",
+      "path": "/hermes-home/skills/software-development/google-eng-practices/SKILL.md",
       "size_bytes": 1777
     },
     {
@@ -1991,7 +2024,7 @@
         "hash-index-data"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/hash-index-data/SKILL.md",
+      "path": "/hermes-home/skills/software-development/hash-index-data/SKILL.md",
       "size_bytes": 6729
     },
     {
@@ -2002,7 +2035,7 @@
         "lazy-dataset-loading"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/lazy-dataset-loading/SKILL.md",
+      "path": "/hermes-home/skills/software-development/lazy-dataset-loading/SKILL.md",
       "size_bytes": 7837
     },
     {
@@ -2013,8 +2046,8 @@
         "leaflet-canvas-choropleth"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/leaflet-canvas-choropleth/SKILL.md",
-      "size_bytes": 12748
+      "path": "/hermes-home/skills/software-development/leaflet-canvas-choropleth/SKILL.md",
+      "size_bytes": 13162
     },
     {
       "name": "map-optimization-patterns",
@@ -2024,7 +2057,7 @@
         "map-optimization-patterns"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/map-optimization-patterns/SKILL.md",
+      "path": "/hermes-home/skills/software-development/map-optimization-patterns/SKILL.md",
       "size_bytes": 21470
     },
     {
@@ -2035,7 +2068,7 @@
         "pin-auth-nodejs-sqlite"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/pin-auth-nodejs-sqlite/SKILL.md",
+      "path": "/hermes-home/skills/software-development/pin-auth-nodejs-sqlite/SKILL.md",
       "size_bytes": 6038
     },
     {
@@ -2046,8 +2079,8 @@
         "rebranding-proyecto-web"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/rebranding-proyecto-web/SKILL.md",
-      "size_bytes": 2371
+      "path": "/hermes-home/skills/software-development/rebranding-proyecto-web/SKILL.md",
+      "size_bytes": 6479
     },
     {
       "name": "refactor-nodejs-monolith",
@@ -2057,7 +2090,7 @@
         "refactor-nodejs-monolith"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/refactor-nodejs-monolith/SKILL.md",
+      "path": "/hermes-home/skills/software-development/refactor-nodejs-monolith/SKILL.md",
       "size_bytes": 11252
     },
     {
@@ -2068,7 +2101,7 @@
         "requesting-code-review"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/requesting-code-review/SKILL.md",
+      "path": "/hermes-home/skills/software-development/requesting-code-review/SKILL.md",
       "size_bytes": 8483
     },
     {
@@ -2079,7 +2112,7 @@
         "safe-refactoring-checklist"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/safe-refactoring-checklist/SKILL.md",
+      "path": "/hermes-home/skills/software-development/safe-refactoring-checklist/SKILL.md",
       "size_bytes": 12629
     },
     {
@@ -2090,7 +2123,7 @@
         "sparse-json-format"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/sparse-json-format/SKILL.md",
+      "path": "/hermes-home/skills/software-development/sparse-json-format/SKILL.md",
       "size_bytes": 5399
     },
     {
@@ -2101,7 +2134,7 @@
         "spike"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/spike/SKILL.md",
+      "path": "/hermes-home/skills/software-development/spike/SKILL.md",
       "size_bytes": 8753
     },
     {
@@ -2112,7 +2145,7 @@
         "subagent-driven-development"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/subagent-driven-development/SKILL.md",
+      "path": "/hermes-home/skills/software-development/subagent-driven-development/SKILL.md",
       "size_bytes": 12797
     },
     {
@@ -2123,8 +2156,8 @@
         "system-audit"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/system-audit/SKILL.md",
-      "size_bytes": 26001
+      "path": "/hermes-home/skills/software-development/system-audit/SKILL.md",
+      "size_bytes": 36663
     },
     {
       "name": "systematic-debugging",
@@ -2134,8 +2167,8 @@
         "systematic-debugging"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/systematic-debugging/SKILL.md",
-      "size_bytes": 25449
+      "path": "/hermes-home/skills/software-development/systematic-debugging/SKILL.md",
+      "size_bytes": 33023
     },
     {
       "name": "test-driven-development",
@@ -2145,7 +2178,7 @@
         "test-driven-development"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/test-driven-development/SKILL.md",
+      "path": "/hermes-home/skills/software-development/test-driven-development/SKILL.md",
       "size_bytes": 11697
     },
     {
@@ -2156,7 +2189,7 @@
         "topojson-performance"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/topojson-performance/SKILL.md",
+      "path": "/hermes-home/skills/software-development/topojson-performance/SKILL.md",
       "size_bytes": 4310
     },
     {
@@ -2167,7 +2200,7 @@
         "typescript-cross-module-patterns"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/typescript-cross-module-patterns/SKILL.md",
+      "path": "/hermes-home/skills/software-development/typescript-cross-module-patterns/SKILL.md",
       "size_bytes": 6534
     },
     {
@@ -2178,8 +2211,8 @@
         "web-research-fallback"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/web-research-fallback/SKILL.md",
-      "size_bytes": 6991
+      "path": "/hermes-home/skills/software-development/web-research-fallback/SKILL.md",
+      "size_bytes": 7319
     },
     {
       "name": "writing-plans",
@@ -2189,7 +2222,7 @@
         "writing-plans"
       ],
       "category": "software-development",
-      "path": "/root/workspace/Mastermind/skills/software-development/writing-plans/SKILL.md",
+      "path": "/hermes-home/skills/software-development/writing-plans/SKILL.md",
       "size_bytes": 9941
     },
     {
@@ -2200,7 +2233,7 @@
         "solar-shadows-web-workers"
       ],
       "category": "solar-shadows-web-workers",
-      "path": "/root/workspace/Mastermind/skills/solar-shadows-web-workers/SKILL.md",
+      "path": "/hermes-home/skills/solar-shadows-web-workers/SKILL.md",
       "size_bytes": 2609
     },
     {
@@ -2211,7 +2244,7 @@
         "stem-control"
       ],
       "category": "engineering",
-      "path": "/root/workspace/Mastermind/skills/stem/engineering/stem-control/SKILL.md",
+      "path": "/hermes-home/skills/stem/engineering/stem-control/SKILL.md",
       "size_bytes": 6039
     },
     {
@@ -2222,7 +2255,7 @@
         "stem-electronica"
       ],
       "category": "engineering",
-      "path": "/root/workspace/Mastermind/skills/stem/engineering/stem-electronica/SKILL.md",
+      "path": "/hermes-home/skills/stem/engineering/stem-electronica/SKILL.md",
       "size_bytes": 6654
     },
     {
@@ -2233,7 +2266,7 @@
         "stem-estatica"
       ],
       "category": "engineering",
-      "path": "/root/workspace/Mastermind/skills/stem/engineering/stem-estatica/SKILL.md",
+      "path": "/hermes-home/skills/stem/engineering/stem-estatica/SKILL.md",
       "size_bytes": 6385
     },
     {
@@ -2244,7 +2277,7 @@
         "stem-hidraulica"
       ],
       "category": "engineering",
-      "path": "/root/workspace/Mastermind/skills/stem/engineering/stem-hidraulica/SKILL.md",
+      "path": "/hermes-home/skills/stem/engineering/stem-hidraulica/SKILL.md",
       "size_bytes": 5346
     },
     {
@@ -2255,7 +2288,7 @@
         "stem-materiales"
       ],
       "category": "engineering",
-      "path": "/root/workspace/Mastermind/skills/stem/engineering/stem-materiales/SKILL.md",
+      "path": "/hermes-home/skills/stem/engineering/stem-materiales/SKILL.md",
       "size_bytes": 6320
     },
     {
@@ -2266,7 +2299,7 @@
         "stem-mecanica-solidos"
       ],
       "category": "engineering",
-      "path": "/root/workspace/Mastermind/skills/stem/engineering/stem-mecanica-solidos/SKILL.md",
+      "path": "/hermes-home/skills/stem/engineering/stem-mecanica-solidos/SKILL.md",
       "size_bytes": 5545
     },
     {
@@ -2277,7 +2310,7 @@
         "stem-probabilidad-estadistica-eng"
       ],
       "category": "engineering",
-      "path": "/root/workspace/Mastermind/skills/stem/engineering/stem-probabilidad-estadistica-eng/SKILL.md",
+      "path": "/hermes-home/skills/stem/engineering/stem-probabilidad-estadistica-eng/SKILL.md",
       "size_bytes": 7714
     },
     {
@@ -2288,7 +2321,7 @@
         "stem-transferencia"
       ],
       "category": "engineering",
-      "path": "/root/workspace/Mastermind/skills/stem/engineering/stem-transferencia/SKILL.md",
+      "path": "/hermes-home/skills/stem/engineering/stem-transferencia/SKILL.md",
       "size_bytes": 5487
     },
     {
@@ -2299,7 +2332,7 @@
         "math-calculo-diferencial"
       ],
       "category": "math",
-      "path": "/root/workspace/Mastermind/skills/stem/math/math-calculo-diferencial/SKILL.md",
+      "path": "/hermes-home/skills/stem/math/math-calculo-diferencial/SKILL.md",
       "size_bytes": 4261
     },
     {
@@ -2310,7 +2343,7 @@
         "math-calculo-integral"
       ],
       "category": "math",
-      "path": "/root/workspace/Mastermind/skills/stem/math/math-calculo-integral/SKILL.md",
+      "path": "/hermes-home/skills/stem/math/math-calculo-integral/SKILL.md",
       "size_bytes": 4035
     },
     {
@@ -2321,7 +2354,7 @@
         "math-ecuaciones"
       ],
       "category": "math",
-      "path": "/root/workspace/Mastermind/skills/stem/math/math-ecuaciones/SKILL.md",
+      "path": "/hermes-home/skills/stem/math/math-ecuaciones/SKILL.md",
       "size_bytes": 3301
     },
     {
@@ -2332,7 +2365,7 @@
         "stem-math-engineering"
       ],
       "category": "math",
-      "path": "/root/workspace/Mastermind/skills/stem/math/math-engineering/SKILL.md",
+      "path": "/hermes-home/skills/stem/math/math-engineering/SKILL.md",
       "size_bytes": 7228
     },
     {
@@ -2343,7 +2376,7 @@
         "math-estadistica-probabilidad"
       ],
       "category": "math",
-      "path": "/root/workspace/Mastermind/skills/stem/math/math-estadistica-probabilidad/SKILL.md",
+      "path": "/hermes-home/skills/stem/math/math-estadistica-probabilidad/SKILL.md",
       "size_bytes": 4627
     },
     {
@@ -2354,7 +2387,7 @@
         "math-funciones"
       ],
       "category": "math",
-      "path": "/root/workspace/Mastermind/skills/stem/math/math-funciones/SKILL.md",
+      "path": "/hermes-home/skills/stem/math/math-funciones/SKILL.md",
       "size_bytes": 3889
     },
     {
@@ -2365,7 +2398,7 @@
         "math-logaritmos-exponenciales"
       ],
       "category": "math",
-      "path": "/root/workspace/Mastermind/skills/stem/math/math-logaritmos-exponenciales/SKILL.md",
+      "path": "/hermes-home/skills/stem/math/math-logaritmos-exponenciales/SKILL.md",
       "size_bytes": 3088
     },
     {
@@ -2376,7 +2409,7 @@
         "math-numeros-algebra"
       ],
       "category": "math",
-      "path": "/root/workspace/Mastermind/skills/stem/math/math-numeros-algebra/SKILL.md",
+      "path": "/hermes-home/skills/stem/math/math-numeros-algebra/SKILL.md",
       "size_bytes": 2882
     },
     {
@@ -2387,7 +2420,7 @@
         "math-sucesiones-series"
       ],
       "category": "math",
-      "path": "/root/workspace/Mastermind/skills/stem/math/math-sucesiones-series/SKILL.md",
+      "path": "/hermes-home/skills/stem/math/math-sucesiones-series/SKILL.md",
       "size_bytes": 3302
     },
     {
@@ -2398,7 +2431,7 @@
         "math-trigonometria"
       ],
       "category": "math",
-      "path": "/root/workspace/Mastermind/skills/stem/math/math-trigonometria/SKILL.md",
+      "path": "/hermes-home/skills/stem/math/math-trigonometria/SKILL.md",
       "size_bytes": 3733
     },
     {
@@ -2409,7 +2442,7 @@
         "math-vectores-matrices"
       ],
       "category": "math",
-      "path": "/root/workspace/Mastermind/skills/stem/math/math-vectores-matrices/SKILL.md",
+      "path": "/hermes-home/skills/stem/math/math-vectores-matrices/SKILL.md",
       "size_bytes": 4127
     },
     {
@@ -2420,7 +2453,7 @@
         "physics-cinematica"
       ],
       "category": "physics",
-      "path": "/root/workspace/Mastermind/skills/stem/physics/physics-cinematica/SKILL.md",
+      "path": "/hermes-home/skills/stem/physics/physics-cinematica/SKILL.md",
       "size_bytes": 2890
     },
     {
@@ -2431,7 +2464,7 @@
         "physics-dinamica"
       ],
       "category": "physics",
-      "path": "/root/workspace/Mastermind/skills/stem/physics/physics-dinamica/SKILL.md",
+      "path": "/hermes-home/skills/stem/physics/physics-dinamica/SKILL.md",
       "size_bytes": 3505
     },
     {
@@ -2442,7 +2475,7 @@
         "physics-electrodinamica"
       ],
       "category": "physics",
-      "path": "/root/workspace/Mastermind/skills/stem/physics/physics-electrodinamica/SKILL.md",
+      "path": "/hermes-home/skills/stem/physics/physics-electrodinamica/SKILL.md",
       "size_bytes": 3143
     },
     {
@@ -2453,7 +2486,7 @@
         "physics-electrostatica"
       ],
       "category": "physics",
-      "path": "/root/workspace/Mastermind/skills/stem/physics/physics-electrostatica/SKILL.md",
+      "path": "/hermes-home/skills/stem/physics/physics-electrostatica/SKILL.md",
       "size_bytes": 3509
     },
     {
@@ -2464,7 +2497,7 @@
         "physics-energia-trabajo"
       ],
       "category": "physics",
-      "path": "/root/workspace/Mastermind/skills/stem/physics/physics-energia-trabajo/SKILL.md",
+      "path": "/hermes-home/skills/stem/physics/physics-energia-trabajo/SKILL.md",
       "size_bytes": 3241
     },
     {
@@ -2475,7 +2508,7 @@
         "stem-physics-engineering"
       ],
       "category": "physics",
-      "path": "/root/workspace/Mastermind/skills/stem/physics/physics-engineering/SKILL.md",
+      "path": "/hermes-home/skills/stem/physics/physics-engineering/SKILL.md",
       "size_bytes": 5410
     },
     {
@@ -2486,7 +2519,7 @@
         "physics-expert"
       ],
       "category": "physics",
-      "path": "/root/workspace/Mastermind/skills/stem/physics/physics-expert/SKILL.md",
+      "path": "/hermes-home/skills/stem/physics/physics-expert/SKILL.md",
       "size_bytes": 17356
     },
     {
@@ -2497,7 +2530,7 @@
         "physics-fluidos"
       ],
       "category": "physics",
-      "path": "/root/workspace/Mastermind/skills/stem/physics/physics-fluidos/SKILL.md",
+      "path": "/hermes-home/skills/stem/physics/physics-fluidos/SKILL.md",
       "size_bytes": 3201
     },
     {
@@ -2508,7 +2541,7 @@
         "physics-magnetismo"
       ],
       "category": "physics",
-      "path": "/root/workspace/Mastermind/skills/stem/physics/physics-magnetismo/SKILL.md",
+      "path": "/hermes-home/skills/stem/physics/physics-magnetismo/SKILL.md",
       "size_bytes": 3578
     },
     {
@@ -2519,7 +2552,7 @@
         "physics-ondas-sonido"
       ],
       "category": "physics",
-      "path": "/root/workspace/Mastermind/skills/stem/physics/physics-ondas-sonido/SKILL.md",
+      "path": "/hermes-home/skills/stem/physics/physics-ondas-sonido/SKILL.md",
       "size_bytes": 3482
     },
     {
@@ -2530,7 +2563,7 @@
         "physics-optica"
       ],
       "category": "physics",
-      "path": "/root/workspace/Mastermind/skills/stem/physics/physics-optica/SKILL.md",
+      "path": "/hermes-home/skills/stem/physics/physics-optica/SKILL.md",
       "size_bytes": 4750
     },
     {
@@ -2541,7 +2574,7 @@
         "physics-termodinamica"
       ],
       "category": "physics",
-      "path": "/root/workspace/Mastermind/skills/stem/physics/physics-termodinamica/SKILL.md",
+      "path": "/hermes-home/skills/stem/physics/physics-termodinamica/SKILL.md",
       "size_bytes": 3919
     },
     {
@@ -2552,7 +2585,7 @@
         "td-abatimientos-giros"
       ],
       "category": "td",
-      "path": "/root/workspace/Mastermind/skills/stem/td/td-abatimientos-giros/SKILL.md",
+      "path": "/hermes-home/skills/stem/td/td-abatimientos-giros/SKILL.md",
       "size_bytes": 5850
     },
     {
@@ -2563,7 +2596,7 @@
         "td-acotacion"
       ],
       "category": "td",
-      "path": "/root/workspace/Mastermind/skills/stem/td/td-acotacion/SKILL.md",
+      "path": "/hermes-home/skills/stem/td/td-acotacion/SKILL.md",
       "size_bytes": 4876
     },
     {
@@ -2574,7 +2607,7 @@
         "td-advanced"
       ],
       "category": "td",
-      "path": "/root/workspace/Mastermind/skills/stem/td/td-advanced/SKILL.md",
+      "path": "/hermes-home/skills/stem/td/td-advanced/SKILL.md",
       "size_bytes": 15699
     },
     {
@@ -2585,7 +2618,7 @@
         "td-basics"
       ],
       "category": "td",
-      "path": "/root/workspace/Mastermind/skills/stem/td/td-basics/SKILL.md",
+      "path": "/hermes-home/skills/stem/td/td-basics/SKILL.md",
       "size_bytes": 9732
     },
     {
@@ -2596,7 +2629,7 @@
         "td-cortes-secciones"
       ],
       "category": "td",
-      "path": "/root/workspace/Mastermind/skills/stem/td/td-cortes-secciones/SKILL.md",
+      "path": "/hermes-home/skills/stem/td/td-cortes-secciones/SKILL.md",
       "size_bytes": 5091
     },
     {
@@ -2607,7 +2640,7 @@
         "td-diedrico-punto-recta-plano"
       ],
       "category": "td",
-      "path": "/root/workspace/Mastermind/skills/stem/td/td-diedrico-punto-recta-plano/SKILL.md",
+      "path": "/hermes-home/skills/stem/td/td-diedrico-punto-recta-plano/SKILL.md",
       "size_bytes": 5543
     },
     {
@@ -2618,7 +2651,7 @@
         "td-intermediate"
       ],
       "category": "td",
-      "path": "/root/workspace/Mastermind/skills/stem/td/td-intermediate/SKILL.md",
+      "path": "/hermes-home/skills/stem/td/td-intermediate/SKILL.md",
       "size_bytes": 14103
     },
     {
@@ -2629,7 +2662,7 @@
         "td-intersecciones-vm"
       ],
       "category": "td",
-      "path": "/root/workspace/Mastermind/skills/stem/td/td-intersecciones-vm/SKILL.md",
+      "path": "/hermes-home/skills/stem/td/td-intersecciones-vm/SKILL.md",
       "size_bytes": 5144
     },
     {
@@ -2640,7 +2673,7 @@
         "td-perspectivas"
       ],
       "category": "td",
-      "path": "/root/workspace/Mastermind/skills/stem/td/td-perspectivas/SKILL.md",
+      "path": "/hermes-home/skills/stem/td/td-perspectivas/SKILL.md",
       "size_bytes": 4386
     },
     {
@@ -2651,7 +2684,7 @@
         "td-planos-conjunto"
       ],
       "category": "td",
-      "path": "/root/workspace/Mastermind/skills/stem/td/td-planos-conjunto/SKILL.md",
+      "path": "/hermes-home/skills/stem/td/td-planos-conjunto/SKILL.md",
       "size_bytes": 5557
     },
     {
@@ -2662,7 +2695,7 @@
         "td-proyecciones"
       ],
       "category": "td",
-      "path": "/root/workspace/Mastermind/skills/stem/td/td-proyecciones/SKILL.md",
+      "path": "/hermes-home/skills/stem/td/td-proyecciones/SKILL.md",
       "size_bytes": 4931
     },
     {
@@ -2673,7 +2706,7 @@
         "td-tolerancias"
       ],
       "category": "td",
-      "path": "/root/workspace/Mastermind/skills/stem/td/td-tolerancias/SKILL.md",
+      "path": "/hermes-home/skills/stem/td/td-tolerancias/SKILL.md",
       "size_bytes": 5771
     },
     {
@@ -2684,8 +2717,8 @@
         "stem-basics"
       ],
       "category": "stem-basics",
-      "path": "/root/workspace/Mastermind/skills/stem-basics/SKILL.md",
-      "size_bytes": 7811
+      "path": "/hermes-home/skills/stem-basics/SKILL.md",
+      "size_bytes": 9271
     },
     {
       "name": "terran-architecture",
@@ -2695,8 +2728,8 @@
         "terran-architecture"
       ],
       "category": "terran-architecture",
-      "path": "/root/workspace/Mastermind/skills/terran-architecture/SKILL.md",
-      "size_bytes": 10342
+      "path": "/hermes-home/skills/terran-architecture/SKILL.md",
+      "size_bytes": 13329
     },
     {
       "name": "onnx-webgpu-inference",
@@ -2706,7 +2739,7 @@
         "onnx-webgpu-inference"
       ],
       "category": "vision",
-      "path": "/root/workspace/Mastermind/skills/vision/onnx-webgpu-inference/SKILL.md",
+      "path": "/hermes-home/skills/vision/onnx-webgpu-inference/SKILL.md",
       "size_bytes": 3223
     },
     {
@@ -2717,8 +2750,8 @@
         "satellite-ai-vision"
       ],
       "category": "vision",
-      "path": "/root/workspace/Mastermind/skills/vision/satellite-ai-vision/SKILL.md",
-      "size_bytes": 6054
+      "path": "/hermes-home/skills/vision/satellite-ai-vision/SKILL.md",
+      "size_bytes": 8593
     },
     {
       "name": "satellite-gis-patterns",
@@ -2728,19 +2761,19 @@
         "satellite-gis-patterns"
       ],
       "category": "vision",
-      "path": "/root/workspace/Mastermind/skills/vision/satellite-gis-patterns/SKILL.md",
-      "size_bytes": 4284
+      "path": "/hermes-home/skills/vision/satellite-gis-patterns/SKILL.md",
+      "size_bytes": 5983
     },
     {
       "name": "satellite-traffic-detection",
-      "description": "DRISH-X — detección de tráfico de vehículos desde imágenes satelitales Sentinel-2. Aprovecha el parpadeo RGB del sensor (1.01s entre canales) + YOLO para inteligencia de carga en carreteras",
+      "description": "DRISH-X/DRISH-ES — detección de tráfico de vehículos desde imágenes satelitales Sentinel-2. RGB offset 1.01s + Random Forest. Fork español en Ntizar/drish-es con autopistas españolas",
       "tags": [
         "vision",
         "satellite-traffic-detection"
       ],
       "category": "vision",
-      "path": "/root/workspace/Mastermind/skills/vision/satellite-traffic-detection/SKILL.md",
-      "size_bytes": 2569
+      "path": "/hermes-home/skills/vision/satellite-traffic-detection/SKILL.md",
+      "size_bytes": 6944
     },
     {
       "name": "workspace-cleanup",
@@ -2750,7 +2783,7 @@
         "workspace-cleanup"
       ],
       "category": "workspace-cleanup",
-      "path": "/root/workspace/Mastermind/skills/workspace-cleanup/SKILL.md",
+      "path": "/hermes-home/skills/workspace-cleanup/SKILL.md",
       "size_bytes": 6407
     }
   ]

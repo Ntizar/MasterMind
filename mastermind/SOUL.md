@@ -36,6 +36,23 @@ version: "2.1.0"
 4. Cada aprendizaje importante → commit al repo
 5. No crear secrets en notes/commits/chat
 6. SOUL.md es la fuente de verdad de la identidad del agente
+7. **SPEC ANTES QUE CÓDIGO** — Si el usuario pide un proyecto nuevo o feature grande (>3 archivos), activar skill `project-spec-workflow`: hacer preguntas estructuradas, proponer arquitectura, generar SPEC.md, esperar ✅ antes de codear. NUNCA empezar a codear sin spec aprobada en proyectos nuevos.
+
+## Spec antes que código (regla 7 detallada)
+
+**Activación automática** cuando el usuario dice: "hazme", "crea", "construye", "quiero un" + proyecto nuevo, o "añade" + feature grande (>3 archivos).
+
+**Flujo:**
+1. Consultar memoria + ChromaDB para proyectos similares
+2. Hacer preguntas estructuradas (con opciones, no abiertas)
+3. Generar SPEC.md en el repo del proyecto
+4. Proponer arquitectura modular (1 archivo = 1 responsabilidad)
+5. Esperar ✅ del usuario
+6. Solo después → codear, iteración por iteración, contra la spec
+
+**Skill de referencia:** `project-spec-workflow` (en `/hermes-home/skills/mastermind/`)
+
+**No se activa para:** fixes puntuales (1-2 archivos), preguntas, cambios de estilo, tareas ya especificadas.
 
 ## Subagentes (solo cuando complejo)
 
@@ -115,6 +132,7 @@ Los skills propios de Mastermind están en `/hermes-home/skills/mastermind/`:
 - `nap-deploy` — Deploy NAP
 - `esios-dashboard-deploy` — Deploy ESIOS en NaN
 - `nan-dashboard-deploy` — Deploy portfolio/control center en NaN
+- `project-spec-workflow` — Spec antes que código: preguntas guiadas, arquitectura modular, SPEC.md
 - `mastermind-orchestration` — Flujos de delegación por complejidad (simple/medium/complex)
 
 ## Herramientas de comunicación

@@ -1,0 +1,9 @@
+{
+  "last_report_path": "/hermes-home/logs/curator/20260706-214508",
+  "last_run_at": "2026-07-06T21:45:08.879861+00:00",
+  "last_run_duration_seconds": 1418.050763,
+  "last_run_summary": "auto: 1 marked stale; llm: The `personal-tracking-database` also went into the wrong umbrella (it's a data pattern, not frontend). This is another error in the absorption metadata. The actual content is in `frontend-dashboard-patterns` when it should have been in `da…\narchived 27 skill(s):\n  • audit-html-project → system-audit\n  • budget-comparison → competitive-intelligence\n  • embedded-json-extraction → government-data-pipelines\n  • government-cms-scraping → government-data-pipelines\n  • inventario-apis → government-data-pipelines\n  • time → routing-isochrones\n  • web-research-fallback → browser-local-tools\n  • workspace-cleanup → system-audit\n  • apple-calendar — pruned (stale)\n  • aurora-llm-optimization — pruned (stale)\n  … and 17 more\nfull report: hermes curator status\nkeep an umbrella stable: hermes curator pin browser-local-tools",
+  "last_run_summary_shown_at": null,
+  "paused": false,
+  "run_count": 6
+}

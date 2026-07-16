@@ -1,0 +1,135 @@
+---
+name: neural-network-fundamentals
+description: Fundamentos de redes neuronales: neurona artificial, capas, retropropagación, funciones de pérdida y optimizadores. Construcción desde cero con NumPy.
+category: deep-learning
+---
+
+# Neural Network Fundamentals
+
+## Identidad
+
+- **Fuente:** IA para gente curiosa, Facsímil 01 — Capítulos 4, 5, 6, 7
+- **URL:** https://www.iaparagentecuriosa.686f6c61.dev/fasciculo-01/
+- **Cuaderno práctico:** [Una red neuronal a mano, con NumPy](https://colab.research.google.com/github/686f6c61/iaparagentecuriosa-notebooks/blob/main/Facs%C3%ADmil%2001/02-red-neuronal-a-mano.ipynb)
+- **Cuaderno práctico:** [Entrenamiento vs inferencia: el sobreajuste, en directo](https://colab.research.google.com/github/686f6c61/iaparagentecuriosa-notebooks/blob/main/Facs%C3%ADmil%2001/03-sobreajuste-en-directo.ipynb)
+
+## Conceptos clave
+
+### 1. La neurona artificial: el átomo del aprendizaje
+
+Una neurona artificial es una función matemática concreta:
+
+```
+y = f(Σ wᵢ · xᵢ + b)
+```
+
+Donde:
+- `xᵢ` = entradas (números)
+- `wᵢ` = pesos aprendidos
+- `b` = sesgo (bias) aprendido
+- `f` = función de activación (no linealidad)
+
+**No es biología.** Es álgebra lineal. El nombre "neurona" es una metáfora visual, no una afirmación neurocientífica. La capacidad del sistema no está en una neurona individual, sino en los miles de millones de parámetros ajustados durante el entrenamiento.
+
+**Funciones de activación más usadas:**
+- **ReLU:** `f(x) = max(0, x)` — la más común en capas ocultas. Simple, eficiente, evita el problema del gradiente vanishing parcial.
+- **Sigmoid:** `f(x) = 1 / (1 + e^(-x))` — salida entre 0 y 1. Útil para clasificación binaria en la capa de salida.
+- **Softmax:** convierte un vector de logits en una distribución de probabilidad que suma 1. Usado en clasificación multiclase.
+- **GELU:** `f(x) = x · Φ(x)` (Φ = CDF normal). Usado en Transformers. Más suave que ReLU.
+
+### 2. De la neurona a la capa: álgebra matricial
+
+Una capa es un conjunto de neuronas que reciben las mismas entradas con pesos distintos. Se calcula con matrices:
+
+```
+z⁽ˡ⁾ = W⁽ˡ⁾ · a⁽ˡ⁻¹⁾ + b⁽ˡ⁾
+a⁽ˡ⁾ = f⁽ˡ⁾(z⁽ˡ⁾)
+```
+
+Regla de ingeniería: **la salida de una capa debe tener la misma dimensión que la entrada esperada por la siguiente**. Si una capa entrega 64 valores, la siguiente necesita una matriz de pesos con 64 columnas.
+
+**Contar parámetros antes de entrenar:**
+```
+parámetros = (d_entrada × d_salida) + d_salida  # pesos + sesgos
+```
+
+### 3. El bucle de entrenamiento (4 líneas de código)
+
+```python
+for epoch in range(num_epochs):
+    for batch in dataloader:
+        optimizer.zero_grad()
+        prediction = model.forward(batch.input)
+        loss = loss_fn(prediction, batch.target)
+        loss.backward()
+        optimizer.step()
+```
+
+**Términos clave:**
+- **Iteración (step):** un forward + pérdida + backward + actualización. La unidad mínima de aprendizaje.
+- **Mini-batch:** grupo de ejemplos procesados juntos (típicamente 16, 32, 256). Compromiso entre coste computacional y ruido del gradiente.
+- **Época (epoch):** una pasada completa por todos los ejemplos del dataset.
+
+### 4. Retropropagación: cómo aprende una red
+
+La retropropagación calcula el gradiente de la pérdida respecto a cada peso, usando la regla de la cadena. Flujo:
+
+1. **Forward pass:** la predicción fluye de entrada a salida
+2. **Calcular pérdida:** error entre predicción y realidad
+3. **Backward pass:** el error viaja hacia atrás, capa por capa
+4. **Actualizar pesos:** optimizer.step() ajusta cada peso en la dirección opuesta al gradiente
+
+**Los 4 pasos del backward pass:**
+1. Error respecto a la salida: `∂L/∂a`
+2. Error antes de la activación: `∂L/∂z = ∂L/∂a · f'(z)`
+3. Culpa asignada al peso: `∂L/∂W = ∂L/∂z · a_entrada`
+4. Culpa asignada al sesgo: `∂L/∂b = ∂L/∂z`
+
+### 5. Funciones de pérdida: qué error medir
+
+| Función | Uso | Qué castiga |
+|---------|-----|-------------|
+| **Binary cross-entropy:** `-[y·log(p) + (1-y)·log(1-p)]` | Clasificación binaria | Estar seguro y equivocarse |
+| **Cross-entropy multiclase:** `-log(p_y)` | Clasificación multiclase, LLMs | Solo mira la probabilidad de la clase correcta |
+| **MSE:** `(1/n)·Σ(y_pred - y_real)²` | Regresión | Errores grandes (por el cuadrado) |
+| **Triplet loss:** `max(0, d(a,p) - d(a,n) + m)` | Embeddings | Acerca similares, aleja distintos |
+
+### 6. Optimizadores: cómo aplicar los ajustes
+
+| Optimizador | Característica | Cuándo usar |
+|-------------|---------------|-------------|
+| **SGD** | Descenso de gradiente simple, con ruido del mini-batch | Baseline, cuando se necesita exploración |
+| **Momentum** | SGD + memoria de gradientes anteriores (β≈0.9) | Escapar de mínimos locales, convergencia más rápida |
+| **Adam** | Adam = Momentum + RMSProp (adapta learning rate por parámetro) | Default para casi todo. Robusto, rápido |
+| **AdamW** | Adam + weight decay desacoplado | Mejor generalización que Adam estándar |
+| **Muon** | Optimizador emergente (2025) | Investigación, comparar con Adam |
+
+**Hiperparámetros críticos:**
+- **Learning rate (lr):** tamaño del paso. Demasiado alto → diverge. Demasiado bajo → lento. Rango típico: 1e-5 a 1e-2.
+- **Weight decay (L2):** penaliza pesos grandes. Regularización implícita.
+- **Batch size:** 16-256 típico. Más grande = gradiente más estable pero menos memoria.
+- **Learning rate schedule:** reducir lr durante el entrenamiento (cosine decay, step decay).
+
+## Pitfalls
+
+- **Una neurona sola no puede resolver XOR.** Necesitas al menos una capa oculta para fronteras no lineales.
+- **El gradiente vanishing:** en redes muy profundas, los gradientes se hacen tan pequeños que las primeras capas no aprenden. ReLU y LayerNorm ayudan.
+- **El gradiente exploding:** gradientes que crecen exponencialmente. Clipping de gradientes es la solución.
+- **Overfitting:** el modelo memoriza el training pero no generaliza. Soluciones: más datos, regularización L1/L2, dropout, parada temprana, validación cruzada.
+- **Underfitting:** el modelo es demasiado simple para los datos. Soluciones: más capacidad (neuronas/capas), más épocas, mejor learning rate.
+- **El contrato mínimo de una run:** siempre guarda loss, lr, batch_size, seed y versión del código. Sin esto no puedes reproducir ni depurar.
+
+## Decisiones técnicas
+
+1. **¿ReLU o GELU?** ReLU para MLPs clásicos. GELU para Transformers.
+2. **¿Adam o SGD?** Adam para prototipado rápido. SGD + momentum para cuando buscas el mejor rendimiento final.
+3. **¿Qué loss para tu problema?** Clasificación → cross-entropy. Regresión → MSE. Embeddings → triplet loss.
+4. **¿Cuántas capas?** Empieza con 2-3 ocultas. Añade solo si el underfitting lo requiere.
+5. **¿Learning rate schedule?** Cosine decay con warmup es el estándar moderno.
+
+## Referencias
+
+- [Cuaderno: Una red neuronal a mano, con NumPy](https://colab.research.google.com/github/686f6c61/iaparagentecuriosa-notebooks/blob/main/Facs%C3%ADmil%2001/02-red-neuronal-a-mano.ipynb)
+- [Cuaderno: Entrenamiento vs inferencia: el sobreajuste, en directo](https://colab.research.google.com/github/686f6c61/iaparagentecuriosa-notebooks/blob/main/Facs%C3%ADmil%2001/03-sobreajuste-en-directo.ipynb)
+- [Deep Learning Book — Goodfellow, Bengio, Courville](https://www.deeplearningbook.org)
+- [Neural Networks and Deep Learning — Michael Nielsen](http://neuralnetworksanddeeplearning.com)

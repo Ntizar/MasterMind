@@ -1,0 +1,124 @@
+---
+name: tokenization-embeddings
+description: Tokenización (BPE), embeddings vectoriales, aritmética de significado, similitud semántica y modelos de embedding (2026). Cómo el texto se convierte en números procesables por redes neuronales.
+category: deep-learning
+---
+
+# Tokenization & Embeddings
+
+## Identidad
+
+- **Fuente:** IA para gente curiosa, Facsímil 01 — Capítulo 9
+- **URL:** https://www.iaparagentecuriosa.686f6c61.dev/fasciculo-01/
+- **Fascículo relacionado:** Facsímil 03 — Capítulos 1-4 (Transformer, atención, QKV)
+
+## Conceptos clave
+
+### 1. Qué es un token
+
+Un token es la unidad mínima que el modelo procesa. **No es una palabra.** Es lo que el tokenizador decide que es la unidad óptima.
+
+**Ejemplos con un tokenizador típico:**
+- `"Hola mundo"` → `["Hola", " mundo"]` (2 tokens)
+- `"desarrolladores"` → `["des", "arrol", "ladores"]` (3 tokens)
+- `"function get()"` → `["function", " get", "()"]` (3 tokens)
+
+**Tres reglas importantes:**
+1. **Los espacios importan:** `"mundo"` y `" mundo"` son tokens distintos. El espacio indica que la palabra empieza tras otra.
+2. **Palabras largas se trocean:** `"desarrolladores"` → `"des"` + `"arrol"` + `"ladores"`.
+3. **El código se tokeniza distinto:** paréntesis, llaves y operadores son tokens independientes.
+
+**Vocabulario típico:** 50.000 a 250.000 tokens distintos.
+**Todo se mide en tokens:** ventana de contexto, precio de API, límite de respuesta.
+
+### 2. Byte Pair Encoding (BPE)
+
+El algoritmo de tokenización más usado. Funciona así:
+
+1. Empieza con un vocabulario de caracteres individuales (a, b, c, ..., espacio, etc.)
+2. Recorre todo el texto de entrenamiento y encuentra el **par de tokens consecutivos más frecuente**
+3. Fusiona ese par en un nuevo token y lo añade al vocabulario
+4. Repite miles de veces
+
+**Resultado:** palabras muy frecuentes (`"el"`, `"de"`, `"y"`) son tokens únicos. Palabras raras se descomponen en subtokens reutilizables.
+
+**Ventaja:** vocabulario compacto que cubre casi cualquier palabra, incluyendo neologismos y código.
+**Desventaja:** tokens no coinciden con palabras humanas, lo que dificulta la interpretabilidad.
+
+### 3. Qué es un embedding
+
+Un embedding es un **vector de números** que representa el significado de un token. Cada token tiene su propio embedding: un punto en un espacio multidimensional donde la distancia refleja la similitud semántica.
+
+**Propiedades clave:**
+- Dimensiones típicas: 768 (modelos pequeños) a 4096 (modelos grandes)
+- El embedding se aprende durante el entrenamiento, no se define manualmente
+- Tokens con significado similar quedan cerca en el espacio vectorial
+
+### 4. Aritmética de significado
+
+Los embeddings permiten operaciones con significado:
+
+```
+embedding("rey") - embedding("hombre") + embedding("mujer") ≈ embedding("reina")
+```
+
+Esto no es magia: es una consecuencia de que los vectores capturan dimensiones semánticas (género, pluralidad, categoría, etc.) de forma independiente.
+
+### 5. Similitud semántica
+
+La forma estándar de medir similitud entre embeddings es el **cosine similarity**:
+
+```
+similitud(A, B) = (A · B) / (||A|| × ||B||)
+```
+
+Rango: [-1, 1]. 1 = idénticos, 0 = ortogonales (sin relación), -1 = opuestos.
+
+**Uso práctico:** búsqueda semántica, deduplicación, clustering de textos, recomendación.
+
+### 6. Modelos de embedding (2026)
+
+| Modelo | Dimensiones | Idiomas | Notas |
+|--------|-------------|---------|-------|
+| **OpenAI text-embedding-3-small** | 1536/256 (configurable) | 100+ | Default para la mayoría de usos |
+| **OpenAI text-embedding-3-large** | 3072 | 100+ | Mejor calidad, más caro |
+| **Cohere embed-multilingual-v4** | 1024 | 100+ | Buen multilingüe |
+| **Qwen3-Embedding-8B** | 3584 | Multilingüe | Open source, SOTA en benchmarks |
+| **Voyage embeddings** | 1024/3072 | Multilingüe | Optimizados para RAG |
+
+**Embeddings Matryoshka:** modelos que permiten cortar el vector a menos dimensiones sin perder calidad significativa. Útil para reducir coste de almacenamiento y velocidad de búsqueda.
+
+### 7. Embeddings Matryoshka: menos dimensiones sin perder calidad
+
+Los embeddings Matryoshka (MRL — Matryoshka Representation Learning) permiten guardar el vector a distintas dimensiones:
+
+- Con 1024 dims: 95% de la calidad completa
+- Con 512 dims: 85% de la calidad
+- Con 256 dims: 70% de la calidad
+
+**Ventaja:** puedes ajustar el trade-off entre coste y calidad según tu caso de uso.
+
+## Pitfalls
+
+- **Los tokens no son palabras:** un emoji puede valer varios tokens, una palabra larga puede valer 3, una URL se desmenuza. No cuentes palabras para estimar coste.
+- **El espacio importa:** `"palabra"` y `" palabra"` son tokens distintos. Esto afecta a la tokenización y a los embeddings.
+- **Los embeddings no son universales:** cada modelo tiene su propio espacio vectorial. No puedes comparar embeddings de OpenAI con embeddings de Cohere directamente.
+- **Similitud cosine ≠ significado idéntico:** dos vectores pueden ser similares en cosine pero tener significados diferentes en contexto.
+- **Dimensiones reducidas siempre pierden información:** si usas Matryoshka, decide conscientemente cuánto estás dispuest@ a sacrificar.
+
+## Decisiones técnicas
+
+1. **¿Qué modelo de embedding elegir?** Small para velocidad/coste. Large para calidad. Voyage para RAG. Qwen3 para open source.
+2. **¿Qué dimensión usar?** Empieza con la dimensión nativa. Si el coste es problema, prueba Matryoshka a 1024 y mide el impacto.
+3. **¿Cosine similarity o distancia euclidiana?** Cosine para embeddings (captura dirección, no magnitud). Euclidiana si la magnitud importa.
+4. **¿Cuándo usar embeddings vs búsqueda por texto?** Embeddings para búsqueda semántica (intención, significado). Texto para búsqueda exacta (nombres propios, códigos, IDs).
+5. **¿Cuántos vectores caben en memoria?** A 1536 dims (float32) = 6144 bytes por vector. 1 millón de vectores ≈ 6 GB.
+
+## Referencias
+
+- [IA para gente curiosa — Capítulo 9: Del token al embedding](https://www.iaparagentecuriosa.686f6c61.dev/fasciculo-01/)
+- [A Probabilistic Analysis of the RBG Word Embedding Learning Algorithm — Morin & Bengio (2003)](https://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf)
+- [Distributed Representations of Words — Mikolov et al. (2013)](https://arxiv.org/abs/1301.3781)
+- [OpenAI Embeddings API](https://developers.openai.com/api/docs/guides/embeddings)
+- [Voyage AI Embeddings](https://docs.voyageai.com/docs/embeddings)
+- [Qwen3-Embedding-8B — HuggingFace](https://huggingface.co/Qwen/Qwen3-Embedding-8B)

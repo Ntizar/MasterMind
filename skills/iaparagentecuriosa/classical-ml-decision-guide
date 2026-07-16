@@ -1,0 +1,127 @@
+---
+name: classical-ml-decision-guide
+description: Guía para elegir el modelo de ML clásico adecuado: clasificación, regresión, clustering, selección de pipeline y evaluación con métricas correctas.
+category: data-science
+---
+
+# Classical ML Decision Guide
+
+## Identidad
+
+- **Fuente:** IA para gente curiosa, Facsímil 01 — Capítulo 11
+- **URL:** https://www.iaparagentecuriosa.686f6c61.dev/fasciculo-01/
+- **Cuaderno práctico:** [Machine learning clásico que decide de verdad](https://colab.research.google.com/github/686f6c61/iaparagentecuriosa-notebooks/blob/main/Facs%C3%ADmil%2001/04-ml-clasico-que-decide.ipynb)
+
+## Conceptos clave
+
+### 1. El mapa del ML clásico
+
+Antes de elegir un modelo, haz estas 4 preguntas en orden:
+
+1. **¿Qué decisión quieres mejorar?** → bloquear fraude, priorizar tickets, predecir demanda...
+2. **¿Qué señal tienes disponible?** → etiquetas → supervisado / sin etiquetas → estructura / recompensa → refuerzo
+3. **¿Qué salida necesitas?** → categoría → clasificación / número → regresión / grupo → clustering
+4. **¿Qué métrica importa?** → recall si perder fraude duele / MAE si importa cuánto fallas / latencia si decide en vivo
+
+**Luego** eliges candidatos: `regresión logística → árbol → SVM → ensemble → red neuronal`.
+
+### 2. Los tres paradigmas
+
+| Paradigma | Señal | Ejemplo |
+|-----------|-------|---------|
+| **Supervisado** | Etiquetas (entrada → respuesta correcta) | Clasificar emails como spam/not-spam |
+| **No supervisado** | Sin etiquetas, buscar estructura | Agrupar clientes por comportamiento |
+| **Refuerzo** | Recompensa, sin etiquetas | Entrenar un agente para un juego |
+
+### 3. Anatomía de un dataset
+
+Todo pipeline de ML clásico sigue este flujo:
+
+```
+datos crudos → limpieza → feature engineering → split train/val/test → elegir modelo → entrenar → evaluar → ajustar → desplegar
+```
+
+**Regla de oro:** el split debe ser temporal o por entidad, nunca aleatorio si hay dependencia temporal (data leakage).
+
+### 4. Clasificación vs Regresión
+
+**Clasificación:**
+- **Regresión logística:** baseline rápido, interpretable, probabilidades calibradas. Buenísimo para empezar.
+- **SVM (Máquinas de Vectores de Soporte):** encuentra el hiperplano con el margen más amplio. Bueno para espacios de alta dimensión. Con kernel trick puede ser no lineal.
+- **Árboles de decisión:** interpretables, no necesitan normalización, capturan interacciones. Pero overfitean fácil.
+- **Random Forest:** ensemble de árboles. Reduce overfitting, robusto, funciona bien out-of-the-box.
+- **Gradient Boosting (XGBoost, LightGBM):** el rey en tablas estructuradas. Mejor precisión que Random Forest, pero más hiperparámetros.
+
+**Regresión:**
+- **Regresión lineal:** baseline. Asume relación lineal entre features y target.
+- **Ridge (L2):** regresión lineal + penalización de pesos grandes. Evita overfitting.
+- **Lasso (L1):** regresión lineal + penalización que tiende a cero pesos. Hace selección de features automática.
+- **Ridge vs Lasso:** Ridge mantiene todas las features con pesos pequeños. Lasso elimina features irrelevantes.
+
+### 5. Validación: cómo saber si generaliza
+
+**Validación cruzada (k-fold):** divide los datos en k partes, entrena k veces dejando una fuera cada vez. Da una estimación más robusta del rendimiento.
+
+**Parada temprana (early stopping):** detener el entrenamiento cuando la pérdida de validación deja de bajar. Previene overfitting sin perder datos de entrenamiento.
+
+**Baseline:** siempre empieza con un baseline simple (regresión logística para clasificación, media para regresión). Si tu modelo complejo no supera al baseline, hay un problema.
+
+### 6. Métricas que importan (más que el accuracy)
+
+| Métrica | Cuándo usar | Qué mide |
+|---------|-------------|----------|
+| **Accuracy** | Clases balanceadas | % de aciertos total |
+| **Precision** | Falsos positivos caros | De los que predijo positivo, cuántos son reales |
+| **Recall** | Falsos negativos caros | De los reales positivos, cuántos encontró |
+| **F1** | Balance entre precision y recall | Media armónica de precision y recall |
+| **ROC-AUC** | Comparar modelos umbral-independiente | Área bajo la curva TP vs FP |
+| **MAE / RMSE** | Regresión | Error absoluto/cuadrático medio |
+
+**Matriz de confusión:** la herramienta más informativa. Muestra TP, TN, FP, FN de un vistazo. Te dice DÓNDE falla el modelo, no solo CUÁNTO.
+
+### 7. Clustering: agrupar sin etiquetas
+
+| Algoritmo | Cuándo usar | Limitaciones |
+|-----------|-------------|--------------|
+| **K-means** | Clusters esféricos, tamaños similares | Necesitas elegir k, sensible a outliers |
+| **Jerárquico** | Quieres ver la estructura completa (dendrograma) | Coste O(n³), no escala a grandes datasets |
+| **DBSCAN** | Clusters de densidad arbitraria, ruido | Necesita ajustar eps y min_samples |
+
+**Evaluar clustering sin etiquetas:**
+- **Silhouette score:** mide qué tan bien cada punto está en su cluster vs el siguiente mejor. Rango [-1, 1]. >0.5 es bueno.
+- **Inertia (K-means):** suma de distancias al centroide. Menor = mejor, pero siempre baja al aumentar k.
+
+### 8. Reducir dimensiones: PCA
+
+**PCA (Análisis de Componentes Principales):** proyecta los datos en las direcciones de máxima varianza.
+
+- Elimina correlaciones entre features
+- Reduce la "maldición de la dimensionalidad"
+- Las primeras componentes principales capturan la mayor varianza
+- Útil para visualización (2D/3D) y como preprocessing
+
+**Regla:** si las primeras N componentes capturan >90% de la varianza, puedes reducir de D dimensiones a N sin perder casi nada.
+
+## Pitfalls
+
+- **Data leakage:** filtrar información del test al entrenamiento. Causas comunes: normalizar ANTES del split, incluir features futuras, duplicados entre train y test.
+- **Overfitting en árboles:** un árbol profundo memoriza los datos. Soluciones: podar (max_depth), min_samples_split, min_samples_leaf.
+- **Clases desbalanceadas:** accuracy es engañoso. Si 95% son clase A, un modelo que predice siempre A tiene 95% accuracy pero es inútil. Usa precision/recall/F1.
+- **Elegir k en K-means a ojo:** usa el "codo" (elbow method) o silhouette score.
+- **Normalizar features:** SVM, K-means, PCA y redes neuronales necesitan features escaladas. Árboles no.
+- **Bigramas y n-grams:** para texto, añadir bigramas suele mejorar significativamente. Pero aumenta la dimensionalidad.
+
+## Decisiones técnicas
+
+1. **¿LLM o ML clásico?** Si el problema es estructurado (tabla, clasificación, regresión) y tienes datos etiquetados → ML clásico. Es más rápido, más barato, más interpretable. Los LLMs brillan cuando necesitas generación, razonamiento o comprensión libre.
+2. **¿Random Forest o Gradient Boosting?** RF es más robusto y rápido de entrenar. GBM (XGBoost/LightGBM) suele tener mejor precisión pero requiere más tuning.
+3. **¿SVM o Red neuronal?** SVM para datasets medianos con features bien definidas. Red neuronal para datos no estructurados (imagen, texto) o cuando hay patrones muy complejos.
+4. **¿PCA antes o después?** Siempre antes. PCA reduce ruido y dimensionalidad, mejora la generalización.
+5. **Baseline primero:** siempre empieza con el modelo más simple. Si no funciona, sube de complejidad progresivamente.
+
+## Referencias
+
+- [Cuaderno: Machine learning clásico que decide de verdad](https://colab.research.google.com/github/686f6c61/iaparagentecuriosa-notebooks/blob/main/Facs%C3%ADmil%2001/04-ml-clasico-que-decide.ipynb)
+- [An Introduction to Statistical Learning (ISL)](https://web.stanford.edu/~hastie/ElemStatLearn/)
+- [Deep Learning Book — Goodfellow, Bengio, Courville](https://www.deeplearningbook.org)
+- [Random Forests — Leo Breiman](https://doi.org/10.1023/A:1010933404324)

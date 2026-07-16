@@ -1,0 +1,19 @@
+# .gitattributes para proyectos Windows con .bat
+# Asegura que los .bat siempre tengan CRLF, sin importar dónde se haga commit
+
+# Forzar CRLF en archivos batch
+*.bat text eol=crlf
+
+# Forzar CRLF en scripts CMD
+*.cmd text eol=crlf
+
+# PowerShell puede manejar LF, pero CRLF es más seguro
+*.ps1 text eol=crlf
+
+# Scripts Unix se quedan con LF
+*.sh text eol=lf
+
+# Binarios no se tocan
+*.dll binary
+*.exe binary
+*.nupkg binary

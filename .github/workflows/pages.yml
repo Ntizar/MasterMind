@@ -2,7 +2,7 @@ name: Desplegar a GitHub Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "master"]
   workflow_dispatch:
 
 permissions:
@@ -25,21 +25,9 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: '.'
-          exclude: |
-            .git/
-            legacy/
-            assets/
-            audit-v4.0.md
-            verify-system.sh
-            CONTRIBUTING.md
-            README_EN.md
-            README.md
-            CHANGELOG.md
-            LICENSE
-            .gitignore
 
       - name: Deploy to GitHub Pages
         id: deployment

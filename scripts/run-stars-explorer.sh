@@ -9,8 +9,8 @@ if [ -z "$GITHUB_TOKEN" ]; then
   export GITHUB_TOKEN
 fi
 
-# Registry: junto al repo MasterMind
-export STARS_REGISTRY="${STARS_REGISTRY:-$SCRIPT_DIR/../data/stars-registry.json}"
+# Registry: ruta WINDOWS NATIVA (python.exe nativo no entiende /c/Users/...)
+export STARS_REGISTRY="${STARS_REGISTRY:-C:/Users/d_ant/Projects/MasterMind/data/stars-registry.json}"
 
 cd "$SCRIPT_DIR"
 python explorar-stars.py "$@"

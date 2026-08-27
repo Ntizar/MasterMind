@@ -960,13 +960,65 @@
       "language": "TypeScript",
       "skill_angles": [],
       "skill_created": false
+    },
+    "firecrawl/firecrawl": {
+      "explored_at": "2026-08-27T17:37:48.112873+00:00",
+      "category": "pending",
+      "stars": 173148,
+      "language": "TypeScript",
+      "skill_angles": [
+        "pattern-real-time"
+      ],
+      "skill_created": false
+    },
+    "Genymobile/scrcpy": {
+      "explored_at": "2026-08-27T17:37:53.979352+00:00",
+      "category": "pending",
+      "stars": 148384,
+      "language": "C",
+      "skill_angles": [
+        "pattern-voice/audio"
+      ],
+      "skill_created": false
+    },
+    "Shubhamsaboo/awesome-llm-apps": {
+      "explored_at": "2026-08-27T17:38:00.040259+00:00",
+      "category": "pending",
+      "stars": 134700,
+      "language": "Python",
+      "skill_angles": [
+        "voice-ai-integration"
+      ],
+      "skill_created": false
+    },
+    "browser-use/browser-use": {
+      "explored_at": "2026-08-27T17:55:23.895633+00:00",
+      "category": "pending",
+      "stars": 111419,
+      "language": "Python",
+      "skill_angles": [
+        "pattern-real-time"
+      ],
+      "skill_created": false
+    },
+    "VoltAgent/awesome-design-md": {
+      "explored_at": "2026-08-27T17:55:30.429646+00:00",
+      "category": "pending",
+      "stars": 110845,
+      "language": null,
+      "skill_angles": [
+        "crm-erp-patterns",
+        "voice-ai-integration",
+        "realtime-dashboard"
+      ],
+      "skill_created": false
     }
   },
-  "last_run": "2026-06-18T16:15:13",
+  "last_run": "2026-08-27T17:55:31.431261+00:00",
   "total_skills_created": 1,
   "stats": {
-    "runs": 5,
-    "repos_explored": 116,
+    "runs": 6,
+    "repos_explored": 118,
     "skills_generated": 9
   },
   "roboflow/supervision": {

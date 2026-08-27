@@ -1042,13 +1042,46 @@
         "crm-erp-patterns"
       ],
       "skill_created": false
+    },
+    "unclecode/crawl4ai": {
+      "explored_at": "2026-08-27T22:00:57.619802+00:00",
+      "category": "pending",
+      "stars": 79565,
+      "language": "Python",
+      "skill_angles": [
+        "ci-cd-pipeline-patterns",
+        "crm-erp-patterns"
+      ],
+      "skill_created": false
+    },
+    "opendatalab/MinerU": {
+      "explored_at": "2026-08-27T22:01:03.832483+00:00",
+      "category": "pending",
+      "stars": 78629,
+      "language": "Python",
+      "skill_angles": [
+        "geospatial-3d-visualization"
+      ],
+      "skill_created": false
+    },
+    "D4Vinci/Scrapling": {
+      "explored_at": "2026-08-27T22:01:09.958993+00:00",
+      "category": "pending",
+      "stars": 76783,
+      "language": "Python",
+      "skill_angles": [
+        "ci-cd-pipeline-patterns",
+        "crm-erp-patterns",
+        "realtime-dashboard"
+      ],
+      "skill_created": false
     }
   },
-  "last_run": "2026-08-27T18:32:04.428122+00:00",
+  "last_run": "2026-08-27T22:01:10.960025+00:00",
   "total_skills_created": 1,
   "stats": {
-    "runs": 7,
-    "repos_explored": 121,
+    "runs": 8,
+    "repos_explored": 124,
     "skills_generated": 9
   },
   "roboflow/supervision": {

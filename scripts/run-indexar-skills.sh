@@ -5,5 +5,5 @@
 source /hermes-home/.env 2>/dev/null
 export NAN_API
 
-cd /hermes-home/scripts
+cd scripts
 python3 indexar-skills.py "$@"

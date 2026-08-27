@@ -53,7 +53,7 @@ Tras la mega auditoría y corrección de **todos** los hallazgos críticos e imp
 ### A. Arquitectura general del sistema (7/10)
 
 **1. Simplificación radical correcta:**
-Migrar de 11 agentes OpenCode a 1 orquestador + 143 skills es un acierto arquitectónico. El patrón `Koldo → skill_view() → delegate_task` es limpio y aprovechable. Los 4 niveles de ejecución están bien definidos en AGENTS.md y SOUL.md.
+Migrar de 11 agentes OpenCode a 1 orquestador + 143 skills es un acierto arquitectónico. El patrón `Mastermind → skill_view() → delegate_task` es limpio y aprovechable. Los 4 niveles de ejecución están bien definidos en AGENTS.md y SOUL.md.
 
 **2. GitHub como fuente de verdad:**
 Markdown plano sin wikilinks de Obsidian. Esto elimina una dependencia externa completa. El `.nojekyll` vacío está bien configurado para GitHub Pages.
@@ -95,7 +95,7 @@ La documentación (README.md, SOUL.md, AGENTS.md, index.html, docs/ARCHITECTURE.
 
 **Impacto:** El sistema se describe como si tuviera 4 componentes que no están. Si alguien clona el repo y sigue la documentación, encontrará errores. `SOUL.md` línea 30 dice `├── skills/ ← Especialistas por dominio` pero esa carpeta no existe. `SOUL.md` línea 146 dice "Skills nuevos → `/hermes-home/skills/`" — esto apunta a una ruta de Hermes que NO es el repo.
 
-**Por qué es crítico:** Es una inconsistencia estructura-documentación que confunde al orquestador (Koldo) y a cualquier humano que consulte el repo.
+**Por qué es crítico:** Es una inconsistencia estructura-documentación que confunde al orquestador (Mastermind) y a cualquier humano que consulte el repo.
 
 ### 🔴 CRÍTICO 2: pages.yml referencia archivo eliminado
 
@@ -158,7 +158,7 @@ README.md líneas 182-186:
 **Evidencia:**
 - SOUL.md línea 133-138: tabla comparativa Ebbinghaus → memory/session_search
 - README.md línea 182: `[ ] Migrar aprendizajes valiosos de legacy/ a memory + notes/`
-- docs/ARCHITECTURE.md líneas 230-248: describe cómo aprende Koldo, pero no hay implementación
+- docs/ARCHITECTURE.md líneas 230-248: describe cómo aprende Mastermind, pero no hay implementación
 
 **Impacto:** El sistema dice que "aprende" pero no tiene mecanismo de aprendizaje persistente activo. Es una promesa no cumplida.
 

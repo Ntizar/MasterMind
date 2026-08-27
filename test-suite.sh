@@ -108,7 +108,7 @@ echo ""
 # ═══ 2. CONTENIDO — SOUL.md ═══
 echo "━━━ 2. CONTENIDO — SOUL.md (fuente de verdad) ━━━"
 
-check_contains "SOUL.md" "Koldo"
+check_contains "SOUL.md" "Mastermind"
 check_contains "SOUL.md" "Hermes Agent"
 check_contains "SOUL.md" "NaN.builders"
 check_contains "SOUL.md" "David Antizar"
@@ -124,7 +124,7 @@ echo ""
 # ═══ 3. CONTENIDO — AGENTS.md ═══
 echo "━━━ 3. CONTENIDO — AGENTS.md (referencia rápida) ━━━"
 
-check_contains "AGENTS.md" "Koldo"
+check_contains "AGENTS.md" "Mastermind"
 check_contains "AGENTS.md" "delegate_task"
 check_contains "AGENTS.md" "skill_view"
 check_contains "AGENTS.md" "SOUL.md"

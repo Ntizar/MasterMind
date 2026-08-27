@@ -1,11 +1,11 @@
-<h1 align="center">NtizarBrainMasterMind</h1>
+<h1 align="center">MasterMind</h1>
 
 <p align="center">
   <strong>Mi agente IA personal con memoria persistente,<br>búsqueda semántica de skills y backup en GitHub.</strong>
 </p>
 
 <p align="center">
-  <a href="https://ntizar.github.io/NtizarBrainMasterMind/">🌐 Web</a> ·
+  <a href="https://ntizar.github.io/MasterMind/">🌐 Web</a> ·
   <a href="#cómo-funciona">Cómo funciona</a> ·
   <a href="#stack">Stack</a> ·
   <a href="README_EN.md">English</a>
@@ -57,7 +57,7 @@ Mastermind (agente qwen3.6 en NaN.builders)
 |------|-----------|------------|-------------|
 | 🧠 **Memoria Hermes** | `/hermes-home/memories/` | Preferencias, entorno, lecciones | Inyectada en cada turno |
 | 📚 **Skills** | `/hermes-home/skills/` | 240 procedimientos reutilizables | Carga bajo demanda vía ChromaDB |
-| 🔒 **Repo GitHub** | `NtizarBrainMasterMind` | Backup completo de todo | Push cada 6h (automático) |
+| 🔒 **Repo GitHub** | `MasterMind` | Backup completo de todo | Push cada 6h (automático) |
 
 ### Búsqueda semántica (ChromaDB)
 
@@ -81,7 +81,7 @@ El sistema no carga skills por nombre — busca por **significado**:
 | **Agente** | Hermes Agent — max_turns: 90, delegación: 3 subagentes |
 | **Vector DB** | ChromaDB v2 — colección mastermind-skills |
 | **Embeddings** | qwen3-embedding — distancia coseno |
-| **GitHub** | Ntizar/NtizarBrainMasterMind — auth token HTTPS |
+| **GitHub** | Ntizar/MasterMind — auth token HTTPS |
 | **TTS** | Edge TTS — voz es-ES-AlvaroNeural |
 | **STT** | Whisper local (modelo base) |
 | **Cron** | 10 jobs Hermes (backup, ESIOS, deep learning, stars, re-index) |

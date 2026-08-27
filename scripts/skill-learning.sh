@@ -1,11 +1,11 @@
 #!/bin/bash
 # Skill Learning Script - Version corregida
 # Instala 1 skill nuevo del hub cada vez que se ejecuta, avanzando el índice
-# Usage: bash /hermes-home/scripts/skill-learning.sh
+# Usage: bash scripts/skill-learning.sh
 
 HERMES="/opt/hermes/.venv/bin/hermes"
-STATE_FILE="/hermes-home/skills/.skill-learning-state.json"
-LOG_FILE="/hermes-home/skills/skill-learning.log"
+STATE_FILE="agent/skills/.skill-learning-state.json"
+LOG_FILE="agent/skills/skill-learning.log"
 
 # Priority order for skill selection (most relevant to David's profile first)
 PRIORITY_SKILLS=(

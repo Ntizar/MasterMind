@@ -74,7 +74,7 @@ echo ""
 
 # ═══ Contenido ═══
 echo "📝 Contenido — SOUL.md (fuente de verdad)"
-check_content "SOUL.md" "Koldo"
+check_content "SOUL.md" "Mastermind"
 check_content "SOUL.md" "Hermes Agent"
 check_content "SOUL.md" "NaN.builders"
 check_content "SOUL.md" "David Antizar"

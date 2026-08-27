@@ -33,7 +33,7 @@ Mastermind (agente qwen3.6)
 
 ```bash
 # Consultar skills relevantes
-cd /hermes-home/scripts && python3 consultar-skills.py "tu consulta" --json
+cd scripts && python3 consultar-skills.py "tu consulta" --json
 
 # Re-indexar todos los skills
 python3 indexar-skills.py [--reset]

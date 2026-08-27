@@ -73,10 +73,10 @@ La función `analyzeDay()` calcula:
 job_id: 9e7570152a99
 name: esios-daily-telegram
 schedule: 0 9 * * *  (09:00 UTC = 11:00 Madrid verano / 10:00 invierno)
-prompt: Ejecuta el script de resumen diario ESIOS: node /root/workspace/Koldo/scripts/esios-telegram.js
+prompt: Ejecuta el script de resumen diario ESIOS: node /root/workspace/Mastermind/scripts/esios-telegram.js
 ```
 
-> **IMPORTANTE:** El cron debe apuntar a la **Koldo version** (`/root/workspace/Koldo/scripts/esios-telegram.js`), NO a la del dashboard. La versión del dashboard no carga `.env` ni `/proc/1/environ`, por lo que falla con "Faltan TELEGRAM_BOT_TOKEN o TELEGRAM_CHAT_ID".
+> **IMPORTANTE:** El cron debe apuntar a la **Mastermind version** (`/root/workspace/Mastermind/scripts/esios-telegram.js`), NO a la del dashboard. La versión del dashboard no carga `.env` ni `/proc/1/environ`, por lo que falla con "Faltan TELEGRAM_BOT_TOKEN o TELEGRAM_CHAT_ID".
 
 ## ⚠️ ESIOS API `/values` endpoint — 404 masivo (2026-06-16)
 
@@ -104,11 +104,11 @@ prompt: Ejecuta el script de resumen diario ESIOS: node /root/workspace/Koldo/sc
 **Hay DOS versiones del script:**
 
 1. **Dashboard version** (`/root/workspace/esios-dashboard/scripts/esios-telegram.js`) — simplificada, NO carga `.env`, NO lee `/proc/1/environ`. **NO USAR en cron.**
-2. **Koldo version** (`/root/workspace/Koldo/scripts/esios-telegram.js`) — completa, con `.env` loading, `/proc/1/environ` fallback, `TELEGRAM_CHAT_ID` desde `TELEGRAM_HOME_CHANNEL`, gráficos PNG.
+2. **Mastermind version** (`/root/workspace/Mastermind/scripts/esios-telegram.js`) — completa, con `.env` loading, `/proc/1/environ` fallback, `TELEGRAM_CHAT_ID` desde `TELEGRAM_HOME_CHANNEL`, gráficos PNG.
 
-**Siempre ejecutar la Koldo version:**
+**Siempre ejecutar la Mastermind version:**
 ```bash
-cd /root/workspace/Koldo && node scripts/esios-telegram.js
+cd /root/workspace/Mastermind && node scripts/esios-telegram.js
 ```
 
 **NUNCA ejecutar la del dashboard en cron** — siempre fallará con "Faltan TELEGRAM_BOT_TOKEN o TELEGRAM_CHAT_ID".
@@ -122,8 +122,8 @@ cd /root/workspace/Koldo && node scripts/esios-telegram.js
 - **El script usa `canvas` npm** — requiere instalación previa `npm install canvas`
 - **Cache en /tmp/esios-telegram-cache/** — se limpia tras envío
 - **Cron jobs no heredan variables del gateway** — el script lee `TELEGRAM_BOT_TOKEN` de `/proc/1/environ` y `TELEGRAM_CHAT_ID` de `/hermes-home/.env` como fallback
-- **Ruta del script:** `/root/workspace/Koldo/scripts/esios-telegram.js` — SIEMPRE esta (Koldo version). La del dashboard NO funciona en cron.
-- **⚠️ Cron config drift:** El prompt del cron job puede tener la ruta incorrecta (`Mastermind` en vez de `Koldo`). Verificar siempre con `cronjob action='list'` que el prompt apunta a `/root/workspace/Koldo/scripts/esios-telegram.js`. Si no, actualizar con `cronjob action='update'`.
+- **Ruta del script:** `/root/workspace/Mastermind/scripts/esios-telegram.js` — SIEMPRE esta (Mastermind version). La del dashboard NO funciona en cron.
+- **⚠️ Cron config drift:** El prompt del cron job puede tener la ruta incorrecta (`Mastermind` en vez de `Mastermind`). Verificar siempre con `cronjob action='list'` que el prompt apunta a `/root/workspace/Mastermind/scripts/esios-telegram.js`. Si no, actualizar con `cronjob action='update'`.
 
 ## ⚠️ TELEGRAM_BOT_TOKEN ausente (2026-06-26)
 

@@ -9,18 +9,18 @@
 </p>
 
 <p align="center">
-  <a href="README.md">🇪🇸 Español</a> · <a href="tokens/">📊 Token Dashboard</a> · <a href="https://github.com/Ntizar/NtizarBrainMasterMind">GitHub</a>
+  <a href="README.md">🇪🇸 Español</a> · <a href="tokens/">📊 Token Dashboard</a> · <a href="https://github.com/Ntizar/MasterMind">GitHub</a>
 </p>
 
 ---
 
 ## What is Ntizar Mastermind?
 
-Ntizar Mastermind is an **open-source multi-agent orchestration framework** built on top of [Hermes Agent](https://github.com/NousResearch/hermes-agent). It provides a single orchestrator (Koldo) that routes tasks to **143 specialized skills** across 8 domains, with persistent memory that survives between sessions.
+Ntizar Mastermind is an **open-source multi-agent orchestration framework** built on top of [Hermes Agent](https://github.com/NousResearch/hermes-agent). It provides a single orchestrator (Mastermind) that routes tasks to **143 specialized skills** across 8 domains, with persistent memory that survives between sessions.
 
 ### Key Features
 
-- **🧠 Intelligent Orchestration** — Koldo classifies tasks by domain and complexity, then decides whether to handle directly or delegate to specialized sub-agents
+- **🧠 Intelligent Orchestration** — Mastermind classifies tasks by domain and complexity, then decides whether to handle directly or delegate to specialized sub-agents
 - **⚡ 143 Specialized Skills** — Software, GitHub, Frontend, Backend, Infra, DevOps, Data Science, Creative — each with deep domain knowledge
 - **💾 Persistent Memory** — 3-layer memory system: preferences (`memory`), procedures (skills), history (`session_search`)
 - **☁️ Cloud Deploy** — MicroVM on NaN.builders (1vCPU/2GB), accessible via Telegram and WebUI
@@ -28,7 +28,7 @@ Ntizar Mastermind is an **open-source multi-agent orchestration framework** buil
 ### Architecture
 
 ```
-User Task → Koldo (Orchestrator) → Domain Skills → Execution → Memory
+User Task → Mastermind (Orchestrator) → Domain Skills → Execution → Memory
                    ↓
           8 domains: Software, GitHub, Frontend, Backend,
           Infra, DevOps, Data Science, Creative
@@ -38,10 +38,10 @@ User Task → Koldo (Orchestrator) → Domain Skills → Execution → Memory
 
 ```bash
 # Clone the repository
-git clone https://github.com/Ntizar/NtizarBrainMasterMind.git
+git clone https://github.com/Ntizar/MasterMind.git
 
 # Open with your agent editor
-cd NtizarBrainMasterMind
+cd MasterMind
 hermes .     # or your preferred IDE
 
 # Activate the system
@@ -86,7 +86,7 @@ hermes .     # or your preferred IDE
 2. Skills on-demand by domain
 3. Persistent memory between sessions
 4. GitHub as single source of truth
-5. Never delete from the Koldo repo — only create or modify
+5. Never delete from the Mastermind repo — only create or modify
 6. Significant notes → `notes/YYYY-MM-DD-titulo.md`
 7. New skills → `/hermes-home/skills/`
 8. Every important learning → commit to the repo

@@ -1,10 +1,16 @@
 #!/bin/bash
-# Wrapper para ejecutar explorar-stars.py con el token correcto
-# Evita exponer el patrón de lectura de secrets en prompts de cron
+# Wrapper para ejecutar explorar-stars.py (Windows/git-bash compatible)
+# Usa gh CLI para el token (no expone secrets en prompts de cron)
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-source /hermes-home/.env 2>/dev/null
-export GITHUB_TOKEN
-export NAN_API
+# Token: variable de entorno si existe, si no gh auth (keyring de Windows)
+if [ -z "$GITHUB_TOKEN" ]; then
+  GITHUB_TOKEN=$(gh auth token 2>/dev/null)
+  export GITHUB_TOKEN
+fi
 
-cd /hermes-home/scripts
-python3 explorar-stars.py "$@"
+# Registry: junto al repo MasterMind
+export STARS_REGISTRY="${STARS_REGISTRY:-$SCRIPT_DIR/../data/stars-registry.json}"
+
+cd "$SCRIPT_DIR"
+python explorar-stars.py "$@"

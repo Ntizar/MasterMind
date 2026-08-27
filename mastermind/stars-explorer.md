@@ -37,13 +37,13 @@ Guarda resumen en notes/ si hubo hallazgos significativos
 ## Componentes
 
 ### Script principal
-- **Ruta:** `/hermes-home/scripts/explorar-stars.py`
-- **Wrapper:** `bash /hermes-home/scripts/run-stars-explorer.sh` (carga entorno automáticamente)
+- **Ruta:** `scripts/explorar-stars.py`
+- **Wrapper:** `bash scripts/run-stars-explorer.sh` (carga entorno automáticamente)
 - **Dependencias:** Solo stdlib (urllib, json, base64) — NO necesita pip install
 - **Entorno:** Wrapper carga variables de entorno del sistema automáticamente
 
 ### Registry
-- **Ruta:** `/hermes-home/data/stars-registry.json`
+- **Ruta:** `data/stars-registry.json`
 - **Contenido:** Repo → fecha explorada, category, skill_created, skill_angles
 
 ### Skill de referencia
@@ -55,28 +55,28 @@ Usar SIEMPRE el wrapper que carga el entorno automáticamente:
 
 ```bash
 # Status del registry
-bash /hermes-home/scripts/run-stars-explorer.sh --status
+bash scripts/run-stars-explorer.sh --status
 
 # Batch de 3 repos (default) — solo repos >100 stars con topics
-bash /hermes-home/scripts/run-stars-explorer.sh
+bash scripts/run-stars-explorer.sh
 
 # Batch grande
-bash /hermes-home/scripts/run-stars-explorer.sh --batch 5
+bash scripts/run-stars-explorer.sh --batch 5
 
 # Todos los pendientes (SIN FILTRO — explora todos)
-bash /hermes-home/scripts/run-stars-explorer.sh --all
+bash scripts/run-stars-explorer.sh --all
 
 # Modo JSON (para agent consumption)
-bash /hermes-home/scripts/run-stars-explorer.sh --batch 2 --json
+bash scripts/run-stars-explorer.sh --batch 2 --json
 
 # Incluir propios repos de David
-bash /hermes-home/scripts/run-stars-explorer.sh --include-own
+bash scripts/run-stars-explorer.sh --include-own
 
 # Forzar re-proceso de un repo
-bash /hermes-home/scripts/run-stars-explorer.sh --reprocess owner/repo
+bash scripts/run-stars-explorer.sh --reprocess owner/repo
 
 # Modo LOOP DE APRENDIZAJE — modo completo: explora → aprende → mejora → implementa
-bash /hermes-home/scripts/run-stars-explorer.sh --learning-loop
+bash scripts/run-stars-explorer.sh --learning-loop
 ```
 
 ## Flujo del Agent (en el cron)
@@ -149,7 +149,7 @@ Cada repo analizado incluye:
 - **Registry creep:** Si un repo no merece skill, marcar con `category: "skip"` y `skill_created: false`. NO re-procesarlo cada run.
 - **Cron security scanner (CRÍTICO 2026-06-16):** El scanner de cron bloquea prompts que contienen patrones como `cat .env`, `cat credentials`, etc. (regex: `cat\s+[^\n]*(\.env|credentials|\.netrc|\.pgpass)`). **Solución:** usar wrapper script (`run-stars-explorer.sh`) que carga el entorno internamente. NUNCA poner comandos que lean secrets directamente en prompts de cron ni en skills que se carguen en crons. El scanner escanea el prompt ensamblado (user prompt + skill content concatenado).
 - **ChromaDB dedup funciona en producción (2026-06-16):** El pipeline detectó correctamente 3 repos como "ya cubiertos" en el primer batch nocturno. Scores: manim=0.85, twenty=0.79, VibeVoice=0.89. Threshold 0.25 es suficiente para detectar duplicados semánticos.
-- **Wrapper script obligatorio para cron:** El script `explorar-stars.py` necesita variables de entorno (token de GitHub, API key de NaN). En vez de exponer el patrón de lectura en el prompt del cron, usar `bash /hermes-home/scripts/run-stars-explorer.sh` que hace source del .env internamente.
+- **Wrapper script obligatorio para cron:** El script `explorar-stars.py` necesita variables de entorno (token de GitHub, API key de NaN). En vez de exponer el patrón de lectura en el prompt del cron, usar `bash scripts/run-stars-explorer.sh` que hace source del .env internamente.
 - **Skill overlap con github-trending-research:** `github-trending-research` explora trending público; `stars-explorer` explora las stars personales de David. Complementarios, no duplicados. Comparten patrones de GitHub API, creación de skills, y dedup via ChromaDB.
 
 ## Loop de Aprendizaje Continuo
@@ -225,14 +225,14 @@ Estos micro-crons se auto-destruyen tras 4 semanas si no generan ningún skill �
 - **Job ID:** `abcb79ec2e36`
 - **Batch:** 3 repos/run → 3 por noche
 - **Re-procesamiento:** Nunca (registry previene duplicados)
-- **ChromaDB:** Si ChromaDB no está corriendo, arrancar con `bash /hermes-home/scripts/start-chromadb.sh` antes de consultar. El cron puede ejecutarse en un momento donde ChromaDB se haya caído.
+- **ChromaDB:** Si ChromaDB no está corriendo, arrancar con `bash scripts/start-chromadb.sh` antes de consultar. El cron puede ejecutarse en un momento donde ChromaDB se haya caído.
 - **Modelo del cron:** `deepseek-v4-flash` (contexto 32K suficiente para READMEs de 8K chars)
 
 ### Modo de Procesamiento Rápido (para un batch completo)
 
 Cuando hay **muchos repos nuevos** (50+), **NO usar `--all`** en el cron (se timeout). Mejor:
 
-1. **Ejecutar el script** `python3 /hermes-home/scripts/registrar-stars-masivo.py` (registra todos en "pending" sin fetch)
+1. **Ejecutar el script** `python3 scripts/registrar-stars-masivo.py` (registra todos en "pending" sin fetch)
 2. **Actualizar el registry** manualmente con todos los nombres
 3. **Dejar que el cron** procese 3/noche en modo standard
 
@@ -257,15 +257,15 @@ El primer cron se ejecutará:
 
 Para **test** manual, ejecutar:
 ```bash
-bash /hermes-home/scripts/run-stars-explorer.sh --batch 3 --json
+bash scripts/run-stars-explorer.sh --batch 3 --json
 ```
 
 ## Referencias
 
-- Script: `/hermes-home/scripts/explorar-stars.py`
-- Registry: `/hermes-home/data/stars-registry.json`
+- Script: `scripts/explorar-stars.py`
+- Registry: `data/stars-registry.json`
 - ChromaDB: skill `chromadb-skills-vector-search`
 - GitHub trending (relacionado): skill `github-trending-research`
-- Nota previa (exploración manual): `/root/workspace/Koldo/notes/2026-05-30-nightly-explored-repos.md`
+- Nota previa (exploración manual): `/root/workspace/Mastermind/notes/2026-05-30-nightly-explored-repos.md`
 - Skills creados por este pipeline: [ver en registry → `skill_created: true`]
 - **This cron:** `cronjob(action='list')` to see status

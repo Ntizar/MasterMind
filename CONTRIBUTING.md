@@ -4,11 +4,11 @@ Gracias por querer contribuir. Este proyecto es un sistema de orquestación mult
 
 ## 🧠 ¿Cómo funciona?
 
-El sistema tiene 1 orquestador (Koldo) que clasifica tareas y delega a 143 skills especializados por dominio. Todo está documentado en Markdown plano en este repo.
+El sistema tiene 1 orquestador (Mastermind) que clasifica tareas y delega a 143 skills especializados por dominio. Todo está documentado en Markdown plano en este repo.
 
 ## 📦 Añadir un skill
 
-Los skills son playbooks especializados que Koldo carga bajo demanda. Para crear uno:
+Los skills son playbooks especializados que Mastermind carga bajo demanda. Para crear uno:
 
 1. Escribe el skill en formato `SKILL.md` con YAML frontmatter
 2. Míralo a `/hermes-home/skills/<categoria>/<nombre>/`

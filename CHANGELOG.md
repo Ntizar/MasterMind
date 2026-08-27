@@ -28,7 +28,7 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es/1.1.0/) y el p
 - **backup-hermes-memory.sh** — `git push` descomentado (antes solo commit, nunca subía a GitHub)
 - **Directorios faltantes** — `learning/` y `config/` creados (skill-lifecycle.py escribía a rutas que no existían)
 - **README decía "143 skills"** — corregido a 240
-- **README decía "Koldo"** — corregido a Mastermind
+- **README decía "Mastermind"** — corregido a Mastermind
 - **README decía "framework open-source"** — corregido a sistema personal
 
 ### 🤖 Cron Jobs Hermes (10 activos)
@@ -115,7 +115,7 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es/1.1.0/) y el p
 - **2 capas (docs+exec) → 1 capa (GitHub Markdown)** — sin wikilinks de Obsidian ni YAML de OpenCode
 - **Ebbinghaus decay manual → Hermes `memory` + `session_search`** — persistencia nativa
 - **15 skills propios → 143 skills Hermes** — carga bajo demanda por dominio
-- **4 comandos slash → lenguaje natural** — Koldo entiende lenguaje natural
+- **4 comandos slash → lenguaje natural** — Mastermind entiende lenguaje natural
 - **Multi-modelo por agente → modelo único (qwen3.6)** — gestión de modelos simplificada
 - **README.md** — actualizado para v4.0 con tablas comparativas
 - **docs/ARCHITECTURE.md** — reescrito completo con modelo de especialización, human loop, sistema de memoria
@@ -125,9 +125,9 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es/1.1.0/) y el p
 - **Dependencia de OpenCode** — sin `.opencode/agents/` ni `.opencode/commands/` en código activo
 - **Dependencia de Obsidian** — sin `agents/` con wikilinks en código activo
 - **Sistema de Ebbinghaus decay** — reemplazado por memoria nativa de Hermes
-- **Clasificador subagente** — clasificación integrada en Koldo
+- **Clasificador subagente** — clasificación integrada en Mastermind
 - **Spec-Writer subagente** — specs integradas en `delegate_task` goal
-- **Planificador subagente** — planificación integrada en decisión de Koldo
+- **Planificador subagente** — planificación integrada en decisión de Mastermind
 
 ### 📊 Resumen de Migración
 

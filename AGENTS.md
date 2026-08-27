@@ -1,6 +1,6 @@
-# NtizarBrainMasterMind v4.1 — Referencia Rápida
+# Ntizar MasterMind v4.2 — Referencia Rápida
 
-> **Agente Mastermind + 265 skills indexados semánticamente.**
+> **Agente Mastermind + skills indexados semánticamente.**
 > Reglas completas → **[SOUL.md](SOUL.md)**
 
 ---
@@ -11,8 +11,8 @@
 Tarea del usuario
        │
        ▼
-Mastermind (agente qwen3.6)
-  ├── 1. Consulta ChromaDB → consultar-skills.py
+Mastermind (agente Hermes — qwen3.8 / glm5.3 vía NaN API)
+  ├── 1. Consulta ChromaDB → scripts/consultar-skills.py
   ├── 2. Filtra score > 0.25
   ├── 3. Carga skills con skill_view()
   ├── 4. Decide nivel de ejecución (1-4)
@@ -22,29 +22,28 @@ Mastermind (agente qwen3.6)
   │     └── 🔴 Orquestación (multi-subagente)
   ├── 5. Ejecuta y verifica
   └── 6. Aprendizaje continuo
-        ├── ¿Skill nuevo? → skill_manage(create)
+        ├── ¿Skill nuevo? → skill_manage(create) + indexar-skills.py
         ├── ¿Nota? → notes/YYYY-MM-DD-titulo.md
         └── ¿Memoria? → memory(add)
 ```
 
 ## ChromaDB — Búsqueda semántica
 
-**265 skills indexados por significado, no por nombre.**
+**Skills indexados por significado, no por nombre.** La cifra crece con cada ciclo — no es fija.
 
 ```bash
-# Consultar skills relevantes
-cd scripts && python3 consultar-skills.py "tu consulta" --json
+# Consultar skills relevantes (desde la raíz del repo)
+python scripts/consultar-skills.py "tu consulta" --json
 
-# Re-indexar todos los skills
-python3 indexar-skills.py [--reset]
+# Re-indexar (nuevos skills) o todo (--reset)
+python scripts/indexar-skills.py [--reset]
 ```
 
-- **URL:** localhost:8000
+- **BBDD:** `~/.mastermind/chromadb` (persistente, embebida — no necesita servidor)
 - **Colección:** mastermind-skills
-- **Modelo:** qwen3-embedding (NaN API)
-- **Distancia:** coseno
-- **Threshold:** > 0.25
-- **Re-indexación:** domingo 04:00 UTC (cron)
+- **Modelo:** qwen3-embedding (NaN API) — dim 4096
+- **Distancia:** coseno · **Threshold:** score > 0.25
+- **Python:** usar el Python del sistema (`C:\Users\d_ant\AppData\Local\Programs\Python\Python312\python.exe`), no el venv de Hermes
 
 ## Niveles de Ejecución
 
@@ -55,39 +54,32 @@ python3 indexar-skills.py [--reset]
 | **🟠 3 — Paralelo** | 8+ | Frontend + Backend + Tests |
 | **🔴 4 — Orquestación** | Completo | Feature completa, multi-subagente |
 
-## Skills por Dominio
+## Estructura del repo
 
-| Dominio | Skills | Cuándo |
-|---------|--------|--------|
-| 🔥 **Core** | ~17 | TDD, debug, code review, refactor |
-| 📦 **GitHub** | ~7 | PR workflow, issues, repo mgmt |
-| 📦 **Frontend** | ~3 | Aurora CSS, dashboards |
-| 📦 **Backend** | ~6 | APIs REST, ESM, fetch paralelo |
-| 📦 **Infra** | ~6 | Docker, seguridad, cache, HTTP |
-| 📦 **DevOps** | ~10 | Deploy NaN, cron jobs, pipelines |
-| 📦 **Data Science** | ~8 | Simuladores, Monte Carlo |
-| 📦 **Creative** | ~22 | Diagramas, ASCII, diseño |
-| 🧠 **Mastermind** | ~10 | Orquestación, ChromaDB, deploy, backup |
-| 📚 **STEM** | ~40 | Matemáticas, física, dibujo técnico, química, biología |
-| 🔬 **Visión/ML** | ~15 | Object detection, segmentación, video |
-| Otros | ~100 | MCP, salud, crypto, finanzas, media, geoespacial |
+| Ruta | Qué es |
+|------|--------|
+| `agent/skills/` | Skills por dominio (fuente de verdad) |
+| `agent/MEMORY.md` + `agent/USER.md` | Memoria persistente |
+| `agent/SOUL.md` | Identidad del agente |
+| `scripts/` | Motor: ChromaDB, stars, backup, lifecycle |
+| `notes/` | Notas de aprendizaje |
+| `data/` | stars-registry.json |
+| `mastermind/` | Docs del sistema |
 
-**Total: 265 skills** — cargados bajo demanda vía ChromaDB.
-
-## Cron Jobs Activos (10 jobs Hermes)
+## Cron Jobs Activos
 
 | Job | Schedule | Estado |
 |-----|----------|--------|
-| `esios-daily-telegram` | 09:00 UTC | ✅ |
-| `BiciMad Tetuán` | L-Mi 06:30, 13:00 | ✅ |
-| `inventario-apis-procesar` | cada 30m | ✅ |
-| `inventario-apis-resumen-diario` | 22:00 UTC | ✅ |
-| `skill-maintenance` | día 1 cada mes | ✅ |
-| `deep-learning` | 03:00 UTC | ✅ |
-| `chromadb-reindex-semanal` | domingo 04:00 UTC | ✅ |
-| `skills-sync-to-github` | cada 6h | ✅ |
-| `stars-explorer-nocturno` | 03:00 UTC | ✅ |
-| `gtfsspain-update` | domingo 06:00 UTC | ⏸️ pausado |
+| `mastermind-scout` | cada 6h | ✅ (explora stars → crea skills → push) |
+| `mastermind-weekly-digest` | lunes 09:00 | ✅ (resumen semanal) |
+
+Otros crons del sistema antiguo (ESIOS, BiciMad, inventario APIs...) se pueden reactivar bajo demanda.
+
+## Dominios de Skills
+
+Core · GitHub · Frontend · Backend · Infra · DevOps · Data Science · Creative · Mastermind · STEM · Visión/ML · GIS/Transporte · Salud · Crypto · Media · Investigación — y creciendo.
+
+**Total: consulta con `python scripts/indexar-skills.py` — el número no es fijo.**
 
 ## Human Loop
 
@@ -105,4 +97,4 @@ python3 indexar-skills.py [--reset]
 
 ---
 
-**Hecho con ❤️ por David Antizar** · **v4.1 — 2026-07-01**
+**Hecho con ❤️ por David Antizar** · **v4.2 — 2026-08-27**

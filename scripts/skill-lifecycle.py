@@ -12,7 +12,7 @@ from pathlib import Path
 from datetime import datetime, timedelta
 from collections import defaultdict
 
-SKILLS_DIR = "/hermes-home/skills"
+SKILLS_DIR = "agent/skills"
 REPO_DIR = "/root/workspace/Mastermind"
 NOTES_DIR = "/root/workspace/Mastermind/notes"
 PRIORITY_FILE = "/root/workspace/Mastermind/config/skill-priority.json"

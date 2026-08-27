@@ -181,12 +181,12 @@ checks.ors_api = testResp.ok;
 
 **⚠️ `cronjob` tool no disponible en esta VM:**
 - El `cronjob` tool no existe en el entorno actual — no hay `crontab`, no hay daemon cron, no hay systemd timers
-- Los scripts de mantenimiento se guardan en `/hermes-home/scripts/` y se ejecutan manualmente o desde un cron externo (SSH desde otra máquina)
+- Los scripts de mantenimiento se guardan en `scripts/` y se ejecutan manualmente o desde un cron externo (SSH desde otra máquina)
 - Para automatizar: configurar cron en máquina local que SSH al VM, o usar systemd timer en el VM
-- Ejemplo: script `/hermes-home/scripts/mastermind-weekly-maintenance.sh` (Domingo 05:00 UTC)
+- Ejemplo: script `scripts/mastermind-weekly-maintenance.sh` (Domingo 05:00 UTC)
 
 **Patrón de scripts de mantenimiento:**
-- Script en `/hermes-home/scripts/` con shebang `#!/bin/bash`
+- Script en `scripts/` con shebang `#!/bin/bash`
 - Script usa `set -e` y loguea a `/var/log/<name>.log`
 - Script incluye health checks antes y después de cada paso
 - Script hace `git add -A && git commit && git push` al final

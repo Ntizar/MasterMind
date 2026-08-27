@@ -157,7 +157,7 @@ Este curso puede convertirse en skills de Hermes mediante:
 2. **Extraer capítulos:** buscar h2 numerados (`^(\d+)\.\s+(.+)$`)
 3. **Extraer cuadernos:** buscar bloques `<article>` con h4 + párrafos
 4. **Generar skills:** 1-3 skills por fascículo, accionables y específicas
-5. **Guardar:** `/hermes-home/skills/iaparagentecuriosa/`
+5. **Guardar:** `agent/skills/iaparagentecuriosa/`
 
 ### Cron automatizado
 Job `3d5c484ead60` — ejecuta 12 ticks (uno por fascículo) a las 10:00 UTC diarios. Cada tick procesa un fascículo y crea 1-3 skills.

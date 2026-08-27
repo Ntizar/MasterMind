@@ -2,12 +2,12 @@
 
 ## Contexto
 
-El cronjob `STEM skills ecosystem` (b1402bbcdf71) creó un conjunto de skills STEM pero dejó el sistema en un estado caótico: duplicación masiva entre skills granulares dentro de `stem/` y skills "agregados" sueltos en `/hermes-home/skills/`.
+El cronjob `STEM skills ecosystem` (b1402bbcdf71) creó un conjunto de skills STEM pero dejó el sistema en un estado caótico: duplicación masiva entre skills granulares dentro de `stem/` y skills "agregados" sueltos en `agent/skills/`.
 
 ## Problema detectado
 
-- **43 skills granulares** en `/hermes-home/skills/stem/` (bien organizados por subtema)
-- **7+ skills agregados** sueltos en `/hermes-home/skills/` que duplicaban contenido de los anteriores
+- **43 skills granulares** en `agent/skills/stem/` (bien organizados por subtema)
+- **7+ skills agregados** sueltos en `agent/skills/` que duplicaban contenido de los anteriores
 - Cronjob diario (`repeat: "forever"`) sin criterio de "nuevo vs existente"
 
 ## Skills eliminados (duplicados)

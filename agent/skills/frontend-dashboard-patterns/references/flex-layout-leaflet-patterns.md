@@ -80,4 +80,4 @@ Después de inicializar: `setTimeout(() => map.invalidateSize(), 300);`
 ## ESIOS API Auth
 
 Algunos indicadores requieren `x-api-key`. Verificar con curl antes de asumir que "la API no funciona".
-Token: variable `ESIOS_API` o `/hermes-home/.env`.
+Token: variable `ESIOS_API` o `.env`.

@@ -24,7 +24,7 @@
 Header: ApiKey: <NAP_API_KEY>
 ```
 
-La API key está en `/hermes-home/.env` (variable `NAP_API_KEY`).
+La API key está en `.env` (variable `NAP_API_KEY`).
 
 ## Respuesta de /conjunto-dato
 

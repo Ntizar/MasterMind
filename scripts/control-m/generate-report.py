@@ -12,8 +12,8 @@ Uso:
     python3 generate-report.py 1 --pdf                     # Una cuenta + PDF
 
 Salida:
-    HTML en /hermes-home/scripts/control-m/reports/
-    PDF en /hermes-home/scripts/control-m/reports/ (si --pdf)
+    HTML en scripts/control-m/reports/
+    PDF en scripts/control-m/reports/ (si --pdf)
 """
 import json
 import os

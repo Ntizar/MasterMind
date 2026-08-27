@@ -38,7 +38,7 @@ apt-get update -qq && apt-get install -y -qq gh
 
 **Auth con token:**
 ```bash
-token=$(grep GITHUB_TOKEN /hermes-home/.env | cut -d= -f2-)
+token=$(grep GITHUB_TOKEN .env | cut -d= -f2-)
 # ⚠️ GH CLI falla con GITHUB_TOKEN env var set
 GITHUB_TOKEN="" echo "$token" | gh auth login --with-token
 ```
@@ -88,7 +88,7 @@ Usar un repos GitHub como base de conocimiento persistente:
 - `scripts/` — Automatizaciones
 - `config/` — Configuraciones
 
-**Sync:** `git pull` → `cp -n mastermind/*.md /hermes-home/skills/mastermind/`
+**Sync:** `git pull` → `cp -n mastermind/*.md agent/skills/mastermind/`
 
 ### 7.0 Decidir: GitHub Pages vs NaN
 
@@ -522,7 +522,7 @@ curl -s -o /dev/null -w "%{http_code}" https://ntizar.github.io/repo-name/
 El token de GitHub puede funcionar para la API REST pero **fallar con git credential store** o `credential.helper` normal. El patrón que funciona es:
 
 ```bash
-source /hermes-home/.env
+source .env
 cd /path/to/repo
 GIT_TERMINAL_PROMPT=0 git -c 'credential.helper=!f() { echo "username=oauth2"; echo "password='$GITHUB_TOKEN'"; }; f' push -u origin main
 ```

@@ -443,7 +443,7 @@ El panel derecho debe mostrar TODOS estos campos (David quiere "muchísimos más
 
 ## Pitfalls
 - **GitHub Pages + Actions:** Requiere `enablement: true` en `actions/configure-pages@v5`
-- **Token:** `GITHUB_TOKEN` en `/hermes-home/.env`
+- **Token:** `GITHUB_TOKEN` en `.env`
 - **GeoJSON postal codes:** No existe fuente pública → se usan centroides sintéticos
 - **ESIOS API:** Requiere token para algunos endpoints
 - **CORS:** APIs públicas pueden bloquear requests desde Pages → usar proxy o datos estáticos

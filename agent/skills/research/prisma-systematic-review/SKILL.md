@@ -45,7 +45,7 @@ Sistema de revisión sistemática que convierte una pregunta de investigación e
    - Relevo: DeepSeek v4-pro, Kimi K2.6, Qwen3-coder, Gemma4 (Ollama Cloud)
    - Config en `config.yaml` con temperatura, top-p, max tokens, frequency penalty, response format
 4. **Orquestación** — scripts Python + skills locales
-5. **Skills** (10 en `hermes-home/skills/research/`):
+5. **Skills** (10 en `agent/skills/research/`):
    - Revisión sistemática (base)
    - Estado (runtime-state)
    - Revisión académica
@@ -432,7 +432,7 @@ review-project/
 
 - [ ] Docker compose con 2 servicios (agent + watchdog)
 - [ ] Config.yaml con política de modelos completa
-- [ ] 10 skills de investigación en hermes-home/skills/research/
+- [ ] 10 skills de investigación en agent/skills/research/
 - [ ] Scripts: bootstrap, doi_audit, complete_review, runtime_state
 - [ ] Scripts: refresh_extraction, prepare_figures, publication_audit
 - [ ] Scripts: peer_review, integrity, roadmap, gate, autopilot

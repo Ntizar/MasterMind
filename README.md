@@ -55,8 +55,8 @@ Mastermind (agente qwen3.6 en NaN.builders)
 
 | Capa | Dónde vive | Qué guarda | Persistencia |
 |------|-----------|------------|-------------|
-| 🧠 **Memoria Hermes** | `/hermes-home/memories/` | Preferencias, entorno, lecciones | Inyectada en cada turno |
-| 📚 **Skills** | `/hermes-home/skills/` | 240 procedimientos reutilizables | Carga bajo demanda vía ChromaDB |
+| 🧠 **Memoria Hermes** | `repo raíz/memories/` | Preferencias, entorno, lecciones | Inyectada en cada turno |
+| 📚 **Skills** | `agent/skills/` | 240 procedimientos reutilizables | Carga bajo demanda vía ChromaDB |
 | 🔒 **Repo GitHub** | `MasterMind` | Backup completo de todo | Push cada 6h (automático) |
 
 ### Búsqueda semántica (ChromaDB)

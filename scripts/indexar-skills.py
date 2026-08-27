@@ -19,7 +19,7 @@ from pathlib import Path
 CHROMA_URL = "http://localhost:8000"
 NAN_API_KEY = os.environ.get("NAN_API", "")
 NAN_EMBEDDING_MODEL = "qwen3-embedding"
-SKILLS_DIR = "/hermes-home/skills"
+SKILLS_DIR = "agent/skills"
 COLLECTION_NAME = "mastermind-skills"
 LOG_FILE = "/tmp/indexar-skills.log"
 

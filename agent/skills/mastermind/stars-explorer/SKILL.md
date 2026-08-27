@@ -12,7 +12,7 @@ Ejecuta el pipeline que explora los repos que David ha starred en GitHub, extrae
 
 ## Flujo
 
-1. Ejecutar: `bash /hermes-home/scripts/run-stars-explorer.sh --batch 15`
+1. Ejecutar: `bash scripts/run-stars-explorer.sh --batch 15`
 2. Leer el output JSON (o stdout con `--json`)
 3. Para cada repo, decidir si merece skill:
    - Patrón arquitectónico interesante → crear skill
@@ -27,20 +27,20 @@ Ejecuta el pipeline que explora los repos que David ha starred en GitHub, extrae
 
 ```bash
 # Batch normal (default 15 repos)
-bash /hermes-home/scripts/run-stars-explorer.sh --batch 15
+bash scripts/run-stars-explorer.sh --batch 15
 
 # JSON limpio para consumo programático
-source /hermes-home/.env && export GITHUB_TOKEN NAN_API
-python3 /hermes-home/scripts/explorar-stars.py --batch 15 --json
+source .env && export GITHUB_TOKEN NAN_API
+python3 scripts/explorar-stars.py --batch 15 --json
 
 # Status del registry
-python3 /hermes-home/scripts/explorar-stars.py --status
+python3 scripts/explorar-stars.py --status
 
 # Reprocesar un repo específico
-python3 /hermes-home/scripts/explorar-stars.py --reprocess user/repo
+python3 scripts/explorar-stars.py --reprocess user/repo
 
 # Incluir propios repos
-python3 /hermes-home/scripts/run-stars-explorer.sh --include-own
+python3 scripts/run-stars-explorer.sh --include-own
 ```
 
 ## Criterio de creación de skills — AGRESIVO
@@ -70,7 +70,7 @@ El fetch de la API de GitHub es lento (1s de delay entre repos). Ser paciente, n
 
 ### Registry path
 
-El registry se guarda en `/hermes-home/data/stars-registry.json`. Se puede sobrescribir con la variable `STARS_REGISTRY`.
+El registry se guarda en `data/stars-registry.json`. Se puede sobrescribir con la variable `STARS_REGISTRY`.
 
 ## Estado actual
 
@@ -81,6 +81,6 @@ El registry se guarda en `/hermes-home/data/stars-registry.json`. Se puede sobre
 
 ## Referencias
 
-- Script principal: `/hermes-home/scripts/explorar-stars.py`
-- Wrapper: `/hermes-home/scripts/run-stars-explorer.sh`
-- Registry: `/hermes-home/data/stars-registry.json`
+- Script principal: `scripts/explorar-stars.py`
+- Wrapper: `scripts/run-stars-explorer.sh`
+- Registry: `data/stars-registry.json`

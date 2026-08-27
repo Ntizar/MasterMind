@@ -70,7 +70,7 @@ Crear `SKILL.md` con:
 
 ### Paso 7: Actualizar user.md
 
-Guardar datos estructurados del usuario en `/hermes-home/user.md`:
+Guardar datos estructurados del usuario en `repo raíz/user.md`:
 - Identidad
 - Experiencia profesional
 - Educación

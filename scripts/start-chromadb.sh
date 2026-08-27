@@ -2,8 +2,8 @@
 # ChromaDB auto-start para Mastermind v3
 # Usa el venv dedicado para evitar conflictos con el sistema
 
-VENV_PYTHON="/hermes-home/chromadb-venv/bin/python"
-CHROMA_PERSIST_DIR="/hermes-home/chromadb-data"
+VENV_PYTHON="repo raíz/chromadb-venv/bin/python"
+CHROMA_PERSIST_DIR="repo raíz/chromadb-data"
 CHROMA_LOG="/tmp/chromadb.log"
 
 # Crear directorio persistente si no existe
@@ -18,7 +18,7 @@ fi
 echo "Arrancando ChromaDB desde venv..."
 
 # Arrancar ChromaDB server con persistencia (v1.5+ usa CLI 'chroma run')
-nohup /hermes-home/chromadb-venv/bin/chroma run \
+nohup repo raíz/chromadb-venv/bin/chroma run \
     --path "$CHROMA_PERSIST_DIR" \
     --host 0.0.0.0 \
     --port 8000 \

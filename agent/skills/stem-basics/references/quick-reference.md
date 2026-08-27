@@ -41,5 +41,5 @@
 
 ## Archivos de referencia
 
-- Índice completo: `/hermes-home/skills/STEM-INDEX.md`
-- Skills individuales: `/hermes-home/skills/skill-xxx/SKILL.md`
+- Índice completo: `agent/skills/STEM-INDEX.md`
+- Skills individuales: `agent/skills/skill-xxx/SKILL.md`

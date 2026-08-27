@@ -6,7 +6,7 @@
 set -euo pipefail
 
 REPO="${1:-Ntizar/DataHubEspana}"
-TOKEN="${GITHUB_TOKEN:-$(grep GITHUB_TOKEN /hermes-home/.env | cut -d= -f2-)}"
+TOKEN="${GITHUB_TOKEN:-$(grep GITHUB_TOKEN .env | cut -d= -f2-)}"
 
 echo "🚀 Re-dispatching GitHub Pages deploy for $REPO..."
 

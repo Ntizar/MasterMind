@@ -30,7 +30,7 @@ from urllib.error import HTTPError, URLError
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 GITHUB_USER = "Ntizar"
 REGISTRY_PATH = os.environ.get(
-    "STARS_REGISTRY", "/hermes-home/data/stars-registry.json"
+    "STARS_REGISTRY", "data/stars-registry.json"
 )
 DEFAULT_BATCH = 3
 API_BASE = "https://api.github.com"

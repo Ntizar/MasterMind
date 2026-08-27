@@ -140,7 +140,7 @@ if "--pais" in sys.argv and i + 1 < len(sys.argv):
 - **Script sin soporte de filtro** → añadir el parámetro de filtro al script original
 - **Progreso en `completed=true`** → el wrapper debe detectar esto y salir sin hacer nada
 - **Bash arrays con nombres con espacios** → usar `IFS= read -r` en loops
-- **🔥 Script path resolution** → el cron solo encuentra scripts en `~/.hermes/scripts/`. Si el script está en `/hermes-home/scripts/`, crear symlink: `ln -sf /hermes-home/scripts/foo.sh ~/.hermes/scripts/foo.sh`
+- **🔥 Script path resolution** → el cron solo encuentra scripts en `~/.hermes/scripts/`. Si el script está en `scripts/`, crear symlink: `ln -sf scripts/foo.sh ~/.hermes/scripts/foo.sh`
 - **🔥 JSON booleans en bash** → `True`/`False` (Python) generan JSON inválido. Usar `true`/`false` (minúsculas). Ejemplo: `echo "true"` NO `echo "True"`.
 - **🔥 `pipefail` + `find` en directorio inexistente** → Con `set -euo pipefail`, `find` en directorio que no existe da exit code 1. `2>/dev/null` suprime el error pero NO el código de salida. Con `pipefail` se propaga por `| wc -l` y mata el script. Fix: `find "$DIR" -name "*.pdf" 2>/dev/null | wc -l || true`. Clásico en batch downloads donde el primer ítem aún no tiene carpeta.
 

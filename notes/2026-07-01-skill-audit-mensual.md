@@ -80,7 +80,7 @@
    - **Recomendación:** Revisar si los paths absolutos son necesarios o pueden ser relativos
 
 10. **Script `generate-skill-index.sh` inexistente**
-    - La documentación referencia un script que no existe en `/hermes-home/skills/scripts/`
+    - La documentación referencia un script que no existe en `agent/skills/scripts/`
     - El índice se generaba manualmente antes
     - **Recomendación:** Crear el script de generación automatizada
 

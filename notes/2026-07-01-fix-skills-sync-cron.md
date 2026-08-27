@@ -3,7 +3,7 @@
 ## Problema
 El cron `skills-sync-to-github` (job_id: 55f6ed2e2da8) tenía **dos fallos críticos**:
 
-1. **Ruta incorrecta en rsync**: el prompt decía `rsync -av --delete /hermes-home/skills/ /root/workspace/Mastermind/hermes-home/skills/` — el repo está en `/root/workspace/Mastermind/skills/`, NO en `/root/workspace/Mastermind/hermes-home/skills/`. Esto causaba que los archivos se copiaran en la ruta equivocada.
+1. **Ruta incorrecta en rsync**: el prompt decía `rsync -av --delete agent/skills/ /root/workspace/Mastermindagent/skills/` — el repo está en `/root/workspace/Mastermind/skills/`, NO en `/root/workspace/Mastermindagent/skills/`. Esto causaba que los archivos se copiaran en la ruta equivocada.
 
 2. **Branch tracking divergente**: el repo local tenía `main` pero el tracking apuntaba a `origin/master`. El push iba a `main` pero el cron esperaba `master`, causando divergencia de 62 commits locales vs 63 remotos.
 
@@ -37,5 +37,5 @@ El nuevo prompt:
 - Git: working tree limpio, branch up-to-date con origin/main
 
 ## Archivos modificados
-- `/persist/hermes-home/cron/jobs.json` — prompt del job 55f6ed2e2da8 actualizado
+- `/persistrepo raíz/cron/jobs.json` — prompt del job 55f6ed2e2da8 actualizado
 - `/root/workspace/Mastermind/` — sync completo (368 archivos cambiados)

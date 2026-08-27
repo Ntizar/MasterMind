@@ -417,7 +417,7 @@ if __name__ == "__main__":
     rag = ChromaRAG(collection_name="mastermind-rag")
     
     # Indexar notas de deep learning
-    notes_dir = Path("/hermes-home/notes/deep-learning")
+    notes_dir = Path("notes/deep-learning")
     documents = []
     for note_file in notes_dir.glob("*.md"):
         content = note_file.read_text()
@@ -669,7 +669,7 @@ Un sistema RAG ligero sobre las notas y skills de Mastermind, usando la infraest
 
 ## 10. Próximos Pasos
 
-1. **Implementar RAG sobre notas** — Usar ChromaDB existente + qwen3-embedding para indexar `/hermes-home/notes/`
+1. **Implementar RAG sobre notas** — Usar ChromaDB existente + qwen3-embedding para indexar `notes/`
 2. **Evaluar con RAGAS** — Medir faithfulness y context_precision de las respuestas
 3. **Explorar LightRAG** — Probar graph-based retrieval para dependencias entre skills
 4. **Crear skill `rag-knowledge-base`** — Sistematizar el patrón RAG para uso recurrente

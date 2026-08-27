@@ -296,7 +296,7 @@ def build_graph(skills_dir, notes_dir):
     return nodes, dict(edges), orphans, dict(clusters)
 
 def main():
-    skills_dir = "/hermes-home/skills"
+    skills_dir = "agent/skills"
     notes_dir = "/root/workspace/Mastermind/notes"
     output_dir = "/root/workspace/Mastermind/learning"
     

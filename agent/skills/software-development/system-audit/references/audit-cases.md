@@ -57,7 +57,7 @@ David pidió una "auditoría crítica de los proyectos con lo que hace realmente
 | 1 | ChromaDB online con 190+ skills indexados pero Mastermind NUNCA lo consultaba | 🔴 Crítico | `consultar-skills.py` nunca invocado en sesiones reales |
 | 2 | README con métricas infladas (decía 190+ skills, 12 crons cuando era 192/13) | 🟡 Importante | Verificación manual contra estado real |
 | 3 | Mastermind v3 marcado como "operativo" pero era diseño conceptual | 🟡 Importante | Sin scripts de memory decay, knowledge graph, etc. |
-| 4 | 143 skills duplicadas en repo (267 en repo vs 124 únicas) | 🟡 Importante | Comparación repo vs hermes-home |
+| 4 | 143 skills duplicadas en repo (267 en repo vs 124 únicas) | 🟡 Importante | Comparación repo vs agent/ |
 | 5 | skill-priority.json listaba 123/192 skills reales | 🟡 Importante | Análisis de cobertura |
 | 6 | ChromaDB no persistía tras reinicio (sin auto-start) | 🟡 Importante | Sin systemd unit ni script de arranque |
 | 7 | Crons pausados acumulándose (GitHub Stars, skill-learning) | 🟢 Menor | `cronjob action=list` |
@@ -113,7 +113,7 @@ David pidió una "auditoría crítica de los proyectos con lo que hace realmente
 | Modelo | qwen3.6 vía NaN | `api.nan.builders/v1`, sin multi-model routing |
 | Infra | MicroVM 1vCPU/2GB/20GB | NaN.builders |
 | ChromaDB | ONLINE, 192 skills | localhost:8000, qwen3-embedding 4096-dim |
-| Skills en repo | 124 (deduplicated) | hermes-home es fuente de verdad |
+| Skills en repo | 124 (deduplicated) | agent/ es fuente de verdad |
 | Skills en priority.json | 192 | Cobertura completa |
 | Cron jobs | 19 activos | 6 permanentes + pipeline + otros |
 | GitHub auth | Token HTTPS | `GITHUB_TOKEN` en `.env`, gh CLI no instalado |

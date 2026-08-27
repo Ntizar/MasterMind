@@ -53,19 +53,19 @@ El skill espera un archivo JSON con cuentas de Salesforce. Formato:
 **Cargar datos:**
 ```bash
 # Si tienes el Excel de Salesforce, convertirlo:
-python3 /hermes-home/scripts/convert-xlsx-to-json.py /path/to/accounts.xlsx
+python3 scripts/convert-xlsx-to-json.py /path/to/accounts.xlsx
 # O usar el script incluido:
-python3 /hermes-home/scripts/control-m/extract-accounts.py /path/to/accounts.xlsx
+python3 scripts/control-m/extract-accounts.py /path/to/accounts.xlsx
 ```
 
 **Si no tienes datos CRM:** El skill funciona con nombre de empresa + sector. Genera análisis basado en fuentes públicas (inferencias marcadas claramente).
 
 ### 2. Estructura de directorios
 
-Los scripts están en `/hermes-home/scripts/control-m/`:
+Los scripts están en `scripts/control-m/`:
 
 ```
-/hermes-home/scripts/control-m/
+scripts/control-m/
 ├── extract-accounts.py      # Convierte Excel Salesforce → JSON
 ├── generate-report.py       # Genera HTML/PDF de informe
 ├── template.html            # Plantilla HTML del informe (3 páginas)
@@ -76,7 +76,7 @@ Los scripts están en `/hermes-home/scripts/control-m/`:
     └── *.pdf                # Informes generados
 ```
 
-**Nota:** Los scripts están en `/hermes-home/scripts/control-m/`, NO en el skill directory. El skill SKILL.md está en `/hermes-home/skills/sales/sales-account-intelligence/`.
+**Nota:** Los scripts están en `scripts/control-m/`, NO en el skill directory. El skill SKILL.md está en `agent/skills/sales/sales-account-intelligence/`.
 
 ## The 6-Phase Account Intelligence Process
 
@@ -227,22 +227,22 @@ Antes de cualquier análisis, la IA debe conocer exactamente qué vende Control-
 **Comandos:**
 ```bash
 # Generar informe de cuenta #1
-python3 /hermes-home/scripts/control-m/generate-report.py 1
+python3 scripts/control-m/generate-report.py 1
 
 # Generar informe de cuenta por nombre
-python3 /hermes-home/scripts/control-m/generate-report.py --name "Banco Sabadell"
+python3 scripts/control-m/generate-report.py --name "Banco Sabadell"
 
 # Generar informe de múltiples cuentas
-python3 /hermes-home/scripts/control-m/generate-report.py 1 5 12
+python3 scripts/control-m/generate-report.py 1 5 12
 
 # Generar todas las Tier A
-python3 /hermes-home/scripts/control-m/generate-report.py --tier "A – Atacar primero"
+python3 scripts/control-m/generate-report.py --tier "A – Atacar primero"
 
 # Generar informe de sector
-python3 /hermes-home/scripts/control-m/generate-report.py --segment "Banking"
+python3 scripts/control-m/generate-report.py --segment "Banking"
 
 # Generar informe y convertir a PDF
-python3 /hermes-home/scripts/control-m/generate-report.py 1 --pdf
+python3 scripts/control-m/generate-report.py 1 --pdf
 ```
 
 **Estructura del informe (3 páginas):**
@@ -374,14 +374,14 @@ El informe debe ser compacto: 3 páginas máximo. No generar dossiers largos. El
 
 ```bash
 # 1. Si tienes Excel de Salesforce:
-python3 /hermes-home/scripts/control-m/extract-accounts.py /path/to/accounts.xlsx
+python3 scripts/control-m/extract-accounts.py /path/to/accounts.xlsx
 
 # 2. Generar informe de cuenta #1:
-python3 /hermes-home/scripts/control-m/generate-report.py 1
+python3 scripts/control-m/generate-report.py 1
 
 # 3. Generar PDF:
-python3 /hermes-home/scripts/control-m/generate-report.py 1 --pdf
+python3 scripts/control-m/generate-report.py 1 --pdf
 
 # 4. Generar todas las Tier A:
-python3 /hermes-home/scripts/control-m/generate-report.py --tier A --pdf
+python3 scripts/control-m/generate-report.py --tier A --pdf
 ```

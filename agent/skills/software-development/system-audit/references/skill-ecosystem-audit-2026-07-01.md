@@ -25,13 +25,13 @@
 
 ```bash
 # Contar SKILL.md files
-find /hermes-home/skills/ -name 'SKILL.md' -not -path '*/.hub/quarantine/*' | wc -l
+find agent/skills/ -name 'SKILL.md' -not -path '*/.hub/quarantine/*' | wc -l
 
 # Detectar duplicados de nombre
 python3 -c "
 import glob, os
 by_name = {}
-for f in glob.glob('/hermes-home/skills/**/SKILL.md', recursive=True):
+for f in glob.glob('agent/skills/**/SKILL.md', recursive=True):
     if '.hub/quarantine' not in f:
         name = os.path.basename(os.path.dirname(f))
         by_name.setdefault(name, []).append(f)
@@ -44,10 +44,10 @@ for name, paths in by_name.items():
 # Detectar project-readmes (>5 absolute paths)
 python3 -c "
 import glob, os, re
-for f in glob.glob('/hermes-home/skills/**/SKILL.md', recursive=True):
+for f in glob.glob('agent/skills/**/SKILL.md', recursive=True):
     if '.hub/quarantine' not in f:
         content = open(f).read()
-        abs_paths = re.findall(r'(/hermes-home/[^ \"\x27\s]+|/root/workspace/[^ \"\x27\s]+)', content)
+        abs_paths = re.findall(r'(repo raíz/[^ \"\x27\s]+|/root/workspace/[^ \"\x27\s]+)', content)
         if len(abs_paths) > 5:
             print(f'{os.path.basename(os.path.dirname(f))}: {len(abs_paths)} abs paths')
 "
@@ -55,19 +55,19 @@ for f in glob.glob('/hermes-home/skills/**/SKILL.md', recursive=True):
 # Verificar si index.json está stale
 python3 -c "
 import json
-index = json.load(open('/hermes-home/skills/index.json'))
-actual = len([f for f in __import__('glob').glob('/hermes-home/skills/**/SKILL.md', recursive=True) if '.hub/quarantine' not in f])
+index = json.load(open('agent/skills/index.json'))
+actual = len([f for f in __import__('glob').glob('agent/skills/**/SKILL.md', recursive=True) if '.hub/quarantine' not in f])
 print(f'Index: {index.get(\"total_skills\", \"?\")} | Real: {actual} | Delta: {actual - index.get(\"total_skills\", 0)}')
 "
 
 # Limpiar quarantine >7 días
-find /hermes-home/skills/.hub/quarantine/ -maxdepth 1 -type d -mtime +7 -exec rm -rf {} +
+find agent/skills/.hub/quarantine/ -maxdepth 1 -type d -mtime +7 -exec rm -rf {} +
 
 # Limpiar curator backups (mantener 2 más recientes)
-ls -1t /hermes-home/skills/.curator_backups/ | tail -n +3 | xargs -I{} rm -rf /hermes-home/skills/.curator_backups/{}
+ls -1t agent/skills/.curator_backups/ | tail -n +3 | xargs -I{} rm -rf agent/skills/.curator_backups/{}
 ```
 
 ### Tamaño de componentes
 - `.hub/`: 38 MB → 24 KB (tras eliminar index-cache)
 - `.curator_backups/`: 14 MB → 6.5 MB
-- `/hermes-home/skills/`: 20 MB total
+- `agent/skills/`: 20 MB total

@@ -26,7 +26,7 @@ nombre-proyecto/
 ### 3. Repo en GitHub (sin gh CLI)
 ```bash
 # Crear repo privado vía API REST
-source /hermes-home/.env
+source .env
 curl -s -H "Authorization: token $GITHUB_TOKEN" \
   -H "Accept: application/vnd.github.v3+json" \
   https://api.github.com/user/repos \

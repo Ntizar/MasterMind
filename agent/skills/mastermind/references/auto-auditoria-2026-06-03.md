@@ -7,7 +7,7 @@ David pidió una autoauditoría honesta de cómo procesa información, usa brain
 ## Pipeline real de procesamiento (4 capas)
 
 ### ① System Prompt (~4KB / ~1K tokens)
-- **Dónde:** `/hermes-home/SOUL.md` → inyectado en system prompt de cada sesión
+- **Dónde:** `repo raíz/SOUL.md` → inyectado en system prompt de cada sesión
 - **Qué:** Identidad, reglas, stack, pitfalls, preferencias
 - **Frecuencia:** Cada sesión nueva + cada turno
 
@@ -17,7 +17,7 @@ David pidió una autoauditoría honesta de cómo procesa información, usa brain
 - **Frecuencia:** Cada turno
 
 ### ③ Skills Snapshot (~80KB / ~20K tokens)
-- **Dónde:** `/hermes-home/skills/` + `index.json` → snapshot comprimido inyectado cada turno
+- **Dónde:** `agent/skills/` + `index.json` → snapshot comprimido inyectado cada turno
 - **Qué:** 144 skills (42 HIGH, 55 MEDIUM, 45 LOW)
 - **Problema identificado:** 80KB por turno es desproporcionado
 - **Mejora:** `config/skill-priority.json` prioriza HIGH sobre MEDIUM/LOW

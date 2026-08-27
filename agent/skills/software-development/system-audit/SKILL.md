@@ -346,7 +346,7 @@ Cuando el usuario pide auditar el ecosistema de skills (detectar duplicados, pro
 1. **Inventario**: contar skills, verificar frontmatter (version, description, tags)
 2. **Detectar project-readmes**: skills con rutas absolutas de proyecto (>5 rutas = project-readme)
 3. **Detectar CLI wrappers**: skills con >3 comandos curl y <5KB
-4. **Detectar duplicados**: comparar nombres y descripciones entre hermes-home y repo
+4. **Detectar duplicados**: comparar nombres y descripciones entre agent/ y repo
 5. **Detectar skills >30KB**: deberían usar refs pattern
 6. **Generar informe**: resumen con hallazgos categorizados por severidad
 
@@ -357,7 +357,7 @@ Cuando el usuario pide auditar el ecosistema de skills (detectar duplicados, pro
 
 ### Pitfalls
 - Subagentes fallan silenciosamente en `terminal rm` — siempre verificar post-ejecución
-- `/hermes-home/skills` ≠ `/root/workspace/Mastermind/skills` — siempre sync después
+- `agent/skills` ≠ `/root/workspace/Mastermind/skills` — siempre sync después
 - No todos los project-readmes son malos — los que contienen patrones de diseño tienen valor educativo
 
 ## Referencias

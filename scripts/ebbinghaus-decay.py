@@ -122,7 +122,7 @@ def analyze_skills(skills_dir):
 
 def main():
     notes_dir = "/root/workspace/Mastermind/notes"
-    skills_dir = "/hermes-home/skills"
+    skills_dir = "agent/skills"
     output_dir = "/root/workspace/Mastermind/learning"
     
     os.makedirs(output_dir, exist_ok=True)

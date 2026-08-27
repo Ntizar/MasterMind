@@ -108,14 +108,14 @@ Si la búsqueda semántica (ChromaDB) no encuentra un skill granular relevante:
 
 ## Pitfalls
 
-- **ChromaDB no detecta skills nuevos automáticamente** — después de crear/modificar cualquier skill STEM, ejecutar `bash /hermes-home/scripts/indexar-skills.py` para re-indexar. Si ChromaDB no responde, arrancar antes: `bash /hermes-home/scripts/start-chromadb.sh`.
+- **ChromaDB no detecta skills nuevos automáticamente** — después de crear/modificar cualquier skill STEM, ejecutar `bash scripts/indexar-skills.py` para re-indexar. Si ChromaDB no responde, arrancar antes: `bash scripts/start-chromadb.sh`.
 - **Cargar el skill granular, no este umbrella** — este skill (`stem-basics`) es un índice de navegación. Para resolver problemas reales, cargar el skill específico con `skill_view(name='stem/math/math-calculo-diferencial')`.
-- **No crear skills `skill-xxx` planos** — todos los skills STEM deben seguir la convención `stem/<disciplina>/<tema>` (ej: `stem/math/math-calculo-diferencial`). No crear como `skill-math-calculus` en la raíz de `/hermes-home/skills/`.
+- **No crear skills `skill-xxx` planos** — todos los skills STEM deben seguir la convención `stem/<disciplina>/<tema>` (ej: `stem/math/math-calculo-diferencial`). No crear como `skill-math-calculus` en la raíz de `agent/skills/`.
 - **Subagentes pueden crear `skill.yaml`** — cuando se delega creación masiva, verificar que el archivo se llama `SKILL.md`. Si hay `skill.yaml`, renombrar.
 - **ESIOS `time_trunc=hour` SUMA, no promedia** — si se usa en contextos STEM relacionados con energía, usar `convertEsiosValue()` de `esios-units.js`.
 
 ## Notas
 
 - Los skills están en ChromaDB (colección `mastermind-skills`) para búsqueda semántica.
-- Re-indexar después de crear/actualizar: `bash /hermes-home/scripts/indexar-skills.py`
+- Re-indexar después de crear/actualizar: `bash scripts/indexar-skills.py`
 - Ver también: `chromadb-skills-vector-search` para el sistema de búsqueda semántica.

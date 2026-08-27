@@ -1563,7 +1563,7 @@ def update_dashboard():
 - Los datos se bakean en el HTML → no hay llamadas AJAX en runtime
 - Para actualizar: ejecutar el script Python (vía cron, CLI, o manualmente)
 
-**Referencia:** `/hermes-home/scripts/generate-dashboard.py` y `/root/workspace/Mastermind/dashboard/mastermind-status.html`
+**Referencia:** `scripts/generate-dashboard.py` y `/root/workspace/Mastermind/dashboard/mastermind-status.html`
 
 ---
 
@@ -2137,7 +2137,7 @@ Los contenedores en NaN.builders tienen restricciones que afectan qué datos se 
 | `ps aux` | ❌ Solo ve su propio proceso | `/proc` fallback, o info del ecosistema |
 | `/proc/[pid]/cmdline` | ⚠️ Solo PID 1 (el propio proceso) | Info estática del ecosistema |
 | `chromadb` (localhost:8000) | ❌ ChromaDB corre en VM local | Filesystem fallback, o categorías conocidas |
-| `/hermes-home/skills` | ❌ No existe en contenedor | Categorías conocidas del ecosistema |
+| `agent/skills` | ❌ No existe en contenedor | Categorías conocidas del ecosistema |
 | `crontab -l` | ❌ No hay cron en contenedor | Array vacío |
 | `df -h` | ⚠️ Muestra solo el contenedor | Usar `os.freemem()` de Node.js |
 | `free -m` | ⚠️ Muestra solo el contenedor | Usar `os.totalmem()` de Node.js |
@@ -2173,12 +2173,12 @@ Antes de desplegar un dashboard, verificar:
 
 ### 🔥 NaN Container Data Isolation — El endpoint que devuelve vacío
 
-**2026-06-11:** Se creó un endpoint `/api/hermes-system` en el dashboard de NaN que intentaba leer archivos de Hermes (`/hermes-home/cron/jobs.json`, `/hermes-home/skills/`, `/hermes-home/sessions/`, `/hermes-home/logs/`). El endpoint devolvió arrays vacíos porque **el contenedor NaN no tiene acceso al filesystem de la microVM**.
+**2026-06-11:** Se creó un endpoint `/api/hermes-system` en el dashboard de NaN que intentaba leer archivos de Hermes (`repo raíz/cron/jobs.json`, `agent/skills/`, `repo raíz/sessions/`, `repo raíz/logs/`). El endpoint devolvió arrays vacíos porque **el contenedor NaN no tiene acceso al filesystem de la microVM**.
 
-**Causa raíz:** Los contenedores NaN están aislados. No pueden acceder a `/hermes-home/`, que vive en la microVM host.
+**Causa raíz:** Los contenedores NaN están aislados. No pueden acceder a `repo raíz/`, que vive en la microVM host.
 
 **Regla:** Si un dashboard desplegado en NaN necesita datos de Hermes:
-1. **No intentar leer archivos de `/hermes-home/`** desde el contenedor — no funcionará
+1. **No intentar leer archivos de `repo raíz/`** desde el contenedor — no funcionará
 2. **Opción A:** Crear un dashboard LOCAL en la microVM (puerto 6060) con acceso directo a todo
 3. **Opción B:** Exponer un API proxy en la microVM que sirva los datos, y que el dashboard de NaN haga fetch a ese proxy (requiere CORS y networking entre host→contenedor)
 4. **Opción C:** Usar el patrón "static data bake" — un script en la microVM genera los datos y los inyecta en un HTML estático que se despliega en NaN

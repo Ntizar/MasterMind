@@ -4,7 +4,7 @@
 
 ### Sintaxis
 ```bash
-python3 /hermes-home/scripts/terran-auditor.py log-issue <PHASE_ID> <JSON_ISSUE>
+python3 scripts/terran-auditor.py log-issue <PHASE_ID> <JSON_ISSUE>
 ```
 
 ### Parámetros
@@ -25,7 +25,7 @@ import json, subprocess
 issue = {"id": "SEC-064", "title": "Usuarios sin org_id", "severity": "alta", "description": "...", "impact": "...", "proposed_solution": "..."}
 json_str = json.dumps(issue, ensure_ascii=False)
 result = subprocess.run(
-    ["python3", "/hermes-home/scripts/terran-auditor.py", "log-issue", "06-security-compliance", json_str],
+    ["python3", "scripts/terran-auditor.py", "log-issue", "06-security-compliance", json_str],
     capture_output=True, text=True
 )
 print(result.stdout)

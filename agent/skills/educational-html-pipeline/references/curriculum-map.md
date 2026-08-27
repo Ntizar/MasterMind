@@ -100,7 +100,7 @@
 - **Bloques completos:** 9/9
 - **URL Pages:** https://ntizar.github.io/DibujoTecnico/
 
-## Skills TD disponibles (en /hermes-home/skills/stem/td/)
+## Skills TD disponibles (en agent/skills/stem/td/)
 - `td-basics` → Normalización, formatos, líneas, escalas, rotulación
 - `td-intermediate` → Geometría descriptiva, perspectivas, intersecciones
 - `td-advanced` → Tolerancias, cortes avanzados, planos de conjunto

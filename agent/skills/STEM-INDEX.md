@@ -56,7 +56,7 @@ Ecosistema completo de skills de ciencias básicas para Mastermind. **10 skills 
 - **Áreas de conocimiento:** 40+
 - **Todos en español** ✅
 - **Formato:** YAML frontmatter + markdown
-- **Ubicación:** `/hermes-home/skills/`
+- **Ubicación:** `agent/skills/`
 
 ---
 
@@ -72,7 +72,7 @@ Ecosistema completo de skills de ciencias básicas para Mastermind. **10 skills 
 ## 📁 Estructura de directorios
 
 ```
-/hermes-home/skills/
+agent/skills/
 ├── STEM-INDEX.md                    ← Este archivo
 ├── skill-math-foundations/
 │   └── skill.md

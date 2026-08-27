@@ -45,7 +45,7 @@
     {
       "id": "d59848f0355e",
       "name": "BiciMad \u2014 Tetu\u00e1n + 2 paradas (L-Mi\u00e9r)",
-      "prompt": "Ejecuta el script de resumen multi-parada BiciMad:\npython3 /hermes-home/scripts/bicimad-multi-alert.py\n\nSi el script falla, intenta:\npython3 /root/.hermes/scripts/bicimad-multi-alert.py\n\nSi ambos fallan, consulta directamente GBFS:\n- https://madrid.publicbikesystem.net/customer/gbfs/v2/en/station_information\n- https://madrid.publicbikesystem.net/customer/gbfs/v2/en/station_status\n\nEstaciones a consultar: 2002 (Bellver), 1612 (Metro Tetu\u00e1n), 1540 (Mar\u00eda de Guzm\u00e1n).\n\nDevuelve el resumen formateado con bicis y plazas de cada estaci\u00f3n.",
+      "prompt": "Ejecuta el script de resumen multi-parada BiciMad:\npython3 scripts/bicimad-multi-alert.py\n\nSi el script falla, intenta:\npython3 /root/.hermes/scripts/bicimad-multi-alert.py\n\nSi ambos fallan, consulta directamente GBFS:\n- https://madrid.publicbikesystem.net/customer/gbfs/v2/en/station_information\n- https://madrid.publicbikesystem.net/customer/gbfs/v2/en/station_status\n\nEstaciones a consultar: 2002 (Bellver), 1612 (Metro Tetu\u00e1n), 1540 (Mar\u00eda de Guzm\u00e1n).\n\nDevuelve el resumen formateado con bicis y plazas de cada estaci\u00f3n.",
       "skills": [],
       "skill": null,
       "model": "qwen3.6",
@@ -173,7 +173,7 @@
     {
       "id": "83139c479ddb",
       "name": "skill-maintenance",
-      "prompt": "Ejecutar auditor\u00eda mensual del ecosistema de skills de Mastermind.\n\nCarga el skill 'skill-audit-pattern' y ejecuta la auditor\u00eda completa:\n1. Revisa todos los skills en /hermes-home/skills/\n2. Identifica skills hu\u00e9rfanos, duplicados, desactualizados\n3. Genera informe con recomendaciones\n4. Si hay acciones correctivas simples, apl\u00edcalas directamente\n\nFormato del informe: lista clara con estado de cada skill y acciones tomadas.",
+      "prompt": "Ejecutar auditor\u00eda mensual del ecosistema de skills de Mastermind.\n\nCarga el skill 'skill-audit-pattern' y ejecuta la auditor\u00eda completa:\n1. Revisa todos los skills en agent/skills/\n2. Identifica skills hu\u00e9rfanos, duplicados, desactualizados\n3. Genera informe con recomendaciones\n4. Si hay acciones correctivas simples, apl\u00edcalas directamente\n\nFormato del informe: lista clara con estado de cada skill y acciones tomadas.",
       "skills": [
         "skill-audit-pattern"
       ],
@@ -217,7 +217,7 @@
     {
       "id": "20e1c2c4adde",
       "name": "deep-learning",
-      "prompt": "Eres Mastermind, agente de aprendizaje profundo. Tu misi\u00f3n es expandir el conocimiento real del sistema, no solo acumular informaci\u00f3n.\n\nCada ejecuci\u00f3n:\n1. **Elige un tema** de deep learning (redes convolucionales, transformers, GANs, RL, etc.)\n2. **Investiga**: busca papers recientes, tutoriales, implementaciones\n3. **Aprende activamente**: escribe un resumen t\u00e9cnico con c\u00f3digo de ejemplo\n4. **Almacena**: guarda el aprendizaje en /hermes-home/notes/deep-learning/ con fecha\n5. **Prop\u00f3n**: qu\u00e9 tema abordar en la siguiente sesi\u00f3n\n\nReglas:\n- Prioriza implementaciones pr\u00e1cticas sobre teor\u00eda abstracta\n- Incluye referencias a papers y repositorios\n- Si encuentras algo \u00fatil para el stack actual, documentalo como skill\n- No repitas temas ya cubiertos (revisa el directorio primero)",
+      "prompt": "Eres Mastermind, agente de aprendizaje profundo. Tu misi\u00f3n es expandir el conocimiento real del sistema, no solo acumular informaci\u00f3n.\n\nCada ejecuci\u00f3n:\n1. **Elige un tema** de deep learning (redes convolucionales, transformers, GANs, RL, etc.)\n2. **Investiga**: busca papers recientes, tutoriales, implementaciones\n3. **Aprende activamente**: escribe un resumen t\u00e9cnico con c\u00f3digo de ejemplo\n4. **Almacena**: guarda el aprendizaje en notes/deep-learning/ con fecha\n5. **Prop\u00f3n**: qu\u00e9 tema abordar en la siguiente sesi\u00f3n\n\nReglas:\n- Prioriza implementaciones pr\u00e1cticas sobre teor\u00eda abstracta\n- Incluye referencias a papers y repositorios\n- Si encuentras algo \u00fatil para el stack actual, documentalo como skill\n- No repitas temas ya cubiertos (revisa el directorio primero)",
       "skills": [],
       "skill": null,
       "model": null,
@@ -259,7 +259,7 @@
     {
       "id": "57419d411b79",
       "name": "chromadb-reindex-semanal",
-      "prompt": "Ejecuta el script de re-indexaci\u00f3n de skills en ChromaDB. Corre: cd /hermes-home/scripts && NAN_API=\"$NAN_API\" /hermes-home/chromadb-venv/bin/python indexar-skills.py --reset 2>&1. Verifica que ChromaDB responde en http://localhost:8000 antes de ejecutar. Si no responde, ejecuta bash /hermes-home/scripts/start-chromadb.sh primero. Entrega el resultado como resumen: cu\u00e1ntos skills indexados, cu\u00e1nto tard\u00f3, y si hubo errores.",
+      "prompt": "Ejecuta el script de re-indexaci\u00f3n de skills en ChromaDB. Corre: cd scripts && NAN_API=\"$NAN_API\" repo raíz/chromadb-venv/bin/python indexar-skills.py --reset 2>&1. Verifica que ChromaDB responde en http://localhost:8000 antes de ejecutar. Si no responde, ejecuta bash scripts/start-chromadb.sh primero. Entrega el resultado como resumen: cu\u00e1ntos skills indexados, cu\u00e1nto tard\u00f3, y si hubo errores.",
       "skills": [],
       "skill": null,
       "model": null,
@@ -296,7 +296,7 @@
     {
       "id": "55f6ed2e2da8",
       "name": "skills-sync-to-github",
-      "prompt": "Backup completo de Hermes al repo Mastermind.\n\nPasos:\n1. Copiar estos archivos/carpetas al repo /root/workspace/Mastermind/:\n   - config.yaml\n   - INDEX.md\n   - STEM-INDEX.md\n   - skills/ (TODO el directorio con todos los subdirectorios y archivos)\n   - memories/\n   - notes/\n   - scripts/ (si hay cambios recientes)\n\n2. Usar rsync para copiar el directorio skills/ completo:\n   rsync -av --delete /hermes-home/skills/ /root/workspace/Mastermind/hermes-home/skills/\n\n3. Commit y push al repo Mastermind:\n   cd /root/workspace/Mastermind && git add -A && git commit -m \"Backup semanal: $(date +%Y-%m-%d)\" && git push\n\n4. Reportar cu\u00e1ntos archivos de skills se copiaron:\n   find /root/workspace/Mastermind/hermes-home/skills -type f | wc -l\n\nIMPORTANTE: NO omitir el directorio skills/. Debe copiarse TODO el contenido.",
+      "prompt": "Backup completo de Hermes al repo Mastermind.\n\nPasos:\n1. Copiar estos archivos/carpetas al repo /root/workspace/Mastermind/:\n   - config.yaml\n   - INDEX.md\n   - STEM-INDEX.md\n   - skills/ (TODO el directorio con todos los subdirectorios y archivos)\n   - memories/\n   - notes/\n   - scripts/ (si hay cambios recientes)\n\n2. Usar rsync para copiar el directorio skills/ completo:\n   rsync -av --delete agent/skills/ /root/workspace/Mastermindagent/skills/\n\n3. Commit y push al repo Mastermind:\n   cd /root/workspace/Mastermind && git add -A && git commit -m \"Backup semanal: $(date +%Y-%m-%d)\" && git push\n\n4. Reportar cu\u00e1ntos archivos de skills se copiaron:\n   find /root/workspace/Mastermindagent/skills -type f | wc -l\n\nIMPORTANTE: NO omitir el directorio skills/. Debe copiarse TODO el contenido.",
       "skills": [],
       "skill": null,
       "model": null,

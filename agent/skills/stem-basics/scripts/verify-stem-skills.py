@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify all STEM skills in /hermes-home/skills/skill-*/SKILL.md.
+"""Verify all STEM skills in agent/skills/skill-*/SKILL.md.
 
 Checks:
 1. Directory exists
@@ -28,7 +28,7 @@ SKILLS = [
     'skill-scientific-method',
 ]
 
-SKILLS_DIR = '/hermes-home/skills'
+SKILLS_DIR = 'agent/skills'
 
 def verify():
     errors = 0

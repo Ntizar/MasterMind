@@ -9,7 +9,7 @@
   - `duckduckgo-search` (index 0) — ya instalado, reconfirmado
   - `scrapling` (index 2/118) — instalado con éxito
   - `code-wiki` (index 3/118) — instalado con éxito
-  - `rest-graphql-debug` (index 4/118) — **timeout del script**, skill en `.hub/quarantine/` pero no movido a `/hermes-home/skills/`
+  - `rest-graphql-debug` (index 4/118) — **timeout del script**, skill en `.hub/quarantine/` pero no movido a `agent/skills/`
 
 ## Skills nuevos instalados hoy
 
@@ -25,6 +25,6 @@
 
 ## Acciones requeridas
 
-- Mover `rest-graphql-debug` de `.hub/quarantine/` a `/hermes-home/skills/` manualmente
+- Mover `rest-graphql-debug` de `.hub/quarantine/` a `agent/skills/` manualmente
 - Verificar que el script avanza el índice correctamente en el próximo tick
 - Monitorizar que `duckduckgo-search` no se reinstale de nuevo (bug resuelto en v2 del script)

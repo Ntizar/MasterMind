@@ -23,7 +23,7 @@ unique_id = rel_path.replace("/", "--")
 
 ## Archivos modificados
 
-- `/hermes-home/scripts/indexar-skills.py` — líneas 158-169: usar path relativo como ID
+- `scripts/indexar-skills.py` — líneas 158-169: usar path relativo como ID
 
 ## Resultado
 

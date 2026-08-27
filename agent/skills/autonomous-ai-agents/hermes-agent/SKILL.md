@@ -344,17 +344,17 @@ $HERMES_HOME/skills/        Installed skills
 ~/.hermes/hermes-agent/     Source code (if git-installed)
 ```
 
-**⚠ Hermes-specific path quirk:** Some deployments (e.g., NaN.builders microVMs) use `/hermes-home/` instead of `~/.hermes/`. Check `$HERMES_HOME` env var:
+**⚠ Hermes-specific path quirk:** Some deployments (e.g., NaN.builders microVMs) use `repo raíz/` instead of `~/.hermes/`. Check `$HERMES_HOME` env var:
 
 ```bash
-echo $HERMES_HOME    # may be /hermes-home or /root/.hermes
+echo $HERMES_HOME    # may be repo raíz or /root/.hermes
 ls $HERMES_HOME/config.yaml
 ls $HERMES_HOME/.env
 ```
 
-When the token is at `/hermes-home/.env` instead of `~/.hermes/.env`, use:
+When the token is at `.env` instead of `~/.hermes/.env`, use:
 ```bash
-token=$(grep GITHUB_TOKEN /hermes-home/.env 2>/dev/null | cut -d= -f2-)
+token=$(grep GITHUB_TOKEN .env 2>/dev/null | cut -d= -f2-)
 ```
 
 Profiles use `~/.hermes/profiles/<name>/` with the same layout.
@@ -872,9 +872,9 @@ and logs — avoids shell-escaping backslashes in bash.
 4. **Skill in quarantine:** If `hermes skills install` fails, the skill may be in `.hub/quarantine/`. Check with `ls ~/.hermes/skills/.hub/quarantine/`. Remove the quarantine dir and retry install.
 
 ### Skill Learning Script (`skill-learning.sh`) pitfalls
-- **State desincronizado:** `.skill-learning-state.json` puede marcar skills como "learned" pero no existen en disco. Verificar con `find /hermes-home/skills -name "SKILL.md" -path "*<skill>*"`.
-- **Quarantine infinito:** Si un skill está en `.hub/quarantine/`, el script reintentará infinitamente. Solución: `rm -rf /hermes-home/skills/.hub/quarantine/<skill>` y avanzar el índice manualmente.
-- **Timeout 120s:** `hermes skills install` puede timeout. El script reintentará el mismo skill. Verificar log: `tail /hermes-home/skills/skill-learning.log`.
+- **State desincronizado:** `.skill-learning-state.json` puede marcar skills como "learned" pero no existen en disco. Verificar con `find agent/skills -name "SKILL.md" -path "*<skill>*"`.
+- **Quarantine infinito:** Si un skill está en `.hub/quarantine/`, el script reintentará infinitamente. Solución: `rm -rf agent/skills/.hub/quarantine/<skill>` y avanzar el índice manualmente.
+- **Timeout 120s:** `hermes skills install` puede timeout. El script reintentará el mismo skill. Verificar log: `tail agent/skills/skill-learning.log`.
 
 ### Gateway issues
 Check logs first:

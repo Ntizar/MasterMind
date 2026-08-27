@@ -110,7 +110,7 @@ SIZE_DATA = {
 }
 
 def main():
-    with open('/hermes-home/scripts/control-m/data/accounts.json', 'r') as f:
+    with open('scripts/control-m/data/accounts.json', 'r') as f:
         accounts = json.load(f)
     
     updated = 0
@@ -124,7 +124,7 @@ def main():
                 updated += 1
                 break
     
-    with open('/hermes-home/scripts/control-m/data/accounts.json', 'w', encoding='utf-8') as f:
+    with open('scripts/control-m/data/accounts.json', 'w', encoding='utf-8') as f:
         json.dump(accounts, f, ensure_ascii=False, indent=2)
     
     print(f"✅ Actualizadas: {updated} cuentas")

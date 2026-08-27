@@ -18,14 +18,14 @@ version: "2.1.0"
 ## Capas de conocimiento
 
 - **Memoria Hermes** → Instancia actual — Preferencias, entorno, lecciones
-- **Skills Hermes** → `/hermes-home/skills/` — Procedimientos reutilizables
+- **Skills Hermes** → `agent/skills/` — Procedimientos reutilizables
 - **Repo Mastermind** → `github.com/Ntizar/Mastermind` — Backup: notas, skills, config, scripts
 
 ## Stack
 
 - **Modelo:** qwen3.6 vía NaN (`api.nan.builders/v1`)
 - **Infra:** MicroVM 1vCPU/2GB/20GB, NaN.builders
-- **GitHub:** git auth via token HTTPS (`GITHUB_TOKEN` en `/hermes-home/.env`). `gh` CLI no instalado.
+- **GitHub:** git auth via token HTTPS (`GITHUB_TOKEN` en `.env`). `gh` CLI no instalado.
 - **Cron:** `mastermind-autoconfig` diario 09:00 UTC
 
 ## Reglas
@@ -54,21 +54,21 @@ version: "2.1.0"
 
 1. **Al recibir una petición del usuario**, ANTES de hacer `skill_view()`:
    ```bash
-   cd /hermes-home/scripts && NAN_API="$NAN_API" /hermes-home/chromadb-venv/bin/python consultar-skills.py "PALABRAS_CLAVE_DE_LA_PETICION" --json
+   cd scripts && NAN_API="$NAN_API" repo raíz/chromadb-venv/bin/python consultar-skills.py "PALABRAS_CLAVE_DE_LA_PETICION" --json
    ```
 2. **Filtrar resultados** con score > 0.25 (⚠️ threshold bajo: qwen3-embedding rara vez da >0.5 incluso para skills muy relevantes)
 3. **Cargar SOLO esos skills** con `skill_view()`
 4. **Fallback:** Si ChromaDB no responde o no hay resultados > 0.25, usar el sistema tradicional (cargar por dominio desde `available_skills`)
 
-**Auto-start:** Si ChromaDB no responde, ejecutar `bash /hermes-home/scripts/start-chromadb.sh` y reintentar.
+**Auto-start:** Si ChromaDB no responde, ejecutar `bash scripts/start-chromadb.sh` y reintentar.
 
 **Configuración:**
 - URL: `http://localhost:8000`
 - Colección: `mastermind-skills`
 - Modelo: `qwen3-embedding` (NaN API)
-- Venv: `/hermes-home/chromadb-venv/`
-- Script: `/hermes-home/scripts/consultar-skills.py`
-- Re-indexación: `/hermes-home/scripts/indexar-skills.py`
+- Venv: `repo raíz/chromadb-venv/`
+- Script: `scripts/consultar-skills.py`
+- Re-indexación: `scripts/indexar-skills.py`
 
 **Cron:** `chromadb-reindex-semanal` (domingo 04:00 UTC) — re-indexa todos los skills
 
@@ -94,7 +94,7 @@ Después de tarea compleja (5+ tool calls):
 
 ## Pitfalls críticos
 
-- **SOUL.md truncado:** si `wc -c /hermes-home/SOUL.md` < 1000, está corrupto. Recuperar: `cp /root/workspace/Mastermind/mastermind/SOUL.md /hermes-home/SOUL.md`
+- **SOUL.md truncado:** si `wc -c repo raíz/SOUL.md` < 1000, está corrupto. Recuperar: `cp /root/workspace/Mastermind/mastermind/SOUL.md repo raíz/SOUL.md`
 - **Hermes no detecta `external_dirs` mid-session** — hay que hacer `/reset` tras cambiar `config.yaml`
 - **Browser tool roto en subdominios NaN** (`*.apps.nan.builders`) — usar curl-based analysis
 - **9009 multi-iteration:** subagentes fallan con timeout en código extenso. Hacer directo con `patch`/`write_file`
@@ -105,7 +105,7 @@ Después de tarea compleja (5+ tool calls):
 
 ## Skills propios del sistema
 
-Los skills propios de Mastermind están en `/hermes-home/skills/mastermind/`:
+Los skills propios de Mastermind están en `agent/skills/mastermind/`:
 - `agente-principal` — Orquestación, memoria, GitHub, aprendizaje continuo
 - `mastermind-orchestration` — Flujos de delegación por complejidad (simple/medium/complex)
 - `chromadb-skills-vector-search` — Búsqueda semántica de skills con ChromaDB + qwen3-embedding

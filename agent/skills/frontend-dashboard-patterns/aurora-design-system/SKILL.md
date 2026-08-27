@@ -304,11 +304,11 @@ Cuando David dice "revisa el diseño", "se parece más a aurora", "haz una audit
 
 1. **Ejecutar script automatizado:**
    ```bash
-   curl -s <url> | python3 /hermes-home/skills/frontend-dashboard-patterns/aurora-design-system/scripts/audit-aurora.py -
+   curl -s <url> | python3 agent/skills/frontend-dashboard-patterns/aurora-design-system/scripts/audit-aurora.py -
    ```
    O desde archivo local:
    ```bash
-   python3 /hermes-home/skills/frontend-dashboard-patterns/aurora-design-system/scripts/audit-aurora.py /path/al/index.html
+   python3 agent/skills/frontend-dashboard-patterns/aurora-design-system/scripts/audit-aurora.py /path/al/index.html
    ```
 
 2. **Presentar resultados en formato tabla** con métricas clave:
@@ -454,4 +454,4 @@ El repo Ntizar-Aurora debe estar clonado en `/root/workspace/Ntizar-Aurora/`:
   ```
   Para el JS de toggle: `tab.classList.add('nz-tab--active')` / `classList.remove('nz-tab--active')`.
 - Botones tonales inventados: NO usar `nz-btn--tonal-brand-soft` ni variantes inventadas. Usar solo las documentadas en CHEATSHEET: `--primary`, `--secondary`, `--accent`, `--danger`, `--ghost`, `--glass`, `--glass-brand`, `--glass-accent`, `--glass-liquid`, `--glass-liquid-brand`, `--glass-liquid-accent`.
-- **Auditoría automática:** cuando se pida revisar/auditar un HTML contra Aurora, ejecutar SIEMPRE `python3 /hermes-home/skills/frontend-dashboard-patterns/aurora-design-system/scripts/audit-aurora.py` primero para obtener métricas objetivas. No hacer auditoría manual a ciegas.
+- **Auditoría automática:** cuando se pida revisar/auditar un HTML contra Aurora, ejecutar SIEMPRE `python3 agent/skills/frontend-dashboard-patterns/aurora-design-system/scripts/audit-aurora.py` primero para obtener métricas objetivas. No hacer auditoría manual a ciegas.

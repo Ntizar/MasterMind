@@ -3,12 +3,12 @@
 ## Problemas detectados y arreglados
 
 ### 1. Skill `stars-explorer` no cargaba en el cron
-- **Problema:** El skill estaba en `/hermes-home/skills/mastermind/stars-explorer/` pero el resolver del cron busca solo en `/hermes-home/skills/<name>/`
-- **Fix:** Symlink creado: `/hermes-home/skills/stars-explorer` → `mastermind/stars-explorer/`
+- **Problema:** El skill estaba en `agent/skills/mastermind/stars-explorer/` pero el resolver del cron busca solo en `agent/skills/<name>/`
+- **Fix:** Symlink creado: `agent/skills/stars-explorer` → `mastermind/stars-explorer/`
 - **Estado:** ✅ Arreglado
 
 ### 2. DB session_search corrupta
-- **Problema:** `/persist/hermes-home/state.db` (1.7GB) con corrupción masiva en árboles B-tree de tablas FTS
+- **Problema:** `/persistrepo raíz/state.db` (1.7GB) con corrupción masiva en árboles B-tree de tablas FTS
 - **Causa:** Probablemente disco lleno (94%) + WAL sin checkpoint
 - **Fix:** 
   - Recuperadas 125K de 128K mensajes (97%)

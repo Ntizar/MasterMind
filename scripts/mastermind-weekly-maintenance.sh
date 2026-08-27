@@ -6,7 +6,7 @@
 set -e
 
 export NAN_API="${NAN_API:-sk-oej...4dRg}"
-export GITHUB_TOKEN="$(cat /hermes-home/.env 2>/dev/null | grep GITHUB_TOKEN | cut -d= -f2-)"
+export GITHUB_TOKEN="$(cat .env 2>/dev/null | grep GITHUB_TOKEN | cut -d= -f2-)"
 
 LOG="/var/log/mastermind-weekly.log"
 exec > >(tee -a "$LOG") 2>&1

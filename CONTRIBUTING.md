@@ -11,7 +11,7 @@ El sistema tiene 1 orquestador (Mastermind) que clasifica tareas y delega a 143 
 Los skills son playbooks especializados que Mastermind carga bajo demanda. Para crear uno:
 
 1. Escribe el skill en formato `SKILL.md` con YAML frontmatter
-2. Míralo a `/hermes-home/skills/<categoria>/<nombre>/`
+2. Míralo a `agent/skills/<categoria>/<nombre>/`
 3. Si el dominio es nuevo, regístralo en la prioridad de carga
 
 **Buenos candidatos:** DevOps, data science, testing, diseño, análisis de datos, etc.

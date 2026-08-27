@@ -14,7 +14,7 @@ Si un valor parece demasiado grande (ej. 313k MW para demanda española), probab
 
 1. **Duda de unidades → consultar `convertEsiosValue()`** en `/root/workspace/esios-dashboard/src/shared/esios-units.js` — es la fuente de verdad
 2. **Cross-check con REE**: comparar contra datos de REE en https://www.ree.es/es/datos-generacion-electrica  (valores reales conocidos)
-3. **Verificar con script**: ejecutar `verify-esios-units.js` en `/hermes-home/skills/esios-api/scripts/verify-esios-units.js`
+3. **Verificar con script**: ejecutar `verify-esios-units.js` en `agent/skills/esios-api/scripts/verify-esios-units.js`
 4. **Si el valor es absurdo**:
    - ¿Es 10× demasiado alto? → Busca IDs en DIV10_IDS que deberían ser DIRECT_IDS
    - ¿Es 1000× demasiado alto? → Faltó dividir entre 1000 (PBF)
@@ -33,4 +33,4 @@ Los IDs que antes estaban en DIV10_IDS (10206, 1293, 2052, 10351, 10352, 10006, 
 
 ## Referencias
 - `/root/workspace/esios-dashboard/src/shared/esios-units.js` — fuente de verdad
-- `/hermes-home/skills/esios-api/scripts/verify-esios-units.js` — script de verificación
+- `agent/skills/esios-api/scripts/verify-esios-units.js` — script de verificación

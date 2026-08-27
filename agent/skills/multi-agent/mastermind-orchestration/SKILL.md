@@ -31,8 +31,8 @@ Desde 2026-06-10, la carga de skills usa ChromaDB local como mecanismo principal
 5. **Fallback:** si ChromaDB no responde o no encuentra nada, usar el sistema de prioridad por dominio (abajo)
 
 **Scripts:**
-- `/hermes-home/scripts/consultar-skills.py` — consulta semántica (modo `--json` para Mastermind)
-- `/hermes-home/scripts/indexar-skills.py` — re-indexación manual
+- `scripts/consultar-skills.py` — consulta semántica (modo `--json` para Mastermind)
+- `scripts/indexar-skills.py` — re-indexación manual
 - `scripts/delegation-flows.py` — clasificación de complejidad con `classify_task()` y heurísticas
 
 **Cron:** `chromadb-reindex-semanal` (domingo 04:00 UTC)

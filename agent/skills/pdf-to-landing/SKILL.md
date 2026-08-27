@@ -225,7 +225,7 @@ CMD ["node", "server.js"]
 | Build Kaniko SUCCEEDED, URL 502 | Contenedor crash | Verificar ESM/CJS, token, puerto |
 | `import` falla en server.js | package.json sin `"type": "module"` | Añadir `"type": "module"` |
 | `pdf-parse` no tiene default export | ESM sin createRequire | Usar `createRequire(import.meta.url)` |
-| `.env` tiene literal `${NAN_API}` | Variable no expandida | `source /hermes-home/.env && echo "NAN_API=$NAN_API" > .env` |
+| `.env` tiene literal `${NAN_API}` | Variable no expandida | `source .env && echo "NAN_API=$NAN_API" > .env` |
 
 ## Frontend — Visualización del proceso (v5)
 

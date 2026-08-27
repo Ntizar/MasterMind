@@ -127,7 +127,7 @@ CMD ["node", "server.js"]
 ### Kanban (requiere auth)
 | Endpoint | Auth | Descripción |
 |---|---|---|
-| `GET /api/kanban` | ✅ | Listar tareas (SQLite en `/hermes-home/kanban.db`) |
+| `GET /api/kanban` | ✅ | Listar tareas (SQLite en `repo raíz/kanban.db`) |
 | `POST /api/kanban` | ✅ | Crear tarea: `{ title, priority }` |
 | `PUT /api/kanban/:id` | ✅ | Actualizar tarea: `{ status, priority, result }` |
 
@@ -188,7 +188,7 @@ git push origin main
 2. **ADMIN_PASSWORD:** Si no se configura, se genera una temporal visible en consola. **Configurar en producción**
 3. **NUNCA** hacer commit de .env ni contraseñas
 4. **Sesiones en memoria:** Si el contenedor se reinicia, se pierden las sesiones activas
-5. **Kanban en SQLite:** `kanban.db` en `/hermes-home/kanban.db` — sobrevive reinicios del contenedor
+5. **Kanban en SQLite:** `kanban.db` en `repo raíz/kanban.db` — sobrevive reinicios del contenedor
 6. **Audit log:** `audit.log` en `/root/workspace/nan-dashboard/audit.log` — sobrevive reinicios
 7. **apps.json:** Se genera en runtime en la raíz del proyecto — sobrevive reinicios
 

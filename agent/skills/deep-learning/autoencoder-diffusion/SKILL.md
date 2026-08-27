@@ -69,7 +69,7 @@ Los autoencoders son **el motor oculto** de la generación de imágenes con diff
 
 ## Recursos
 
-- Nota completa: /hermes-home/notes/deep-learning/2026-07-16-variational-autoencoders-vae-vqgan-diffusion.md
+- Nota completa: notes/deep-learning/2026-07-16-variational-autoencoders-vae-vqgan-diffusion.md
 - Paper VAE: arXiv:1312.6114
 - Paper VQGAN: arXiv:2112.10752
 - Paper DAE: arXiv:2403.12372

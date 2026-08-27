@@ -12,7 +12,7 @@ MEMORY_DIR="$REPO_DIR/memory"
 mkdir -p "$MEMORY_DIR"
 
 # 2. Backup de SOUL.md (si existe y es más grande que el local)
-SOUL_LOCAL="/hermes-home/SOUL.md"
+SOUL_LOCAL="repo raíz/SOUL.md"
 SOUL_REPO="$REPO_DIR/mastermind/SOUL.md"
 if [ -f "$SOUL_LOCAL" ] && [ -f "$SOUL_REPO" ]; then
     local_size=$(wc -c < "$SOUL_LOCAL")

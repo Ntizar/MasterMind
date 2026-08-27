@@ -272,7 +272,7 @@ curl -s URL/js/cache-bust.js
 - **NUNCA usar IDs 10035-10043** — devuelven null
 - **Interconexiones:** valores negativos = importación, mostrar línea de cero
 - **Unidades:** >= 1000 MW → GW, < 1000 MW → MW. NUNCA "k MW"
-- **Cron jobs no heredan variables** — el script lee de `/proc/1/environ` y `/hermes-home/.env`
+- **Cron jobs no heredan variables** — el script lee de `/proc/1/environ` y `.env`
 
 ### Gráficos
 

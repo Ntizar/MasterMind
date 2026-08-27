@@ -152,7 +152,7 @@ script: batch-wrapper.sh # El wrapper
 ```
 
 **Importante con `no_agent: true`:**
-- El cron ejecuta desde `/hermes-home/scripts/` (no el workspace)
+- El cron ejecuta desde `scripts/` (no el workspace)
 - Usar **paths absolutos** en el wrapper
 - Hacer `cd` al directorio del proyecto al inicio
 
@@ -173,7 +173,7 @@ script: batch-wrapper.sh # El wrapper
 ## Pitfalls
 
 - **Re-scrapear es lento:** El wrapper NO debe volver a scrapear. Solo debe usar el índice existente y descargar/procesar. Si el worker re-scrapea, pierde la ventaja del chunking.
-- **`no_agent: true` cambia el working directory:** El cron ejecuta desde `/hermes-home/scripts/`, no desde el workspace. Siempre usar paths absolutos y hacer `cd` al inicio del wrapper.
+- **`no_agent: true` cambia el working directory:** El cron ejecuta desde `scripts/`, no desde el workspace. Siempre usar paths absolutos y hacer `cd` al inicio del wrapper.
 - **Idempotencia:** El worker debe detectar items ya procesados y saltarlos. Re-ejecutar no debe causar duplicados ni errores.
 - **Índice vs directorios:** El wrapper debe comparar lo que hay en disco vs lo que dice el índice. Si disco >= índice, saltar el chunk.
 - **Chunking granularity:** Elegir chunks que tengan **tiempo de ejecución consistente** (5-30 min cada uno). Si un chunk es 10x más grande que otros, considerar dividirlo más.

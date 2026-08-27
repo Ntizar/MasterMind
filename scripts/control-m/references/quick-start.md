@@ -5,7 +5,7 @@
 ### Paso 1: Generar informe de una cuenta
 
 ```bash
-python3 /hermes-home/scripts/control-m/generate-report.py 1 --pdf
+python3 scripts/control-m/generate-report.py 1 --pdf
 ```
 
 Esto genera un dossier completo de 8 páginas para la cuenta #1 (la de mayor score).
@@ -14,20 +14,20 @@ Esto genera un dossier completo de 8 páginas para la cuenta #1 (la de mayor sco
 
 Los PDFs se guardan en:
 ```
-/hermes-home/scripts/control-m/reports/
+scripts/control-m/reports/
 ```
 
 ### Paso 3: Generar más
 
 ```bash
 # Top 10 Tier A
-python3 /hermes-home/scripts/control-m/generate-report.py --tier "A – Atacar primero" --pdf
+python3 scripts/control-m/generate-report.py --tier "A – Atacar primero" --pdf
 
 # Sector Banking
-python3 /hermes-home/scripts/control-m/generate-report.py --segment "Banking" --pdf
+python3 scripts/control-m/generate-report.py --segment "Banking" --pdf
 
 # Cuentas específicas
-python3 /hermes-home/scripts/control-m/generate-report.py 1 5 10 15 20 --pdf
+python3 scripts/control-m/generate-report.py 1 5 10 15 20 --pdf
 ```
 
 ## ¿Qué incluye cada informe?
@@ -44,7 +44,7 @@ python3 /hermes-home/scripts/control-m/generate-report.py 1 5 10 15 20 --pdf
 ## Estructura de directorios
 
 ```
-/hermes-home/scripts/control-m/
+scripts/control-m/
 ├── README.md                    ← Este archivo
 ├── SKILL.md                     ← Skill completo
 ├── extract-accounts.py          ← Convierte Excel → JSON

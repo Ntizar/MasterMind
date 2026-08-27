@@ -53,7 +53,7 @@ def get_notes_stats():
     archive_dir = os.path.join(notes_dir, "archive")
     archived = len(list(Path(archive_dir).glob("*.md"))) if os.path.exists(archive_dir) else 0
 
-    memory_file = "/hermes-home/MEMORY.md"
+    memory_file = "repo raíz/MEMORY.md"
     memory_size = "0 chars"
     if os.path.exists(memory_file):
         size = os.path.getsize(memory_file)
@@ -105,7 +105,7 @@ def get_soul_status():
         content = Path(soul_file).read_text(encoding="utf-8")
         status = "OK" if len(content) > 500 else "WARNING: posible corrupción"
 
-        backup_file = "/hermes-home/SOUL.md"
+        backup_file = "repo raíz/SOUL.md"
         backup_time = "unknown"
         if os.path.exists(backup_file):
             mtime = os.path.getmtime(backup_file)

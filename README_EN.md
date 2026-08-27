@@ -88,7 +88,7 @@ hermes .     # or your preferred IDE
 4. GitHub as single source of truth
 5. Never delete from the Mastermind repo — only create or modify
 6. Significant notes → `notes/YYYY-MM-DD-titulo.md`
-7. New skills → `/hermes-home/skills/`
+7. New skills → `agent/skills/`
 8. Every important learning → commit to the repo
 9. No secrets in notes/commits/chat
 10. SOUL.md is the single source of truth for system identity

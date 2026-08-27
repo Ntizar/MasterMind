@@ -93,7 +93,7 @@ La documentación (README.md, SOUL.md, AGENTS.md, index.html, docs/ARCHITECTURE.
 | SOUL.md:53 | `notes/` | ❌ NO EXISTE |
 | SOUL.md:30, AGENTS.md, CHANGELOG.md | `human-loop-control/` | ❌ NO EXISTE |
 
-**Impacto:** El sistema se describe como si tuviera 4 componentes que no están. Si alguien clona el repo y sigue la documentación, encontrará errores. `SOUL.md` línea 30 dice `├── skills/ ← Especialistas por dominio` pero esa carpeta no existe. `SOUL.md` línea 146 dice "Skills nuevos → `/hermes-home/skills/`" — esto apunta a una ruta de Hermes que NO es el repo.
+**Impacto:** El sistema se describe como si tuviera 4 componentes que no están. Si alguien clona el repo y sigue la documentación, encontrará errores. `SOUL.md` línea 30 dice `├── skills/ ← Especialistas por dominio` pero esa carpeta no existe. `SOUL.md` línea 146 dice "Skills nuevos → `agent/skills/`" — esto apunta a una ruta de Hermes que NO es el repo.
 
 **Por qué es crítico:** Es una inconsistencia estructura-documentación que confunde al orquestador (Mastermind) y a cualquier humano que consulte el repo.
 

@@ -61,8 +61,8 @@ print(f'Runs: {d[\"total_runs\"]}, Last: {d[\"last_improved\"]}')"
 # cronjob action=pause job_id=afa399b9f32d
 
 # Ver output de la última ejecución
-ls -lt /hermes-home/cron/output/afa399b9f32d/ | head -5
-cat /hermes-home/cron/output/afa399b9f32d/*.md | tail -50
+ls -lt repo raíz/cron/output/afa399b9f32d/ | head -5
+cat repo raíz/cron/output/afa399b9f32d/*.md | tail -50
 ```
 
 ## Pitfalls conocidos

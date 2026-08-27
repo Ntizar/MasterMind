@@ -5,7 +5,7 @@ Ejecutar cuando el usuario pida autoauditoría o cuando se sospeche degradación
 ## 1. SOUL.md
 
 ```bash
-cat /hermes-home/SOUL.md
+cat repo raíz/SOUL.md
 # Debe tener >100 chars y definir identidad, idioma, comunicación
 ```
 
@@ -15,16 +15,16 @@ cat /hermes-home/SOUL.md
 
 ```bash
 # TTS voice — debe ser español
-grep "voice:" /hermes-home/config.yaml | head -3
+grep "voice:" repo raíz/config.yaml | head -3
 # Esperado: es-ES-AlvaroNeural (no en-US-AriaNeural)
 
 # Idioma display
-grep "language:" /hermes-home/config.yaml | head -1
+grep "language:" repo raíz/config.yaml | head -1
 # Esperado: es (no en)
 
 # Memoria
-grep "memory_char_limit:" /hermes-home/config.yaml
-grep "user_char_limit:" /hermes-home/config.yaml
+grep "memory_char_limit:" repo raíz/config.yaml
+grep "user_char_limit:" repo raíz/config.yaml
 ```
 
 **Corrección:**
@@ -37,10 +37,10 @@ hermes config set display.language es
 
 ```bash
 # Total
-find /hermes-home/skills -name "SKILL.md" | wc -l
+find agent/skills -name "SKILL.md" | wc -l
 
 # Sin tags (deberían ser 0)
-find /hermes-home/skills -name "SKILL.md" -exec sh -c '
+find agent/skills -name "SKILL.md" -exec sh -c '
   if head -1 "$1" | grep -q "^---"; then
     if ! head -10 "$1" | grep -q "^tags:"; then
       echo "NO TAGS: $1"
@@ -49,7 +49,7 @@ find /hermes-home/skills -name "SKILL.md" -exec sh -c '
 ' _ {} \;
 
 # Sin versión (deberían ser 0)
-find /hermes-home/skills -name "SKILL.md" -exec sh -c '
+find agent/skills -name "SKILL.md" -exec sh -c '
   if head -1 "$1" | grep -q "^---"; then
     if ! head -10 "$1" | grep -q "^version:"; then
       echo "NO VERSION: $1"
@@ -58,7 +58,7 @@ find /hermes-home/skills -name "SKILL.md" -exec sh -c '
 ' _ {} \;
 
 # Demasiado grandes (>30KB → usar refs pattern)
-find /hermes-home/skills -name "SKILL.md" -exec sh -c '
+find agent/skills -name "SKILL.md" -exec sh -c '
   size=$(wc -c < "$1")
   if [ "$size" -gt 30000 ]; then
     echo "TOO LARGE ($size bytes): $1"

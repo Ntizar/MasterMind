@@ -1,7 +1,7 @@
 # Test-Time Scaling (TTC/TTS) — Referencia Completa
 
 > **Session:** 2026-07-08
-> **Full note:** `/hermes-home/notes/deep-learning/2026-07-08-test-time-scaling-reasoning.md`
+> **Full note:** `notes/deep-learning/2026-07-08-test-time-scaling-reasoning.md`
 
 ## Taxonomía
 

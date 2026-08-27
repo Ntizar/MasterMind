@@ -14,31 +14,31 @@
 
 ```bash
 # Generar informe de cuenta #1 (la de mayor score)
-python3 /hermes-home/scripts/control-m/generate-report.py 1 --pdf
+python3 scripts/control-m/generate-report.py 1 --pdf
 
 # Generar informe de cuenta #5
-python3 /hermes-home/scripts/control-m/generate-report.py 5 --pdf
+python3 scripts/control-m/generate-report.py 5 --pdf
 
 # Generar informe de múltiples cuentas
-python3 /hermes-home/scripts/control-m/generate-report.py 1 5 12 20 --pdf
+python3 scripts/control-m/generate-report.py 1 5 12 20 --pdf
 
 # Generar TODAS las Tier A con PDF
-python3 /hermes-home/scripts/control-m/generate-report.py --tier "A – Atacar primero" --pdf
+python3 scripts/control-m/generate-report.py --tier "A – Atacar primero" --pdf
 
 # Generar las primeras 20 cuentas
-python3 /hermes-home/scripts/control-m/generate-report.py --limit 20 --pdf
+python3 scripts/control-m/generate-report.py --limit 20 --pdf
 
 # Generar informe de un sector específico
-python3 /hermes-home/scripts/control-m/generate-report.py --segment "Banking" --pdf
+python3 scripts/control-m/generate-report.py --segment "Banking" --pdf
 
 # Generar informe de una cuenta por nombre
-python3 /hermes-home/scripts/control-m/generate-report.py --name "Ibercaja" --pdf
+python3 scripts/control-m/generate-report.py --name "Ibercaja" --pdf
 ```
 
 ### Dónde están los informes
 
-- **HTML:** `/hermes-home/scripts/control-m/reports/*.html`
-- **PDF:** `/hermes-home/scripts/control-m/reports/*.pdf`
+- **HTML:** `scripts/control-m/reports/*.html`
+- **PDF:** `scripts/control-m/reports/*.pdf`
 
 ### Estructura del informe
 

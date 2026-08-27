@@ -14,7 +14,7 @@ Categorías vigentes:
 - `[identidad]` — Nombre, alias, atribución
 - `[prefs]` — Preferencias de comunicación, CSS, TTS, workflow
 
-Companion: `INDEX.yaml` en `/hermes-home/memories/` — versión estructurada con árbol jerárquico.
+Companion: `INDEX.yaml` en `repo raíz/memories/` — versión estructurada con árbol jerárquico.
 
 ## Notas (notes/)
 

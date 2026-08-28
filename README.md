@@ -1,6 +1,5 @@
 <div align="center">
 
-<img src="assets/banner.svg" alt="MasterMind" width="720"/>
 
 # 🧠 MasterMind
 

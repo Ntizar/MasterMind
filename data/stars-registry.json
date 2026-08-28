@@ -1104,14 +1104,47 @@
         "voice-ai-integration"
       ],
       "skill_created": false
+    },
+    "CorentinJ/Real-Time-Voice-Cloning": {
+      "explored_at": "2026-08-28T10:00:31.222795+00:00",
+      "category": "pending",
+      "stars": 60115,
+      "language": "Python",
+      "skill_angles": [
+        "voice-ai-integration"
+      ],
+      "skill_created": false
+    },
+    "calesthio/OpenMontage": {
+      "explored_at": "2026-08-28T10:00:37.624248+00:00",
+      "category": "pending",
+      "stars": 52824,
+      "language": "Python",
+      "skill_angles": [
+        "geospatial-3d-visualization"
+      ],
+      "skill_created": false
+    },
+    "hugohe3/ppt-master": {
+      "explored_at": "2026-08-28T10:00:44.230534+00:00",
+      "category": "pending",
+      "stars": 49967,
+      "language": "Python",
+      "skill_angles": [
+        "ci-cd-pipeline-patterns",
+        "crm-erp-patterns",
+        "realtime-dashboard"
+      ],
+      "skill_created": false
     }
   },
-  "last_run": "2026-08-28T07:13:29.994614+00:00",
+  "last_run": "2026-08-28T10:00:53+00:00",
   "total_skills_created": 1,
   "stats": {
-    "runs": 9,
-    "repos_explored": 127,
-    "skills_generated": 9
+    "runs": 10,
+    "repos_explored": 130,
+    "skills_generated": 9,
+    "last_batch": 3
   },
   "roboflow/supervision": {
     "explored_at": "2026-06-29T06:58:00",
@@ -1134,5 +1167,20 @@
     ],
     "skill_created": true,
     "skill_name": "skillspector"
+  },
+  "CorentinJ/Real-Time-Voice-Cloning": {
+    "category": "skip",
+    "skill_created": false,
+    "razon": "Ya cubierto: skills de clonación de voz existentes (gpt-sovits-tts score 0.91, voicebox 0.90, openvoice-voice-cloning 0.85)."
+  },
+  "calesthio/OpenMontage": {
+    "category": "skip",
+    "skill_created": false,
+    "razon": "Ya cubierto: video-processing (0.88) y creative/comfyui (0.80). Sistema agéntico de producción de vídeo, sin patrones nuevos para los proyectos de David."
+  },
+  "hugohe3/ppt-master": {
+    "category": "skip",
+    "skill_created": false,
+    "razon": "Ya cubierto: skill ppt-master existe (0.76). Mismo proyecto/funcionalidad."
   }
 }

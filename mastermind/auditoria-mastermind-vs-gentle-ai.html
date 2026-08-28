@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auditoría comparativa — MasterMind vs Gentle-AI</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.themes.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.data.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.charts.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.ui.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.patterns.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.next.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.motion.css">
+<style>
+.aud-shell{min-height:100vh;background:#fff}
+.aud-wrap{max-width:1180px;margin:0 auto;padding:var(--nz-space-6) var(--nz-space-4)}
+.aud-hero{padding:var(--nz-space-7) 0 var(--nz-space-5)}
+.aud-grid{display:grid;grid-template-columns:1fr;gap:var(--nz-space-4)}
+@media(min-width:601px){.aud-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:901px){.aud-grid{grid-template-columns:repeat(3,1fr)}}
+.aud-col{display:flex;flex-direction:column;gap:var(--nz-space-3)}
+.aud-col>.nz-card{flex:1}
+</style>
+</head>
+<body class="nz" data-nz-theme="light" data-nz-skin="aurora" data-nz-color-system="hex">
+<div class="aud-shell">
+  <div class="aud-wrap">
+
+    <header class="aud-hero">
+      <div class="nz-stack nz-stack--sm">
+        <span class="nz-badge nz-badge--glass-brand">Auditoría comparativa · 2026-08-28</span>
+        <h1 class="nz-text-h1">MasterMind <span class="nz-text-muted">vs</span> Gentle-AI</h1>
+        <p class="nz-text-muted" style="max-width:46rem">Dos filosofías opuestas para potenciar agentes de código IA: un ecosistema personal auto-aprendiente frente a un instalador multi-agente open source. Datos verificados en ambos repos a 28 de agosto de 2026.</p>
+        <div class="nz-cluster" style="gap:var(--nz-space-2)">
+          <a class="nz-btn nz-btn--glass-liquid-brand" href="https://github.com/Ntizar/MasterMind" target="_blank" rel="noopener">Ver MasterMind</a>
+          <a class="nz-btn nz-btn--glass" href="https://github.com/Gentleman-Programming/gentle-ai" target="_blank" rel="noopener">Ver Gentle-AI</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="nz-stack nz-stack--md">
+      <h2 class="nz-text-h3">Datos duros, cara a cara</h2>
+      <div class="nz-stat-grid--3">
+        <div class="nz-kpi nz-kpi--accent">
+          <span class="nz-kpi__label">Estrellas GitHub</span>
+          <span class="nz-kpi__value">6.003 vs 2</span>
+          <span class="nz-kpi__delta">Comunidad global vs sistema personal</span>
+        </div>
+        <div class="nz-kpi">
+          <span class="nz-kpi__label">Commits totales</span>
+          <span class="nz-kpi__value">2.965 vs 15</span>
+          <span class="nz-kpi__delta">5 meses de vida cada uno</span>
+        </div>
+        <div class="nz-kpi">
+          <span class="nz-kpi__label">Contribuidores</span>
+          <span class="nz-kpi__value">10+ vs 1</span>
+          <span class="nz-kpi__delta">Equipo abierto vs autor único</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="nz-stack nz-stack--md">
+      <h2 class="nz-text-h3">Comparativa por dimensiones</h2>
+      <div class="nz-card nz-card--glass-liquid nz-hover-lift">
+        <div style="overflow-x:auto">
+          <table class="nz-table">
+            <thead>
+              <tr><th>Dimensión</th><th>MasterMind</th><th>Gentle-AI</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Naturaleza</strong></td><td>Sistema personal de agente (no portable)</td><td>Instalador multi-agente open source (MIT)</td></tr>
+              <tr><td><strong>Motor</strong></td><td>Hermes Agent sobre Windows 11</td><td>Claude Code, OpenCode, Cursor, Codex, Pi, Gemini CLI, Windsurf, VS Code y más</td></tr>
+              <tr><td><strong>Memoria</strong></td><td>memory + session_search + MEMORY.md/USER.md inyectada cada sesión</td><td>Engram (MCP): observaciones por proyecto, TUI, sync vía git, dedupe de prompts</td></tr>
+              <tr><td><strong>Skills</strong></td><td>308 SKILL.md indexados por significado en ChromaDB (qwen3-embedding, 4096d)</td><td>Registry curado + skill-registry refresh + hooks de arranque por agente</td></tr>
+              <tr><td><strong>Workflow</strong></td><td>Niveles 1-4 + human loop obligatorio en cambios críticos</td><td>RDD opt-in (revisión acotada con evidencia), SDD opcional, enrutado directo/delegado</td></tr>
+              <tr><td><strong>Idioma</strong></td><td>100% castellano</td><td>100% inglés</td></tr>
+              <tr><td><strong>Instalación</strong></td><td>Hermes + NaN.builders + GitHub (configuración manual)</td><td>go install o curl | bash; dry-run, doctor, rollback y sync de serie</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="nz-stack nz-stack--md">
+      <h2 class="nz-text-h3">Lo mejor de cada uno</h2>
+      <div class="aud-grid">
+        <div class="aud-col">
+          <div class="nz-card nz-card--glass-liquid nz-hover-lift">
+            <div class="nz-stack nz-stack--sm">
+              <span class="nz-badge nz-badge--brand">MasterMind · pros</span>
+              <ul style="padding-left:1.1rem;margin:0">
+                <li>Búsqueda semántica real: 311 skills indexados en ChromaDB, se cargan por relevancia (score &gt; 0.25), no por nombre</li>
+                <li>Aprende solo: el scout cada 6h explora tus stars de GitHub y convierte repos en skills</li>
+                <li>Memoria dual (memory tool + session_search FTS5) que sobrevive a sesiones y reinicios</li>
+                <li>Human loop como disciplina: nunca comitea ni despliega sin tu ✅</li>
+                <li>Todo en castellano, con identidad y atribución propias</li>
+              </ul>
+            </div>
+          </div>
+          <div class="nz-card nz-card--glass-liquid nz-hover-lift">
+            <div class="nz-stack nz-stack--sm">
+              <span class="nz-badge nz-badge--danger">MasterMind · contras</span>
+              <ul style="padding-left:1.1rem;margin:0">
+                <li>No portable: vive en tu PC con tus APIs y tus credenciales</li>
+                <li>Comunidad de 1: sin revisiones externas ni contribuciones</li>
+                <li>test-suite.sh cubre estructura (68 tests), no comportamiento del agente</li>
+                <li>Depende de modelos NaN.builders externos para embeddings y razonamiento</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="aud-col">
+          <div class="nz-card nz-card--glass-liquid nz-hover-lift">
+            <div class="nz-stack nz-stack--sm">
+              <span class="nz-badge nz-badge--accent">Gentle-AI · pros</span>
+              <ul style="padding-left:1.1rem;margin:0">
+                <li>Multi-agente real: 10+ runtimes con adaptadores específicos por agente</li>
+                <li>Engram: memoria MCP con TUI, export/import por git y consolidación de proyectos</li>
+                <li>Ingeniería seria: 2.965 commits, e2e en Docker (Ubuntu+Arch), fixtures golden, firma minisign</li>
+                <li>dry-run, doctor, sync, backup y rollback incluidos de serie</li>
+                <li>Seguridad: sin postinstall scripts, versiones pinneadas, verificación sha256</li>
+              </ul>
+            </div>
+          </div>
+          <div class="nz-card nz-card--glass-liquid nz-hover-lift">
+            <div class="nz-stack nz-stack--sm">
+              <span class="nz-badge nz-badge--danger">Gentle-AI · contras</span>
+              <ul style="padding-left:1.1rem;margin:0">
+                <li>No es un agente: es un configurador — necesitas el agente ya instalado</li>
+                <li>908 issues abiertos y binarios de Windows sin firma temporalmente (instala desde fuente con Go)</li>
+                <li>Documentación compleja (RDD, SDD, review contract) con curva alta</li>
+                <li>Todo en inglés y orientado a repos de código, no a uso personal generalista</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="aud-col">
+          <div class="nz-card nz-card--glass-liquid">
+            <div class="nz-stack nz-stack--sm">
+              <span class="nz-badge nz-badge--glass">Lo más interesante</span>
+              <ul style="padding-left:1.1rem;margin:0">
+                <li>Gentle-AI madura la idea archivada de Agent Teams Lite con memoria persistente</li>
+                <li>Su "verifiable trust" encaja con tu human loop: confiar en evidencia, no en narración del agente</li>
+                <li>Engram sync por git ≈ tu backup de memoria a GitHub: misma idea, distinta escala</li>
+                <li>El skill-registry de Gentle-AI y tu ChromaDB resuelven lo mismo (contexto pertinente) por caminos distintos: curación + hooks vs embeddings</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="nz-stack nz-stack--md">
+      <h2 class="nz-text-h3">¿Cuándo usar cada uno?</h2>
+      <div class="aud-grid">
+        <div class="nz-card nz-card--glass-liquid">
+          <div class="nz-stack nz-stack--sm">
+            <span class="nz-badge nz-badge--brand">Elige MasterMind si…</span>
+            <ul style="padding-left:1.1rem;margin:0">
+              <li>Quieres un agente que aprenda de tu trabajo y de tus stars mientras duermes</li>
+              <li>Trabajas en tu PC y valoras memoria semántica por significado</li>
+              <li>Prefieres control total (human loop) y todo en castellano</li>
+            </ul>
+          </div>
+        </div>
+        <div class="nz-card nz-card--glass-liquid">
+          <div class="nz-stack nz-stack--sm">
+            <span class="nz-badge nz-badge--accent">Elige Gentle-AI si…</span>
+            <ul style="padding-left:1.1rem;margin:0">
+              <li>Usas varios agentes y quieres memoria y skills comunes en todos</li>
+              <li>Necesitas disciplina de entrega verificable (RDD/SDD) en equipo</li>
+              <li>Quieres instalación con rollback, doctor y releases firmados</li>
+            </ul>
+          </div>
+        </div>
+        <div class="nz-card nz-card--glass-liquid">
+          <div class="nz-stack nz-stack--sm">
+            <span class="nz-badge nz-badge--glass-brand">Veredicto</span>
+            <p style="margin:0">No compiten: <strong>MasterMind es el cerebro personal</strong> (aprende, recuerda, decide cuánta artillería usar), <strong>Gentle-AI es el equipo de montaje</strong> (viste de memoria, skills y disciplina a los agentes que ya tengas). Combinables: Gentle-AI sobre Claude Code en un repo de equipo, MasterMind como capa de aprendizaje en tu PC.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="nz-stack nz-stack--sm" style="padding:var(--nz-space-6) 0 var(--nz-space-5);text-align:center">
+      <span class="nz-text-muted nz-text-sm">Auditoría con datos verificados de ambos repos · 2026-08-28</span>
+      <span class="nz-text-muted nz-text-sm">Hecho con ❤️ por David Antizar</span>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>

@@ -1,134 +1,250 @@
-<h1 align="center">MasterMind</h1>
+<div align="center">
 
-<p align="center">
-  <strong>El sistema de agente IA personal de David Antizar:<br>memoria persistente, skills con búsqueda semántica y backup en GitHub.</strong>
-</p>
+<img src="assets/banner.svg" alt="MasterMind" width="720"/>
 
-<p align="center">
-  <a href="https://ntizar.github.io/MasterMind/">🌐 Web</a> ·
-  <a href="#cómo-funciona">Cómo funciona</a> ·
-  <a href="#stack">Stack</a> ·
-  <a href="README_EN.md">English</a>
-</p>
+# 🧠 MasterMind
+
+**Un agente IA que aprende solo, recuerda todo y mientras tú duermes
+estudia los repos que marcaste con estrella.**
+
+[![Plataforma](https://img.shields.io/badge/plataforma-Windows_11-0078D4?style=flat-square&logo=windows11&logoColor=white)](https://github.com/Ntizar/MasterMind)
+[![Motor](https://img.shields.io/badge/motor-Hermes_Agent-blue?style=flat-square)](https://github.com/NousResearch/hermes-agent)
+[![Modelos](https://img.shields.io/badge/modelos-NaN.builders-FF6B35?style=flat-square)](https://nan.builders)
+[![Búsqueda](https://img.shields.io/badge/skills-ChromaDB_semántico-8A2BE2?style=flat-square)](https://www.trychroma.com)
+[![Idioma](https://img.shields.io/badge/idioma-Español-FFD700?style=flat-square)](#)
+[![Licencia](https://img.shields.io/badge/licencia-MIT-green?style=flat-square)](LICENSE)
+
+[🌐 Ver la web](https://ntizar.github.io/MasterMind/) · [Cómo funciona](#-cómo-funciona) · [El ciclo autónomo](#-el-ciclo-autónomo) · [English](README_EN.md)
+
+</div>
 
 ---
 
-## Qué es (y qué no es)
+> [!IMPORTANT]
+> **Esto no es un framework open-source.** No puedes clonarlo y ejecutarlo tal cual — es el sistema personal de agente IA de David Antizar. Lo que sí es: una **arquitectura de referencia real y funcionando a diario**, de cómo un agente puede aprender de cada tarea, indexar su conocimiento por significado y aprender de GitHub mientras duerme.
 
-**Esto no es un framework open-source.** No es un producto que puedas clonar y ejecutar. Es mi **sistema personal de agente IA** — una configuración muy específica de Hermes Agent + NaN.builders + ChromaDB + GitHub, construida para mí y que ejecuta tanto en mi PC (Windows) como en la nube.
+---
 
-Lo que sí es: una **arquitectura de referencia** de cómo un agente IA puede aprender de cada tarea, indexar su conocimiento en una base vectorial, aprender de las stars de GitHub mientras duermes, y persistir todo en un repo.
+## 💡 La idea en 30 segundos
 
-## Cómo funciona
+La mayoría de asistentes IA sufren amnesia: cada sesión empiezan de cero, no saben quién eres ni lo que hicieron ayer, y su conocimiento útil se evapora.
+
+**MasterMind es lo contrario.** Vive en mi PC (Windows 11), ejecuta sobre [Hermes Agent](https://github.com/NousResearch/hermes-agent) con modelos de [NaN.builders](https://nan.builders), y tiene tres superpoderes:
+
+| Superpoder | Cómo |
+|---|---|
+| 🧠 **Recuerda** | Memoria persistente que se inyecta en cada sesión: quién soy, mis proyectos, mis preferencias y las lecciones aprendidas |
+| 📚 **Sabe buscar** | Sus skills no se cargan por nombre sino **por significado**, con búsqueda semántica en ChromaDB y embeddings |
+| 🌙 **Aprende solo** | Cada 6 horas explora las repos que marco con ⭐ en GitHub, extrae sus patrones y convierte lo que aprende en skills nuevos |
+
+Y todo esto queda respaldado en este repositorio, que es su fuente de verdad.
+
+---
+
+## 🔄 Cómo funciona
 
 ```
-Tarea de David
-│
-▼
-Mastermind (agente Hermes — qwen3.8 / glm5.3 vía NaN API)
-│
-├── 1. Consulta ChromaDB (búsqueda semántica)
-│      └── python scripts/consultar-skills.py "palabras clave" --json
-│
-├── 2. Filtra skills con score > 0.25
-│      └── Carga solo los relevantes con skill_view()
-│
-├── 3. Ejecuta la tarea
-│      └── Terminal, browser, files, delegate_task
-│
-└── 4. Aprendizaje continuo
-       ├── ¿Merece skill?   → skill_manage(create) + re-indexar
-       ├── ¿Merece nota?    → notes/YYYY-MM-DD-titulo.md
-       ├── ¿Merece memoria? → memory(add)
-       └── Commit al repo
+                        Tarea de David
+                              │
+                              ▼
+     ┌─────────────────────────────────────────────┐
+     │   MASTERMIND (Hermes Agent + NaN.builders)  │
+     └─────────────────────────────────────────────┘
+                              │
+        ┌─────────────────────┼─────────────────────┐
+        ▼                     ▼                     ▼
+  1️⃣ CONSULTA           2️⃣ EJECUTA            3️⃣ APRENDE
+  Búsqueda semántica    Herramientas del      ¿Merece un skill?
+  en ChromaDB:          agente: terminal,     ¿Merece una nota?
+  "¿qué sé de X?"       navegador, ficheros,  ¿Merece memoria?
+  → skills ordenados    delegación a          → lo guarda y
+    por relevancia      sub-agentes           hace commit
+                              │
+                              ▼
+                    La próxima sesión sabe más
 ```
 
-### Las 3 capas de conocimiento
+### 1️⃣ La búsqueda semántica (el corazón del sistema)
 
-| Capa | Dónde vive | Qué guarda | Persistencia |
-| --- | --- | --- | --- |
-| 🧠 **Memoria Hermes** | `agent/MEMORY.md` + `agent/USER.md` | Preferencias, proyectos, lecciones | Inyectada en cada turno |
-| 📚 **Skills** | `agent/skills/` | Procedimientos reutilizables por dominio | Carga bajo demanda vía ChromaDB |
-| 🔒 **Repo GitHub** | `Ntizar/MasterMind` | Backup completo de todo | Push en cada ciclo de aprendizaje |
-
-> El número de skills **no es fijo**: crece con cada ciclo del stars-explorer y cada sesión de trabajo. La cifra actual se consulta con `python scripts/indexar-skills.py` o consultando ChromaDB.
-
-### Búsqueda semántica (ChromaDB)
-
-El sistema no carga skills por nombre — busca por **significado**:
+MasterMind **no** tiene una lista de skills que carga todas juntas. Tiene una base de datos vectorial:
 
 ```bash
-python scripts/consultar-skills.py "visor de mapas con isócronas" --json
-# → skills ordenados por score de similitud coseno
-# → sin límite arbitrario: si 50 skills son relevantes, se cargan los 50
+python scripts/consultar-skills.py "mapa de isócronas de transporte" --json
 ```
 
-- **Embeddings:** `qwen3-embedding` vía NaN API (distancia coseno, dim 4096)
-- **Colección:** `mastermind-skills` (ChromaDB persistente en `~/.mastermind/chromadb`)
-- **Re-indexación:** tras cada ciclo de aprendizaje, o manual con `--reset`
+```json
+[
+  { "name": "routing-isochrones",     "score": 0.72 },
+  { "name": "accessibility-map",      "score": 0.68 },
+  { "name": "valhalla-routing",       "score": 0.61 }
+]
+```
 
-### Aprendizaje automático desde las stars de GitHub
+Cada skill está indexado con `qwen3-embedding` (4096 dimensiones, distancia coseno). Si una tarea necesita 3 skills, carga 3. Si necesita 50, carga 50. **Sin límites artificiales — solo relevancia.**
 
-El corazón del sistema: mientras duermo, Mastermind estudia los repos que marco con estrella y convierte lo que aprende en skills.
+### 2️⃣ Los niveles de ejecución
 
-| Job | Schedule | Qué hace |
-| --- | --- | --- |
-| `mastermind-scout` | cada 6h | Explora un batch de stars → analiza tech stack y patrones → crea skills nuevos (con dedup semántico) → commit + push |
-| `mastermind-weekly-digest` | lunes 9:00 | Resumen semanal: números, skills nuevos, skips y recomendaciones |
+Antes de actuar, MasterMind decide cuánta artillería necesita la tarea:
 
-Criterios completos y detalles del pipeline: [`mastermind/stars-explorer.md`](mastermind/stars-explorer.md).
+| Nivel | Cuándo | Patrón |
+|:---:|---|---|
+| 🟢 **1 — Directo** | Buscar, leer, un commit | MasterMind solo, 1-3 tool calls |
+| 🟡 **2 — Simple** | Un refactor, un módulo | 4-8 tool calls |
+| 🟠 **3 — Paralelo** | Frontend + backend + tests | Delegación a 2-3 sub-agentes |
+| 🔴 **4 — Orquestación** | Una feature completa | Planner → implementadores → revisor |
 
-## Stack
+Y en cambios críticos (más de 5 archivos, decisiones de arquitectura, deploys) se activa el **human loop**: planifica → espera tu ✅ → implementa → espera tu ✅. Nunca asume.
 
-| Componente | Qué es |
-| --- | --- |
-| **Modelo principal** | `qwen3.8-flash` vía NaN API (api.nan.builders/v1) |
-| **Modelo secundario** | `glm5.3-flash` — fallback / según disponibilidad de tokens |
-| **Agente** | Hermes Agent — desktop (Windows local), max_turns 90, delegación nativa |
-| **Gateway** | Hermes gateway — arranca al login (Scheduled Task/Startup), da vida a los cron |
-| **Vector DB** | ChromaDB — colección `mastermind-skills`, persistente local |
-| **Embeddings** | `qwen3-embedding` — distancia coseno, dim 4096 |
-| **GitHub** | `Ntizar/MasterMind` — auth vía `gh` CLI (keyring de Windows) |
-| **Idioma** | Español — todo el sistema |
+---
 
-## Estructura del repo
+## 🌙 El ciclo autónomo
+
+Esto es lo que hace MasterMind cuando nadie le está hablando:
+
+<div align="center">
+
+```
+     ☀️  DÍA                    🌙  NOCHE                  📅  SEMANA
+┌─────────────────┐      ┌─────────────────────┐     ┌──────────────────┐
+│  SCOUT  · cada 6h│      │ DOCTOR · diario 10h │     │ DIGEST · lunes 9h│
+│                 │      │                     │     │                  │
+│ Explora un batch│      │ ¿Gateway vivo?      │     │ ¿Qué hemos       │
+│ de tus stars de │      │ ¿Crons corrieron?   │     │ aprendido esta   │
+│ GitHub →        │      │ ¿ChromaDB synced?   │     │ semana?          │
+│                 │      │ ¿Repo sincronizado? │     │                  │
+│ ¿Merece skill?  │      │                     │     │ Skills nuevos,   │
+│ ├─ SÍ → lo crea │      │ Se autocura lo      │     │ números, recomend│
+│ └─ NO → lo salta│      │ seguro y si todo    │     │ aciones para la  │
+│      (con razón)│      │ va bien, en silencio│     │ próxima semana   │
+│                 │      │                     │     │                  │
+│ commit + push   │      │ commit si toca      │     │ informe          │
+└─────────────────┘      └─────────────────────┘     └──────────────────┘
+```
+
+</div>
+
+**El dedup semántico es lo que hace sostenible el ciclo:** antes de crear un skill, el scout busca en ChromaDB si ya existe algo equivalente. Si existe, lo salta y anota la razón. Cada skill que entra al sistema es conocimiento **nuevo**, no duplicado.
+
+---
+
+## 🗂️ Las 3 capas de conocimiento
+
+| Capa | Dónde vive | Qué guarda |
+|---|---|---|
+| 🧠 **Memoria** | `agent/MEMORY.md` + `agent/USER.md` | Proyectos, preferencias, lecciones del día a día. Se inyecta en cada sesión |
+| 📚 **Skills** | `agent/skills/` + ChromaDB | Procedimientos reutilizables por dominio: GIS, transporte, dashboards, ML, STEM... |
+| 🔒 **Backup** | Este repositorio | Todo lo anterior, con push en cada ciclo de aprendizaje |
+
+> [!NOTE]
+> El número de skills **no es fijo**: crece con cada ciclo del scout y cada sesión de trabajo. Es una pregunta que el sistema se hace, no un dato que se escribe en un badge.
+
+---
+
+## 🏗️ Estructura del repositorio
 
 ```
 MasterMind/
-├── agent/               ← el agente
-│   ├── skills/          ← skills por dominio (indexados en ChromaDB)
-│   ├── MEMORY.md        ← memoria de proyectos y lecciones
-│   ├── USER.md          ← identidad y preferencias de David
-│   └── SOUL.md          ← identidad del agente (fuente de verdad)
-├── scripts/             ← motor: ChromaDB, stars-explorer, backup, lifecycle
-├── notes/               ← notas de aprendizaje continuo
-├── mastermind/          ← documentación del sistema
-├── data/                ← stars-registry.json (estado de los pipelines)
-├── index.html           ← web pública (GitHub Pages)
-└── AGENTS.md            ← referencia rápida para agentes que aterrizan aquí
+│
+├── 🤖 agent/                  ← el agente
+│   ├── skills/                ← skills por dominio (indexados en ChromaDB)
+│   ├── MEMORY.md              ← memoria de proyectos y lecciones
+│   ├── USER.md                ← identidad y preferencias de David
+│   └── SOUL.md                ← la identidad del agente (fuente de verdad)
+│
+├── ⚙️ scripts/                ← el motor
+│   ├── consultar-skills.py    ← búsqueda semántica
+│   ├── indexar-skills.py      ← indexación en ChromaDB
+│   ├── explorar-stars.py      ← explorador de stars de GitHub
+│   ├── doctor.py              ← health check del sistema
+│   └── ...                    ← backup, lifecycle, ebbinghaus...
+│
+├── 📝 notes/                  ← notas de aprendizaje continuo
+├── 📊 data/                   ← stars-registry.json (estado de los pipelines)
+├── 📖 mastermind/             ← documentación interna del sistema
+└── 🌐 index.html              ← la web pública (GitHub Pages)
 ```
 
-## Scripts del sistema
+---
 
-| Script | Función |
-| --- | --- |
-| `scripts/consultar-skills.py` | Búsqueda semántica en ChromaDB |
-| `scripts/indexar-skills.py` | Indexa todos los SKILL.md en ChromaDB (`--reset` para reindexar todo) |
-| `scripts/explorar-stars.py` | Explora las stars de GitHub y prepara análisis para crear skills |
-| `scripts/run-stars-explorer.sh` | Wrapper del explorador (token vía `gh auth`, Windows-compatible) |
-| `scripts/backup-hermes-memory.sh` | Backup de memoria al repo |
-| `scripts/skill-lifecycle.py` | Analiza uso real y reclasifica skills |
-| `scripts/ebbinghaus-decay.py` | Repaso espaciado (curva del olvido) |
+## 🧰 Stack
 
-## Roadmap
+| Capa | Tecnología | Papel |
+|---|---|---|
+| **Agente** | [Hermes Agent](https://github.com/NousResearch/hermes-agent) | Motor de ejecución: tools, delegación, gateway, cron |
+| **Superficie** | Hermes Desktop (Windows 11) | Donde converso con MasterMind a diario |
+| **Modelos** | [NaN.builders](https://nan.builders) API | `glm5.3-flash` / `qwen3.8-flash` según fase y presupuesto |
+| **Embeddings** | `qwen3-embedding` | Vectores de 4096 dim para la búsqueda semántica |
+| **Base vectorial** | [ChromaDB](https://www.trychroma.com) | Persistente y embebida, sin servidor |
+| **VCS** | GitHub (`Ntizar/MasterMind`) | Fuente de verdad y backup con historia |
+| **Gateway** | Hermes Gateway | Mantiene vivos los cron jobs, autoarranque al login |
 
-- **v4.2 (actual)** — migración a Windows local: gateway propio, ChromaDB embebido, scouts de stars, estructura `agent/` unificada
-- **v4.3 (próximo)** — más crons de dominio (ESIOS, inventario de APIs), TTS/STT local, dashboard de tracking
+---
 
-## Licencia
+## 🚀 Guía rápida (si fueras yo)
 
-MIT License — ver [LICENSE](LICENSE).
+> [!WARNING]
+> Esto es lo que haría yo en **mi** máquina para reconstruir el sistema. No es un instalador genérico.
 
-Hecho con ❤️ por **[David Antizar](https://github.com/Ntizar)**
+```bash
+# 1. Instalar Hermes Agent
+curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash   # o el instalador Windows
 
-Mastermind es mi ejecutor, yo soy el autor.
+# 2. Clonar el sistema (el repo ES la configuración)
+git clone https://github.com/Ntizar/MasterMind ~/Projects/MasterMind
+
+# 3. Instalar ChromaDB en el Python del sistema
+pip install chromadb
+
+# 4. Indexar los skills (necesita las credenciales de la API de embeddings en el .env de Hermes)
+python scripts/indexar-skills.py --reset
+
+# 5. Comprobar que el sistema respira
+python scripts/doctor.py
+
+# 6. Probar la búsqueda semántica
+python scripts/consultar-skills.py "cualquier tema" --json
+```
+
+Y el health check en acción:
+
+```
+🩺 Doctor Mastermind — 2026-08-28 14:39
+
+✅ gateway          ✓ proceso vivo, autoarranque activo
+✅ chromadb         indexados: 311 | SKILL.md en disco: 311
+✅ stars-registry   último run hace 2.6h | 133 repos procesados
+✅ git              rama: master | LIMPIO
+
+✅ Todo en orden
+```
+
+---
+
+## 📜 Las 12 reglas del sistema
+
+Destiladas del uso diario real:
+
+1. **Un orquestador, muchos especialistas** — MasterMind clasifica y delega, los skills ejecutan
+2. **Skills bajo demanda por significado** — ChromaDB primero, `skill_view()` después
+3. **Memoria persistente** — nada se aprende dos veces, nada se olvida
+4. **GitHub como fuente de verdad** — Markdown plano, sin dependencias externas
+5. **NUNCA borrar del repo** — solo crear o modificar
+6. **Notas significativas** → `notes/YYYY-MM-DD-titulo.md`
+7. **Skills nuevos** → `agent/skills/` + reindexar ChromaDB
+8. **Cada aprendizaje importante** → commit al repo
+9. **Los secretos viven solo en `.env`** — nunca en notas, commits ni prompts de cron
+10. **SOUL.md es la fuente de verdad** de la identidad
+11. **Todo en castellano** — repos, scripts, crons e informes
+12. **Human loop en cambios críticos** — diffs visibles, aprobación explícita
+
+---
+
+<div align="center">
+
+**Hecho con ❤️ por [David Antizar](https://github.com/Ntizar)**
+
+*MasterMind es mi ejecutor. Yo soy el autor.*
+
+[🌐 Web](https://ntizar.github.io/MasterMind/) · [English](README_EN.md) · [Licencia MIT](LICENSE)
+
+</div>

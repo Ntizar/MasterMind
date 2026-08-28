@@ -1136,13 +1136,46 @@
         "realtime-dashboard"
       ],
       "skill_created": false
+    },
+    "coqui-ai/TTS": {
+      "explored_at": "2026-08-28T16:00:34.541748+00:00",
+      "category": "pending",
+      "stars": 45966,
+      "language": "Python",
+      "skill_angles": [
+        "ci-cd-pipeline-patterns",
+        "voice-ai-integration"
+      ],
+      "skill_created": false
+    },
+    "heygen-com/hyperframes": {
+      "explored_at": "2026-08-28T16:00:41.144725+00:00",
+      "category": "pending",
+      "stars": 42964,
+      "language": "TypeScript",
+      "skill_angles": [
+        "geospatial-3d-visualization",
+        "voice-ai-integration"
+      ],
+      "skill_created": false
+    },
+    "freeCodeCamp/devdocs": {
+      "explored_at": "2026-08-28T16:00:47.491025+00:00",
+      "category": "pending",
+      "stars": 39384,
+      "language": "Ruby",
+      "skill_angles": [
+        "ci-cd-pipeline-patterns",
+        "crm-erp-patterns"
+      ],
+      "skill_created": false
     }
   },
-  "last_run": "2026-08-28T10:00:53+00:00",
+  "last_run": "2026-08-28T16:00:48.492054+00:00",
   "total_skills_created": 1,
   "stats": {
-    "runs": 10,
-    "repos_explored": 130,
+    "runs": 11,
+    "repos_explored": 133,
     "skills_generated": 9,
     "last_batch": 3
   },

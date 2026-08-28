@@ -1,8 +1,22 @@
 /* ============================================================
-   NTIZAR DESIGN SYSTEM
+   NTIZAR DESIGN SYSTEM — DEPRECATED (no usar en proyectos nuevos)
    Liquid Glass UI — Azul & Naranja
    v1.0.0
    ============================================================
+
+   ⚠️ ESTE ARCHIVO ESTÁ DEPRECADO DESDE AURORA v6 (2026-08).
+
+   La fuente de verdad del diseño es ahora el repositorio
+   Ntizar/Ntizar-Aurora (v6 "Constellation"), consumido vía CDN:
+
+     https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.css
+
+   Packs disponibles: core, themes, next (liquid glass interactivo),
+   three (escenas Three.js + three-scenes.js), data, charts, maps,
+   viz, motion, forms, ui, patterns, nucleo. Documentación:
+   https://github.com/Ntizar/Ntizar-Aurora (INDEX.md, LLM.md).
+
+   Se conserva por la regla del repo (nunca borrar). No mantener.
 
    INDICE:
    1.  Reset & Base

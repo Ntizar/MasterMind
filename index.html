@@ -4,564 +4,413 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ntizar Mastermind — Orquestación Multi-Agente con Memoria Persistente</title>
-  <meta name="description" content="Framework open-source de orquestación multi-agente con 1 orquestador + 265 skills especializados, memoria persistente y deploy en la nube. Tu IA que realmente recuerda.">
+  <meta name="description" content="Framework open-source de orquestación multi-agente: 1 orquestador + skills especializados, memoria persistente, liquid glass interactivo y escena de orquestación en Three.js.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 
   <!-- Open Graph / Social Sharing -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Ntizar Mastermind — Orquestación Multi-Agente con Memoria Persistente">
-  <meta property="og:description" content="1 orquestador + 265 skills especializados + memoria persistente. Framework open-source que ejecuta en Hermes Agent sobre NaN.builders.">
+  <meta property="og:description" content="1 orquestador + skills especializados + memoria persistente. Framework open-source que ejecuta en Hermes Agent sobre NaN.builders.">
   <meta property="og:image" content="https://raw.githubusercontent.com/Ntizar/MasterMind/main/assets/banner.svg">
   <meta property="og:url" content="https://ntizar.github.io/MasterMind/">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Ntizar Mastermind — Tu IA que realmente recuerda">
-  <meta name="twitter:description" content="Framework open-source de orquestación multi-agente. 1 orquestador, 265 skills, memoria persistente.">
+  <meta name="twitter:description" content="Framework open-source de orquestación multi-agente.">
 
-  <!-- Aurora Core (sin releases — usar @latest) -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@latest/ntizar.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@latest/ntizar.next.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@latest/ntizar.data.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@latest/ntizar.ui.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@latest/ntizar.patterns.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@latest/ntizar.motion.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@latest/ntizar.viz.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@latest/ntizar.themes.css">
+  <!-- Aurora v6 (12 packs + escenas Three.js + glass interactivo) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.themes.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.next.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.three.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.data.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.patterns.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.motion.css">
 
   <style>
-    /* ═══ Responsive + layout custom (Aurora no cubre esto) ═══ */
-
-    /* Nav responsive */
-    .nav-links { display: flex; gap: var(--nz-space-3); align-items: center; }
-    .nav-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--nz-text-default); padding: var(--nz-space-1); }
-
+    /* ═══ Responsive del nav (Aurora no cubre el colapso móvil) — 14 líneas ═══ */
+    .nav-toggle { display: none; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--nz-text-default); padding: var(--nz-space-1); }
     @media (max-width: 768px) {
-      .nav-links {
+      .nav-toggle { display: block; }
+      .nz-nav--glass__links {
         display: none;
-        position: absolute;
-        top: 100%;
-        left: 0; right: 0;
-        flex-direction: column;
+        position: absolute; top: 100%; left: 0; right: 0;
+        flex-direction: column; align-items: flex-start;
         background: var(--nz-surface);
-        border-bottom: 1px solid var(--nz-c-border);
-        padding: var(--nz-space-3);
-        gap: var(--nz-space-2);
+        border-bottom: 1px solid var(--nz-border-soft);
+        padding: var(--nz-space-3); gap: var(--nz-space-2);
         z-index: 200;
       }
-      .nav-links.is-open { display: flex; }
-      .nav-toggle { display: block; }
+      .nz-nav--glass__links.is-open { display: flex; }
     }
 
-    /* Hero */
-    .hero-brain {
-      font-size: clamp(2.5rem, 8vw, 5rem);
-      line-height: 1.05;
-      margin-bottom: var(--nz-space-3);
-    }
-
-    /* Agent pipeline — responsive grid */
-    .agent-pipeline {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: var(--nz-space-3);
-    }
-    @media (max-width: 640px) {
-      .agent-pipeline { grid-template-columns: repeat(2, 1fr); gap: var(--nz-space-2); }
-    }
-
-    .agent-card {
-      text-align: center;
-      padding: var(--nz-space-3) var(--nz-space-2);
-    }
-    .agent-card__number {
-      font-size: var(--nz-text-xs);
-      font-family: var(--nz-font-mono);
-      color: var(--nz-text-muted);
-      margin-bottom: var(--nz-space-1);
-    }
-    .agent-card__name { font-size: var(--nz-text-sm); font-weight: 600; margin-bottom: var(--nz-space-1); }
-    .agent-card__role { font-size: var(--nz-text-xs); color: var(--nz-text-muted); }
-
-    /* Flow arrows */
-    .flow-arrow { display: flex; align-items: center; justify-content: center; color: var(--nz-color-accent); font-size: 1.5rem; }
-    .flow-line { display: flex; align-items: center; justify-content: center; gap: var(--nz-space-2); flex-wrap: wrap; font-size: var(--nz-text-sm); }
-
-    /* Stats row */
-    .stat-row { display: flex; gap: var(--nz-space-4); justify-content: center; flex-wrap: wrap; }
-
-    /* Feature grid */
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: var(--nz-space-3);
-    }
-    @media (max-width: 640px) {
-      .feature-grid { grid-template-columns: 1fr; }
-    }
-
-    /* Code block */
-    .code-block {
-      background: var(--nz-surface-soft);
-      border: 1px solid var(--nz-c-border);
-      border-radius: var(--nz-radius-md);
-      padding: var(--nz-space-3);
-      font-family: var(--nz-font-mono);
-      font-size: var(--nz-text-sm);
-      overflow-x: auto;
-      white-space: pre;
-      color: var(--nz-text-default);
-    }
-
-    /* Section spacing */
-    .section-gap { padding: var(--nz-space-8) 0; }
-    @media (max-width: 640px) { .section-gap { padding: var(--nz-space-5) 0; } }
-
-    /* Card hover — lift + shadow */
-    .nz-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-    .nz-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
-
-    /* Fade-in up animation */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .anim-fade-in { opacity: 0; }
-    .anim-fade-in.visible { animation: fadeInUp 0.5s ease forwards; }
-
-    /* Staggered reveal */
-    .anim-stagger > * { opacity: 0; }
-    .anim-stagger.visible > *:nth-child(1) { animation: fadeInUp 0.4s 0.0s ease forwards; }
-    .anim-stagger.visible > *:nth-child(2) { animation: fadeInUp 0.4s 0.1s ease forwards; }
-    .anim-stagger.visible > *:nth-child(3) { animation: fadeInUp 0.4s 0.2s ease forwards; }
-    .anim-stagger.visible > *:nth-child(4) { animation: fadeInUp 0.4s 0.3s ease forwards; }
-
-    /* Stat pulse on hover */
-    .stat-item { transition: transform 0.2s ease; cursor: default; }
-    .stat-item:hover { transform: scale(1.08); }
-
-    /* Evolution cards */
-    .evo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--nz-space-3); }
-    .evo-item { display: flex; gap: var(--nz-space-2); align-items: flex-start; }
-    .evo-icon { font-size: 1.5rem; min-width: 2rem; text-align: center; }
-    .evo-text h4 { font-size: var(--nz-text-sm); font-weight: 600; margin-bottom: var(--nz-space-1); }
-    .evo-text p { font-size: var(--nz-text-xs); color: var(--nz-text-muted); margin: 0; }
-    .evo-before { color: var(--nz-text-muted); text-decoration: line-through; font-size: var(--nz-text-xs); }
-    .evo-after { color: var(--nz-color-success, #22c55e); font-weight: 600; font-size: var(--nz-text-xs); }
-
-    /* Comparison table — scroll on mobile */
-    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .comparison-table { width: 100%; border-collapse: collapse; min-width: 500px; }
-    .comparison-table th,
-    .comparison-table td {
-      padding: var(--nz-space-2) var(--nz-space-3);
-      text-align: left;
-      border-bottom: 1px solid var(--nz-c-border-light);
-      font-size: var(--nz-text-sm);
-    }
-    .comparison-table th { font-weight: 600; color: var(--nz-text-strong); white-space: nowrap; }
-    .comparison-table tr:last-child td { border-bottom: none; }
-
-    /* Steps list */
-    .steps-stack { display: flex; flex-direction: column; gap: var(--nz-space-3); }
-
-    /* Two-column layout */
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--nz-space-3); }
-    @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
-
-    /* Rules list */
-    .rules-list { padding-left: var(--nz-space-3); margin: 0; }
-    .rules-list li { padding: var(--nz-space-1) 0; font-size: var(--nz-text-sm); }
-
-    /* ═══ Mobile-specific improvements ═══ */
-
-    /* Hero mobile */
-    @media (max-width: 640px) {
-      .hero-brain { font-size: clamp(2rem, 10vw, 3rem); }
-      .stat-row { gap: var(--nz-space-3); }
-      .stat-item > div:first-child { font-size: 1.4rem; }
-    }
-
-    /* Feature grid mobile — stack */
-    @media (max-width: 480px) {
-      .feature-grid { grid-template-columns: 1fr; }
-      .evo-grid { grid-template-columns: 1fr; }
-      .flow-line { font-size: var(--nz-text-xs); }
-      .flow-line span { padding: var(--nz-space-1); }
-    }
-
-    /* Evolution cards mobile */
-    @media (max-width: 640px) {
-      .evo-item { gap: var(--nz-space-1); }
-      .evo-icon { font-size: 1.2rem; min-width: 1.5rem; }
-    }
-
-    /* CTA buttons mobile — full width */
-    @media (max-width: 480px) {
-      .nz-btn--lg { width: 100%; text-align: center; }
-    }
-
-    /* Footer mobile — stack */
-    @media (max-width: 640px) {
-      footer .nz-container > div { flex-direction: column; text-align: center; }
-      footer nav { justify-content: center; }
-    }
-
-    /* Touch-friendly tap targets */
-    @media (hover: none) {
-      .nz-card:hover { transform: none; box-shadow: none; }
-      .stat-item:hover { transform: none; }
-      .nz-btn { min-height: 44px; }
+    /* ═══ Shell de la página (patrón ERROR CRÍTICO #13: shell + componentes) ═══ */
+    .mm-hero { padding-top: var(--nz-space-7); }
+    .mm-hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--nz-space-6); align-items: center; }
+    .mm-hero__cta { display: flex; flex-wrap: wrap; gap: var(--nz-space-3); }
+    .mm-flujo { margin-top: var(--nz-space-8); padding: var(--nz-space-7) 0; background: linear-gradient(180deg, transparent 0%, var(--nz-surface-soft) 20%, var(--nz-surface-soft) 80%, transparent 100%); }
+    .mm-flujo__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--nz-space-6); align-items: center; margin-top: var(--nz-space-5); }
+    .mm-flujo__pasos { margin: 0; padding-left: 1.2rem; display: grid; gap: var(--nz-space-3); color: var(--nz-text-default); }
+    .mm-flujo__pasos li::marker { color: var(--nz-color-accent); font-weight: 700; }
+    .mm-skills__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--nz-space-5); margin-top: var(--nz-space-5); align-items: stretch; }
+    .mm-skills__stats { align-self: stretch; display: grid; align-content: center; }
+    .mm-cta { display: flex; flex-wrap: wrap; gap: var(--nz-space-5); align-items: center; justify-content: space-between; padding: var(--nz-space-6); }
+    .mm-inicio__grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: var(--nz-space-6); margin-top: var(--nz-space-5); align-items: center; }
+    .mm-cta__texto { max-width: 34rem; display: grid; gap: var(--nz-space-2); }
+    @media (max-width: 900px) {
+      .mm-hero__grid, .mm-flujo__grid, .mm-skills__grid, .mm-inicio__grid { grid-template-columns: 1fr; }
+      .mm-hero { padding-top: var(--nz-space-5); }
     }
   </style>
+
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.164/build/three.module.js" } }
+  </script>
 </head>
-<body class="nz" data-nz-theme="light" data-nz-skin="aurora" data-nz-shape="default" data-nz-density="comfortable" data-nz-color-system="oklch">
+
+<body class="nz" data-nz-theme="light" data-nz-skin="aurora">
 
   <!-- ═══════════ NAV ═══════════ -->
-  <nav class="nz-nav--glass" style="position: sticky; top: 0; z-index: 100;">
-    <div class="nz-container" style="display: flex; align-items: center; justify-content: space-between; padding: var(--nz-space-2) 1.5rem; max-width: 1100px; position: relative;">
-      <div style="display: flex; align-items: center; gap: var(--nz-space-2);">
-        <span class="nz-badge nz-badge--brand nz-badge--no-dot" style="font-size: 0.7rem;">v4.0</span>
-        <strong style="font-size: 1.1rem;">Ntizar Mastermind</strong>
-      </div>
-      <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('is-open')" aria-label="Menú">☰</button>
-      <div class="nav-links">
-        <a href="#agentes" class="nz-btn nz-btn--ghost" style="font-size: 0.85rem;">Características</a>
-        <a href="#inicio-rapido" class="nz-btn nz-btn--ghost" style="font-size: 0.85rem;">Inicio rápido</a>
-        <a href="tokens/" class="nz-btn nz-btn--ghost" style="font-size: 0.85rem;">Tokens</a>
-        <a href="https://github.com/Ntizar/MasterMind" class="nz-btn nz-btn--primary" style="font-size: 0.85rem;">GitHub ↗</a>
-      </div>
+  <nav class="nz-nav--glass" aria-label="Navegación principal">
+    <a class="nz-nav--glass__brand" href="#">Ntizar <span class="nz-accent">Mastermind</span></a>
+    <div class="nz-nav--glass__links" id="nav-links">
+      <a href="#arquitectura">Arquitectura</a>
+      <a href="#flujo">Flujo</a>
+      <a href="#reglas">Reglas</a>
+      <a href="#inicio">Inicio</a>
+      <a href="#github">GitHub</a>
     </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú">☰</button>
+    <a class="nz-nav--glass__cta nz-btn nz-btn--glass-liquid-brand nz-btn--sm" href="https://github.com/Ntizar/MasterMind" target="_blank" rel="noopener">GitHub ↗</a>
   </nav>
 
-  <!-- ═══════════ HERO ═══════════ -->
-  <section class="section-gap" style="padding-top: var(--nz-space-8); padding-bottom: var(--nz-space-6);">
-    <div class="nz-container" style="max-width: 900px; padding: 0 1.5rem; text-align: center;">
-      <span class="nz-badge nz-badge--brand" style="margin-bottom: var(--nz-space-3); display: inline-block;">v4.0 — Hermes-Native</span>
-      <h1 class="hero-brain">
-        <span class="nz-gradient-text">Tu IA que</span><br>
-        <span class="nz-gradient-text">realmente recuerda</span>
-      </h1>
-      <p style="font-size: 1.15rem; color: var(--nz-text-muted); max-width: 620px; margin: 0 auto var(--nz-space-5); line-height: 1.6;">
-        Un framework open-source de orquestación multi-agente con <strong style="color: var(--nz-text-default);">1 orquestador</strong>,
-        <strong style="color: var(--nz-text-default);">265 skills especializados</strong> y <strong style="color: var(--nz-text-default);">memoria persistente</strong>.
-        Diseñado para la comunidad nan.builders.
-      </p>
-      <div class="stat-row anim-stagger" style="margin-bottom: var(--nz-space-5);">
-        <div class="stat-item" style="text-align: center;">
-          <div style="font-size: 1.8rem; font-weight: 700; color: var(--nz-color-accent);">1</div>
-          <div style="font-size: var(--nz-text-xs); color: var(--nz-text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Orquestador</div>
-        </div>
-        <div class="stat-item" style="text-align: center;">
-          <div style="font-size: 1.8rem; font-weight: 700; color: var(--nz-color-accent);">244</div>
-          <div style="font-size: var(--nz-text-xs); color: var(--nz-text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Skills</div>
-        </div>
-        <div class="stat-item" style="text-align: center;">
-          <div style="font-size: 1.8rem; font-weight: 700; color: var(--nz-color-accent);">8</div>
-          <div style="font-size: var(--nz-text-xs); color: var(--nz-text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Dominios</div>
-        </div>
-        <div class="stat-item" style="text-align: center;">
-          <div style="font-size: 1.8rem; font-weight: 700; color: var(--nz-color-accent);">∞</div>
-          <div style="font-size: var(--nz-text-xs); color: var(--nz-text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Memoria</div>
+  <!-- ═══════════ HERO con grafo de orquestación (Three.js v6) ═══════════ -->
+  <header class="mm-hero nz-container">
+    <div class="mm-hero__grid">
+      <div class="mm-hero__texto nz-stack">
+        <p class="nz-eyebrow">Orquestación multi-agente</p>
+        <h1 class="nz-text-h1">Un orquestador.<br><span class="u-nz-text-brand">Cientos de especialistas.</span></h1>
+        <p class="nz-text-body" style="max-width: 32rem;">
+          <strong>Ntizar Mastermind</strong> es un sistema de orquestación con skills especializados
+          por dominio, búsqueda semántica de capacidades y memoria persistente.
+          Ejecuta en Hermes Agent sobre NaN.builders, con GitHub como fuente de verdad.
+        </p>
+        <div class="mm-hero__cta">
+          <a class="nz-btn nz-btn--glass-liquid-brand" href="https://github.com/Ntizar/MasterMind" target="_blank" rel="noopener">Ver en GitHub ↗</a>
+          <a class="nz-btn nz-btn--glass" href="#arquitectura">Cómo funciona ↓</a>
         </div>
       </div>
-      <div style="display: flex; gap: var(--nz-space-2); justify-content: center; flex-wrap: wrap;">
-        <a href="https://github.com/Ntizar/MasterMind" class="nz-btn nz-btn--primary nz-btn--lg">Ver en GitHub ↗</a>
-        <a href="#inicio-rapido" class="nz-btn nz-btn--ghost nz-btn--lg">Inicio rápido</a>
+
+      <div class="nz-three nz-three--md nz-three--interactive nz-three--glass-frame nz-anim-fade-in"
+           data-nz-three="grafo" data-nz-three-nodos="22" aria-label="Grafo de orquestación: un núcleo con skills orbitando conectados">
+        <canvas class="nz-three__canvas"></canvas>
+        <div class="nz-three__fallback" role="img" aria-label="Diagrama: orquestador central conectado a skills especializados">
+          <div>
+            <p style="font-size: 2rem; margin: 0 0 0.5rem;">🧠</p>
+            <p style="margin: 0;">Mastermind orquesta · los skills ejecutan</p>
+          </div>
+        </div>
+        <div class="nz-three__badge">Escena en vivo · Three.js</div>
+        <div class="nz-three__hud">
+          <div class="nz-three__legend">
+            <span class="nz-three__legend-item"><span class="nz-three__legend-dot" style="background: var(--nz-color-brand);"></span>Orquestador</span>
+            <span class="nz-three__legend-item"><span class="nz-three__legend-dot" style="background: var(--nz-color-blue-400);"></span>Skill</span>
+            <span class="nz-three__legend-item"><span class="nz-three__legend-dot" style="background: var(--nz-color-orange-500);"></span>Skill destacado</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════ KPIs glass interactivo ═══════════ -->
+  <section class="nz-container" style="margin-top: var(--nz-space-6);">
+    <div class="nz-bento-grid">
+      <div class="nz-bento-grid__cell nz-card--glass-liquid nz-glass-liquid-live nz-hover-lift nz-anim-fade-in nz-anim--delay-1">
+        <div class="nz-kpi"><span class="nz-kpi__label">Orquestadores</span><span class="nz-kpi__value">1</span></div>
+        <p class="nz-text-muted nz-text-sm">Mastermind clasifica la tarea y delega. Nunca ejecuta lo que un skill hace mejor.</p>
+      </div>
+      <div class="nz-bento-grid__cell nz-card--glass-liquid nz-glass-liquid-live nz-anim-fade-in nz-anim--delay-2">
+        <div class="nz-kpi"><span class="nz-kpi__label">Skills por dominio</span><span class="nz-kpi__value">Creciente</span></div>
+        <p class="nz-text-muted nz-text-sm">Cada ciclo de aprendizaje añade skills. Se consultan por significado, no por nombre.</p>
+      </div>
+      <div class="nz-bento-grid__cell nz-card--glass-liquid nz-glass-liquid-live nz-anim-fade-in nz-anim--delay-3">
+        <div class="nz-kpi"><span class="nz-kpi__label">Búsqueda semántica</span><span class="nz-kpi__value">4096<span style="font-size: 0.6em;">d</span></span></div>
+        <p class="nz-text-muted nz-text-sm">Embeddings qwen3 sobre ChromaDB: encuentra el skill correcto con lenguaje natural.</p>
+      </div>
+      <div class="nz-bento-grid__cell nz-card--glass-liquid nz-glass-liquid-live nz-anim-fade-in nz-anim--delay-4">
+        <div class="nz-kpi"><span class="nz-kpi__label">Memoria</span><span class="nz-kpi__value">∞</span></div>
+        <p class="nz-text-muted nz-text-sm">Persistente entre sesiones: memory + session_search + notas en el repo.</p>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════ CARACTERÍSTICAS ═══════════ -->
-  <section class="section-gap" id="agentes" style="background: var(--nz-surface-soft); margin: 0; padding: var(--nz-space-8) 0;">
-    <div class="nz-container" style="max-width: 900px; padding: 0 1.5rem;">
-      <div style="text-align: center; margin-bottom: var(--nz-space-5);">
-        <span class="nz-badge nz-badge--accent">Características</span>
-        <h2 class="nz-text-h2" style="margin-top: var(--nz-space-2);">¿Cómo funciona?</h2>
-      </div>
-
-      <div class="feature-grid">
-        <!-- Card 1 -->
-        <div class="nz-card">
-          <div class="nz-card__body">
-            <div style="font-size: 1.8rem; margin-bottom: var(--nz-space-2);">🧠</div>
-            <h3 class="nz-text-h4">Orquestación Inteligente</h3>
-            <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
-              Mastermind clasifica cada tarea por dominio y complejidad. Decide si la resuelve directo, delega a 1 subagente o lanza varios en paralelo.
-            </p>
-          </div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="nz-card">
-          <div class="nz-card__body">
-            <div style="font-size: 1.8rem; margin-bottom: var(--nz-space-2);">⚡</div>
-            <h3 class="nz-text-h4">244 Skills Especializados</h3>
-            <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
-              Software, GitHub, Frontend, Backend, Infra, DevOps, Data Science, Creative. Cada skill tiene conocimiento profundo de su dominio.
-            </p>
-          </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="nz-card">
-          <div class="nz-card__body">
-            <div style="font-size: 1.8rem; margin-bottom: var(--nz-space-2);">💾</div>
-            <h3 class="nz-text-h4">Memoria Persistente</h3>
-            <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
-              3 capas de memoria: preferencias con <code>memory</code>, procedimientos con skills, historial con <code>session_search</code>. Nunca empiezas desde cero.
-            </p>
-          </div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="nz-card">
-          <div class="nz-card__body">
-            <div style="font-size: 1.8rem; margin-bottom: var(--nz-space-2);">🚀</div>
-            <h3 class="nz-text-h4">Deploy en la Nube</h3>
-            <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
-              MicroVM en NaN.builders con 1vCPU/2GB. Acceso vía Telegram y WebUI. Modelo qwen3.6 a ~$0.50/1M tokens.
-            </p>
-          </div>
+  <!-- ═══════════ PARA QUÉ SIRVE ═══════════ -->
+  <section id="para-que" class="nz-container" style="margin-top: var(--nz-space-8);">
+    <p class="nz-eyebrow">Para qué sirve</p>
+    <h2 class="nz-text-h2">Un asistente que recuerda, decide y mejora</h2>
+    <p class="nz-text-body" style="max-width: 44rem; margin-bottom: var(--nz-space-5);">
+      Mastermind no es un chatbot: es un sistema operativo para tu IA personal.
+      Tú das la intención; él busca el conocimiento correcto, ejecuta con especialistas
+      y guarda lo aprendido para la siguiente vez.
+    </p>
+    <div class="nz-feature-grid">
+      <div class="nz-feature">
+        <div class="nz-feature__icon">◈</div>
+        <div>
+          <p class="nz-feature__title">Automatiza tus flujos</p>
+          <p class="nz-feature__body">Crons programados que exploran, informan y mantienen el sistema solos: scouting nocturno de repositorios, informes semanales, chequeos de salud diarios.</p>
         </div>
       </div>
+      <div class="nz-feature nz-feature--accent">
+        <div class="nz-feature__icon">◈</div>
+        <div>
+          <p class="nz-feature__title">Construye contigo</p>
+          <p class="nz-feature__body">Dashboards, visores de mapas, informes, pipelines de datos: cada proyecto alimenta skills reutilizables. Lo que aprende una vez, lo aplica siempre.</p>
+        </div>
+      </div>
+      <div class="nz-feature">
+        <div class="nz-feature__icon">◈</div>
+        <div>
+          <p class="nz-feature__title">Nunca empieza de cero</p>
+          <p class="nz-feature__body">Tres capas de memoria: preferencias y datos personales, procedimientos como skills, e historial completo de sesiones recuperable por búsqueda.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <!-- Pipeline visual -->
-      <div id="arquitectura" style="margin-top: var(--nz-space-6); text-align: center;">
-        <div class="nz-card" style="max-width: 700px; margin: 0 auto;">
-          <div class="nz-card__body">
-            <h3 class="nz-text-h4" style="margin-bottom: var(--nz-space-3);">El flujo en acción</h3>
-            <div class="flow-line" style="justify-content: center; gap: var(--nz-space-3); flex-wrap: wrap;">
-              <span style="padding: var(--nz-space-1) var(--nz-space-2); background: var(--nz-surface-soft); border-radius: var(--nz-radius-md); font-size: var(--nz-text-sm);">Tu das una tarea</span>
-              <span class="flow-arrow">→</span>
-              <span style="padding: var(--nz-space-1) var(--nz-space-2); background: var(--nz-surface-soft); border-radius: var(--nz-radius-md); font-size: var(--nz-text-sm); font-weight: 600;">Mastermind clasifica</span>
-              <span class="flow-arrow">→</span>
-              <span style="padding: var(--nz-space-1) var(--nz-space-2); background: var(--nz-surface-soft); border-radius: var(--nz-radius-md); font-size: var(--nz-text-sm);">Carga skills del dominio</span>
-              <span class="flow-arrow">→</span>
-              <span style="padding: var(--nz-space-1) var(--nz-space-2); background: var(--nz-surface-soft); border-radius: var(--nz-radius-md); font-size: var(--nz-text-sm);">Ejecuta y verifica</span>
-              <span class="flow-arrow">→</span>
-              <span style="padding: var(--nz-space-1) var(--nz-space-2); background: var(--nz-surface-soft); border-radius: var(--nz-radius-md); font-size: var(--nz-text-sm);">Aprende para la próxima</span>
+  <!-- ═══════════ ARQUITECTURA (bento) ═══════════ -->
+  <section id="arquitectura" class="nz-container" style="margin-top: var(--nz-space-8);">
+    <p class="nz-eyebrow">Arquitectura</p>
+    <h2 class="nz-text-h2">Un orquestador, muchos especialistas</h2>
+    <p class="nz-text-body" style="max-width: 44rem; margin-bottom: var(--nz-space-5);">
+      Nada de cadenas de agentes genéricos: cada skill se especializa en un dominio
+      y Mastermind decide quién ejecuta. GitHub es la fuente de verdad, sin dependencias externas.
+    </p>
+
+    <div class="nz-bento-grid">
+      <div class="nz-bento-grid__cell nz-bento-grid__cell--span-2 nz-card--glass-liquid nz-glass-liquid-live">
+        <p class="nz-eyebrow nz-eyebrow--muted">Clasificación</p>
+        <h3 class="nz-text-h4">Cuatro niveles de ejecución</h3>
+        <p class="nz-text-sm nz-text-muted">De una búsqueda directa a la orquestación completa con subagentes en paralelo. El nivel se elige por coste y complejidad, no por costumbre.</p>
+        <div class="nz-table-wrap">
+          <table class="nz-table">
+            <thead><tr><th>Nivel</th><th>Tool calls</th><th>Patrón</th></tr></thead>
+            <tbody>
+              <tr><td><span class="nz-badge nz-badge--no-dot">🟢 1 — Directo</span></td><td>1-3</td><td>Mastermind solo</td></tr>
+              <tr><td><span class="nz-badge nz-badge--no-dot">🟡 2 — Simple</span></td><td>4-8</td><td>1 delegación</td></tr>
+              <tr><td><span class="nz-badge nz-badge--no-dot">🟠 3 — Paralelo</span></td><td>8+</td><td>2-3 delegaciones</td></tr>
+              <tr><td><span class="nz-badge nz-badge--no-dot">🔴 4 — Orquestación</span></td><td>Proyecto</td><td>Planificar → Implementar → Revisar</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="nz-bento-grid__cell nz-bento-grid__cell--span-2 nz-card--glass-liquid nz-glass-liquid-live">
+        <p class="nz-eyebrow nz-eyebrow--accent">Capacidades</p>
+        <h3 class="nz-text-h4">Lo que el sistema aporta</h3>
+        <div class="nz-feature-grid" style="grid-template-columns: 1fr; gap: var(--nz-space-3);">
+          <div class="nz-feature">
+            <div class="nz-feature__icon">◈</div>
+            <div>
+              <p class="nz-feature__title">Búsqueda semántica de skills</p>
+              <p class="nz-feature__body">ChromaDB + qwen3-embedding: pides «analiza este PDF denso» y encuentra el skill, sin memorizar nombres.</p>
+            </div>
+          </div>
+          <div class="nz-feature">
+            <div class="nz-feature__icon nz-feature--accent">◈</div>
+            <div>
+              <p class="nz-feature__title">Human loop en cambios críticos</p>
+              <p class="nz-feature__body">Planificar → esperar aprobación → implementar → sintetizar. Diffs siempre visibles, nunca commit sin mostrar cambios.</p>
+            </div>
+          </div>
+          <div class="nz-feature">
+            <div class="nz-feature__icon">◈</div>
+            <div>
+              <p class="nz-feature__title">Aprendizaje continuo</p>
+              <p class="nz-feature__body">Cada sesión alimenta memoria, notas y skills nuevos. El sistema mejora con el uso, no se degrada.</p>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FLUJO (escena partículas + pasos) ═══════════ -->
+  <section id="flujo" class="mm-flujo">
+    <div class="nz-container">
+      <p class="nz-eyebrow nz-eyebrow--accent">Flujo</p>
+      <h2 class="nz-text-h2">De la pregunta al resultado, con control</h2>
+      <div class="mm-flujo__grid">
+        <div class="nz-three nz-three--sm nz-three--interactive" data-nz-three="particulas" data-nz-three-nodos="160" aria-label="Campo de partículas azul y naranja">
+          <canvas class="nz-three__canvas"></canvas>
+          <div class="nz-three__fallback"><p>Flujo continuo de tareas → skills → resultados</p></div>
+        </div>
+        <ol class="mm-flujo__pasos nz-stack">
+          <li><strong>Consulta</strong> — ChromaDB recupera los skills relevantes por significado (score &gt; 0,25).</li>
+          <li><strong>Clasificación</strong> — nivel de ejecución 1-4 según complejidad y coste.</li>
+          <li><strong>Delegación</strong> — subagentes especializados ejecutan en paralelo cuando aporta.</li>
+          <li><strong>Verificación</strong> — resultado comprobado contra la realidad antes de reportar.</li>
+          <li><strong>Aprendizaje</strong> — skill, nota o memoria nueva si la sesión enseñó algo.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="nz-container" style="margin-top: var(--nz-space-5);">
+      <div class="nz-callout nz-callout--info">
+        <span class="nz-callout__title">Human loop en cada fase</span>
+        <span class="nz-callout__body">Los cambios críticos (&gt;5 archivos, arquitectura, deploy) se planifican, se presentan y esperan aprobación explícita antes de ejecutarse. Diffs siempre visibles, rollback siempre disponible.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ REGLAS ═══════════ -->
+  <section id="reglas" class="mm-flujo">
+    <div class="nz-container">
+      <p class="nz-eyebrow">Gobernanza</p>
+      <h2 class="nz-text-h2">12 reglas derivadas de uso real</h2>
+      <p class="nz-text-body" style="max-width: 44rem; margin-bottom: var(--nz-space-5);">
+        No son principios decorativos: cada regla existe porque un ciclo de trabajo la demostró necesaria.
+      </p>
+      <div class="nz-bento-grid">
+        <div class="nz-bento-grid__cell nz-card--glass-liquid nz-glass-liquid-live nz-hover-lift">
+          <span class="nz-badge nz-badge--no-dot">Arquitectura</span>
+          <h3 class="nz-text-h4">1 · 2 · 3 · 4</h3>
+          <p class="nz-text-sm nz-text-muted">Un orquestador, muchos especialistas. Skills bajo demanda por dominio. Memoria persistente entre sesiones. GitHub como única fuente de verdad.</p>
+        </div>
+        <div class="nz-bento-grid__cell nz-card--glass-liquid nz-glass-liquid-live nz-hover-lift">
+          <span class="nz-badge nz-badge--accent nz-badge--no-dot">Repositorio</span>
+          <h3 class="nz-text-h4">5 · 6 · 7 · 8</h3>
+          <p class="nz-text-sm nz-text-muted">Nunca borrar del repo, solo crear o modificar. Notas significativas fechadas. Skills nuevos al catálogo. Cada aprendizaje importante, commit.</p>
+        </div>
+        <div class="nz-bento-grid__cell nz-card--glass-liquid nz-glass-liquid-live nz-hover-lift">
+          <span class="nz-badge nz-badge--no-dot">Operación</span>
+          <h3 class="nz-text-h4">9 · 10 · 11 · 12</h3>
+          <p class="nz-text-sm nz-text-muted">Secrets solo en .env. SOUL.md como fuente de identidad. Todo en castellano, siempre. Human loop en cambios críticos: planificar, presentar, esperar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ EVOLUCIÓN ═══════════ -->
+  <section id="evolucion" class="nz-container" style="margin-top: var(--nz-space-8);">
+    <p class="nz-eyebrow nz-eyebrow--accent">Evolución</p>
+    <h2 class="nz-text-h2">De agente monolítico a ecosistema modular</h2>
+    <div class="mm-skills__grid">
+      <div class="nz-table-wrap">
+        <table class="nz-table">
+          <thead><tr><th>Ámbito</th><th>Antes (v3)</th><th>Ahora (v4)</th></tr></thead>
+          <tbody>
+            <tr><td>Arquitectura</td><td>SOUL.md monolítico</td><td>Orquestador + skills modulares</td></tr>
+            <tr><td>Memoria</td><td>Una sola capa</td><td>Memoria + skills + historial</td></tr>
+            <tr><td>Routing</td><td>Por modelo</td><td>Por dominio y complejidad</td></tr>
+            <tr><td>Conocimiento</td><td>Búsqueda por nombre</td><td>Búsqueda semántica por significado</td></tr>
+            <tr><td>Control</td><td>Ad hoc</td><td>Human loop estructurado con diffs</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="nz-callout nz-callout--info" style="align-self: center;">
+        <span class="nz-callout__title">El principio rector</span>
+        <span class="nz-callout__body">Simpleza sobre complejidad: la delegación nativa reemplaza las cadenas de agentes. Skills sobre procesos genéricos. Y si algo no aporta, se elimina — el sistema se poda tanto como crece.</span>
       </div>
     </div>
   </section>
 
   <!-- ═══════════ INICIO RÁPIDO ═══════════ -->
-  <section class="section-gap" id="inicio-rapido" style="background: var(--nz-surface-soft); margin: 0; padding: var(--nz-space-8) 0;">
-    <div class="nz-container" style="max-width: 800px; padding: 0 1.5rem;">
-      <div style="text-align: center; margin-bottom: var(--nz-space-5);">
-        <span class="nz-badge nz-badge--brand">Inicio rápido</span>
-        <h2 class="nz-text-h2" style="margin-top: var(--nz-space-2);">En 3 pasos</h2>
+  <section id="inicio" class="nz-container" style="margin-top: var(--nz-space-8);">
+    <p class="nz-eyebrow">Inicio rápido</p>
+    <h2 class="nz-text-h2">Pruébalo en 3 pasos</h2>
+    <div class="mm-inicio__grid">
+      <div class="nz-stack">
+        <div class="nz-feature">
+          <div class="nz-feature__icon">1</div>
+          <div>
+            <p class="nz-feature__title">Clona el repositorio</p>
+            <p class="nz-feature__body">Skills, scripts del motor y documentación incluidos.</p>
+          </div>
+        </div>
+        <div class="nz-feature">
+          <div class="nz-feature__icon">2</div>
+          <div>
+            <p class="nz-feature__title">Copia los skills a tu agente</p>
+            <p class="nz-feature__body">Funciona con Hermes Agent; el patrón es portable a otros agentes con skills.</p>
+          </div>
+        </div>
+        <div class="nz-feature">
+          <div class="nz-feature__icon">3</div>
+          <div>
+            <p class="nz-feature__title">Índice semántico y a trabajar</p>
+            <p class="nz-feature__body">Indexa los skills en ChromaDB y da tu primera tarea: el orquestador clasifica, delega y aprende.</p>
+          </div>
+        </div>
       </div>
-
-      <div class="steps-stack">
-        <!-- Paso 1 -->
-        <div class="nz-card">
-          <div class="nz-card__body" style="display: flex; gap: var(--nz-space-3); align-items: flex-start;">
-            <span class="nz-badge nz-badge--brand" style="font-size: 1.1rem; min-width: 2rem; text-align: center;">1</span>
-            <div style="min-width: 0;">
-              <h3 class="nz-text-h4">Clona el repositorio</h3>
-              <div class="code-block" style="margin-top: var(--nz-space-1);">git clone https://github.com/Ntizar/MasterMind.git</div>
-            </div>
-          </div>
+      <div class="nz-codeblock">
+        <div class="nz-codeblock__head">
+          <span class="nz-codeblock__label">Terminal</span>
         </div>
+        <pre><code>git clone https://github.com/Ntizar/MasterMind.git
+cd MasterMind
+cp -r agent/skills/* &lt;tu-agente&gt;/skills/
 
-        <!-- Paso 2 -->
-        <div class="nz-card">
-          <div class="nz-card__body" style="display: flex; gap: var(--nz-space-3); align-items: flex-start;">
-            <span class="nz-badge nz-badge--accent" style="font-size: 1.1rem; min-width: 2rem; text-align: center;">2</span>
-            <div style="min-width: 0;">
-              <h3 class="nz-text-h4">Abre con tu editor de agentes</h3>
-              <div class="code-block" style="margin-top: var(--nz-space-1);">cd MasterMind
-hermes .     # o tu IDE preferido</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Paso 3 -->
-        <div class="nz-card">
-          <div class="nz-card__body" style="display: flex; gap: var(--nz-space-3); align-items: flex-start;">
-            <span class="nz-badge nz-badge--success" style="font-size: 1.1rem; min-width: 2rem; text-align: center;">3</span>
-            <div style="min-width: 0;">
-              <h3 class="nz-text-h4">Activa el sistema</h3>
-              <div class="code-block" style="margin-top: var(--nz-space-1);">/ntizar-start</div>
-              <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
-                El orquestador arranca, clasifica tu primera tarea y delega automáticamente.
-              </p>
-            </div>
-          </div>
-        </div>
+# índice semántico de skills (ChromaDB + embeddings)
+python scripts/indexar-skills.py</code></pre>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════ LAS 12 REGLAS ═══════════ -->
-  <section class="section-gap">
-    <div class="nz-container" style="max-width: 800px; padding: 0 1.5rem;">
-      <div style="text-align: center; margin-bottom: var(--nz-space-5);">
-        <span class="nz-badge nz-badge--accent">12 Reglas</span>
-        <h2 class="nz-text-h2" style="margin-top: var(--nz-space-2);">
-          <span class="nz-gradient-text">Derivadas de 13 ciclos de uso real</span>
-        </h2>
+  <!-- ═══════════ SKILLS (stats + escena anillos) ═══════════ -->
+  <section id="skills" class="nz-container" style="margin-top: var(--nz-space-8);">
+    <p class="nz-eyebrow">Capacidades</p>
+    <h2 class="nz-text-h2">Un catálogo que crece con cada ciclo</h2>
+    <div class="mm-skills__grid">
+      <div class="nz-three nz-three--sm nz-three--interactive nz-three--glass-frame" data-nz-three="anillos" aria-label="Anillos concéntricos girando">
+        <canvas class="nz-three__canvas"></canvas>
+        <div class="nz-three__fallback"><p>Dominios: core, GitHub, frontend, backend, datos, STEM, GIS…</p></div>
+        <div class="nz-three__badge">+v6 escenas</div>
       </div>
-
-      <div class="nz-card">
-        <div class="nz-card__body">
-          <ol class="rules-list">
-            <li><strong>Un orquestador, muchos especialistas</strong> — Mastermind clasifica y delega, los skills ejecutan</li>
-            <li><strong>Skills bajo demanda por dominio</strong> — solo cargo los del dominio relevante</li>
-            <li><strong>Memoria persistente</strong> — memory + session_search entre sesiones</li>
-            <li><strong>GitHub como fuente de verdad</strong> — Markdown plano, sin dependencias externas</li>
-            <li><strong>NUNCA borrar del repo Mastermind</strong> — solo crear o modificar</li>
-            <li><strong>Notas significativas</strong> → <code>notes/YYYY-MM-DD-titulo.md</code></li>
-            <li><strong>Skills nuevos</strong> → <code>/hermes-home/skills/</code></li>
-            <li><strong>Cada aprendizaje importante</strong> → commit al repo</li>
-            <li><strong>No crear secrets</strong> en notes/commits/chat</li>
-            <li><strong>SOUL.md es la fuente de verdad</strong> de la identidad del sistema</li>
-            <li><strong>TODO en castellano</strong> — NUNCA inglés en repos, scripts, informes</li>
-            <li><strong>Human loop en cambios críticos</strong> — presentar diffs y esperar aprobación ✅</li>
-          </ol>
-        </div>
+      <div class="nz-stats-banner mm-skills__stats">
+        <div><strong>Dominios</strong><span>Core · GitHub · Frontend · Backend · Datos · STEM · GIS · Visión</span></div>
+        <div><strong>Semántica</strong><span>ChromaDB + embeddings 4096d</span></div>
+        <div><strong>Fuente</strong><span>GitHub como única verdad</span></div>
+        <div><strong>Castellano</strong><span>Todo el sistema, siempre</span></div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════ EVOLUCIÓN v3→v4 ═══════════ -->
-  <section class="section-gap" style="background: var(--nz-surface-soft); margin: 0; padding: var(--nz-space-8) 0;">
-    <div class="nz-container" style="max-width: 900px; padding: 0 1.5rem;">
-      <div style="text-align: center; margin-bottom: var(--nz-space-5);">
-        <span class="nz-badge nz-badge--accent">Evolución</span>
-        <h2 class="nz-text-h2" style="margin-top: var(--nz-space-2);">
-          <span class="nz-gradient-text">Lo que cambió de v3 a v4</span>
-        </h2>
-        <p class="nz-text-muted" style="font-size: var(--nz-text-sm); margin-top: var(--nz-space-1);">
-          De un agente monolítico a un ecosistema modular con 265 skills reutilizables.
-        </p>
+  <!-- ═══════════ GITHUB CTA ═══════════ -->
+  <div class="nz-container" style="margin-top: var(--nz-space-8);">
+    <div class="nz-divider nz-divider--label">GitHub</div>
+  </div>
+  <section id="github" class="nz-container" style="margin-top: var(--nz-space-6); margin-bottom: var(--nz-space-8);">
+    <div class="mm-cta nz-card--glass-liquid nz-glass-liquid-live">
+      <div class="mm-cta__texto">
+        <h2 class="nz-text-h3">Código abierto, en castellano, hecho para durar</h2>
+        <p class="nz-text-muted">Repositorio, skills, scripts del motor y documentación completa. Clónalo, adáptalo o inspírate.</p>
       </div>
-
-      <div class="evo-grid">
-        <!-- Arquitectura -->
-        <div class="nz-card">
-          <div class="nz-card__body">
-            <div class="evo-item">
-              <div class="evo-icon">🏗️</div>
-              <div class="evo-text">
-                <h4>Arquitectura</h4>
-                <p><span class="evo-before">SOUL.md monolítico (900+ líneas)</span></p>
-                <p><span class="evo-after">SOUL.md orquestador + 265 skills modulares</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Memoria -->
-        <div class="nz-card">
-          <div class="nz-card__body">
-            <div class="evo-item">
-              <div class="evo-icon">🧠</div>
-              <div class="evo-text">
-                <h4>Memoria</h4>
-                <p><span class="evo-before">Decaimiento Ebbinghaus (5 niveles)</span></p>
-                <p><span class="evo-after">memory + skills + session_search (3 capas)</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Routing -->
-        <div class="nz-card">
-          <div class="nz-card__body">
-            <div class="evo-item">
-              <div class="evo-icon">🔀</div>
-              <div class="evo-text">
-                <h4>Routing</h4>
-                <p><span class="evo-before">Routing por modelo (flash/preferred)</span></p>
-                <p><span class="evo-after">Routing por dominio y complejidad</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Deploy -->
-        <div class="nz-card">
-          <div class="nz-card__body">
-            <div class="evo-item">
-              <div class="evo-icon">☁️</div>
-              <div class="evo-text">
-                <h4>Deploy</h4>
-                <p><span class="evo-before">Local / dependiente del host</span></p>
-                <p><span class="evo-after">NaN.builders MicroVM + GitHub Pages</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════ CTA FINAL ═══════════ -->
-  <section class="section-gap" style="text-align: center; position: relative; overflow: hidden;">
-    <div class="nz-aurora-mesh nz-aurora-mesh--animated" style="position: absolute; inset: 0; z-index: 0; opacity: 0.4;"></div>
-    <div class="nz-container" style="position: relative; z-index: 1; max-width: 700px; padding: 0 1.5rem;">
-      <h2 class="nz-text-h2" style="margin-bottom: var(--nz-space-2);">Tu IA merece un cerebro.</h2>
-      <p class="nz-text-muted" style="margin-bottom: var(--nz-space-4); font-size: 1.1rem;">
-        Open source. MIT License. Sin vendor lock-in.<br>
-        Fork, configura, y empieza a construir algo que recuerda.
-      </p>
-      <div style="display: flex; gap: var(--nz-space-2); justify-content: center; flex-wrap: wrap;">
-        <a href="https://github.com/Ntizar/MasterMind" class="nz-btn nz-btn--primary nz-btn--lg">Ver en GitHub ↗</a>
-        <a href="https://github.com/Ntizar/MasterMind/fork" class="nz-btn nz-btn--ghost nz-btn--lg">Hacer fork</a>
-      </div>
+      <a class="nz-btn nz-btn--glass-liquid-accent" href="https://github.com/Ntizar/MasterMind" target="_blank" rel="noopener">github.com/Ntizar/MasterMind ↗</a>
     </div>
   </section>
 
   <!-- ═══════════ FOOTER ═══════════ -->
-  <footer style="border-top: 1px solid var(--nz-c-border-light);">
-    <div class="nz-container" style="max-width: 1100px; padding: 0 1.5rem;">
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--nz-space-3); padding: var(--nz-space-4) 0;">
-        <div style="display: flex; align-items: center; gap: var(--nz-space-2); flex-wrap: wrap;">
-          <span style="font-weight: 600;">Ntizar Mastermind</span>
-          <span class="nz-badge nz-badge--neutral" style="font-size: 0.65rem;">v4.0</span>
-          <span class="nz-badge nz-badge--neutral" style="font-size: 0.65rem;">MIT License</span>
-        </div>
-        <nav style="display: flex; gap: var(--nz-space-3); flex-wrap: wrap;">
-          <a href="https://github.com/Ntizar/MasterMind" style="font-size: var(--nz-text-sm); color: var(--nz-text-muted); text-decoration: none;">GitHub</a>
-          <a href="https://github.com/Ntizar/MasterMind/blob/main/CONTRIBUTING.md" style="font-size: var(--nz-text-sm); color: var(--nz-text-muted); text-decoration: none;">Contribuir</a>
-          <a href="https://github.com/Ntizar/MasterMind/issues" style="font-size: var(--nz-text-sm); color: var(--nz-text-muted); text-decoration: none;">Issues</a>
-          <a href="tokens/" style="font-size: var(--nz-text-sm); color: var(--nz-text-muted); text-decoration: none;">Dashboard Tokens</a>
-        </nav>
-        <div style="font-size: var(--nz-text-sm); color: var(--nz-text-muted); width: 100%; text-align: center; padding-top: var(--nz-space-2); border-top: 1px solid var(--nz-c-border-light);">
-          Hecho con <span style="color: var(--nz-color-accent);">❤️</span> por <strong>David Antizar</strong>
-        </div>
-      </div>
+  <footer class="nz-footer">
+    <div class="nz-footer__inner">
+      <p>Hecho con ❤️ por David Antizar</p>
     </div>
   </footer>
 
-  <!-- ═══════════ SCROLL REVEAL ═══════════ -->
   <script>
-    // Reveal on scroll — cards, stats, evolution items
-    const reveals = document.querySelectorAll('.nz-card, .nz-kpi, .anim-fade-in, .anim-stagger');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.15 });
-    reveals.forEach(el => observer.observe(el));
-
-    // Smooth scroll + close mobile nav
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        e.preventDefault();
-        const target = document.querySelector(a.getAttribute('href'));
-        if (target) target.scrollIntoView({ behavior: 'smooth' });
-        // Close mobile nav
-        document.querySelector('.nav-links')?.classList.remove('is-open');
-      });
+    // Nav móvil
+    document.getElementById('nav-toggle').addEventListener('click', () => {
+      document.getElementById('nav-links').classList.toggle('is-open');
     });
   </script>
 
+  <!-- Glass interactivo v6: el specular sigue al cursor -->
+  <script type="module">
+    import 'https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/aurora-live.js';
+  </script>
+
+  <!-- Escenas Three.js v6 -->
+  <script type="module">
+    import { crearEscenasAuto } from 'https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/three-scenes.js';
+    crearEscenasAuto();
+  </script>
 </body>
 </html>

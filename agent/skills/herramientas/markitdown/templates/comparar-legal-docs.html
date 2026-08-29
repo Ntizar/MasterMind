@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparador Documentos Legales Word vs PDF</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: #f0f4f8; color: #1a202c; min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { text-align: center; font-size: 1.8em; margin-bottom: 8px; color: #2563eb; }
+        .subtitle { text-align: center; color: #64748b; margin-bottom: 30px; font-size: 0.95em; }
+        .upload-zone { background: white; border: 3px dashed #cbd5e1; border-radius: 16px; padding: 40px; text-align: center; transition: all 0.3s; cursor: pointer; margin-bottom: 20px; }
+        .upload-zone:hover { border-color: #2563eb; background: #eff6ff; }
+        .upload-zone.dragover { border-color: #2563eb; background: #dbeafe; transform: scale(1.02); }
+        .upload-zone h2 { font-size: 1.2em; color: #334155; margin-bottom: 8px; }
+        .upload-zone p { color: #94a3b8; font-size: 0.9em; }
+        .files-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+        .file-card { background: white; border-radius: 12px; padding: 20px; border: 2px solid #e2e8f0; position: relative; }
+        .file-card.loaded { border-color: #22c55e; }
+        .file-card .file-type { font-size: 0.75em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px; border-radius: 6px; display: inline-block; margin-bottom: 10px; }
+        .file-card .file-type.word { background: #dbeafe; color: #2563eb; }
+        .file-card .file-type.pdf { background: #fee2e2; color: #dc2626; }
+        .file-card .file-name { font-weight: 600; font-size: 0.95em; word-break: break-all; }
+        .file-card .file-size { color: #94a3b8; font-size: 0.8em; margin-top: 4px; }
+        .file-card .remove-btn { position: absolute; top: 10px; right: 10px; background: #f1f5f9; border: none; border-radius: 50%; width: 28px; height: 28px; cursor: pointer; font-size: 1em; color: #64748b; display: flex; align-items: center; justify-content: center; }
+        .file-card .remove-btn:hover { background: #fee2e2; color: #dc2626; }
+        .compare-btn { display: block; width: 100%; padding: 16px; font-size: 1.1em; font-weight: 700; color: white; background: linear-gradient(135deg, #2563eb, #1d4ed8); border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s; margin-bottom: 20px; }
+        .compare-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3); }
+        .compare-btn:disabled { background: #94a3b8; cursor: not-allowed; }
+        .result { background: white; border-radius: 16px; padding: 30px; margin-top: 20px; display: none; }
+        .result.show { display: block; }
+        .result-header { text-align: center; margin-bottom: 20px; }
+        .result-header .icon { font-size: 3em; margin-bottom: 10px; }
+        .result-header h2 { font-size: 1.4em; }
+        .result-header .detail { color: #64748b; margin-top: 5px; font-size: 0.9em; }
+        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
+        .stat { text-align: center; padding: 15px; background: #f8fafc; border-radius: 10px; }
+        .stat .num { font-size: 1.8em; font-weight: 800; color: #2563eb; }
+        .stat .label { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+        .diff-section { margin-top: 20px; }
+        .diff-section h3 { font-size: 1em; color: #334155; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 2px solid #f1f5f9; }
+        .diff-item { padding: 12px 16px; margin-bottom: 8px; border-radius: 8px; font-size: 0.9em; line-height: 1.5; font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace; }
+        .diff-item.added { background: #dcfce7; border-left: 4px solid #22c55e; color: #166534; }
+        .diff-item.removed { background: #fee2e2; border-left: 4px solid #dc2626; color: #991b1b; }
+        .diff-note { background: #fefce8; border: 1px solid #fde68a; border-radius: 10px; padding: 16px; margin-top: 16px; font-size: 0.85em; color: #854d0e; }
+        .progress { display: none; text-align: center; padding: 20px; }
+        .progress.show { display: block; }
+        .spinner { border: 4px solid #e2e8f0; border-top: 4px solid #2563eb; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 12px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        footer { text-align: center; margin-top: 40px; color: #94a3b8; font-size: 0.8em; padding: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📄 Comparador Documentos Legales</h1>
+        <p class="subtitle">Word vs PDF — contenido legal, sin IA, 100% en local</p>
+        <div class="upload-zone" id="dropZone">
+            <h2>📁 Arrastra archivos aquí</h2>
+            <p>Word (.docx) y PDF (.pdf) — puedes arrastrar varios a la vez</p>
+        </div>
+        <div class="files-grid" id="filesGrid" style="display:none;">
+            <div class="file-card" id="wordCard">
+                <span class="file-type word">WORD</span>
+                <div class="file-name" id="wordName">Sin archivo</div>
+                <div class="file-size" id="wordSize"></div>
+                <button class="remove-btn" onclick="removeFile('word')" title="Quitar">×</button>
+            </div>
+            <div class="file-card" id="pdfCard">
+                <span class="file-type pdf">PDF</span>
+                <div class="file-name" id="pdfName">Sin archivo</div>
+                <div class="file-size" id="pdfSize"></div>
+                <button class="remove-btn" onclick="removeFile('pdf')" title="Quitar">×</button>
+            </div>
+        </div>
+        <button class="compare-btn" id="compareBtn" disabled onclick="comparar()">🔍 Comparar Documentos</button>
+        <div class="progress" id="progress"><div class="spinner"></div><p>Analizando documentos...</p></div>
+        <div class="result" id="result"></div>
+        <footer>Comparación 100% local — tus documentos no salen de tu ordenador</footer>
+    </div>
+
+    <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    let wordFile = null, pdfFile = null;
+
+    // Drag & Drop
+    const dropZone = document.getElementById('dropZone');
+    dropZone.addEventListener('click', () => {
+        const input = document.createElement('input');
+        input.type = 'file'; input.multiple = true; input.accept = '.docx,.doc,.pdf';
+        input.onchange = (e) => handleFiles(e.target.files);
+        input.click();
+    });
+    ['dragover','dragenter'].forEach(evt => dropZone.addEventListener(evt, e => { e.preventDefault(); dropZone.classList.add('dragover'); }));
+    ['dragleave','drop'].forEach(evt => dropZone.addEventListener(evt, e => { e.preventDefault(); dropZone.classList.remove('dragover'); }));
+    dropZone.addEventListener('drop', e => handleFiles(e.dataTransfer.files));
+
+    function handleFiles(files) {
+        for (const file of files) {
+            const ext = file.name.split('.').pop().toLowerCase();
+            if (ext === 'docx' || ext === 'doc') setFile('word', file);
+            else if (ext === 'pdf') setFile('pdf', file);
+        }
+        updateUI();
+    }
+    function setFile(type, file) {
+        if (type === 'word') { wordFile = file; document.getElementById('wordName').textContent = file.name; document.getElementById('wordSize').textContent = formatSize(file.size); document.getElementById('wordCard').classList.add('loaded'); }
+        else { pdfFile = file; document.getElementById('pdfName').textContent = file.name; document.getElementById('pdfSize').textContent = formatSize(file.size); document.getElementById('pdfCard').classList.add('loaded'); }
+    }
+    function removeFile(type) {
+        if (type === 'word') { wordFile = null; document.getElementById('wordName').textContent = 'Sin archivo'; document.getElementById('wordSize').textContent = ''; document.getElementById('wordCard').classList.remove('loaded'); }
+        else { pdfFile = null; document.getElementById('pdfName').textContent = 'Sin archivo'; document.getElementById('pdfSize').textContent = ''; document.getElementById('pdfCard').classList.remove('loaded'); }
+        updateUI();
+    }
+    function updateUI() {
+        document.getElementById('filesGrid').style.display = (wordFile || pdfFile) ? 'grid' : 'none';
+        document.getElementById('compareBtn').disabled = !(wordFile && pdfFile);
+    }
+    function formatSize(bytes) { if (bytes < 1024) return bytes + ' B'; if (bytes < 1048576) return (bytes/1024).toFixed(1) + ' KB'; return (bytes/1048576).toFixed(1) + ' MB'; }
+
+    // Text extraction
+    async function extractWordText(file) { const r = await mammoth.extractRawText({ arrayBuffer: await file.arrayBuffer() }); return r.value; }
+    async function extractPDFText(file) {
+        const pdf = await pdfjsLib.getDocument({ data: await file.arrayBuffer() }).promise;
+        let text = '';
+        for (let i = 1; i <= pdf.numPages; i++) { const c = await (await pdf.getPage(i)).getTextContent(); text += c.items.map(s => s.str).join(' ') + '\n'; }
+        return text;
+    }
+
+    // Legal document normalization pipeline
+    function limpiarMetadata(texto) {
+        if (!texto) return '';
+        // Strip signatures section (different table layout between formats)
+        const idxFirma = texto.toLowerCase().indexOf('firman en la fecha');
+        if (idxFirma > 0) texto = texto.substring(0, idxFirma);
+        // Strip headers/footers of pages
+        let lineas = texto.split('\n');
+        lineas = lineas.filter(l => !/PASEO|CASTELLANA|MADRID|28071|Página\s+\d/i.test(l) && !/^[\s\-|*#=_]+$/.test(l));
+        return lineas.join('\n');
+    }
+
+    function normalizar(texto) {
+        if (!texto) return '';
+        return texto
+            // Strip paragraph numbers at line start (Word restarts numbering, PDF continues)
+            .replace(/(?:^|\n)\s*\d{1,2}\.\s/g, '\n')
+            .replace(/(?:^|\n)\s*\*\d{1,2}\.\s/g, '\n')  // Markdown "*1. "
+            .toLowerCase()
+            .normalize('NFD').replace(/[\u0300-\u036f]/g, '')  // Strip tildes
+            .replace(/[^a-z0-9]/g, '');  // Only letters+numbers
+    }
+
+    async function comparar() {
+        const btn = document.getElementById('compareBtn');
+        const progress = document.getElementById('progress');
+        const result = document.getElementById('result');
+        btn.disabled = true; progress.classList.add('show'); result.classList.remove('show');
+        try {
+            let textoWord = wordFile ? await extractWordText(wordFile) : '';
+            let textoPdf = pdfFile ? await extractPDFText(pdfFile) : '';
+            textoWord = limpiarMetadata(textoWord); textoPdf = limpiarMetadata(textoPdf);
+            const wordNorm = normalizar(textoWord); const pdfNorm = normalizar(textoPdf);
+            const sonIguales = (wordNorm === pdfNorm);
+            let diferencias = [];
+            if (!sonIguales) {
+                const minLen = Math.min(wordNorm.length, pdfNorm.length);
+                let i = 0, count = 0;
+                while (i < minLen && count < 10) { if (wordNorm[i] !== pdfNorm[i]) { diferencias.push({ pos: i, word: wordNorm.substring(Math.max(0,i-30), i+30), pdf: pdfNorm.substring(Math.max(0,i-30), i+30) }); i += 20; count++; } else i++; }
+            }
+            const wordPalabras = textoWord.split(/\s+/).filter(w => w.length > 0).length;
+            const pdfPalabras = textoPdf.split(/\s+/).filter(w => w.length > 0).length;
+            let html = `<div class="result-header"><div class="icon">${sonIguales ? '✅' : '⚠️'}</div><h2>${sonIguales ? 'CONTENIDO IDÉNTICO' : 'CONTENIDO DIFERENTE'}</h2><div class="detail">${sonIguales ? 'El contenido legal de ambos documentos es el mismo' : 'Se encontraron diferencias en el contenido'}</div></div>`;
+            html += `<div class="stats"><div class="stat"><div class="num">${wordPalabras}</div><div class="label">Palabras Word</div></div><div class="stat"><div class="num">${pdfPalabras}</div><div class="label">Palabras PDF</div></div><div class="stat"><div class="num">${diferencias.length > 0 ? diferencias.length : (sonIguales ? 0 : '∞')}</div><div class="label">Diferencias</div></div></div>`;
+            if (!sonIguales && diferencias.length > 0) { html += '<div class="diff-section"><h3>🔍 Primeras diferencias encontradas</h3>'; diferencias.forEach(d => { html += `<div class="diff-item removed">❌ Word: ...${escapeHtml(d.word)}...</div><div class="diff-item added">➕ PDF:  ...${escapeHtml(d.pdf)}...</div>`; }); html += '</div>'; }
+            html += '<div class="diff-note">📋 <strong>Nota:</strong> Se centra en contenido legal. Ignora: headers/footers, numeración de párrafos, formato, puntuación, espaciado, tildes y firmas.</div>';
+            result.innerHTML = html; result.classList.add('show');
+        } catch (err) { result.innerHTML = `<div class="result-header"><div class="icon">❌</div><h2>Error al procesar</h2><div class="detail">${escapeHtml(err.message)}</div></div>`; result.classList.add('show'); }
+        progress.classList.remove('show'); btn.disabled = false;
+    }
+    function escapeHtml(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+
+    // Paste from clipboard
+    document.addEventListener('paste', e => { const items = e.clipboardData?.items; if (items) for (const item of items) { const f = item.getAsFile(); if (f) handleFiles([f]); } });
+    </script>
+</body>
+</html>

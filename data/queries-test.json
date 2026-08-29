@@ -1,0 +1,26 @@
+{
+  "descripcion": "Suite de regresion semantica: consultas canonicas y skills aceptables en el top-3. Se ejecuta con scripts/test-cobertura.py tras cada reindexado o cambio de modelo de embeddings. Los expected son nombres cortos de skill verificados en agent/skills/.",
+  "umbral_top3_pct": 85,
+  "consultas": [
+    {"q": "convertir un feed GTFS a shapefile ESRI", "expected": ["gtfs2shp", "gtfs-tidy", "transit-data-pipelines"]},
+    {"q": "clonar una voz para texto a voz", "expected": ["gpt-sovits-tts", "fish-speech-tts", "openvoice-voice-cloning", "f5-tts", "index-tts", "chatterbox-tts", "rvc-voice-conversion"]},
+    {"q": "mapa de isocronas de accesibilidad urbana", "expected": ["accessibility-map", "routing-isochrones", "valhalla-routing", "time-isochrones-precalculated", "timeineco"]},
+    {"q": "extraer texto de un PDF escaneado", "expected": ["pdf-processing", "baidu-unlimited-ocr", "mineru-pdf-to-markdown", "ocr-quirurgico-pdf-md", "liteparse-rust-pdf-ocr", "ocr-and-documents"]},
+    {"q": "desplegar una app node en nan.builders", "expected": ["esios-nan-deploy", "nan-builder-troubleshooting", "devops-operations", "infraestructura-nodejs", "esios-dashboard-deploy"]},
+    {"q": "revisar un pull request en github", "expected": ["github-code-review", "github-pr-workflow", "github-workflow", "requesting-code-review"]},
+    {"q": "crear un dashboard con graficos en vanilla js", "expected": ["frontend-dashboard-patterns", "aurora-design-system", "graficos-jongonzlz-style", "aurora-llm-optimization"]},
+    {"q": "generar el informe diario del mercado electrico espanol", "expected": ["esios-telegram-report", "esios-complete", "esios-indicators-correct"]},
+    {"q": "geolocalizar puntos por PK sobre la via", "expected": ["pk-rail-geocoding"]},
+    {"q": "convertir un PDF denso a markdown con OCR", "expected": ["mineru-pdf-to-markdown", "ocr-quirurgico-pdf-md", "liteparse-document-ai-parsing", "pdf-processing", "liteparse-rust-pdf-ocr"]},
+    {"q": "descargar masivamente archivos de una web", "expected": ["batch-file-download", "autoscraper"]},
+    {"q": "controlar las luces philips hue", "expected": ["openhue"]},
+    {"q": "buscar papers en arxiv", "expected": ["arxiv"]},
+    {"q": "crear un documento word docx con python", "expected": ["docx"]},
+    {"q": "visualizar un feed GTFS en el navegador", "expected": ["gtfs-box", "onebusaway-gtfs-realtime-visualizer", "gtfs-browser-parser", "gtfs-to-chart", "gtfs-static-editor"]},
+    {"q": "calcular sombras solares en el navegador", "expected": ["solar-shadow-computation", "solar-shadows-web-workers", "shademap-competidor-madrid"]},
+    {"q": "montar un sistema RAG de conocimiento", "expected": ["rag-knowledge-base", "agent-memory", "liteparse-document-ai-parsing"]},
+    {"q": "crear un skill nuevo de hermes con su SKILL.md", "expected": ["hermes-agent-skill-authoring", "hermes-agent", "hermes-setup-migration"]},
+    {"q": "auditar la calidad del codigo de un repositorio", "expected": ["codebase-inspection", "audit-html-project", "requesting-code-review", "dogfood", "system-audit", "simplify-code", "github-code-review"]},
+    {"q": "limpiar y validar un feed GTFS", "expected": ["gtfs-tidy", "gtfs-manager", "gtfs2shp"]}
+  ]
+}

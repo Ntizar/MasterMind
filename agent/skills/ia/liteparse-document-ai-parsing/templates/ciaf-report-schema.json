@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "description": "Schema JSON para informes finales de la CIAF (Comisión de Investigación de Accidentes Ferroviarios). Cada informe se mapea a esta estructura fija.",
+  "example": {
+    "id": "IF-41-2025",
+    "tipo_informe": "Informe Final (IF)",
+    "fecha_publicacion": "2025-06-24",
+    "fecha_suceso": "2025-05-22",
+    "hora_suceso": "21:53",
+    "ubicacion": {
+      "estacion": "Cortes de Navarra",
+      "provincia": "Navarra",
+      "kilometraje": null,
+      "vía": "Vía 1",
+      "tipo_lugar": "estación"
+    },
+    "tipo_suceso": "Incidente operacional",
+    "descripcion_corta": "Rebasó indebidamente la señal de salida S1/1 de la estación de Cortes de Navarra tras efectuar su parada comercial en la vía 1, talonando la aguja 6.",
+    "trenes": [
+      {
+        "tipo": "Media Distancia",
+        "numero": "18079",
+        "operador": "Renfe Viajeros",
+        "origen": "Miraflores",
+        "destino": "Castejón",
+        "material_rodante": null,
+        "maquinista": null
+      },
+      {
+        "tipo": "Media Distancia",
+        "numero": "00801",
+        "operador": "Renfe Viajeros",
+        "origen": null,
+        "destino": null,
+        "nota": "Tren sin parada en Cortes de Navarra que debía adelantar al 18079"
+      }
+    ],
+    "infraestructura": {
+      "administrador": "ADIF",
+      "señales": ["S1/1"],
+      "agujas": ["Aguja 6"],
+      "sistema_señalizacion": null,
+      "vías_afectadas": ["Vía 1"]
+    },
+    "centros_regulacion": [
+      {
+        "nombre": "CRC de Miranda de Ebro",
+        "responsable": "Responsable de Circulación (RC)"
+      }
+    ],
+    "causas": {
+      "directa": "El RC cerró la señal de salida sin comunicarlo correctamente al maquinista del tren 18079.",
+      "factores_humanos": [
+        "Comunicación errónea entre RC y maquinista",
+        "RC comunicó el cierre al maquinista del tren 18078 en vez del 18079"
+      ],
+      "organizativas": [],
+      "tecnicas": [],
+      "sucesos_similares": []
+    },
+    "consecuencias": {
+      "victimas": 0,
+      "heridos": 0,
+      "fallecidos": 0,
+      "danos_materiales": "Talonamiento de aguja 6",
+      "paracion_servicio": null
+    },
+    "recomendaciones": [
+      {
+        "id": "REC-2025-001",
+        "destinatario": "ADIF / Renfe / AESF",
+        "contenido": "...",
+        "prioridad": "alta/media/baja",
+        "estado": "pendiente/en curso/cumplida"
+      }
+    ],
+    "medidas_adoptadas": [
+      {
+        "descripcion": "...",
+        "fecha": null
+      }
+    ],
+    "entidades_involucradas": [
+      "ADIF",
+      "Renfe Viajeros",
+      "AESF",
+      "CIAF"
+    ],
+    "idiomas": ["es", "en"],
+    "resumen_english": "URL o texto del resumen en inglés (página 31 en IF-41/2025)"
+  }
+}

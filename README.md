@@ -132,6 +132,7 @@ Esto es lo que hace MasterMind cuando nadie le está hablando:
 |---|---|---|
 | 🧠 **Memoria** | `agent/MEMORY.md` + `agent/USER.md` | Proyectos, preferencias, lecciones del día a día. Se inyecta en cada sesión |
 | 📚 **Skills** | `agent/skills/` + ChromaDB | Procedimientos reutilizables por dominio: GIS, transporte, dashboards, ML, STEM... |
+| 🗃️ **Memoria de especialistas** | `agent/skills/<skill>/references/estado-*.md` | Cada skill con estado acumulativo recuerda su dominio entre sesiones — comiteada y versionada (ver `mastermind/memoria-especialistas.md`) |
 | 🔒 **Backup** | Este repositorio | Todo lo anterior, con push en cada ciclo de aprendizaje |
 
 > [!NOTE]
@@ -155,11 +156,13 @@ MasterMind/
 │   ├── indexar-skills.py      ← indexación en ChromaDB
 │   ├── explorar-stars.py      ← explorador de stars de GitHub
 │   ├── doctor.py              ← health check del sistema
+│   ├── test-doctor.py         ← tests del doctor: inyecta cada bug real y verifica que lo detecta
 │   └── ...                    ← backup, lifecycle, ebbinghaus...
 │
 ├── 📝 notes/                  ← notas de aprendizaje continuo
 ├── 📊 data/                   ← stars-registry.json (estado de los pipelines)
-├── 📖 mastermind/             ← documentación interna del sistema
+├── 📖 mastermind/             ← documentación interna: onboarding numerado
+│   └── onboarding/            ← (01-06) de identidad a recuperación desde cero
 └── 🌐 index.html              ← la web pública (GitHub Pages)
 ```
 
@@ -200,7 +203,10 @@ python scripts/indexar-skills.py --reset
 # 5. Comprobar que el sistema respira
 python scripts/doctor.py
 
-# 6. Probar la búsqueda semántica
+# 6. Verificar que el doctor detecta los bugs (tests de inyección)
+python scripts/test-doctor.py
+
+# 7. Probar la búsqueda semántica
 python scripts/consultar-skills.py "cualquier tema" --json
 ```
 

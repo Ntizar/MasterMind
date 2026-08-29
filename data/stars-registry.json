@@ -1199,13 +1199,47 @@
         "realtime-dashboard"
       ],
       "skill_created": false
+    },
+    "RVC-Project/Retrieval-based-Voice-Conversion-WebUI": {
+      "explored_at": "2026-08-29T04:00:52.682179+00:00",
+      "category": "pending",
+      "stars": 37888,
+      "language": "Python",
+      "skill_angles": [
+        "voice-ai-integration"
+      ],
+      "skill_created": false
+    },
+    "myshell-ai/OpenVoice": {
+      "explored_at": "2026-08-29T04:00:58.451128+00:00",
+      "category": "pending",
+      "stars": 37346,
+      "language": "Python",
+      "skill_angles": [
+        "voice-ai-integration"
+      ],
+      "skill_created": false
+    },
+    "patchy631/ai-engineering-hub": {
+      "explored_at": "2026-08-29T04:01:04.704621+00:00",
+      "category": "pending",
+      "stars": 37217,
+      "language": "Jupyter Notebook",
+      "skill_angles": [
+        "ai-cv-pipeline",
+        "ci-cd-pipeline-patterns",
+        "crm-erp-patterns",
+        "voice-ai-integration",
+        "realtime-dashboard"
+      ],
+      "skill_created": false
     }
   },
-  "last_run": "2026-08-28T22:00:35.991248+00:00",
+  "last_run": "2026-08-29T04:01:05.704946+00:00",
   "total_skills_created": 1,
   "stats": {
-    "runs": 12,
-    "repos_explored": 136,
+    "runs": 13,
+    "repos_explored": 139,
     "skills_generated": 9,
     "last_batch": 3
   },

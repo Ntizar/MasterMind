@@ -98,19 +98,23 @@ Al recibir el output del script, el agent debe:
 
 ### Criterios de Creación de Skill
 
+**Criterio v2 (corregido 2026-08-29): una estrella = interés válido.**
+
 **Crear skill si:**
-- Repo tiene patrones arquitectónicos reutilizables (3+ patterns detectados)
-- Tech stack relevante para proyectos existentes de David
-- El README describe approach único o innovador
-- Tiene +1000 stars (indica calidad/comunidad)
+- El repo tiene patrones reutilizables, un enfoque único o conocimiento destilable
+- David le dio estrella — eso ES el criterio de relevancia, aunque no encaje hoy en el stack (web/GIS/dashboards). Los proyectos nuevos surgen de intereses aparentemente fuera de stack
+- No duplica un skill existente (verificar en agent/skills/ antes de crear)
 - El repo es de David (siempre crear, es su conocimiento)
 
 **NO crear skill si:**
-- Solo tiene README genérico sin patrones concretos
 - Es un "awesome list" o curated list sin código
 - Ya existe un skill cubriendo lo mismo
-- El repo está archivado o sin maintenimiento
-- Es demasiado simple (<100 stars, sin code patterns)
+- El repo está archivado o vacío
+- Es demasiado simple (<100 stars, sin código sustancial)
+
+**NO es razón de skip** (corrección 2026-08-29):
+- "No encaja en el stack actual de David" → destilar igualmente
+- "Sin mantenimiento reciente" → es un dato que va como pitfall dentro del skill, no un veto
 
 **Categorías para el registry:**
 - `core` — Skills que son parte fundamental del sistema

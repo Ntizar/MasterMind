@@ -1,80 +1,66 @@
 ---
 name: openpose-pose-estimation
+description: "Usa al detectar pose humana con OpenPose."
 version: "1.0.0"
-description: "OpenPose — Detección en tiempo real de keypoints corporales (cuerpo, cara, manos, pies). Biblioteca C++/Python para pose estimation multi-persona."
-tags: [pose-estimation, computer-vision, keypoints, real-time, deep-learning, C++, body-tracking]
+tags: [cv, pose-estimation, keypoints, deep-learning, c++, realtime]
 ---
 
-# OpenPose — Detección de Pose Corporal en Tiempo Real
+# OpenPose — Detección de Pose Humana Multi-persona
 
-## Resumen
+## Qué es
 
-[OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose) (⭐34K) de CMU es la biblioteca de referencia para detección de keypoints corporales en tiempo real. Detecta cuerpo, cara, manos y pies simultáneamente en múltiples personas.
+OpenPose (CMU Perceptual Computing Lab, CVPR 2017) fue el **primer sistema en tiempo real multi-persona** que detecta conjuntamente 135 keypoints: 25 del cuerpo, 21×2 manos, 70 cara y 6 pies, sobre una sola imagen o vídeo.
 
-## Cuándo usar
+- **Output:** coordenadas (x, y, confianza) por keypoint + PAFs (Part Affinity Fields) para asociar extremidades
+- **Backends:** Caffe, OpenGL, OpenVINO, TensorRT, CUDA
+- **Multi-persona** sin detector previo (bottom-up), a diferencia de enfoques top-down
+- **Licencia:** gratuita para uso no comercial (NOASSERTION — revisar antes de uso comercial)
 
-- Análisis de movimiento/gestos en video
-- Detección de postura corporal en tiempo real
-- Visualización de pose en dashboards interactivos
-- Análisis de ergonomía o biomecánica
-
-## Patrón de uso
+## Instalación (Windows)
 
 ```bash
-# Build desde source
-cd build
-cmake -DWITH_INF_ENGINE=OFF -DWITH_CUDA=ON -DCPU_MODE=ON ..
-make -j4
+git clone --recursive https://github.com/CMU-Perceptual-Computing-Lab/openpose.git
+cd openpose
+# Requiere CMake + Visual Studio (Windows) o Make (Linux)
+# Modelos se descargan al compilar (baixar_models option) o con scripts/getModels.sh
 ```
 
-```python
-# Python API
-import cv2
-import openpose
+Pitfall: clonar SIEMPRE con `--recursive` (dependencia de submódulos de Caffe/3rdparty).
 
-# Inicializar detector
-detector = openpose.PoseDetector()
-detector.set_model("BODY_25")  # 25 puntos corporales
-detector.set_output_format("json")
+## Uso básico
 
-# Procesar frame
-result = detector.process(frame)
-# result: {pose: [[x,y,conf],...], face: [...], hands: [...]}
+```bash
+# Imagen con todos los keypoints
+bin/OpenPoseDemo.exe --image_path imagen.jpg --face --hand
+
+# Vídeo en directo
+bin/OpenPoseDemo.exe --video video.mp4 --net_resolution "-1x368"
+
+# Salida JSON de keypoints
+bin/OpenPoseDemo.exe --image_path img.jpg --write_json output/
 ```
 
-```javascript
-// En navegador con WASM (alternativa)
-// Para web, usar MediaPipe Pose como alternativa más ligera
-```
+`--net_resolution "-1x368"` mantiene múltiplo de 16 y equilibra velocidad/precisión en GPU modestas.
 
-## Features clave
+## Casos de uso para David
 
-| Feature | Descripción |
-|---------|-------------|
-| Multi-persona | Detecta hasta 30 personas simultáneamente |
-| 135 keypoints | 25 cuerpo + 70 cara + 40 manos |
-| Real-time | 30fps en GPU, 5fps en CPU |
-| Multi-plataforma | C++, Python, MATLAB, Android |
-| OpenPose 2.0 | Versión más nueva con mejor precisión |
-
-## Integración con otros skills
-
-- **gaze-tracking**: Complementa con detección de mirada
-- **roboflow-supervision**: Visualización de keypoints en imágenes
-- **manim-video**: Animaciones de pose para contenido educativo
+- **Base para proyectos CV**: gestos, interacción, análisis de movimiento en webcams o vídeo
+- **Complemento de otras skills de visión** (RF-DETR, GazeTracking, ONNX/WebGPU): OpenPose cubre la parte de pose que las otras no
+- **Alternativas modernas** si el proyecto lo requiere: MediaPipe Pose, YOLO-Pose, RTMPose — más ligeras y con mejor soporte web, pero OpenPose sigue siendo el benchmark de referencia y el más completo en manos/cara
 
 ## Pitfalls
 
-- **Build complejo**: OpenPose requiere CMake, Boost, OpenCV. El build puede fallar en distribuciones nuevas
-- **GPU recomendada**: Sin GPU, el rendimiento cae drásticamente
-- **Alternativa web**: Para el navegador, MediaPipe Pose es más práctico (WebAssembly, no requiere build)
-- **Mantenimiento**: El repo principal tiene commits esporádicos. Considerar forks activos como OpenPose2
+- **Build en Windows es pesado**: CMake + VS 2019/2022, y los modelos (~200MB) se descargan aparte; fallos típicos por versión de CUDA incompatible con la de PyTorch preinstalada
+- **Sin desarrollo activo**: último push en 2024 — para producción considerar alternativas; sigue siendo válido como referencia y para experimentos
+- **Licencia no comercial**: no usar en proyectos de clientes sin revisarla
+- CPU-only es lento (≈1 fps a resolución baja); GPU recomendada para tiempo real
+
+## Verificación
+
+- `bin/OpenPoseDemo.exe --image_path examples/media/COCO_val2014_000000000192.jpg` debe abrir la ventana con el esqueleto dibujado sobre la persona
+- El JSON de salida contiene `part_candidates` y `people` con 25+ keypoints por persona detectada
 
 ## Referencias
-- Paper: https://arxiv.org/abs/1812.08430
-- Website: https://github.com/CMU-Perceptual-Computing-Lab/openpose
-- OpenPose2: https://github.com/CMU-Perceptual-Computing-Lab/OpenPose2
 
----
-
-**Hecho con ❤️ por David Antizar**
+- Repo: `github.com/CMU-Perceptual-Computing-Lab/openpose` (34.4k⭐)
+- Paper: CVPR 2017 — "Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields"

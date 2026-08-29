@@ -49,10 +49,19 @@ cd C:/Users/d_ant/Projects/MasterMind
 python scripts/consultar-skills.py "consulta" --json   # búsqueda semántica
 python scripts/indexar-skills.py [--reset]              # indexar (tras crear skills)
 python scripts/doctor.py [--json]                       # health check
+python scripts/test-doctor.py [--json]                  # tests del doctor (bug-inyección, 9 casos sandbox)
 bash scripts/run-stars-explorer.sh --batch 3 --json     # explorar stars manual
 ```
 
+Tras tocar `doctor.py`, ejecutar SIEMPRE `test-doctor.py` (patrón bug-inyección:
+inyecta cada bug real en sandboxes bajo %TEMP% y verifica que el doctor lo detecta).
+Los overrides `MM_DOCTOR_REPO/HERMES/CHROMA/SANDBOX` permiten correr doctor.py
+contra sandboxes aislados sin tocar el sistema real. Ruta de onboarding del repo:
+`mastermind/onboarding/` (01-06, incluye recuperación desde cero).
+
 ## Pitfalls operativos
+
+0. **Sincronizar ANTES de indexar**: la instalación (`%LOCALAPPDATA%\hermes\skills\`) y el repo divergen con facilidad (88 skills llegaron a divergir sin que nadie lo notara). Antes de indexar o confiar en el repo como fuente de verdad: `python scripts/sincronizar-skills.py` (bidireccional, unión, nunca borra). El conteo del doctor NO detecta divergencia de contenido — para eso está `python scripts/test-cobertura.py`.
 
 1. **Rutas MSYS vs nativas**: exportar `STARS_REGISTRY=/c/Users/...` desde bash y que un python.exe nativo la lea crea literalmente `C:\c\Users\...`. Los wrappers pasan rutas en formato `C:/Users/...`.
 2. **Secrets nunca en prompts de cron**: el explorador de stars usa `gh auth token` (keyring) dentro del wrapper — nunca patrones de lectura de .env en el prompt (el scanner de cron los bloquea).
@@ -61,6 +70,8 @@ bash scripts/run-stars-explorer.sh --batch 3 --json     # explorar stars manual
 5. **rm -rf grandes en terminal quedan bloqueados sin aprobación** del usuario; dividir limpieza en pasos pequeños o confirmar antes.
 6. **Push concurrente del cron scout**: el scout pushea a `Ntizar/MasterMind` cada 6h; un push directo puede rechazarse con "fetch first". Resolver SIEMPRE con `git pull --rebase origin master && git push` — nunca con merge ni forzando. Aplica a cualquier trabajo sobre el repo.
 7. **Landing del repo (`index.html`) consume Aurora v6 vía CDN** (`ntizar.css + next + three + data + patterns + motion`): el diseño se edita en el repo `~/Projects/Ntizar-Aurora`, nunca con CSS custom en MasterMind. Ver skill `aurora-design-system`. Auditoría: `python scripts/audit-aurora.py index.html` (del skill Aurora).
+8. **Sincronizar skill → repo tras editar el skill local**: los skills pueden existir solo en la instalación local y olvidarse en el repo (pasó con este skill hasta 2026-08-29). Tras editar un skill aquí, copiarlo a `agent/skills/<dominio>/` del repo y commitear — el repo es la fuente de verdad y la reconstrucción depende de él.
+9. **Pitfall de patches en SKILL.md**: un patch cuyo old_string coincide con una línea de definición puede SUSTITUIR la línea en vez de insertar antes (borró `resultados = []` en test-doctor.py y costó un NameError). Al insertar secciones nuevas, incluir en old_string el título de la sección siguiente y devolverlo íntegro en new_string.
 
 ## Memoria por especialista
 

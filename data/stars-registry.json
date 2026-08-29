@@ -1296,13 +1296,45 @@
       ],
       "skill_created": false,
       "reason": "Algoritmo de feed de X, sin relevancia para los proyectos de David"
+    },
+    "tt-a1i/archify": {
+      "explored_at": "2026-08-29T22:00:33.558799+00:00",
+      "category": "pending",
+      "stars": 30833,
+      "language": "JavaScript",
+      "skill_angles": [
+        "ci-cd-pipeline-patterns"
+      ],
+      "skill_created": false
+    },
+    "alibaba/page-agent": {
+      "explored_at": "2026-08-29T22:00:39.297899+00:00",
+      "category": "pending",
+      "stars": 28902,
+      "language": "TypeScript",
+      "skill_angles": [
+        "ci-cd-pipeline-patterns",
+        "crm-erp-patterns",
+        "voice-ai-integration"
+      ],
+      "skill_created": false
+    },
+    "cathrynlavery/diagram-design": {
+      "explored_at": "2026-08-29T22:00:44.956603+00:00",
+      "category": "pending",
+      "stars": 28568,
+      "language": "HTML",
+      "skill_angles": [
+        "ci-cd-pipeline-patterns"
+      ],
+      "skill_created": false
     }
   },
-  "last_run": "2026-08-29T16:01:08.647749+00:00",
+  "last_run": "2026-08-29T22:00:45.957139+00:00",
   "total_skills_created": 1,
   "stats": {
-    "runs": 15,
-    "repos_explored": 145,
+    "runs": 16,
+    "repos_explored": 148,
     "skills_generated": 9,
     "last_batch": 3
   },

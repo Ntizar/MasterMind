@@ -15,11 +15,14 @@ import urllib.request
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-REPO = Path(__file__).resolve().parent.parent
-HERMES = Path.home() / "AppData" / "Local" / "hermes"
+# Overrides de entorno para tests (scripts/test-doctor.py): permiten montar
+# sandboxes aislados sin tocar el sistema real. En uso normal no se definen.
+REPO = Path(os.environ.get("MM_DOCTOR_REPO", Path(__file__).resolve().parent.parent))
+HERMES = Path(os.environ.get("MM_DOCTOR_HERMES", Path.home() / "AppData" / "Local" / "hermes"))
 CRON_DIR = HERMES / "cron"
+SANDBOX = os.environ.get("MM_DOCTOR_SANDBOX") == "1"
 PY_SYS = r"C:/Users/d_ant/AppData/Local/Programs/Python/Python312/python.exe"
-CHROMA_PATH = Path.home() / ".mastermind" / "chromadb"
+CHROMA_PATH = Path(os.environ.get("MM_DOCTOR_CHROMA", Path.home() / ".mastermind" / "chromadb"))
 COLLECTION = "mastermind-skills"
 
 results = []
@@ -34,10 +37,13 @@ def run(cmd, cwd=None, timeout=30):
     except Exception as e:
         return type("R", (), {"returncode": 1, "stdout": "", "stderr": str(e)})()
 
-# 1) Gateway vivo
-r = run("hermes gateway status")
-gw_up = "running" in (r.stdout + r.stderr).lower() or "✓" in r.stdout
-check("gateway", gw_up, (r.stdout + r.stderr).strip().splitlines()[0] if (r.stdout + r.stderr) else "sin salida")
+# 1) Gateway vivo (omitido en sandbox de tests)
+if SANDBOX:
+    check("gateway", True, "sandbox: omitido", warn=True)
+else:
+    r = run("hermes gateway status")
+    gw_up = "running" in (r.stdout + r.stderr).lower() or "✓" in r.stdout
+    check("gateway", gw_up, (r.stdout + r.stderr).strip().splitlines()[0] if (r.stdout + r.stderr) else "sin salida")
 
 # 2) Crons: último run de cada job activo < 25h (scout 6h con margen)
 try:

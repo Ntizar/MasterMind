@@ -1,52 +1,63 @@
 ---
-name: video-processing
-version: "1.0.0"
-description: "Ecosistema completo de procesamiento de vídeo: pipelines agénticos multi-LLM, generación automática desde topic, edición, transcripción, shorts, captions y posts para redes sociales."
-tags: [video, ai, pipeline, automation, tts, short-video, content-generation, ffmpeg, whisper]
+name: video-use-agentic-editing
+description: "Usa al editar vídeo por agente con ffmpeg (video-use)."
+version: 1.0.0
+tags: [video, ffmpeg, agent, edicion, subtitles]
 ---
 
-# Video Processing — Ecosistema Completo
+# video-use — Edición de vídeo dirigida por agente (21K⭐)
 
-## Resumen
+## Qué es
 
-Ecosistema completo de procesamiento de vídeo con IA que cubre todos los patrones de uso:
+Repo `browser-use/video-use`: dropas footage crudo en una carpeta, hablas con un agente CLI (Claude Code, Codex, Hermes...) y recibes `final.mp4`. Sin presets ni menús — el agente ejecuta scripts ffmpeg de `helpers/`.
 
-| Subskill | Cuándo usar | Output |
-|----------|-------------|--------|
-| **Agentic Pipeline** | Pipeline completo multi-agente desde raw video | Shorts, reels, captions, blog posts, social posts |
-| **Video from Topic** | Generación automática desde keyword/simple topic | Video completo con TTS, footage, subtítulos, BGM |
+## Capacidades
 
-## Sección 1: Agentic Pipeline (vidpipe pattern)
+- **Corta muletillas** (`umm`, `uh`, falsos arranques) y espacio muerto entre tomas
+- **Color grading automático** por segmento (cadenas ffmpeg custom)
+- **Fades de audio de 30ms** en cada corte (evita pops)
+- **Subtítulos quemados** estilo custom (por defecto chunks de 2 palabras en MAYÚSCULAS)
+- **Overlays de animación** vía HyperFrames, Remotion, Manim o PIL — sub-agentes paralelos, uno por animación
+- **Auto-evaluación** del render en cada corte antes de mostrar nada
+- **Memoria de sesión** en `project.md` — retoma donde lo dejaste
 
-**Para:** Procesamiento de vídeo existente con múltiples agentes LLM especializados.
-**Arquitectura:** IdeaDiscovery → Producer → Schedule → Chapter → MediumVideo/Shorts/Blog
-**Agentes:** Whisper transcripción, Gemini tendencias, GPT-4 edición, DALL-E thumbnails
-**Pipeline specs:** minimal.yaml, full.yaml, clean.yaml
-**Herramientas:** Frame capture, transcript, FFmpeg, image generation
+## Setup
 
-## Sección 2: Video from Topic (MoneyPrinterTurbo pattern)
-
-**Para:** Generación automática de videos cortos desde un tema o palabra clave.
-**Flujo:** tema → guion → voz → imágenes/video → subtítulos → música → video final
-**Tech stack:** FastAPI, Streamlit, MoviePy, edge-tts (gratis), multi-LLM routing
-**Web UI:** Streamlit visual + API REST
-
-## Decision Guide
-
+```bash
+git clone https://github.com/browser-use/video-use.git
+cd video-use
+# leer install.md: configura ffmpeg, registra skill, pide API key de ElevenLabs
+# leer helpers/ — ahí viven los scripts de edición
 ```
-¿Tienes un vídeo existente?
-├── Sí → Agentic Pipeline (vidpipe)
-│        └── ¿Quieres solo transcripción? → minimal.yaml
-│        └── ¿Quieres todo (shorts, blog, social)? → full.yaml
-│        └── ¿Quieres transcripción + shorts? → clean.yaml
-│
-└── ¿Quieres generar un vídeo desde cero?
-    └── Sí → Video from Topic (MoneyPrinterTurbo)
-             └── ¿Presupuesto limitado? → edge-tts gratis
-             └── ¿Necesitas multi-LLM? → OpenAI/Claude/Gemini routing
+
+Dependencias Python: librosa, matplotlib, numpy, pillow, requests (pyproject.toml). Requiere ffmpeg instalado y un agente CLI con acceso a shell.
+
+## Flujo de uso
+
+1. Instalar y dejar listo (no transcribir nada por cuenta propia)
+2. El usuario dropa footage en la carpeta
+3. Instruir al agente por chat: "corta los silencios y quema subtítulos"
+4. El agente ejecuta scripts de helpers/, auto-evalúa cortes, produce final.mp4
+
+## Cuándo usarlo
+
+- Talking heads, tutoriales, entrevistas, montajes de viaje
+- Cuando el usuario pide "editar este vídeo" sin decirle qué software
+- Pipeline agéntico: compleméntalo con `video-processing` para transcodificación y `hyperframes-html-to-video` para overlays HTML→MP4
+
+## Pitfalls
+
+- Necesita ElevenLabs API key para transcripción/voz — pedirla al usuario, nunca inventar
+- No transcribir por cuenta propia antes del install; dejar que el agente use sus helpers
+- Los scripts viven en `helpers/`, no en la raíz — siempre leer esa carpeta
+- La auto-evaluación de cortes añade tiempo de render; no desactivarla para material largo
+
+## Verificación
+
+```bash
+ls final.mp4 && ffprobe -v error -show_entries format=duration final.mp4
 ```
 
 ## Referencias
 
-- [htekdev/vidpipe](https://github.com/htekdev/vidpipe) — Pipeline agéntico multi-agente
-- [harry0703/MoneyPrinterTurbo](https://github.com/harry0703/MoneyPrinterTurbo) — Generación automática desde topic (88K⭐)
+- Repo: github.com/browser-use/video-use (MIT)

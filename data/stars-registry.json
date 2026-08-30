@@ -1328,13 +1328,45 @@
         "ci-cd-pipeline-patterns"
       ],
       "skill_created": false
+    },
+    "resemble-ai/chatterbox": {
+      "explored_at": "2026-08-30T04:00:36.383160+00:00",
+      "category": "pending",
+      "stars": 26201,
+      "language": "Python",
+      "skill_angles": [
+        "ci-cd-pipeline-patterns",
+        "voice-ai-integration"
+      ],
+      "skill_created": false
+    },
+    "apify/crawlee": {
+      "explored_at": "2026-08-30T04:00:43.053407+00:00",
+      "category": "pending",
+      "stars": 25561,
+      "language": "TypeScript",
+      "skill_angles": [
+        "ci-cd-pipeline-patterns",
+        "crm-erp-patterns"
+      ],
+      "skill_created": false
+    },
+    "baidu/Unlimited-OCR": {
+      "explored_at": "2026-08-30T04:00:48.618620+00:00",
+      "category": "pending",
+      "stars": 24756,
+      "language": "Python",
+      "skill_angles": [
+        "pattern-ai/ml"
+      ],
+      "skill_created": false
     }
   },
-  "last_run": "2026-08-29T22:00:45.957139+00:00",
+  "last_run": "2026-08-30T04:00:49.619098+00:00",
   "total_skills_created": 1,
   "stats": {
-    "runs": 16,
-    "repos_explored": 148,
+    "runs": 17,
+    "repos_explored": 151,
     "skills_generated": 9,
     "last_batch": 3
   },

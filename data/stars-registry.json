@@ -1444,13 +1444,45 @@
       "language": "Go",
       "skill_created": true,
       "notes": "Skill ai-agent-sandbox-runtime creado"
+    },
+    "img2threejs/img2threejs": {
+      "explored_at": "2026-08-31T10:00:46.961797+00:00",
+      "category": "pending",
+      "stars": 14644,
+      "language": "Python",
+      "skill_angles": [
+        "pattern-real-time"
+      ],
+      "skill_created": false
+    },
+    "walkinglabs/learn-harness-engineering": {
+      "explored_at": "2026-08-31T10:00:53.846079+00:00",
+      "category": "pending",
+      "stars": 14564,
+      "language": "TypeScript",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "bilawalsidhu/gods-eye-view": {
+      "explored_at": "2026-08-31T10:00:59.696386+00:00",
+      "category": "pending",
+      "stars": 14149,
+      "language": "JavaScript",
+      "skill_angles": [
+        "geospatial-3d-visualization",
+        "ai-cv-pipeline",
+        "crm-erp-patterns",
+        "voice-ai-integration",
+        "3d-performance"
+      ],
+      "skill_created": false
     }
   },
-  "last_run": "2026-08-30T22:00:55.268559+00:00",
+  "last_run": "2026-08-31T10:01:00.696905+00:00",
   "total_skills_created": 1,
   "stats": {
-    "runs": 20,
-    "repos_explored": 160,
+    "runs": 21,
+    "repos_explored": 163,
     "skills_generated": 9,
     "last_batch": 3
   },

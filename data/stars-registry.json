@@ -1508,13 +1508,48 @@
         "realtime-dashboard"
       ],
       "skill_created": false
+    },
+    "numba/numba": {
+      "explored_at": "2026-08-31T22:00:29.794917+00:00",
+      "category": "tool",
+      "stars": 11140,
+      "language": "Python",
+      "skill_angles": [
+        "pattern-pipeline"
+      ],
+      "skill_created": true,
+      "skill_name": "numba-jit-acceleration"
+    },
+    "data-privacy-stack/presidio": {
+      "explored_at": "2026-08-31T22:00:36.181530+00:00",
+      "category": "skip",
+      "stars": 10698,
+      "language": "Python",
+      "skill_angles": [
+        "ai-cv-pipeline",
+        "ci-cd-pipeline-patterns",
+        "crm-erp-patterns"
+      ],
+      "skill_created": false,
+      "skip_reason": "Ya cubierto por security/presidio-pii (dedup ChromaDB score 0.79). Nota: repo migró de microsoft/presidio a data-privacy-stack/presidio."
+    },
+    "m87-labs/moondream": {
+      "explored_at": "2026-08-31T22:00:42.136775+00:00",
+      "category": "tool",
+      "stars": 10026,
+      "language": "Python",
+      "skill_angles": [
+        "ai-cv-pipeline"
+      ],
+      "skill_created": true,
+      "skill_name": "moondream-vlm"
     }
   },
-  "last_run": "2026-08-31T16:01:06.322169+00:00",
+  "last_run": "2026-08-31T22:00:43.137908+00:00",
   "total_skills_created": 1,
   "stats": {
-    "runs": 22,
-    "repos_explored": 166,
+    "runs": 23,
+    "repos_explored": 169,
     "skills_generated": 9,
     "last_batch": 3
   },

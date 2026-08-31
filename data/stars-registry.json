@@ -1543,13 +1543,67 @@
       ],
       "skill_created": true,
       "skill_name": "moondream-vlm"
+    },
+    "OpenMined/PySyft": {
+      "explored_at": "2026-08-31T23:25:39.246345+00:00",
+      "category": "pending",
+      "stars": 10019,
+      "language": "Python",
+      "skill_angles": [
+        "realtime-dashboard"
+      ],
+      "skill_created": false
+    },
+    "chakra-core/ChakraCore": {
+      "explored_at": "2026-08-31T23:25:45.608636+00:00",
+      "category": "pending",
+      "stars": 9258,
+      "language": "JavaScript",
+      "skill_angles": [
+        "pattern-architecture"
+      ],
+      "skill_created": false
+    },
+    "trycompai/crm": {
+      "explored_at": "2026-08-31T23:25:51.422397+00:00",
+      "category": "pending",
+      "stars": 9166,
+      "language": "TypeScript",
+      "skill_angles": [
+        "crm-erp-patterns"
+      ],
+      "skill_created": false
+    },
+    "oso95/scroll-world": {
+      "explored_at": "2026-08-31T23:25:56.981025+00:00",
+      "category": "pending",
+      "stars": 8848,
+      "language": "JavaScript",
+      "skill_angles": [
+        "ci-cd-pipeline-patterns",
+        "realtime-dashboard"
+      ],
+      "skill_created": false
+    },
+    "simplifaisoul/osiris": {
+      "explored_at": "2026-08-31T23:26:02.823647+00:00",
+      "category": "pending",
+      "stars": 8152,
+      "language": "TypeScript",
+      "skill_angles": [
+        "geospatial-3d-visualization",
+        "crm-erp-patterns",
+        "realtime-dashboard",
+        "3d-performance"
+      ],
+      "skill_created": false
     }
   },
-  "last_run": "2026-08-31T22:00:43.137908+00:00",
+  "last_run": "2026-08-31T23:26:03.824517+00:00",
   "total_skills_created": 1,
   "stats": {
-    "runs": 23,
-    "repos_explored": 169,
+    "runs": 24,
+    "repos_explored": 174,
     "skills_generated": 9,
     "last_batch": 3
   },

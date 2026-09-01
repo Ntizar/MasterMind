@@ -12,7 +12,7 @@ R^3 (310⭐, último push 2026-06-19) es la opción minoritaria del terreno "rec
 | Repo | Stars | Estado | Cuándo usarlo |
 |------|-------|--------|---------------|
 | `facebookresearch/vggt` | 14.314 | CVPR 2025 Best Paper | Primera opción: transformer de geometría visual, multi-vista → pose + profundidad + punto nube |
-| `colmap/colmap` | 12.609 | Mantenimiento activo (push hoy) | SfM/MVS clásico robusto, la referencia cuando basta precisión y no faz falta deep learning |
+| `colmap/colmap` | 12.609 | Mantenimiento activo (push hoy) | SfM/MVS clásico robusto, la referencia cuando basta precisión y no hace falta deep learning |
 | `ByteDance-Seed/Depth-Anything-3` | 6.244 | Activo (2026-07) | Monocular depth foundation model; ver skill `depth-anything-3` |
 | `KevinXu02/R3` (este) | 310 | Activo (2026-06) | Regresión relativa — útil cuando el setup de cámara es irregular/calibración poor; niche académico |
 

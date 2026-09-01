@@ -1654,13 +1654,65 @@
       ],
       "skill_created": false,
       "skip_reason": "dedup: skill graphhopper-routing ya existe (0.77)"
+    },
+    "cursor/plugins": {
+      "explored_at": "2026-09-01T00:00:40.133832+00:00",
+      "category": "pending",
+      "stars": 6382,
+      "language": "TypeScript",
+      "skill_angles": [
+        "pattern-architecture"
+      ],
+      "skill_created": false
+    },
+    "ByteDance-Seed/Depth-Anything-3": {
+      "explored_at": "2026-09-01T00:00:46.154560+00:00",
+      "category": "pending",
+      "stars": 6239,
+      "language": "Python",
+      "skill_angles": [
+        "geospatial-3d-visualization",
+        "3d-performance"
+      ],
+      "skill_created": false
+    },
+    "erincatto/box3d": {
+      "explored_at": "2026-09-01T00:00:52.420797+00:00",
+      "category": "pending",
+      "stars": 6223,
+      "language": "C",
+      "skill_angles": [
+        "ai-cv-pipeline",
+        "3d-performance"
+      ],
+      "skill_created": false
+    },
+    "valhalla/valhalla": {
+      "explored_at": "2026-09-01T00:00:58.737708+00:00",
+      "category": "pending",
+      "stars": 6141,
+      "language": "C++",
+      "skill_angles": [
+        "pattern-architecture"
+      ],
+      "skill_created": false
+    },
+    "Gentleman-Programming/gentle-ai": {
+      "explored_at": "2026-09-01T00:01:05.030389+00:00",
+      "category": "pending",
+      "stars": 6112,
+      "language": "Go",
+      "skill_angles": [
+        "pattern-architecture"
+      ],
+      "skill_created": false
     }
   },
-  "last_run": "2026-08-31T23:51:10.392538+00:00",
+  "last_run": "2026-09-01T00:01:06.031369+00:00",
   "total_skills_created": 1,
   "stats": {
-    "runs": 25,
-    "repos_explored": 179,
+    "runs": 26,
+    "repos_explored": 184,
     "skills_generated": 9,
     "last_batch": 3
   },

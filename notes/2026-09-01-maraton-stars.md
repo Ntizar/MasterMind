@@ -15,3 +15,11 @@
 - LiamGvchi/gc-minimal-zine-poster (6797, sin lang) — decisión: SKIP sin código (skill de prompts para Codex; overlap creativo 0.75, no es proyecto de software)
 - graphhopper/graphhopper (6654, Java) — decisión: SKIP dedup (skill graphhopper-routing ya existe, score 0.77)
 - Pendientes restantes: 154 (categoría pending en registry; este batch convirtió 5 pending→skip)
+
+### Batch — 02:01
+- Explorados: cursor/plugins (6382, TypeScript) — decisión: SKIP dedup (especificación de plugins Cursor para agentes IA; solapamiento 0.69 con autonomous-ai-agents/hermes-agent + agent-canvas; ficheros md/json sin patrones de código reutilizables para el stack de David)
+- ByteDance-Seed/Depth-Anything-3 (6239, Python) — decisión: SKIP dedup (duplicado exacto: skill depth-anything-3 ya existe, score 0.83)
+- erincatto/box3d (6223, C) — decisión: SKIP dedup (motor física 3D; skill creative/box3d-renderer ya lo cubre, score 0.69)
+- valhalla/valhalla (6141, C++) — decisión: SKIP dedup (skill valhalla-routing ya existe + routing-isochrones + graphhopper-routing cubren isócronas/matrix)
+- Gentleman-Programming/gentle-ai (6112, Go) — decisión: SKIP dedup (CLI de workflows/review para coding agents; solapamiento 0.79 con claude-code + opencode + requesting-code-review + google-eng-practices)
+- Pendientes restantes: 138

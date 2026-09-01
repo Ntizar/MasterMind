@@ -71,3 +71,11 @@
 - autowarefoundation/vision_pilot (874, C++) — decisión: SKIP dedup (stack ADAS L2 end-to-end sobre ROS2, por debajo del umbral de 1000⭐ y fuera del ámbito web/GIS de David → cctv-yolo + traffic-digital-twin-cctv + airsim-simulation 0.57 cubren CV sobre conducción)
 - ankandrew/fast-alpr (788, Python) — decisión: SKIP dedup (duplicado exacto: skill data-science/fast-alpr ya existe, score 0.81)
 - Pendientes restantes: 108 (según --json del script; este batch convirtió 0 en skills, 0 skills creados, 5 skips dedup)
+
+### Batch — 04:25
+- Explorados: scottstts/Threejs-Awesome-Graphics-Agent-Skills (771, JavaScript) — decisión: SKIP dedup (duplicado exacto: skill threejs-awesome-graphics-agent-skills ya existe, score 0.84)
+- Braffolk/fable5-world-demo (709, TypeScript) — decisión: SKIP dedup (duplicado exacto: geospatial/fable5-webgpu-procedural ya cubre LAAS, score 0.83; el patrón WebGPU+TSL+verificación headless está documentado ahí + webgl-headless-verification)
+- SanshruthR/CCTV_YOLO (688, Python) — decisión: SKIP dedup (demo Gradio de un solo fichero YOLOv5n6 sobre stream CCTV → computer-vision/cctv-yolo + traffic-digital-twin-cctv 0.73 cubren el pipeline; el truco infer-baja-res/dibujo-alta-res es una línea de escala; por debajo del umbral 1000⭐)
+- anthropics/html-effectiveness (645, HTML) — decisión: SKIP (galería de 21 ejemplos HTML sueltos sin código reutilizable ni patrones de pipeline → claude-design 0.71 + html-artifact-integrity + educational-html-pipeline cubren "HTML como output format"; es una lista curada de ejemplos, quality gate de awesome-list aplica)
+- openinframap/openinframap (597, TypeScript) — decisión: SKIP dedup (duplicado exacto: geospatial/openinframap ya existe, score 0.74 contra consulta + osm-infrastructure-mapping 0.88 cubre el stack PostGIS/imposm3/tegola/maplibre)
+- Pendientes restantes: 103 (según --json del script; 5 skips dedup, 0 skills creados)

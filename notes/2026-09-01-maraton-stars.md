@@ -31,3 +31,11 @@
 - AhmadIbrahiim/Website-downloader (5291, HTML) — decisión: SKIP dedup (duplicado exacto: skill data-pipeline/website-downloader ya existe, score 0.84; wrapper wget+express+socket.io demasiado simple)
 - ZzzLc0405/photo-abstract-editorial (5168, sin lang) — decisión: SKIP sin código (skill de prompts Codex foto→panel abstracto; solo .md/.jpg, licencia CC BY-NC-SA no comercial, overlap creativo 0.62)
 - Pendientes restantes: 159 (categoría pending en registry; este batch convirtió 5 pending→skip)
+
+### Batch — 02:50
+- Explorados: streetcomplete/StreetComplete (4779, Kotlin) — decisión: SKIP dedup (skill geospatial/street-complete ya existe, score 0.84; app Android fuera del stack de David)
+- lumina-ai-inc/chunkr (4139, Rust) — decisión: SKIP dedup (skill chunkr-ai 0.81 + ocr-and-documents 0.84 + pdf-llm-extraction/mineru/liteparse cubren documento→RAG)
+- mutonby/openshorts (3788, Python) — decisión: SKIP dedup (video-gen-from-topic 0.89 + video-processing 0.87 + video-use-agentic-editing + agentic-video-pipeline cubren clips verticales IA)
+- unclebob/swarm-forge (3452, Clojure) — decisión: SKIP dedup (orquestación multi-agente cubierta por mastermind-orchestration 0.72 + hermes-agent 0.73 + delegate_task nativo; Clojure+tmux no es nuestro stack)
+- synthetic-sciences/openscience (3370, TypeScript) — decisión: SKIP dedup (duplicado exacto: ia/openscience-ai-workbench ya existe, 0.71 + scientific-agent-skills 0.77)
+- Pendientes restantes: 128

@@ -63,3 +63,11 @@
 - PKU-VCL-3DV/SLAM3R (1352, Python) — decisión: SKIP dedup (reconstrucción 3D densa en tiempo real desde RGB → computer-vision/r3-reconstruction 0.64 + depth-anything-3 0.60 + colmap-view + gush3r-3d cubren reconstrucción 3D; research CVPR sin integración práctica con el stack web de David)
 - PurpleDoubleD/locally-uncensored (1323, TypeScript) — decisión: SKIP dedup (estudio local AI chat+imagen+vídeo+agente → comfyui 0.79 + video-gen-from-topic 0.82 + voicebox/llama-cpp cubren el dominio; envolvente Tauri sobre backends existentes, sin patrón nuevo; contenido "abliterated" fuera de alcance)
 - Pendientes restantes: 113 (según --json del script; este batch convirtió 5 pending→skip, 0 skills)
+
+### Batch — 04:03
+- Explorados: SikandarJODD/svelte-animations (1226, Svelte) — decisión: SKIP dedup (catálogo de componentes Magic/Aceternity UI portados a Svelte → ui-animation-taste 0.62 + popular-web-designs 0.60 + aurora-design-system cubren animación UI; además Svelte no es el stack de David, y el repo viejo remite a SikandarJODD/animations para Svelte 5)
+- alex-hyperagent/hyperagent-public-skills (1119, sin lang) — decisión: SKIP dedup (15 ficheros JSON sueltos, sin README ni código → hub-skill-discovery 0.83 + addyosmani-agent-skills 0.76 + hermes-agent-skill-authoring cubren catálogo de skills de agente; es una colección, no un patrón)
+- localai-org/depth-anything.cpp (1090, C++) — decisión: SKIP dedup (port ggml de Depth Anything 2/3 → depth-anything-3 0.75 cubre el modelo y llama-cpp 0.63 el patrón GGUF/CPU; exports glb/COLMAP/PLY ya documentados en colmap-view y r3-reconstruction)
+- autowarefoundation/vision_pilot (874, C++) — decisión: SKIP dedup (stack ADAS L2 end-to-end sobre ROS2, por debajo del umbral de 1000⭐ y fuera del ámbito web/GIS de David → cctv-yolo + traffic-digital-twin-cctv + airsim-simulation 0.57 cubren CV sobre conducción)
+- ankandrew/fast-alpr (788, Python) — decisión: SKIP dedup (duplicado exacto: skill data-science/fast-alpr ya existe, score 0.81)
+- Pendientes restantes: 108 (según --json del script; este batch convirtió 0 en skills, 0 skills creados, 5 skips dedup)

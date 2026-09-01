@@ -119,3 +119,11 @@
 - Sunset-Studios/Sundown (123, JavaScript) — decisión: SKIP dedup (motor WebGPU/ECS propio sin docs de integración; patrones GPU 3D cubiertos por fable5-webgpu-procedural 0.74 + threejs-awesome-graphics 0.70; 123⭐)
 - jcarlosrodicio/opencode-agent-orchestration-kit (105, JavaScript) — decisión: SKIP dedup (harness de orquestación multi-agente sobre OpenCode → skill opencode 0.85 + mastermind-orchestration cubren el patrón; workflows .md, sin código nuevo)
 - Pendientes restantes: 78 (según --json del script; 5 skips dedup, 0 skills creados — sin re-indexar)
+
+### Batch — 06:28
+- Explorados: abkeito/GUSH3R (102, Python) — decisión: SKIP dedup (skill gush3r-3d ya existe + r3-reconstruction 0.66)
+- Explorados: kaolti/monolith-terrain (99, JavaScript) — decisión: SKIP dedup (skill monolith-terrain ya existe, exacta)
+- Explorados: PINTO0309/High-Angle_Robust_Fast_FaceAlignment (93, Python) — decisión: SKIP dedup (openpose-pose-estimation 0.72 + pinto-model-zoo; 93 stars)
+- Explorados: SkyeShark/SeedThree (93, JavaScript) — decisión: SKIP dedup (skill seed-three ya existe, exacta + threejs-awesome 0.73)
+- Explorados: bharath5673/3d_human_pose (90, Python) — decisión: SKIP dedup (openpose-pose-estimation 0.80; repo simple 3 .py)
+- Pendientes restantes: 73 (según --json del script; 5 skips dedup, 0 skills creados — sin re-indexar)

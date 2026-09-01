@@ -55,3 +55,11 @@
 - nasa-gibs/worldview (1694, JavaScript) — decisión: SKIP dedup (visor satelital WMTS/OpenLayers → ign-wmts-tiles 0.72 + satellite-gis-patterns + osint-live-globe + geolibre cubren el patrón; app legendaria pero sin patrón nuevo para nosotros)
 - SegFault42/HeliosGen (1674, TypeScript) — decisión: SKIP dedup (workflow builder visual de nodos para IA generativa → comfyui 0.76 cubre exactamente el mismo patrón de pipelines de nodos; además dependiente de kie.ai de pago)
 - Pendientes restantes: 118 (según --json del script; este batch convirtió 5 pending→skip, 0 skills)
+
+### Batch — 03:51
+- Explorados: elayadesign/ai-design-skills (1669, sin lang) — decisión: SKIP dedup (colección de SKILL.md de diseño para agentes IA, solo 6 ficheros md → popular-web-designs 0.91 + claude-design 0.87 + ai-website-cloner cubren landing+design systems; además es casi awesome-list sin código)
+- steipete/birdclaw (1640, TypeScript) — decisión: SKIP dedup (archivo Twitter/X → SQLite local + MCP read-only → social-media/xurl 0.70 + agent-reach 0.67 cubren acceso a tweets y el patrón SQLite+MCP ya está documentado en mcp/native-mcp y postgres-mcp; niche de auto-hosting de X)
+- roryclear/clearcam (1527, Python) — decisión: SKIP dedup (detección+tracking+notificaciones en cámaras RTSP → computer-vision/cctv-yolo 0.69 + geospatial/traffic-digital-twin-cctv 0.75 cubren exactamente el pipeline YOLO/CLIP sobre CCTV)
+- PKU-VCL-3DV/SLAM3R (1352, Python) — decisión: SKIP dedup (reconstrucción 3D densa en tiempo real desde RGB → computer-vision/r3-reconstruction 0.64 + depth-anything-3 0.60 + colmap-view + gush3r-3d cubren reconstrucción 3D; research CVPR sin integración práctica con el stack web de David)
+- PurpleDoubleD/locally-uncensored (1323, TypeScript) — decisión: SKIP dedup (estudio local AI chat+imagen+vídeo+agente → comfyui 0.79 + video-gen-from-topic 0.82 + voicebox/llama-cpp cubren el dominio; envolvente Tauri sobre backends existentes, sin patrón nuevo; contenido "abliterated" fuera de alcance)
+- Pendientes restantes: 113 (según --json del script; este batch convirtió 5 pending→skip, 0 skills)

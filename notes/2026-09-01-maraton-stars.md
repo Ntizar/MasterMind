@@ -79,3 +79,11 @@
 - anthropics/html-effectiveness (645, HTML) — decisión: SKIP (galería de 21 ejemplos HTML sueltos sin código reutilizable ni patrones de pipeline → claude-design 0.71 + html-artifact-integrity + educational-html-pipeline cubren "HTML como output format"; es una lista curada de ejemplos, quality gate de awesome-list aplica)
 - openinframap/openinframap (597, TypeScript) — decisión: SKIP dedup (duplicado exacto: geospatial/openinframap ya existe, score 0.74 contra consulta + osm-infrastructure-mapping 0.88 cubre el stack PostGIS/imposm3/tegola/maplibre)
 - Pendientes restantes: 103 (según --json del script; 5 skips dedup, 0 skills creados)
+
+### Batch — 04:50
+- harvard-lil/perma (531, JavaScript) — decisión: SKIP dedup (duplicado exacto: data-pipeline/perma-archiving ya cubre Perma.cc, score 0.82; perma-archiving + website-downloader documentan el patrón de archiving permanente)
+- uav4geo/GeoDeep (510, Python) — decisión: SKIP dedup (duplicado exacto: geospatial/geodeep ya existe en la lista de skills, score 0.69 + satellite-ai-vision y rs-change-detection cubren detección/segmentación en ráster)
+- NVIDIA-AI-IOT/nanoowl (507, Python) — decisión: SKIP dedup (OWL-ViT zero-shot detection: moondream-vlm 0.83 + segment-anything + rf-detr cubren open-vocab detection; TensorRT/Jetson es infra NVIDIA específica fuera del stack de David, y <1000⭐)
+- BlinkTagInc/node-gtfs (503, TypeScript) — decisión: SKIP dedup (duplicado exacto: routing-isochrones/node-gtfs ya existe, score 0.83; transit-data-pipelines y gtfs-manager cubren el flujo SQLite/Postgres GTFS+RT)
+- majidmanzarpour/threejs-procedural-dungeon (494, JavaScript) — decisión: SKIP dedup (duplicado exacto: skill threejs-procedural-dungeon ya indexado, score 0.71; seed-three + fable5-webgpu-procedural cubren generación procedural determinista)
+- Pendientes restantes: 98 (5 skips dedup, 0 skills creados)

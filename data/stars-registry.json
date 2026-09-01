@@ -2079,13 +2079,65 @@
         "pattern-architecture"
       ],
       "skill_created": false
+    },
+    "harvard-lil/perma": {
+      "explored_at": "2026-09-01T02:50:32.270424+00:00",
+      "category": "pending",
+      "stars": 531,
+      "language": "JavaScript",
+      "skill_angles": [
+        "pattern-pipeline"
+      ],
+      "skill_created": false
+    },
+    "uav4geo/GeoDeep": {
+      "explored_at": "2026-09-01T02:50:38.321733+00:00",
+      "category": "pending",
+      "stars": 510,
+      "language": "Python",
+      "skill_angles": [
+        "ai-cv-pipeline"
+      ],
+      "skill_created": false
+    },
+    "NVIDIA-AI-IOT/nanoowl": {
+      "explored_at": "2026-09-01T02:50:44.215561+00:00",
+      "category": "pending",
+      "stars": 507,
+      "language": "Python",
+      "skill_angles": [
+        "ai-cv-pipeline",
+        "realtime-dashboard"
+      ],
+      "skill_created": false
+    },
+    "BlinkTagInc/node-gtfs": {
+      "explored_at": "2026-09-01T02:50:50.240724+00:00",
+      "category": "pending",
+      "stars": 503,
+      "language": "TypeScript",
+      "skill_angles": [
+        "pattern-pipeline"
+      ],
+      "skill_created": false
+    },
+    "majidmanzarpour/threejs-procedural-dungeon": {
+      "explored_at": "2026-09-01T02:50:55.702666+00:00",
+      "category": "pending",
+      "stars": 494,
+      "language": "JavaScript",
+      "skill_angles": [
+        "geospatial-3d-visualization",
+        "3d-performance"
+      ],
+      "skill_created": false
     }
   },
-  "last_run": "2026-09-01T02:25:56.230880+00:00",
+  "last_run": "2026-09-01T02:50:56.702960+00:00",
   "total_skills_created": 1,
   "stats": {
-    "runs": 33,
-    "repos_explored": 219,
+    "runs": 34,
+    "repos_explored": 224,
     "skills_generated": 9,
     "last_batch": 3
   },

@@ -47,3 +47,11 @@
 - numba/llvmlite (2292, Python) — decisión: SKIP dedup (binding LLVM interno de Numba; numba-jit-acceleration cubre el caso de uso real; sin patrones accionables, niche de compiladores)
 - cartesiancs/map3d (2268, TypeScript) — decisión: SKIP dedup (duplicado exacto: skill geospatial/map3d-r3f ya existe, score 0.76)
 - Pendientes restantes: 123 (según --json del script; este batch convirtió 5 pending→skip, 0 skills)
+
+### Batch — 03:28
+- Explorados: hieunc229/mailflare (2142, TypeScript) — decisión: SKIP dedup (inbox email self-hosted Cloudflare Workers+D1+R2 → nango 0.59 + email-inbox-triage 0.59 + himalaya cubren el dominio; además infra de email no es el stack de David)
+- oil-oil/oil-motion (2129, Python) — decisión: SKIP dedup (skill de animación interactiva con frames de vídeo IA → hyperframes-html-video 0.76 + scroll-world-3d-landing 0.72 + video-use-agentic-editing cubren el patrón completo)
+- MapleTechLabs/maple (1741, TypeScript) — decisión: SKIP dedup (duplicado exacto: skill devops/maple-observability ya existe, score 0.72 — creado en batch previo)
+- nasa-gibs/worldview (1694, JavaScript) — decisión: SKIP dedup (visor satelital WMTS/OpenLayers → ign-wmts-tiles 0.72 + satellite-gis-patterns + osint-live-globe + geolibre cubren el patrón; app legendaria pero sin patrón nuevo para nosotros)
+- SegFault42/HeliosGen (1674, TypeScript) — decisión: SKIP dedup (workflow builder visual de nodos para IA generativa → comfyui 0.76 cubre exactamente el mismo patrón de pipelines de nodos; además dependiente de kie.ai de pago)
+- Pendientes restantes: 118 (según --json del script; este batch convirtió 5 pending→skip, 0 skills)

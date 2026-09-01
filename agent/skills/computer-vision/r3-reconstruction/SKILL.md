@@ -5,6 +5,19 @@ description: R^3 — reconstrucción 3D vía regresión relativa. Implementació
 
 # R^3 — 3D Reconstruction via Relative Regression
 
+## Comparativa de alternativas (consultada 2026-09-01)
+
+R^3 (310⭐, último push 2026-06-19) es la opción minoritaria del terreno "reconstrucción 3D desde imágenes". Ranking actual del ecosistema:
+
+| Repo | Stars | Estado | Cuándo usarlo |
+|------|-------|--------|---------------|
+| `facebookresearch/vggt` | 14.314 | CVPR 2025 Best Paper | Primera opción: transformer de geometría visual, multi-vista → pose + profundidad + punto nube |
+| `colmap/colmap` | 12.609 | Mantenimiento activo (push hoy) | SfM/MVS clásico robusto, la referencia cuando basta precisión y no faz falta deep learning |
+| `ByteDance-Seed/Depth-Anything-3` | 6.244 | Activo (2026-07) | Monocular depth foundation model; ver skill `depth-anything-3` |
+| `KevinXu02/R3` (este) | 310 | Activo (2026-06) | Regresión relativa — útil cuando el setup de cámara es irregular/calibración poor; niche académico |
+
+**Veredicto:** para trabajo rutinario, VGGT o COLMAP primero; R3 solo si su enfoque de regresión relativa encaja exactamente. Skills hermanos: `depth-anything-3`, `colmap-view`, `gush3r-3d`.
+
 ## Qué hace
 
 [R^3](https://github.com/KevinXu02/R3) es la implementación oficial del paper "3D Reconstruction via Relative Regression" (CVPR). Permite reconstruir escenas 3D a partir de imágenes 2D usando regresión relativa de profundidades, más eficiente que métodos SfM tradicionales para certain use cases.

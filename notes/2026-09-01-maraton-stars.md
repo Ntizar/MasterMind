@@ -87,3 +87,11 @@
 - BlinkTagInc/node-gtfs (503, TypeScript) — decisión: SKIP dedup (duplicado exacto: routing-isochrones/node-gtfs ya existe, score 0.83; transit-data-pipelines y gtfs-manager cubren el flujo SQLite/Postgres GTFS+RT)
 - majidmanzarpour/threejs-procedural-dungeon (494, JavaScript) — decisión: SKIP dedup (duplicado exacto: skill threejs-procedural-dungeon ya indexado, score 0.71; seed-three + fable5-webgpu-procedural cubren generación procedural determinista)
 - Pendientes restantes: 98 (5 skips dedup, 0 skills creados)
+
+### Batch — 05:00
+- Explorados: reearth/reearth-visualizer (442, TypeScript) — decisión: SKIP dedup (duplicado exacto: geospatial/reearth-visualizer ya existe como skill, score 0.72 + reearth-flow 0.72; WebGIS Cesium/digital twin ya cubierto junto a cesium-3d-tiles y threejs-3d-maps)
+- SikandarJODD/cnblocks (426, Svelte) — decisión: SKIP dedup (colección de blocks de marketing Svelte/shadcn → popular-web-designs 0.90 + awesome-design-systems cubren el patrón; sin stack propio de David que es vanilla JS, <1000⭐)
+- appica-dev/appica-ui (400, TypeScript) — decisión: SKIP dedup (librería React/Tailwind: popular-web-designs 0.76 + design-systems-ecosystem + shadcn ecosistema cubren; 2 meses de vida, <1000⭐ y React no es el stack de David)
+- victortassinari/FossFLOW (355, React) — decisión: SKIP dedup (diagramas isométricos de infraestructura → creative/architecture-diagram 0.84 + excalidraw 0.85 + editorial-diagrams cubren el espacio de diagramas; fork de Isoflow, <1000⭐)
+- SikandarJODD/animations (342, Svelte) — decisión: SKIP dedup (port Svelte de Magic UI/Spell UI → ui-animation-taste + popular-web-designs 0.78 cubren patrones de animación; mismo autor que cnblocks ya descartado, <1000⭐)
+- Pendientes restantes: 93 (5 skips dedup, 0 skills creados)

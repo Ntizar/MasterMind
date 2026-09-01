@@ -2498,13 +2498,47 @@
       ],
       "skill_created": false,
       "skip_reason": "Framework de gobernanza de decisiones LLM (77 stars, <1000). Arbol casi sin codigo Python (yml/md specs). Interes teorico pero no aporta patrones accionables sobre lo ya cubierto por requesting-code-review y human-loop-control."
+    },
+    "v2space-labs/shader-for-interfaces": {
+      "explored_at": "2026-09-01T16:00:37.841348+00:00",
+      "category": "upgrade",
+      "stars": 75,
+      "language": null,
+      "skill_angles": [
+        "geospatial-3d-visualization",
+        "3d-performance"
+      ],
+      "skill_created": true,
+      "skill": "frontend-dashboard-patterns/ui-animation-taste (v1.1.0: regla de contención GPU en UI)"
+    },
+    "hradec/ComfyUI-HR-Endless-Sampler": {
+      "explored_at": "2026-09-01T16:00:43.972664+00:00",
+      "category": "skip",
+      "stars": 73,
+      "language": "Python",
+      "skill_angles": [
+        "voice-ai-integration"
+      ],
+      "skill_created": false,
+      "skip_reason": "Dedup ChromaDB 0.84 contra creative/comfyui + 0.82 video-gen-from-topic. Plugin niche de ComfyUI para Minimax H3, 73⭐ <1000, un único sampler. El patrón chunked-latent es interno de ComfyUI y no transfiere a proyectos de David."
+    },
+    "z-lab/flashdrive": {
+      "explored_at": "2026-09-01T16:00:50.044049+00:00",
+      "category": "domain",
+      "stars": 71,
+      "language": "Python",
+      "skill_angles": [
+        "pattern-ai/ml"
+      ],
+      "skill_created": true,
+      "skill": "mlops/vla-inference-acceleration-flashdrive"
     }
   },
-  "last_run": "2026-09-01T10:01:00.062249+00:00",
+  "last_run": "2026-09-01T16:00:51.045212+00:00",
   "total_skills_created": 1,
   "stats": {
-    "runs": 41,
-    "repos_explored": 257,
+    "runs": 42,
+    "repos_explored": 260,
     "skills_generated": 9,
     "last_batch": 3
   },

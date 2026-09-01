@@ -86,8 +86,36 @@ Conectores → Webhooks → Auto-sync → Memory actualizada en tiempo real
 | Conectores | Drive, Gmail, Notion, GitHub, OneDrive | — | Slack, Notion, Drive |
 | Multi-modal | PDF, OCR, video, code | Text | Text |
 
+## Comparativa de alternativas
+
+**Actualizado 2026-09-01** a raíz de las stars de David. Ya no solo "cloud vs self-hosted": Engram demostró que la memoria de agente también puede ser un binario local cero-dependencias vía MCP.
+
+| Criterio | Engram | Supermemory | Mem0 | Zep |
+|----------|--------|-------------|------|-----|
+| Stars (2026-09-01) | ~6.250 | ~28K | ~30K+ | ~8K+ |
+| Modelo | Self-hosted, binario Go único | Cloud (Cloudflare) + SDK | Self-hosted/cloud | Self-hosted/cloud |
+| Almacenamiento | SQLite + FTS5 (~/.engram/engram.db) | KV + vectores | Vector DB externa | Postgres + vectores |
+| Integración agente | MCP stdio nativo (Claude Code, OpenCode, Codex, Cursor, VS Code…) | SDK npm/pip + API | SDK Python/TS | SDK + API |
+| Dependencias | Ninguna (no Node/Python/Docker) | Cloud o infra propia | Python/TS + vector store | Servidor + Postgres |
+| Búsqueda | Full-text FTS5 (léxica) | Semántica/híbrida (embeddings) | Semántica | Semántica + temporal |
+| Windows | `go install` o binario (antivirus puede avisar) | N/A (API) | pip | Docker |
+
+**Cuándo usar cada cuál:**
+- **Engram** → memoria local inmediata para un coding agent con MCP, sin infra ni llaves API; contratos de sesión explícitos (`mem_session_summary` como handoff tras compactación). Ideal para equipos/PCs donde la privacidad y el offline importan (patrón muy cercano a cómo Hermes guarda sus memories).
+- **Supermemory/Mem0** → memoria semántica multiusuario con user profiles, connectors y reasoning temporal; cuando hace falta escalar o compartir memoria entre servicios.
+- **Zep** → servicio self-hosted con API cuando se quiere memoria centralizada con razonamiento temporal sobre Postgres.
+
+### Engram — patrón operativo (lo reutilizable)
+
+- **El agente decide, no el volcado:** `mem_save` solo tras trabajo significativo (bugfix, decisión, patrón), formato What/Why/Where/Learned. Nunca tool output crudo.
+- **`topic_key` estable** (p.ej. `architecture/auth-model`) → los temas evolutivos se actualizan bajo la misma clave en vez de crear memorias compitientes.
+- **Divulgación progresiva en 3 capas:** `mem_search` (preview) → `mem_timeline` (contexto cronológico alrededor) → `mem_get_observation` (contenido completo) — minimiza tokens de contexto.
+- **Handoff de sesión:** al terminar, `mem_session_summary` (Goal/Discoveries/Accomplished/Next Steps/Files); al arrancar, `mem_context` inyecta la sesión previa automáticamente.
+- **Registro con un comando:** `engram setup <agente>` escribe la entrada MCP (`mcpServers`/`servers`/objeto `mcp` según cliente) y el Memory Protocol, idempotente.
+
 ## Referencias
 
+- [Engram](https://github.com/Gentleman-Programming/engram) (⭐6.2K, Go, MIT, push 2026-09-01) — docs clave: `docs/ARCHITECTURE.md`, `docs/AGENT-SETUP.md`, `docs/INSTALLATION.md`
 - [Supermemory docs](https://supermemory.ai/docs)
 - [Supermemory quickstart](https://supermemory.ai/docs/quickstart)
 - [Supermemory Discord](https://supermemory.link/discord)

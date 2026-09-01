@@ -111,3 +111,11 @@
 - inigoflores/ds-codigos-postales-ine-es (163, PHP) — decisión: SKIP dedup (dataset CP↔municipios del Callejero del Censo INE → catastro-api 0.90 + ineapy cubren datos postcode/municipio España; 26 zips sin código, dato útil ya referenciable)
 - reearth/navara (155, TypeScript) — decisión: SKIP dedup (motor 3D globe con API de 4 tiers declarative/plugin/API/shader → threejs-3d-maps 0.79 + cesium-3d-tiles + reearth-visualizer cubren; licencia NOASSERTION comercial, Rust+WASM sin patrones accionables, <1000⭐)
 - Pendientes restantes: 83 (según --json del script; 5 skips dedup, 0 skills creados — sin re-indexar)
+
+### Batch — 06:04
+- patrickbr/gtfstidy (149, Go) — decisión: SKIP dedup (duplicado exacto: skill gtfs-tidy ya cubre limpieza/validación/minimización de feeds GTFS — Douglas-Peucker, minimización de IDs, órfenes; score gtfs-tidy 0.85)
+- TransmodelEcosystem/NeTEx (138, Python) — decisión: SKIP dedup (repo = esquemas XSD del estándar CEN, sin código accionable; conversión NeTEx↔GTFS ya cubierta por netex-es-conversion 0.74 + gtfs-to-netex-conversion + transit-data-pipelines 0.83)
+- SantanderAI/autoguardrails (130, Python) — decisión: SKIP dedup (scaffold de investigación sobre surface policy.md, no librería instalable; godmode 0.81 + evaluating-llms-harness 0.74 cubren red-teaming/guardrails; <1000⭐)
+- Sunset-Studios/Sundown (123, JavaScript) — decisión: SKIP dedup (motor WebGPU/ECS propio sin docs de integración; patrones GPU 3D cubiertos por fable5-webgpu-procedural 0.74 + threejs-awesome-graphics 0.70; 123⭐)
+- jcarlosrodicio/opencode-agent-orchestration-kit (105, JavaScript) — decisión: SKIP dedup (harness de orquestación multi-agente sobre OpenCode → skill opencode 0.85 + mastermind-orchestration cubren el patrón; workflows .md, sin código nuevo)
+- Pendientes restantes: 78 (según --json del script; 5 skips dedup, 0 skills creados — sin re-indexar)

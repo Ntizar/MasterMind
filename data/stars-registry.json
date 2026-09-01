@@ -2292,13 +2292,69 @@
       ],
       "skill_created": false,
       "skip_reason": "dedup threejs-3d-maps 0.79; 155 stars"
+    },
+    "patrickbr/gtfstidy": {
+      "explored_at": "2026-09-01T04:00:31.776327+00:00",
+      "category": "skip",
+      "stars": 149,
+      "language": "Go",
+      "skill_angles": [
+        "geospatial-3d-visualization"
+      ],
+      "skill_created": false,
+      "reason": "Dedup: gtfs-tidy (score 0.85) — herramienta GTFS tidy/validation/minimization ya cubierta por skill gtfs-tidy"
+    },
+    "TransmodelEcosystem/NeTEx": {
+      "explored_at": "2026-09-01T04:00:38.545044+00:00",
+      "category": "skip",
+      "stars": 138,
+      "language": "Python",
+      "skill_angles": [
+        "pattern-ai/ml"
+      ],
+      "skill_created": false,
+      "reason": "Dedup: netex-es-conversion + gtfs-to-netex-conversion (0.74) y transit-data-pipelines (0.83) — esquemas XSD del estándar CEN sin código accionable; conversión NeTEx ya cubierta"
+    },
+    "SantanderAI/autoguardrails": {
+      "explored_at": "2026-09-01T04:00:44.635738+00:00",
+      "category": "skip",
+      "stars": 130,
+      "language": "Python",
+      "skill_angles": [
+        "pattern-architecture"
+      ],
+      "skill_created": false,
+      "reason": "Dedup: red-teaming/godmode (0.81) — harness de guardrails/prompt-injection cubierto por godmode + evaluating-llms-harness (0.74); scaffold de .md sin librería instalable"
+    },
+    "Sunset-Studios/Sundown": {
+      "explored_at": "2026-09-01T04:00:50.893482+00:00",
+      "category": "skip",
+      "stars": 123,
+      "language": "JavaScript",
+      "skill_angles": [
+        "3d-performance"
+      ],
+      "skill_created": false,
+      "reason": "Dedup: geospatial/fable5-webgpu-procedural (0.74) + threejs-awesome-graphics-agent-skills (0.70) — motor WebGPU propio sin docs de integración; patrones GPU 3D ya cubiertos, 123 stars"
+    },
+    "jcarlosrodicio/opencode-agent-orchestration-kit": {
+      "explored_at": "2026-09-01T04:00:57.195198+00:00",
+      "category": "skip",
+      "stars": 105,
+      "language": "JavaScript",
+      "skill_angles": [
+        "ci-cd-pipeline-patterns",
+        "crm-erp-patterns"
+      ],
+      "skill_created": false,
+      "reason": "Dedup: autonomous-ai-agents/opencode (0.85) — harness de orquestación sobre OpenCode; skill opencode + mastermind-orchestration ya cubren el patrón"
     }
   },
-  "last_run": "2026-09-01T03:56:35.513018+00:00",
+  "last_run": "2026-09-01T04:00:58.196479+00:00",
   "total_skills_created": 1,
   "stats": {
-    "runs": 37,
-    "repos_explored": 239,
+    "runs": 38,
+    "repos_explored": 244,
     "skills_generated": 9,
     "last_batch": 3
   },

@@ -127,3 +127,11 @@
 - Explorados: SkyeShark/SeedThree (93, JavaScript) — decisión: SKIP dedup (skill seed-three ya existe, exacta + threejs-awesome 0.73)
 - Explorados: bharath5673/3d_human_pose (90, Python) — decisión: SKIP dedup (openpose-pose-estimation 0.80; repo simple 3 .py)
 - Pendientes restantes: 73 (según --json del script; 5 skips dedup, 0 skills creados — sin re-indexar)
+
+### Batch — 06:51
+- SantanderAI/ralph (89, PowerShell) — decisión: SKIP dedup (loop "Ralph Wiggum" sobre CLIs de coding agents → claude-code 0.80 + opencode 0.76 + codex 0.72 cubren el patrón; wrapper bash/pwsh sin código nuevo, 89⭐)
+- SikandarJODD/sv-efferd (88, Svelte) — decisión: SKIP dedup (colección de 64 bloques de marketing shadcn-svelte → popular-web-designs 0.84 + claude-design 0.76; stack Svelte no alineado con proyectos de David que son vanilla+Aurora)
+- inigoflores/ds-codigos-postales (85, JavaScript) — decisión: SKIP dedup (dataset CNIG de CP+geometrías geojson, solo 27 zips sin código procesable → catastro-api 0.87 + ineapy; hermana ds-codigos-postales-ine-es ya skipeada 06:04 por misma razón)
+- thebuggeddev/casebook (84, HTML) — decisión: SKIP calidad (sin README, demo de un HTML con 2 .js, sin patrones extraíbles, 84⭐; threejs-awesome-graphics 0.73 ya cubre el dominio)
+- RobertBeckebans/AI_trellis2cpp (83, C++) — decisión: SKIP dedup (port ggml de TRELLIS.2 image→3D → img2threejs 0.73 + llama-cpp 0.64 (mismo runtime ggml) + r3-reconstruction 0.63; C++ puro sin utilidad para el stack JS/Python de David, 83⭐)
+- Pendientes restantes: 68 (según --json del script; 5 skips, 0 skills creados — sin re-indexar)

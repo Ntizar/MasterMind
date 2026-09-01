@@ -2413,13 +2413,63 @@
       ],
       "skill_created": false,
       "skip_reason": "dedup: openpose-pose-estimation (0.80) cubre YOLO+MediaPipe pose; repo simple, 3 .py, 90 stars"
+    },
+    "SantanderAI/ralph": {
+      "explored_at": "2026-09-01T04:50:35.890981+00:00",
+      "category": "pending",
+      "stars": 89,
+      "language": "PowerShell",
+      "skill_angles": [
+        "pattern-pipeline"
+      ],
+      "skill_created": false
+    },
+    "SikandarJODD/sv-efferd": {
+      "explored_at": "2026-09-01T04:50:41.900654+00:00",
+      "category": "pending",
+      "stars": 88,
+      "language": "Svelte",
+      "skill_angles": [
+        "pattern-real-time"
+      ],
+      "skill_created": false
+    },
+    "inigoflores/ds-codigos-postales": {
+      "explored_at": "2026-09-01T04:50:48.516195+00:00",
+      "category": "pending",
+      "stars": 85,
+      "language": "JavaScript",
+      "skill_angles": [
+        "geospatial-3d-visualization"
+      ],
+      "skill_created": false
+    },
+    "thebuggeddev/casebook": {
+      "explored_at": "2026-09-01T04:50:54.194297+00:00",
+      "category": "pending",
+      "stars": 84,
+      "language": "HTML",
+      "skill_angles": [],
+      "skill_created": false
+    },
+    "RobertBeckebans/AI_trellis2cpp": {
+      "explored_at": "2026-09-01T04:50:59.864841+00:00",
+      "category": "pending",
+      "stars": 83,
+      "language": "C++",
+      "skill_angles": [
+        "geospatial-3d-visualization",
+        "ci-cd-pipeline-patterns",
+        "crm-erp-patterns"
+      ],
+      "skill_created": false
     }
   },
-  "last_run": "2026-09-01T04:25:59.500712+00:00",
+  "last_run": "2026-09-01T04:51:00.865389+00:00",
   "total_skills_created": 1,
   "stats": {
-    "runs": 39,
-    "repos_explored": 249,
+    "runs": 40,
+    "repos_explored": 254,
     "skills_generated": 9,
     "last_batch": 3
   },

@@ -1818,13 +1818,69 @@
       ],
       "skill_created": false,
       "skip_reason": "dedup: duplicado exacto, skill ia/openscience-ai-workbench ya existe (0.71) + scientific-agent-skills (0.77)"
+    },
+    "opentripplanner/OpenTripPlanner": {
+      "explored_at": "2026-09-01T01:00:30.943311+00:00",
+      "category": "skip",
+      "stars": 2724,
+      "language": "Java",
+      "skill_angles": [
+        "realtime-dashboard"
+      ],
+      "skill_created": false,
+      "skip_reason": "dedup: skill routing-isochrones/opentripplanner-otp ya existe"
+    },
+    "ShinMegamiBoson/OpenPlanter": {
+      "explored_at": "2026-09-01T01:00:36.733281+00:00",
+      "category": "skip",
+      "stars": 2437,
+      "language": "Python",
+      "skill_angles": [
+        "ci-cd-pipeline-patterns",
+        "realtime-dashboard"
+      ],
+      "skill_created": false,
+      "skip_reason": "dedup: agent-reach 0.74 + llm-wiki 0.73 + rag-knowledge-base cubren agente investigacion+grafo; sin activity desde marzo"
+    },
+    "shepherd-agents/shepherd": {
+      "explored_at": "2026-09-01T01:00:42.794649+00:00",
+      "category": "skip",
+      "stars": 2386,
+      "language": "Python",
+      "skill_angles": [
+        "pattern-real-time"
+      ],
+      "skill_created": false,
+      "skip_reason": "dedup: skill ia/shepherd-meta-agents ya existe (0.75)"
+    },
+    "numba/llvmlite": {
+      "explored_at": "2026-09-01T01:00:48.579155+00:00",
+      "category": "skip",
+      "stars": 2292,
+      "language": "Python",
+      "skill_angles": [
+        "pattern-architecture"
+      ],
+      "skill_created": false,
+      "skip_reason": "dedup: numba-jit-acceleration cubre el caso de uso; libreria interna de bajo nivel, niche"
+    },
+    "cartesiancs/map3d": {
+      "explored_at": "2026-09-01T01:00:54.191891+00:00",
+      "category": "skip",
+      "stars": 2268,
+      "language": "TypeScript",
+      "skill_angles": [
+        "geospatial-3d-visualization"
+      ],
+      "skill_created": false,
+      "skip_reason": "dedup: skill geospatial/map3d-r3f ya existe (0.76)"
     }
   },
-  "last_run": "2026-09-01T00:50:55.101045+00:00",
+  "last_run": "2026-09-01T01:00:55.192281+00:00",
   "total_skills_created": 1,
   "stats": {
-    "runs": 28,
-    "repos_explored": 194,
+    "runs": 29,
+    "repos_explored": 199,
     "skills_generated": 9,
     "last_batch": 3
   },

@@ -39,3 +39,11 @@
 - unclebob/swarm-forge (3452, Clojure) — decisión: SKIP dedup (orquestación multi-agente cubierta por mastermind-orchestration 0.72 + hermes-agent 0.73 + delegate_task nativo; Clojure+tmux no es nuestro stack)
 - synthetic-sciences/openscience (3370, TypeScript) — decisión: SKIP dedup (duplicado exacto: ia/openscience-ai-workbench ya existe, 0.71 + scientific-agent-skills 0.77)
 - Pendientes restantes: 128
+
+### Batch — 03:00
+- Explorados: opentripplanner/OpenTripPlanner (2724, Java) — decisión: SKIP dedup (skill routing-isochrones/opentripplanner-otp ya cubre planificación multimodal GTFS+OSM; el score top 0.80 fue productivity/maps pero OTP server no aporta patrón nuevo para el stack de David)
+- ShinMegamiBoson/OpenPlanter (2437, Python) — decisión: SKIP dedup (agente investigación OSINT con knowledge graph → agent-reach 0.74 + llm-wiki 0.73 + rag-knowledge-base cubren el patrón; además sin pushes desde marzo)
+- shepherd-agents/shepherd (2386, Python) — decisión: SKIP dedup (duplicado exacto: skill ia/shepherd-meta-agents ya existe, score 0.75)
+- numba/llvmlite (2292, Python) — decisión: SKIP dedup (binding LLVM interno de Numba; numba-jit-acceleration cubre el caso de uso real; sin patrones accionables, niche de compiladores)
+- cartesiancs/map3d (2268, TypeScript) — decisión: SKIP dedup (duplicado exacto: skill geospatial/map3d-r3f ya existe, score 0.76)
+- Pendientes restantes: 123 (según --json del script; este batch convirtió 5 pending→skip, 0 skills)

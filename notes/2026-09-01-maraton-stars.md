@@ -23,3 +23,11 @@
 - valhalla/valhalla (6141, C++) — decisión: SKIP dedup (skill valhalla-routing ya existe + routing-isochrones + graphhopper-routing cubren isócronas/matrix)
 - Gentleman-Programming/gentle-ai (6112, Go) — decisión: SKIP dedup (CLI de workflows/review para coding agents; solapamiento 0.79 con claude-code + opencode + requesting-code-review + google-eng-practices)
 - Pendientes restantes: 138
+
+### Batch — 02:25
+- Explorados: chaitanyagiri/munder-difflin (5870, JavaScript) — decisión: SKIP dedup (harness multi-agente local con mailbox/memoria/orquestación → hermes-agent 0.77 + agent-memory + mastermind-orchestration ya cubren el patrón; Electron pre-release, no es nuestro stack)
+- dimforge/rapier (5698, Rust) — decisión: SKIP dedup (motor de física 2D/3D; creative/box3d-renderer 0.62 + threejs skills cubren física en web para los proyectos 3D de David)
+- gosom/google-maps-scraper (5677, Go) — decisión: SKIP dedup (duplicado exacto: skill data-pipeline/google-maps-scrapper ya existe, score 0.87)
+- AhmadIbrahiim/Website-downloader (5291, HTML) — decisión: SKIP dedup (duplicado exacto: skill data-pipeline/website-downloader ya existe, score 0.84; wrapper wget+express+socket.io demasiado simple)
+- ZzzLc0405/photo-abstract-editorial (5168, sin lang) — decisión: SKIP sin código (skill de prompts Codex foto→panel abstracto; solo .md/.jpg, licencia CC BY-NC-SA no comercial, overlap creativo 0.62)
+- Pendientes restantes: 159 (categoría pending en registry; este batch convirtió 5 pending→skip)

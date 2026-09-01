@@ -2232,13 +2232,73 @@
         "ci-cd-pipeline-patterns"
       ],
       "skill_created": false
+    },
+    "Refloow/Refloow-Geo-Forensics": {
+      "explored_at": "2026-09-01T03:56:11.528971+00:00",
+      "category": "skip",
+      "stars": 216,
+      "language": "JavaScript",
+      "skill_angles": [
+        "geospatial-3d-visualization",
+        "ci-cd-pipeline-patterns",
+        "crm-erp-patterns",
+        "3d-performance"
+      ],
+      "skill_created": false,
+      "skip_reason": "dedup geo-forensics 0.68; 216 stars"
+    },
+    "Esri/public-transit-tools": {
+      "explored_at": "2026-09-01T03:56:17.455919+00:00",
+      "category": "skip",
+      "stars": 195,
+      "language": "Python",
+      "skill_angles": [
+        "realtime-dashboard"
+      ],
+      "skill_created": false,
+      "skip_reason": "dedup transit-data-resources 0.84; tools ArcGIS"
+    },
+    "Token-Gremlin/natural-disasters": {
+      "explored_at": "2026-09-01T03:56:23.172820+00:00",
+      "category": "skip",
+      "stars": 193,
+      "language": "JavaScript",
+      "skill_angles": [
+        "geospatial-3d-visualization",
+        "ci-cd-pipeline-patterns",
+        "3d-performance"
+      ],
+      "skill_created": false,
+      "skip_reason": "dedup oleaje-threejs 0.73; 193 stars"
+    },
+    "inigoflores/ds-codigos-postales-ine-es": {
+      "explored_at": "2026-09-01T03:56:28.697961+00:00",
+      "category": "skip",
+      "stars": 163,
+      "language": "PHP",
+      "skill_angles": [],
+      "skill_created": false,
+      "skip_reason": "dedup catastro-api 0.90; dataset sin codigo"
+    },
+    "reearth/navara": {
+      "explored_at": "2026-09-01T03:56:34.511932+00:00",
+      "category": "skip",
+      "stars": 155,
+      "language": "TypeScript",
+      "skill_angles": [
+        "geospatial-3d-visualization",
+        "realtime-dashboard",
+        "3d-performance"
+      ],
+      "skill_created": false,
+      "skip_reason": "dedup threejs-3d-maps 0.79; 155 stars"
     }
   },
-  "last_run": "2026-09-01T03:25:54.169452+00:00",
+  "last_run": "2026-09-01T03:56:35.513018+00:00",
   "total_skills_created": 1,
   "stats": {
-    "runs": 36,
-    "repos_explored": 234,
+    "runs": 37,
+    "repos_explored": 239,
     "skills_generated": 9,
     "last_batch": 3
   },

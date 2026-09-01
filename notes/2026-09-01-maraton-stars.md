@@ -103,3 +103,11 @@
 - SantanderAI/gen-fraud-graph (281, Python) — decisión: SKIP (generador de grafos sintéticos de fraude AML para benchmark GNN: dominio financiero-fraude fuera del scope de proyectos de David, sin dup real (top dspy 0.56) pero <1000⭐ y patrón no reutilizable en GIS/transporte/dashboards)
 - SikandarJODD/form-builder (251, Svelte) — decisión: SKIP dedup (form builder SvelteKit+Superforms+Zod → popular-web-designs 0.59 + adela-new-module cubren el espacio; Svelte+zod no es el stack de David, <1000⭐)
 - Pendientes restantes: 88 (según --json del script; 5 skips, 0 skills creados)
+
+### Batch — 05:57
+- Explorados: Refloow/Refloow-Geo-Forensics (216, JavaScript) — decisión: SKIP dedup (geolocalización OSINT por EXIF con mapa y timeline → geospatial/geo-forensics 0.68 + osint-live-globe cubren; 216⭐ <1000, herramienta empaquetada para MS Store sin patrones extractables)
+- Esri/public-transit-tools (195, Python) — decisión: SKIP dedup (duplicado exacto: skill public-transit-tools ya existe en catálogo; análisis de red GTFS con ArcGIS propietaria → transit-data-resources 0.84 + time-isochrones 0.80; requiere ArcGIS Pro, no utilizable en stack de David)
+- Token-Gremlin/natural-disasters (193, JavaScript) — decisión: SKIP dedup (ABYSSAL: océano FFT multi-cascada + nubes volumétricas raymarching en three.js → oleaje-threejs 0.73 + webgl-scene-wow 0.69 + fable5-webgpu cubren simulación procedural GPU; <1000⭐, recién creado ago-2026)
+- inigoflores/ds-codigos-postales-ine-es (163, PHP) — decisión: SKIP dedup (dataset CP↔municipios del Callejero del Censo INE → catastro-api 0.90 + ineapy cubren datos postcode/municipio España; 26 zips sin código, dato útil ya referenciable)
+- reearth/navara (155, TypeScript) — decisión: SKIP dedup (motor 3D globe con API de 4 tiers declarative/plugin/API/shader → threejs-3d-maps 0.79 + cesium-3d-tiles + reearth-visualizer cubren; licencia NOASSERTION comercial, Rust+WASM sin patrones accionables, <1000⭐)
+- Pendientes restantes: 83 (según --json del script; 5 skips dedup, 0 skills creados — sin re-indexar)

@@ -95,3 +95,11 @@
 - victortassinari/FossFLOW (355, React) — decisión: SKIP dedup (diagramas isométricos de infraestructura → creative/architecture-diagram 0.84 + excalidraw 0.85 + editorial-diagrams cubren el espacio de diagramas; fork de Isoflow, <1000⭐)
 - SikandarJODD/animations (342, Svelte) — decisión: SKIP dedup (port Svelte de Magic UI/Spell UI → ui-animation-taste + popular-web-designs 0.78 cubren patrones de animación; mismo autor que cnblocks ya descartado, <1000⭐)
 - Pendientes restantes: 93 (5 skips dedup, 0 skills creados)
+
+### Batch — 05:25
+- Explorados: SikandarJODD/ai-elements (310, Svelte) — decisión: SKIP dedup (port no oficial de Vercel AI Elements a Svelte → popular-web-designs 0.77 + claude-design + shadcn ecosistema cubren componentes UI para chat IA; Svelte no es el stack de David y <1000⭐)
+- KevinXu02/R3 (309, Python) — decisión: SKIP dedup (duplicado exacto: skill computer-vision/r3-reconstruction ya existe, score 0.72; depth-anything-3 + colmap-view refuerzan cobertura)
+- ad-freiburg/pfaedle (289, C++) — decisión: SKIP dedup (duplicado exacto: skill mobility/pfaedle-routing ya existe, score 0.77; gtfs2shp 0.87 + transit-data-pipelines cubren el flujo shapes GTFS↔GIS)
+- SantanderAI/gen-fraud-graph (281, Python) — decisión: SKIP (generador de grafos sintéticos de fraude AML para benchmark GNN: dominio financiero-fraude fuera del scope de proyectos de David, sin dup real (top dspy 0.56) pero <1000⭐ y patrón no reutilizable en GIS/transporte/dashboards)
+- SikandarJODD/form-builder (251, Svelte) — decisión: SKIP dedup (form builder SvelteKit+Superforms+Zod → popular-web-designs 0.59 + adela-new-module cubren el espacio; Svelte+zod no es el stack de David, <1000⭐)
+- Pendientes restantes: 88 (según --json del script; 5 skips, 0 skills creados)

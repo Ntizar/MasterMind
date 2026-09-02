@@ -2597,13 +2597,47 @@
       "skill_angles": [],
       "skill_created": false,
       "skip_reason": "tutorial SvelteKit+Supabase de paginacion/debounce/filtros, 50 stars, sin patrones nuevos para el stack vanilla-JS de David; demasiado simple"
+    },
+    "alexwohlbruck/portolan": {
+      "explored_at": "2026-09-02T04:00:40.593614+00:00",
+      "category": "domain",
+      "stars": 48,
+      "language": "Go",
+      "skill_angles": [
+        "ai-cv-pipeline",
+        "realtime-dashboard"
+      ],
+      "skill_created": true,
+      "skill_name": "geospatial/portolan-transit-maps"
+    },
+    "drjenkin/minimaps": {
+      "explored_at": "2026-09-02T04:00:46.335479+00:00",
+      "category": "upgrade",
+      "stars": 45,
+      "language": "JavaScript",
+      "skill_angles": [
+        "geospatial-3d-visualization"
+      ],
+      "skill_created": true,
+      "skill_name": "minimaps-js (v1->v2, describia mal el repo)"
+    },
+    "BlinkTagInc/gtfs-to-chart": {
+      "explored_at": "2026-09-02T04:00:52.132592+00:00",
+      "category": "upgrade",
+      "stars": 42,
+      "language": "JavaScript",
+      "skill_angles": [
+        "realtime-dashboard"
+      ],
+      "skill_created": true,
+      "skill_name": "gtfs-to-chart (v1->v2, stringlines/Marey)"
     }
   },
-  "last_run": "2026-09-01T22:02:33.002758+00:00",
+  "last_run": "2026-09-02T04:00:53.133804+00:00",
   "total_skills_created": 1,
   "stats": {
-    "runs": 44,
-    "repos_explored": 266,
+    "runs": 45,
+    "repos_explored": 269,
     "skills_generated": 9,
     "last_batch": 3
   },

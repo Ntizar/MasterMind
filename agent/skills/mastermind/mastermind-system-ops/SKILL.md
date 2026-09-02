@@ -1,6 +1,6 @@
 ---
 name: mastermind-system-ops
-description: "Usar al operar Mastermind en Windows: repo, ChromaDB, crons."
+description: "Usar al operar Mastermind en Windows: repo, ChromaDB, crons, gateway Telegram (colapso por token revocado y su restauración), backups y monitorización."
 version: "1.0.0"
 tags: [mastermind, sistema, chromadb, cron, windows, nan]
 ---
@@ -102,7 +102,7 @@ STT ya configurado: local faster-whisper, model base, language en (auto-transcri
 1. **Rutas MSYS vs nativas**: exportar `STARS_REGISTRY=/c/Users/...` desde bash y que un python.exe nativo la lea crea literalmente `C:\c\Users\...`. Los wrappers pasan rutas en formato `C:/Users/...`.
 2. **Secrets nunca en prompts de cron**: el explorador de stars usa `gh auth token` (keyring) dentro del wrapper — nunca patrones de lectura de .env en el prompt (el scanner de cron los bloquea).
 3. **Embeddings en lote**: batches de 12 textos ≤3000 chars funcionan; 32×6000 puede dar 403.
-4. **Reglas del repo**: NUNCA borrar del repo MasterMind (solo crear/modificar); todo en castellano; no fijar cifras de skills en docs (crecen con cada ciclo); el nombre "Koldo" está retirado — no usar.
+4. **Reglas del repo**: NUNCA borrar del repo MasterMind (solo crear/modificar); todo en castellano; no fijar cifras de skills en docs (crecen con cada ciclo); nombre público del bot de Telegram: **NtizarBot** (@Ntizarbot) — "Koldo" es solo el apodo privado de David, jamás debe aparecer en textos públicos, presentaciones, configs visibles ni docs.
 5. **rm -rf grandes en terminal quedan bloqueados sin aprobación** del usuario; dividir limpieza en pasos pequeños o confirmar antes.
 6. **Push concurrente del cron scout**: el scout pushea a `Ntizar/MasterMind` cada 6h; un push directo puede rechazarse con "fetch first". Resolver SIEMPRE con `git pull --rebase origin master && git push` — nunca con merge ni forzando. Aplica a cualquier trabajo sobre el repo.
 7. **Landing del repo (`index.html`) consume Aurora v6 vía CDN** (`ntizar.css + next + three + data + patterns + motion`): el diseño se edita en el repo `~/Projects/Ntizar-Aurora`, nunca con CSS custom en MasterMind. Ver skill `aurora-design-system`. Auditoría: `python scripts/audit-aurora.py index.html` (del skill Aurora).

@@ -11,6 +11,7 @@ import json
 import os
 import subprocess
 import sys
+import urllib.error
 import urllib.request
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
@@ -45,26 +46,47 @@ else:
     gw_up = "running" in (r.stdout + r.stderr).lower() or "✓" in r.stdout
     check("gateway", gw_up, (r.stdout + r.stderr).strip().splitlines()[0] if (r.stdout + r.stderr) else "sin salida")
 
-# 2) Crons: último run de cada job activo < 25h (scout 6h con margen)
+# 2) Crons — fuente real: cron/jobs.json (¡ojo! NO jobs/<id>/job.json: el glob
+#    antiguo nunca existió en producción y el check estaba muerto en silencio).
+#    Detecta: último run en error, entrega fallida (colapso 2026-09-02: token
+#    revocado -> "Telegram send failed: Unauthorized" enterrado), y jobs
+#    enabled cuyo next_run_at hace >2h que tocaba disparar y no disparó.
+def _parse_iso(s):
+    dt = datetime.fromisoformat(s)
+    if dt.tzinfo is None:      # naive = hora local del PC
+        dt = dt.astimezone()
+    return dt
+
 try:
-    for f in sorted(CRON_DIR.glob("jobs/*/job.json")):
-        job = json.loads(f.read_text(encoding="utf-8"))
-        jid, name = job.get("job_id", f.parent.name), job.get("name", "?")
-        if not job.get("enabled", False):
-            check(f"cron:{name}", True, "desactivado (ok)", warn=True)
-            continue
-        out_dir = CRON_DIR / "output" / jid
-        last = None
-        if out_dir.exists():
-            outs = sorted(out_dir.glob("*.md"))
-            if outs:
-                last = datetime.fromtimestamp(outs[-1].stat().st_mtime, tz=timezone.utc)
-        never = last is None
-        stale = (not never) and (datetime.now(timezone.utc) - last > timedelta(hours=25))
-        detail = "nunca ha corrido" if never else f"último run: {last:%Y-%m-%d %H:%M} UTC"
-        check(f"cron:{name}", not (never or stale), detail, warn=never)
+    jf = CRON_DIR / "jobs.json"
+    if not jf.exists():
+        check("crons", True, "sin jobs.json (aún no hay crons)", warn=True)
+    else:
+        data = json.loads(jf.read_text(encoding="utf-8"))
+        jobs = data["jobs"] if isinstance(data, dict) else data
+        now = datetime.now(timezone.utc)
+        for job in jobs:
+            name = job.get("name") or job.get("id", "?")
+            if not job.get("enabled", False):
+                continue
+            probs, warns_j = [], []
+            st = job.get("last_status")
+            if st not in (None, "ok", "running"):
+                probs.append(f"último run: {st} (ver cron/output/{job.get('id')})")
+            if job.get("last_delivery_error"):
+                warns_j.append(f"entrega fallida: {job['last_delivery_error'][:70]}")
+            nra = job.get("next_run_at")
+            if nra:
+                try:
+                    if (now - _parse_iso(nra)) > timedelta(hours=2):
+                        probs.append(f"sin disparar desde {nra} — ¿gateway muerto?")
+                except ValueError:
+                    pass
+            check(f"cron:{name}", not probs,
+                  " | ".join(probs + warns_j) or f"ok (próximo: {nra or '—'})",
+                  warn=bool(warns_j) and not probs)
 except Exception as e:
-    check("cron:lectura", False, f"error leyendo crons: {e}")
+    check("cron:lectura", False, f"error leyendo jobs.json: {e}")
 
 # 3) ChromaDB count == SKILL.md count
 skill_count = len([p for p in (REPO / "agent" / "skills").rglob("SKILL.md")
@@ -95,6 +117,72 @@ r2 = run("git rev-parse --abbrev-ref HEAD")
 branch = r2.stdout.strip()
 check("git", not dirty,
       f"rama: {branch} | {'LIMPIO' if not dirty else f'{len(r.stdout.strip().splitlines())} ficheros pendientes de commit'}")
+
+# 6) Token de Telegram vivo — lee HERMES/.env y hace getMe (colapso 2026-09-02:
+#    token revocado tumbaba el gateway con error non-retryable y todos los crons
+#    fallaban entrega sin que nada del repo lo notara). Omitido en sandbox sin .env.
+try:
+    env_file = HERMES / ".env"
+    tg_token = None
+    if env_file.exists():
+        for line in env_file.read_text(encoding="utf-8").splitlines():
+            if line.startswith("TELEGRAM_BOT_TOKEN="):
+                tg_token = line.split("=", 1)[1].strip()
+    if not tg_token:
+        check("telegram-token", True, "sin TELEGRAM_BOT_TOKEN en .env (omitido)", warn=True)
+    else:
+        try:
+            req = urllib.request.Request(
+                f"https://api.telegram.org/bot{tg_token}/getMe",
+                headers={"User-Agent": "MastermindDoctor/1.0"})
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+            if data.get("ok"):
+                uname = (data.get("result") or {}).get("username", "?")
+                check("telegram-token", True, f"vivo — bot @{uname}")
+            else:
+                check("telegram-token", False,
+                      "REVOCADO/INVÁLIDO (Telegram 401) — pedir token en @BotFather y "
+                      "actualizar TELEGRAM_BOT_TOKEN en .env, luego hermes gateway restart")
+        except urllib.error.HTTPError as he:
+            if he.code == 401:
+                check("telegram-token", False,
+                      "REVOCADO/INVÁLIDO (Telegram 401) — pedir token en @BotFather y "
+                      "actualizar TELEGRAM_BOT_TOKEN en .env, luego hermes gateway restart")
+            else:
+                check("telegram-token", True, f"Telegram respondió HTTP {he.code} (red suspecta)", warn=True)
+        except Exception as net_e:
+            # Sin red no podemos afirmar que el token esté mal: warn, nunca fail.
+            check("telegram-token", True, f"sin confirmación de red: {net_e}", warn=True)
+except Exception as e:
+    check("telegram-token", False, f"error leyendo .env: {e}")
+
+# 7) Vigías externos declarados: cron vigia-cron en jobs.json + tarea del
+#    watchdog del gateway en Task Scheduler (ambos fuera del repo: si faltan,
+#    el sistema queda ciego ante token revocado o gateway muerto).
+if SANDBOX:
+    check("vigia-cron", True, "sandbox: omitido", warn=True)
+else:
+    try:
+        data = json.loads((CRON_DIR / "jobs.json").read_text(encoding="utf-8"))
+        jobs = data["jobs"] if isinstance(data, dict) else data
+        vigia = any(j.get("name") == "vigia-cron" and j.get("enabled") for j in jobs)
+        check("vigia-cron", vigia,
+              "activo (alerta fallos de cron a Telegram)" if vigia
+              else "FALTA — recrear: hermes cron create \"*/30 * * * *\" --name vigia-cron "
+                   "--no-agent --script vigia-cron.py --deliver telegram")
+    except Exception as e:
+        check("vigia-cron", False, f"error leyendo jobs.json: {e}")
+if SANDBOX:
+    check("vigia-gateway", True, "sandbox: omitido", warn=True)
+else:
+    r = run('powershell -NoProfile -Command "if (Get-ScheduledTask -TaskName '
+            "'Hermes_Gateway_Watchdog' -ErrorAction SilentlyContinue) { 'VIVO' } "
+            'else { \'MUERTO\' }"', timeout=60)
+    wd_ok = "VIVO" in (r.stdout + r.stderr)
+    check("vigia-gateway", wd_ok,
+          "tarea Task Scheduler registrada" if wd_ok
+          else "FALTA — registrar: powershell -File scripts/registrar-vigia-gateway.ps1")
 
 # Salida
 fails = [r for r in results if not r["ok"]]

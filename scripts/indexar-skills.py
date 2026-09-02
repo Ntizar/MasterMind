@@ -11,6 +11,7 @@ import json
 import os
 import sys
 import base64
+import hashlib
 import urllib.request
 from pathlib import Path
 from datetime import datetime, timezone
@@ -60,7 +61,8 @@ def skill_docs():
         rel = str(md.parent.relative_to(SKILLS_DIR)).replace("\\", "/")
         # texto indexable: frontmatter + primeras secciones
         body = text[:4000]
-        yield (f"skill:{rel}", f"{name}\n{body}", {"name": name, "path": rel})
+        digest = hashlib.sha256(text.encode("utf-8", errors="ignore")).hexdigest()[:16]
+        yield (f"skill:{rel}", f"{name}\n{body}", {"name": name, "path": rel, "hash": digest})
 
 def main():
     import chromadb
@@ -74,11 +76,19 @@ def main():
         col = client.create_collection(COLLECTION, metadata={"hnsw:space": "cosine"})
         print("Colección reiniciada")
 
-    existing = set(col.get()["ids"]) if col.count() else set()
+    # Comparar por CONTENIDO (hash), no solo por ID: los SKILL.md parcheados
+    # deben re-indexarse; el bug histórico era "id en existing → skip" eterno.
+    stored = {}
+    if col.count():
+        got = col.get(include=["metadatas"])
+        for i, m in zip(got["ids"], got["metadatas"] or [None] * len(got["ids"])):
+            stored[i] = (m or {}).get("hash")
     docs = list(skill_docs())
-    todo = [(i, t, m) for i, t, m in docs if i not in existing]
+    todo = [(i, t, m) for i, t, m in docs if stored.get(i) != m["hash"]]
+    nuevos = sum(1 for i, _, _ in todo if i not in stored)
     total = len(docs)
-    print(f"Skills encontrados: {total} | ya indexados: {total - len(todo)} | a indexar: {len(todo)}")
+    print(f"Skills encontrados: {total} | al día: {total - len(todo)} | a indexar: {len(todo)} "
+          f"({nuevos} nuevos, {len(todo) - nuevos} modificados)")
     if not todo:
         print("Nada que indexar.")
         return

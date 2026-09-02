@@ -108,39 +108,43 @@ def caso_chromadb():
 
 
 # ──────────────────────────────────────────────────────────────────────
-# CASO 2 — Cron bloqueado (bug: job activo sin output en 25h+)
+# CASO 2 — Crons (fuente real jobs.json; formato verificado 2026-09-02).
+# Bugs cubiertos: run en error, entrega caída (token revocado) y job
+# enabled sin disparar (gateway muerto).
 # ──────────────────────────────────────────────────────────────────────
 def caso_cron():
     sb = montar_sandbox("cron")
-    import time
-    job_dir = sb / "hermes" / "cron" / "jobs" / "testjob"
-    job_dir.mkdir(parents=True)
-    (job_dir / "job.json").write_text(json.dumps({
-        "job_id": "testjob", "name": "job-fantasma", "enabled": True
-    }), encoding="utf-8")
-    # Sin output/ → "nunca ha corrido" → el doctor lo marca como FALLO
-    # (es el bug exacto de un cron bloqueado: job enabled sin ejecución).
+    from datetime import datetime, timedelta, timezone
+    cron_dir = sb / "hermes" / "cron"
+    cron_dir.mkdir(parents=True, exist_ok=True)
+    jf = cron_dir / "jobs.json"
 
+    def job(**kw):
+        base = {"id": "testjob", "name": "job-fantasma", "enabled": True,
+                "next_run_at": (datetime.now(timezone.utc) + timedelta(hours=6)).isoformat()}
+        base.update(kw)
+        jf.write_text(json.dumps({"jobs": [base]}), encoding="utf-8")
+
+    # Reciente y sin errores → ok
+    job()
     c = check_doctor(sb, "cron:job-fantasma")
-    caso("cron: job activo sin runs → fallo",
-         c["ok"] is False, c.get("detail", ""))
+    caso("cron: job sano → ok", c["ok"] is True, c.get("detail", "")[:80])
 
-    # Ahora con output reciente → sin aviso
-    out_dir = sb / "hermes" / "cron" / "output" / "testjob"
-    out_dir.mkdir(parents=True)
-    (out_dir / "run.md").write_text("ok", encoding="utf-8")
-    os.utime(out_dir / "run.md")  # ahora mismo
+    # Bug: último run en error (402 de cuota, el del 31-08)
+    job(last_status="error")
     c2 = check_doctor(sb, "cron:job-fantasma")
-    caso("cron: output fresco → sin aviso",
-         c2["ok"] is True and not c2.get("warn"), c2.get("detail", ""))
+    caso("cron: last_status error → fallo", c2["ok"] is False, c2.get("detail", "")[:80])
 
-    # Y con output viejo (25h+) → fallo
-    viejo = out_dir / "run.md"
-    pasado = time.time() - 26 * 3600
-    os.utime(viejo, (pasado, pasado))
+    # Bug: entrega caída (token revocado 2026-09-02) → aviso sin fallo de run
+    job(last_status="ok", last_delivery_error="Telegram send failed: Unauthorized")
     c3 = check_doctor(sb, "cron:job-fantasma")
-    caso("cron: output >25h → fallo",
-         c3["ok"] is False, c3.get("detail", ""))
+    caso("cron: entrega caída → aviso visible",
+         c3["ok"] is True and c3.get("warn"), c3.get("detail", "")[:80])
+
+    # Bug: next_run_at hace >2h y no disparó (gateway muerto)
+    job(next_run_at=(datetime.now(timezone.utc) - timedelta(hours=3)).isoformat())
+    c4 = check_doctor(sb, "cron:job-fantasma")
+    caso("cron: sin disparar >2h → fallo", c4["ok"] is False, c4.get("detail", "")[:80])
     return sb
 
 
@@ -196,6 +200,28 @@ def caso_git():
     return sb
 
 
+# ──────────────────────────────────────────────────────────────────────
+# CASO 5 — Token de Telegram revocado (bug real 2026-09-02: tumbó gateway y
+# entregó 401 silencioso en todos los crons)
+# ──────────────────────────────────────────────────────────────────────
+def caso_telegram():
+    sb = montar_sandbox("telegram")
+
+    # Sin .env → check omitido con aviso, nunca fallo
+    c = check_doctor(sb, "telegram-token")
+    caso("telegram: sin .env → aviso (no fallo)",
+         c["ok"] is True and c.get("warn"), c.get("detail", "")[:80])
+
+    # Bug: token inventado (Telegram responde 401 = el caso real revocado)
+    (sb / "hermes" / ".env").write_text(
+        "TELEGRAM_BOT_TOKEN=123456:AAFaketokenquetelegramrechazara00000\n",
+        encoding="utf-8")
+    c2 = check_doctor(sb, "telegram-token")
+    caso("telegram: token revocado → fallo",
+         c2["ok"] is False, c2.get("detail", "")[:80])
+    return sb
+
+
 def main():
     if BASE.exists():
         rmtree_robusto(BASE)
@@ -208,6 +234,7 @@ def main():
         caso_registry()
         caso_git()
         caso_chromadb()
+        caso_telegram()
     finally:
         # limpieza siempre, incluso con errores
         pass

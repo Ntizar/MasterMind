@@ -15,7 +15,14 @@ Si se pierde el PC, el sistema se reconstruye desde el repo. Orden exacto:
 5. **Indexar skills**: `python scripts/indexar-skills.py --reset`
 6. **Gateway**: `hermes gateway install` (activa los crons) y arrancar
    `Hermes_Gateway.vbs` como startup item.
-7. **Verificar**: `python scripts/doctor.py` y `python scripts/test-doctor.py`.
+7. **Bot de Telegram**: David crea/valida el bot en @BotFather, pide `/token`
+   y se escribe en `%LOCALAPPDATA%\hermes\.env` como `TELEGRAM_BOT_TOKEN`
+   (el secret NO vive en el repo). David hace `/start` al bot para habilitar
+   la entrega a su chat (7288273982). Verificar: `curl api.telegram.org/bot<TOKEN>/getMe`.
+8. **Watchdog del gateway**: `powershell -File scripts/registrar-vigia-gateway.ps1`
+   (tarea Task Scheduler que revive el gateway si muere — ver 03-operacion-diaria).
+9. **Verificar**: `python scripts/doctor.py` (todos los checks en verde, incluido
+   `telegram-token`) y `python scripts/test-doctor.py` (12 casos de bug-inyección).
 
 Con eso el sistema queda idéntico: skills, memorias de especialistas (van dentro
 del repo), crons y búsqueda semántica operativos.

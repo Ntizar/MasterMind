@@ -2727,13 +2727,47 @@
       "skill_created": true,
       "skill_name": "geospatial/reearth-flow",
       "upgrade_note": "Skill v1 (2026-06-18) tenia comandos YAML/API inventados sin leer el repo. Reescrito v2.0.0 desde fuente real: docs/architecture.md + engine/schema/actions.json (167 acciones) + CLI run/dot/doc-action verificados 2026-09-02"
+    },
+    "gozen3ji/consulting-pptx-skill": {
+      "explored_at": "2026-09-03T04:00:33.155860+00:00",
+      "category": "pattern",
+      "stars": 103,
+      "language": "JavaScript",
+      "skill_angles": [
+        "pattern-pipeline"
+      ],
+      "skill_created": true,
+      "skill_name": "productivity/consulting-slide-rulebook"
+    },
+    "SantanderAI/linear-adapter-trainer": {
+      "explored_at": "2026-09-03T04:00:39.394870+00:00",
+      "category": "tool",
+      "stars": 29,
+      "language": "Python",
+      "skill_angles": [
+        "pattern-pipeline"
+      ],
+      "skill_created": true,
+      "skill_name": "ia/linear-embedding-adapter"
+    },
+    "blendi-remade/finger-frame-effect-fal": {
+      "explored_at": "2026-09-03T04:00:45.218212+00:00",
+      "category": "pattern",
+      "stars": 27,
+      "language": "JavaScript",
+      "skill_angles": [
+        "crm-erp-patterns",
+        "realtime-dashboard"
+      ],
+      "skill_created": true,
+      "skill_name": "creative/hand-frame-realtime-fx"
     }
   },
-  "last_run": "2026-09-02T22:01:28.297510+00:00",
+  "last_run": "2026-09-03T04:00:46.219304+00:00",
   "total_skills_created": 1,
   "stats": {
-    "runs": 48,
-    "repos_explored": 278,
+    "runs": 49,
+    "repos_explored": 281,
     "skills_generated": 9,
     "last_batch": 3
   },

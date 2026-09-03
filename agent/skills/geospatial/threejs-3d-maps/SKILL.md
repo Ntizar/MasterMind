@@ -134,6 +134,12 @@ function animate() {
 - **Performance:** El LOD por ray-casting puede ser costoso. Ajustar `subdivisionRays` (default: 2) según necesidades.
 - **Tile size:** Los tiles se cargan asíncronamente. Mostrar loading indicator mientras cargan.
 
+## Comparativa de alternativas (actualizada 2026-09-03)
+
+- **Navara** (`maplibre/navara`, ~260⭐, donado por Re:Earth a MapLibre; núcleo GIS Rust/WASM + render three.js, globo real, 3D Tiles, API en 4 niveles) — la evolución del motor de mapa 3D en three.js. Este skill (`threejs-3d-maps`) sigue vigente para casos planos ligeros (tiles 2D proyectados + extrusión GeoJSON sin globo ni WASM); para globo 3D serio con terrain/vectores/3D Tiles, usar **`navara-3d-globe-engine`**.
+- **`photorealistic-3d-tiles-threejs`** — cuando el requisito es la malla fotorrealista de ciudad (Google 3D Tiles vía Cesium Ion) con efectos TSL, no un motor GIS completo.
+- geo-three (938⭐) lleva meses sin actividad frente a Navara (push diario): para proyectos nuevos de globo, Navara es la vía; geo-three sigue válida para código existente.
+
 ## Referencias
 
 - geo-three: https://github.com/tentone/geo-three (docs: https://tentone.github.io/geo-three/docs/)

@@ -2796,13 +2796,51 @@
       "skill_created": false,
       "skill_name": "gtfs2shp",
       "decision_notes": "Re-procesado por entrada duplicada pendiente en registry. Skill v1 existia (maraton 2026-06-18). Auditado contra README real: v1 era correcto pero vago. UPGRADE a v2: entidad=shapes (no routes), flags -s/-t/-p con semantics exactos, EPSG 25830 para Espana, pitfalls verificacion QGIS/ogrinfo."
+    },
+    "maplibre/navara": {
+      "explored_at": "2026-09-03T16:01:04.486444+00:00",
+      "category": "upgrade",
+      "stars": 260,
+      "language": "TypeScript",
+      "skill_angles": [
+        "geospatial-3d-visualization",
+        "realtime-dashboard",
+        "3d-performance"
+      ],
+      "skill_created": true,
+      "skill": "navara-3d-globe-engine",
+      "upgrade_note": "re-scan de reearth/navara (skip 09-01 con 155 estrellas): donado a MapLibre, 260 estrellas, push diario. Skill nuevo navara-3d-globe-engine + comparativa añadida a threejs-3d-maps."
+    },
+    "SantanderAI/mutatis-mutandis": {
+      "explored_at": "2026-09-03T16:01:10.964782+00:00",
+      "category": "skip",
+      "stars": 26,
+      "language": "Jupyter Notebook",
+      "skill_angles": [
+        "ci-cd-pipeline-patterns",
+        "voice-ai-integration"
+      ],
+      "skill_created": false,
+      "skip_reason": "código de investigación 26 estrellas (paper situation-testing fairness, Santander AI Lab); dominio ML-fairness fuera del stack de David; sin patrones reutilizables de producto."
+    },
+    "Blackleets/aegis": {
+      "explored_at": "2026-09-03T16:01:17.233629+00:00",
+      "category": "skip",
+      "stars": 25,
+      "language": "TypeScript",
+      "skill_angles": [
+        "ci-cd-pipeline-patterns",
+        "realtime-dashboard"
+      ],
+      "skill_created": false,
+      "skip_reason": "25 estrellas; patrón centro de mando OSINT (MapLibre + feeds live + recon + dossiers IA) ya cubierto por osint-live-globe (gods-eye-view 14k estrellas) y los dashboards propios (visor-hermes-fomento). AEGIS no añade nada que el existente no tenga."
     }
   },
-  "last_run": "2026-09-03T10:01:00.543853+00:00",
+  "last_run": "2026-09-03T16:01:18.234621+00:00",
   "total_skills_created": 1,
   "stats": {
-    "runs": 50,
-    "repos_explored": 284,
+    "runs": 51,
+    "repos_explored": 287,
     "skills_generated": 9,
     "last_batch": 3
   },

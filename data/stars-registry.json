@@ -2834,13 +2834,50 @@
       ],
       "skill_created": false,
       "skip_reason": "25 estrellas; patrón centro de mando OSINT (MapLibre + feeds live + recon + dossiers IA) ya cubierto por osint-live-globe (gods-eye-view 14k estrellas) y los dashboards propios (visor-hermes-fomento). AEGIS no añade nada que el existente no tenga."
+    },
+    "milos-agathon/forge3d": {
+      "explored_at": "2026-09-03T22:01:13.748693+00:00",
+      "category": "tool",
+      "stars": 640,
+      "language": "Rust",
+      "skill_angles": [
+        "geospatial-3d-visualization",
+        "crm-erp-patterns"
+      ],
+      "skill_created": true,
+      "skill_name": "geospatial/forge3d-terrain-cartography",
+      "notes": "640⭐, Rust+WebGPU, patrones: render path-traced offline Python, cartografía in-engine (leyenda/escala/norte), time-lapse via snapshot+ffmpeg, COG/COPC/3DTiles. Skill creado 2026-09-04."
+    },
+    "diegoalvarezmgl/quantstats-pro": {
+      "explored_at": "2026-09-03T22:01:19.730014+00:00",
+      "category": "upgrade",
+      "stars": 23,
+      "language": "Python",
+      "skill_angles": [
+        "ai-cv-pipeline",
+        "realtime-dashboard"
+      ],
+      "skill_created": true,
+      "skill_name": "quantstats-pro",
+      "notes": "Skill v1 del maratón 2026-06-18 estaba inventada (pip install quantstats, 12⭐, describía el upstream). Reescrito a v2.0.0 con README real: paquete quantstats-pro, colisión de namespace, 4 tearsheets (3 Pro-gated), montecarlo/alphadecay engines. 23⭐."
+    },
+    "pascalorg/plugin-bones": {
+      "explored_at": "2026-09-03T22:01:25.755880+00:00",
+      "category": "skip",
+      "stars": 22,
+      "language": "TypeScript",
+      "skill_angles": [
+        "geospatial-3d-visualization"
+      ],
+      "skill_created": false,
+      "skip_reason": "22⭐ sin topics; plugin de encañizado estructural (studios, viguetas, NEC/GFCI, cimientos) acoplado al editor cerrado Pascal. Patrón 'derivar esqueleto constructivo del modelo' interesante pero sin reutilidad para proyectos de David (GIS/transporte/dashboards/CV); stack reactivo 3D ya cubierto por skills three.js existentes."
     }
   },
-  "last_run": "2026-09-03T16:01:18.234621+00:00",
+  "last_run": "2026-09-03T22:01:26.756502+00:00",
   "total_skills_created": 1,
   "stats": {
-    "runs": 51,
-    "repos_explored": 287,
+    "runs": 52,
+    "repos_explored": 290,
     "skills_generated": 9,
     "last_batch": 3
   },

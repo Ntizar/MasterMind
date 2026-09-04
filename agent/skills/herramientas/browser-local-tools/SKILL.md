@@ -18,6 +18,18 @@ triggers:
   - "error con Python"
   - "exe"
   - "fácil de usar"
+  - "visor de transporte"
+  - "mapa con paradas"
+  - "buscar paradas cercanas"
+  - "GTFS a HTML"
+  - "datos geoespaciales en navegador"
+  - "VJ processor"
+  - "visuales en vivo"
+  - "detección de cuerpo"
+  - "MediaPipe"
+  - "webcam effects"
+  - "real-time visuals"
+  - "audio reactive"
 ---
 
 # Browser Local Tools — Herramientas HTML que funcionan en local
@@ -225,6 +237,252 @@ function limpiarMetadata(texto) {
 }
 ```
 
+## Patrón: HTML autocontenido — embeber TODO en un solo archivo
+
+**Señales clave:** "quiero que funcione con doble clic", "no necesito servidor", "visor local", "descargar y abrir".
+
+Cuando el usuario necesita un HTML que funcione con `file://` sin servidor local:
+
+### Estructura del HTML autocontenido
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>...</title>
+    <!-- 1. CSS embebido -->
+    <style>
+        /* CSS completo inline */
+    </style>
+    <!-- 2. Librerías CDN (solo Leaflet, Leaflet-Cluster — nunca JSZip/mammoth) -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <!-- HTML structure -->
+    <script>
+        // 3. Datos embebidos
+        window.SYSTEMS_DATA = [...];
+    </script>
+    <!-- 4. JS embebido (reemplazar TODOS los <script src="js/...">) -->
+    <script>
+        // config.js contenido
+        // gbfs-parser.js contenido
+        // map.js contenido
+        // search.js contenido
+        // main.js contenido
+    </script>
+</body>
+</html>
+```
+
+### ⚠️ PITFALL CRÍTICO: Eliminar referencias a archivos JS externos
+
+Cuando se embeben los JS en `<script>` tags, hay que **eliminar explícitamente** las etiquetas `<script src="js/...">` del HTML. Si quedan, el navegador intenta cargar los archivos desde `file:///ruta/absoluta` del desarrollador → falla en la máquina del usuario.
+
+**Verificación post-embebido:**
+```bash
+# Debe devolver 0 resultados
+grep -c 'src="js/' index.html
+# Si devuelve > 0, hay referencias pendientes → eliminarlas
+```
+
+**Cómo embeber JS:**
+1. Leer todos los archivos JS en orden de dependencia
+2. Concatenar con separadores `// === filename.js ===`
+3. Reemplazar todos los `<script src="js/...">` por un solo `<script>` con el contenido concatenado
+4. Verificar que no queden referencias `src="js/` ni `src="css/`
+
+### Librerías CDN aceptables en HTML autocontenido
+
+**Solo librerías que:**
+- No cambian de API entre versiones (Leaflet, Leaflet-Cluster)
+- Son estables y confiables (unpkg, cdnjs)
+- No requieren worker (o se configuran workerSrc='')
+
+**NUNCA embeber:**
+- mammoth.js, pdf.js → si se comparten, embeberlos completos (600KB+)
+- Cualquier librería con dependencias cruzadas
+
+### Datos embebidos
+
+Para catálogos de datos (sistemas, estaciones, etc.):
+```javascript
+window.SYSTEMS_DATA = [
+    { id: 'bicing', nombre: 'Bicing', ciudad: 'Barcelona', ... },
+    // ...
+];
+```
+El JS principal lee de `window.SYSTEMS_DATA` en vez de `fetch()`.
+
+### Tamaño típico
+
+| Componente | Tamaño |
+|---|---|
+| CSS inline | 5-15 KB |
+| Datos (JSON) | 10-50 KB |
+| JS embebido | 30-80 KB |
+| **Total** | **50-150 KB** |
+
+## Patrón: Visores de datos espaciales y GTFS
+
+**Señales clave:** "visor de transporte", "mapa con paradas", "buscar paradas cercanas", "GTFS a HTML", "datos geoespaciales en navegador".
+
+Cuando el usuario necesita visualizar datos geoespaciales (GTFS, paradas de transporte, rutas) sin servidor:
+
+1. **Crear HTML autocontenido** con JSZip embebido inline para parsear ZIPs GTFS en el navegador
+2. **Carga por drag & drop** de archivos ZIP desde el sistema de archivos local
+3. **Cálculo Haversine** para distancias entre coordenadas
+4. **Filtrado por radio** de paradas cercanas a un punto
+5. **Agrupación por ruta/empresa** en tarjetas expandibles
+6. **Coordenadas rápidas** predefinidas (Madrid, Barcelona, etc.)
+7. **Botón GPS** para usar ubicación actual del dispositivo
+
+**Librerías clave para visores GTFS:**
+- **JSZip** (`jszip.min.js`, ~97KB) — parsea ZIPs GTFS en el navegador
+- **Leaflet** (para mapas visuales) — `leaflet.min.js` + CSS
+- **Haversine** — cálculo de distancia en metros entre coordenadas
+
+**Estructura típica de un visor GTFS:**
+```
+visor/
+└── index.html          ← Autocontenido, JSZip inline, funciona con doble clic
+```
+
+**Patrón de parseo GTFS en JS:**
+1. Leer `stops.txt` → array de paradas con lat/lon
+2. Leer `routes.txt` → array de rutas con tipo y nombre
+3. Leer `trips.txt` → mapeo trip_id → route_id
+4. Leer `stop_times.txt` → mapeo stop_id → lista de trips
+5. Cruzar: para cada parada, buscar trips que la usan → obtener rutas
+6. Filtrar paradas por distancia Haversine al punto buscado
+
+**Pitfall:** JSZip es síncrono en el parseo pero `loadAsync` y `async('string')` son asíncronos. Usar `await` para cada archivo. Los ZIPs grandes (100+ MB) pueden bloquear el hilo principal — mostrar barra de progreso y feedback visual.
+
+**Pitfall:** El visor NO necesita servidor. Los ZIPs se leen desde el sistema de archivos del usuario vía drag & drop o input file. Nunca usar `fetch()` para cargar ZIPs locales — el protocolo `file://` bloquea CORS.
+
+**Ver enlace a:** `templates/gtfs-visor.html`
+
+## Patrón: Visuales en tiempo real con detección de cuerpo
+
+**Señales clave:** "VJ processor", "visuales para concierto", "efectos con webcam", "detección de cuerpo", "MediaPipe", "audio reactive".
+
+Cuando el usuario quiere generar visuales en vivo que reaccionen al cuerpo y/o audio:
+
+1. **MediaPipe Pose** para detección de 33 landmarks del cuerpo (NO YOLO — YOLO solo da bounding box, MediaPipe da puntos precisos)
+2. **Web Audio API** para FFT y beat detection (NO p5.sound — raw API es más flexible)
+3. **Canvas 2D** para renderizado con trail effects (offscreen canvas + fade)
+4. **1 fichero HTML autocontenido** — webcam + detección + efectos + UI
+
+**Efectos típicos:** neon tracer (contour glow), grid distortion (body warping), particle burst (from hands), constellation (landmark connections), shockwave (beat-triggered), portal vortex (background).
+
+**Ver referencia completa:** `references/browser-realtime-visuals.md`
+
+## Patrón: Wizard multi-paso con progreso y LLM
+
+**Señales clave:** "herramienta que haga X con muchos archivos", "procesar en lote", "extraer datos de PDFs", "necesito validación".
+
+Cuando la herramienta requiere múltiples pasos (config → carga → procesamiento → validación → export), usar un **wizard steps** con indicador visual.
+
+### Estructura del wizard
+
+```html
+<!-- Step bar horizontal -->
+<div class="step-bar">
+  <div class="step-item active"><span class="num">1</span> Configuración</div>
+  <span class="step-arrow">▸</span>
+  <div class="step-item done"><span class="num">✓</span> Cargar</div>
+  <span class="step-arrow">▸</span>
+  <div class="step-item"><span class="num">3</span> Procesar</div>
+</div>
+
+<!-- Contenido por pasos -->
+<main>
+  <section id="step-1" class="step-section active">...</section>
+  <section id="step-2" class="step-section">...</section>
+  <section id="step-3" class="step-section">...</section>
+</main>
+```
+
+### JS: Navegación entre pasos
+
+```javascript
+function goToStep(n) {
+  S.step = n;
+  document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active'));
+  $('step-' + n).classList.add('active');
+  renderStepBar(); // Actualiza indicador: active/done/pending
+}
+```
+
+### Progress tracking para batch processing
+
+Cuando se procesan muchos archivos (100-1000), mostrar SIEMPRE:
+1. **% completado** — barra de progreso animada
+2. **Fase actual** — "Extrayendo texto...", "Enviando a LLM...", "Validando..."
+3. **ETA** — tiempo restante estimado (calcular con promedio de los procesados)
+4. **Estadísticas en vivo** — exitosos / advertencias / errores
+5. **Log** — últimas operaciones en caja monospace
+6. **Pausa/Reanudar** — botón para pausar el procesamiento
+7. **Cancelar** — botón para detener
+
+```javascript
+// Actualizar UI cada N archivos, no en cada uno (evitar reflows)
+const pct = Math.round(current / total * 100);
+$('procBar').style.width = pct + '%';
+$('procPct').textContent = pct + '%';
+$('procETA').textContent = formatTime(remaining);
+```
+
+### LLM calls desde el navegador
+
+Cuando la herramienta necesita llamar a una API de LLM desde el HTML:
+
+```javascript
+async function callLLM(text, schema, apiKey, model) {
+  const response = await fetch('https://api.nan.builders/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    },
+    body: JSON.stringify({
+      model: model || 'qwen3.6',
+      messages: [{ role: 'user', content: prompt }],
+      temperature: 0.1  // Bajo para extracción determinista
+    })
+  });
+  const result = await response.json();
+  let content = result.choices[0].message.content;
+  // Limpiar markdown fences si los hay
+  content = content.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
+  return JSON.parse(content);
+}
+```
+
+**Throttling:** Para 1000+ llamadas, usar delay entre requests (1.5-2s). Mostrar progreso.
+
+**API Key:** Guardar en localStorage, nunca enviar a terceros. Avisar al usuario.
+
+**Parsing robusto:** El LLM a veces devuelve JSON envuelto en ```json. Siempre limpiar antes de parsear. Fallback: buscar `{...}` con regex si el parse directo falla.
+
+### CSS: Kaizen vs Aurora para herramientas
+
+**Kaizen** (flat corporativo) es mejor para:
+- Herramientas de procesamiento/datos
+- Tools que se usan frecuentemente
+- Entorno corporativo/profesional
+- Cuando el usuario dice "estilo limpio", "corporativo", "sin florituras"
+
+**Aurora** (liquid glass, mesh) es mejor para:
+- Dashboards personales
+- Landings creativas
+- Apps visuales
+- Cuando el usuario pide "moderno", "glass", "aurora"
+
+**Regla:** Si no se especifica, preguntar. Para tools de procesamiento de datos, Kaizen por defecto.
+
 ## Preferencia del usuario (David)
 
 Cuando David dice "no me deja Python" o "algo más fácil", la respuesta **nunca** es "instala X" o "usa Y". La respuesta es: **crear un HTML que funcione en el navegador**. Cero dependencias, cero instalación, doble clic y listo.
@@ -235,3 +493,7 @@ Para el futuro: si la herramienta necesitaba Python, considerar si se puede reso
 1. HTML + JavaScript en navegador (preferido, con libs embebidas si es compartido)
 2. Script .bat/.sh que instale dependencias automáticamente
 3. .exe con PyInstaller (último recurso, requiere compilación en Windows)
+
+## Comparativa de alternativas
+
+- **[anthropics/html-effectiveness](https://github.com/anthropics/html-effective)** — HTML como formato de salida flexible: artefactos .html autocontenidos sin build; refuerza la filosofía de este skill de herramientas que funcionan 100% en el navegador.

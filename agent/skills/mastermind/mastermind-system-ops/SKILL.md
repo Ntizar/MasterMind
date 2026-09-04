@@ -32,7 +32,7 @@ C:/Users/d_ant/AppData/Local/Programs/Python/Python312/python.exe
 
 Toda petición Python (urllib/requests) a `api.nan.builders/v1` sin header `User-Agent` custom devuelve **403** (curl sí funciona sin él). Añadir p.ej. `"User-Agent": "MastermindIndexer/2.0"` a cada Request.
 
-Modelos disponibles en NaN (verificado 2026-08-31, `/v1/models` + smoke test): `qwen3.8-flash` (principal, vivo), `deepseek-v4-flash` (vivo, el más barato), `glm5.3-flash` (vivo hasta agotar cuota), `qwen3.6` (vivo), `qwen3-embedding` (embeddings, dim 4096, coseno, threshold score > 0.25); `minimax-h3` responde 401 = fuera de plan. Cambiar modelo global: `hermes config set model.default <modelo>` — AVISA de los crons "unpinned" con model_snapshot divergente que fallarán closed: re-anclar TODOS con `hermes cron edit <job_id> --model <m> --provider openai-api` (ambas flags obligatorias juntas).
+Modelos disponibles en NaN (verificado 2026-08-31, `/v1/models` + smoke test): `qwen3.8-flash` (vivo; default global hasta 2026-09-03, sigue pinneado en los crons), `deepseek-v4-flash` (vivo, el más barato; **nuevo default global desde 2026-09-03** — smoke test de texto+tools+visión superado), `glm5.3-flash` (vivo hasta agotar cuota), `qwen3.6` (vivo), `qwen3-embedding` (embeddings, dim 4096, coseno, threshold score > 0.25); `minimax-h3` responde 401 = fuera de plan. Cambiar modelo global: `hermes config set model.default <modelo>` — AVISA de los crons "unpinned" con model_snapshot divergente que fallarán closed: re-anclar TODOS con `hermes cron edit <job_id> --model <m> --provider openai-api` (ambas flags obligatorias juntas).
 
 **PITFALL #2b — cuota de glm5.3 y fallos silenciosos de cron (verificado 2026-08-31):** glm5.3-flash agota los tokens del mes ANTES de fin de mes → los crons asignados a él revientan con `RuntimeError: HTTP 402`. Como el digest/scout/doctor entregan a `local`, el error queda enterrado en `cron/output/<job_id>/*.md` sin aviso (ese día fallaron 3 de 9 crons sin que nadie se enterara). Reglas: 1) ante 402/429 el fallback natural es reintentar/anclar a qwen3.8-flash; 2) para detectar fallos ajenos, revisar `cronjob list` (campo `last_status`) o leer las salidas en `cron/output/` — un error de modelo NO es un fallo del script, comprobar el .md del run antes de tocar el prompt; 3) **solución activa: job `vigia-cron` (no_agent, cada 30min, deliver telegram) con `scripts/vigia-cron.py` de esta skill** — lee jobs.json, alerta SOLO fallos NUEVOS (estado no-ok + hash name|last_run_at en vigia-estado.json; stdout vacío = silencio). Si se pierde el job: `hermes cron create "*/30 * * * *" --name vigia-cron --no-agent --script vigia-cron.py --deliver telegram` (--script exige ruta RELATIVA a ~/.hermes/scripts/, un path absoluto falla en silencio).
 
@@ -45,6 +45,15 @@ Síntoma del colapso: `hermes gateway status` = "No gateway process" y en `logs/
 **Pitfalls**: a) `getUpdates` devuelve 409 "terminated by other getUpdates" cuando el gateway ya está polling — es BUENA señal, no borrar nada; b) `curl` desde git-bash con emojis/tildes a Telegram da `strings must be encoded in UTF-8` — usar texto plano ASCII o python; c) copiar un token viejo de BotFather parece nuevo pero la ID de bot (prefijo numérico) delata: bot nuevo = prefijo nuevo; d) NUNCA pegar el token en chat sin verificar — puede ser el revocado.
 
 **Watchdog (auto-curación)**: tarea `Hermes_Gateway_Watchdog` del Task Scheduler (cada 10 min, `scripts/vigia-gateway.ps1` en instalación + repo `scripts/`) — si no hay gateway: lo relanza, comprueba en gateway.log si "telegram connected", escribe en `logs/vigia-gateway.log` y AVISA por Telegram (lee token del .env; si Telegram no conecta, el aviso alerta del token revocado). Vive FUERA del gateway a propósito: un cron de Hermes no puede vigilar al gateway que lo ejecuta. Registro: `powershell -File scripts/registrar-vigia-gateway.ps1`.
+
+## Cambiar el modelo global del bot: flujo de reinicio (verificado 2026-09-03)
+
+`hermes config set model.default <m>` NO relee el proceso gateway en marcha: el bot sigue con el modelo que leyó al arrancar; solo las sesiones nuevas tras un reinicio estrenan el default. Flujo completo para "que lo estrene ya":
+
+1. **Smoke test ANTES de cambiar** contra `https://api.nan.builders/v1/chat/completions` (con User-Agent custom): texto, `tools`+`tool_choice` (el bot sin tool calling no opera) y **visión** — imagen 1×1 roja como data URL PNG en un content part `image_url`, preguntar el color y esperar «Rojo». Catálogo: GET `/v1/models`.
+2. **Reiniciar**: el gateway es un *login item* (.vbs), NO un servicio — `hermes gateway restart` no lo gestiona. Matar PID: `taskkill /PID <pid> /F` (con un slash; `//PID` lo rechaza taskkill — no aplicar la doble-barra de cygwin aquí). Luego el watchdog tarda hasta 10 min → no esperar: invocar `powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File "%LOCALAPPDATA%\hermes\scripts\vigia-gateway.ps1"` y verificar `hermes gateway status` con PID nuevo en ~20s.
+3. **Verificar en `logs/agent.log`**: el reinicio hace `session_reset` del DM de Telegram (nace sesión nueva → atrapa el default); confirmar línea `model=<nuevo>` o el session_reset + respuesta enviada. Las sesiones de escritorio ya abiertas NO cambian (prompt caching) — es comportamiento esperado, no un bug.
+4. Recordar al usuario: los **crons pinneados no se mueven** con el default; `/model <m>` revierte por sesión.
 
 ## Crons (viven si el gateway está vivo)
 
@@ -105,6 +114,7 @@ STT ya configurado: local faster-whisper, model base, language en (auto-transcri
 4. **Reglas del repo**: NUNCA borrar del repo MasterMind (solo crear/modificar); todo en castellano; no fijar cifras de skills en docs (crecen con cada ciclo); nombre público del bot de Telegram: **NtizarBot** (@Ntizarbot) — "Koldo" es solo el apodo privado de David, jamás debe aparecer en textos públicos, presentaciones, configs visibles ni docs.
 5. **rm -rf grandes en terminal quedan bloqueados sin aprobación** del usuario; dividir limpieza en pasos pequeños o confirmar antes.
 6. **Push concurrente del cron scout**: el scout pushea a `Ntizar/MasterMind` cada 6h; un push directo puede rechazarse con "fetch first". Resolver SIEMPRE con `git pull --rebase origin master && git push` — nunca con merge ni forzando. Aplica a cualquier trabajo sobre el repo.
+7. **Deploy a GitHub Pages: habilitar Pages ANTES de la Action (verificado 2026-09-03).** Una workflow `configure-pages@v5` en un repo nuevo falla en el paso "Configurar Pages" con `Get Pages site failed ... Error: Not Found` si el repo no tiene Pages habilitado. Antes de desplegar, habilitar la API (o `gh`): `gh api -X POST repos/<owner>/<repo>/pages -f 'build_type=workflow'`. Esto devuelve el `html_url` (p.ej. `https://ntizar.github.io/aurora-prism/`). Luego relanzar la workflow (`gh workflow run deploy-pages.yml --ref main`) y verificar `gh run list` hasta `success` + `curl -s -o /dev/null -w "%{http_code}" <html_url>` = 200. Verificar también la base de Vite (`base: './'`) para rutas relativas correctas en Pages.
 7. **Landing del repo (`index.html`) consume Aurora v6 vía CDN** (`ntizar.css + next + three + data + patterns + motion`): el diseño se edita en el repo `~/Projects/Ntizar-Aurora`, nunca con CSS custom en MasterMind. Ver skill `aurora-design-system`. Auditoría: `python scripts/audit-aurora.py index.html` (del skill Aurora).
 8. **Sincronizar skill → repo tras editar el skill local**: los skills pueden existir solo en la instalación local y olvidarse en el repo (pasó con este skill hasta 2026-08-29). Tras editar un skill aquí, copiarlo a `agent/skills/<dominio>/` del repo y commitear — el repo es la fuente de verdad y la reconstrucción depende de él.
 9. **Pitfall de patches en SKILL.md**: un patch cuyo old_string coincide con una línea de definición puede SUSTITUIR la línea en vez de insertar antes (borró `resultados = []` en test-doctor.py y costó un NameError). Al insertar secciones nuevas, incluir en old_string el título de la sección siguiente y devolverlo íntegro en new_string.
@@ -127,6 +137,47 @@ Pitfalls verificados (2026-09-01):
 - 429/concurrencia: `logs/errors.log` (grep fecha) y `sessions/request_dump_*.json` (reason='max_retries_exhausted', error 429 'qwen3.8-flash concurrency limit: max 5').
 - **Framing para David:** 10M tokens/día ≈ 4-5 € con flash — el problema real es cuota/concurrencia, no euros; decirlo siempre para no alarmar.
 - El log manual `tokens/tokens-log.json` vive en `~/Projects/MasterMind/tokens/` (el skill `token-tracking` dice `/hermes-home/tokens/` que no existe en Windows — ruta real verificada).
+
+## ¿Dónde están las conversaciones de cada plataforma? (verificado 2026-09-02)
+
+TODO (desktop, Telegram, cron, subagentes) se guarda en la MISMA tabla `sessions` de
+`%LOCALAPPDATA%\hermes\state.db`, etiquetado por la columna `source`. Que algo no
+aparezca en el sidebar de Hermes Desktop NUNCA significa que no se guardara: el sidebar
+**secciona por fuente** (`source` / `exclude_sources` en `GET /api/sessions`) en
+Recientes (locales: `cli`, `desktop`, `tui`…) + una sección **Mensajería** agrupada por
+plataforma (Telegram, Discord…) + Cron jobs. Comprobado: telegram 19 sesiones / 2165
+mensajes frente a desktop 13 / 1496 — el bot acumula más charla que el escritorio.
+
+Ante "¿no se guardan aquí las conversaciones de Telegram?": **MEDIR, no especular**.
+
+```python
+con = sqlite3.connect("file:" + dbpath + "?mode=ro", uri=True)   # read-only: no bloquea al gateway
+con.execute("select source,count(*),sum(message_count) from sessions group by source")
+# y las de una plataforma, con los flags que explican ausencias en la UI:
+con.execute("select id,title,message_count,hidden,archived,parent_session_id,"
+            "datetime(last_activity_at,'unixepoch','localtime') from sessions "
+            "where source='telegram' order by last_activity_at desc limit 10")
+```
+
+`hermes sessions stats` da lo mismo de un vistazo. Flags `hidden`/`archived` = ocultas en
+la UI pero intactas en la base. Las cadenas de compresión/branch (`parent_session_id`) se
+proyectan como **una sola entrada** en las listas → el conteo del sidebar jamás cuadra con
+las filas brutas de la tabla: no es un bug, no volver a insistir en ello.
+
+Cómo tenerlas a mano (decírselo así al usuario): desplegar **Mensajería → Telegram** en la
+barra lateral y clicar una sesión para leer la transcripción completa; o `session_search`
+para ir a contenido concreto; o `hermes sessions export --session-id <id> --format md`
+para sacarla a archivo. (Seguir hablando con el bot se hace desde Telegram; la sesión
+continúa ahí tal cual.)
+
+**PITFALL al investigar el UI de escritorio**: NO greppees `apps/desktop/dist/assets/*.js`
+— está minificado (identificadores `IXe`/`$Ue`, todo en una línea) y no se aprende nada.
+El árbol legible, con los comentarios que explican el *porqué*, está en
+`apps/desktop/src/`: p.ej. `src/lib/session-source.ts` (`LOCAL_SESSION_SOURCE_IDS`,
+`MESSAGING_SESSION_SOURCE_IDS`, `isMessagingSource`) y `src/api/sessions.ts`; los `.test.ts`
+adyacentes muestran la forma exacta de las peticiones. Ese árbol existe incluso con la app
+empaquetada, bajo `%LOCALAPPDATA%\hermes\hermes-agent\apps\desktop\src`. En el backend:
+`hermes_cli/web_routers/sessions.py` y `list_sessions_rich` en `hermes_state.py`.
 
 ## Simulación multiagente con perfiles Hermes (Bot Mode)
 

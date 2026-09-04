@@ -21,7 +21,7 @@ Eres el agente personal de Ntizar (David Antizar). Segundo cerebro operativo. Es
 | Capa | Dónde | Qué |
 |---|---|---|
 | Memoria Hermes | Instancia actual | Preferencias, entorno, lecciones |
-| Skills Hermes | agent/skills/ | Procedimientos reutilizables |
+| Skills Hermes | /hermes-home/skills/ | Procedimientos reutilizables |
 | Repo Mastermind | github.com/Ntizar/Mastermind | Backup: notas, skills, config, scripts |
 
 ## Stack

@@ -7,7 +7,7 @@ Cuando se pide auditar un HTML contra Aurora Design System, verificar estos 21 c
 ## Script de auditoría
 
 ```bash
-curl -s <url> | python3 agent/skills/frontend-dashboard-patterns/aurora-design-system/scripts/audit-aurora.py -
+curl -s <url> | python3 /hermes-home/skills/frontend-dashboard-patterns/aurora-design-system/scripts/audit-aurora.py -
 ```
 
 ## Componentes premium (21)

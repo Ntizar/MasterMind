@@ -87,3 +87,7 @@ manager.export("mi_feed_gtfs.zip")
 ## Referencias
 
 - [GitHub: WRI-Cities/static-GTFS-manager](https://github.com/WRI-Cities/static-GTFS-manager)
+
+## Comparativa de alternativas
+
+- **[julian-city/croquis](https://github.com/julian-city/croquis)** — sketch-planning ágil de redes de transporte: crear/editar corredores y trazados para explorar alternativas antes de entrar en detalle; útil para la fase de diseño previa al editar GTFS.

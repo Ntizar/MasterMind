@@ -59,3 +59,7 @@ anonymized = anonymizer.anonymize(text="Mi email es david@example.com...", analy
 
 - Repo: `microsoft/presidio`
 - Docs: https://microsoft.github.io/presidio/
+
+## Comparativa de alternativas
+
+- **[data-privacy-stack/presidio](https://github.com/data-privacy-stack/presidio)** — de-identificación PII multi-idioma tanto sobre texto como sobre imágenes con OCR (este skill solo cubre texto); extiende el caso de uso a documentos escaneados/imágenes.

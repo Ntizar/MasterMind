@@ -31,8 +31,8 @@ Desde 2026-06-10, la carga de skills usa ChromaDB local como mecanismo principal
 5. **Fallback:** si ChromaDB no responde o no encuentra nada, usar el sistema de prioridad por dominio (abajo)
 
 **Scripts:**
-- `scripts/consultar-skills.py` — consulta semántica (modo `--json` para Mastermind)
-- `scripts/indexar-skills.py` — re-indexación manual
+- `/hermes-home/scripts/consultar-skills.py` — consulta semántica (modo `--json` para Mastermind)
+- `/hermes-home/scripts/indexar-skills.py` — re-indexación manual
 - `scripts/delegation-flows.py` — clasificación de complejidad con `classify_task()` y heurísticas
 
 **Cron:** `chromadb-reindex-semanal` (domingo 04:00 UTC)
@@ -396,6 +396,7 @@ grep -c 'function load' public/js/app.js        # JS load functions
 
 - **No delegar sin contexto completo** — el subagente no tiene memoria del chat
 - **No delegar tareas dependientes en paralelo** — causan conflictos
+- **No delegar tareas que tocan el mismo archivo en paralelo** — si 2+ subagentes modifican `nap.js`, ambos pueden añadir la misma función, resultando en duplicación silenciosa. El error (`Identifier 'x' has already been declared`) NO aparece en `node --check` pero rompe la app en el navegador. Debug: `import('/js/main.js').catch(e => e.message)` en consola. Si dos subagentes necesitan el mismo archivo, ejecutar en serie o dar a cada uno una sección/clase distinta. Ver `routing-isochrones` pitfall #26.
 - **No saltarse la verificación** — siempre checkear resultado del subagente
 - **No crear sub-subagentes** — Hermes limita profundidad a 1
 - **Timeout en subagentes** — tareas research usan timeout=600, código timeout=180
@@ -500,3 +501,11 @@ Después de tarea compleja (5+ tool calls):
 - Repo antiguo (legacy): https://github.com/Ntizar/NtizarBrainMasterMind (solo referencia histórica, no modificar)
 - `github-workflow` → Flujo completo de GitHub: autenticación, PR lifecycle, deploy Pages, branch rename
 - `scripts/delegation-flows.py` → Script de clasificación de complejidad (referencia ejecutable)
+
+## Comparativa de alternativas
+
+- **[chaitanyagiri/munder-difflin](https://github.com/chaitanyagiri/munder-difflin)** — harness minimalista "oficina de clones" con config por agente, CLI y floor en fichero plano: una alternativa ligera a Mastermind cuando solo necesitas varios agentes configurados con un archivo plano en vez de una orquestación pesada.
+- **[XMihura/Kanvas](https://github.com/XMihura/Kanvas)** — tablero de proyecto humano+agentes como JSON plano de Obsidian Canvas con CLI Python: permite representar el flujo de trabajo (incluidos agentes) como un canvas editable visualmente y versionable.
+- **[SantanderAI/llm_bridge](https://github.com/SantanderAI/llm_bridge)** — cliente LLM vendor-neutral (OpenAI/DeepSeek/Qwen/Bedrock/Gemini): cambiar de proveedor en una línea, muy útil para alternar modelos en los agentes sin tocar la lógica.
+- **[elCanosail/fusionclaw](https://github.com/elCanosail/fusionclaw)** — panel de deliberación multi-modelo en paralelo con un *judge* que sintetiza (consenso por diversidad), ideal para las etapas de deliberación de Mastermind.
+- **[lacrimae0rerum/...]** — deliberación multi-LLM asíncrona con 17 personalidades y un chairman que pondera el disenso, devolviendo entregables estructurados: complementa el reparto de roles del orchestrator.

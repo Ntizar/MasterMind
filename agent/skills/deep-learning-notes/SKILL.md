@@ -9,13 +9,13 @@ tags: [deep-learning, research, notes, cron, learning]
 
 ## Trigger
 
-Se ejecuta automáticamente como cron diario (`mastermind-autoconfig` o cron dedicado). Elige un tema nuevo de deep learning que no esté ya cubierto en `notes/deep-learning/`.
+Se ejecuta automáticamente como cron diario (`mastermind-autoconfig` o cron dedicado). Elige un tema nuevo de deep learning que no esté ya cubierto en `/hermes-home/notes/deep-learning/`.
 
 ## Workflow
 
 ### 1. Elegir tema
 
-Revisar `notes/deep-learning/` para ver qué temas ya se cubrieron. Elegir un tema:
+Revisar `/hermes-home/notes/deep-learning/` para ver qué temas ya se cubrieron. Elegir un tema:
 - **NO repetido** — verificar lista de temas cubiertos
 - **Práctico** — priorizar implementaciones sobre teoría abstracta
 - **Relevante** — preferir temas que impacten el stack actual (LLMs, inference, vision, RL)
@@ -38,7 +38,7 @@ La nota debe tener:
 
 ### 4. Guardar
 
-Guardar en `notes/deep-learning/YYYY-MM-DD-titulo.md`
+Guardar en `/hermes-home/notes/deep-learning/YYYY-MM-DD-titulo.md`
 
 ### 5. Proponer siguiente tema
 
@@ -101,7 +101,7 @@ rm -rf /tmp/rl-venv  # PyTorch ocupa ~5GB en venv
 
 ## Referencias
 
-- `references/covered-topics.md` — Lista completa de temas ya cubiertos en `notes/deep-learning/` (actualizada 2026-07-14, 29 notas)
-- `notes/deep-learning/` — directorio de notas existentes
+- `references/covered-topics.md` — Lista completa de temas ya cubiertos en `/hermes-home/notes/deep-learning/` (actualizada 2026-07-14, 29 notas)
+- `/hermes-home/notes/deep-learning/` — directorio de notas existentes
 - `research-paper-writing` — skill para papers académicos (no confundir con notas técnicas)
 - `python-code-implementation` — pitfall de docstrings en `write_file`

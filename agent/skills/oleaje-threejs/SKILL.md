@@ -69,3 +69,8 @@ Receta probada en https://ntizar.github.io/glamoursurf/ (repo Ntizar/glamoursurf
 - Todo en castellano, atribución "Hecho con ❤️ por David Antizar".
 - Preferencia visual de David aplica: fondo blanco/sombras sutiles en UI, nada de dark/liquid-glass.
 - Diseño espectacular pero cada fase usable por sí misma; física correcta antes que realismo fotográfico.
+
+## Comparativa de alternativas
+
+- **[Token-Gremlin/natural-disasters](https://github.com/Token-Gremlin/natural-disasters)** — océano y clima extremo procedural en three.js r169 (WebGL2/GLSL3) con CI; referencia de oleaje de alta energía/clima extremo.
+- **[gdfa-ugr/marinetools](https://github.com/gdfa-ugr/marinetools)** — caracterización estadística de proceso vectorial para generar oleaje estocástico; útil para alimentar el oleaje con datos reales.

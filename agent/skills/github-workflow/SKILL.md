@@ -1,7 +1,7 @@
 ---
 name: github-workflow
 description: "Flujo completo de trabajo con GitHub: autenticación, gestión de repos, PR lifecycle, code review, issues, knowledge repo como base de conocimiento persistente, deploy estático en Pages, y recuperación de repos corruptos."
-version: 1.2.0
+version: 1.3.0
 author: Hermes Agent
 tags: [github, git, workflow, deployment, knowledge-repo, recovery]
 ---
@@ -38,7 +38,7 @@ apt-get update -qq && apt-get install -y -qq gh
 
 **Auth con token:**
 ```bash
-token=$(grep GITHUB_TOKEN .env | cut -d= -f2-)
+token=$(grep GITHUB_TOKEN /hermes-home/.env | cut -d= -f2-)
 # ⚠️ GH CLI falla con GITHUB_TOKEN env var set
 GITHUB_TOKEN="" echo "$token" | gh auth login --with-token
 ```
@@ -88,7 +88,7 @@ Usar un repos GitHub como base de conocimiento persistente:
 - `scripts/` — Automatizaciones
 - `config/` — Configuraciones
 
-**Sync:** `git pull` → `cp -n mastermind/*.md agent/skills/mastermind/`
+**Sync:** `git pull` → `cp -n mastermind/*.md /hermes-home/skills/mastermind/`
 
 ### 7.0 Decidir: GitHub Pages vs NaN
 
@@ -102,6 +102,43 @@ Usar un repos GitHub como base de conocimiento persistente:
 | **Control total** | Limitado | Completo |
 
 **Regla:** Estáticos puros → GitHub Pages. Todo lo que necesite servidor → NaN.
+
+### 7.0b Pitfall: GitHub Pages `legacy` + `/dashboard` path
+
+Cuando GitHub Pages está en modo `legacy` con `source.path: "/"`:
+- **Solo acepta** `/` o `/docs` como paths. `/dashboard` devuelve **422**.
+- El PUT no cambia el build_type automáticamente — sigue en legacy.
+
+**Solución A — iframe en index.html raíz (fallback inmediato):**
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><title>Título</title></head>
+<body>
+    <iframe src="./dashboard/index.html" style="width:100vw;height:100vh;border:none;margin:0;padding:0;"></iframe>
+</body>
+</html>
+```
+Funciona inmediatamente sin cambiar build_type. El workflow de Pages puede seguir existiendo sin conflictos.
+
+**Solución B — Intentar activar workflow primero:**
+1. Crear `.github/workflows/pages.yml` con `actions/deploy-pages@v4`
+2. Commit + push
+3. Esperar 60s, verificar con `curl`
+4. Si sigue `errored` → usar iframe como fallback
+
+**Verificar estado de Pages:**
+```bash
+curl -s https://api.github.com/repos/OWNER/REPO/pages \
+  -H "Authorization: token $TOKEN" | jq '{build_type, status, source}'
+# build_type: "legacy" + status: "errored" = bloqueado con paths nuevos
+```
+
+**Pitfalls:**
+- El workflow dispatch manual (`POST /actions/workflows/X/dispatches`) devuelve **422** si el workflow NO tiene `workflow_dispatch` en su trigger — no es error de deploy
+- `GET /repos/.../pages` muestra `build_type: "legacy"` + `status: "errored"` = bloqueado con paths nuevos
+- `POST /repos/.../pages` con `build_type: "workflow"` devuelve **409** si Pages ya está activo
+- `PUT /repos/.../pages` con `source.path: "/dashboard"` devuelve **422** si está en legacy mode
 
 ## 7. GitHub Pages
 
@@ -136,6 +173,40 @@ gh api repos/:owner/:repo/pages -X POST \
 ```
 
 **Pitfall:** `build_type: "workflow"` requiere que exista un workflow de GitHub Actions que use `actions/deploy-pages@v4`. Si el workflow no existe, el deploy falla silenciosamente.
+
+### 7.1a Fix: legacy → workflow via PUT (cuando POST devuelve legacy stuck)
+
+El POST a `/pages` a menudo devuelve `build_type: "legacy"` aunque el repo tenga un workflow de Pages. Legacy puede quedarse en `status: "building"` indefinidamente (probado con HTML de 138KB). **Fix:** hacer PUT para forzar `build_type: "workflow"`:
+
+```bash
+# 1. POST activa Pages (devuelve build_type: legacy)
+curl -s -X POST https://api.github.com/repos/OWNER/REPO/pages \
+  -H "Authorization: token $TOKEN" \
+  -d '{"source":{"branch":"main","path":"/"}}'
+# → build_type: "legacy", status: "building"
+
+# 2. PUT cambia a workflow mode (204 = OK)
+curl -s -X PUT https://api.github.com/repos/OWNER/REPO/pages \
+  -H "Authorization: token $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"source":{"branch":"main","path":"/"},"build_type":"workflow"}'
+# → 204 = success
+
+# 3. Esperar y verificar
+sleep 30
+curl -s -o /dev/null -w "%{http_code}" https://OWNER.github.io/REPO/
+# → 200
+```
+
+**Pitfall:** El PUT requiere que el workflow de Pages YA exista en el repo (commit + push antes de activar Pages). Si el workflow no existe, el PUT falla o el deploy falla silenciosamente.
+
+**Secuencia completa correcta para activar Pages en repo estático existente:**
+1. Crear `.nojekyll` en raíz
+2. Crear `.github/workflows/pages.yml` con `actions/deploy-pages@v4`
+3. Commit + push
+4. `POST /repos/.../pages` → activa (devuelve legacy)
+5. `PUT /repos/.../pages` con `build_type: "workflow"` → corrige
+6. Verificar con `curl -sI`
 
 ### 7.1b Deploy ultra-rápido con branch gh-pages (HTML puro, sin build)
 
@@ -204,6 +275,27 @@ jobs:
 ```
 
 **Pitfall:** Para sites estáticos HTML (sin build), crear `.nojekyll` en la raíz del repo para evitar que GitHub procese con Jekyll.
+
+### 7.2a Deploy con datos JSON + frontend separados (patrón CIAF-visor)
+
+Cuando el proyecto tiene `frontend/` y `data/` como directorios separados, **no deployes solo `frontend/`** — los fetch a `../data/` fallarán. Solución: copiar datos al directorio de deploy en el workflow.
+
+```yaml
+- name: Prepare deployment
+  run: |
+    mkdir -p deploy/data
+    cp -r frontend/* deploy/
+    cp -r data/reports data/memorias data/train-tracks.geojson data/index.json data/relations.json deploy/data/
+
+- name: Upload artifact
+  uses: actions/upload-pages-artifact@v3
+  with:
+    path: 'deploy/'
+```
+
+Y en el HTML, usar rutas relativas al root: `fetch('data/index.json')` en vez de `fetch('../data/index.json')`.
+
+**Pitfall:** GitHub Pages solo sirve lo que esté en el directorio de deploy. Los directorios no incluidos (como `scripts/`, `pdfs/`) no están accesibles vía URL.
 
 ### 7.2 Vite + GitHub Pages con Service Worker (patrón crítico)
 
@@ -522,7 +614,7 @@ curl -s -o /dev/null -w "%{http_code}" https://ntizar.github.io/repo-name/
 El token de GitHub puede funcionar para la API REST pero **fallar con git credential store** o `credential.helper` normal. El patrón que funciona es:
 
 ```bash
-source .env
+source /hermes-home/.env
 cd /path/to/repo
 GIT_TERMINAL_PROMPT=0 git -c 'credential.helper=!f() { echo "username=oauth2"; echo "password='$GITHUB_TOKEN'"; }; f' push -u origin main
 ```

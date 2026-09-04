@@ -122,7 +122,7 @@ app.get('/api/skills', async (req, res) => {
   } catch {
     try {
       // 2. Fallback a filesystem (no existe en contenedor NaN)
-      const skillsDir = 'agent/skills';
+      const skillsDir = '/hermes-home/skills';
       if (fs.existsSync(skillsDir)) {
         const cats = fs.readdirSync(skillsDir).filter(f => fs.statSync(path.join(skillsDir, f)).isDirectory());
         return res.json({ status: 'filesystem', count: cats.length, categories: cats.map(c => ({ name: c, count: countSkillsInDir(path.join(skillsDir, c)) })) });

@@ -210,3 +210,7 @@ A skill exists to make the agent's process more predictable — the agent reliab
 - [ ] Tests at `tests/skills/test_<skill>_skill.py` pass under `scripts/run_tests.sh`
 - [ ] Docs regenerated with scope discipline; sidebar has exactly one entry for the slug
 - [ ] `git add` + commit on the intended branch; PR opened
+
+## Comparativa de alternativas
+
+- **[fernandotellado/ai-skills](https://github.com/fernandotellado/ai-skills)** — referencia práctica de frontmatter/estructura/pitfalls bajo el estándar `agentskills.io`; complementa a la hora de escribir SKILL.md conformes al estándar.

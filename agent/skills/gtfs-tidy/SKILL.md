@@ -95,6 +95,10 @@ Regla mnemotécnica: **mayúsculas ELIMINAN o fusionan** entidades; minúsculas 
 
 ## Referencias
 
-- Repo: https://github.com/patrickbr/gtfstidy (149⭐, GPL-2.0)
+- Repo: `github.com/patrickbr/gtfstidy` (148⭐)
+
+## Comparativa de alternativas
+
+- **[patrickbr/gtfstidy](https://github.com/patrickbr/gtfstidy)** — tidy GTFS en Go que minimiza tamaño y corrige inconsistencias con equivalencia semántica; una alternativa de validación/limpieza escrita en Go.
 - Paper `-T`: Bast & Storandt, SIGSPATIAL 2014 (frequency extraction, CAP).
 - Registry: `patrickbr/gtfstidy` — auditado v2.0.0 el 2026-09-04 contra README + `gtfstidy.go` (v1 tenía CLI inventado: `--input/--output`, `--validate`, `--info`).

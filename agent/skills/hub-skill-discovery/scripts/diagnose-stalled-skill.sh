@@ -1,6 +1,6 @@
 #!/bin/bash
 # Diagnose stalled skill-learning cron jobs
-# Usage: bash agent/skills/hub-skill-discovery/scripts/diagnose-stalled-skill.sh
+# Usage: bash /hermes-home/skills/hub-skill-discovery/scripts/diagnose-stalled-skill.sh
 #
 # Checks:
 # 1. Is the skill-learning state current_index stuck?
@@ -8,9 +8,9 @@
 # 3. Has the same skill been reinstalled >3 times?
 # 4. Provides fix commands.
 
-STATE_FILE="agent/skills/.skill-learning-state.json"
-LOG_FILE="agent/skills/skill-learning.log"
-QUARANTINE_DIR="agent/skills/.hub/quarantine"
+STATE_FILE="/hermes-home/skills/.skill-learning-state.json"
+LOG_FILE="/hermes-home/skills/skill-learning.log"
+QUARANTINE_DIR="/hermes-home/skills/.hub/quarantine"
 
 echo "=== Stalled Skill Diagnosis ==="
 echo ""

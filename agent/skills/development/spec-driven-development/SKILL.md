@@ -94,3 +94,8 @@ Spec Kit soporta:
 - Repo: `github/spec-kit`
 - CLI: `specify` (Python, pip install)
 - Docs: https://github.github.io/spec-kit/
+
+## Comparativa de alternativas
+
+- **[javierpa95/harness](https://github.com/javierpa95/harness)** — harness SDD donde el arquitecto impone specs y el flujo es Analyze→Spec→Implement→Review→Docs→Decide con 8 agentes; una implementación multi-agente del pipeline SDD.
+- **[acunap/praxis](https://github.com/acunap/praxis)** — máquina de estados en 2 fases (descubrimiento/diseño → implementación TDD) para evitar código caótico; alternativa más estructurada al flujo libre.

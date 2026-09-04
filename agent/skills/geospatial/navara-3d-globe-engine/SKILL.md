@@ -107,3 +107,7 @@ Globo mínimo: arrancar el ejemplo de arriba con `npm run dev` y comprobar (1) e
 ---
 
 **Hecho con ❤️ por David Antizar**
+
+## Comparativa de alternativas
+
+- **[reearth/navara](https://github.com/reearth/navara)** — API por niveles (declarativo → bajo nivel) y escena fotorrealista con atmósfera/sol/sombras; la referencia de globo 3D sobre la que se apoya este skill (ver también `threejs-3d-maps`).

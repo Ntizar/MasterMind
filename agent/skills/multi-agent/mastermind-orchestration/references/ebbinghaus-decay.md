@@ -25,7 +25,7 @@ R(t) = a / (log(t+1))^b + c
 ## Ejecución
 
 ```bash
-python3 scripts/ebbinghaus-decay.py
+python3 /hermes-home/scripts/ebbinghaus-decay.py
 ```
 
 - Notas con score < 0.2 → se mueven a `notes/archive/`

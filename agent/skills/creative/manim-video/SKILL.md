@@ -2,9 +2,13 @@
 name: manim-video
 description: "Manim CE animations: 3Blue1Brown math/algo videos."
 version: 1.0.0
+author: SHL0MS, Hermes Agent
+license: MIT
 platforms: [linux, macos, windows]
-tags: [creative, manim, animation, math]
-
+metadata:
+  hermes:
+    tags: [Manim, Animation, Math, Video]
+    related_skills: []
 ---
 
 # Manim Video Production Pipeline
@@ -269,3 +273,7 @@ Take a standard mathematical/technical visualization and transform it:
 2. Pick the most fundamental assumption
 3. Reverse it (right-to-left derivation, 3D embedding of a 2D concept, continuous morphing instead of steps, zero notation)
 4. Explore what the reversal reveals that the standard approach hides
+
+## Comparativa de alternativas
+
+- **[3b1b/manim](https://github.com/3b1b/manim)** — render multiscena, transformaciones y animaciones por API (no keyframes de editor) con el estilo visual de 3Blue1Brown; la referencia para animaciones matemáticas programáticas.

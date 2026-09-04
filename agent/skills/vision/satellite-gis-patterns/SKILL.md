@@ -113,6 +113,51 @@ Arquitectura zero-backend para isocronas de movilidad:
 
 **Ver referencias:** `references/nap-gtfs-integration.md`, `references/isochrone-architecture.md`
 
+## 6. OpenRailwayMap — Capas de vías férreas en Leaflet
+
+**Uso:** Superponer infraestructura ferroviaria sobre mapas Leaflet para análisis geoespacial de accidentes, rutas, isocronas.
+
+### Capas de tiles
+
+| Capa | URL | Descripción |
+|------|-----|-------------|
+| standard | `https://tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png` | Vías con colores por electrificación (3000Vcc, 25kVac, etc.) |
+| fast | `https://tiles.openrailwaymap.org/fast/{z}/{x}/{y}.png` | Versión simplificada, más rápida de cargar |
+
+### Integración con Leaflet
+
+```javascript
+// Capa base (CARTO Light — buen contraste con vías)
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    subdomains: 'abcd', maxZoom: 19
+}).addTo(map);
+
+// Capa OpenRailwayMap (superpuesta con opacidad)
+const railwayLayer = L.tileLayer(
+    'https://tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png',
+    { subdomains: 'abcd', maxZoom: 19, opacity: 0.6 }
+).addTo(map);
+
+// Toggle en layer control
+L.control.layers(null, { "Vías férreas": railwayLayer }).addTo(map);
+```
+
+### API GeoJSON
+
+```
+GET https://api.openrailwaymap.org/lines?format=geojson&protected=1
+```
+
+Devuelve: electrificación, ancho de vía, velocidad máxima, nombre de línea.
+**Pitfall:** La API a veces bloquea desde IPs de cloud/sandbox. Si falla, usar tiles directamente.
+
+### Pitfalls
+
+- **OpenRailwayMap tiles devuelven 403** sin headers adecuados. Verificar con `curl -sI`.
+- **Opacidad recomendada:** 0.4-0.6 sobre CARTO Light. Demasiado alta tapa el mapa base.
+- **API GeoJSON** puede no responder desde sandbox. Fallback: usar tiles.
+- **Nominatim** requiere User-Agent no vacío y tiene rate limit de 1 req/seg.
+
 ## Referencias
 - https://github.com/sparkyniner/DRISH-X-Satellite-powered-freight-intelligence-
 - https://github.com/AbelVM/omt-router
@@ -120,3 +165,7 @@ Arquitectura zero-backend para isocronas de movilidad:
 - https://github.com/Aouei/remote-sensing-satellite-downloader
 - **references/nap-gtfs-integration.md** — API NAP completa (endpoints, esquemas, flujos)
 - **references/isochrone-architecture.md** — Patrón arquitectura isocronas ORS+NAP
+
+## Comparativa de alternativas
+
+- **[nasa-gibs/worldview](https://github.com/nasa-gibs/worldview)** — +1000 capas de imagery NASA GIBS (WMTS/MAP tiles) near-real-time; basemap satelital listo para usar como fondo en patrones GIS.

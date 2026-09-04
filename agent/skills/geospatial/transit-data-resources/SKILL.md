@@ -78,3 +78,7 @@ const vehicles = await rtResponse.json();
 ---
 
 **Hecho con ❤️ por David Antizar**
+
+## Comparativa de alternativas
+
+- **[entur/gbfs-visualize-poc](https://github.com/entur/gbfs-visualize-poc)** — visualizador GBFS con Leaflet: estaciones físicas/virtuales, clústeres, geofencing y pricing plans; para visualizar datos de movilidad compartida (no solo tránsito).

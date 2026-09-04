@@ -117,8 +117,47 @@ npx vgpu mcp                              # MCP stdio local
 - **Three.js** (`threejs-*`, `webgl-scene-wow`): escenas 3D con cámara/luces/modelos y ecosistema de loaders — allí Three sigue ganando.
 - **WebGPU ONNX** (`webgpu-onnx-detection`): inferencia ML — propósito distinto.
 
+## Caso de estudio — Hero "prism" de Vercel (refracción de luz en malla)
+
+Desmonta cómo construir un hero GPU "smoke & mirrors" sin simular la física real. Fuente: [Codrops, 2026-09-03](https://tympanus.net/codrops/2026/09/03/from-rays-to-meshes-building-vercels-prism-with-vgpu/). Regla general: **no hace falta simular la realidad perfectamente, solo que el resultado sea convincente y funcione fluido.**
+
+### El paso clave: de rayos a malla (de-light → de-mesh)
+
+1. El enfoque naíf es lanzar rayos por píxel y acumular (16 samples + jitter temporal). Caro y borroso → **descartar**.
+2. La alternativa ganadora: **dibujar la luz como un mesh**. Se calcula cómo se refracta cada longitud de onda al entrar/salir del prisma; cada path es una línea; se conectan los paths vecinos formando caras triangulares → un beam sólido, más suave y **mucho más barato** (deja de depender de la resolución de píxeles).
+3. Así se evita el raymarching caro: la geometría se construye en CPU/GPU una vez y el shader solo sombrea la superficie.
+
+### Composición típica del efecto
+
+- **Glass shader con cubemap**: env-map de 6 direcciones para falsificar reflejos del entorno (adaptado del hero de eve.dev). Habilita fake reflections baratas.
+- **Bloom + partículas flotantes** para el dark-mode.
+- **Light-mode**: como añadir luz a fondo blanco no tiene sentido (todo se lava), se **oscurece el fondo** para dejar sitio a la "luz".
+
+### Técnicas de cabeceo de coste (light-mode / detalle)
+
+- **Sombra de un objeto estático** → no se calcula en tiempo real: se **pega como textura** sobre la pared (el prisma no se mueve).
+- **Normal map de ruido** para los "bumps" de la pared: se **renderiza una vez a imagen estática** en startup — el cálculo de noise caro solo ocurre una vez.
+- **Composición de capas**: sombra texturizada + normal map estático + imagen AI de fondo, cada una con controles para afinar.
+
+### Editor de pipeline visual (debug)
+
+- Se construyó un **visualizador del grafo de nodos** del shader (mezcla de imágenes/matemáticas). Útil para entender y depurar composiciones complejas; exposible vía `?debug`.
+
+### Calidad adaptativa (adaptive quality)
+
+- Se crean **versiones ligeras** de cada shader (menos samples, menos detalle) manteniendo el resultado visualmente similar.
+- Regla: **empezar en alta calidad y bajar cuando sea necesario** usando 3 señales de dispositivo (capacidad/carga). "The rule is simple: start at high quality, then switch to low quality when necessary."
+
 ## Pitfalls
 
+- **`.wgsl` se importa como módulo en Vite, NO en Node ESM**: `import shader from './x.wgsl'` usa el plugin `wgslVitePlugin` de `@vgpu/wgsl/loader-vite`. En Node (para tests) NO existe loader-node ESM → pasar el shader como **string** (leer el archivo con `readFileSync`) o no se importa.
+- **VGpu `init()` sin GPU**: en tests usar `vgpu/node` (Dawn) y pasar shaders como strings; compila el draw, renderiza a un `target` y lee píxeles con `target.read()`.
+- **Las matrices de la cámara de `vgpu/scene` ya vienen combinadas**: `perspectiveCamera({...}).viewProjection` es proj×view column-major. En WGSL usa `mat4x4f viewProj` y multiplica `viewProj * world`. NO pongas `proj` y `view` separadas (duplicarías la vista).
+- **Los uniforms se direccionan por CAMPO del struct, no por nombre libre**: `draw.set({ viewProj: ..., time: t })` setea los campos del bind group. Si un shader no declara un campo (p.ej. `camPos` solo en glass), no le pases a los demás o falla con `Binding 'X' does not exist in 'draw'`.
+- **Geometría: un atributo por buffer** — `geometry(gpu, { buffers: [{ attributes: { position: 'float32x3' }, data }, ...], indices })`. Si declaras `position+color+intensity` en un solo buffer pero solo pasas posición, falla `VGPU-MESH-DATA-MISALIGNED` (stride no divisible). Separa cada atributo en su propio buffer.
+- **`final` es palabra reservada en WGSL** (no usable como identificador). Renombrar a `result`.
+- **`npx vgpu check` valida los shaders en el build** vía el plugin Vite — un WGSL inválido falla el build. Úsalo como gate.
+- **`effect` = fullscreen fragment-only** (genera el fullscreen triangle); `draw` = con geometría (VR/prisma). `frame(gpu, f => f.pass(target, drawable))` para render a target.
 - Subpaths distintas según runtime: `vgpu` (navegador), `vgpu/node` (Dawn), `vgpu/mock` (tests). Importar de la equivocada falla en build o pide GPU.
 - `effect`/`draw` direccionan uniforms **por su nombre WGSL** vía `set()` — si el shader renombra un uniform, deja de actualizarse silenciosamente; pasar `npx vgpu check` en CI.
 - `set()` escribe inmediatamente: en el loop solo hay que poner lo que cambia cada frame (no re-setear constantes).

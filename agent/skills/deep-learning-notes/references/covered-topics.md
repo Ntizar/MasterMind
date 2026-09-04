@@ -1,7 +1,7 @@
 # Temas de Deep Learning Ya Cubiertos
 
 > **Actualizado:** 2026-07-14
-> **Fuente:** notes/deep-learning/
+> **Fuente:** /hermes-home/notes/deep-learning/
 
 ## Lista de temas (29 notas, 802KB total)
 

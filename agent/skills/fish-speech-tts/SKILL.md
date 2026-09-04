@@ -47,3 +47,7 @@ fish-speech --text "Texto a sintetizar" --reference "reference.wav" --output "ou
 
 - Repo: `github.com/fishaudio/fish-speech` (31K⭐)
 - HuggingFace: `https://huggingface.co/fishaudio`
+
+## Comparativa de alternativas
+
+- **[fishaudio/fish-speech](https://github.com/fishaudio/fish-speech)** — Fish Speech 1.5 (Apache-2.0) es la referencia de TTS con clonación expresiva *zero-shot* en ~0.5 s de audio y salida en tiempo real; frente a otros clones de voz, destaca por calidad expresiva con muy poco audio de referencia.

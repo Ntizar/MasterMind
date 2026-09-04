@@ -33,3 +33,9 @@ TLE de Celestrak (satélites), ADS-B (vuelos), AIS (barcos), USGS (sismos), cám
 ## Verificación
 - Comprobar que ≥2 capas en vivo muestran posiciones coherentes (ej.: un vuelo real moviéndose).
 - Latencia feed→globo < unos segundos en capas streaming.
+
+## Comparativa de alternativas
+
+- **[NVlabs/Eagle (LocateAnything)](https://github.com/NVlabs/Eagle)** — fine-tuning de VLM con prompts visuales para geolocalizar una imagen (geolocalización cartográfica), un complemento de geolocalización para OSINT/geo-forensics sobre el globo.
+- **[Blackleets/aegis](https://github.com/Blackleets/aegis)** — centro de mando OSINT: recon toolkit (DNS, WHOIS, SSL, CVE), panel de analista IA y dossiers de fusión; enfoque de "puesto de mando" frente al globo en vivo.
+- **[ShinMegamiBoson/OpenPlanter](https://github.com/ShinMegamiBoson/OpenPlanter)** — resolución de entidades entre datasets heterogéneos (registros mercantiles, contratos, lobbying) mediante delegación recursiva de subagentes; útil para enlazar entidades sobre el mapa.

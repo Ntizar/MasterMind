@@ -1,6 +1,6 @@
 ---
 name: webapp-movil-first
-version: "1.0.0"
+version: "1.1.0"
 description: "Use al crear una tool HTML interactiva: táctil-first."
 tags: [html, movil-first, tactil, svg, pointer-events, diseño, bottom-sheet, pan-zoom]
 ---
@@ -26,8 +26,9 @@ Regla resultante: **toda tool HTML interactiva se diseña táctil-first desde la
 |---|---|
 | Botones | mínimo 44×44px |
 | Inputs | `font-size: 16px` (evita auto-zoom iOS) |
-| Puntos de conexión SVG | `r=10`, borde blanco, + tolerancia de soltado ~16px |
-| Zona clicable de flechas/paths SVG | stroke transparente de 20px |
+| Puntos de conexión SVG | visible `r=9` con borde blanco **+ halo invisible r=20 encima que captura los eventos** (`pointerEvents:none` en el visible). Un blanco de 10px pegado al borde de la caja compite con el drag del nodo: fallar por 5px arrastra el nodo en vez de conectar |
+| Tolerancia de soltado sobre nodo destino | ≥ 22px alrededor del rectángulo del nodo |
+| Zona clicable de flechas/paths SVG | stroke transparente de 20-22px |
 | Paleta/herramientas | chips horizontales scrollables arriba (no columna lateral) |
 | Panel de propiedades | bottom-sheet fijo abajo que sube al seleccionar |
 | Menú secundario | ☰ → hoja inferior modal |
@@ -77,12 +78,43 @@ Todo el layout de 3 columnas (paleta lateral, panel estático, hover states) viv
 - [ ] ¿Se puede dibujar/editar todo con un pulgar, una mano?
 - [ ] ¿Los inputs abren el teclado sin zoom de página?
 - [ ] ¿Pan/pinch del lienzo no dispara drags accidentales de nodos?
+- [ ] ¿Se puede conectar SIN puntería (tocar-y-tocar) y se ve la flecha creada en el mismo render?
+- [ ] ¿Nodo hit-test devuelve ID (no objeto) donde nace una arista?
 - [ ] ¿Primera visita muestra ayuda breve (toast) que se puede cerrar?
 - [ ] ¿En escritorio >900px se recupera el layout completo?
 
+## Conectar nodos en un editor de grafo (SVG): SIEMPRE dos modos
+
+El drag-fino de ratón NO funciona con el pulgar (el `pointerup` cae sobre el nodo origen y se descarta). Ofrecer ambos:
+
+1. **Arrastrar** del punto al destino (escritorio, y móvil si aciertas).
+2. **Tocar-y-tocar ("modo pegajoso")**: si sueltas en el vacío, o das un toque simple en el punto → entra un modo persistente: línea guía que sigue al puntero + banner "🔗 Conectando desde *X* — toca el destino". El siguiente `pointerdown` sobre un nodo conecta; toque en vacío / `Escape` / botón Cancelar del banner → salir. **Nunca se pierde el trabajo a medio hacer.**
+
+Continuidad de flujo (lo que pide el usuario al "generar el flujo"):
+- Botón **➕ Añadir siguiente** en el panel del nodo origen → crea un nodo nuevo ya encadenado a la derecha (con anticolisión vertical) y lo deja seleccionado para renombrar. Hilar el proceso sin volver a la paleta.
+- Botón **🔗 Conectar a…** lanza el modo pegajoso desde el panel.
+- Panel de la flecha con **selects Origen/Destino** para recablear sin borrar.
+- El import debe **sanear**: descartar flechas con extremos inválidos.
+
+### ⚠️ Pitfall que rompe todo: objeto vs ID en las aristas
+`nodoEnPunto()` que **devuelve el objeto nodo** pero se guarda/compara como si fuera el **ID string** → la flecha nace con `desde`/`hasta` = objeto, `pintarFlecha` no lo encuentra y **la conexión se crea pero no se dibuja nunca** (fantasma, y desaparece al recargar). Regla: toda función de hit-test que alimenta una arista devuelve el **ID**, no el objeto. Compilar y mirar el render, no asumir que "se creó" = "se ve".
+
+## Verificación sin navegador: banco de pruebas jsdom
+
+Cuando no hay GUI o el browser harness pide aprobación interactiva, un editor HTML+SVG puro se prueba en Node con jsdom: carga `index.html`, `import()` de los módulos `.js` reales (con `pathToFileURL` en Windows y `"type":"module"` en package.json), dispara `PointerEvent`/`MouseEvent` sintéticos y comprueba el estado del modelo. `npm test` en `tests/`. Cubre: drag que conecta, soltar-en-vacío→modo pegajoso→toque-destino, cancelar, no auto-conexión, no duplicados, encadenado, recablear/fusión, round-trip export/import.
+
+```javascript
+function ev(tipo, x, y, target) {
+  const e = new window.Event(tipo, { bubbles: true, cancelable: true });
+  e.clientX = x; e.clientY = y; e.pointerId = 1;
+  Object.defineProperty(e, 'target', { value: target, configurable: true });
+  return e;
+}
+```
+
 ## Referencias
 
-- Ejemplo aplicado completo (v2 final): repo `~/Projects/kaizen-procesos` — `css/styles.css`, `js/canvas.js` (initPanZoom), `js/ui.js` (renderPanel bottom-sheet)
+- Ejemplo aplicado completo: repo `~/Projects/kaizen-procesos` — `css/styles.css`, `js/canvas.js` (initPanZoom + modo pegajoso + halo r=20), `js/ui.js` (renderPanel bottom-sheet + encadenar/recablear), `tests/test-*.mjs` (banco jsdom, `npm test`)
 - Skill relacionada: `ui-animation-taste` (easings y sombras), `browser-local-tools` (zero-install, embebido CDN)
 
 ---

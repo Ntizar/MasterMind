@@ -74,13 +74,13 @@ El cron debe usar `no_agent=False` con script `skill-learning.sh` + prompt de re
 
 #### Script `skill-learning.sh` — estado persistente
 
-El script de instalación está en `scripts/skill-learning.sh`. **Reglas críticas de estado:**
+El script de instalación está en `/hermes-home/scripts/skill-learning.sh`. **Reglas críticas de estado:**
 
 1. **NUNCA usar redirección a `/dev/null` en `save_state`** — el bug clásico es `echo "$state" > "$tmpfile" 2>/dev/null` que pierde el stdout. Usar redirección directa: `echo "$state" > "$STATE_FILE"`.
 2. **Escribir JSON atómicamente** — usar `tmpfile + mv` para evitar lecturas de estado corrupto.
 3. **Usar `python3 -c "import json"` para parsear/guardar** — el bash puro no tiene JSON nativo y falla silenciosamente.
 4. **Siempre avanzar `current_index` tras cada ejecución** (éxito o fallo) — evitar bucles infinitos.
-5. **Estado en `agent/skills/.skill-learning-state.json`** con campos: `current_index`, `learned[]`, `skipped[]`, `last_error`.
+5. **Estado en `/hermes-home/skills/.skill-learning-state.json`** con campos: `current_index`, `learned[]`, `skipped[]`, `last_error`.
 
 #### Prompt del cron
 
@@ -103,8 +103,8 @@ Documentar en `references/hub-skill-audit-YYYY-MM-DD.md`:
 - **`hermes` puede no estar en PATH** — usar `/opt/hermes/.venv/bin/hermes` o `$HERMES_HOME`
 - **Los nombres truncados con `…`** — normalizar antes de comparar
 - **Skills bundled vs optional** — los bundled ya vienen con Hermes, los optional hay que instalarlos
-- **Script `skill-learning.sh` con estado persistente corrupto** — el bug clásico era usar `2>/dev/null` en `save_state` perdiendo el JSON, lo que causaba bucle infinito reinstalando el mismo skill. Fix: escribir atómicamente con `tmpfile + mv`, usar `python3` para JSON, siempre avanzar `current_index`. Script actualizado en `scripts/skill-learning.sh` v2.
-- **Timeout del script deja skills en `.hub/quarantine/` sin instalar Y NO avanza el índice** — si el script timeout (120s), ni el path de éxito ni el de error se ejecutan: el skill se descarga pero no se mueve, Y el `current_index` NO se incrementa. Resultado: bucle infinito reintentando el mismo skill. **2026-06-09 confirmado:** el skill `fastmcp` quedó en cuarentena y el cron saltó el siguiente. Verificar con `ls agent/skills/.hub/quarantine/` y si hay un skill en cuarentena, forzar avance del índice manualmente: editar `agent/skills/.skill-learning-state.json` → `current_index` += 1. O mover manualmente el skill desde quarantine a su destino.
+- **Script `skill-learning.sh` con estado persistente corrupto** — el bug clásico era usar `2>/dev/null` en `save_state` perdiendo el JSON, lo que causaba bucle infinito reinstalando el mismo skill. Fix: escribir atómicamente con `tmpfile + mv`, usar `python3` para JSON, siempre avanzar `current_index`. Script actualizado en `/hermes-home/scripts/skill-learning.sh` v2.
+- **Timeout del script deja skills en `.hub/quarantine/` sin instalar Y NO avanza el índice** — si el script timeout (120s), ni el path de éxito ni el de error se ejecutan: el skill se descarga pero no se mueve, Y el `current_index` NO se incrementa. Resultado: bucle infinito reintentando el mismo skill. **2026-06-09 confirmado:** el skill `fastmcp` quedó en cuarentena y el cron saltó el siguiente. Verificar con `ls /hermes-home/skills/.hub/quarantine/` y si hay un skill en cuarentena, forzar avance del índice manualmente: editar `/hermes-home/skills/.skill-learning-state.json` → `current_index` += 1. O mover manualmente el skill desde quarantine a su destino.
 - **Reinstalación infinita del mismo skill** — si un skill se reinstala >3 veces en el mismo índice, revisar el estado en `.skill-learning-state.json`. El bug de `duckduckgo-search` (20 reinstalaciones antes de avanzar) se resolvió con el fix de estado atómico, pero hay que monitorizar que el `current_index` avance en cada tick del cron.
 - **El script usa `no_agent=False` con `context_from`** — cada tick del cron es una sesión aislada sin contexto de chat. El prompt debe ser autocontenido. Si el script depende de variables de sesión, fallará silenciosamente.
 - **2026-06-09: Saltar skills problemáticos** — si un skill causa timeout repetidamente, marcarlo como `skipped` en el estado y saltarlo. No vale la pena reintentar un skill que consistently falla — mejor documentarlo y avanzar.
@@ -113,14 +113,14 @@ Documentar en `references/hub-skill-audit-YYYY-MM-DD.md`:
 
 Cuando un cron tick timeout (120s) deja un skill en `.hub/quarantine/` sin avanzar el índice, se produce un bucle infinito. **Procedimiento de reparación:**
 
-1. **Ejecutar diagnóstico:** `bash agent/skills/hub-skill-discovery/scripts/diagnose-stalled-skill.sh`
-2. **Limpiar cuarentena:** `rm -rf agent/skills/.hub/quarantine/<skill>`
-3. **Avanzar índice:** editar `agent/skills/.skill-learning-state.json` → `current_index += 1`
+1. **Ejecutar diagnóstico:** `bash /hermes-home/skills/hub-skill-discovery/scripts/diagnose-stalled-skill.sh`
+2. **Limpiar cuarentena:** `rm -rf /hermes-home/skills/.hub/quarantine/<skill>`
+3. **Avanzar índice:** editar `/hermes-home/skills/.skill-learning-state.json` → `current_index += 1`
 4. **Marcar como skipped:** añadir el nombre a `skipped[]` en el estado
 
 **Comando rápido para saltar el skill actual:**
 ```bash
-python3 -c "import json; d=json.load(open('agent/skills/.skill-learning-state.json')); d['skipped'].append('SKILL_NAME'); d['current_index']+=1; json.dump(d,open('agent/skills/.skill-learning-state.json','w'),indent=2)"
+python3 -c "import json; d=json.load(open('/hermes-home/skills/.skill-learning-state.json')); d['skipped'].append('SKILL_NAME'); d['current_index']+=1; json.dump(d,open('/hermes-home/skills/.skill-learning-state.json','w'),indent=2)"
 ```
 
 ## Recursos
@@ -146,7 +146,7 @@ Antes del índice, el agente recibía las descripciones de TODAS las skills (143
 ### Estructura
 
 ```
-agent/skills/
+/hermes-home/skills/
 ├── index.json              ← Índice generado automáticamente
 ├── scripts/
 │   ├── generate-skill-index.sh  ← Genera el índice
@@ -159,7 +159,7 @@ agent/skills/
 ```bash
 bash scripts/generate-skill-index.sh
 ```
-Genera `agent/skills/index.json` con: total_skills, categories, tags, skills (name, description, tags, category, path, size_bytes).
+Genera `/hermes-home/skills/index.json` con: total_skills, categories, tags, skills (name, description, tags, category, path, size_bytes).
 
 **Buscar skills:**
 ```bash

@@ -55,3 +55,7 @@ cat awesome-design-systems/README.md | grep -A 10 "## CSS Frameworks"
 ## Referencias
 
 - [GitHub: alexpate/awesome-design-systems](https://github.com/alexpate/awesome-design-systems)
+
+## Comparativa de alternativas
+
+- **[alexpate/awesome-design-systems](https://github.com/alexpate/awesome-design-systems)** — catálogo de +100 design systems reales (colores, tipografía, variables) para comparar tokens y patrones ya implementados en producción.

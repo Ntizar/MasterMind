@@ -15,7 +15,7 @@ Tienes tres capas de conocimiento:
 | Capa | Dónde vive | Qué contiene |
 |---|---|---|
 | **Memoria Hermes** | En tu instancia actual | Preferencias de Ntizar, datos de entorno, lecciones aprendidas |
-| **Skills Hermes** | `agent/skills/` | Procedimientos reutilizables que has aprendido |
+| **Skills Hermes** | `/hermes-home/skills/` | Procedimientos reutilizables que has aprendido |
 | **Repo Mastermind** | `https://github.com/Ntizar/Mastermind` | Backup de todo: notas, skills personales, config, scripts |
 
 ## Tu repositorio Mastermind

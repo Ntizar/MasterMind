@@ -279,3 +279,7 @@ When reviewing or creating a Dockerfile, suggest these improvements:
 5. **Pin base image versions** — `node:20-alpine` not `node:latest`
 6. **Run as non-root** — add `USER` instruction for security
 7. **Use slim/alpine bases** — `python:3.12-slim` not `python:3.12`
+
+## Comparativa de alternativas
+
+- **[queai-project/QueAI](https://github.com/queai-project/QueAI)** — orquestador modular de IA donde cada capacidad es un contenedor Docker con UI + REST, kernel central y healthchecks; un patrón de despliegue de servicios de IA que complementa las recetas base del skill.

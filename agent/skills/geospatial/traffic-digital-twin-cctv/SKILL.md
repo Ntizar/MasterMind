@@ -123,3 +123,7 @@ vehicles.forEach(v => {
 ---
 
 **Hecho con ❤️ por David Antizar**
+
+## Comparativa de alternativas
+
+- **[Barath19/Boxer3D](https://github.com/Barath19/Boxer3D)** — eleva la detección 2D a cajas 3D orientadas (OBB) con BoxerNet para digital twin; el paso de 2D→3D que este skill necesita para el gemelo digital.

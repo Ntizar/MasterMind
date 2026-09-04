@@ -11,7 +11,7 @@ Skill en `.hub/quarantine/rest-graphql-debug/SKILL.md`.
 `hermes skills install official/web/rest-graphql-debug` tarda más de 120s. El script timeout antes de ejecutar `save_state`, por lo que el `current_index` no avanza.
 
 ## Fix manual
-Editar `agent/skills/.skill-learning-state.json`:
+Editar `/hermes-home/skills/.skill-learning-state.json`:
 - `current_index`: 5
 - `skipped`: ["rest-graphql-debug"]
 

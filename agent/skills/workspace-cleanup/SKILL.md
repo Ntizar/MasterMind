@@ -26,7 +26,7 @@ Medir todo en capas:
 
 ```bash
 # Raíz del entorno
-du -sh repo raíz/* | sort -rh
+du -sh /hermes-home/* | sort -rh
 
 # Workspace de proyectos
 du -sh /root/workspace/*/ 2>/dev/null | sort -rh
@@ -57,7 +57,7 @@ Cada componente se clasifica en una de estas categorías:
 Para cada componente grande, verificar:
 
 1. **¿Se referencia en código actual?** `grep -rl "nombre" /root/workspace/ProyectoActual/`
-2. **¿Tiene cron asociado?** `cat repo raíz/cron/jobs.json | grep nombre`
+2. **¿Tiene cron asociado?** `cat /hermes-home/cron/jobs.json | grep nombre`
 3. **¿Es un proyecto propio o de terceros?**
 4. **¿Los datos se pueden regenerar?** (node_modules → `npm install`, modelos → descargar de nuevo)
 5. **¿Hay un plan de mantenimiento?** (cron de limpieza, rotación)
@@ -112,7 +112,7 @@ Orden de ejecución:
 
 ```bash
 # Medir delta
-du -sh repo raíz/
+du -sh /hermes-home/
 du -sh /root/workspace/
 du -sh /root/workspace/*/ | sort -rh | head -10
 ```
@@ -133,8 +133,8 @@ Para evitar que el problema se repita:
 
 ### Caso: Workspace de Hermes (23 junio 2026)
 
-- **Antes:** 3.69 GB workspace + 3.0 GB repo raíz
-- **Después:** 1.5 GB workspace + 3.0 GB repo raíz
+- **Antes:** 3.69 GB workspace + 3.0 GB /hermes-home
+- **Después:** 1.5 GB workspace + 3.0 GB /hermes-home
 - **Ahorro:** 2.19 GB workspace
 - **Método:** Borrar node_modules de Adela (1.69 GB), repos no referenciados (567 MB), sesiones antiguas (728 MB)
 - **state.db:** 1.3 GB sin tocar (investigar en otra sesión)
@@ -146,5 +146,5 @@ Para evitar que el problema se repita:
 - **Los node_modules son regenerables** — Si un proyecto tiene código fuente intacto, borrar node_modules es siempre seguro. El usuario puede reinstalar con `npm install` o `pip install`.
 - **Sesiones JSONL vs JSON** — Los archivos `.jsonl` son el formato compacto de sesiones. Los `.json` grandes (2+ MB) son duplicados o formatos antiguos. Priorizar borrar los `.json`.
 - **Audio cache duplicado** — El TTS genera tanto `.ogg` como `.mp3` del mismo contenido. Borrar uno de los dos (el más pesado) es seguro.
-- **Cron output son directorios** — La estructura de `repo raíz/cron/output/` usa directorios con hash como nombre, no archivos sueltos. Contar directorios, no archivos.
+- **Cron output son directorios** — La estructura de `/hermes-home/cron/output/` usa directorios con hash como nombre, no archivos sueltos. Contar directorios, no archivos.
 - **Metadata de proyectos** — Archivos como `metadata/conjuntos-datos.json` en GTFSSpain pueden ser usados por crons. Verificar el cron antes de borrar.

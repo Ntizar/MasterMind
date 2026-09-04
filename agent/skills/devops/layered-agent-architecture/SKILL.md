@@ -50,3 +50,7 @@ Cada agente extiende `BaseAgent` e implementa:
 ## Referencia
 
 - [htekdev/vidpipe](https://github.com/htekdev/vidpipe) — Implementación completa
+
+## Comparativa de alternativas
+
+- **[walkinglabs/learn-harness...](https://github.com/walkinglabs)** — currículum de *harness engineering*: contexto, filtro de herramientas, formatos y evals; complementa la arquitectura en capas con el entrenamiento del harness.

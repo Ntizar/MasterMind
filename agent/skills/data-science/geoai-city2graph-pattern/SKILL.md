@@ -137,4 +137,8 @@ El patrón GeoAI puede extenderse al SistemaEléctricoFuturo:
 
 - Requiere datos geoespaciales en formatos compatibles (GeoJSON, Shapefile, etc.)
 - El procesamiento de grafos grandes puede ser intensivo en memoria
-- Las isocronas requieren un grafo de red de transporte pre-construido
+- Las isócronas requieren un grafo de red de transporte pre-construido
+
+## Comparativa de alternativas
+
+- **[armanghazi/...Bilbao](https://github.com/armanghazi)** — plataforma GeoAI de calidad de aire: pipeline diaria, XGBoost que pronostica polución, GIS + dashboard; ejemplo de GeoAI sobre datos de España con forecast (además de City2Graph).

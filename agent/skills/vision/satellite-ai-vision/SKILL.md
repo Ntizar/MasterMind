@@ -13,19 +13,55 @@ Herramientas para análisis de tráfico satelital, visión por CCTV, terreno 3D 
 
 ## 1. DRISH-X (sparkyniner) ⭐228
 **Qué hace:** Inteligencia de tráfico de carga desde imágenes satelitales Sentinel-2 gratuitas.
-**Tecnología:** Python, FastAPI, Sentinel-2 (Copernicus)
-**Mecanismo único:** El sensor Sentinel-2 registra RGB 1.01s aparte. Los vehículos en movimiento dejan un "smear" azul-verde-rojo distintivo. DrishX detecta esos smears, cuenta vehículos, estima velocidad y dirección.
+**Autor:** Sairaj Balaji (junior/student — ver notas de audit en references)
+**Paper base:** Fisser et al. 2022, "Detecting Moving Trucks on Roads Using Sentinel-2 Data", Remote Sensing of Environment (https://ui.adsabs.harvard.edu/abs/2022RemS...14.1595F/abstract)
+**Referencia técnica:** S2TruckDetect por Henrik Fisser
 
-### Stack:
-- **Sentinel-2** → Copernicus Data Space (gratuito)
-- **FastAPI** → API backend
-- **Python 3.10+**
-- **Detección:** spectral smear analysis
+### Mecanismo científico
+Sentinel-2 captura bandas espectrales con desfase temporal de ~1.01s entre B02 (blue) y B04 (red). Un vehículo a 80 km/h se desplaza ~22m en ese intervalo. A 10m/píxel, aparece en posición diferente en cada banda → **smear azul→verde→rojo de 3-5 píxeles**. El sistema detecta este patrón espectral, no el vehículo en sí.
 
-### Casos de uso:
+### Pipeline técnico detallado
+1. **Feature Stack (7 features/píxel):**
+   - F0: varianza de RGB
+   - F1: normalized_ratio(B04, B02) — red/blue
+   - F2: normalized_ratio(B03, B02) — green/blue
+   - F3-5: B04, B03, B02 mean-centered
+   - F6: B08 (NIR) mean-centered
+2. **Clasificación RF:** Random Forest sobre el feature stack → 4 clases [background, blue, green, red]. Post-processing: umbral background confidence 0.75.
+3. **Extracción recursiva:** clustering neighborhood starting at blue pixels → grow through green → then red. Validación: 3 colores presentes, 3-5 píxeles, score > 1.2.
+4. **Output:** lat/lon, heading, velocidad estimada, confidence score.
+
+### Proxy fallback
+Cuando no hay modelo RF (.pickle), usa heurísticas con pesos mágicos (`centered_B * 5 + var_feat * 10`). Funciona pero calidad desconocida.
+
+### Accuracy por región
+- **Europa autopistas:** 70-80% detección, 5-10% falsos positivos
+- **MENA:** fuerte (árido, alto contraste, raramente nublado)
+- **Asia Sur/Sudeste:** mixto (monzón limita frames útiles)
+- **Sub-Sahara:** bueno en carreteras pavimentadas, débil en no pavimentadas
+- **No detecta coches:** <1 píxel a 10m. No distingue tipos de vehículo.
+
+### Limitaciones clave
+- Resolución 10m: camiones (~18m) → 2 píxeles → smear a 3-5px. Coches (~4.5m) → sub-píxel invisible.
+- Sin visión a través de nubes (óptico)
+- Revisión cada 5 días (Sentinel-2) → trend analysis, NO real-time
+- Mejora posible con PlanetScope a 3.7m (requiere API key Planet Labs)
+
+### Código en repo
+- `drishx.py` (1132 líneas) — FastAPI + engine de detección completo
+- `rf_model.pickle` — modelo entrenado incluido en repo
+- `frontend/` — Leaflet + Chart.js, dark tactical theme
+- Dependencias: fastapi, uvicorn, sentinelhub, osmnx, geopandas, scikit-learn==1.3.2, numpy<2.0.0, rasterio
+
+### Estado de la implementación
+Ciencia sólida (paper peer-reviewed), pipeline fiel a S2TruckDetect reference implementation. Código competente pero amateur: sin tests, sin DB (historial en memoria), sin auth en APIs, sin Docker. Credenciales Copernicus en UI sin encriptación.
+
+### Casos de uso validados
 - Contar tráfico de camiones en cualquier autopista del mundo
-- Analizar patrones de tráfico temporal
-- Estimación de velocidad y dirección de vehículos
+- Analizar patrones económicos proxy (puertos, rutas comerciales)
+- Monitoreo de sanciones (cambio de tráfico en fronteras)
+- Respuesta a crisis (carreteras bloqueadas vs activas)
+- Periodismo investigativo (datos satelitales independientes)
 
 ## 2. TrafficLab-3D (duy-phamduc68) ⭐311
 **Qué hace:** Digital twin de tráfico a partir de vídeo CCTV mp4 + ubicación Google Maps.
@@ -135,3 +171,9 @@ python download.py --bbox -3.7,40.4,-3.6,40.5 --zoom 12 --output ./tiles
 - Para análisis de tráfico: combinar DRISH-X (satélite) + TrafficLab-3D (CCTV)
 - Para proyectos de mapeo: usar AWS DEM + City2Graph para grafos geoespaciales
 - Para AR/3D: Boxer3D como referencia de lifting 2D→3D con LiDAR
+
+## Comparativa de alternativas
+
+- **[Aouei/remote-sensing...](https://github.com/Aouei)** — suite modular de búsqueda/descarga multi-proveedor (Copernicus, USGS) desacoplada; patrón anti-acople a un único portal de datos satelitales.
+- **[amir32002/3D_Street_View](https://github.com/amir32002/3D_Street_View)** — dataset georreferenciado masivo de 25M imágenes con pose 6DOF para reconstrucción 3D de ciudades, útil para visones urbanas/reconstrucción.
+- **[munish0838/parali](https://github.com/munish0838/parali)** — detección de quemas de rastrojo con Sentinel-2 + VLM fine-tuned + NASA FIRMS, generando alerta temprana de incendio a nivel de distrito.

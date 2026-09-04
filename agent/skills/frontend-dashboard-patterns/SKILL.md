@@ -1,7 +1,7 @@
 ---
 name: frontend-dashboard-patterns
 description: "Patrones completos para dashboards frontend vanilla JS: cliente API robusto, orquestación de carga, error boundaries, tabs con navegación, persistencia, fechas, colores, sparklines, Web Workers y debugging. Todo lo que necesitas para construir dashboards resilientes sin bundler."
-version: "1.4.0"
+version: "1.5.0"
 author: Hermes Agent
 tags: [frontend, dashboard, patterns, vanilla-js, resilience, geodatos, leaflet, choropleth]
 ---
@@ -1563,7 +1563,7 @@ def update_dashboard():
 - Los datos se bakean en el HTML → no hay llamadas AJAX en runtime
 - Para actualizar: ejecutar el script Python (vía cron, CLI, o manualmente)
 
-**Referencia:** `scripts/generate-dashboard.py` y `/root/workspace/Mastermind/dashboard/mastermind-status.html`
+**Referencia:** `/hermes-home/scripts/generate-dashboard.py` y `/root/workspace/Mastermind/dashboard/mastermind-status.html`
 
 ---
 
@@ -2137,7 +2137,7 @@ Los contenedores en NaN.builders tienen restricciones que afectan qué datos se 
 | `ps aux` | ❌ Solo ve su propio proceso | `/proc` fallback, o info del ecosistema |
 | `/proc/[pid]/cmdline` | ⚠️ Solo PID 1 (el propio proceso) | Info estática del ecosistema |
 | `chromadb` (localhost:8000) | ❌ ChromaDB corre en VM local | Filesystem fallback, o categorías conocidas |
-| `agent/skills` | ❌ No existe en contenedor | Categorías conocidas del ecosistema |
+| `/hermes-home/skills` | ❌ No existe en contenedor | Categorías conocidas del ecosistema |
 | `crontab -l` | ❌ No hay cron en contenedor | Array vacío |
 | `df -h` | ⚠️ Muestra solo el contenedor | Usar `os.freemem()` de Node.js |
 | `free -m` | ⚠️ Muestra solo el contenedor | Usar `os.totalmem()` de Node.js |
@@ -2173,12 +2173,12 @@ Antes de desplegar un dashboard, verificar:
 
 ### 🔥 NaN Container Data Isolation — El endpoint que devuelve vacío
 
-**2026-06-11:** Se creó un endpoint `/api/hermes-system` en el dashboard de NaN que intentaba leer archivos de Hermes (`repo raíz/cron/jobs.json`, `agent/skills/`, `repo raíz/sessions/`, `repo raíz/logs/`). El endpoint devolvió arrays vacíos porque **el contenedor NaN no tiene acceso al filesystem de la microVM**.
+**2026-06-11:** Se creó un endpoint `/api/hermes-system` en el dashboard de NaN que intentaba leer archivos de Hermes (`/hermes-home/cron/jobs.json`, `/hermes-home/skills/`, `/hermes-home/sessions/`, `/hermes-home/logs/`). El endpoint devolvió arrays vacíos porque **el contenedor NaN no tiene acceso al filesystem de la microVM**.
 
-**Causa raíz:** Los contenedores NaN están aislados. No pueden acceder a `repo raíz/`, que vive en la microVM host.
+**Causa raíz:** Los contenedores NaN están aislados. No pueden acceder a `/hermes-home/`, que vive en la microVM host.
 
 **Regla:** Si un dashboard desplegado en NaN necesita datos de Hermes:
-1. **No intentar leer archivos de `repo raíz/`** desde el contenedor — no funcionará
+1. **No intentar leer archivos de `/hermes-home/`** desde el contenedor — no funcionará
 2. **Opción A:** Crear un dashboard LOCAL en la microVM (puerto 6060) con acceso directo a todo
 3. **Opción B:** Exponer un API proxy en la microVM que sirva los datos, y que el dashboard de NaN haga fetch a ese proxy (requiere CORS y networking entre host→contenedor)
 4. **Opción C:** Usar el patrón "static data bake" — un script en la microVM genera los datos y los inyecta en un HTML estático que se despliega en NaN
@@ -2287,6 +2287,15 @@ function loadModulo() {
 - **NUNCA usar `const` o `let`** si el proyecto usa `var` consistentemente
 - **Siempre verificar null** del contenedor antes de manipularlo
 - **Siempre `.catch()`** en cada fetch — error silencioso = bug invisible
+
+### Decorative map labels must match data precision
+Cuando se añaden etiquetas decorativas (nombres de líneas, localizaciones) a un mapa con capas WMS/FeatureServer reales, las posiciones deben ser precisas o no añadirlas. David rechazó explícitamente etiquetas de líneas ferroviarias con posiciones aproximadas ("se ve fatal"). Si no hay datos GeoJSON oficiales de geolocalización, NO inventar posiciones decorativas — las capas de datos reales (WMS, LTV) ya dan contexto suficiente.
+
+### Limpiar código muerto al eliminar capas de mapas
+Al quitar una capa Leaflet: eliminar variable, inicialización, entrada en `overlays`, función de carga, referencia en leyenda, y cualquier `console.log` asociado. Dejar líneas vacías o variables sin usar causa bugs silenciosos.
+
+### Referencia CIAF-visor
+Ver `references/ciaf-visor-adif-layers.md` para integración completa con APIs ADIF (WMS, FeatureServer LTV, WFS Tramificación).
 - **Empty state honesto** cuando no hay datos, nunca inventar
 
 ### 4. Registrar en switchTab
@@ -2341,3 +2350,37 @@ curl -s https://<url>/api/health | grep '"status":"ok"'
 - **Olvidar `.catch()`**: Las llamadas API fallan silenciosamente — el usuario ve loading eterno
 - **Mezclar `const`/`let` con `var`**: Si el proyecto usa `var`, mantener consistencia o rompe en navegadores antiguos
 - **No verificar container null**: Si el JS se ejecuta antes de que el DOM exista, `getElementById` devuelve null → TypeError
+## Dashboard Building Patterns — Absorbidos desde `dashboard-estructurado-mapa`, `dashboard-ia-backend`, `dashboard-control-center`
+
+### Patrón A: Dashboard Estático con Mapa Leaflet (absorbido de `dashboard-estructurado-mapa`)
+Pipeline PDF → YAML+MD → dashboard estático → GitHub Pages.
+- Scraping de PDFs gubernamentales (curl, no browser tools)
+- markitdown para extracción de texto
+- JSON particionado por año para colecciones grandes (>100 registros)
+- GitHub Pages: datos embebidos en JS (no fetch de .json — 404)
+- Leaflet Canvas renderer para miles de puntos sin lag
+- Pitfalls: IDs duplicados, coordenadas en bloque equivocado, Nominatim sin URL encoding
+
+### Patrón B: Dashboard con Backend Express + IA (absorbido de `dashboard-ia-backend`)
+Express backend que lee datos locales + frontend vanilla JS + asistente IA.
+- Estructura: server.js + public/index.html + package.json
+- API REST que lee JSON/filesystem local
+- Endpoint IA: construye prompt con contexto del usuario → llama LLM
+- Estimación automática: usuario escribe descripción → blur → backend llama LLM → frontend rellena campos
+- Chat IA con burbujas, markdown formatting, loading states
+- Pitfalls: NAN_API como env var, XSS en chat messages, chat history keys en español vs inglés
+
+### Patrón C: Dashboard Control Center (absorbido de `dashboard-control-center`)
+Panel de control visual de infraestructura: Express + Aurora Liquid Glass.
+- Arquitectura dual: local (datos reales) + NaN (versión visual con fallbacks)
+- collect-status.py → status.json → push GitHub → redeploy NaN
+- Datos: CPU, RAM, procesos, crons, skills, agentes
+- Canvas animado con grafo radial de agentes (partículas)
+- Deploy NaN: Dockerfile con USER appuser (⚠️ NaN bloquea contenedores root)
+- Basic auth sobre endpoints /api/*
+- Pitfalls: NaN containers aislados del host, status.json debe estar en public/, port 6060
+
+## Comparativa de alternativas
+
+- **[Sage/jsurl](https://github.com/Sage/jsurl)** — JSURL: serialización compacta, legible y segura de objetos JS para deep-links y estado compartible; buen patrón para persistir filtros/estado de un dashboard en la URL sin inflar JSON.
+- **[appica-dev/appica-ui](https://github.com/appica-dev/appica-ui)** — 70+ componentes accesibles y themeables en un monorepo con paquetes por framework; alternativa de biblioteca de componentes a construir la UI a mano.

@@ -343,3 +343,7 @@ curl "https://servicios.ine.es/wstempus/js/ES/DATOS_SERIE/IPC318622?nult=5"
 ```
 
 La librería `ineapy` encapsula esta API con validación, paginación y manejo de errores.
+
+## Comparativa de alternativas
+
+- **[es-ine/ineapir](https://github.com/es-ine/ineapir)** — wrapper R oficial del API INE, con endpoints portables entre lenguajes y una petición HTTP base común; útil si el consumo se hace desde R o se quiere la semántica oficial.

@@ -46,3 +46,8 @@ Patrón para construir un pipeline de generación automática de videos cortos a
 - Repo: https://github.com/harry0703/MoneyPrinterTurbo
 - Stars: 88572
 - License: MIT
+
+## Comparativa de alternativas
+
+- **[hradec/ComfyUI-HR-Endless-Sampler](https://github.com/hradec/ComfyUI-HR-Endless-Sampler)** — muestreo por chunks de latents con un LLM que planifica action-timing y reescribe prompts, permitiendo vídeo "infinito" coherente; encaja en el nodo de generación de vídeo del pipeline.
+- **[mutonby/openshorts](https://github.com/mutonby/openshorts)** — recorte vertical de podcast (apilar speakers + captions, crop con face-tracking) en pipeline Docker; útil para el paso de pulir/reencuadrar clips cortos.

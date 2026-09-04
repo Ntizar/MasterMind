@@ -95,3 +95,7 @@ map.addLayer({
 ---
 
 **Hecho con ❤️ por David Antizar**
+
+## Comparativa de alternativas
+
+- **[reearth/mvt-reader](https://github.com/reearth/mvt-reader)** — decodificador de Mapbox Vector Tiles en Rust+WASM para parsear tiles en el cliente sin backend; encaja bien en la capa de render del explorador geográfico.

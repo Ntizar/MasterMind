@@ -1,7 +1,7 @@
 ---
 name: aurora-design-system
-description: Design System Ntizar Aurora v5.1 Constellation — CSS puro, 11 packs opt-in, namespaced .nz, 5 skins, liquid glass real, OKLCH, multi-axis theming, agent-ready con CDN público. Derivado de Ntizar-Aurora.
-version: "5.1.1"
+description: Design System Ntizar Aurora v6.1 Constellation — CSS puro, 12 packs opt-in, namespaced .nz, liquid glass interactivo, escenas Three.js reutilizables, azul monocromo (sin mezcla azul→naranja), OKLCH, agent-ready con CDN público. Derivado de Ntizar-Aurora.
+version: "6.1.0"
 tags: [css, design-system, aurora, liquid-glass, ntizar]
 ---
 
@@ -29,6 +29,9 @@ ntizar.forms.css      -> switch, custom check/radio, range, OTP, file drop, step
 ntizar.ui.css         -> modal, drawer, tabs, accordion, dropdown, toast, tooltip, command-bar
 ntizar.patterns.css   -> app-shell, hero, pricing, features, faq, footer, auth-shell, empty/error
 ntizar.next.css       -> v5: liquid glass real, OKLCH, multi-axis theming, mesh, forced-colors, skin AAA
+ntizar.three.css      -> v6: contenedores .nz-three para escenas Three.js (hero/md/sm/glass-frame/interactive)
+three-scenes.js       -> v6: librería ES de escenas (icosaedro · grafo · particulas · anillos), fallback sin WebGL
+aurora-live.js        -> v6: specular del liquid glass que sigue al cursor (.nz-glass-liquid-live)
 ```
 
 ## Quick Start
@@ -74,32 +77,139 @@ ntizar.next.css       -> v5: liquid glass real, OKLCH, multi-axis theming, mesh,
 
 ## Default Usage Policy (Agente — obligatorio)
 
-**Aurora es el ÚNICO sistema de diseño aceptable para artefactos visuales generados por el agente.** No se usan CSS custom sueltos, ni estilos inline generales, ni otros frameworks.
+**Aurora es el sistema de diseño por defecto para artefactos visuales generados por el agente.** No se usan CSS custom sueltos, ni estilos inline generales, ni otros frameworks.
+
+### ⚠️ EXCEPCIÓN — Design systems corporativos de equipo (2026-06-25)
+
+**Cuando un equipo pide un CSS compartido para unificar el estilo de sus herramientas**, NO usar Aurora. En su lugar, crear un **design system propio** alineado con la marca corporativa del equipo.
+
+**Señales de que NO es Aurora:**
+- "Queremos un CSS que usen todos del equipo"
+- "Que se parezca al intranet de la empresa"
+- "Colores de [Empresa]"
+- Hay un manual de marca oficial con colores propios
+
+**Flujo correcto:** Usar `design-system-scaffold` para crear un design system desde cero con los colores oficiales de la marca. Ver también `references/design-system-corporativo-workflow.md` para el Kaizen de Ineco y cómo convertir proyectos existentes.
+
+**Ejemplo real:** Equipo Kaizen de Ineco. David pidió un CSS compartido con colores de Ineco. Se creó `kaizen-design-system` con colores oficiales del manual de marca (#1A4488, #CB1823), NO con Aurora.
+
+**Aurora es para:** dashboards personales, apps creativas, landings, proyectos donde el estilo visual es flexible.
+**Design system propio es para:** equipos corporativos, empresas con marca definida, herramientas internas que deben ser coherentes con la identidad corporativa.
+
+### ⚠️ EXCEPCIÓN — Presentaciones corporativas / consulting (2026-06-20)
+
+**David rechazó Aurora explícitamente para presentaciones de caso de negocio / propuestas internas.** Pidió "fondo blanco", "elegante", "no parezca hecho por IA". Aurora (mesh, glass, orbs, gradientes) se percibe como "tech/startup" y no como "consulting corporativo".
+
+**Cuándo NO usar Aurora:**
+- Presentaciones de caso de negocio (Kaizen, propuestas)
+- Informes ejecutivos para stakeholders externos
+- Roadmaps y planes de inversión
+- Cualquier cosa con estética McKinsey/BCG
+
+**Cuándo SÍ usar Aurora:**
+- Dashboards interactivos
+- Apps personales
+- Landing pages creativas
+- El usuario pide glass, mesh, dark, aurora explícitamente
+
+**Estilo alternativo:** Ver `popular-web-designs/references/consulting-corporate-style.md` para el patrón de fondo blanco, tipografía Inter, tablas limpias, KPI tiles, sin glass/mesh/orbs.
 
 ### Reglas de branding para todo artefacto HTML generado
 
 1. **CDN obligatorio** — siempre linkar ntizar.css + ntizar.next.css + packs necesarios desde CDN. Nunca CSS embebido o archivos locales.
-2. **Skin por defecto: aurora** — data-nz-skin=aurora (azul #2563eb + naranja #f97316 + liquid glass)
+2. **Skin por defecto: aurora** — data-nz-skin=aurora (azul #2563eb + naranja #f97316 + liquid glass). Ver ERROR CRÍTICO #10 para el fix del violeta.
 3. **Theme por defecto: light** — `data-nz-theme="light"`. David prefiere fondos claros: son más elegantes, mejor legibles y más profesionales. Dark solo si el usuario lo pide explícitamente.
-4. **Responsive SIEMPRE** — toda landing/artefacto debe incluir media queries para móvil (<768px). Grids deben adaptar columnas (2 col → 1 col), nav debe tener hamburger, tablas scroll horizontal. Responsive no es opcional.
-5. **Atribucion exacta** — el footer DEBE poner EXACTAMENTE: `Hecho con (L) por David Antizar`. Sin variaciones. Sin "Analisis por". Sin "via Mastermind Agent". Sin "via Mastermind". Literal exacto.
-6. **David Antizar es el autor**, Mastermind el agente ejecutor. Esto aplica a HTML, posts, informes, notas. Nunca al reves.
-7. **Sin ingles** — todo en castellano: etiquetas, contenido, titulos, atributos
+4. **Mobile-first OBLIGATORIO** — toda landing/artefacto debe ser mobile-first, NO desktop-first. Base: 1 columna (≤600px), tablet: 2 columnas (601–900px), desktop: 3+ columnas (901px+). NO usar @media (max-width) como estrategia principal. Responsive no es opcional.
+5. **Touch targets mínimo 44px** — en móvil, todos los botones, links, inputs, tabs deben tener min-height: 44px (accesibilidad táctil).
+6. **Atribucion exacta** — el footer DEBE poner EXACTAMENTE: `Hecho con ❤️ por David Antizar`. El ❤️ es el emoji de corazón (U+2764), NO `(L)`. Sin variaciones. Sin "Analisis por". Sin "via Mastermind Agent". Sin "via Mastermind". Literal exacto con emoji.
+7. **David Antizar es el autor**, Mastermind el agente ejecutor. Esto aplica a HTML, posts, informes, notas. Nunca al reves.
+8. **Sin ingles** — todo en castellano: etiquetas, contenido, titulos, atributos
+
+### ⚠️ ESTILO "AURORA LIMPIO" — Diseño moderno, no IA (2026-06-22)
+
+**Señal del usuario:** David rechazó el primer HTML demo. Dijo: "el fondo no me gusta nada", "los números son demasiado grandes", "no es suficientemente liquid glass", "todo debería ser más responsive", "mucho más moderno y elegante en blanco naranja y azul sin gradientes raros ni cards típicos de IA".
+
+**Lo que NO es Aurora limpio:**
+- ❌ Fondo gradiente naranja/azul que cubre toda la pantalla
+- ❌ Orbs decorativos flotantes intrusivos
+- ❌ Mesh aurora animado intrusivo
+- ❌ Números gigantes (KPIs de 2.5rem+)
+- ❌ Cards típicas de IA con gradientes llamativos
+- ❌ Desktop-first con media queries al final
+
+**Lo que SÍ es Aurora limpio (estilo iOS 26 / Apple):**
+- ✅ **Fondo blanco limpio** (`#ffffff`) con solo toques sutiles de color
+- ✅ **Liquid glass REAL** con 4 capas:
+  1. Base translúcida con gradiente sutil (rgba 255,255,255,0.72 → 0.62)
+  2. `backdrop-filter: blur(24px) saturate(180%)`
+  3. Dual inset shadow (luz arriba + profundidad abajo)
+  4. Borde cromático con `::before` (specular highlight) y `::after` (chromatic edge)
+- ✅ **Números compactos** — KPIs de 1.1–1.25rem, no 2.5rem+
+- ✅ **Mobile-first** — base 1 col, tablet 2 col, desktop 3 col
+- ✅ **Botones estilo iOS** — brand (azul), accent (naranja), glass, ghost
+- ✅ **Badges pill** — colores sutiles, no saturados
+- ✅ **Progress bars finas** — 4px de alto, no gruesas
+- ✅ **Sin gradientes radiales intrusivos** — solo un toque sutil de color en el fondo
+
+**Implementación del liquid glass real (4 capas):**
+```css
+.glass-panel {
+  position: relative;
+  background: linear-gradient(135deg,
+    rgba(255,255,255,0.72) 0%,
+    rgba(241,245,249,0.55) 50%,
+    rgba(255,255,255,0.62) 100%);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255,255,255,0.9),
+    inset 0 -1px 0 0 rgba(0,0,0,0.04),
+    0 8px 32px rgba(0,0,0,0.06),
+    0 2px 8px rgba(0,0,0,0.03);
+  border: 1px solid rgba(255,255,255,0.6);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.glass-panel::before {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.45) 0%,
+    rgba(255,255,255,0.08) 40%,
+    transparent 60%);
+  pointer-events: none; z-index: 1;
+}
+.glass-panel::after {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35),
+    inset 0 0 20px rgba(37,99,235,0.03),
+    inset 0 0 40px rgba(249,115,22,0.02);
+  pointer-events: none; z-index: 1;
+}
+```
+
+**Ejemplo de referencia:** Ver `demo-aurora-fix.html` en el repo Ntizar-Aurora.
 
 ### Verificacion pre-entrega (OBLIGATORIA)
 
 Antes de dar por terminado cualquier artefacto HTML, verificar:
 
-1. Footer dice EXACTAMENTE: `Hecho con (L) por David Antizar`
+1. Footer dice EXACTAMENTE: `Hecho con ❤️ por David Antizar` (emoji real, NO `(L)`)
 2. Sin "Analisis", sin "via Mastermind Agent", sin "via", sin variantes
 3. body class="nz" presente
 4. data-nz-skin="aurora" presente
 5. **data-nz-theme="light"** (no dark por defecto)
 6. CDN links correctos y funcionales
-7. **Responsive CSS presente** — media queries, grids adaptables, hamburger nav
-8. Sin CSS custom >30 lineas
-9. Sin hex hardcodes (usar var(--nz-*))
-10. **Glass-liquid check:** Cards usan `nz-card--glass-liquid`, botones usan `--glass-liquid-*`, fondo tiene `nz-aurora-mesh--animated`, hay al menos 1 `nz-orb`, hay `nz-anim-fade-in` en secciones principales. Si alguna de estas falta → corregir antes de entregar.
+7. **Mobile-first presente** — base 1 col, tablet 2 col, desktop 3+ col. NO desktop-first con max-width
+8. **Touch targets 44px** en móvil para botones, links, inputs, tabs
+9. **Glass-liquid REAL** — 4 capas (base, backdrop-filter, dual inset shadow, borde cromático)
+10. **Números compactos** — KPIs ≤1.25rem
+11. **Fondo blanco limpio** — sin gradientes intrusivos, sin orbs flotantes
+12. Sin CSS custom >30 lineas
+13. Sin hex hardcodes (usar var(--nz-*))
 
 ### Vinculación con skills pipeline
 
@@ -110,11 +220,10 @@ Los skills de pipeline (ej: `pdf-to-artifacts-david-antizar`) consumen Aurora pe
 ### Pasos obligatorios cuando se pida "usa Aurora" o se genere HTML visual:
 
 1. **CARGAR INDEX.md** del repo Ntizar-Aurora — es la fuente de verdad de la API de clases
-2. **CARGAR CHEATSHEET.md** — resumen de las 321 clases extraídas de gallery.html
-3. **USAR SOLO** componentes listados en INDEX.md/CHEATSHEET.md
-4. **CSS custom máximo 30 líneas** — solo para lo específico del artefacto
-5. **NUNCA hardcodear hex** — siempre `var(--nz-c-*)`
-6. **SIEMPRE** `body class="nz" data-nz-skin="aurora"`
+2. **USAR SOLO** componentes listados en INDEX.md
+3. **CSS custom máximo 30 líneas** — solo para lo específico del artefacto
+4. **NUNCA hardcodear hex** — siempre `var(--nz-*)`
+5. **SIEMPRE** `body class="nz" data-nz-skin="aurora"`
 
 ### ⚠️ ERROR CRÍTICO #1 — CSS custom en vez de Aurora (2026-06-03)
 
@@ -143,7 +252,7 @@ Incluso cuando el agent SÍ usa clases Aurora, tiende a elegir las variantes **p
 - Sin `nz-orb` → nada de decoración atmosférica
 - Sin `nz-anim-fade-in` → todo aparece de golpe sin transición
 - Sin `nz-hover-lift` → cards sin interacción visual
-- Sin `nz-gradient-text` → títulos sin personalidad
+- Sin `u-nz-text-brand` en el titular → título sin acento (NOTA: `nz-gradient-text` NO existe, nunca la uses)
 - `nz-kpi` sin `--accent` → tiles planos
 - `nz-chart` sin `--glass` → gráficos en cajas blancas
 - `nz-surface` sin `--glass*` → superficies opacas
@@ -151,6 +260,23 @@ Incluso cuando el agent SÍ usa clases Aurora, tiende a elegir las variantes **p
 **Causa raíz:** El agent elige la primera variante que encuentra en el CHEATSHEET en vez de la variante visualmente rica. Falta una guía de "qué variante usar según el contexto visual".
 
 **Solución:** Para dashboards, apps, landings y cualquier artefacto visual → **SIEMPRE preferir las variantes glass-liquid y animadas.** Ver tabla rápida abajo.
+
+### ⚠️ PREFERENCE — Glass borders como "look de IA" (2026-06-20)
+
+**Señal del usuario:** David rechazó explícitamente cards con bordes glass-liquid visibles (la línea decorativa superior de `nz-card--glass-liquid`). Dijo: "La línea esa en las cards, no me gusta nada. Parece hecho por IA."
+
+**Matiz importante:** David NO rechaza glass en general. Le gustan las cards con profundidad, sombra sutil y backdrop-filter. Lo que rechaza es el **borde decorativo superior** (la línea glass brillante que algunos templates ponen arriba de la card). Es un patrón que se ha vuelto icónico de diseños "AI-generated" (lo mismo ocurre con gradientes neón exagerados, mesh backgrounds con muchas orbs, y horizontal lines decoratives).
+
+**Regla práctica:**
+- ✅ `backdrop-filter: blur()` + sombra sutil + bg semitransparente = **elegante**
+- ❌ Bordes glass visibles arriba de la card = **"parece hecho por IA"**
+- ✅ Usar `nz-card--glass-liquid` pero **sin** la línea decorativa de borde superior si el contexto es presentación ejecutiva o algo que se entrega a stakeholders
+- ❌ Evitar horizontal lines decorativas entre secciones en presentaciones (David las rechazó directamente)
+- ❌ Evitar elementos que se repitan en cada card (badges decorativos, líneas de color repetitivas) — David los asocia con "AI aesthetic"
+
+**Contexto:** En presentaciones Kaizen/Ineco (v1.0→v2.0→v3.0), la evolución fue: dark mode con glass borders (rechazado) → light mode Aurora con glass borders (rechazado) → light mode Aurora sin glass borders visibles (aceptado con entusiasmo). El factor decisivo fue QUITAR las líneas glass decorativas, no el tema ni los componentes.
+
+**Aplicación general:** Cuando el output es para un stakeholder externo (presentación empresa, informe cliente, landing profesional) → glass sutil sin bordes decorativos. Cuando es interno (dashboard propio, app personal) → glass-liquid completo con borders está OK.
 
 ### ⚠️ ERROR CRÍTICO #3 — Usar Aurora al 40% (2026-06-13)
 
@@ -217,7 +343,7 @@ Antes de entregar cualquier artefacto visual, verificar CADA categoría:
 | Modales | ❌ | nz-modal (NO divs custom) |
 | Loading | ❌ | nz-skeleton |
 | Animaciones | ✅ | nz-anim-fade-in, nz-hover-lift |
-| Tipografía | ✅ | nz-gradient-text |
+| Tipografía | ✅ | u-nz-text-brand (azul sólido en titulares) |
 
 **Regla de oro:** Si un artefacto tiene más de 3 categorías vacías → NO está usando Aurora correctamente. Revisar INDEX.md y reemplazar componentes custom por los de Aurora.
 
@@ -304,11 +430,11 @@ Cuando David dice "revisa el diseño", "se parece más a aurora", "haz una audit
 
 1. **Ejecutar script automatizado:**
    ```bash
-   curl -s <url> | python3 agent/skills/frontend-dashboard-patterns/aurora-design-system/scripts/audit-aurora.py -
+   curl -s <url> | python3 /hermes-home/skills/frontend-dashboard-patterns/aurora-design-system/scripts/audit-aurora.py -
    ```
    O desde archivo local:
    ```bash
-   python3 agent/skills/frontend-dashboard-patterns/aurora-design-system/scripts/audit-aurora.py /path/al/index.html
+   python3 /hermes-home/skills/frontend-dashboard-patterns/aurora-design-system/scripts/audit-aurora.py /path/al/index.html
    ```
 
 2. **Presentar resultados en formato tabla** con métricas clave:
@@ -371,10 +497,12 @@ El agent inventa nombres de clases Aurora que **no existen**, como `nz-btn--glas
 | Badge | `nz-badge` | `nz-badge--glass` o `--glass-brand` |
 | Form input | `nz-field` + `nz-input` | `nz-input` dentro de `nz-card--glass-liquid` |
 | Tabs | `nz-tabs` sueltos | `nz-tabs__list` dentro de `nz-card--glass-liquid` |
-| Título | `nz-text-h1` | `nz-gradient-text` |
+| Título | `nz-text-h1` | `u-nz-text-brand` en el span destacado (azul sólido) |
 | Avatar | `nz-avatar` | `nz-avatar--aurora` |
 | Loading | texto "Pensando..." | `nz-spinner--accent` |
 | Tips/callout | div custom | `nz-callout--tip` |
+| **Glass interactivo (v6)** | glass estático | `nz-glass-liquid-live` (specular que sigue al cursor, requiere cargar `aurora-live.js`) |
+| **Escena 3D (v6)** | canvas Three.js a mano | `data-nz-three="icosaedro\|grafo\|particulas\|anillos"` en `.nz-three` (requiere `ntizar.three.css` + import de `three-scenes.js`) |
 
 **Fondo obligatorio para apps visuales:**
 ```html
@@ -400,18 +528,25 @@ El agent inventa nombres de clases Aurora que **no existen**, como `nz-btn--glas
 
 ### Repo local
 
-El repo Ntizar-Aurora debe estar clonado en `/root/workspace/Ntizar-Aurora/`:
+El repo Ntizar-Aurora está clonado en `C:\Users\d_ant\Projects\Ntizar-Aurora\` (Windows local):
 - `INDEX.md` — API completa de clases por pack
 - `CHEATSHEET.md` — Resumen de las 321 clases
 - `gallery.html` — Referencia visual completa
 - `AGENTS.md` — Reglas duras (5 hard rules)
+- `LLM.md` — Guía de decisión LLM (~2 KB, "necesito X → packs Y → clases Z")
+- `components.json` — Spec machine-readable de todos los componentes
+- `examples/` — 5 ejemplos completos con shell CSS propio (login, dashboard, landing, ui-components, forms)
 
 ### Referencias incluidas
 - `references/dark-mode-migration-pattern.md` — Patrón de migración de dark mode custom → data-nz-theme
 - `references/mobile-compact-pattern.md` — Compactación progresiva de hero/KPIs en móvil + patrón de acciones principales
 - `references/audit-checklist.md` — Checklist de 21 componentes premium + veredictos de auditoría
+- `references/contradiction-audit-gradient-aurora.md` — Auditoría completa de contradicciones en --nz-gradient-aurora (violeta → fix azul+naranja)
+- `references/aurora-clean-style.md` — Patrón "Aurora limpio": fondo blanco, glass real 4 capas, mobile-first, números compactos (2026-06-22)
+- `references/shell-patterns.md` — 5 patrones de shell CSS (login, dashboard, landing, UI catalog, forms) para que los ejemplos nunca se vean "pelados" (2026-06-22)
+- `references/multi-project-audit-unification.md` — Procedimiento para auditar y unificar diseño de múltiples proyectos con Aurora (2026-06-23)
 ### Scripts
-- `scripts/audit-aurora.py` — Auditoría automática: CSS custom, clases custom, hex hardcodes, componentes premium usados, packs cargados. Uso: `python3 audit-aurora.py <archivo.html>` o `curl -s <url> | python3 audit-aurora.py -`
+- `scripts/audit-aurora.py` — **v2**: auditoría automática con whitelist de prefijos de shell (patrón ERROR #13), inline styles con tokens no penalizan, componentes premium v6 (`nz-glass-liquid-live`, `nz-three`, `data-nz-three`) y perfil landing (umbral 60 clases). Uso: `python3 audit-aurora.py <archivo.html>` o `curl -s <url> | python3 audit-aurora.py -`. NO valida existencia de clases — una clase inventada en texto puede colarse; la verificación visual en preview es complementaria obligatoria.
 
 ### CDN correcto
 
@@ -432,6 +567,33 @@ El repo Ntizar-Aurora debe estar clonado en `/root/workspace/Ntizar-Aurora/`:
 ```
 
 **Pitfall:** Si usas `nz-chart`, `nz-input`, `nz-anim-*`, o `nz-cluster` sin cargar el pack correspondiente, los estilos no aplican y el resultado se ve roto. Carga TODOS los packs que necesites.
+
+### Uso del pack Three.js v6 (receta mínima)
+
+```html
+<!-- 1. CSS del pack -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/ntizar.three.css">
+<!-- 2. Contenedor con data-nz-three; SIEMPRE incluir .nz-three__fallback para sin WebGL -->
+<div class="nz-three nz-three--md nz-three--interactive nz-three--glass-frame"
+     data-nz-three="grafo" data-nz-three-nodos="22">
+  <canvas class="nz-three__canvas"></canvas>
+  <div class="nz-three__fallback">Contenido estático si no hay WebGL</div>
+</div>
+<!-- 3. importmap + inicialización -->
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.164/build/three.module.js" } }
+</script>
+<script type="module">
+  import { crearEscenasAuto } from 'https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/three-scenes.js';
+  crearEscenasAuto();
+</script>
+```
+
+Glass interactivo: añadir `nz-glass-liquid-live` a cualquier superficie glass + `import 'https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/aurora-live.js'`. Opt-out global: `data-nz-glass-live="off"` en `<html>`. Respetan `prefers-reduced-motion` ambos.
+
+**Pitfalls v6:**
+- Los módulos ES no cargan por `file://` — para probar localmente, servir por HTTP (`python -m http.server`) y hacer copia del HTML con `sed` apuntando al repo local en vez del CDN
+- jsDelivr cachea `@master`: si el CDN no refleja un push reciente, verificar con `curl -s -o /dev/null -w "%{http_code}" https://cdn.jsdelivr.net/gh/Ntizar/Ntizar-Aurora@master/<fichero>` y purgar si hace falta
 
 ## Pitfalls
 
@@ -454,4 +616,161 @@ El repo Ntizar-Aurora debe estar clonado en `/root/workspace/Ntizar-Aurora/`:
   ```
   Para el JS de toggle: `tab.classList.add('nz-tab--active')` / `classList.remove('nz-tab--active')`.
 - Botones tonales inventados: NO usar `nz-btn--tonal-brand-soft` ni variantes inventadas. Usar solo las documentadas en CHEATSHEET: `--primary`, `--secondary`, `--accent`, `--danger`, `--ghost`, `--glass`, `--glass-brand`, `--glass-accent`, `--glass-liquid`, `--glass-liquid-brand`, `--glass-liquid-accent`.
-- **Auditoría automática:** cuando se pida revisar/auditar un HTML contra Aurora, ejecutar SIEMPRE `python3 agent/skills/frontend-dashboard-patterns/aurora-design-system/scripts/audit-aurora.py` primero para obtener métricas objetivas. No hacer auditoría manual a ciegas.
+- **Auditoría automática:** cuando se pida revisar/auditar un HTML contra Aurora, ejecutar SIEMPRE `python3 /hermes-home/skills/frontend-dashboard-patterns/aurora-design-system/scripts/audit-aurora.py` primero para obtener métricas objetivas. No hacer auditoría manual a ciegas.
+
+### ⚠️ ERROR CRÍTICO #10 — Skin aurora con violeta en --nz-gradient-aurora (2026-06-22)
+
+**Señal del usuario:** David dice "se ve morado", "no me gusta el morado", "esto parece morado y no quiero eso".
+
+**Problema:** La skin `aurora` (default) heredaba de `ntizar.css` un `--nz-gradient-aurora` con violeta intermedio: `blue-500 → violet-500 → orange-500` (#3b82f6 → #8b5cf6 → #f97316). Esto creaba un efecto "morado" en botones blend, títulos gradient, barras de progreso, avatares, sparklines, fondos y mesh aurora.
+
+**Causa raíz:** La skin `aurora` en `ntizar.themes.css` NO redefinía `--nz-gradient-aurora`, confiando en la herencia de `ntizar.css`.
+
+**Solución aplicada (commit 3d2a7ba):** La skin aurora ahora redefine explícitamente:
+```css
+.nz[data-nz-skin="aurora"] {
+  --nz-gradient-aurora: linear-gradient(135deg,
+    var(--nz-color-blue-600) 0%,
+    var(--nz-color-orange-500) 100%);
+}
+```
+Resultado: `#2563eb → #f97316` (azul → naranja directo, sin violeta).
+
+**⚠️ IMPORTANTE PARA FUTURAS SESIONES:** Si al generar un HTML con Aurora se ve algún morado/violeta, verificar:
+1. Que se esté cargando `ntizar.themes.css` (donde está el fix)
+2. Que el body tenga `data-nz-skin="aurora"`
+3. Que no se esté overriding `--nz-gradient-aurora` con CSS custom
+4. Si se usa `ntizar.next.css` con `data-nz-color-system="oklch"`, el gradiente aurora usa `hue+50°` que sigue produciendo violeta. En ese caso, redefinir `--nz-gradient-aurora` manualmente.
+
+**Referencia completa:** `references/contradiction-audit-gradient-aurora.md`
+
+### ⚠️ ERROR CRÍTICO #13 — Ejemplos "pelados" sin CSS shell (2026-06-22)
+
+**Señal del usuario:** David dijo "la versión que has hecho de ejemplos las veo demasiado simples y hay botones que no tienen el mismo diseño". Los ejemplos generados con componentes sueltos (nz-btn, nz-card sin contexto) se ven rotos/feos.
+
+**Problema:** Los componentes Aurora necesitan un **CSS shell** de contexto para verse correctos. Un botón `nz-btn--primary` solo, sin un contenedor con bordes, sombras, gradientes de fondo y espaciado propio, se ve como un botón genérico sin el estilo premium de Aurora.
+
+**Lo que NO funciona:**
+- ❌ Componentes sueltos en un div blanco sin estilo
+- ❌ Botones sin contenedor con padding, border-radius, shadow
+- ❌ Formularios sin card wrapper con glass
+- ❌ Dashboards sin sidebar, sin stat tiles, sin tablas estilizadas
+
+**Lo que SÍ funciona — Patrón "Shell + Componentes":**
+
+1. **Definir un shell CSS** con su propio `<style>` (máximo 100-200 líneas) que proporcione:
+   - Layout (grid, flex, sticky sidebar)
+   - Espaciado (padding, margins, gaps)
+   - Superficies (bordes, sombras, glass, gradientes de fondo)
+   - Tipografía contextual (títulos, labels, breadcrumbs)
+   - Iconos SVG inline para navegación
+   - Hover states y transiciones
+   - Responsive (mobile-first)
+
+2. **Colocar componentes Aurora dentro** del shell como contenido, no como estructura.
+
+3. **El shell hace el 80% del trabajo visual**, los componentes Aurora hacen el 20% (colores, badges, KPIs, tabs, forms).
+
+**Ejemplo mínimo de shell (login):**
+```css
+.login-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(ellipse at 30% 20%, var(--nz-surface-glass-brand) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 80%, var(--nz-surface-glass-accent) 0%, transparent 60%);
+}
+.login-card {
+  width: 100%;
+  max-width: 26rem;
+}
+```
+
+**Ejemplo de shell (dashboard):**
+```css
+.dash-shell {
+  display: grid;
+  grid-template-columns: 16rem minmax(0, 1fr);
+  min-height: 100vh;
+}
+.dash-sidebar {
+  position: sticky; top: 0; height: 100vh;
+  background: var(--nz-surface-soft);
+  border-right: 1px solid var(--nz-border-soft);
+}
+```
+
+**Shell templates por tipo de página:**
+- **Login:** centered card + aurora radial bg + brand icon
+- **Dashboard:** sidebar sticky + main scrollable + stat tiles
+- **Landing:** container max-width + hero aurora orbs + features grid + pricing cards
+- **UI Catalog:** demo cards + interactive sections + JS for tabs/dropdown/modal/toast
+- **Forms:** card wrapper + 2-col grid + custom switch/segmented/otp/range
+
+**Regla:** Si generas un HTML con Aurora, SIEMPRE incluye un shell CSS propio. Nunca entregues componentes "pelados". El shell es lo que hace que los componentes se vean premium.
+
+### ⚠️ ERROR CRÍTICO #12 — "Aurora limpio" — fondo blanco, glass real 4 capas, mobile-first (2026-06-22)
+
+**Señal del usuario:** David rechazó el primer HTML demo. Dijo: "el fondo no me gusta nada", "los números son demasiado grandes", "no es suficientemente liquid glass", "todo debería ser más responsive", "mucho más moderno y elegante en blanco naranja y azul sin gradientes raros ni cards típicos de IA".
+
+**Lo que NO es Aurora limpio:**
+- ❌ Fondo gradiente naranja/azul que cubre toda la pantalla
+- ❌ Orbs decorativos flotantes intrusivos
+- ❌ Números gigantes (KPIs de 2.5rem+)
+- ❌ Desktop-first con media queries al final
+
+**Lo que SÍ es Aurora limpio (estilo iOS 26 / Apple):**
+- ✅ Fondo blanco limpio (`#ffffff`) con toques sutiles de color
+- ✅ Liquid glass REAL con 4 capas: base translúcida, `backdrop-filter: blur(24px) saturate(180%)`, dual inset shadow, borde cromático (`::before` specular + `::after` chromatic edge)
+- ✅ Números compactos — KPIs de 1.1–1.25rem
+- ✅ Mobile-first — base 1 col, tablet 2 col, desktop 3 col
+- ✅ Touch targets 44px mínimo en móvil
+- ✅ Sin gradientes radiales intrusivos
+
+**Implementación del liquid glass real (4 capas):** Ver `references/aurora-clean-style.md`
+
+**Referencia:** `references/aurora-clean-style.md`
+
+### ⚠️ ERROR CRÍTICO #11 — Información contradictoria en AGENTS.md y skills (2026-06-22)
+
+**Señal del usuario:** David pregunta "¿es posible que tengas muchos agents.md que te den datos contradictorios?"
+
+**Problema identificado:** Hay múltiples fuentes de verdad que pueden contradecirse:
+- `Ntizar-Aurora/AGENTS.md` — reglas del repo
+- `Ntizar-Aurora/.github/copilot-instructions.md` — reglas de Copilot
+- `Mastermind/AGENTS.md` — reglas generales del sistema
+- `aurora-design-system` SKILL.md — reglas del skill Hermes
+- `liquid-glass-css` SKILL.md — reglas del skill Hermes
+
+**Riesgo:** Si un skill dice una cosa y el AGENTS.md del repo dice otra, el agente puede generar HTML inconsistente.
+
+**Solución:** Siempre verificar contra el **repo en vivo** (`Ntizar-Aurora/`) como fuente de verdad última. Los skills y AGENTS.md son guías, pero el CSS real es lo que importa. Si hay discrepancia, el CSS del repo gana.
+
+**Verificación rápida:** Si el resultado visual no coincide con lo que describe un skill, ejecutar `grep` en el repo para ver el código real.
+
+### ⚠️ ERROR CRÍTICO #14 — Gradiente azul→naranja rechazado (2026-08-28)
+
+**Señal del usuario:** David sobre el landing rediseñado de MasterMind: *"las cosas con el gradiente este de azul a anaranjado no me gustan nada. Creo que los diseños podían ser mucho más elegantes"*.
+
+**Qué pasó:** La corrección del ERROR #10 (azul→naranja directo, sin violeta) seguía produciendo un degradado de dos tonos que David percibe como poco elegante. **La regla real no es "sin morado", es "sin mezclar azul y naranja en un gradiente"**.
+
+**Solución aplicada (v6.1, repo Ntizar-Aurora):** `--nz-gradient-aurora` es monocromo azul en core y en la skin aurora:
+```css
+--nz-gradient-aurora: linear-gradient(135deg,
+  var(--nz-color-brand) 0%,
+  var(--nz-color-brand-strong) 100%);
+```
+
+**Regla para futuros artefactos:**
+- ❌ NUNCA gradiente que interpole azul→naranja (ni directo ni con pasos intermedios) — David lo rechaza explícitamente
+- ✅ Títulos destacados: azul sólido con `u-nz-text-brand` (azul puro) — NO gradiente
+- ✅ El azul es primary y el naranja secondary, en elementos separados (regla de acento de AGENTS.md), nunca fundidos
+- ✅ Si hace falta un gradiente, monocromo (azul→azul fuerte)
+
+### ⚠️ ERROR CRÍTICO #15 — Clase inventada `nz-gradient-text` (2026-08-28)
+
+`nz-gradient-text` **NO existe en Aurora** (ni en core ni en next) — ha aparecido en el propio skill y en outputs de agentes durante meses. La utilidad documentada es **`u-nz-text-brand`** (texto azul sólido) o `u-nz-text-gradient` (usa `--nz-gradient-aurora`).
+
+**Lección doble:**
+1. Antes de usar una clase `nz-*`, verificar que existe en INDEX.md o con `grep` en el repo. Las tablas de este skill pueden contener errores heredados — el repo en vivo manda (ERROR #11).
+2. Las clases inventadas en texto/HTML no las detecta bien `audit-aurora.py` (cuenta clases únicas pero no valida existencia) — la verificación visual en preview es la única que las caza.

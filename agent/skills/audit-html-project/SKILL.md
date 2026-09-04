@@ -742,7 +742,7 @@ Procedimiento para auditar integridad estructural de archivos HTML en batch: CSS
 
 ### Quick audit
 ```bash
-cp agent/skills/devops/html-structural-audit/scripts/audit.py .
+cp /hermes-home/skills/devops/html-structural-audit/scripts/audit.py .
 python3 audit.py /path/to/html-dir
 python3 audit.py /path/to/html-dir --fix   # auto-fix
 ```

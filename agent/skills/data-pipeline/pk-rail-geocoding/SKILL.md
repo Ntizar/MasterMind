@@ -73,3 +73,7 @@ Ver `era-visor/scripts/geocodificar_via.py` (repo `Ntizar/era-visor`) — implem
 
 ---
 "Hecho con ❤️ por David Antizar"
+
+## Comparativa de alternativas
+
+- **[nicolaswurtz/...sncf](https://github.com/nicolaswurtz)** — dataset de infraestructura ferroviaria SNCF con PKs geolocalizados, altitudes, velocidades y posicionamiento en tiempo real; referencia de datos ferroviarios georreferenciados (como el PK sobre vía ADIF de este skill).

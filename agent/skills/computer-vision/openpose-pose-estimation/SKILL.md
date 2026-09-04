@@ -64,3 +64,8 @@ bin/OpenPoseDemo.exe --image_path img.jpg --write_json output/
 
 - Repo: `github.com/CMU-Perceptual-Computing-Lab/openpose` (34.4k⭐)
 - Paper: CVPR 2017 — "Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields"
+
+## Comparativa de alternativas
+
+- **[bharath5673/3d_human_pose](https://github.com/bharath5673/3d_human_pose)** — saltar de pose 2D a 3D con YOLO + MediaPipe + BodyPose3DNet (workflow 3D y multi-cámara); es el siguiente paso natural tras detectar la pose 2D en 2D.
+- **[ronvidev/modelo_lstm_lsp](https://github.com/ronvidev/modelo_lstm_lsp)** — pipeline de reconocimiento de lengua de signos por secuencia: MediaPipe → normalización de frames → keypoints → LSTM → GUI; ejemplo de clasificación de gestos sobre secuencia de pose.

@@ -303,3 +303,7 @@ IDs con formato `ES:Operator:ES:MTM` ahora extraen `MTM` como operador correctam
 ## Licencia
 
 MIT — Compatible con RD 571/2023 (datos abiertos transporte público)
+
+## Comparativa de alternativas
+
+- **[TransmodelEcosystem/NeTEx](https://github.com/TransmodelEcosystem/NeTEx)** — esquema XSD oficial NeTEx (CEN/TS 16614) para construir validadores/convertidores correctos; la fuente de verdad del esquema que este skill convierte.

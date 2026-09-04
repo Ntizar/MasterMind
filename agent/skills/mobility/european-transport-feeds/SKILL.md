@@ -54,3 +54,7 @@ cat european-transport-feeds/README.md | grep -i spain -A 10
 ## Referencias
 
 - [GitHub: public-transport/european-transport-feeds](https://github.com/public-transport/european-transport-feeds)
+
+## Comparativa de alternativas
+
+- **[public-transport/european-transport-feeds](https://github.com/public-transport/european-transport-feeds)** — catálogo `feeds.toml` de feeds nacionales europeos + sitio generado + contribución por PR; mantiene la colección de feeds que este skill referencia.

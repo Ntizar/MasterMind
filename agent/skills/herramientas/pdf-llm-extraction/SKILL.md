@@ -1038,3 +1038,7 @@ pip install PyMuPDF requests
 **Autor:** David Antizar (Ntizar)
 **Agente:** Mastermind (ejecutor, no autor)
 **Repo:** `github.com/Ntizar/PdfToJson`
+
+## Comparativa de alternativas
+
+- **[beltromatti/get-it](https://github.com/beltromatti/get-it)** — construye un mapa de dominio medible (*mastery map*) desde un PDF, orientado a grafo de conocimiento más que a extracción de texto plano; útil cuando el objetivo es medir/trazar el conocimiento que contiene el documento.

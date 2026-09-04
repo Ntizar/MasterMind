@@ -78,3 +78,7 @@ downloader.download(
 ## Referencias
 
 - [GitHub: AhmadIbrahiim/Website-downloader](https://github.com/AhmadIbrahiim/Website-downloader)
+
+## Comparativa de alternativas
+
+- **[AhmadIbrahiim/Website-downloader](https://github.com/AhmadIbrahiim/Website-downloader)** — usa los flags wget exactos `--mirror --convert-links --adjust-extension --page-requisites --no-parent`; la receta de wget más fiable para descargar un sitio completo como este skill plantea.

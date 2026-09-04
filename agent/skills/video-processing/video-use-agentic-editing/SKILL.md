@@ -61,3 +61,7 @@ ls final.mp4 && ffprobe -v error -show_entries format=duration final.mp4
 ## Referencias
 
 - Repo: github.com/browser-use/video-use (MIT)
+
+## Comparativa de alternativas
+
+- **[htekdev/vidpipe](https://github.com/htekdev/vidpipe)** — editor agéntico *watch-folder*: crudo → shorts/reels/captions con Copilot SDK + Whisper + Gemini; una implementación completa del pipeline de edición agéntica.

@@ -39,3 +39,7 @@ pip install -r requirements.txt
 ## Referencias
 
 - Repo: `github.com/Esri/public-transit-tools` (195⭐)
+
+## Comparativa de alternativas
+
+- **[Esri/public-transit-tools](https://github.com/Esri/public-transit-tools)** — ofrece flujos Esri concretos: dataset de red con tránsito + herramientas de análisis de Network Analyst, la vía para trabajar tránsito dentro del ecosistema ArcGIS.

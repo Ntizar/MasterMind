@@ -90,3 +90,9 @@ cap.release()
 ## Referencias
 
 - [GitHub: SanshruthR/CCTV_YOLO](https://github.com/SanshruthR/CCTV_YOLO)
+
+## Comparativa de alternativas
+
+- **[computer-vision-with-marco](https://github.com/mbertini/realtime-detection-yolo26)** — plantilla reproducible de *training* YOLO sobre datasets Kaggle (CLI + notebook + Streamlit): para entrenar tu propio detector (p. ej. clases específicas) en vez de usar un modelo preentrenado.
+- **[roryclear/clearcam](https://github.com/roryclear/clearcam)** — pipeline CCTV completo: YOLO + tracking + zonas + notificaciones + resúmenes Qwen3-VL + búsqueda por texto; alternativa más "producto" que el skill base.
+- **[NVIDIA-AI-IOT/nanoowl](https://github.com/NVIDIA-AI-IOT/nanoowl)** — detección *open-vocabulary* (OWL-ViT) con pipeline tree recursivo por texto; YOLO de clases fijas no contempla clases arbitrarias, así que úsalo cuando el conjunto de clases no esté cerrado.

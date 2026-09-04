@@ -263,6 +263,94 @@ function parsearLineaCSV(line) {
 7. Cache en localStorage con prefijo `timeineco_gtfs_`
 8. Evento `gtfs:loaded` para sincronizar carga de GTFS con mapa
 
+## Scripts del skill
+
+- `scripts/server-gtfs.py` — Servidor mínimo con /api/zips para auto-carga de ZIPs. `python server-gtfs.py` desde la raiz del proyecto.
+
+## Patrón: Auto-carga de ZIPs desde servidor local (v3.0)
+
+**NUEVO en 2026-06-23:** En vez de arrastrar ZIPs manualmente, el visor se conecta a un servidor mínimo que lista los ZIPs disponibles en `data/` y los carga automáticamente.
+
+### Servidor mínimo (server.py)
+
+```python
+# visor/server.py — servidor mínimo HTTP con /api/zips
+import http.server, json, os
+from pathlib import Path
+
+class GTFSServer(http.server.SimpleHTTPRequestHandler):
+    def do_GET(self):
+        if self.path == '/api/zips':
+            self.serve_zips_list()
+            return
+        super().do_GET()
+    
+    def serve_zips_list(self):
+        zips = []
+        for root, dirs, files in os.walk(DATA_DIR):
+            for f in files:
+                if f.endswith('.zip'):
+                    full_path = Path(root) / f
+                    rel_path = full_path.relative_to(BASE_DIR)
+                    zips.append({
+                        "name": f, "path": str(rel_path).replace("\\", "/"),
+                        "size": full_path.stat().st_size,
+                        "size_human": f"{full_path.stat().st_size / 1024 / 1024:.1f} MB"
+                    })
+        zips.sort(key=lambda x: x["name"])
+        self.send_response(200)
+        self.send_header('Content-Type', 'application/json')
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.end_headers()
+        self.wfile.write(json.dumps(zips, indent=2).encode())
+```
+
+### Auto-carga en el cliente
+
+```javascript
+async function autoLoadZips() {
+    let zipsList = [];
+    try { const resp = await fetch('/api/zips'); if (resp.ok) zipsList = await resp.json(); } catch (e) {}
+    if (zipsList.length === 0) return;
+    
+    const MAX_ZIPS = 25;
+    const toLoad = zipsList.slice(0, MAX_ZIPS);
+    for (const zf of toLoad) {
+        const resp = await fetch('/' + zf.path);
+        const blob = await resp.blob();
+        const zip = await JSZip.loadAsync(blob);
+        await processGTFS(zip, zf.name);
+    }
+}
+```
+
+### Launcher para Windows (.bat)
+
+```bat
+@echo off
+chcp 65001 >nul
+python --version >nul 2>&1 || (echo [ERROR] Python no encontrado & pause & exit /b 1)
+cd visor
+python server.py
+```
+
+### Patrón: Panel de horarios desplegable
+
+Al hacer clic en una parada → panel deslizante desde abajo con rutas y horarios.
+
+```javascript
+function showSchedulePanel(stop) {
+    const routesData = stop.routes.map(rid => allRoutes[rid]).filter(Boolean);
+    // Filtros de ruta como botones clickeables
+    // Cards expandibles por ruta con tabla de horarios
+    const panel = document.getElementById('schedulePanel');
+    panel.innerHTML = htmlContent;
+    panel.classList.add('open');
+}
+```
+
+CSS: `transform: translateY(100%)` → `.open { transform: translateY(0); }` con `transition: 0.3s ease`
+
 ## Pitfalls
 
 - **Ficheros grandes** (>15 MB descomprimidos) pueden tardar varios segundos — el parsing ocurre en el hilo principal
@@ -276,8 +364,543 @@ function parsearLineaCSV(line) {
 - **Dedup de paradas** — al filtrar por proximidad, agrupar paradas a menos de ~100m para no saturar el mapa
 - **Encoding corrupto** — detectar caracteres U+FFFD y fallback a Windows-1252
 - **calendar_dates sin calendar.txt** — algunos feeds usan solo calendar_dates, hay que soportarlo
+- **calendar_dates sin calendar.txt** — algunos feeds usan solo calendar_dates, hay que soportarlo
+
+## Pitfall CRÍTICO: Embebido de JSZip inline
+
+**NUNCA** embebas JSZip como `var jszip = 'contenido';` dentro de un `<script>` tag. El contenido de JSZip contiene comillas y caracteres que rompen el string y el HTML.
+
+**MÉTODO CORRECTO:** Insertar JSZip como un `<script>` inline independiente ANTES del script principal:
+
+```html
+<script>/* JSZip v3.10.1 minified content here */</script>
+<script>
+// Tu código del visor que usa JSZip
+</script>
+```
+
+**MÉTODO INCORRECTO (roto):**
+```html
+<script>var jszip = '...contenido JSZip...';</script>
+```
+
+**Verificación post-embebido:**
+1. `document.querySelectorAll('script').length` debe ser 3 (Leaflet CDN + JSZip inline + visor)
+2. `typeof JSZip !== 'undefined'` debe ser `true`
+3. `typeof window.initMap !== 'undefined'` debe ser `true`
+4. Si `initMap` es `undefined`, el script del visor NO se ejecutó — revisa cierres `</script>`
+
+**Patrón de fallo conocido:** Si al hacer un `replace` en el HTML se pierden los cierres `</script>`, `</body>`, `</html>`, el navegador no renderiza el mapa. Siempre verificar que el HTML tiene los 3 cierres.
+
+## Pitfall: Script inline no se ejecuta
+
+Si un `<script>` inline tiene funciones `async`/`await`, `eval()` y `new Function()` fallan con "Unexpected identifier". Esto NO significa que el script tenga error de sintaxis — el navegador ejecuta scripts inline con async/await correctamente. Para depurar, verificar `typeof window.initMap` en la consola del navegador (no usar `eval`).
+
+## Patrón: Visor con Mapa Leaflet Interactivo (v2.0)
+
+**NUEVO en 2026-06-23:** El usuario quiere un visor donde se pueda **elegir un punto desde un mapa**, ver un **círculo de radio visual**, y que las paradas se muestren en el mapa con **colores por modo de transporte**. No basta con una lista de texto.
+
+### Arquitectura del visor con mapa
+
+```
+┌──────────────────────────────────────────────────┐
+│  Header oscuro                                   │
+├──────────┬───────────────────────────────────────┤
+│ Sidebar  │  Mapa Leaflet (CARTO light)           │
+│          │                                       │
+│ Geocodif.│  [click → marcador + círculo radio]   │
+│ (Nominat.)│                                       │
+│          │  Marcadores paradas: color por modo   │
+│ Carga    │                                       │
+│ GTFS ZIP │                                       │
+│          │  Popup con info de rutas              │
+│          │                                       │
+│ Radio    │                                       │
+│ slider   │                                       │
+│          │                                       │
+│ Stats    │                                       │
+│ (KPIs)   │                                       │
+│          │                                       │
+│ Lista    │                                       │
+│ paradas  │                                       │
+└──────────┴───────────────────────────────────────┘
+```
+
+### Colores por modo de transporte
+
+```javascript
+const MODE_COLORS = {
+    '3': '#2563eb',    // Autobús — azul
+    '0': '#7c3aed',    // Tranvía — púrpura
+    '1': '#dc2626',    // Metro — rojo
+    '2': '#dc2626',    // Subterráneo — rojo
+    '4': '#16a34a',    // Ferrocarril — verde
+    '5': '#ea580c',    // Funicular — naranja
+    '6': '#0891b2',    // Barco — cyan
+    '7': '#a855f7',    // Teleférico — violeta
+    '11': '#0d9488',   // Tren ligero — teal
+    '12': '#2563eb'    // Exprés — azul
+};
+```
+
+### Marcador de usuario con círculo de radio
+
+```javascript
+function updateUserMarker(lat, lon, radius) {
+    const userIcon = L.divIcon({
+        html: '<div style="width:14px;height:14px;background:#2563eb;border:3px solid white;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.3)"></div>',
+        iconSize: [14, 14], iconAnchor: [7, 7], className: ''
+    });
+    userMarker = L.marker([lat, lon], { icon }).addTo(map);
+    searchCircle = L.circle([lat, lon], {
+        radius: radius, color: '#2563eb', fillColor: '#2563eb',
+        fillOpacity: 0.08, weight: 2, dashArray: '5,5'
+    }).addTo(map);
+}
+```
+
+### Click en mapa → buscar paradas
+
+```javascript
+map.on('click', function(e) {
+    currentLat = e.latlng.lat;
+    currentLon = e.latlng.lng;
+    updateUserMarker(currentLat, currentLon);
+    buscarParadas();
+});
+```
+
+### Geocodificación con Nominatim + dropdown
+
+```javascript
+async function geocode(query) {
+    const resp = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&countrycodes=es`,
+        { headers: { 'User-Agent': 'GTFSSpain/1.0' } }
+    );
+    const data = await resp.json();
+    // Mostrar dropdown de 5 resultados, cada uno clickeable
+}
+```
+
+### Colores de paradas según modo dominante
+
+```javascript
+const routeTypes = routeIds.map(rid => allRoutes[rid]).filter(Boolean).map(r => r.type);
+const dominantType = routeTypes.length > 0 ? routeTypes[0] : '3';
+const color = MODE_COLORS[dominantType] || '#2563eb';
+
+const icon = L.divIcon({
+    html: `<div style="width:8px;height:8px;background:${color};border:2px solid white;border-radius:50%"></div>`,
+    iconSize: [8, 8], iconAnchor: [4, 4], className: ''
+});
+```
+
+### UI Requirements
+
+- **Mapa ocupa la mayor parte** — sidebar lateral estrecho (~380px)
+- **Sidebar con scroll** — búsqueda arriba, resultados abajo
+- **Radio visual** — círculo se actualiza en tiempo real con slider
+- **Popups informativos** — clic en parada o ruta
+- **KPIs en sidebar** — paradas, rutas, modos en grid 3 columnas
+- **Botones rápidos de ciudades** — Madrid, Barcelona, Sevilla, Valencia, POI
+- **Carga de ZIPs con barra de progreso** — drag & drop o click
+
+### Estructura
+
+```
+visor/
+└── index.html          # Todo autocontenido (Leaflet CDN + JSZip inline)
+```
+
+### Notas técnicas
+
+- **Leaflet CSS/JS por CDN** — funciona en cualquier navegador moderno
+- **JSZip embebido inline** — para funcionamiento 100% offline
+- **Nominatim rate limit** — 1 req/segundo, usar debounce
+- **CARTO light tiles** — basemap con labels
+- **preferCanvas: true** — mejor rendimiento con muchos marcadores
 
 ## Referencias
 
 - `references/nap-api-v2.md` — API oficial del Punto de Acceso Nacional de transporte (España)
+- `references/nap-volumen-real.md` — Volumen real de datos NAP: 161 datasets, 662 MB, 2M viajes (NUEVO 2026-06-23)
 - `references/timeineco-gtfs-integration.md` — Implementación completa en TimeIneco v0.7
+- `references/tmb-barcelona-gtfs-sources.md` — Fuentes GTFS TMB Barcelona y URLs probadas
+- `references/visor-leaflet-pattern.md` — Patrón de visor con mapa Leaflet interactivo (NUEVO)
+
+## Patrones relacionados
+
+- **`routing-isochrones` > GBFS** — Catálogo de 68 sistemas de bicicletas compartidas en España con feeds GBFS públicos. Para bicis en vez de transporte público.
+- **`routing-isochrones` > GBFS** — Catálogo de 68 sistemas de bicicletas compartidas en España con feeds GBFS públicos. Para bicis en vez de transporte público. Repo: `github.com/Ntizar/GBFSSpain`.
+- **`nap-data-pipeline`** — Pipeline de descarga y actualización de datos NAP/GTFS desde la API de transportes.gob.es.
+
+## GBFS v3.0 Parsing
+
+**Nuevo 2026-06-25:** GBFS v3.0 tiene diferencias estructurales importantes con v2.x. Ver `references/gbfs-v3-parsing.md` para:
+- Discovery feeds en `data.data.feeds` (no `data.feeds`)
+- `num_vehicles_available` en vez de `num_bikes_available`
+- `name` como array `[{text, language}]` (no string)
+- Booleanos vs enteros para `is_installed`/`is_renting`
+- Patrones de health check por plataforma
+
+## GTFS Sintético Realista (generación programática)
+
+Cuando no se puede descargar un GTFS real, generar uno sintético con datos realistas:
+
+**Script de referencia:** `scripts/generate-gtfs-synthetic.py` (ver skill `timeineco` sección GTFS Multi-Ciudad)
+
+**Características del GTFS sintético:**
+- Paradas con nombres reales de la ciudad (centros, barrios, estaciones)
+- Rutas basadas en líneas reales del operador
+- Coordenadas geográficas reales (lat/lng de la ciudad)
+- Shapes con interpolación entre paradas
+- Horarios con intervalos realistas (2-5 min entre paradas)
+- Trips de ida y vuelta por cada ruta
+- Calendario weekday/saturday/sunday
+
+**Estructura mínima necesaria para búsqueda de paradas:**
+- `routes[]` + `stops[]` + `route_stops{}` → suficiente para `findStopsNear()`
+- `trips[]` + `stop_times[]` → necesario para isocronas basadas en GTFS (BFS)
+- `shapes[]` → necesario para visualizar trazados en mapa
+
+**Pitfall:** Un GTFS sintético con solo `stops[]` y `route_stops{}` funciona para búsqueda de paradas cercanas pero NO para simulación de isocronas basadas en rutas GTFS (motor BFS necesita `stop_times[]` y `trips[]`).
+
+## GTFS Pre-caching en servidor (patrón Time v2.0)
+
+**Nuevo 2026-06-25:** Cuando se dispone de GTFS raw (ZIPs de NAP), crear un cache compacto JSON en el servidor que el frontend cargue automáticamente sin upload manual.
+
+### Flujo
+
+```
+GTFS raw (ZIP de NAP)
+  → Script Python pre-procesador (extrae stops, routes, trips, stop_times)
+  → JSON compacto por ciudad (data/gtfs-cache/{ciudad}.json)
+  → Endpoint servidor: /gtfs-cache/:city
+  → Frontend: auto-detecta ciudad → fetch JSON →Motor GTFS
+```
+
+### Script pre-procesador Python
+
+```python
+# scripts/procesar-gtfs-cache.py
+import json, csv, zipfile, io, sys, os
+
+def procesar_gtfs(zip_path, city_name):
+    data = {'stops': [], 'routes': [], 'trips': [], 'stop_times': [], '_meta': {}}
+    with zipfile.ZipFile(zip_path) as z:
+        # stops.txt
+        with z.open('stops.txt') as f:
+            reader = csv.DictReader(io.TextIOWrapper(f, encoding='utf-8-sig'))
+            for row in reader:
+                data['stops'].append({
+                    'stop_id': row['stop_id'],
+                    'stop_name': row['stop_name'],
+                    'stop_lat': float(row['stop_lat']),
+                    'stop_lon': float(row['stop_lon'])
+                })
+        # routes.txt
+        with z.open('routes.txt') as f:
+            reader = csv.DictReader(io.TextIOWrapper(f, encoding='utf-8-sig'))
+            for row in reader:
+                data['routes'].append({
+                    'route_id': row['route_id'],
+                    'route_short_name': row.get('route_short_name', ''),
+                    'route_long_name': row.get('route_long_name', ''),
+                    'route_type': row.get('route_type', '3')
+                })
+        # trips.txt (opcional)
+        if 'trips.txt' in z.namelist():
+            with z.open('trips.txt') as f:
+                reader = csv.DictReader(io.TextIOWrapper(f, encoding='utf-8-sig'))
+                for row in reader:
+                    data['trips'].append({
+                        'trip_id': row['trip_id'],
+                        'route_id': row['route_id']
+                    })
+        # stop_times.txt (opcional, limitar a 100k)
+        if 'stop_times.txt' in z.namelist():
+            with z.open('stop_times.txt') as f:
+                reader = csv.DictReader(io.TextIOWrapper(f, encoding='utf-8-sig'))
+                for i, row in enumerate(reader):
+                    if i >= 100000: break
+                    data['stop_times'].append({
+                        'trip_id': row['trip_id'],
+                        'stop_id': row['stop_id'],
+                        'departure_time': row.get('departure_time', '')
+                    })
+
+    data['_meta'] = {
+        'city': city_name,
+        'stops_count': len(data['stops']),
+        'routes_count': len(data['routes']),
+        'trips_count': len(data['trips']),
+        'stop_times_count': len(data['stop_times'])
+    }
+    return data
+```
+
+### Endpoint servidor (server.mjs)
+
+```javascript
+// /gtfs-cache/list → lista ciudades disponibles
+app.get('/gtfs-cache/list', (req, res) => {
+    const cacheDir = path.join(__dirname, 'data', 'gtfs-cache');
+    const files = fs.readdirSync(cacheDir).filter(f => f.endsWith('.json'));
+    const cities = files.map(f => {
+        const data = JSON.parse(fs.readFileSync(path.join(cacheDir, f)));
+        return { city: f.replace('.json', ''), ...data._meta };
+    });
+    res.json(cities);
+});
+
+// /gtfs-cache/:city → devuelve JSON compacto
+app.get('/gtfs-cache/:city', (req, res) => {
+    const cacheFile = path.join(__dirname, 'data', 'gtfs-cache', `${req.params.city}.json`);
+    if (!fs.existsSync(cacheFile)) return res.status(404).json({ error: 'Ciudad no encontrada' });
+    res.setHeader('Cache-Control', 'public, max-age=86400'); // 24h cache
+    res.json(JSON.parse(fs.readFileSync(cacheFile)));
+});
+```
+
+### Frontend: auto-carga por ciudad
+
+```javascript
+// En nap.js o main.js
+async function cargarDesdeServidor(ciudad) {
+    try {
+        const resp = await fetch(`/gtfs-cache/${ciudad}`);
+        if (!resp.ok) return null;
+        const data = await resp.json();
+        // Alimentar el motor GTFS existente
+        construirIndiceStopRoutes(data);
+        return data;
+    } catch (e) {
+        console.warn('Cache GTFS no disponible:', e);
+        return null;
+    }
+}
+
+// Auto-detectar ciudad y cargar
+async function autoLoadGTFS(displayName) {
+    const ciudad = detectarCiudad(displayName);
+    if (!ciudad) return;
+    const cacheData = await cargarDesdeServidor(ciudad);
+    if (cacheData) {
+        console.log(`GTFS pre-cargado: ${cacheData._meta.stops_count} paradas`);
+        renderizarPanelGTFS(cacheData);
+    }
+}
+```
+
+### Tamaños típicos
+
+| Ciudad | Paradas | Rutas | Tamaño JSON |
+|--------|---------|-------|-------------|
+| Bilbao | 533 | 58 | 153 KB |
+| Málaga | 1126 | 45 | 315 KB |
+| Sevilla | 1038 | 41 | 212 KB |
+| Valencia | 1155 | 68 | 336 KB |
+| Zaragoza | 996 | 33 | 287 KB |
+
+### Pitfall: no confundir con cache del navegador
+
+Este patrón es un cache **en el servidor** (archivos JSON en `data/gtfs-cache/`), NO el cache del navegador (`localStorage`). El cache del servidor:
+- Se actualiza con un script Python (no con upload del usuario)
+- Se sirve vía HTTP con cache headers
+- Es el mismo para todos los usuarios
+- No depende de que el usuario suba un ZIP
+
+El cache del navegador (`localStorage`) sigue siendo útil como fallback offline.
+
+## Pitfall: Catálogo embebido duplicado rompe fallback file://
+
+Cuando un HTML embebe datos inline para funcionar con `file://` (sin servidor), una línea duplicada en la asignación crea un array anidado que rompe el fallback:
+
+**BUG (línea duplicada):**
+```javascript
+window.GBFS_SYSTEMS_DATA = [
+    window.GBFS_SYSTEMS_DATA = [  // ← ESTA LÍNEA ROMPE TODO
+  { "name": "Sistema1", ... },
+  { "name": "Sistema2", ... }
+]
+```
+
+**Resultado:** `window.GBFS_SYSTEMS_DATA` es `[[sistema1, sistema2...]]` (anidado), no `[sistema1, sistema2...]`.
+
+**Síntoma:** "No se encontraron sistemas" al abrir con doble clic, pero funciona al servir con `python3 -m http.server`.
+
+**Causa:** La expresión `window.GBFS_SYSTEMS_DATA = [...]` retorna el array, que se envuelve en otro array por el corchete exterior.
+
+**FIX:** Eliminar la línea duplicada. Verificar que solo hay UNA asignación.
+
+**Verificación:** En consola del navegador: `Array.isArray(window.GBFS_SYSTEMS_DATA[0])` debe ser `false` (no `true`).
+
+## Pitfall CRÍTICO: Embebido de JSZip inline
+
+**NUNCA** embebas JSZip como `var jszip = 'contenido';` dentro de un `<script>` tag. El contenido de JSZip contiene comillas y caracteres que rompen el string y el HTML.
+
+**MÉTODO CORRECTO:** Insertar JSZip como un `<script>` inline independiente ANTES del script principal:
+
+```html
+<script>/* JSZip v3.10.1 minified content here */</script>
+<script>
+// Tu código del visor que usa JSZip
+</script>
+```
+
+**MÉTODO INCORRECTO (roto):**
+```html
+<script>var jszip = '...contenido JSZip...';</script>
+```
+
+**Verificación post-embebido:**
+1. `document.querySelectorAll('script').length` debe ser 3 (Leaflet CDN + JSZip inline + visor)
+2. `typeof JSZip !== 'undefined'` debe ser `true`
+3. `typeof window.initMap !== 'undefined'` debe ser `true`
+4. Si `initMap` es `undefined`, el script del visor NO se ejecutó — revisa cierres `</script>`
+
+**Patrón de fallo conocido:** Si al hacer un `replace` en el HTML se pierden los cierres `</script>`, `</body>`, `</html>`, el navegador no renderiza el mapa. Siempre verificar que el HTML tiene los 3 cierres.
+
+## Pitfall: Script inline no se ejecuta
+
+Si un `<script>` inline tiene funciones `async`/`await`, `eval()` y `new Function()` fallan con "Unexpected identifier". Esto NO significa que el script tenga error de sintaxis — el navegador ejecuta scripts inline con async/await correctamente. Para depurar, verificar `typeof window.initMap` en la consola del navegador (no usar `eval`).
+
+## Patrón: Visor con Mapa Leaflet Interactivo (v2.0)
+
+**NUEVO en 2026-06-23:** El usuario quiere un visor donde se pueda **elegir un punto desde un mapa**, ver un **círculo de radio visual**, y que las paradas se muestren en el mapa con **colores por modo de transporte**. No basta con una lista de texto.
+
+### Arquitectura del visor con mapa
+
+```
+┌──────────────────────────────────────────────────┐
+│  Header oscuro                                   │
+├──────────┬───────────────────────────────────────┤
+│ Sidebar  │  Mapa Leaflet (CARTO light)           │
+│          │                                       │
+│ Geocodif.│  [click → marcador + círculo radio]   │
+│ (Nominat.)│                                       │
+│          │  Marcadores paradas: color por modo   │
+│ Carga    │                                       │
+│ GTFS ZIP │                                       │
+│          │  Popup con info de rutas              │
+│          │                                       │
+│ Radio    │                                       │
+│ slider   │                                       │
+│          │                                       │
+│ Stats    │                                       │
+│ (KPIs)   │                                       │
+│          │                                       │
+│ Lista    │                                       │
+│ paradas  │                                       │
+└──────────┴───────────────────────────────────────┘
+```
+
+### Colores por modo de transporte
+
+```javascript
+const MODE_COLORS = {
+    '3': '#2563eb',    // Autobús — azul
+    '0': '#7c3aed',    // Tranvía — púrpura
+    '1': '#dc2626',    // Metro — rojo
+    '2': '#dc2626',    // Subterráneo — rojo
+    '4': '#16a34a',    // Ferrocarril — verde
+    '5': '#ea580c',    // Funicular — naranja
+    '6': '#0891b2',    // Barco — cyan
+    '7': '#a855f7',    // Teleférico — violeta
+    '11': '#0d9488',   // Tren ligero — teal
+    '12': '#2563eb'    // Exprés — azul
+};
+```
+
+### Marcador de usuario con círculo de radio
+
+```javascript
+function updateUserMarker(lat, lon, radius) {
+    const userIcon = L.divIcon({
+        html: '<div style="width:14px;height:14px;background:#2563eb;border:3px solid white;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.3)"></div>',
+        iconSize: [14, 14], iconAnchor: [7, 7], className: ''
+    });
+    userMarker = L.marker([lat, lon], { icon }).addTo(map);
+    searchCircle = L.circle([lat, lon], {
+        radius: radius, color: '#2563eb', fillColor: '#2563eb',
+        fillOpacity: 0.08, weight: 2, dashArray: '5,5'
+    }).addTo(map);
+}
+```
+
+### Click en mapa → buscar paradas
+
+```javascript
+map.on('click', function(e) {
+    currentLat = e.latlng.lat;
+    currentLon = e.latlng.lng;
+    updateUserMarker(currentLat, currentLon);
+    buscarParadas();
+});
+```
+
+### Geocodificación con Nominatim + dropdown
+
+```javascript
+async function geocode(query) {
+    const resp = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&countrycodes=es`,
+        { headers: { 'User-Agent': 'GTFSSpain/1.0' } }
+    );
+    const data = await resp.json();
+    // Mostrar dropdown de 5 resultados, cada uno clickeable
+}
+```
+
+### Colores de paradas según modo dominante
+
+```javascript
+const routeTypes = routeIds.map(rid => allRoutes[rid]).filter(Boolean).map(r => r.type);
+const dominantType = routeTypes.length > 0 ? routeTypes[0] : '3';
+const color = MODE_COLORS[dominantType] || '#2563eb';
+
+const icon = L.divIcon({
+    html: `<div style="width:8px;height:8px;background:${color};border:2px solid white;border-radius:50%"></div>`,
+    iconSize: [8, 8], iconAnchor: [4, 4], className: ''
+});
+```
+
+### UI Requirements
+
+- **Mapa ocupa la mayor parte** — sidebar lateral estrecho (~380px)
+- **Sidebar con scroll** — búsqueda arriba, resultados abajo
+- **Radio visual** — círculo se actualiza en tiempo real con slider
+- **Popups informativos** — clic en parada o ruta
+- **KPIs en sidebar** — paradas, rutas, modos en grid 3 columnas
+- **Botones rápidos de ciudades** — Madrid, Barcelona, Sevilla, Valencia, POI
+- **Carga de ZIPs con barra de progreso** — drag & drop o click
+
+### Estructura
+
+```
+visor/
+└── index.html          # Todo autocontenido (Leaflet CDN + JSZip inline)
+```
+
+### Notas técnicas
+
+- **Leaflet CSS/JS por CDN** — funciona en cualquier navegador moderno
+- **JSZip embebido inline** — para funcionamiento 100% offline
+- **Nominatim rate limit** — 1 req/segundo, usar debounce
+- **CARTO light tiles** — basemap con labels
+- **preferCanvas: true** — mejor rendimiento con muchos marcadores
+
+## Referencias
+
+- `references/nap-api-v2.md` — API oficial del Punto de Acceso Nacional de transporte (España)
+- `references/nap-volumen-real.md` — Volumen real de datos NAP: 161 datasets, 662 MB, 2M viajes (NUEVO 2026-06-23)
+- `references/timeineco-gtfs-integration.md` — Implementación completa en TimeIneco v0.7
+- `references/tmb-barcelona-gtfs-sources.md` — Fuentes GTFS TMB Barcelona y URLs probadas
+- `references/visor-leaflet-pattern.md` — Patrón de visor con mapa Leaflet interactivo (NUEVO)
+
+## Patrones relacionados
+
+- **`routing-isochrones` > GBFS** — Catálogo de 68 sistemas de bicicletas compartidas en España con feeds GBFS públicos. Para bicis en vez de transporte público.
+- **`routing-isochrones` > GBFS** — Catálogo de 68 sistemas de bicicletas compartidas en España con feeds GBFS públicos. Para bicis en vez de transporte público. Repo: `github.com/Ntizar/GBFSSpain`.
+- **`nap-data-pipeline`** — Pipeline de descarga y actualización de datos NAP/GTFS desde la API de transportes.gob.es.

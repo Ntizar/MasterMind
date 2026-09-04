@@ -57,3 +57,7 @@ synthesize(
 
 - Repo: `github.com/SWivid/F5-TTS` (14K⭐)
 - HuggingFace: `https://huggingface.co/SWivid/F5-TTS`
+
+## Comparativa de alternativas
+
+- **[SWivid/F5-TTS](https://github.com/SWivid/F5-TTS)** — se puede servir vía *Hugging Face Space* para demo instantánea sin GPU; incluye E2-TTS como variante Flat-UNet, fácil de probar sin montar inferencia local.

@@ -1,8 +1,8 @@
 ---
 name: webgl-headless-verification
-version: "1.0.0"
-description: "Use al verificar WebGL/Three.js headless sin GPU."
-tags: [webgl, threejs, puppeteer, swiftshader, headless, testing, verificacion, gpu]
+version: "1.1.0"
+description: "Use al verificar render 3D headless sin GPU (WebGL/Three.js y WebGPU/vgpu). Métodos por runtime: puppeteer+SwiftShader para WebGL, vgpu/node (Dawn)+read() para WebGPU."
+tags: [webgl, webgpu, vgpu, threejs, puppeteer, swiftshader, dawn, headless, testing, verificacion, gpu]
 ---
 
 # Verificación Headless de Apps WebGL/3D
@@ -32,6 +32,10 @@ Media constante que coincide con un color conocido de la escena (cielo, disco le
 
 ## Pitfalls críticos (todos verificados en Water3J v2)
 
+- **`MeshPhysicalMaterial` con `transmission` se ve NEGRO en render software y en GPUs débiles** (verificado aurora-prism, 2026-09-03): `transmission`/`ior`/`clearcoat` y las `PointLight` débiles hacen que el prisma salga como una silueta oscura bajo SwiftShader — y ese mismo "cristal negro" es lo que David vio y lo que le hizo reportar "no veo nada". **Arreglo:** usar un material que no dependa de transmisión de rayos ni de luces para el objeto principal: (a) `MeshPhysicalMaterial` con `transmission` BAJO (0.5) + `emissive` de respaldo (`emissiveIntensity ~0.6`) para que nunca quede un hueco negro, y (b) luces potentes (`PointLight` intensidad 150-180, no 26-30) + `AmbientLight` fuerte. Para el haz/objeto que debe verse SIEMPRE, usar `MeshBasicMaterial` + `vertexColors: true` (no depende de luces ni tone mapping → renderiza en cualquier GPU).
+- **`gl.readPixels` devuelve TODO ceros si no hay `preserveDrawingBuffer: true`** en el `WebGLRenderer` (el buffer se vacía tras el swap). En un canvas cuyo `context` no preserva el buffer, `readPixels` da 0 en todos los canales aunque la escena renderice — confundido con "no hay luz". Alternativa que no toca la app: `Page.captureScreenshot` por CDP + medir píxeles de la imagen (subir la screenshot a `page.evaluate`, leer con `getImageData` y clasificar).
+- **El canvas queda en 300×150 (tamaño por defecto) si el contenedor mide 0 al inicializar**: en headless, `container.clientWidth/clientHeight` puede ser 0 al cargar, y `renderer.setSize(0,0)` deja el canvas sin reescalar. Para tests, fijar el `defaultViewport` y llamar `renderer.setSize` tras un tick, o forzar un tamaño en el setup de la sonda.
+- **Medir color vivivo (saturación), no solo luminancia, para validar un objeto de color:** el beam R/G/B tiene `sat = max-min > 60 && max > 90`. Clasificar cada píxel como `color/dim/dark` y contar — así se aísla un haz de colores de un fondo estrellado azul-gris que, con solo luminancia, parece "tener estructura". NOTA: si la sonda se implementa dentro de `page.evaluate`, la función clasificadora debe vivir DENTRO (no fuera, donde `is not defined`).
 - **SwiftShader da frames parciales/incompletos**: las screenshots muestran bandas diagonales de color o el frame inicial; el análisis de visión dirá "mar plano" aunque el buffer GL tenga relieve. NUNCA concluir desde una captura — medir píxeles.
 - **Coste de vertex shader satura el render software**: umbral estrecho (37k vértices × 48 olas Gerstner satura → solo frames viejos; 12 olas pasa). Reducir componentes visuales, no la física.
 - **rAF funciona (~12 fps headless)**: si la app avanza y el HUD cambia, el loop está vivo; el problema es de coste de frame, no de congelación.
@@ -54,6 +58,31 @@ Media constante que coincide con un color conocido de la escena (cielo, disco le
 ## Receta de sonda de píxeles
 
 Ver `scripts/sonda-pixeles.mjs` — puppeteer headless, aplica un preset, espera, mide franjas del buffer y reporta rango/media por tercios. Copiar y adaptar los selectores (`window.Water3J.*`) al proyecto.
+
+## WebGPU (vgpu) — vía alternativa
+
+Para **WebGPU con vgpu** NO usar puppeteer+SwiftShader: usar el adapter Dawn de
+`vgpu/node` y leer píxeles del target con `target.read()`. Determinista, sin GPU real,
+sin aprobación de Chrome. Detalle y umbrales: `references/webgpu-vgpu-headless.md`.
+
+**Pitfall confirmado (repo aurora-prism, 2026-09-03):** en Chrome headless con
+`--enable-webgpu`, `navigator.gpu.requestAdapter()` devuelve **`null`** y la consola da
+`VGPUError: navigator.gpu.requestAdapter() returned null` / `[warn] No available adapters`.
+El adapter WebGPU de software **no** está disponible en Chromium headless (SwiftShader cubre
+WebGL, no WebGPU). El `fallback` de la app se muestra correctamente → no es un bug del código.
+Verificación siempre por la vía `vgpu/node` (Dawn).
+
+**Pitfall del `.wgsl` en Node ESM (para tests con `vgpu/node`):** `import shader from './x.wgsl'`
+falla con `ERR_UNKNOWN_FILE_EXTENSION: Unknown file extension ".wgsl"` porque no hay un
+loader-node ESM. Los `.wgsl` solo se importan como módulo con el plugin Vite (navegador).
+En tests Node pasar el shader como **string**: `const s = readFileSync('./x.wgsl', 'utf8')` y
+`draw(gpu, { shader: s })`.
+
+**Umbral verificable de la sonda WebGPU:** renderizar a un `target` de 256×256, leer con
+`read()` y medir min/max/media de luminancia por tercios. El veredicto "OK — hay estructura de
+luz" se da cuando al menos un tercio alcanza `max >= 20`. Todo-cero (`min=max=0`) = pipeline
+compila pero la cámara/geometría no encuadra (en `vgpu/node` el `viewProjection` ya viene
+combinado — no pongas `proj` y `view` por separado).
 
 ## Referencias Cruzadas
 

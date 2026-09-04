@@ -1,16 +1,16 @@
 ---
 name: stem-basics
-version: "2.0.0"
+version: "2.1.0"
 description: "Ecosistema de ciencias básicas: navegación por los 40+ skills granulares de la clase stem/. Incluye matemáticas, física, química, biología, ciencias de la Tierra, dibujo técnico y metodología científica."
 category: "stem"
-tags: [stem, math, physics, chemistry, biology, earth-science, technical-drawing, scientific-method]
+tags: [stem, math, physics, chemistry, biology, earth-science, technical-drawing, scientific-method, research]
 ---
 
 # Ciencias Básicas (STEM) — Umbrella
 
 ## Resumen
 
-Navegación y orquestación de los **40+ skills granulares** de la clase `stem/`. Organizados por disciplina, cada skill es autocontenido con instrucciones, fórmulas, ejemplos y referencias.
+Navegación y orquestación de los **50+ skills granulares** de la clase `stem/`. Organizados por disciplina, cada skill es autocontenido con instrucciones, fórmulas, ejemplos y referencias.
 
 ## Estructura del ecosistema
 
@@ -28,6 +28,7 @@ Navegación y orquestación de los **40+ skills granulares** de la clase `stem/`
 | `math-calculo-diferencial` | Límites, continuidad, derivadas, regla de cadena, optimización, Taylor/Maclaurin |
 | `math-calculo-integral` | Integrales definidas/indefinidas, técnicas (sustitución, partes, fracciones parciales), áreas, volúmenes |
 | `math-estadistica-probabilidad` | Estadística descriptiva/inferencial, distribución normal, intervalos, tests, Bayes, regresión |
+| `math-foundations` | **Nuevo**: Álgebra elemental, geometría euclidiana, trigonometría básica, números reales, potencias y raíces |
 
 ### Física (`stem/physics`)
 
@@ -44,6 +45,8 @@ Navegación y orquestación de los **40+ skills granulares** de la clase `stem/`
 | `physics-optica` | Reflexión, refracción, Snell, lentes, espejos, instrumentos, interferencia, difracción, polarización |
 | `physics-termodinamica` | Leyes, gases ideales, ciclos, entropía, trabajo, calor, temperatura |
 | `physics-expert` | Teoría cuántica de campos, partículas, cosmología, plasmas |
+| `physics-mecanica` | **Nuevo**: Cinemática, dinámica, trabajo/energía, rotación, gravitación, termodinámica |
+| `physics-electromagnetismo` | **Nuevo**: Electrostática, circuitos, magnetismo, inducción, ondas electromagnéticas |
 
 ### Ingeniería (`stem/engineering`)
 
@@ -74,6 +77,30 @@ Navegación y orquestación de los **40+ skills granulares** de la clase `stem/`
 | `td-acotacion` | ISO 129, tipos de cota, funcionales, auxiliares, reglas |
 | `td-tolerancias` | ISO 286/1101, GPS, ajustes agujero/eje, representación |
 | `td-advanced` | Tolerancias geométricas avanzadas, piezas complejas, planos de conjunto |
+
+### Química (`stem/chemistry`)
+
+| Skill | Contenido |
+|-------|-----------|
+| `chemistry-basica` | **Nuevo**: Estequiometría, enlaces, reacciones, tabla periódica, ácidos y bases, equilibrio |
+
+### Biología (`stem/biology`)
+
+| Skill | Contenido |
+|-------|-----------|
+| `biologia-celular` | **Nuevo**: Biología celular, bioquímica, genética, evolución, ecología |
+
+### Ciencias de la Tierra (`stem/earth-science`)
+
+| Skill | Contenido |
+|-------|-----------|
+| `earth-sciences` | **Nuevo**: Geología, meteorología, climatología, oceanografía, hidrología |
+
+### Metodología Científica (`stem/research`)
+
+| Skill | Contenido |
+|-------|-----------|
+| `scientific-method` | **Nuevo**: Método científico, diseño experimental, análisis de datos, incertidumbre |
 
 ## Cómo usar
 
@@ -108,14 +135,15 @@ Si la búsqueda semántica (ChromaDB) no encuentra un skill granular relevante:
 
 ## Pitfalls
 
-- **ChromaDB no detecta skills nuevos automáticamente** — después de crear/modificar cualquier skill STEM, ejecutar `bash scripts/indexar-skills.py` para re-indexar. Si ChromaDB no responde, arrancar antes: `bash scripts/start-chromadb.sh`.
-- **Cargar el skill granular, no este umbrella** — este skill (`stem-basics`) es un índice de navegación. Para resolver problemas reales, cargar el skill específico con `skill_view(name='stem/math/math-calculo-diferencial')`.
-- **No crear skills `skill-xxx` planos** — todos los skills STEM deben seguir la convención `stem/<disciplina>/<tema>` (ej: `stem/math/math-calculo-diferencial`). No crear como `skill-math-calculus` en la raíz de `agent/skills/`.
+- **ChromaDB no detecta skills nuevos automáticamente** — después de crear/modificar cualquier skill STEM, ejecutar `bash /hermes-home/scripts/indexar-skills.py` para re-indexar. Si ChromaDB no responde, arrancar antes: `bash /hermes-home/scripts/start-chromadb.sh`.
+- **Cargar el skill granular, no este umbrella** — este skill (`stem-basics`) es un índice de navegación. Para resolver problemas reales, cargar el skill específico con `skill_view(name='math-calculo-diferencial')` (sin prefijo `stem/` ni `skill-`).
+- **Los skills STEM pueden estar en dos ubicaciones**: (1) `stem/<disciplina>/<nombre>` en subdirectorios, o (2) `skill-<nombre>` en la raíz de `/hermes-home/skills/`. Ambos formatos son válidos. El umbrella `stem-basics` referencia ambos. Al cargar un skill, usar el nombre exacto del directorio.
 - **Subagentes pueden crear `skill.yaml`** — cuando se delega creación masiva, verificar que el archivo se llama `SKILL.md`. Si hay `skill.yaml`, renombrar.
 - **ESIOS `time_trunc=hour` SUMA, no promedia** — si se usa en contextos STEM relacionados con energía, usar `convertEsiosValue()` de `esios-units.js`.
+- **Antes de crear un skill STEM nuevo, verificar el umbrella** — siempre cargar `stem-basics` primero con `skill_view(name='stem-basics')` para comprobar si ya existe un skill granular que cubra el tema.
 
 ## Notas
 
 - Los skills están en ChromaDB (colección `mastermind-skills`) para búsqueda semántica.
-- Re-indexar después de crear/actualizar: `bash scripts/indexar-skills.py`
+- Re-indexar después de crear/actualizar: `bash /hermes-home/scripts/indexar-skills.py`
 - Ver también: `chromadb-skills-vector-search` para el sistema de búsqueda semántica.

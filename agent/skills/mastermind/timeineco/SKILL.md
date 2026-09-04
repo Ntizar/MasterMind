@@ -1,446 +1,363 @@
 ---
-name: timeineco
-version: "1.1.0"
-description: "TimeIneco — visor de isocronas multi-modo (coche, bus, metro, tranvía, bici, andando) con motor ORS real, fallback simulación orgánica, datos demográficos reales por código postal (salarios INE, precios vivienda, CO₂), GTFS EMT Madrid, DOCX informe 12+ secciones, y SHP real para QGIS."
+name: time
+version: "5.0.0"
+description: "Time — visor de isocronas multi-modo con ORS, IGN maps, GTFS upload, GBFS, Kaizen Design, CSV export, interpretaciones automáticas. Informes profesionales DOCX. Desplegado en NaN.builders."
 author: David Antizar
-tags: [timeineco, isochrones, gtfs, routing, ors, nap, leaflet, transport, mobility, docx, shapefile, shp]
+tags: [time, isochrones, gtfs, routing, ors, nap, leaflet, transport, mobility, docx, shapefile, shp, datos-reales, ign, kaizen, csv, gbfs]
+related_skills: [ign-wmts-tiles, isochrone-routing-tools, kaizen-design-system]
 ---
 
-# TimeIneco — Visor de Isocronas Multi-Modo
+# Time — Isocronas de Movilidad Laboral
 
-TimeIneco calcula y visualiza **isocronas** (áreas accesibles en X tiempo) para 4 modos de transporte con 3 rangos temporales cada uno. Desplegado en NaN.builders.
+Time (antes TimeIneco) calcula y visualiza **isocronas** (áreas accesibles en X tiempo) para múltiples modos de transporte. Genera informes DOCX profesionales + CSV completo con datos demográficos reales del INE, paradas GTFS, estaciones de bicicleta compartida, y análisis de costes/emisiones.
 
-**URL:** `https://timeineco-ntizar-ntizar.apps.nan.builders/`
-
-**Repositorio:** GitHub `Ntizar/TimeIneco` (privado)
+**URL:** `https://time-ntizar-ntizar.apps.nan.builders/`
+**Repositorio:** GitHub `Ntizar/Time` (privado, renombrado desde TimeIneco)
+**Diseño:** Kaizen Design System v4.0 (flat corporativo, azul #1A4488 + rojo #CB1823)
+**Base map:** IGN WMTS (gris, topográfica, ortofoto)
 
 ---
 
-## 1. Arquitectura General
+## 1. Arquitectura General (v5.0)
 
 ```
 Frontend (HTML/JS vanilla, sin framework)
-    ├── Leaflet (mapa base CartoDB Positron)
+    ├── Leaflet (mapa base: IGN WMTS 3 capas + CARTO fallback)
+    ├── Kaizen Design System (CDN: cdn.jsdelivr.net/gh/Ntizar/kaizen-design-system@master/kaizen.css)
     ├── OpenRouteService API (isocronas reales vía proxy Node.js)
-    ├── Motor de simulación orgánica (fallback sin ORS)
-    ├── GTFS Engine browser-side (paradas cercanas a 500m + rutas)
+    ├── CityBikes API (bicicletas públicas tiempo real, 74 redes España)
+    ├── GTFS Engine browser-side (paradas cercanas + rutas + horarios)
     ├── Turf.js (coastline clipping)
-    ├── Clipping costero (Natural Earth 110m)
-    ├── docx.js (informe DOCX 10 secciones — reemplaza jsPDF)
-    ├── JSZip (subida de GTFS ZIP + export SHP)
-    └── shp.js (ESRI Shapefile QGIS-compatible: .shp/.shx/.dbf/.prj)
+    ├── docx-report.js (DOCX informe 15 secciones)
+    ├── csv-export.js (CSV completo para análisis longitudinal)
+    ├── interpretaciones.js (interpretaciones automáticas del dato)
+    ├── layers.js (control de capas toggleables)
+    ├── JSZip (subida de GTFS ZIP + export batch)
+    └── shp.js (ESRI Shapefile QGIS-compatible + filtrado por distancia/modo)
 
 Backend (Node.js, server.mjs)
-    ├── Proxy ORS (POST /isochrone)
+    ├── .env loader manual (sin dotenv)
+    ├── Proxy ORS (POST /isochrone)         ← ORS_API_KEY
+    ├── Proxy NAP (POST /nap-download-gtfs)  ← NAP_API_KEY
+    ├── Proxy CityBikes (GET /citybikes/*)   ← sin key
     ├── Proxy GTFS download (POST /gtfs-download)
+    ├── Proxy Nominatim (GET /geocode)
     ├── Health check (GET /healthz)
-    └── Static files + MIME types
+    └── Static files
 ```
 
-## 2. Modos de Transporte
+### Módulos nuevos (v5.0)
 
-| Modo | Perfil ORS | Simulación | Velocidad | Color |
-|------|-----------|-----------|-----------|-------|
-| Coche 🚗 | `driving-car` | 40 km/h, calles marcadas (σ 0.10, peso 0.35) | 40 km/h | `#2563eb` |
-| Bus 🚌 | `driving-car` (ORS no tiene bus) | 12 km/h, orgánico | 12 km/h | `#a855f7` |
-| Metro 🚇 | `driving-car` (aproximación) | 32 km/h, radial | 32 km/h | `#ef4444` |
-| Tranvía 🚊 | `driving-car` (aproximación) | 20 km/h, radial suave | 20 km/h | `#06b6d4` |
-| Bici 🚲 | `cycling-regular` | 15 km/h, estrellado (σ 0.12, peso 0.20), elevación simulada | 15 km/h | `#f97316` |
-| Andando 🚶 | `foot-walking` | 5 km/h, difuso (σ 0.18, peso 0.07) | 5 km/h | `#22c55e` |
+| Módulo | Función | Fichero |
+|--------|---------|---------|
+| `layers.js` | Control de capas toggleables del mapa | `js/layers.js` |
+| `csv-export.js` | CSV completo con todos los datos | `js/csv-export.js` |
+| `interpretaciones.js` | Generador automático de interpretaciones | `js/interpretaciones.js` |
+| `config.js` | Config centralizada con URLs IGN | `js/config.js` |
 
-Rangos: **15, 30, 45, 60 minutos** (configurable).
+---
 
-### Datos Demográficos (v1.0)
+## 2. Mapa Base — IGN WMTS
 
-`demographics.js` carga datasets JSON desde `/data/` y enriquece cada isócrona:
+**Fuente:** Instituto Geográfico Nacional, WMTS gratuito, CC BY 4.0
+**URL:** `https://www.ign.es/wmts/ign-base`
 
-- **Códigos postales** (`data/codigos-postales-spain.json`): 299 CPs con centroides, densidad, municipio, provincia, comunidad
-- **Salarios medios** (`data/salarios-medios.json`): 51 provincias, datos INE 2024-2025
-- **Precios vivienda** (`data/precios-vivienda.json`): 127 CPs con €/m² alquiler y compra
+### Capas disponibles
 
-Funciones clave:
-- `buscarCP(lat, lng)` → CP más cercano con datos enriquecidos
-- `buscarCPsEnPoligono(coords)` → todos los CPs dentro de una isócrona
-- `estadisticas(cps)` → población, salario medio, precios de la zona
-- `calcularAhorroCO2(distancia)` → CO₂ por modo con equivalencia en árboles
-- `calcularPorcentajeSueldo(coste, salario)` → % del salario en transporte
-- `cargarGTFS()` → carga datos GTFS (paradas + rutas) al inicio junto con datos demográficos
-- `buscarParadasCercanas(lat, lng, radioKm=1.5)` → {paradas, lineas, resumen} — paradas de bus/metro dentro de un radio, con rutas que pasan por cada una
-- `buscarLineasConectoras(lat1, lng1, lat2, lng2)` → líneas que conectan dos puntos (por paradas cercanas a ambos)
+| Capa | Descripción | Default |
+|------|-------------|---------|
+| `IGNBase-gris` | Topográfico en escala de grises | ✅ SÍ (mejor para datos) |
+| `IGNBaseTodo` | Topográfico completo (colores) | |
+| `IGNBaseOrto` | Ortofotografía (foto aérea) | |
+| CARTO Light | Fallback OSM | |
 
-### Búsqueda de Transporte Público Cercano (v1.1)
-
-Al clicar un punto, `main.js` ejecuta `buscarParadasCercanas()` que:
-1. Recorre todas las paradas GTFS y calcula distancia Haversine
-2. Filtra por radio (default 1.5km)
-3. Para cada parada, busca en `route_stops` qué rutas pasan por ella
-4. Compila lista de líneas únicas ordenadas por cobertura (paradas en radio)
-5. Devuelve resumen: total paradas, total líneas, parada más cercana, distribución por tipo
-
-**Pitfall:** Las paradas GTFS del cache pueden tener `route_stops` con stop_ids que no coinciden exactamente con los stop_ids de `stops[]`. Verificar que el `stop_id` en `route_stops` existe en `stops[]` antes de buscar rutas.
-
-**Pitfall:** `demographics.js` usa `fetch()` para cargar datos → funciona en browser pero NO en Node.js directo. Para tests unitarios, cargar los JSON manualmente con `fs.readFileSync()`.
-
-### Salarios por CP (v1.1.1)
-
-**Problema:** Los salarios por provincia (`salarios-medios.json`) dan el MISMO salario a todos los CPs de una provincia. Chamberí y Vallecas reciben 32.500€ ambos, cuando en realidad Chamberí ~35.500€ y Vallecas ~23.000€.
-
-**Solución:** `salarios-por-cp.json` — estimación por CP usando el **precio del alquiler como proxy de poder adquisitivo** (correlación ~0.75 con salarios reales en España):
-
+### Tile URL pattern
 ```javascript
-// Fórmula de estimación
-rent_ratio = alq_m2_cp / alq_m2_provincia_promedio
-salary_adj = base_provincia * (1 + (rent_ratio - 1) * 0.5)  // elasticidad 0.5
-// Clamped: 70%-150% del salario provincial
+`${IGN.base}?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${capa}&STYLE=default&TILEMATRIXSET=GoogleMapsCompatible&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}&FORMAT=image/jpeg`
 ```
 
-**Datos:** 299 CPs con salario estimado. Rango: 18.685€ — 40.185€. Media: 26.967€.
+### Pitfalls IGN
+- `FORMAT=image/jpeg` OBLIGATORIO (si no → error 400)
+- NO usar `IGNBaseSimplificado` ni `IGNBaseTodo-nofondo` (devuelven 400)
+- Atribución: `© IGN — Instituto Geográfico Nacional (CC BY 4.0)`
 
-**Pitfall:** La correlación alquiler→salario no es perfecta (~0.75). Zonas universitarias o industriales pueden tener alquiler bajo pero salarios medios-altos. Para producción, cruzar con EPA por distrito + convenios colectivos por sector.
-
-### Informes Multi-Ciudad (v1.1.2)
-
-**Patrón:** Función parametrizable `build_report(lat, lng, nombre, ciudad, archivo)` que genera un informe HTML completo para **cualquier punto de España**.
-
-**Archivos generados:**
-- `informe-plaza-mayor-madrid.html` — 40.4167, -3.7038
-- `informe-nuevos-ministerios-madrid.html` — 40.4464, -3.6921
-- `informe-barcelona-sants-ave.html` — 41.3792, 2.1404
-
-**Estructura del informe HTML:**
-1. Mapa Leaflet interactivo con círculos de radio por modo (5km → 40km)
-2. Resumen ejecutivo (6 KPIs)
-3. Transporte público cercano (top 10 paradas + top 15 líneas)
-4. Población accesible por modo y tiempo
-5. **Coste por minuto** (la sección estrella — €/min por modo)
-6. Escenarios teletrabajo (5d/3+2d/2+3d/full remote)
-7. CO₂ y coste para la empresa (EU ETS 50€/ton)
-8. Mercado inmobiliario (top 10 CPs)
-9. Comparativa visual (barras)
-10. Recomendaciones para RRHH y empleado
-
-**Cómo usar:**
+### Integración en map.js
 ```javascript
-// En execute_code o script Python
-build_report(lat, lng, "Nombre del punto", "Ciudad", "/ruta/salida.html")
+tileLayers.ignGris = L.tileLayer(CONFIG.IGN.tileUrl(CONFIG.IGN.capas.gris), {
+  attribution: CONFIG.IGN.attribution,
+  maxZoom: CONFIG.IGN.maxZoom
+});
+// Default: IGN Gris
+tileLayers.ignGris.addTo(mapa);
+// Control de capas
+L.control.layers({
+  '🗺️ IGN Gris (datos)': tileLayers.ignGris,
+  '🏔️ IGN Topográfica': tileLayers.ignTopo,
+  '🛰️ IGN Ortofotografía': tileLayers.ignOrto,
+  '🌐 CARTO Light': tileLayers.cartoLight
+}, null, { position: 'topright' }).addTo(mapa);
 ```
 
-**Pitfall:** El GTFS por defecto solo tiene datos de Madrid (EMT). Para Barcelona u otras ciudades, crear un `gtfs-cache-{ciudad}.json` y fusionarlo:
-```python
-gtfs = {
-    'routes': gtfs_madrid['routes'] + gtfs_otra_ciudad['routes'],
-    'stops': gtfs_madrid['stops'] + gtfs_otra_ciudad['stops'],
-    'route_stops': {**gtfs_madrid['route_stops'], **gtfs_otra_ciudad['route_stops']},
-}
+---
+
+## 3. Diseño — Kaizen Design System v4.0
+
+**CDN:** `cdn.jsdelivr.net/gh/Ntizar/kaizen-design-system@master/kaizen.css`
+**CSS custom:** `css/time-custom.css` (<100 líneas, overrides mínimos)
+
+### Colores oficiales
+
+| Color | Hex | Uso |
+|-------|-----|-----|
+| Azul principal | `#1A4488` | Header, botones primarios, acentos, isócrona coche |
+| Rojo | `#CB1823` | Complementario, alertas |
+| Azul medio | `#3463AC` | Complementario secundario |
+| Azul claro | `#6B96CF` | Complementario terciario |
+
+### Layout
+- Sidebar 380px fijo (`.kz-sidebar`)
+- Header 60px (`.kz-header`)
+- Mapa full-width (`.kz-map`)
+- Grid: `.kz-grid-sidebar { display: grid; grid-template-columns: 380px 1fr; }`
+
+### Reglas Kaizen
+- **NO** cards bordeadas pesadas, sombras, gradientes, bordes >1px
+- **SÍ** diseño plano, separadores sutiles (1px), títulos azul con línea debajo
+- Clases: `kz-btn-primary`, `kz-input`, `kz-chips`, `kz-chip`, `kz-table-mini`, `kz-dropzone`, `kz-stats-row`, `kz-stat-box`
+
+### HTML pattern
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ntizar/kaizen-design-system@master/kaizen.css">
+<link rel="stylesheet" href="css/time-custom.css?v=1">
 ```
 
-**Pitfall:** Si no hay paradas GTFS en 1.5km del punto (ciudad sin datos), el informe debe manejar `paradas_top[0]` vacío. Añadir check: `if paradas_top:` antes de acceder.
+---
 
-### GTFS Barcelona (v1.1.2)
+## 4. Sistema de Capas (layers.js)
 
-`data/gtfs-cache-barcelona.json` — 61 paradas, 8 rutas:
-- **L1** (Roja): Hospital de Bellvitge ↔ Fondo (12 paradas)
-- **L3** (Verde): Zona Universitària ↔ Trinitat Nova (15 paradas)
-- **L5** (Azul): Cornellà Centre ↔ Vall d'Hebron (12 paradas)
-- **L9**: Aeroport T1 ↔ ZAL Riu Vell (6 paradas)
-- **R1** Rodalies: Sants → Clot (6 paradas)
-- **Bus TMB**: H12, V15, D20 (10 paradas)
+Toggle individual de capas del mapa. Cada capa es un `L.layerGroup()` independiente.
 
-Parada más cercana a Sants: **Sants Estació (0m)** — L1+L3+L5+R1 convergen.
+### Capas disponibles
 
-### Coste por Minuto y Teletrabajo (v1.1.1)
+| Capa ID | Nombre | Default | Grupo |
+|---------|--------|---------|-------|
+| `isocrona_coche` | 🚗 Isócrona Coche | ON | isocronas |
+| `isocrona_bici` | 🚲 Isócrona Bici | ON | isocronas |
+| `isocrona_foot` | 🚶 Isócrona Andando | ON | isocronas |
+| `isocrona_bus` | 🚌 Isócrona Bus | ON | isocronas |
+| `isocrona_metro` | 🚇 Isócrona Metro | ON | isocronas |
+| `paradas_gtfs` | 🚏 Paradas GTFS | OFF | transporte |
+| `lineas_gtfs` | 📐 Líneas de Ruta | OFF | transporte |
+| `estaciones_gbfs` | 🚲 Estaciones Bici | OFF | bici |
+| `radio_500m` | ⭕ Radio 500m | ON | auxiliar |
+| `cp_boundary` | 📮 Código Postal | OFF | auxiliar |
 
-Nuevas funciones en `demographics.js`:
-
+### API
 ```javascript
-// Coste por minuto de desplazamiento
-calcularCostePorMinuto(minutosIda, salarioBruto, modo, distanciaKm)
-// → { coste_mensual, coste_anual, coste_por_minuto, salario_neto_anual,
-//     sueldo_neto_trasporte, pct_neto, co2_anual_kg, co2_precio_eur }
-
-// Escenarios de teletrabajo (5d/3+2d/2+3d/full remote)
-calcularEscenariosTeletrabajo(minutosIda, salarioBruto, modo, distanciaKm)
-// → { base, escenarios[], ahorro_total_teletrabajo }
-
-// CO₂ con precio EU ETS para la empresa
-calcularCosteCO2Empresa(co2AnualKg, sector='general')
-// → { coste_ets, coste_reputacional, certificado_voluntario, coste_total }
+import { initLayers, toggleCapa, renderPanelCapas, limpiarTodasCapas, getLayerGroup } from './layers.js';
+initLayers(mapa);           // Crear layerGroups
+toggleCapa('paradas_gtfs');  // Toggle ON/OFF
+renderPanelCapas();          // Renderizar panel en sidebar
+getLayerGroup('isocrona_car'); // Obtener L.layerGroup para agregar features
 ```
 
-**Constantes clave:**
-- `PRECO2_EUR_KG = 0.050` (50€/tonelada EU ETS 2025)
-- `DIAS_LABORALES = 230`
-- IRPF estimado por tramo: 15%/21%/28%/35%/42%
-- Precios sector: general=50, banca=80, industria=45, tecnología=60 €/ton
+---
 
-**KPIs ejemplo (Plaza Mayor, 60min metro):**
-- Coste por minuto: 0.02€
-- Sueldo neto trasporte: 19.151€/año
-- CO₂ empresa: 1.104 ton = 55€ EU ETS/año
-- Ahorro 3d teletrabajo: 10€/año
+## 5. Export — DOCX + CSV + ZIP
 
-**Pitfall:** El IRPF es una estimación por tramo. El cálculo real depende de circunstancias personales (hijos, discapacidad, etc.). El informe debe indicar "IRPF estimado" explícitamente.
+### DOCX (15 secciones)
+1. Portada, 2. Resumen Ejecutivo, 3. Mapa de Isocronas, 4. Datos Demográficos, 5. Transporte Público, 6. Bicicletas, 7. Comparativa por Modo, 8. Costes, 9. Escenarios Teletrabajo, 10. CO₂, 11. Ranking CPs, 12. Alertas, 13. Rutas Recomendadas, 14. Metodología y Fuentes, 15. Créditos
 
-## 3. Motor de Isocronas
+### CSV completo (csv-export.js)
+Archivo con TODOS los datos para análisis longitudinal (comparativa año a año).
 
-### ORS Real (prioritario)
+**Estructura:** `seccion,categoria,indicador,valor,unidad,fuente,anio_fuente,fecha_generacion`
 
-- Endpoint proxy: `POST /isochrone` → ORS API
-- Perfiles: `driving-car`, `foot-walking`, `cycling-regular`
-- APi key en `.env`, servidor arrancado con `node --env-file=.env server.mjs`
-- Health check: `GET /healthz` → `{ ors_api: true/false }`
+**Secciones CSV:** resumen, isocrona, transporte, bici, costes, co2
 
-### Simulación Orgánica (fallback)
+**Pitfall:** Incluir BOM UTF-8 (`\uFEFF`) para compatibilidad con Excel.
 
-Cuando ORS no responde, se usa un motor de simulación local que NO genera círculos perfectos:
+### ZIP batch
+Un click genera ZIP con: `time-datos.csv`, `time-isocronas.geojson`, `time-paradas-gtfs.geojson`, `time-estaciones-bici.geojson`, `README.md`
 
-1. **72 puntos base** (5° spacing)
-2. **5 capas de ruido multicapa** (frecuencias: 0.7, 2.3, 5.1, 11.3, 17.1)
-3. **12 corredores radiales** (calles principales cada 30° + secundarias offset 15°)
-4. **[Bici] Campo de elevación simulado** (5 capas de ruido orográfico, penaliza radio hasta 30%)
-5. **Suavizado Gaussiano** 3-ventana ([0.25, 0.50, 0.25])
-6. **Clipeo costero** (turf.intersect con Natural Earth 110m)
+---
 
-### Clipeo Costero
+## 6. Interpretaciones Automáticas (interpretaciones.js)
 
-Ver skill `isochrone-routing-tools` sección 8. Datos: Natural Earth 110m land (135KB, 127 features). Carga lazy solo si el punto está en zona costera (lista de 16+ ciudades). Fallback a polígono mínimo ~50m si la isocrona cae completamente en el mar.
+Genera texto narrativo profesional a partir de los datos calculados.
 
-## 4. GTFS Engine
+### Secciones
+- **Accesibilidad:** Compara áreas por modo, ratio coche/pie
+- **Transporte público:** Número de paradas, líneas, frecuencia estimada
+- **Bicicletas:** Estaciones cercanas, bicis disponibles, más cercana
+- **Costes:** Coste anual por modo, ahorro teletrabajo por escenarios
+- **CO₂:** Emisiones anuales, equivalente en árboles, reducción con TP
+- **Demografía:** Población, salario, precios de la zona
+- **Recomendaciones:** Acciones concretas basadas en los datos
 
-### Qué hace
+### API
+```javascript
+import { generarInterpretaciones } from './interpretaciones.js';
+const interp = generarInterpretaciones(resultados, punto, modos, tiempos, gtfsData, biciData, transporteCercano, demograficos);
+// interp.accesibilidad, interp.transportePublico, interp.bicicletas, interp.costes, interp.co2, interp.demografia, interp.recomendaciones
+```
 
-- Detecta ciudad del usuario por coordenadas
-- Muestra operadores candidatos (EMT Madrid, EMTUSA Gijón, ALSA, etc.)
-- Carga GTFS del operador elegido (desde cache localStorage o subida ZIP)
-- Busca paradas a ≤1.5km del origen (Haversine)
-- Muestra rutas disponibles (chips de líneas)
-- Exporta paradas a GeoJSON
-- Incluye tabla en PDF
+---
 
-### Datos simulados
+## 7. APIs Configuradas (.env)
 
-`data/gtfs-cache.json` contiene datos EMT Madrid (46 rutas, 250 paradas). Es suficiente para demo sin conexión a API real.
+**CRÍTICO:** El servidor NO usa dotenv. Loader manual en server.mjs.
 
-**Pitfall GTFS sintético:** El cache puede tener 0 trips, 0 stop_times, 0 shapes. Esto es suficiente para búsqueda de paradas cercanas (usa `stops[]` + `route_stops{}`) pero NO para simulación de rutas en tiempo real (necesita `trips[]` + `stop_times[]`). Si se necesita realismo de horarios, descargar GTFS ZIP real de EMT Madrid.
+### ORS
+- **Env:** `ORS_API_KEY`
+- **Endpoint:** `POST /isochrone` → `https://api.openrouteservice.org/v2/isochrones/{profile}`
+- **Perfiles:** `driving-car`, `cycling-regular`, `foot-walking`
+- **Auth:** `Authorization: <key>` (NO Bearer, NO Key prefix)
+- **Pitfall:** Frontend enviar `locations: [-3.7, 40.4]` (pareja simple), NO `[[-3.7, 40.4]]`
 
-**Dato clave:** Las paradas del cache tienen nombres reales de Madrid (Puerta del Sol, Gran Vía, Sol, Ópera, Atocha, etc.) con coordenadas reales. Esto hace que el informe sea creíble para demostración.
+### CityBikes/GBFS
+- Sin key (API abierta)
+- 74 redes España, incluyendo BiciMAD, Bicing, Valenbisi
+- Módulo: `js/citybikes.js` (global `window.CityBikes`)
 
-### Radio de búsqueda: 500m
+### NAP/GTFS
+- **Env:** `NAP_API_KEY`
+- `GET /api/v2/fichero/{id}/descarga` → redirect S3 temporal (15 min)
+- Dataset IDs: Sevilla=1567, Valencia=1166, Bilbao=1460, Zaragoza=1176, Málaga=1494
 
-El radio por defecto de `findStopsNear()` es **500 metros** (cambiado de 2km en v0.8). Esto es más realista para andar a la parada (5-7 min) que los 2km originales. Para cambiar: editar `radiusKm = 0.5` en la firma de `findStopsNear()` en `gtfs-engine.v7.js`.
+### IGN WMTS
+- Sin key, CC BY 4.0
+- URL: `https://www.ign.es/wmts/ign-base`
 
-### Pitfall: CDN cachea 404 en NaN
+### Nominatim
+- User-Agent obligatorio: `Time/2.0 (time@antizar.es)`
+- Rate limit: 1 req/s
 
-Cuando se renombra un archivo GTFS engine (ej: `gtfs-engine.js → gtfs-engine.v7.js`), Cloudflare cachea el 404 del .js original por 4h. Los imports ES module en `main.js` y `nap.js` deben actualizarse. **No usar `?v=N` en imports ES module** — los imports no llevan query params. Versionar el nombre del archivo.
+---
 
-### Subida de ZIP real
+## 8. Datos Demográficos
 
-El usuario puede arrastrar/soltar su propio GTFS ZIP. Se parsea con JSZip en el navegador, sin enviar datos al servidor.
+### Datasets (en `/data/`)
 
-### Proxy de descarga
+| Dataset | Fuente | Cobertura |
+|---------|--------|-----------|
+| `codigos-postales-spain.json` | INE + Wikipedia | 299 CPs |
+| `poblacion-cp.json` | INE Padrón 2025 | 299 CPs |
+| `salarios-medios.json` | INE EAES 2024 | 51 provincias |
+| `salarios-por-cp.json` | INE EAES 2024 | 299 CPs |
+| `ciudades-gtfs-nap.json` | NAP metadata | Multi-ciudad |
 
-`POST /gtfs-download` en server.mjs permite descargar feeds GTFS externos que no soportan CORS.
+### ⚠️ Regla de David: SOLO datos REALES
+- NUNCA inventar datos demográficos o económicos
+- Si no hay dato real → "No disponible" en el informe
+- Cada dato en DOCX debe tener fuente y año de referencia
 
-## 5. Estructura de Archivos
+---
+
+## 9. Preferencias de UI (David)
+
+### ❌ NO hacer
+- Dark mode, glass borders, horizontal lines, cards icono+titulo+texto
+- Botones de export múltiples overwhelming
+- Selector de ciudad redundante
+- Tabla comparativa en HTML (duplica DOCX)
+
+### ✅ SÍ hacer
+- Fondo light, Kaizen flat corporativo
+- Datos reales con links a fuentes en sidebar
+- Sidebar simplificada: dirección + modos + tiempo + botón + capas
+- Panel NAP colapsable
+- Dropzone drag & drop para GTFS
+- 3 botones de export: DOCX (primario), CSV, ZIP batch
+
+---
+
+## 10. Estructura de Archivos (v5.0)
 
 ```
-TimeIneco/
-├── index.html              # Entry point, CDNs (Leaflet, turf, jsPDF, JSZip, html2canvas)
-├── css/style.css           # Estilos completos (+180 líneas GTFS)
+Time/
+├── index.html              # Entry point (Kaizen CSS)
+├── css/
+│   └── time-custom.css     # Overrides Kaizen (<100 líneas)
 ├── js/
-│   ├── main.js             # Orquestación: eventos, flujo cálculo, integración GTFS + demographics
-│   ├── map.js              # Leaflet: mapa base, isocronas, marcadores paradas
-│   ├── isochrones.js       # Motor: ORS proxy + simulación orgánica (72pts + ruido + calles)
-│   ├── clip.js             # Coastline clipping con turf.intersect()
-│   ├── config.js           # Configuración: 6 modos, velocidades, colores, rangos
-│   ├── demographics.js     # Motor demográfico: CP, salarios, vivienda, CO₂ (v1.0)
-│   ├── pdf.js              # jsPDF: informe multi-página con mapas, tablas, GTFS
-│   ├── nap.js              # Catálogo NAP: operadores GTFS por ciudad, UI selección
-│   ├── docx-report.js      # DOCX informe 12+ secciones (reemplaza jsPDF)
-│   ├── gtfs-engine.v7.js   # Motor GTFS browser-side (JSZip, Haversine, localStorage)
-│   ├── shp.js              # ESRI Shapefile QGIS-compatible (.shp/.shx/.dbf/.prj)
-│   └── utils.js            # Funciones auxiliares (formatKm2, formatNum, etc.)
-├── data/
-│   ├── gtfs-cache.json     # EMT Madrid: 46 rutas, 250 paradas reales
-│   ├── codigos-postales-spain.json  # 299 CPs España con centroides y densidad (v1.0)
-│   ├── salarios-medios.json         # 51 provincias, salario medio INE (v1.0)
-│   ├── salarios-por-cp.json         # 299 CPs con salario estimado por proxy alquiler (v1.1.1)
-│   ├── precios-vivienda.json        # 127 CPs con €/m² alquiler y compra (v1.0)
-│   └── ne_110m_land.geojson         # Coastline global (135KB)
-├── server.mjs              # Node.js: proxy ORS + GTFS download + static files + rate limiting
-├── .env                    # ORS_API_KEY (no commit)
-├── informe-plaza-mayor-madrid.html  # Informe demo generado (v1.0)
-├── AUDITORIA-v1.0.md       # Auditoría completa del proyecto
-└── package.json            # Solo server.mjs deps
+│   ├── main.js             # Orquestación principal v2.0
+│   ├── map.js              # Leaflet: IGN tiles + capas + marcadores
+│   ├── config.js           # Config: modos, IGN URLs, colores Kaizen
+│   ├── layers.js           # Control de capas toggleables [NUEVO]
+│   ├── csv-export.js       # CSV completo exportable [NUEVO]
+│   ├── interpretaciones.js # Interpretaciones automáticas [NUEVO]
+│   ├── isochrones.js       # Motor: ORS proxy + simulación v2.1
+│   ├── isochrones-gtfs.js  # Motor GTFS (BFS + convex hull)
+│   ├── gtfs-engine.v7.js   # Motor GTFS browser-side
+│   ├── demographics.js     # Datos demográficos INE/CP
+│   ├── nap.js              # Catálogo NAP: operadores por ciudad
+│   ├── docx-report.js      # DOCX informe (15 secciones)
+│   ├── shp.js              # Export SHP/GeoJSON/CSV
+│   ├── clip.js             # Coastline clipping
+│   ├── utils.js            # Geocodificación, helpers
+│   ├── citybikes.js        # CityBikes/GBFS API (74 redes España)
+│   └── vendor/docx.umd.js  # Librería DOCX vendored
+├── data/                   # Datos demográficos + GTFS
+├── server.mjs              # Node.js: proxies + .env loader
+├── .env                    # ORS_API_KEY + NAP_API_KEY
+├── Dockerfile
+└── README.md
 ```
 
-## 6. Modo de Arranque
+---
+
+## 11. Despliegue en NaN
 
 ```bash
 # Local
-cd /root/workspace/TimeIneco
-node --env-file=.env server.mjs
+cd /root/workspace/Time
+node server.mjs  # El .env loader carga automáticamente
 
-# El servidor sirve en http://localhost:4000
+# NaN: push a GitHub → auto-deploy
 # Health check: curl http://localhost:4000/healthz
 ```
 
-Si muere el proceso: `pkill -f "server.mjs"` y volver a arrancar.
+---
 
-## 7. Despliegue en NaN
+## 12. Lecciones Aprendidas
 
-- Repo push a GitHub → NaN auto-deploy
-- NaN usa Cloudflare CDN → si hay archivos nuevos JS, **usar versionado en nombre** (ej: `gtfs-engine.v7.js`) para evitar cache de 404
-- Cache-bust: `v=7` en query param para `<script>` y `<link>` tags
-- Ver skill `nan-deploy-sync` para CDN cache pitfalls
+### Git hygiene — archivos grandes
+GTFS raw 750MB+ → NUNCA trackear en git. `.gitignore` con `data/gtfs/`, `data/gtfs-cache/`
 
-## 8. DOCX Report (12+ secciones)
+### .env loader sin dotenv
+Loader manual que SOLO carga variables que NO existen en `process.env`. No hacer `source .env` antes.
 
-**Reemplaza a jsPDF.** Genera informe `.docx` editable por el equipo.
+### CRÍTICO: Pérdida de .env al reescribir repo
+SIEMPRE: `cp Repo/.env /root/.env-Time.bak` ANTES de reescribir repo
 
-### CDN
+### Git push OOM con repos grandes
+VM 2GB RAM. Crear repo fresco con solo código fuente si history > 500MB
 
-```html
-<script src="https://cdn.jsdelivr.net/npm/docx@8.5.1/build/index.umd.min.js"></script>
-```
+### ORS proxy formato request
+Frontend: `{ profile, locations: [-3.7, 40.4], range: [900] }` (pareja simple)
+Servidor envuelve en `[[locations]]` para ORS
 
-Vía `window.docx` (global UMD).
+### NAP API patrón descarga
+`/api/v2/fichero/{id}/descarga` → 200 con `enlaceDescarga` S3 temporal (15 min)
+NO usar `/api/v2/conjunto-dato/{id}` (devuelve 404)
 
-### Estructura del documento
+### IGN WMTS
+`FORMAT=image/jpeg` OBLIGATORIO. NO usar capas `IGNBaseSimplificado` ni `IGNBaseTodo-nofondo`
 
-| Sección | Contenido |
-|---------|-----------|
-| **1. Portada** | Título, barra azul decorativa, dirección, fecha, modos |
-| **2. Resumen Ejecutivo** | KPIs, tabla principal [Modo, 15min, 30min, 60min, Velocidad, Tipo] |
-| **3. Comparativa** | Tabla de costes (0.20€/km coche, 1.50€ bus, 0.05€ bici, 0€ andando), emisiones (120g, 80g, 0g), población (5.200 hab/km²) |
-| **3C. Transporte Público Cercano** | Paradas EMT en 1.5km (tabla top 10), líneas que pasan cerca (tabla top 15), distribución por tipo (Bus/Metro/Tranvía) |
-| **3D. Coste por Minuto** | €/min por modo, min/día, min/año, % sueldo neto, sueldo neto − transporte |
-| **3E. Escenarios Teletrabajo** | 5d presencial / 2dTT / 3dTT / full remote — coste anual, ahorro vs 5d |
-| **3F. CO₂ Empresa** | ton CO₂/año × precio EU ETS (50€/ton) + coste reputacional |
-| **4. Coche 🚗** | Coste detallado (combustible, parking, peajes), emisiones, recomendación |
-| **5. Transporte Público 🚌** | Tabla paradas GTFS a 500m, rutas, abono 54.60€, emisiones |
-| **6. Bici 🚲** | Penalización desnivel, coste 0.05€/km, emisiones 0 |
-| **7. Andando 🚶** | Área peatonal, coste 0€, emisiones 0 |
-| **8. Rutas Recomendadas** | Ranking por modo (🥇🥈🥉), combinaciones multi-modo |
-| **9. Recomendaciones Empresa** | Ayudas TP, parking bici, carpooling, flexibilidad |
-| **10. Notas Técnicas** | Metodología, ORS vs simulación, clip costero, versión |
+### CSV UTF-8 BOM
+Incluir `\uFEFF` al inicio del CSV para que Excel detecte UTF-8 correctamente
 
-### API
+---
 
-```javascript
-import { generarDOCX } from './docx-report.js';
+## Referencias
 
-const result = await generarDOCX(
-  resultados,        // [{modo, minutos, geojson, areaKM2, real}]
-  punto,             // {lat, lng, display_name}
-  modosActivos,      // ['car', 'bike', ...]
-  tiempos,           // [15, 30, 60]
-  gtfsData,          // {totalStops, totalRoutes, operador, stops, rutas}
-  transporteCercano  // {paradas, lineas, resumen} — de DEMO.buscarParadasCercanas()
-);
-// → descarga timeineco-informe-movilidad.docx
-```
-
-### Estructura del export
-
-```javascript
-export async function generarDOCX(resultados, punto, modosActivos, tiempos, gtfsData, transporteCercano) {
-  // Exponer datos de transporte para las secciones internas
-  window.__timeineco_transporte = transporteCercano;
-  
-  const doc = new docx.Document({
-    sections: [/* ... */],
-    styles: { /* Calibri, sizes */ }
-  });
-  
-  const blob = await docx.Packer.toBlob(doc);
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'timeineco-informe-movilidad.docx';
-  a.click();
-  URL.revokeObjectURL(url);
-}
-```
-
-### Formato DOCX
-
-- Márgenes: 2.54cm (1 inch) por defecto
-- Fuente: Calibri 11pt cuerpo, 16pt títulos, 26pt portada
-- Tablas con borde delgado, header azul #2563eb, filas alternadas #f1f5f9
-- Colores por modo en cabeceras (`2563eb` coche, `f97316` bici, `22c55e` andando, `a855f7` bus)
-
-### Pitfalls
-
-- **docx.js no es ESM nativo** — usa UMD global `window.docx`. Los imports de módulos ES no pueden usar `import`; deben cargar el CDN global.
-- **docx.Packer.toBlob()** — requiere `async/await`. No olvidar el `await` en el handler.
-- **Tablas con `docx.Table`** — el constructor `new docx.Table({rows})` recibe un array de `TableRow`. Cada `TableRow` lleva `{children: [TableCell]}`. Es anidado, no plano.
-- **Encabezados de tabla** — el `shading: {fill: "2563eb"}` se pasa en `TableCell` properties. `{shading: {fill: "2563eb", val: "clear"}}`.
-- **Saltos de página** — `new docx.Paragraph({children: [new docx.PageBreak()]})` para secciones nuevas.
-- **Rangos de tiempo** — si el usuario selecciona solo 3 rangos (15, 30, 60), la tabla DOCX muestra esos 3. Si selecciona 4 (15, 30, 60, 90), se adapta. No hardcodear columnas.
-- **DOCX signature v1.1** — `generarDOCX()` ahora recibe 6 parámetros: `(resultados, punto, modosActivos, tiempos, gtfsData, transporteCercano)`. El 6º parámetro es `{paradas, lineas, resumen}` de `buscarParadasCercanas()`. Si no se pasa, la sección 3C se omite.
-- **DOCX v1.1.1** — Se añaden secciones 3D (coste por minuto), 3E (teletrabajo), 3F (CO₂ empresa). Estas secciones usan `window.__timeineco_transporte` y los datos de `demographics.js` para calcular costes reales por modo. El informe incluye mapas Leaflet capturados como imagen para el DOCX.
-- **window.__timeineco_transporte** — el DOCX generator expone `transporteCercano` en `window.__timeineco_transporte` para que las secciones internas lo accedan. Si el informe no muestra la sección de transporte público, verificar que este global está definido.
-- **state.transporteCercano** — se inicializa como `null` en el state object de main.js. Se llena después de `buscarParadasCercanas()` en `handleCalcular()`. Si el informe DOCX no muestra datos de transporte, verificar que `state.transporteCercano` no es null.
-
-## 9. SHP Export (Shapefile QGIS-compatible)
-
-**Capa SIG descargable por cada modo × tiempo.** No requiere servidor — se genera en el navegador con `shp.js`.
-
-### Formato
-
-Archivo .zip con:
-- `timeineco_{modo}_{minutos}min.shp` — Main file (ESRI Polygon Type 5)
-- `timeineco_{modo}_{minutos}min.shx` — Index (offset + content length)
-- `timeineco_{modo}_{minutos}min.dbf` — dBASE III con 5 campos: MODO(C10), MINUTOS(N3), AREA_KM2(N10.2), TIPO_REAL(C10), COLOR(C7)
-- `timeineco_{modo}_{minutos}min.prj` — WGS84 (GEOGCS["WGS 84",...])
-
-### Endianness
-
-| Componente | Endianness |
-|-----------|------------|
-| File Header (.shp, .shx) | BIG-ENDIAN (Motorola) |
-| Record Header (.shp, .shx) | BIG-ENDIAN |
-| Record Content (.shp) | LITTLE-ENDIAN (Intel) |
-| DBF | LITTLE-ENDIAN |
-| PRJ | Texto (WKT) |
-
-### API
-
-```javascript
-import { downloadSHP } from './shp.js';
-
-// Por modo
-await downloadSHP('car', 15, geojson);
-// → timeineco_car_15min_shp.zip
-
-// Todos a la vez
-for (modo of modos) {
-  for (t of tiempos) {
-    const r = resultados.find(rr => rr.modo === modo && rr.minutos === t);
-    if (r?.geojson) await downloadSHP(modo, t, r.geojson);
-  }
-}
-```
-
-### Verificación en QGIS
-
-```bash
-# Abrir el ZIP en QGIS
-# Layer → Add Layer → Add Vector Layer
-# Source type: .zip (ZIP contenedor)
-# File encoding: UTF-8
-```
-
-Si no abre:
-1. **El SHP debe tener `dv.setInt32(0, 9994, false)`** (file code BIG-ENDIAN). Si está en true (LITTLE-ENDIAN), el file code se corrompe.
-2. **File Length debe estar en `dv.setInt32(24, fileLenWords16, false)`** (palabras de 16 bits, no bytes).
-3. **BBox en el SHP header** debe estar en LITTLE-ENDIAN (`true`), no BIG-ENDIAN (`false`).
-
-### Pitfalls
-
-- **buildSHP en shp.js v0.7 tenía endianness mixto** — el BBox en el header estaba en BIG-ENDIAN cuando debe ser LITTLE-ENDIAN. Se corrigió en v0.8.
-- **buildSHX en v0.7 solo tenía 108 bytes** — el índice SHX correcto tiene 108 bytes (100 header + 8 record), pero v0.7 tenía 116 bytes con un record extra. Se corrigió.
-- **El DBF debe tener headerLen calculado correctamente** — `32 + 5×32 + 1 = 193` para 5 campos. Si cambias los campos, recalcula.
-- **Los puntos `coords` son [lng, lat]** — en el SHP se usan como X (longitud) e Y (latitud), no al revés. No confundir con coordenadas de mapa (lat, lng).
-- **La exportación SHP no bloquea el UI** — `downloadSHP` descarga el ZIP en un `<a>` click. El usuario puede seguir usando la app mientras descarga.
+- `references/time-v5-architecture.md` — Arquitectura completa v5.0 (nuevos módulos, patrones)
+- `references/docx-report-v2.0.md` — Arquitectura DOCX
+- `references/export-shapefile-v2.2.md` — Export multi-formato
+- `references/poblacion-cp-metodologia.md` — Metodología datos población
+- `references/ine-api-datos-reales.md` — API INE: tablas, mapeo provincias
+- `references/citybikes-api-integration.md` — CityBikes API
+- `references/nap-api-descarga-gtfs.md` — NAP API: patrón descarga
+- `references/isocronas-v2.1-engine.md` — Motor simulación
+- `references/gtfs-multi-ciudad.md` — GTFS multi-ciudad
+- `scripts/generate-gtfs-synthetic.py` — Generador GTFS sintético

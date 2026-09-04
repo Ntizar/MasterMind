@@ -54,7 +54,7 @@ El NaN Dashboard es el panel de control visual de la infraestructura personal de
 - **Auth básica**: middleware `app.use('/api', ...)` solo protege endpoints API
 - **Página HTML**: se sirve sin auth para que cargue el formulario de login
 - **Re-autenticación**: operaciones destructivas requieren header `X-Auth-Confirm` con la contraseña
-- **Rutas seguras**: file manager solo permite `/persist`, `/root`, `repo raíz`
+- **Rutas seguras**: file manager solo permite `/persist`, `/root`, `/hermes-home`
 - **Protecciones**: no se puede borrar proyectos principales ni sobreescribir server.js/index.html
 - **Audit log**: todas las acciones quedan registradas en `/persist/nan-dashboard/audit.log`
 

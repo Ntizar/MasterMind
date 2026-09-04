@@ -29,17 +29,24 @@ def main():
     i, r = rel_skills(INST), rel_skills(REPO)
     solo_i = sorted(i - r)
     solo_r = sorted(r - i)
+    # comunes que difieren en contenido → la instalación es la fuente (refleja patches/ajustes)
+    dif = [s for s in sorted(i & r)
+           if (INST / s).read_text(encoding="utf-8", errors="ignore")
+              != (REPO / s).read_text(encoding="utf-8", errors="ignore")]
     print(f"Instalación: {len(i)} | Repo: {len(r)}")
-    print(f"→ copiar instalación→repo: {len(solo_i)}")
+    print(f"→ copiar instalación→repo (solo-instalacion): {len(solo_i)}")
     for s in solo_i:
         print(f"  + {s}")
-    print(f"→ copiar repo→instalación: {len(solo_r)}")
+    print(f"→ copiar instalación→repo (contenido distinto, inst gana): {len(dif)}")
+    for s in dif:
+        print(f"  ~ {s}")
+    print(f"→ copiar repo→instalación (solo-repo): {len(solo_r)}")
     for s in solo_r:
         print(f"  + {s}")
     if DRY:
         print("[dry-run: nada copiado]")
         return
-    for s in solo_i:
+    for s in solo_i + dif:
         sync_dir(s, INST, REPO)
     for s in solo_r:
         sync_dir(s, REPO, INST)

@@ -61,6 +61,26 @@ Cuando el usuario ya tiene cuenta de afiliados, se puede resolver el paso de enl
 
 Ver `scripts/scraper-amazon-fichas.py` (patrón reutilizable del scraper).
 
+## Flujo "siguiente nivel": kits explicados + editor nocturno (Kit72h, sept 2026)
+
+Para que un cron nocturno pueda ampliar contenido, **el contenido debe vivir en `data/*.json`, no hardcodeado en JS**. Migrar `js/blog.js` → `data/blog.json` (script `migrar-blog.py`, extrae objetos por llaves de igual sangría con regex) fue el prerrequisito de todo lo demás.
+
+**Campos de enriquecimiento que hacen útil un kit** (patrón validado, ver `data/mejora-kits.json` en el repo):
+- `paraQuien` / `paraQuien_no` (honestidad: decir cuándo NO basta el kit genera confianza), `coste_total` orientativo, `errores` (5 típicos), `secciones[].intro`.
+- Items nuevos sin ficha: `busqueda` + `afiliado: null`; un script de fusión convierte los null en enlace de búsqueda `amazon.es/s?k=...&tag=...` (`es_busqueda: true`) — nunca URL `/dp/` inventada.
+- Fusión idempotente con `scripts/fusionar-mejoras.py`: solo añade/enriquece, nunca borra; así el cron puede repetir sin romper.
+
+**Trio de crons nocturnos (horarios escalonados):**
+1. `kit72h-vigilante` 3:00 (model frontier qwen3.8-flash) — fuentes oficiales.
+2. `kit72h-editor` 4:30 (model **qwen3.6**, unmetered) — UN turno por noche con rotación `día mod 3`: blog nuevo profundo (N%3==0) o mejora de UN kit por rotación (N%12). Límite ~15 tool calls. Commit+push+resumen Telegram ≤900 chars.
+3. `kit72h-buscador` 5:15 (**no_agent**, script puro = 0 tokens) — `scripts/buscar-amazon.py`: cupo 12 pendientes/noche con rotación determinista por fecha, verifica ficha (buybox) y APLICA el enlace a kits.json + commit vía wrapper. Excel `data/productos-pendientes.xlsx` para revisión humana.
+
+**NaN modelos unmetered (sin tope de cuota)**: `qwen3.6` (35B-A3B, "most used"), `gemma4`, `qwen3-embedding`, `qwen3-reranker`, `kokoro` TTS, `whisper` STT. Los frontier consumen cuota/mes (qwen3.8-flash 1B, glm5.3 500M, deepseek-v4 2B, mimo 1B). **Para crons de contenido en serie: qwen3.6.** "Modelos gratuitos" en NaN = unmetered; no hay tier gratis ni cobro por modelo.
+
+**Pitfall cron con model pineado**: la herramienta `cronjob(action=create)` NO tiene parámetro model → crea con `model: null` (cae al default, que puede ser el caro o el que da 402). Fix: `hermes cron edit <id> --model qwen3.6 --provider openai-api` y verificar en jobs.json. Pasar prompt largo como argumento de `hermes cron create` por terminal falla el parseo — usar la herramienta cronjob y luego edit.
+
+**SEO automático tras cada cambio de datos**: `scripts/generar-seo.py` regenera sitemap.xml (kits+entradas), ItemList JSON-LD de index.html y llms.txt. Determinista y relanzable por cualquier cron.
+
 ## Referencias
 
 - Estructura de referencia: `index.html` + `css/styles.css` + `js/{state,ui,main,fondo}.js` + `data/kits.json` — un archivo = una responsabilidad.

@@ -495,3 +495,7 @@ Esto garantiza consistencia y evita el "drift" entre archivos.
 - `references/estructura-datos-unificada.md` — Estructura JSON unificada con 3 fuentes (referencia + 2 constructoras) y comparaciones capítulo a capítulo
 - `references/json-verification-patterns.md` — Problemas comunes en JSON derivados de presupuestos y procedimiento de verificación/limpieza
 - `pdf-to-dashboard` — Extraccion general de PDFs y generacion de dashboards HTML
+
+## Comparativa de alternativas
+
+- **[antoniogomezrojas/...](https://github.com/antoniogomezrojas)** — medición de obra lineal sobre plano por eje + PK con export BC3/FIEBDC-3 (formato estándar España); integra la medición por PK con el formato de presupuestos español.

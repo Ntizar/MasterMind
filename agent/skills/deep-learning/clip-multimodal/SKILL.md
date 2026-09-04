@@ -95,4 +95,4 @@ laion2b-s/32-b-32k  - Versión más ligera
 
 - Paper original: https://arxiv.org/abs/2103.00020
 - OpenCLIP: https://github.com/mlfoundations/open_clip
-- Nota técnica: `notes/deep-learning/2026-06-26-clip-multimodal-learning.md`
+- Nota técnica: `/hermes-home/notes/deep-learning/2026-06-26-clip-multimodal-learning.md`

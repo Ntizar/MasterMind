@@ -11,7 +11,7 @@ Timeout de 120s en el script `skill-learning.sh`. Cuando el script timeout:
 - Resultado: bucle infinito reintentando el mismo skill
 
 ## Reparo aplicado
-1. Limpiar cuarentena: `rm -rf agent/skills/.hub/quarantine/rest-graphql-debug`
+1. Limpiar cuarentena: `rm -rf /hermes-home/skills/.hub/quarantine/rest-graphql-debug`
 2. Avanzar índice de 4 a 5 en `.skill-learning-state.json`
 3. Marcar `rest-graphql-debug` como skipped
 

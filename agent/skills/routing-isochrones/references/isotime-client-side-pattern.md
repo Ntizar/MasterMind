@@ -65,39 +65,6 @@ L.tileLayer.wms(IGN_WSTS.url, {
 - If missing: fallback to simulation mode (no error, just simulated polygons)
 - Key visible in DevTools (acceptable for free-tier personal use)
 
-## Engine Selector (5 opciones)
-
-ISOTime incluye un dropdown de selección de motor para que el usuario elija cómo calcular isocronas:
-
-| Opción | Descripción | Requiere |
-|--------|-------------|----------|
-| auto | Cascada automática: ORS → Dijkstra → OSRM → Sim | Nada |
-| ORS | Solo OpenRouteService (máxima precisión) | API key |
-| Dijkstra | Solo grafo local pre-calculado | Grafo .bin en data/graphs/ |
-| OSRM | Solo OSRM público (coche + andando) | Nada |
-| Simulación | Solo polígono con jitter | Nada |
-
-**Patrón de implementación:**
-```javascript
-// main.js
-let currentEngine = 'auto';
-function setupEngineSelector() {
-  document.getElementById('engine-select').addEventListener('change', e => {
-    currentEngine = e.target.value;
-  });
-}
-// Al calcular: pasar engine como parámetro
-const result = await calcularIsocrona(lng, lat, modo, minutos, currentEngine);
-```
-
-**Cascada automática (engine='auto'):**
-1. ORS API (con key) → máxima precisión
-2. Dijkstra local (grafo .bin) → sin API, ciudades españolas pre-calculadas
-3. OSRM público (sin key) → coche Y andando (profiles: `driving`, `foot`)
-4. Simulación → fallback final con polígono jittered
-
-**En modo manual:** se ejecuta SOLO el motor seleccionado, sin cascada.
-
 ## SHP Binary Generation (in-browser)
 
 Pattern for generating shapefile components without any library:
@@ -109,21 +76,9 @@ Pattern for generating shapefile components without any library:
 
 All four files packaged into a ZIP via JSZip for download.
 
-**CRITICAL: Content Length encoding** — Both file header (offset 24) and record header (offset 4) use **16-bit words** for content length, NOT bytes. A record of 24 bytes = Content Length 12. Writing bytes directly produces corrupt files.
-
-```javascript
-// File header: content length at offset 24
-const totalWords = totalBytes / 2;  // NOT totalBytes
-view.setUint32(24, totalWords, false); // big-endian
-
-// Record header: content length at offset 4
-const recordWords = recordBytes / 2;  // NOT recordBytes
-view.setUint32(4, recordWords, false); // big-endian
-```
-
 Key values:
 - Shape type: 5 (Polygon)
-- Byte order: Little-endian for all numeric fields (except content length which is big-endian)
+- Byte order: Little-endian for all numeric fields
 - DBF encoding: CP850 (0x08)
 - Records start at file offset 50 (SHP) or 33 (DBF)
 

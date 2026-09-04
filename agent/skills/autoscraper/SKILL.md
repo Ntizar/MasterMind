@@ -54,3 +54,7 @@ print(new_result)
 ## Referencias
 
 - Repo: `github.com/alirezamika/autoscraper` (7K⭐)
+
+## Comparativa de alternativas
+
+- **[alirezamika/autoscraper](https://github.com/alirezamika/autoscraper)** — la clase `AutoScraper` con `build/learn/get_result` infiere reglas de scraping desde datos de muestra; el mecanismo de auto-aprendizaje de este skill.

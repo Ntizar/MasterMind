@@ -807,7 +807,7 @@ router.get('/:id', ...)      // GET /leads/abc123 → OK
 Cuando `gh` CLI no está disponible, crear repos privados vía GitHub API:
 
 ```bash
-source .env 2>/dev/null
+source /hermes-home/.env 2>/dev/null
 curl -s -u "Ntizar:$GITHUB_TOKEN" -X POST \
   "https://api.github.com/user/repos" \
   -d '{"name":"AdelaTest01","private":true,"description":"..."}'
@@ -829,7 +829,7 @@ curl -s -H "Authorization: token $GITHUB_TOKEN" \
   python3 -c "import sys,json; print('PRIVADO ✅' if json.load(sys.stdin).get('private') else 'PÚBLICO ❌')"
 ```
 
-**Nota:** El token debe tener permisos `repo` (full control). Verificar con `cat .env | grep GITHUB_TOKEN`.
+**Nota:** El token debe tener permisos `repo` (full control). Verificar con `cat /hermes-home/.env | grep GITHUB_TOKEN`.
 
 Cuando usas `sql.js` (no `better-sqlite3`), pasar `undefined` como valor de parámetro en un INSERT puede causar fallos silenciosos o errores de tipo.
 
@@ -985,7 +985,7 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
 | `df -h` | Muestra solo el filesystem del contenedor | `process.memoryUsage()` para RSS |
 | `crontab -l` | No hay cron daemon en el contenedor | Array vacío |
 | `chromadb` (localhost:8000) | ChromaDB corre en la VM local, no en el contenedor | Filesystem fallback, o categorías conocidas |
-| `agent/skills` | No existe en el contenedor | Categorías conocidas del ecosistema |
+| `/hermes-home/skills` | No existe en el contenedor | Categorías conocidas del ecosistema |
 | `wget` / `curl` a localhost de la VM | Red aislada del contenedor | No hay alternativa — el contenedor no puede acceder a servicios de la VM host |
 
 #### Comandos que SÍ funcionan (pero limitados)

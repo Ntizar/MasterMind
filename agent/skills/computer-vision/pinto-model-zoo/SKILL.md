@@ -88,3 +88,7 @@ boxes = output[0][0]
 ## Referencias
 
 - [GitHub: PINTO0309/PINTO_model_zoo](https://github.com/PINTO0309/PINTO_model_zoo)
+
+## Comparativa de alternativas
+
+- **High-Angle face-alignment** (dentro de `PINTO_model_zoo`) — modelo de alineación facial robusto a *pitch* ±85° y *roll* 360° operando sobre el crop de CABEZA, ligero en CPU ONNX: más robusto que un landmark facial 5-puntos clásico cuando la cámara está muy inclinada o girando.

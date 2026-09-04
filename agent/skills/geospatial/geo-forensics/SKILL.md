@@ -71,3 +71,7 @@ analysis.report("informe_forensico.pdf")
 ## Referencias
 
 - [GitHub: Refloow/Refloow-Geo-Forensics](https://github.com/Refloow/Refloow-Geo-Forensics)
+
+## Comparativa de alternativas
+
+- **[davidchicano/presuntamente](https://github.com/davidchicano/presuntamente)** — inventario trazable de casos de corrupción en España donde cada afirmación cita fuente y nivel (acreditado/investigado/desmentido); un caso GeoAI en el que ligar entidades geográficas a afirmaciones con cita.

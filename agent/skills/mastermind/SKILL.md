@@ -14,7 +14,7 @@ Skills propios del sistema Mastermind para Ntizar. Este archivo es un índice �
 
 - **Total skills propios:** 52
 - **Skills externos integrados:** 153
-- **Total en sistema:** 205 (192 en agent/skills, 13 en /root/workspace/Mastermind/skills que no están en repo raíz)
+- **Total en sistema:** 205 (192 en /hermes-home/skills, 13 en /root/workspace/Mastermind/skills que no están en /hermes-home)
 - **Nota:** Los STEM skills (11) se crearon el 03-06 y se re-escribieron el 08-06 con el mismo contenido. No son nuevos, son re-escritura.
 - **skill-priority.json:** 2.0.0 (2026-06-10) — 192 skills reconciliados con filesystem (HIGH 34, MEDIUM 86, LOW 72). ChromaDB es la fuente de verdad para relevancia.
 
@@ -22,7 +22,7 @@ Skills propios del sistema Mastermind para Ntizar. Este archivo es un índice �
 
 ### SOUL.md — Identidad del agente
 
-El SOUL.md (`repo raíz/SOUL.md`) es el archivo de identidad de Mastermind. **Debe contener** como mínimo:
+El SOUL.md (`/hermes-home/SOUL.md`) es el archivo de identidad de Mastermind. **Debe contener** como mínimo:
 - Nombre y rol del agente
 - Idioma de trabajo (castellano)
 - Preferencias de comunicación
@@ -35,8 +35,8 @@ Si el SOUL.md está vacío o incompleto, usar `references/soul-template.md` como
 ### Health Check — Autoauditoría periódica
 
 Ejecutar cuando el usuario pida una autoauditoría o cuando se detecte degradación. Sigue este orden:
-1. **Revisar SOUL.md** — `wc -c repo raíz/SOUL.md` debe ser >1000. Comparar con repo: `diff repo raíz/SOUL.md /root/workspace/Mastermind/mastermind/SOUL.md`
-2. **Verificar config** — `grep "voice:" repo raíz/config.yaml | head -1` = `es-ES-AlvaroNeural`, `grep "language:" repo raíz/config.yaml` = `es` en display
+1. **Revisar SOUL.md** — `wc -c /hermes-home/SOUL.md` debe ser >1000. Comparar con repo: `diff /hermes-home/SOUL.md /root/workspace/Mastermind/mastermind/SOUL.md`
+2. **Verificar config** — `grep "voice:" /hermes-home/config.yaml | head -1` = `es-ES-AlvaroNeural`, `grep "language:" /hermes-home/config.yaml` = `es` en display
 3. **Analizar memoria** — MEMORY.md y USER.md con tags `[categoria]`, no cerca del límite de 2.2K chars. INDEX.yaml companion actualizado
 4. **Skills snapshot pressure** — `.skills_prompt_snapshot.json` ≈80KB. Si excede, priorizar HIGH sobre MEDIUM/LOW
 5. **Contar skills sin tags/versión/frontmatter** — detectar anomalías

@@ -2,7 +2,7 @@
 
 ## Problema
 
-El token de GitHub (`GITHUB_TOKEN` en `.env`) puede funcionar para la API REST pero fallar con git push. Sintomas:
+El token de GitHub (`GITHUB_TOKEN` en `/hermes-home/.env`) puede funcionar para la API REST pero fallar con git push. Sintomas:
 - `gh` CLI no instalado o no funciona con el token
 - `git push` pide contraseña y falla
 - `credential.helper store` no funciona
@@ -11,7 +11,7 @@ El token de GitHub (`GITHUB_TOKEN` en `.env`) puede funcionar para la API REST p
 ## Solución: credential helper inline
 
 ```bash
-source .env
+source /hermes-home/.env
 GIT_TERMINAL_PROMPT=0 git -c 'credential.helper=!f() { echo "username=oauth2"; echo "password='$GITHUB_TOKEN'"; }; f' push -u origin main
 ```
 
@@ -29,7 +29,7 @@ El `credential.helper` inline inyecta las credenciales directamente sin pasar po
 ## Verificar si el token funciona para git
 
 ```bash
-source .env
+source /hermes-home/.env
 curl -s -o /dev/null -w "%{http_code}" -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/user
 # 200 = token válido, puede funcionar con git
 # 401 = token inválido o sin permisos

@@ -217,3 +217,7 @@ Success criteria:
 4. For long tasks, provide progress updates from `process` logs.
 5. Report concrete outcomes (files changed, tests, remaining risks).
 6. Exit interactive sessions with Ctrl+C or kill, never `/exit`.
+
+## Comparativa de alternativas
+
+- **[jcarlosrodicio/opencode...](https://github.com/jcarlosrodicio/opencode)** — harness que convierte OpenCode en un equipo de agentes con roles + gating (research, spec, impl, review); extiende el uso de OpenCode de agente único a flujo con revisión por etapas.

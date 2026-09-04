@@ -35,3 +35,7 @@ Repo: https://github.com/cathrynlavery/diagram-design (MIT, ~28K⭐). Skill de a
 - El HTML se abre en cualquier navegador offline.
 - Cada nodo/flujo tiene etiqueta legible; leyenda fuera del área de dibujo.
 - Un observador entiende el mensaje en <10 s sin explicación.
+
+## Comparativa de alternativas
+
+- **[LiamGvchi/gc-minimal-zine-poster](https://github.com/LiamGvchi/gc-minimal-zine-poster)** — skill Codex que lleva tema/idea/foto a un sistema visual editorial tipo poster (focal + acento cromático), complementando el enfoque de diagramas con un estilo de póster editorial minimalista.

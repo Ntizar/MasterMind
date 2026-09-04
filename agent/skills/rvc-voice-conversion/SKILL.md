@@ -48,3 +48,7 @@ python infer.py
 - Repo: `github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI` (36K⭐)
 - Docs: `https://github.com/RVC-Project`
 - Modelos HuggingFace: búsqueda "RVC model" en HF
+
+## Comparativa de alternativas
+
+- **[CorentinJ/Real-Time...](https://github.com/CorentinJ)** — SV2TTS en 3 etapas (speaker encoder GE2E + TTS + vocoder) con clonado *zero-shot* de pocos segundos; frente a RVC, clona sin entrenar una voz por modelo.

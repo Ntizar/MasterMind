@@ -54,7 +54,7 @@ _COMFY_CLI_FLAG = {
 def _run(cmd: list[str], timeout: int = 8) -> str:
     try:
         out = subprocess.run(
-            cmd, capture_output=True, text=True, timeout=timeout, check=False
+            cmd, capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=timeout, check=False
         )
         return (out.stdout or "") + (out.stderr or "")
     except (FileNotFoundError, subprocess.TimeoutExpired, OSError):
@@ -68,7 +68,7 @@ def is_wsl() -> bool:
     if "microsoft" in platform.release().lower() or "wsl" in platform.release().lower():
         return True
     try:
-        with open("/proc/version", "r") as fh:
+        with open("/proc/version", "r", encoding="utf-8") as fh:
             return "microsoft" in fh.read().lower()
     except OSError:
         return False
@@ -203,7 +203,7 @@ def detect_apple_silicon() -> dict | None:
 
 
 def detect_intel_arc() -> dict | None:
-    if platform.system() not in ("Linux", "Windows"):
+    if platform.system() not in {"Linux", "Windows"}:
         return None
     if shutil.which("clinfo"):
         out = _run(["clinfo", "--list"])
@@ -227,7 +227,7 @@ def total_system_ram_gb() -> float:
             return 0.0
     if sysname == "Linux":
         try:
-            with open("/proc/meminfo", "r") as fh:
+            with open("/proc/meminfo", "r", encoding="utf-8") as fh:
                 for line in fh:
                     if line.startswith("MemTotal:"):
                         kb = int(line.split()[1])

@@ -40,3 +40,7 @@ npm start
 ## Referencias
 
 - Repo: `github.com/kaolti/monolith-terrain` (69⭐)
+
+## Comparativa de alternativas
+
+- **[kaolti/monolith-terrain](https://github.com/kaolti/monolith-terrain)** — referencia de terreno 3D topográfico con tint hipsométrico, markers de picos, escaneo radar y tours; la implementación de la que este skill es guía.

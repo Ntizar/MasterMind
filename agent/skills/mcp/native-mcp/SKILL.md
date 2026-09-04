@@ -361,3 +361,7 @@ Disable sampling for untrusted servers with `sampling: { enabled: false }`.
 Community MCP servers worth knowing about:
 
 - **Postgres MCP Pro** ([crystaldba/postgres-mcp](https://github.com/crystaldba/postgres-mcp)) — 9 deterministic tools for DB health analysis, index tuning, query optimization, and safe SQL execution. Supports stdio/SSE/streamable-http transports with restricted/unrestricted access modes. See `references/postgres-mcp.md` for full details.
+
+## Comparativa de alternativas
+
+- **[searchcraft-inc/...](https://github.com/searchcraft-inc)** — servidor MCP de ejemplo que expone gestión de documentos/índices como *tools* en lenguaje natural; patrón de servidor MCP consumible por el cliente nativo.

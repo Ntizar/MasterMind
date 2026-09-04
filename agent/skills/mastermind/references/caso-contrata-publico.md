@@ -121,7 +121,7 @@ Cada acta es un objeto en un diccionario `ACTAS_DB` con:
 
 1. **f-string + JS collision:** Python f-strings interpretan `{string}` como variable → NameError. Fix: `.replace()` con `{PLACEHOLDER}`.
 2. **Regex JSON a 700KB+:** `r'const VAR = (\\{.*\\});'` falla. Fix: brace counting manual.
-3. **Token inline en curl:** puede fallar. Fix: script Python que lee `.env` directamente.
+3. **Token inline en curl:** puede fallar. Fix: script Python que lee `/hermes-home/.env` directamente.
 4. **NO usar subagentes para HTML >10KB** — write_file/patch directo. Subagentes fallan con timeout.
 5. **NO usar `const` para variables globales** — usar `var` (window scope).
 6. **Python script con JS embebido:** `\n` y `\` interpretados por Python → errores de sintaxis. Fix: usar `patch`/`write_file` directo en lugar de script con JS incrustado.

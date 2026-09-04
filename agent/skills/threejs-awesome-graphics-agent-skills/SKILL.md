@@ -38,3 +38,7 @@ git clone https://github.com/scottstts/Threejs-Awesome-Graphics-Agent-Skills.git
 ## Referencias
 
 - Repo: `github.com/scottstts/Threejs-Awesome-Graphics-Agent-Skills` (251⭐)
+
+## Comparativa de alternativas
+
+- **[scottstts/Threejs-Awesome-Graphics-Agent-Skills](https://github.com/scottstts/Threejs-Awesome-Graphics-Agent-Skills)** — galería de ejemplos y skills modulares por técnica (TSL/WebGPU) con enfoque de post-procesado; complementa los ejemplos de este skill con técnicas TSL/WebGPU.

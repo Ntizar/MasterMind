@@ -82,3 +82,7 @@ for business in results:
 ## Referencias
 
 - [GitHub: zohaibbashir/Google-Maps-Scrapper](https://github.com/zohaibbashir/Google-Maps-Scrapper)
+
+## Comparativa de alternativas
+
+- **[gosom/google-maps-scraper](https://github.com/gosom/google-maps-scraper)** — implementación en Go que escala el scraping de negocios de Google Maps (CLI + Web + REST): una alternativa robusta y de alto rendimiento al scraper Python de este skill.

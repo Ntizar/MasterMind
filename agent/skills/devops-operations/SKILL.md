@@ -82,6 +82,65 @@ checks.ors_api = testResp.ok;
 
 **Pitfall:** Hacer la llamada real en cada request de healthcheck es lento (200-500ms). Mejor cachear el resultado y re-validar cada 5 minutos.
 
+**🔥 .env loader manual en Node.js (sin dotenv)**
+
+**Patrón:** Node.js NO carga `.env` automáticamente (salvo `--env-file=.env` en Node 20.6+). Si no quieres dependencia de dotenv, añade un loader manual al inicio de `server.mjs`:
+
+```javascript
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const envPath = path.join(__dirname, '.env');
+if (fs.existsSync(envPath)) {
+  const envContent = fs.readFileSync(envPath, 'utf-8');
+  for (const line of envContent.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const eqIdx = trimmed.indexOf('=');
+    if (eqIdx > 0) {
+      const key = trimmed.slice(0, eqIdx).trim();
+      const val = trimmed.slice(eqIdx + 1).trim();
+      if (!process.env[key]) process.env[key] = val; // NO sobreescribe
+    }
+  }
+}
+```
+
+**Pitfall:** El loader SOLO carga variables que NO existen en `process.env`. Si haces `source .env` en bash ANTES de lanzar el servidor, las variables ya existen y el loader las ignora. Para testing: simplemente `node server.mjs` (el loader hace el trabajo).
+
+**🔥 Git push falla por archivos grandes (OOM)**
+
+**Patrón:** Proyectos con datos generados (GTFS, JSON grandes, caches) pueden acumular cientos de MB en `data/`. Git intenta hacer push de todo el history y muere con `pack-objects died of signal 9` (OOM en VMs con 2GB RAM).
+
+**Síntoma:** `git push` falla con `pack-objects died of signal 9` o `remote end hung up unexpectedly`.
+
+**Fix inmediato:**
+```bash
+# 1. Añadir al .gitignore
+echo -e "\ndata/gtfs/\ndata/gtfs-cache/\n*.json\n!data/ciudades-*.json\n!data/codigos-postales-spain.json" >> .gitignore
+
+# 2. Quitar del tracking (mantiene archivos locales)
+git rm -r --cached data/gtfs/ data/gtfs-cache/
+git rm --cached data/poblacion-cp.json data/salarios-*.json data/precios-vivienda.json
+
+# 3. Commit y push
+git add -A && git commit -m "chore: remove large data files from tracking"
+git push origin main
+```
+
+**Si el history es demasiado grande (>100MB):** Crear repo fresco con solo código fuente:
+```bash
+cd /tmp && mkdir fresh-repo && cd fresh-repo && git init
+cp -r /path/to/original/js . && cp -r /path/to/original/css .
+cp /path/to/original/server.mjs /path/to/original/index.html .
+# ... copiar solo archivos necesarios
+git remote add origin <url> && git push --force origin main
+```
+
+**Prevención:** SIEMPRE añadir `data/` grande a `.gitignore` ANTES del primer commit. Los archivos GTFS raw pueden ocupar 750MB+.
+
 ## 1. NaN Deploy Troubleshooting
 
 **TDZ (Temporal Dead Zone) — #1 causa de 502:**
@@ -177,16 +236,31 @@ checks.ors_api = testResp.ok;
 - 4GB RAM hard limit, sin swap
 - Fix: reemplazar recursión con fetch único
 
-## 2. Cron Jobs con Scripts
+**🔥 Verificar que `patch` realmente modificó el archivo**
+
+El tool `patch` puede reportar éxito sin modificar el archivo (fuzzy matching no encontró el string exacto, o el archivo fue leído parcialmente con offset/limit). Siempre verificar después de cada patch:
+
+```bash
+# Verificar que el archivo cambió
+git diff --stat
+# O verificar contenido específico
+grep "nuevo_contenido" js/archivo.js
+```
+
+**Síntoma:** `patch` dice `success: true` pero el archivo en disco sigue igual. El commit pusha código viejo. El deploy sirve versión obsoleta. Bugs "fantasma" que no se explican.
+
+**Fix:** Si el patch no aplicó, usar `write_file` para reescribir el archivo completo en vez de intentar otro patch. Es más seguro para archivos pequeños (<500 líneas).
+
+## 8. Cron Jobs con Scripts
 
 **⚠️ `cronjob` tool no disponible en esta VM:**
 - El `cronjob` tool no existe en el entorno actual — no hay `crontab`, no hay daemon cron, no hay systemd timers
-- Los scripts de mantenimiento se guardan en `scripts/` y se ejecutan manualmente o desde un cron externo (SSH desde otra máquina)
+- Los scripts de mantenimiento se guardan en `/hermes-home/scripts/` y se ejecutan manualmente o desde un cron externo (SSH desde otra máquina)
 - Para automatizar: configurar cron en máquina local que SSH al VM, o usar systemd timer en el VM
-- Ejemplo: script `scripts/mastermind-weekly-maintenance.sh` (Domingo 05:00 UTC)
+- Ejemplo: script `/hermes-home/scripts/mastermind-weekly-maintenance.sh` (Domingo 05:00 UTC)
 
 **Patrón de scripts de mantenimiento:**
-- Script en `scripts/` con shebang `#!/bin/bash`
+- Script en `/hermes-home/scripts/` con shebang `#!/bin/bash`
 - Script usa `set -e` y loguea a `/var/log/<name>.log`
 - Script incluye health checks antes y después de cada paso
 - Script hace `git add -A && git commit && git push` al final
@@ -279,6 +353,56 @@ Pitfalls comunes al desplegar proyectos Vite en GitHub Pages. Referencia complet
 - [ ] El JS fuente no tiene strings sin cerrar (comillas simples sin par)
 - [ ] GitHub Pages activado y build desplegado en `gh-pages`
 - [ ] El repo es público (requisito en plan free)
+
+**🔥 GitHub Pages CDN cachea JS agresivamente — versión vieja tras push**
+
+**Causa:** GitHub Pages usa un CDN (Fastly/Cloudflare) que cachea archivos estáticos (JS, CSS) con `max-age` prolongado. Cuando haces push con cambios en JS, el CDN puede seguir sirviendo la versión vieja durante minutos. El `curl` desde terminal sirve el HTML nuevo, pero los archivos JS referenciados en el HTML siguen siendo los viejos.
+
+**Síntomas:**
+- `curl -s https://user.github.io/repo/` muestra HTML con `<script src="js/main.js?v=1">` (nuevo)
+- Pero el contenido de `js/main.js?v=1` es la versión vieja (el CDN no invalidó)
+- El navegador ejecuta código JS obsoleto → NaN, bugs fantasma
+- Los features nuevos no aparecen aunque el commit está en main
+
+**Fix: Cache busting con version query en script tags**
+
+```html
+<!-- ❌ MAL — CDN cachea el archivo sin version -->
+<script type="module" src="js/main.js"></script>
+
+<!-- ✅ BIEN — version query fuerza descarga nueva -->
+<script type="module" src="js/main.js?v=4"></script>
+```
+
+**Patrón:** Incrementar `?v=N` en CADA push que modifique JS/CSS:
+```html
+<script type="module" src="js/main.js?v=4"></script>
+<link rel="stylesheet" href="css/style.css?v=3">
+```
+
+**Verificación de que el browser cargó la versión nueva:**
+```javascript
+// En browser console:
+document.querySelectorAll('script[type="module"]')[0].src
+// Debe mostrar "?v=4" (la versión nueva), no "?v=1" (la vieja)
+```
+
+**Verificación de que el CDN sirve el contenido nuevo:**
+```bash
+# El HTML puede estar cacheado — verificar el JS directamente
+curl -s "https://user.github.io/repo/js/main.js?v=4" | head -5
+# Debe mostrar el código nuevo, no el viejo
+```
+
+**Pitfall: HTML cacheado por el browser**
+A veces el browser cachea el HTML mismo (no solo el JS). Aunque el CDN tiene el HTML nuevo, el browser sigue con el viejo. Fix: `?t=timestamp` en la URL del HTML:
+```
+https://user.github.io/repo/index.html?t=20260630
+```
+O hard refresh: `Ctrl+Shift+R` / `Cmd+Shift+R`.
+
+**Pitfall: `curl` sirve nuevo pero browser sirve viejo**
+El curl bypassa el browser cache pero no el CDN cache. Si `curl` muestra el HTML nuevo pero el browser no, es browser cache. Si `curl` también muestra viejo, es CDN cache (esperar 2-5 min o forzar con otro push).
 
 **🔥 GitHub Pages NO funciona en repos privados con plan free**
 

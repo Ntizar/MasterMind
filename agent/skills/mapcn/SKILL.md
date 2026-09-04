@@ -1,43 +1,50 @@
 ---
 name: mapcn
-description: MapCN — librería de mapeo en chino con soporte para mapas de China y datos geoespaciales locales.
-category: geospatial
+description: MapCN — componentes de mapa React listos para usar (MapLibre GL + Tailwind + shadcn/ui), de AnmolSaini16/mapcn.
+version: "2.0.0"
+category: mapcn
+tags: [mapas, react, maplibre, shadcn, componentes, frontend]
 ---
 
-# MapCN — Mapeo para China
+# MapCN (AnmolSaini16/mapcn — 11.9k⭐, MIT, TypeScript)
+
+> CORRECCIÓN 2026-08-31: el skill anterior describía otra librería "MapCN" de mapeo en China — ERROR. El repo real es una librería de **componentes de mapa para React**.
 
 ## Qué es
 
-MapCN es una librería de mapeo enfocada en datos geoespaciales de China:
-- **China-focused** — datos específicos de China
-- **Map rendering** — renderizado de mapas con estilos locales
-- **Geocoding** — direcciones y POIs de China
-- **Python/TypeScript** — disponible en ambos lenguajes
+Componentes de mapa React copy-paste (modelo shadcn): zero config, un comando de setup, construidos sobre **MapLibre GL**, estilizados con Tailwind, compatibles con shadcn/ui. Docs: https://mapcn.dev/docs
+
+- 🎨 Theme-aware (claro/oscuro automático)
+- 📍 Markers & popups con tooltips y labels
+- 🛤️ Rutas y paths declarativos
+- 🎮 Controles: zoom, compass, locate, fullscreen
+- 🧩 Componible: UIs complejas con componentes simples
 
 ## Instalación
 
 ```bash
-# TypeScript
-npm install mapcn
-
-# Python
-pip install mapcn
+# setup en un proyecto Next.js/React (shadcn CLI)
+npx shadcn@latest add "https://mapcn.dev/r/..."   # ver docs/installation
 ```
+Stack: maplibre-gl, tailwindcss, radix-ui, recharts, lucide-react.
+
+## Basemap (ATENCIÓN licencia)
+
+Usa **CARTO Basemaps** por defecto:
+- Uso comercial → requiere licencia CARTO Enterprise
+- No comercial → gratis
+- Alternativa → tiles OSM u otro proveedor MapLibre-compatible (MapTiler, Stadia)
+
+Para proyectos de David (España, dashboards públicos): usar tiles OSM/IGN (ver skill ign-wmts-tiles) para evitar restricciones CARTO.
 
 ## Casos de uso para David
 
-- **Comparativa** — aprender patrones de mapeo diferentes a Europa
-- **Geocoding patterns** — técnicas de geocoding para mercados no-UE
-- **Map styles** — estilos de mapa orientales
-- **Learning** — patrones de mapeo reutilizables
+- Dashboards con mapa en React (DataHub España, visores)
+- Patrones declarativos para markers/rutas que se pueden portar a vanilla
+- Theme-aware maps sin CSS custom
 
 ## Pitfalls
 
-- Enfocado en datos de China — poco útil para España
-- Documentación principalmente en chino
-- Comunidad pequeña fuera de China
-- Proyecciones y sistemas de coordenadas diferentes
-
-## Referencias
-
-- Repo: `github.com/AnmolSaini16/mapcn` (10K⭐)
+- Está pensado para React/Tailwind/shadcn — en proyectos vanilla (p.ej. visores HTML puros) conviene usar maplibre-gl directo y solo copiar patrones
+- CARTO basemaps: comprobar licencia si el proyecto es comercial
+- Proyecto joven (2025-12) — API aún puede cambiar

@@ -24,19 +24,6 @@ triggers:
 site's complete visual language: color palette, typography hierarchy, component styles, spacing
 system, shadows, responsive behavior, and practical agent prompts with exact CSS values.
 
-## Cuándo usar
-
-- Quieres que una página HTML/CSS se parezca a un sitio conocido (Stripe, Linear, Vercel, Notion, etc.)
-- Necesitas un punto de partida visual rápido con un sistema de diseño ya definido
-- Estás prototipando una landing page, dashboard o interfaz y quieres un estilo profesional inmediato
-- Quieres comparar múltiples estilos de diseño para un mismo proyecto
-
-## Cuándo NO usar
-
-- Necesitas diseñar algo desde cero sin referencia a marcas existentes → usa `claude-design` para el proceso creativo
-- Quieres un archivo de especificación de tokens de diseño (DESIGN.md) → usa `design-md`
-- El usuario quiere una marca propia con identidad única, no imitar a otra empresa
-
 ## Related design skills
 
 - **`claude-design`** — use for the design *process and taste* (scoping a brief,

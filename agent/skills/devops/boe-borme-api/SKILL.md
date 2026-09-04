@@ -143,13 +143,21 @@ GET /datosabiertos/api/boe/sumario/{fecha}
 - Misma estructura que BORME pero para legislación
 - Secciones: Disposiciones generales, Autoridades, Otras disposiciones, Administración de Justicia, Anuncios
 
-### 6. Legislación consolidada
+### 6. Legislación consolidada (VERIFICADO en sesión real, 2026-08)
+
+⚠️ **Endpoints correctos** (el PDF oficial de 2025 es la fuente; la ruta antigua `estado/{id}` no funciona):
 
 ```
-GET /datosabiertos/api/legislacion-consolidada/estado/{id}
+GET /datosabiertos/api/legislacion-consolidada                                  → lista de normas (params: from, to, query JSON, offset, limit; limit=-1 para todo)
+GET /datosabiertos/api/legislacion-consolidada/id/{id}/metadatos                → metadatos (JSON con Accept: application/json)
+GET /datosabiertos/api/legislacion-consolidada/id/{id}/texto                    → lista de BLOQUES (XML: <bloque id="a1" tipo="..." titulo="Artículo 1">)
+GET /datosabiertos/api/legislacion-consolidada/id/{id}/texto/bloque/{id_bloque} → contenido de un bloque (artículo) con TODAS sus versiones
 ```
 
-- Acceso a texto consolidado de leyes
+- **IDs de bloque**: `a{n}` (artículos), `pr` (preámbulo), `dd`/`df` (disposiciones), `an` (anexos), `fi` (firma).
+- **Contenido del bloque**: párrafos con `class="articulo"` (título del precepto) y `class="parrafo"` (texto). Tomar la ÚLTIMA `<version>` del bloque. HTML-unescape el contenido.
+- **No todas las normas tienen bloques**: p. ej. Ley 47/2003 General Presupuestaria (BOE-A-2003-12750) devuelve 0 bloques → usar otra norma equivalente (la 58/2003 General Tributaria, BOE-A-2003-23186, sí tiene 446).
+- **Descarga masiva**: iterar bloques con ~50ms de pausa; una ley de 446 bloques tarda ~40s y produce ~1MB.
 - Documentación: `https://www.boe.es/datosabiertos/documentos/APIconsolidada.pdf`
 
 ### 7. Datos auxiliares

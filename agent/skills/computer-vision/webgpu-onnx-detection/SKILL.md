@@ -152,3 +152,7 @@ CONFIDENCE_THRESHOLD = 0.25
 TRACKER = "bytetrack.yaml"
 COCO_CLASSES = ["person", "bicycle", "car", "motorcycle", "bus", "truck"]
 ```
+
+## Comparativa de alternativas
+
+- **[KikeOnRails/YoloConteo](https://github.com/KikeOnRails/YoloConteo)** — contador de cruce de línea virtual en el navegador con YOLOv8n→ONNX en GPU local WebGPU y fallback WASM, patrón por URL sin backend; la implementación de referencia de este skill (además de la de Ntizar).

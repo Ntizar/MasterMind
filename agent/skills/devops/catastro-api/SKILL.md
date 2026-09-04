@@ -247,3 +247,7 @@ Para un dashboard como DatoAsturias:
 2. **Datos de inmueble al hacer click** → `Consulta_DNPRC` con la referencia catastral
 3. **Callejero interactivo** → `ObtenerCallejero` para autocompletado de direcciones
 4. **Mapa catastral** → usar el servicio WMS del Catastro o los shapefiles descargados
+
+## Comparativa de alternativas
+
+- **[miguelfreb/ATOMCPDownloader](https://github.com/miguelfreb/ATOMCPDownloader)** — downloader ATOM INSPIRE del Catastro que maneja feeds especiales, salta los ya descargados y convierte GML→GeoParquet por CRS; automatiza la descarga masiva de parcelas que este skill prepara a mano.

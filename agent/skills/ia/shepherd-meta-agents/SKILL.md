@@ -58,3 +58,7 @@ pip install shepherd-ai
 - Docs: https://docs.shepherd-agents.ai/
 - Paper: https://arxiv.org/abs/2605.10913
 - Paper: https://arxiv.org/abs/2505.10913
+
+## Comparativa de alternativas
+
+- **[shepherd-agents/shepherd](https://github.com/shepherd-agents/shepherd)** — meta-agentes programables con *execution traces* reversibles; implementación de referencia de meta-agentes programables.

@@ -56,3 +56,7 @@ curl 'http://localhost:8989/isochrone?point=40.4168,-3.7038&range=300&vehicle=ca
 
 - Repo: `github.com/graphhopper/graphhopper` (6K⭐)
 - Docs: `https://docs.graphhopper.com`
+
+## Comparativa de alternativas
+
+- **[graphhopper/graphhopper](https://github.com/graphhopper/graphhopper)** — motor de routing con map-matching, isócronas e importación de OSM + GTFS + elevación, usable como librería Java o servidor; otra referencia además de Valhalla/OTP para isócronas y rutas.

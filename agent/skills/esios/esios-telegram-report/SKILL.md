@@ -121,7 +121,7 @@ cd /root/workspace/Mastermind && node scripts/esios-telegram.js
 - **Valores negativos en interconexiones** = importación, mostrar línea de cero
 - **El script usa `canvas` npm** — requiere instalación previa `npm install canvas`
 - **Cache en /tmp/esios-telegram-cache/** — se limpia tras envío
-- **Cron jobs no heredan variables del gateway** — el script lee `TELEGRAM_BOT_TOKEN` de `/proc/1/environ` y `TELEGRAM_CHAT_ID` de `.env` como fallback
+- **Cron jobs no heredan variables del gateway** — el script lee `TELEGRAM_BOT_TOKEN` de `/proc/1/environ` y `TELEGRAM_CHAT_ID` de `/hermes-home/.env` como fallback
 - **Ruta del script:** `/root/workspace/Mastermind/scripts/esios-telegram.js` — SIEMPRE esta (Mastermind version). La del dashboard NO funciona en cron.
 - **⚠️ Cron config drift:** El prompt del cron job puede tener la ruta incorrecta (`Mastermind` en vez de `Mastermind`). Verificar siempre con `cronjob action='list'` que el prompt apunta a `/root/workspace/Mastermind/scripts/esios-telegram.js`. Si no, actualizar con `cronjob action='update'`.
 
@@ -129,8 +129,8 @@ cd /root/workspace/Mastermind && node scripts/esios-telegram.js
 
 **Problema:** El `TELEGRAM_BOT_TOKEN` no está configurado en ningún sitio del sistema:
 - No en `/proc/1/environ` (solo tiene `GITHUB_TOKEN`)
-- No en `.env` (solo tiene `GITHUB_TOKEN` + `TELEGRAM_HOME_CHANNEL`)
-- No en `repo raíz/config.yaml` (sección telegram sin tokens)
+- No en `/hermes-home/.env` (solo tiene `GITHUB_TOKEN` + `TELEGRAM_HOME_CHANNEL`)
+- No en `/hermes-home/config.yaml` (sección telegram sin tokens)
 - No en ningún `.env` del workspace
 - No en `/root/workspace/esios-dashboard/.env` (solo tiene `ESIOS_API_TOKEN`)
 
@@ -138,7 +138,7 @@ cd /root/workspace/Mastermind && node scripts/esios-telegram.js
 
 **Solución requerida:** David necesita configurar un bot de Telegram:
 1. Crear bot con @BotFather en Telegram → obtener TOKEN
-2. Añadir `TELEGRAM_BOT_TOKEN=<token>` a `.env`
+2. Añadir `TELEGRAM_BOT_TOKEN=<token>` a `/hermes-home/.env`
 3. El `TELEGRAM_CHAT_ID` ya existe: `7288273982` (de `TELEGRAM_HOME_CHANNEL`)
 4. Opcional: migrar a NaN Cloud Env para persistencia
 

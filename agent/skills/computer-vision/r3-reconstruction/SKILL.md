@@ -18,6 +18,8 @@ R^3 (310⭐, último push 2026-06-19) es la opción minoritaria del terreno "rec
 
 **Veredicto:** para trabajo rutinario, VGGT o COLMAP primero; R3 solo si su enfoque de regresión relativa encaja exactamente. Skills hermanos: `depth-anything-3`, `colmap-view`, `gush3r-3d`.
 
+- **[KevinXu02/R3](https://github.com/KevinXu02/R3)** — R^3 hace reconstrucción *feed-forward* por regresión de poses relativas, manejando vídeos largos sin SLAM; frente a VGGT/COLMAP es la opción nicho cuando el setup de cámara es irregular y la calibración pobre.
+
 ## Qué hace
 
 [R^3](https://github.com/KevinXu02/R3) es la implementación oficial del paper "3D Reconstruction via Relative Regression" (CVPR). Permite reconstruir escenas 3D a partir de imágenes 2D usando regresión relativa de profundidades, más eficiente que métodos SfM tradicionales para certain use cases.

@@ -56,3 +56,9 @@ Aprendido de shader-for-interfaces (skill agentivo MIT para efectos GPU en UI) y
 ## Verificación
 - Revisar una animación: ¿la dirección temporal es correcta (ease-out entra, ease-in sale)? ¿La duración es <300 ms? ¿Usa sombra en vez de borde para separar?
 - Revisar un efecto GPU: ¿el texto y los controles siguen en el DOM? ¿`prefers-reduced-motion` congela el shader? ¿El loop se detiene fuera de viewport? ¿Verificado en página real desktop + móvil?
+
+## Comparativa de alternativas
+
+- **[palekirill/grain-generator](https://github.com/palekirill/grain-generator)** — film grain por procedimiento con SVG puro `feTurbulence` e intensidad ajustable: para el grano de cine sin depender de PNG ni WebGL (patrón ligero que encaja con la regla de "escalera de renderer" del skill).
+- **[SikandarJODD/animations](https://github.com/SikandarJODD/animations)** — 88 componentes de animación copy-paste en Svelte 5 (easings, gestos, micro-interacciones): buena fuente de easings y timing ya afinados.
+- **[oil-oil/oil-motion](https://github.com/oil-oil/oil-motion)** — animación dirigida por interacción (scroll/mouse/drag/touch/device-orientation), un complemento a las micro-interacciones hover del skill cuando necesitas animar en respuesta al movimiento del usuario.

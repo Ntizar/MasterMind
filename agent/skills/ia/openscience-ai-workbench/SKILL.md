@@ -55,3 +55,7 @@ bun install @synsci/openscience
 - GitHub: https://github.com/synthetic-sciences/openscience
 - Docs: https://openscience.sh/docs
 - npm: https://www.npmjs.com/package/@synsci/openscience
+
+## Comparativa de alternativas
+
+- **[synthetic-sciences/openscience](https://github.com/synthetic-sciences/openscience)** — loop de investigación literatura→hipótesis→código→experimentos→redactado; el mismo bucle de trabajo científico que este skill automatiza.

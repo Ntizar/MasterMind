@@ -203,3 +203,8 @@ Patrón sistemático para auditar herramientas de modelado del sector eléctrico
 - ⚠️ **Velocidad de ejecución:** El usuario quiere ejecución directa, no sobre-planificación. No uses delegate_task ni subagentes para trabajo de este proyecto — trabaja directamente sobre los archivos. NO sobre-planifiques ni delegues tareas que puedas hacer directamente; al usuario le frustra la espera. Haz los cambios directamente.
 - **Añadir gráfico Sankey:** Patrón completo en `references/sankey-chart-pattern.md`. Requiere: (1) método `calcularFlujosSankey()` en simulator.js que usa `_ultimoMix` y `_ultimoDetalleDemanda`, (2) función `plotSankey()` en charts.js con Plotly sankey trace, (3) variable `sankeyData` en app.js calculada en `setResults()`, (4) sección HTML en tab "Análisis".
 - **Añadir cualquier gráfico Plotly nuevo:** Patrón general: (1) función `plotNombre()` en charts.js con `plotOrReact()`, (2) variable de estado en app.js, (3) cálculo en `setResults()` o función dedicada, (4) renderizado en `renderizarGraficos()`, (5) canvas en HTML con id consistente, (6) usar colores de `SEF.COLORES` para consistencia visual.
+
+## Comparativa de alternativas
+
+- **[cristobal-GC/electriciPy_market](https://github.com/cristobal-GC/electriciPy_market)** — merit order, formación de precio, *bidding* estratégico y restricciones técnicas (hidro/nuclear); complementa la lógica de mercado del simulador.
+- **[antonioruedamagtel/...](https://github.com/antonioruedamagtel)** — dashboard local auditable de ingresos/escenarios de centrales de bombeo, con simulador 100% navegador; enfoque de visualización de ingresos por central.

@@ -7,7 +7,7 @@ Patrón para crear dashboards HTML estáticos que muestran el estado de múltipl
 ## Archivos de referencia
 
 ### Generador Python
-- **Ruta:** `scripts/generate-dashboard.py`
+- **Ruta:** `/hermes-home/scripts/generate-dashboard.py`
 - **Función:** Lee ChromaDB (curl), skill-priority.json, knowledge-graph.json, skill-lifecycle-report.json, filesystem (notes, SOUL.md), y genera el objeto DATA embebido en el HTML.
 
 ### Plantilla HTML

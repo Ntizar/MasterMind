@@ -8,9 +8,9 @@ description: Construir y gestionar un sistema RAG (Retrieval-Augmented Generatio
 ## Contexto
 
 Mastermind ya tiene infraestructura RAG lista:
-- **ChromaDB** en `repo raíz/chromadb-venv/` con colección `mastermind-skills`
+- **ChromaDB** en `/hermes-home/chromadb-venv/` con colección `mastermind-skills`
 - **Embedding**: `qwen3-embedding` vía `https://api.nan.builders/v1/embeddings`
-- **Datos**: `notes/`, `agent/skills/`, `/root/workspace/Mastermind/`
+- **Datos**: `/hermes-home/notes/`, `/hermes-home/skills/`, `/root/workspace/Mastermind/`
 
 Esta skill sistematiza el patrón RAG para uso recurrente.
 
@@ -20,7 +20,7 @@ Esta skill sistematiza el patrón RAG para uso recurrente.
 
 ```bash
 # Asegurar ChromaDB corriendo
-bash scripts/start-chromadb.sh
+bash /hermes-home/scripts/start-chromadb.sh
 sleep 3
 
 # Crear script de indexación
@@ -50,7 +50,7 @@ collection = client.get_or_create_collection("mastermind-rag", metadata={"hnsw:s
 
 # Indexar notas
 documents = []
-for note_file in Path("notes").rglob("*.md"):
+for note_file in Path("/hermes-home/notes").rglob("*.md"):
     content = note_file.read_text()[:10000]  # limitar tamaño
     documents.append({
         "id": str(note_file),
@@ -60,7 +60,7 @@ for note_file in Path("notes").rglob("*.md"):
     })
 
 # Indexar skills SKILL.md
-for skill_file in Path("agent/skills").rglob("SKILL.md"):
+for skill_file in Path("/hermes-home/skills").rglob("SKILL.md"):
     content = skill_file.read_text()[:10000]
     documents.append({
         "id": str(skill_file),
@@ -70,7 +70,7 @@ for skill_file in Path("agent/skills").rglob("SKILL.md"):
     })
 
 # Indexar notas de deep-learning
-for dl_file in Path("notes/deep-learning").glob("*.md"):
+for dl_file in Path("/hermes-home/notes/deep-learning").glob("*.md"):
     content = dl_file.read_text()[:10000]
     documents.append({
         "id": str(dl_file),

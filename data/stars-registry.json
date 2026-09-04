@@ -2585,14 +2585,13 @@
     },
     "patrickbr/gtfstidy": {
       "explored_at": "2026-09-01T04:00:31.776327+00:00",
-      "category": "skip",
+      "category": "upgrade",
       "stars": 149,
       "language": "Go",
-      "skill_angles": [
-        "geospatial-3d-visualization"
-      ],
-      "skill_created": false,
-      "reason": "Dedup: gtfs-tidy (score 0.85) — herramienta GTFS tidy/validation/minimization ya cubierta por skill gtfs-tidy"
+      "skill_created": true,
+      "reason": "Dedup acertado (skill gtfs-tidy existia) pero v1 tenia CLI inventado -> auditado y reescrito a v2.0.0 contra README + gtfstidy.go el 2026-09-04",
+      "skill_name": "gtfs-tidy",
+      "upgraded_at": "2026-09-04"
     },
     "TransmodelEcosystem/NeTEx": {
       "explored_at": "2026-09-01T04:00:38.545044+00:00",

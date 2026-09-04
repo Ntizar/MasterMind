@@ -3646,13 +3646,35 @@
       "skill_angles": [],
       "skill_created": false,
       "skip_reason": "bajo valor"
+    },
+    "charlie947/social-media-skills": {
+      "explored_at": "2026-09-04T16:00:53.184617+00:00",
+      "category": "pattern",
+      "stars": 3262,
+      "language": "Shell",
+      "skill_angles": [
+        "pattern-architecture"
+      ],
+      "skill_created": true,
+      "skill_name": "social-media-content-system"
+    },
+    "rlaope/oh-my-hermes": {
+      "explored_at": "2026-09-04T16:00:59.748025+00:00",
+      "category": "domain",
+      "stars": 1380,
+      "language": "Python",
+      "skill_angles": [
+        "pattern-pipeline"
+      ],
+      "skill_created": true,
+      "skill_name": "oh-my-hermes-ops-layer"
     }
   },
-  "last_run": "2026-09-04T08:58:51.953032+00:00",
+  "last_run": "2026-09-04T16:01:00.749060+00:00",
   "total_skills_created": 10,
   "stats": {
-    "runs": 54,
-    "repos_explored": 293,
+    "runs": 55,
+    "repos_explored": 295,
     "skills_generated": 9,
     "last_batch": 6
   },

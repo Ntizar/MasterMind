@@ -106,7 +106,9 @@ STT ya configurado: local faster-whisper, model base, language en (auto-transcri
 
 ## Pitfalls operativos
 
-0. **Sincronizar ANTES de indexar**: la instalación (`%LOCALAPPDATA%\hermes\skills\`) y el repo divergen con facilidad (88 skills llegaron a divergir sin que nadie lo notara). Antes de indexar o confiar en el repo como fuente de verdad: `python scripts/sincronizar-skills.py` (bidireccional, unión, nunca borra). El conteo del doctor NO detecta divergencia de contenido — para eso está `python scripts/test-cobertura.py`.
+0. **Sincronizar ANTES de indexar** (bug corregido 2026-09-04): la instalación (`%LOCALAPPDATA%\hermes\skills\`) y el repo divergen con facilidad — llegaron a divergir en **88 skills** (incl. comfyui con scripts/tests) sin que nadie lo notara. **La instalación es la fuente VIVA; el repo (`agent/skills/`) es el backup/committed.** Antes de indexar o confiar en el repo: `python scripts/sincronizar-skills.py` (bidireccional, unión, nunca borra).
+
+   **BUG del sincronizador ANTES de 2026-09-04**: solo copiaba skills que existían en un lado (`solo_i`/`solo_r`) y NO propagaba los que existían en ambos pero con CONTENIDO distinto → los patches en la instalación nunca llegaban al repo, y el repo se quedaba atrás. **Corregido**: ahora también copia instalación→repo los comunes cuyo contenido difiere (la instalación GANA). Verificar siempre el diff (`git diff --ignore-all-space`) tras sincronizar: 147 archivos con cambio "real" ignorando whitespace era en parte line-ending. El conteo del doctor NO detecta divergencia de contenido — `python scripts/test-cobertura.py` sí. Para reflejar contenido actualizado en la búsqueda semántica, tras sincronizar correr `python scripts/indexar-skills.py --reset` (re-indexa todos, no solo los nuevos).
 
 1. **Rutas MSYS vs nativas**: exportar `STARS_REGISTRY=/c/Users/...` desde bash y que un python.exe nativo la lea crea literalmente `C:\c\Users\...`. Los wrappers pasan rutas en formato `C:/Users/...`.
 2. **Secrets nunca en prompts de cron**: el explorador de stars usa `gh auth token` (keyring) dentro del wrapper — nunca patrones de lectura de .env en el prompt (el scanner de cron los bloquea).
@@ -181,9 +183,12 @@ empaquetada, bajo `%LOCALAPPDATA%\hermes\hermes-agent\apps\desktop\src`. En el b
 
 ## Simulación multiagente con perfiles Hermes (Bot Mode)
 
-Para agentes persistentes con personalidad/KPIs que conversan entre sí (Gobierno IA, etc.): setup de perfiles, conversación por rondas vía ficheros, auditor independiente, boletín público Pages. Ver `references/bots-multagente-persistentes.md` (probado 2026-08 en Ntizar/gobierno-ia).
+Para agentes persistentes con personalidad/KPIs que conversan entre sí (Gobierno IA, etc.): setup de perfiles, conversación por rondas vía ficheros, auditor independiente, boletín público Pages. Ver `references/bots-multagente-persistentes.md` (probado 2026-08 en Ntizar/gobierno-ia). Incluye el retarget de modelo por capas + el tope `max_tokens` (v2.2).
 
 ## Memoria por especialista
+
+> **Criterio al aprender de un set curado (estrellas/favoritos) — NO descartar por estrellas ni overlap:
+> extraer el ÁNGULO y convertirlo en UPGRADE/NEW_SKILL/REFERENCE.** Ver `references/criterio-aprendizaje-set-curado.md`.
 
 Los skills con estado acumulativo mantienen su memoria de dominio en `references/estado-<tema>.md`
 (patrón importado de javierpa95/harness: memoria por rol, comiteada y versionada). Reglas:

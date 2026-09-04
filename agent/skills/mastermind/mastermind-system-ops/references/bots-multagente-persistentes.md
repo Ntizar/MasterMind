@@ -31,6 +31,24 @@ Sintaxis CLI: `hermes -p <perfil> chat -q "<prompt>"` (NO existen `--print` ni `
 - **Repo privado no tiene Pages** con el plan gratuito → `gh repo edit <o>/<r> --visibility public --accept-visibility-change-consequences` (solo si no hay secretos dentro).
 - **BOE**: curl funciona; urllib con User-Agent custom da HTTP 400. Ver skill `boe-borme-api`.
 
+## v2.2 (2026-09-04) — Re-target de modelo/fleet por capas y el tope `max_tokens`
+
+Cuando el usuario pide "pasar todo el proyecto a otro modelo, sin límite de tokens" (Gobierno IA → qwen3.6), retarget en DOS capas — cambiar solo una deja el sistema híbrido:
+
+1. **Perfiles de bots** (los que ejecutan la ley). Cada bot es un perfil Hermes con su propio `config.yaml`; el coordinador los lanza con `hermes -p <perfil> chat -q`, así que el modelo del bot lo fija SU perfil, no el cron. Profes para Gobierno IA: `ministro-hacienda`, `ministro-sanidad`, `ministro-ecologia`, `auditor`. Cambiar por CLI (nunca hand-edit, el guard lo bloquea):
+   ```bash
+   hermes -p <perfil> config set model.default qwen3.6
+   hermes -p <perfil> config set model.max_tokens 16384
+   ```
+2. **Cron coordinador** (el que orquesta: pase de lista `7f86939758e2`, consejo `d8c606f0f8da`, informe presidencial `7fba6b3bdf69`, auditoría `107b96a17053`). En los crons `model` se cambia con `hermes cron edit <job_id> --model <m>` (el tool `cronjob` no persiste modelo — ver PITFALL abajo).
+   ```bash
+   hermes cron edit <job_id> --model qwen3.6
+   ```
+
+**PITFALL "sin límite de tokens" NO es literal (verificado 2026-09-04):** Hermes NO tiene un tope infinito; cuando `model.max_tokens` no está definido manda `max_tokens or 4096` (`agent/agent_init.py` / `chat_completion_helpers.py`), y ese 4096 es justo el que corta el razonamiento/JSON del modelo con reasoning. "Sin límite" = dejar `max_tokens` ALTO (16384 es seguro; más y la API puede devolver 400 por exceder la capacidad del modelo). El tope se pone en el **perfil** (`model.max_tokens`), no en el cron — y como el cron delega al perfil, los bots lo heredan igualmente. `model.max_tokens` NO se puede fijar por job cron.
+
+**Verificación post-cambio**: leer el config de cada perfil (`grep -E "default:|max_tokens:") y `model` en `cron/jobs.json` (cat vía python), no confiar en el output del set. Los 4 crons + 4 perfiles deben quedar en el mismo modelo.
+
 ## v2.1 (2026-09-01) — Escenas informales off-record (el "café")
 Pedidos tipo "que los ministros se tomen un café y hablen de sus problemas" = otra clase de escena, complementaria al Consejo:
 - **Off-record real**: sin citas BOE, sin bloques [aXXX], sin formato propuesta — se desahogan, no legislan. Encabezado que lo declare: "escena no oficial: no genera acuerdos".

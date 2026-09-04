@@ -2,6 +2,7 @@ model:
   default: qwen3.6
   provider: custom
   base_url: https://api.nan.builders/v1
+  max_tokens: 16384
 providers: {}
 fallback_providers: []
 credential_pool_strategies: {}

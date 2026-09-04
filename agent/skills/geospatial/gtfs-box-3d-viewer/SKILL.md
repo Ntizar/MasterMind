@@ -6,6 +6,8 @@ category: geospatial
 
 # GTFS Box — Viewer GTFS Realtime en 3D
 
+> ⚠️ **SUPERADO (2026-09-04):** la referencia canónica verificada contra el código real es el skill **`mobility/gtfs-box` v2.0.0**. Esta página data de una v1 con API imprecisa (el constructor real es `new mt3d.Map({container, dataSources:[{id,gtfsUrl,vehiclePositionUrl,color}], lang, plugins})`, no `new MiniTokyo3D(options)`). Usar `gtfs-box` para detalles; aquí solo se conserva el mapeo a proyectos de David.
+
 ## Qué es
 
 **gtfs-box** (nagix/gtfs-box, 18⭐) es un visor web de GTFS y GTFS Realtime que muestra la operación en tiempo real de sistemas de transporte público en un mapa 3D. Usa **Mini Tokyo 3D** como librería base.

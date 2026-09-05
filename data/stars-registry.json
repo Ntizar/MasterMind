@@ -46,14 +46,17 @@
     },
     "harry0703/MoneyPrinterTurbo": {
       "explored_at": "2026-06-16T10:58:21.902573+00:00",
-      "category": "pattern",
+      "category": "upgrade",
       "stars": 88572,
       "language": "Python",
       "skill_angles": [
         "geospatial-3d-visualization",
         "voice-ai-integration"
       ],
-      "skill_created": true
+      "skill_created": true,
+      "skill_name": "video-gen-from-topic",
+      "skill_audited": "2026-09-06",
+      "skill_version": "2.0.0"
     },
     "3b1b/manim": {
       "explored_at": "2026-06-16T11:05:47.144616+00:00",
@@ -431,13 +434,15 @@
     },
     "owenyuwono/poseidon": {
       "explored_at": "2026-06-18T16:13:06",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 50,
       "language": "JavaScript",
       "skill_angles": [],
       "skill_created": true,
-      "skill_name": "cubierto",
-      "covered_by": "cubierto"
+      "skill_name": "oleaje-threejs",
+      "covered_by": "cubierto",
+      "skill_audited": "2026-09-06",
+      "skill_version": "2.0.0"
     },
     "lvsantarosa/POSGRADO": {
       "explored_at": "2026-06-18T16:13:06",
@@ -1770,11 +1775,14 @@
     },
     "opensandbox-group/OpenSandbox": {
       "explored_at": "2026-08-30T22:01:03+00:00",
-      "category": "tool",
+      "category": "upgrade",
       "stars": 14836,
       "language": "Go",
       "skill_created": true,
-      "notes": "Skill ai-agent-sandbox-runtime creado"
+      "notes": "Skill ai-agent-sandbox-runtime creado",
+      "skill_name": "ai-agent-sandbox-runtime",
+      "skill_audited": "2026-09-06",
+      "skill_version": "2.0.0"
     },
     "img2threejs/img2threejs": {
       "explored_at": "2026-08-31T10:00:46.961797+00:00",

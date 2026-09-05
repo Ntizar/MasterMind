@@ -13,7 +13,7 @@ metadata:
 
 # voicebox — Open-Source AI Voice Studio
 
-Voicebox (28K⭐) es un estudio de voz AI local-first, gratuito y open-source (MIT), alternativo a ElevenLabs + WisprFlow combinados.
+Voicebox (52K⭐ verificado 2026-09-05) es un estudio de voz AI local-first, gratuito y open-source (MIT), alternativo a ElevenLabs + WisprFlow combinados.
 
 ## Filosofía
 - **Privacidad total**: modelos, datos de voz y capturas nunca salen de tu máquina

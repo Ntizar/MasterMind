@@ -1,93 +1,45 @@
 ---
 name: llm-friendly-web-crawler
-version: "1.0.0"
-description: "Crawling web LLM-friendly con crawl4ai — output optimizado para LLMs, scraping asíncrono, extracción estructurada. Inspirado en unclecode/crawl4ai (⭐71K)."
-tags: [crawler, scraping, llm, crawl4ai, web, extraction, async]
+description: "Usa al crawlear web LLM-friendly con crawl4ai."
+version: "2.0.0"
+tags: [crawler, crawl4ai, web, llm, scraping, markdown, pydantic]
+related_skills: [firecrawl-web-scraping, adaptive-web-scraping, crawlee-web-scraping, browser-use-ai]
 ---
 
-# Crawler Web LLM-Friendly
+# Crawl4AI — crawling web LLM-friendly
 
-## Resumen
+> ⚠️ Corrección 2026-09-05 (auditoría): la clase `CrawlerStrategy` NO existe y `result.markdown` es un objeto, no un string. API real = `BrowserConfig`/`CrawlerRunConfig` + strategies `JsonCssExtractionStrategy`/`LLMExtractionStrategy`.
 
-[crawl4ai](https://github.com/unclecode/crawl4ai) (⭐71K) es un crawler web open-source diseñado para LLMs. Genera output en markdown limpio, extrae datos estructurados, y soporta estrategias de extracción con LLM.
+**Repo:** `https://github.com/unclecode/crawl4ai` (Python, ~81K⭐).
 
-## Cuándo usar
+## When to Use
 
-- Scrapear web y alimentar LLMs con contenido limpio
-- Extracción estructurada de páginas (productos, artículos, datos)
-- Crawling asíncrono de múltiples sitios en paralelo
-- Preparar datos para RAG desde web
+- Cuando pidas **crawling LLM-friendly**: extraer contenido de una web en markdown/JSON listo para meter en un LLM.
 
-## Patrón de uso
+## Uso (API real)
 
 ```python
-import asyncio
-from crawl4ai import AsyncWebCrawler, CrawlerStrategy
+from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode, JsonCssExtractionStrategy, LLMExtractionStrategy
 
-async def crawl_site(url):
-    async with AsyncWebCrawler() as crawler:
-        # Crawl básico — output markdown limpio
-        result = await crawler.arun(url)
-        print(f"Markdown: {result.markdown[:500]}")
-        print(f"Links: {result.links}")
-        return result
-
-# Crawl con extracción estructurada
-async def crawl_with_extraction(url, schema):
-    async with AsyncWebCrawler() as crawler:
-        result = await crawler.arun(
-            url,
-            extraction_strategy=CrawlerStrategy(
-                type="json_schema",
-                schema=schema  # JSON schema de qué extraer
-            )
-        )
-        return result.extracted_content  # Datos estructurados
-
-# Schema de extracción
-product_schema = {
-    "type": "object",
-    "properties": {
-        "name": {"type": "string"},
-        "price": {"type": "number"},
-        "description": {"type": "string"},
-        "image": {"type": "string"}
-    }
-}
-
-# Crawl paralelo de múltiples URLs
-async def crawl_multiple(urls):
-    async with AsyncWebCrawler() as crawler:
-        tasks = [crawler.arun(url) for url in urls]
-        results = await asyncio.gather(*tasks)
-        return results
-
-asyncio.run(crawl_site("https://example.com"))
+async with AsyncWebCrawler() as crawler:
+    result = await crawler.arun("https://ejemplo.com", config=CrawlerRunConfig(cache_mode=CacheMode.BYPASS))
+    md = result.markdown.raw_markdown        # markdown es un OBJETO con .raw_markdown / .fit_markdown
+    print(md[:500])
 ```
 
-## Estrategias de extracción
+Extracción estructurada:
 
-| Estrategia | Cuándo | Output |
-|-----------|-------|--------|
-| `markdown` | Content para LLM | Markdown limpio |
-| `json_schema` | Datos estructurados | JSON validado |
-| `css_selector` | Extracción por CSS | HTML/Text de elementos |
-| `xpath` | Extracción por XPath | HTML/Text de nodos |
-| `llm_extraction` | Extracción con LLM | JSON desde LLM |
+```python
+schema = {...}
+strategy = JsonCssExtractionStrategy(schema, verbose=True)   # o LLMExtractionStrategy(...)
+```
 
 ## Pitfalls
 
-- **Rate limiting:** crawl4ai respeta robots.txt por defecto. Desactivar con cuidado.
-- **JavaScript:** Sitios SPA necesitan JavaScript rendering. crawl4ai usa Playwright por defecto.
-- **Memory:** Crawling de sitios grandes puede consumir mucha memoria. Usar `max_depth` y `max_pages`.
-- **Output size:** Markdown de páginas grandes puede superar context window. Truncar o chunk.
-- **Async:** Todo es async. Usar `asyncio.run()` o integrar en event loop existente.
+- **No existe** `CrawlerStrategy` — usa `JsonCssExtractionStrategy`/`LLMExtractionStrategy`.
+- `result.markdown` es un objeto: `.raw_markdown`/`.fit_markdown`, no `[:500]` a secas.
+- El core es `AsyncWebCrawler` + `CrawlerRunConfig` (o `BrowserConfig`).
 
-## Referencias
+## Verificación
 
-- crawl4ai: https://github.com/unclecode/crawl4ai
-- Docs: https://docs.crawl4ai.com
-
----
-
-**Hecho con ❤️ por David Antizar**
+- `await crawler.arun(url)` y leer `result.markdown.raw_markdown`. Para extracción con schema, `JsonCssExtractionStrategy`.

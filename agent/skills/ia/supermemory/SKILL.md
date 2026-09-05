@@ -1,75 +1,46 @@
 ---
 name: supermemory
-description: Memoria semántica para agentes IA — almacenamiento y recuperación de contexto a largo plazo.
-version: "1.0.0"
-tags: [memory, AI, agents, semantic, context, retrieval, vector]
+description: "Usa a Supermemory como memoria semántica de agentes."
+version: "2.0.0"
+tags: [memoria, supeparamemory, rag, agentes, mcp, api, typescript]
+related_skills: [supermemory, memory-context-engine, agent-memory, rag-knowledge-base]
 ---
 
-# SuperMemory — Memoria Semántica para Agentes IA
+# Supermemory — memoria semántica para agentes (servicio + cliente API)
 
-## Resumen
+> ⚠️ Corrección 2026-09-05 (auditoría): el repo es **TypeScript** (app + motor de memoria + API REST + MCP server + extensión de navegador), y la clase `SuperMemory()`/`.store()`/`.search()` NO existe. El paquete PyPI es un cliente REST (`Supermemory(api_key=...)` con `client.search.documents(...)`), o se self-hostea.
 
-Sistema de memoria semántica para agentes IA — almacenamiento y recuperación de contexto a largo plazo. 27k⭐.
+**Repo:** `https://github.com/supermemoryai/supermemory` (TypeScript, ~29K⭐).
 
-## Repo de referencia
+## When to Use
 
-- **GitHub:** `github.com/supermemoryai/supermemory`
-- **Lenguaje:** Python
-- **Licencia:** MIT
+- Cuando quieras dar **memoria semántica persistente** a un agente (guardar/recuperar hechos con búsqueda), vía servicio o self-host.
 
-## Instalación
+## Uso
 
-```bash
-pip install supermemory
-# o
-git clone https://github.com/supermemoryai/supermemory.git
-cd supermemory && pip install -e .
-```
+Es un **servicio/app con API HTTP** (o MCP server), no una librería local autocontenida.
 
-## Uso Básico
+**Cliente Python (PyPI, generado con Stainless):**
 
 ```python
-from supermemory import SuperMemory
-
-# Crear memoria
-mem = SuperMemory()
-
-# Guardar información
-mem.store("El usuario prefiere respuestas en español", category="preference")
-mem.store("Proyecto actual: dashboard de transporte", category="project")
-mem.store("API key de Esios: esios-xxx", category="secret")
-
-# Buscar información
-results = mem.search("preferencias del usuario")
-for r in results:
-    print(f"{r['category']}: {r['content']}")
-
-# Buscar semánticamente
-results = mem.search("qué proyecto estoy trabajando", top_k=3)
+from supermemory import Supermemory
+client = Supermemory(api_key="...")
+result = client.search.documents(q="...")     # buscar por query
 ```
 
-## Patrones Clave
+**Self-host / MCP:**
 
-1. **Almacenamiento:** Guardar texto, notas, preferencias
-2. **Recuperación semántica:** Búsqueda por significado, no por palabra clave
-3. **Categorización:** Tags y categorías para organización
-4. **Expire:** Información con fecha de caducidad
-5. **Multi-agent:** Memoria compartida entre agentes
-
-## Integración con Mastermind
-
-- Complementa `memory` tool de Hermes — memoria persistente local
-- Útil para `rag-knowledge-base` — memoria de agentes
-- Reemplaza `chromadb` para memoria de agentes simples
-- Ideal para `shepherd-meta-agents` — memoria compartida
+```bash
+curl -fsSL https://supermemory.ai/install | bash
+# o usar el MCP server que expone el repo
+```
 
 ## Pitfalls
 
-- **Privacidad:** No guardar secrets en memoria sin encriptar
-- **Escalabilidad:** Limitado para millones de entradas
-- **Dependencias:** Requiere vector DB (SQLite + numpy mínimo)
-- **Consistencia:** No hay transacciones — puede haber duplicados
+- **No** `from supermemory import SuperMemory`; la clase es **`Supermemory`** (con `api_key`) y la API es `client.search.documents(q=...)`, no `.store()`/`.search()`.
+- El repo es **TypeScript**, no Python.
+- **No** es "SQLite + numpy mínimo": es un servicio con API HTTP (o self-host).
 
-## Referencias
+## Verificación
 
-- [GitHub: supermemoryai/supermemory](https://github.com/supermemoryai/supermemory)
+- Crear el cliente con `api_key`, guardar y buscar un documento; o correr el MCP server del repo.

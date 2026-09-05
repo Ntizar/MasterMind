@@ -1,41 +1,31 @@
 ---
 name: ai-website-cloner
-description: AI Website Cloner — genera clonaciones de sitios web completas con IA desde una URL.
-category: creative
+description: "Usa a clonar webs con template Next.js (AI)."
+version: "2.0.0"
+tags: [cloner, web, nextjs, plantilla, ai, react, typescript]
+related_skills: [ai-website-cloner, website-downloader, pdf-to-landing]
 ---
 
-# AI Website Cloner — Clonar Webs con IA
+# AI Website Cloner — clona webs como app Next.js
 
-## Qué es
+> ⚠️ Corrección 2026-09-05 (auditoría): NO clonar el template directamente — hay que usar el botón **"Use this template"** para crear tu propia copia; y el clon se recrea como **app Next.js/React/TypeScript**, no HTML/CSS/JS genérico.
 
-AI Website Cloner genera clones de sitios web usando IA:
-- **URL-based** — ingresa URL y genera el clon
-- **HTML/CSS/JS** — output en código web completo
-- **AI-assisted** — usa IA para recrear layouts y estilos
-- **Customizable** — modificar el resultado con prompts
+**Repo:** `https://github.com/JCodesMore/ai-website-cloner-template` (JavaScript, ~34K⭐).
 
-## Instalación
+## When to Use
 
-```bash
-git clone https://github.com/JCodesMore/ai-website-cloner-template.git
-cd ai-website-cloner-template
-# Seguir instrucciones del README
-```
+- Cuando pidas **recrear una web** a partir de una URL usando IA (plantilla de clonación).
 
-## Casos de uso para David
+## Uso
 
-- **Landing pages** — clonar referencias de diseño para inspiración
-- **Prototyping** — prototipar rápidamente desde sitios existentes
-- **Learning** — estudiar patrones de diseño web
-- **Dashboard UI** — clonar layouts de dashboards como referencia
+- Ir al repo y pulsar **"Use this template"** → crear tu propia copia (NO `git clone` del template).
+- El clon se genera como **app Next.js 16 + React 19 + TypeScript**, no un HTML/CSS/JS suelto.
 
 ## Pitfalls
 
-- No es un scraper — usa IA para recrear, no copiar
-- Los clones pueden no ser funcionales — solo UI
-- Depende de modelos de IA para la generación
-- Los sitios con mucho JS pueden no clonarse bien
+- **No** clonar el template directamente; usar el botón "Use this template".
+- Output: **Next.js/React/TypeScript**, no HTML genérico.
 
-## Referencias
+## Verificación
 
-- Repo: `github.com/JCodesMore/ai-website-cloner-template` (26K⭐)
+- Crear copia desde "Use this template", añadir tu URL objetivo y ver que la app Next.js clona la página.

@@ -1,76 +1,39 @@
 ---
 name: mineru-pdf-to-markdown
-version: "1.0.0"
-description: "Úsalo al convertir PDFs densos a Markdown con layout y OCR."
-tags: [pdf, mineru, ocr, markdown, layout-analysis, rag]
+description: "Usa al convertir PDFs densos con MinerU."
+version: "2.0.0"
+tags: [pdf, mineru, markdown, ocr, layout, extraccion, cli]
+related_skills: [marker-pdf-conversion, pdf-llm-extraction, pdf-processing, ocr-quirurgico-pdf-md]
 ---
 
-# MinerU — PDF/Office → Markdown para LLMs
+# MinerU — PDF → Markdown con layout y OCR
 
-Herramienta de OpenDataLab que transforma documentos complejos (PDFs escaneados, papers, docx/pptx/xlsx) en Markdown o JSON estructurado, apto para pipelines RAG y agentes. Repo: https://github.com/opendatalab/MinerU
+> ⚠️ Corrección 2026-09-05 (auditoría): el flag de entrada es `-p` (no `-i`), licencia "MinerU Open Source License" (Apache 2.0-based, no NOASSERTION) y la salida v2/v3 es `.md`+`images/`. El extra documentado es `mineru[all]`, no `mineru[core]`.
 
-## Instalación
+**Repo:** `https://github.com/opendatalab/MinerU` (Python, ~79K⭐) · Licencia: MinerU Open Source License (basada en Apache 2.0).
 
-```bash
-pip install "mineru[core]"        # núcleo CPU
-pip install "mineru[all]"         # con soporte GPU (backend vlm)
-uv tool install mineru[core]      # alternativa CLI aislada
-```
+## When to Use
 
-## Uso CLI
+- Cuando pidas **convertir PDFs densos** (con tablas, fórmulas, imágenes, multi-columna) a **Markdown** con layout correcto, en local.
+
+## Uso
 
 ```bash
-# PDF → Markdown (pipeline estándar)
-mineru -i entrada.pdf -o salida/
-
-# Elegir backend: pipeline (rápido, CPU) | vlm (más preciso, requiere GPU/API)
-mineru -i entrada.pdf -o salida/ -b vlm
-
-# OCR forzado para escaneos
-mineru -i escaneado.pdf -o salida/ -p
-
-# Solo procesar páginas concretas (1-indexado, ej: 1-3,5,8)
-mineru -i entrada.pdf -o salida/ -s 1-3,5
-
-# Idioma para OCR (por defecto auto-detección)
-mineru -i doc.pdf -o salida/ -l es
+pip install "mineru[all]"      # extras documentados; mirar módulos de extensión según docs
+mineru -p entrada.pdf -o salida/    # -p = path de entrada (NO -i)
 ```
 
-## Uso en Python
+## Salida (v2/v3)
 
-Patrón recomendado: llamar a la CLI en subproceso (más estable entre versiones).
-
-```python
-import subprocess
-subprocess.run(["mineru", "-i", "doc.pdf", "-o", "out/", "-b", "pipeline"], check=True)
-```
-
-## Salida
-
-Por cada documento genera en el directorio de salida:
-- `*.md` — contenido en Markdown con tablas y fórmulas (LaTeX)
-- contenido JSON estructurado por página (bloques, coordenadas)
-- `images/` — figuras extraídas
-- `*_middle.json`, `*_model.json` — artefactos intermedios de layout (debug)
-
-## Cuándo usarlo
-
-- RAG/agentes: PDFs densos → Markdown limpio con tablas preservadas
-- Papers académicos: fórmulas a LaTeX, referencias intactas
-- Escaneos: OCR de calidad con detección de layout (columnas, tablas, cabeceras)
-- Alternativas ya disponibles en el ecosistema: `markitdown` (rápido, Office-first, pierde layout), `liteparse` (Rust, velocidad), pipeline `ocr-quirurgico` (página a página con vision). MinerU es el más fuerte en layout complejo + tablas.
+- `*.md` (texto marcado con layout), JSON por página (`*.json`) y `images/` con las figuras/tablas extraídas.
+- *(Los nombres `*_middle.json`/`*_model.json` son de la estructura v1 — obsoletos.)*
 
 ## Pitfalls
 
-- Primera ejecución descarga modelos (~1-2 GB) de HuggingFace; puede tardar y fallar offline.
-- Backend `vlm` necesita GPU con VRAM suficiente; en CPU usar `-b pipeline`.
-- PDFs muy grandes: procesar por rangos de páginas (`-s`) para no agotar RAM.
-- Licencia NOASSERTION en el repo — revisar términos antes de uso comercial.
-- En Windows, ejecutar desde rutas sin espacios y con Python 3.10-3.13.
+- Flag de entrada: **`-p`** (path), no `-i`.
+- Licencia: **MinerU Open Source License** (no NOASSERTION/AGPL).
+- Extras: usa `mineru[all]` (o los módulos de extensión documentados); `mineru[core]` no está documentado.
 
 ## Verificación
 
-```bash
-mineru -i ejemplo.pdf -o out/ -b pipeline && ls out/
-# Comprobar que out/ contiene .md y JSON de layout, y que el .md incluye las tablas esperadas
-```
+- `mineru -p doc.pdf -o out/` → comprobar `out/*.md` + `out/images/`; verificar que tablas/fórmulas conservan estructura.

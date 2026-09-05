@@ -8,7 +8,7 @@ category: development
 
 ## Qué es
 
-Repositorio `addyosmani/agent-skills` (78K+⭐) que packagea skills de ingeniería para que agentes IA sigan workflows consistentes en todas las fases del desarrollo.
+Repositorio `addyosmani/agent-skills` (92K+⭐, verificado 2026-09-05) que packagea skills de ingeniería para que agentes IA sigan workflows consistentes en todas las fases del desarrollo.
 
 ## Estructura SDLC
 

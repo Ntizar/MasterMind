@@ -1,74 +1,37 @@
 ---
 name: opencut
-description: Editor de documentos y texto con IA — alternativa open-source a herramientas SaaS de edición.
-version: "1.0.0"
-tags: [editor, document, text, AI, open-source, SaaS]
+description: "Usa al editar vídeo open-source con OpenCut (CapCut alt)."
+version: "2.0.0"
+tags: [video-editor, opencut, capcut, web, rust, moon, edicion-video]
+related_skills: [video-processing, video-use-agentic-editing, hyperframes-html-video, agentic-video-pipeline]
 ---
 
-# OpenCut — Editor de Documentos con IA
+# OpenCut — editor de vídeo open-source (alternativa a CapCut)
 
-## Resumen
+> ⚠️ Corrección 2026-09-05 (auditoría): la v1 lo describía como "editor de documentos/texto con IA" con API npm `import { OpenCut }` y `editor.ai.*`. **Falso.** Es un **editor de VÍDEO** open-source (alternativa a CapCut) para web/desktop/móvil, con core en Rust y build vía proto/moon.
 
-Editor de documentos y texto con IA — alternativa open-source a herramientas SaaS. 57k⭐.
+**Repo:** `https://github.com/OpenCut-app/OpenCut` (TypeScript + Rust, ~89K⭐).
 
-## Repo de referencia
+## When to Use
 
-- **GitHub:** `github.com/OpenCut-app/OpenCut`
-- **Lenguaje:** TypeScript/React
-- **Licencia:** MIT
+- Cuando pidas **editar vídeo** en el navegador/desktop/móvil con una alternativa open-source a CapCut (timeline, cortes, efectos).
 
-## Instalación
+## Qué es
 
-```bash
-git clone https://github.com/OpenCut-app/OpenCut.git
-cd OpenCut && npm install && npm run build
-```
+`A free and open source video editor for web, desktop, and mobile` / `The open-source CapCut alternative`. **No es una librería npm** ni un editor de documentos.
 
-## Uso Básico
+## Uso (build / development)
 
-```javascript
-import { OpenCut } from 'opencut';
-
-const editor = new OpenCut({
-  container: '#editor',
-  ai: {
-    provider: 'openai',
-    apiKey: process.env.OPENAI_API_KEY,
-  }
-});
-
-// Editar texto con IA
-editor.ai.summarize();
-editor.ai.translate('es');
-editor.ai.rewrite({ tone: 'professional' });
-
-// Exportar
-editor.export('pdf');
-editor.export('html');
-```
-
-## Funcionalidades
-
-1. **Editor rich text:** Edición visual de documentos
-2. **AI assistance:** Resumir, traducir, reescribir con IA
-3. **Templates:** Plantillas predefinidas
-4. **Export:** PDF, HTML, Markdown
-5. **Collaborative:** Edición colaborativa en tiempo real
-
-## Integración con Mastermind
-
-- Complementa `docuseal` — edición vs generación
-- Útil para `ppt-master` — edición de documentos
-- Ideal para `claude-design` — edición de artefactos
-- Reemplaza Google Docs para flujos open-source
+- Proyecto gestionado con **proto + moon**; la web se arranca con `moon run web:dev`.
+- El proyecto está en reescritura activa — la versión utilizable actual vive en **`opencut-classic`**.
+- **No existe** `npm install opencut` ni `npm run build` para usarlo como librería.
 
 ## Pitfalls
 
-- **Licencia:** Verificar licencia para uso comercial
-- **IA:** Requiere API key de proveedor de IA
-- **Server:** Requiere backend para algunas funciones
-- **Performance:** Editor pesado en recursos
+- **No** hay `import { OpenCut } from 'opencut'`, ni `new OpenCut({container, ai:{...}})`, ni `editor.ai.summarize()`/`editor.export("pdf")` — todo eso es inventado.
+- Es un **editor de vídeo**, no de documentos.
+- Build: `moon run web:dev` (proto/moon), no `npm run build` genérico.
 
-## Referencias
+## Verificación
 
-- [GitHub: OpenCut-app/OpenCut](https://github.com/OpenCut-app/OpenCut)
+- Abrir la web de dev (`moon run web:dev`) y comprobar que carga un timeline de edición de vídeo (no un editor de texto).

@@ -1,40 +1,36 @@
 ---
 name: ppt-master
-description: PPT Master — generación de presentaciones PowerPoint desde prompts con IA.
-category: creative
+description: "Usa a generar PowerPoints PPTx con PPT-Master."
+version: "2.0.0"
+tags: [presentations, powerpoint, pptx, ppt-master, python, seguridad, ppts]
+related_skills: [ppt-master, powerpoint, consulting-slide-rulebook]
 ---
 
-# PPT Master — Generación de Presentaciones con IA
+# PPT-Master — generación de presentaciones con estructura
 
-## Qué es
+> ⚠️ Corrección 2026-09-05 (auditoría): `pip install ppt-master` instala un paquete PyPI NO relacionado. La instalación correcta es clonar el repo y `pip install -r requirements.txt`.
 
-PPT Master es una herramienta para generar presentaciones PowerPoint usando IA:
-- **AI-generated** — genera slides desde prompts en texto
-- **Professional templates** — plantillas profesionales integradas
-- **Multi-language** — soporta varios idiomas
-- **Customizable** — ajustar diseño, colores, contenido
+**Repo:** `https://github.com/hugohe3/ppt-master` (Python, ~52K⭐).
 
-## Instalación
+## When to Use
+
+- Cuando pidas **generar presentaciones PowerPoint (PPTX)** con estructura, diapositivas y temas consistentes.
+
+## Uso
 
 ```bash
-pip install ppt-master
-# O usar como API
+git clone https://github.com/hugohe3/ppt-master.git
+cd ppt-master
+pip install -r requirements.txt
 ```
 
-## Casos de uso para David
-
-- **Presentaciones rápidas** — generar decks para reuniones
-- **Prototipado** — crear presentaciones de dashboards
-- **Documentación** — generar slides para documentación técnica
-- **Demo** — presentaciones interactivas para demos
+*(NO `pip install ppt-master` — ese nombre es de un paquete PyPI distinto de generación de SVG.)*
 
 ## Pitfalls
 
-- Calidad de diseño puede ser mejorable
-- No reemplaza diseño profesional completo
-- Las imágenes generadas pueden ser genéricas
-- Depende de modelos de IA para la generación
+- Instalación correcta = **clonar + `pip install -r requirements.txt`**, no `pip install ppt-master`.
+- El nombre de PyPI colisiona con un paquete no relacionado — no confiar en el nombre del paquete.
 
-## Referencias
+## Verificación
 
-- Repo: `github.com/hugohe3/ppt-master` (37K⭐)
+- Producir un deck de prueba y abrir el `.pptx`; comprobar que las diapositivas/tema salen íntegros.

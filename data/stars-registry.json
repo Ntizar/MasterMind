@@ -102,14 +102,16 @@
     },
     "github/spec-kit": {
       "explored_at": "2026-06-18T15:40:54.190587+00:00",
-      "category": "core",
+      "category": "upgrade",
       "stars": 113789,
       "language": "Python",
       "skill_angles": [
         "pattern-architecture"
       ],
       "skill_created": true,
-      "skill_name": "spec-driven-development"
+      "skill_name": "spec-driven-development",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "zohaibbashir/Google-Maps-Scrapper": {
       "explored_at": "2026-06-18T16:12:43",
@@ -123,13 +125,15 @@
     },
     "OpenCut-app/OpenCut": {
       "explored_at": "2026-06-18T16:12:44",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 57059,
       "language": "TypeScript",
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "opencut",
-      "covered_by": "opencut"
+      "covered_by": "opencut",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "nihgni74-crypto/Wildfire-Monitor-Iberian-Peninsula": {
       "explored_at": "2026-06-18T16:12:45",
@@ -487,13 +491,15 @@
     },
     "supermemoryai/supermemory": {
       "explored_at": "2026-06-18T16:13:12",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 27181,
       "language": "TypeScript",
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "supermemory",
-      "covered_by": "supermemory"
+      "covered_by": "supermemory",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "pantaflex44/Tiquettes": {
       "explored_at": "2026-06-18T16:13:13",
@@ -608,12 +614,14 @@
     },
     "hcengineering/platform": {
       "explored_at": "2026-06-18T16:14:37",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 26228,
       "language": "TypeScript",
       "skill_angles": [],
       "skill_created": true,
-      "skill_name": "huly-crm-erp-platform"
+      "skill_name": "huly-crm-erp-platform",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "SuiteCRM/SuiteCRM": {
       "explored_at": "2026-06-18T16:14:38",
@@ -778,13 +786,15 @@
     },
     "K-Dense-AI/scientific-agent-skills": {
       "explored_at": "2026-06-18T16:14:49",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 28665,
       "language": "Python",
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "scientific-agent-skills",
-      "covered_by": "scientific-agent-skills"
+      "covered_by": "scientific-agent-skills",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "PINTO0309/PINTO_model_zoo": {
       "explored_at": "2026-06-18T16:14:50",
@@ -1053,13 +1063,15 @@
     },
     "jamiepine/voicebox": {
       "explored_at": "2026-06-18T16:15:09",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 30468,
       "language": "TypeScript",
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "voicebox",
-      "covered_by": "voicebox"
+      "covered_by": "voicebox",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "PabloCastellano/libreborme": {
       "explored_at": "2026-06-18T16:15:10",
@@ -1112,7 +1124,7 @@
     },
     "firecrawl/firecrawl": {
       "explored_at": "2026-08-27T17:37:48.112873+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 173148,
       "language": "TypeScript",
       "skill_angles": [
@@ -1120,7 +1132,9 @@
       ],
       "skill_created": true,
       "skill_name": "firecrawl-web-scraping",
-      "covered_by": "firecrawl-web-scraping"
+      "covered_by": "firecrawl-web-scraping",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "Genymobile/scrcpy": {
       "explored_at": "2026-08-27T17:37:53.979352+00:00",
@@ -1182,7 +1196,7 @@
     },
     "addyosmani/agent-skills": {
       "explored_at": "2026-08-27T18:31:57.281620+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 90250,
       "language": "JavaScript",
       "skill_angles": [
@@ -1190,11 +1204,13 @@
       ],
       "skill_created": true,
       "skill_name": "addyosmani-agent-skills",
-      "covered_by": "addyosmani-agent-skills"
+      "covered_by": "addyosmani-agent-skills",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "modelcontextprotocol/servers": {
       "explored_at": "2026-08-27T18:32:03.427459+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 89909,
       "language": "TypeScript",
       "skill_angles": [
@@ -1202,11 +1218,13 @@
       ],
       "skill_created": true,
       "skill_name": "mcp-servers-modelcontextprotocol",
-      "covered_by": "mcp-servers-modelcontextprotocol"
+      "covered_by": "mcp-servers-modelcontextprotocol",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "unclecode/crawl4ai": {
       "explored_at": "2026-08-27T22:00:57.619802+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 79565,
       "language": "Python",
       "skill_angles": [
@@ -1215,11 +1233,13 @@
       ],
       "skill_created": true,
       "skill_name": "llm-friendly-web-crawler",
-      "covered_by": "llm-friendly-web-crawler"
+      "covered_by": "llm-friendly-web-crawler",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "opendatalab/MinerU": {
       "explored_at": "2026-08-27T22:01:03.832483+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 78629,
       "language": "Python",
       "skill_angles": [
@@ -1227,11 +1247,13 @@
       ],
       "skill_created": true,
       "skill_name": "mineru-pdf-to-markdown",
-      "covered_by": "mineru-pdf-to-markdown"
+      "covered_by": "mineru-pdf-to-markdown",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "D4Vinci/Scrapling": {
       "explored_at": "2026-08-27T22:01:09.958993+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 76783,
       "language": "Python",
       "skill_angles": [
@@ -1241,7 +1263,9 @@
       ],
       "skill_created": true,
       "skill_name": "adaptive-web-scraping",
-      "covered_by": "adaptive-web-scraping"
+      "covered_by": "adaptive-web-scraping",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "scrapy/scrapy": {
       "explored_at": "2026-08-28T07:13:16.448309+00:00",
@@ -1290,7 +1314,7 @@
     },
     "calesthio/OpenMontage": {
       "explored_at": "2026-08-28T10:00:37.624248+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 52824,
       "language": "Python",
       "skill_angles": [
@@ -1298,11 +1322,13 @@
       ],
       "skill_created": true,
       "skill_name": "ppt-master",
-      "covered_by": "ppt-master"
+      "covered_by": "ppt-master",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "hugohe3/ppt-master": {
       "explored_at": "2026-08-28T10:00:44.230534+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 49967,
       "language": "Python",
       "skill_angles": [
@@ -1312,7 +1338,9 @@
       ],
       "skill_created": true,
       "skill_name": "ppt-master",
-      "covered_by": "ppt-master"
+      "covered_by": "ppt-master",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "coqui-ai/TTS": {
       "explored_at": "2026-08-28T16:00:34.541748+00:00",
@@ -1459,7 +1487,7 @@
     },
     "JCodesMore/ai-website-cloner-template": {
       "explored_at": "2026-08-29T10:00:58.763997+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 33330,
       "language": "JavaScript",
       "skill_angles": [
@@ -1467,7 +1495,9 @@
       ],
       "skill_created": true,
       "skill_name": "ai-website-cloner",
-      "covered_by": "ai-website-cloner"
+      "covered_by": "ai-website-cloner",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "emilkowalski/skills": {
       "explored_at": "2026-08-29T16:00:55.320934+00:00",
@@ -1504,7 +1534,7 @@
     },
     "tt-a1i/archify": {
       "explored_at": "2026-08-29T22:00:33.558799+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 30833,
       "language": "JavaScript",
       "skill_angles": [
@@ -1512,11 +1542,13 @@
       ],
       "skill_created": true,
       "skill_name": "archify-diagram-compiler",
-      "covered_by": "archify-diagram-compiler"
+      "covered_by": "archify-diagram-compiler",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "alibaba/page-agent": {
       "explored_at": "2026-08-29T22:00:39.297899+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 28902,
       "language": "TypeScript",
       "skill_angles": [
@@ -1526,7 +1558,9 @@
       ],
       "skill_created": true,
       "skill_name": "page-agent-browser-automation",
-      "covered_by": "page-agent-browser-automation"
+      "covered_by": "page-agent-browser-automation",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "cathrynlavery/diagram-design": {
       "explored_at": "2026-08-29T22:00:44.956603+00:00",
@@ -2468,7 +2502,7 @@
     },
     "victortassinari/FossFLOW": {
       "explored_at": "2026-09-01T03:00:50.300684+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 355,
       "language": null,
       "skill_angles": [
@@ -2477,7 +2511,9 @@
       ],
       "skill_created": true,
       "skill_name": "archify-diagram-compiler",
-      "covered_by": "archify-diagram-compiler"
+      "covered_by": "archify-diagram-compiler",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "SikandarJODD/animations": {
       "explored_at": "2026-09-01T03:00:56.355507+00:00",

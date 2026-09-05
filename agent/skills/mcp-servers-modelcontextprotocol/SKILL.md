@@ -1,71 +1,54 @@
 ---
 name: mcp-servers-modelcontextprotocol
-description: Model Context Protocol (MCP) Servers — catálogo completo de servidores oficiales y de la comunidad para integrar herramientas externas con LLMs.
-category: mcp
+description: "Usa a conectar servidores MCP activos con npx."
+version: "2.0.0"
+tags: [mcp, modelcontextprotocol, servers, npx, herramientas, agentes]
+related_skills: [native-mcp, mcp-servers-modelcontextprotocol, hub-skill-discovery]
 ---
 
-# MCP Servers — Model Context Protocol
+# Servidores MCP oficiales (activos) — instalación vía npx
 
-## Qué es
+> ⚠️ Corrección 2026-09-05 (auditoría): GitHub/GitLab/PostgreSQL/Slack/Google Drive/Puppeteer están **ARCHIVADOS** (movidos a `servers-archived`). Servidores de referencia **activos**: Everything, Fetch, Filesystem, Git, Memory, Sequential Thinking, Time. Instalación: `npx -y @modelcontextprotocol/server-<name>`. Env var: `GITHUB_PERSONAL_ACCESS_TOKEN`.
 
-Repositorio oficial de servidores MCP de Model Context Protocol (Anthropic). Contiene servidores oficiales para:
-- **Filesystem** — acceso a archivos locales
-- **GitHub** — operaciones en repositorios
-- **GitLab** — operaciones en GitLab
-- **PostgreSQL** — consulta de bases de datos
-- **Slack** — integración con Slack
-- **Google Drive** — acceso a Drive
-- **Puppeteer** — navegación web
-- **Memory** — sistema de memoria persistente
-- Y muchos más...
+**Repo:** `https://github.com/modelcontextprotocol/servers` (~90K⭐).
 
-## Instalación
+## When to Use
+
+- Cuando conectes **servidores MCP** en Hermes/Claude (stdio/HTTP) y quieras los oficiales activos.
+
+## Servidores de referencia ACTIVOS
+
+- Everything · Fetch · Filesystem · Git · Memory · Sequential Thinking · Time
+
+*(GitHub, GitLab, PostgreSQL, Slack, Google Drive, Puppeteer, etc. están archivados en `servers-archived` — referencia histórica.)*
+
+## Instalación (npx)
 
 ```bash
-# Clonar el repositorio
-git clone https://github.com/modelcontextprotocol/servers.git
-cd servers
-
-# Instalar dependencias
-npm install
-
-# Cada servidor se ejecuta como proceso independiente
-# Ejemplo: servidor de filesystem
-npx @modelcontextprotocol/server-filesystem /path/to/directory
+npx -y @modelcontextprotocol/server-filesystem /ruta/a/servir
+npx -y @modelcontextprotocol/server-fetch
 ```
 
-## Uso con Hermes
+Config (ej. Git):
 
-Configurar en `config.yaml`:
-```yaml
-mcp:
-  servers:
-    filesystem:
-      command: npx
-      args: ["@modelcontextprotocol/server-filesystem", "/path/to/directory"]
-    github:
-      command: npx
-      args: ["@modelcontextprotocol/server-github"]
-      env:
-        GITHUB_TOKEN: "tu-token"
+```json
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": { "GITHUB_PERSONAL_ACCESS_TOKEN": "<token>" }
+    }
+  }
+}
 ```
-
-## Patrones de uso
-
-1. **Integrar herramientas externas** — cada servidor expone herramientas como si fueran nativas
-2. **Sandboxing** — ejecutar servidores en contenedores para aislamiento
-3. **Multi-tenant** — múltiples servidores MCP para diferentes contextos
 
 ## Pitfalls
 
-- Los servidores se ejecutan como procesos independientes, no como librería
-- Cada servidor tiene su propio ciclo de vida
-- Los errores de conexión son silenciosos — verificar con `hermes mcp list`
-- Algunos servidores requieren variables de entorno (tokens, URLs)
-- El servidor de filesystem NO sigue symlinks por defecto
+- La env var es **`GITHUB_PERSONAL_ACCESS_TOKEN`**, no `GITHUB_TOKEN`.
+- Instalación **`npx -y ...`**, no `git clone && npm install`.
+- Los servidores de la v1 (GitHub/GitLab/PostgreSQL/Slack/Drive/Puppeteer) están archivados.
 
-## Referencias
+## Verificación
 
-- Repo: `github.com/modelcontextprotocol/servers`
-- Docs: `https://modelcontextprotocol.io`
-- Hermes native MCP: `native-mcp`
+- `npx -y @modelcontextprotocol/server-fetch` y probar un tool en el cliente MCP.

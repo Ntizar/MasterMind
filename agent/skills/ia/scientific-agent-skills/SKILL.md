@@ -1,67 +1,39 @@
 ---
 name: scientific-agent-skills
-description: Skills de IA para investigación científica — papers, datos, análisis, herramientas de investigación.
-version: "1.0.0"
-tags: [AI, research, scientific, papers, data, analysis]
+description: "Usa a investigar con skills de IA científica (Agent)."
+version: "2.0.0"
+tags: [cientifico, research, agent-skills, papers, data, skills]
+related_skills: [scientific-agent-skills, arxiv, prisma-systematic-review]
 ---
 
-# Scientific Agent Skills
+# Scientific Agent Skills — colección de skills para ciencia con agentes
 
-## Resumen
+> ⚠️ Corrección 2026-09-05 (auditoría): es una **colección de skills Agent (SKILL.md)**, no una librería Python. Instalación vía `npx skills add` / `gh skill install`, no git clone + import arxiv.
 
-Skills de IA para investigación científica — papers, datos, análisis. 28k⭐.
+**Repo:** `https://github.com/K-Dense-AI/scientific-agent-skills` (Python, ~43K⭐).
 
-## Repo de referencia
+## When to Use
 
-- **GitHub:** `github.com/K-Dense-AI/scientific-agent-skills`
-- **Lenguaje:** Markdown/Python
-- **Licencia:** MIT
+- Cuando pidas **investigación científica con un agente IA** (papers, datos, experimentos): es un set de skills preempaquetadas (163) para el agente, no código importable.
 
-## Instalación
+## Uso
 
 ```bash
-git clone https://github.com/K-Dense-AI/scientific-agent-skills.git
-cd scientific-agent-skills
+# Recomendado
+npx skills add K-Dense-AI/scientific-agent-skills
+# o
+gh skill install
+# (o copiar skills/ al directorio de skills del agente)
 ```
 
-## Skills Incluidos
-
-1. **Paper Search:** Búsqueda en arXiv, PubMed, Semantic Scholar
-2. **Data Analysis:** Análisis estadístico con Python
-3. **Citation Management:** Gestión de referencias
-4. **Literature Review:** Automatización de revisiones sistemáticas
-5. **Hypothesis Testing:** Testing de hipótesis con datos
-
-## Uso Básico
-
-```python
-# Ejemplo: Buscar papers en arXiv
-import arxiv
-
-search = arxiv.Search(
-    query="transformer attention mechanism",
-    max_results=10
-)
-
-for result in search.results():
-    print(f"{result.title}")
-    print(f"  Authors: {', '.join(result.authors)}")
-    print(f"  Abstract: {result.summary[:200]}")
-```
-
-## Integración con Mastermind
-
-- Complementa `prisma-systematic-review` — skills de investigación
-- Útil para `research-paper-writing` — búsqueda y análisis
-- Reemplaza búsqueda manual de papers
-- Ideal para `llm-wiki` — conocimiento científico
+- El "uso" es **activar el skill del agente** (delegar a una de las skills de la colección), no `import arxiv` (Python genérico).
 
 ## Pitfalls
 
-- **API limits:** arXiv tiene rate limiting (3 requests/segundo)
-- **Calidad:** Los papers no están curados — verificar fuentes
-- **Acceso:** Muchos papers requieren suscripción (PDF no disponible)
+- NO es una librería Python; no hay `import scientific_agent_skills`.
+- Instalación: `npx skills add`/`gh skill install` (o copiar skills/), no `git clone && cd`.
+- El ejemplo "import arxiv" no corresponde al mecanismo del repo.
 
-## Referencias
+## Verificación
 
-- [GitHub: K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills)
+- Instalar y comprobar que las skills aparecen en el agente; delegar un tema y ver el flujo científico.

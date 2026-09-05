@@ -1,77 +1,50 @@
 ---
 name: firecrawl-web-scraping
-description: API open-source para convertir cualquier página web en datos limpios (Markdown o JSON estructurado) optimizados para AI agents — scraping, crawling, batch processing.
-version: "1.0.0"
-tags: [scraping, web, AI, agents, markdown, data-extraction, crawler]
+description: "Usa al scrapear y crawl web con Firecrawl SDK."
+version: "2.0.0"
+tags: [scraping, firecrawl, web, api, crawl, ai, sdk]
+related_skills: [llm-friendly-web-crawler, firecrawl-web-scraping, crawlee-web-scraping, browser-use-ai]
 ---
 
-# Firecrawl — API de Scraping Web para AI Agents
+# Firecrawl — scraping y crawling con IA (SDK actual)
 
-## Resumen
+> ⚠️ Corrección 2026-09-05 (auditoría): la clase `FirecrawlApp` ya no existe y el paquete Node cambió. API actual = `Firecrawl` con `scrape/crawl/batch_scrape`.
 
-Firecrawl convierte cualquier página web en datos limpios (Markdown o JSON estructurado) optimizados para AI agents. 142K⭐.
+**Repo:** `https://github.com/firecrawl/firecrawl` (TypeScript, ~177K⭐).
 
-## Instalación
+## When to Use
+
+- Cuando pidas **scrapear** o **crawlear** (con IA) una web y obtener contenido limpio (markdown/JSON).
+- Para convertir páginas a LLM-friendly (por eso encaja con `llm-friendly-web-crawler`).
+
+## Uso (Python SDK)
+
+```python
+from firecrawl import Firecrawl
+
+app = Firecrawl(api_key="fc-...")   # la SDK actual usa la clase Firecrawl
+resp = app.scrape("https://ejemplo.com")        # scrape de una URL
+# app.crawl(url) / app.batch_scrape(urls) también existen
+```
+
+## Uso (Node.js)
 
 ```bash
-# Docker (recomendado)
-docker pull firecrawl/firecrawl
-docker run -p 3000:3000 firecrawl/firecrawl
-
-# Python SDK
-pip install firecrawl-py
-
-# Node.js SDK
-npm install @mendable/firecrawl-js
+npm install firecrawl          # (ya NO es @mendable/firecrawl-js)
 ```
 
-## Uso Básico
-
-### Python SDK
-```python
-from firecrawl import FirecrawlApp
-
-app = FirecrawlApp(api_key="fc-xxx")
-
-# Scraping simple → Markdown
-data = app.scrape_url("https://ejemplo.com", params={"formats": ["markdown"]})
-
-# Crawling completo de un sitio
-crawl = app.crawl_url("https://ejemplo.com", params={
-    "limit": 100,
-    "scrapeOptions": {"formats": ["markdown", "html"]}
-})
-
-# Lote de URLs
-batch = app.batch_scrape_urls(["https://a.com", "https://b.com"],
-                               {"formats": ["json"]})
+```js
+import { Firecrawl } from 'firecrawl';
+const app = new Firecrawl({ apiKey: 'fc-...' });
+const data = await app.scrape('https://ejemplo.com');
 ```
 
-### Node.js SDK
-```javascript
-import FirecrawlApp from '@mendable/firecrawl-js';
+## Pitfalls
 
-const app = new FirecrawlApp({apiKey: 'fc-xxx'});
-const data = await app.scrapeUrl('https://ejemplo.com', {formats: ['markdown']});
-```
+- La clase es **`Firecrawl`**, no `FirecrawlApp`; métodos **`scrape`/`crawl`/`batch_scrape`**, no `scrape_url`/`crawl_url`/`batch_scrape_urls`.
+- Paquete Node: **`npm install firecrawl`** (el antiguo `@mendable/firecrawl-js` es legacy).
+- Requiere `api_key` (frecuentemente de pago para uso intensivo).
 
-## Patrones Clave
+## Verificación
 
-1. **HTML → Markdown**: Limpieza automática de HTML a texto limpio
-2. **JSON Structured Output**: Extraer datos con schema definido
-3. **Crawling con límites**: `limit`, `maxDepth`, `ignoreSitemap`
-4. **Batch processing**: Múltiples URLs en paralelo
-5. **Webhook support**: Para crawls largos asíncronos
-
-## Integración con Mastermind
-
-- Reemplaza `curl` + `BeautifulSoup` para scraping web
-- Ideal para government data pipelines (BOE, BORME, etc.)
-- Complementa `government-cms-scraping` (Firecrawl genérico, CMS scraping específico)
-- Útil para static-digest-pipeline
-
-## Referencia
-
-- Repo: https://github.com/firecrawl/firecrawl
-- Docs: https://docs.firecrawl.dev
-- API: https://api.firecrawl.dev
+- `app.scrape(url)` y comprobar que devuelve `markdown`/`metadata` limpio.

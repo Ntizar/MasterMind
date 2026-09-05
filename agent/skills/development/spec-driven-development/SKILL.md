@@ -1,101 +1,42 @@
 ---
 name: spec-driven-development
-version: "1.0.0"
-description: "Spec-Driven Development — metodología para construir software basado en specs (PRD, planes, constituciones) en vez de 'vibe coding'. Basado en el toolkit de GitHub spec-kit (113K⭐)."
-tags: [development, methodology, spec, prd, planning, github, copilot]
+description: "Usa al diseñar software con spec-kit (specify)."
+version: "2.0.0"
+tags: [specs, spec-kit, specify, desarrollo, golang, ia, especificaciones]
+related_skills: [spec-driven-development, project-spec-workflow, plan, test-driven-development]
 ---
 
-# Spec-Driven Development (SDD)
+# Spec-Driven Development — flujo con spec-kit (specify)
 
-## Resumen
+> ⚠️ Corrección 2026-09-05 (auditoría): el CLI se instala con `uv tool install specify-cli` (no `pip install`), y el flujo actual es `specify init` + comandos slash `/speckit-*`, no `specify new spec/plan/tasks`.
 
-SDD invierte el orden tradicional de desarrollo: **spec primero → código después**. En vez de comenzar codificando, empiezas con un documento de especificación que define:
+**Repo:** `https://github.com/github/spec-kit` (Python, ~134K⭐).
 
-- **Qué** construir (product scenario)
-- **Por qué** (business value / user need)
-- **Cómo medir** (success criteria)
-- **Restricciones** (non-goals, constraints)
+## When to Use
 
-## Toolkit: `specify-cli`
+- Cuando pidas construir software **especificando antes que codificando** (spec → plan → tasks) con el flujo que GitHub usa internamente.
 
-El paquete `github/spec-kit` provee:
+## Uso (CLI actual)
 
 ```bash
-# Inicializar un proyecto SDD
+uv tool install specify-cli                # NO pip install
+# inicializar el repo
 specify init
-
-# Crear una spec
-specify new spec
-
-# Crear un plan de trabajo
-specify new plan
-
-# Crear tareas desde la spec
-specify new tasks
-
-# Ver estado
-specify status
+# el flujo usa comandos slash: /speckit-specify, /speckit-plan, /speckit-tasks,
+# /speckit-implement, /speckit-converge, /speckit-constitution
+# subcomandos: specify extension / preset / bundle / self / integration
 ```
 
-## Estructura de un proyecto SDD
+## Estructura generada
 
-```
-project/
-├── CONTRACT.md          # Acuerdo entre stakeholders
-├── PLANNING.md          # Plan de trabajo
-├── tasks/               # Tareas desglosadas
-│   ├── spec-001.md
-│   └── spec-002.md
-├── specs/               # Especificaciones
-│   ├── SPEC-001.md     # Feature spec
-│   └── SPEC-002.md     # API spec
-├── constitution.md      # Reglas del equipo
-├── .specify/
-│   └── cache/
-└── README.md
-```
-
-## Ventajas
-
-| Aspecto | Vibe Coding | SDD |
-|---------|-------------|-----|
-| **Predictibilidad** | Baja | Alta |
-| **Revisión** | Post-hoc | Pre-commit |
-| **Calidad** | Variable | Consistente |
-| **Documentación** | Escasa | Obligatoria |
-| **IA-ready** | No | Sí (prompts estructurados) |
-| **Despliegue** | Caótico | Orquestado |
-
-## Integración con IA
-
-Spec Kit soporta:
-
-- **GitHub Copilot** — specs como contexto
-- **Claude Code** — plans como prompt
-- **Cursor, Codex, Windsurf** — SDD como workflow
-- **Any LLM**: Las specs son prompts perfectos
-
-## Flujo típico con Mastermind
-
-1. **Spec primero** → `specify new spec`
-2. **Plan** → `specify new plan`
-3. **Tasks** → `specify new tasks`
-4. **Implementar** → usar skills de Mastermind
-5. **Review** → `specify status` (checklist)
+- `specs/` (especificaciones) · `constitution.md` (vía `/speckit-constitution`) · `.specify/`
+- *(CONTRACT.md, PLANNING.md, tasks/, `.specify/cache/` son de versiones viejas.)*
 
 ## Pitfalls
 
-- No sobre-documentar — las specs deben ser **ejecutables**, no ensayos
-- SDD funciona mejor con **proyectos > 1 semana** (para proyectos de 1 día, plan en README)
-- La `constitution.md` del repo define reglas de IA (no override)
+- Instalación: **`uv tool install specify-cli`**, no `pip install specify`.
+- **No** existe `specify new spec/plan/tasks` ni `specify status` — el flujo es `specify init` + slash commands.
 
-## Referencia
+## Verificación
 
-- Repo: `github/spec-kit`
-- CLI: `specify` (Python, pip install)
-- Docs: https://github.github.io/spec-kit/
-
-## Comparativa de alternativas
-
-- **[javierpa95/harness](https://github.com/javierpa95/harness)** — harness SDD donde el arquitecto impone specs y el flujo es Analyze→Spec→Implement→Review→Docs→Decide con 8 agentes; una implementación multi-agente del pipeline SDD.
-- **[acunap/praxis](https://github.com/acunap/praxis)** — máquina de estados en 2 fases (descubrimiento/diseño → implementación TDD) para evitar código caótico; alternativa más estructurada al flujo libre.
+- `uv tool install specify-cli` → `specify init` en un repo vacío → usar `/speckit-specify` y ver `specs/` + `constitution.md`.

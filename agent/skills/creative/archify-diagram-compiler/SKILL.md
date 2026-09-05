@@ -7,7 +7,7 @@ tags: [diagrams, architecture-as-code, json-ir, verification, nodejs, agent-skil
 
 # Archify — diagramas de arquitectura verificables (tt-a1i/archify)
 
-Repo: https://github.com/tt-a1i/archify (MIT, ~30K⭐). Sistema Node.js de renderizado+validación para agentes (Cursor, Claude Code, Codex CLI, OpenCode): el agente produce **JSON IR tipado**, Archify lo compila **determinísticamente** a HTML/SVG.
+Repo: https://github.com/tt-a1i/archify (MIT, ~49K⭐ verificado 2026-09-05, versión dev v2.17.0-dev.1). Sistema Node.js de renderizado+validación para agentes (Cursor, Claude Code, Codex CLI, OpenCode): el agente produce **JSON IR tipado**, Archify lo compila **determinísticamente** a HTML/SVG.
 
 ## Idea central (patrón reutilizable)
 - **Diagram-as-code con IR tipado**: en vez de que el LLM escriba SVG directamente (alucina topología), genera un JSON IR validado y un compilador determinista lo renderiza. Interacciones 100% grounded: sin topología inventada.

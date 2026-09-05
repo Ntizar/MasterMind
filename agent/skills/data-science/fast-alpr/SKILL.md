@@ -1,72 +1,37 @@
 ---
 name: fast-alpr
-version: "1.0.0"
-description: "FastALPR — framework rápido de reconocimiento de matrículas (ALPR/ANPR) con ONNX y OCR"
+description: "Usa a reconocer matrículas con FastALPR (ONNX)."
+version: "2.0.0"
+tags: [alpr, matricula, onnx, opencv, reconocimiento, vehiculos, python]
+related_skills: [fast-alpr, cctv-yolo, roboflow-supervision]
 ---
 
-# FastALPR — Automatic License Plate Recognition
+# FastALPR — reconocimiento rápido de matrículas
 
-## Descripción
+> ⚠️ Corrección 2026-09-05 (auditoría): el método es `predict(...)` (no `process_image`), y `pip install fast-alpr` sin el extra no instala el runtime ONNX.
 
-Sistema de reconocimiento automático de matrículas (ALPR/ANPR) de alto rendimiento y personalizable. Modelos ONNX rápidos por defecto, con fast-plate-ocr para OCR y open-image-models para detección de placas.
+**Repo:** `https://github.com/ebitbooster/fast-alpr` (Python, ~1.6K⭐).
 
-## Por qué importa para David
+## When to Use
 
-- **ALPR/ANPR**: Útil para análisis de tráfico y movilidad en proyectos de transporte
-- **ONNX runtime**: Modelo ligero, rápido y portable
-- **Customizable**: Se pueden swapear los modelos por propios
-- **Real-time**: Procesamiento en tiempo real de streams de video
+- Cuando pidas **reconocer matrículas** (ALPR) de forma rápida y en local usando ONNX + OpenCV.
 
-## Arquitectura
-
-```
-Video Stream (CCTV, dashcam, etc.)
-    ↓
-Plate Detection (open-image-models)
-    ↓
-OCR (fast-plate-ocr)
-    ↓
-License Plate Recognition
-    ↓
-Structured output (JSON)
-```
-
-Stack: Python, ONNX Runtime, PyTorch, OpenCV
-
-## Instalación
+## Uso (API real)
 
 ```bash
-pip install fast-alpr
-# o
-pip install fast-plate-ocr  # para OCR standalone
+pip install fast-alpr            # + extra para runtime ONNX (ver README)
 ```
-
-## Uso básico
 
 ```python
-from fast_alpr import ALPR
-
-alpr = ALPR()
-results = alpr.process_image("image.jpg")
-# results = [{'plate': 'ABC1234', 'confidence': 0.95, 'bbox': [...]}, ...]
+import fast_alpr
+result = fast_alpr.predict(image_path_or_array)   # método predict (no process_image)
 ```
-
-## Integración con proyectos de David
-
-- **Traffic monitoring**: Integrar en proyectos de monitorización de tráfico
-- **Movement analysis**: Combinar con datos de movilidad y transporte
-- **NAP DGT**: Patrón de análisis de imágenes de tráfico
 
 ## Pitfalls
 
-- Requiere GPU para performance en tiempo real (ONNX puede ir en CPU pero más lento)
-- Precisión depende de calidad de imagen y condiciones de iluminación
-- Modelo entrenado principalmente con placas europeas/españolas
-- No es un producto enterprise → puede necesitar tuning para casos edge
+- Método: **`predict`**, no `process_image`.
+- El paquete base puede no traer el runtime ONNX — instalar el extra documentado en el README.
 
-## Referencias
+## Verificación
 
-- GitHub: https://github.com/ankandrew/fast-alpr
-- Docs: https://ankandrew.github.io/fast-alpr/
-- Hugging Face Space: https://huggingface.co/spaces/ankandrew/fast-alpr
-- OCR: https://github.com/ankandrew/fast-plate-ocr
+- `fast_alpr.predict(img)` y comprobar que devuelve la placa del vehículo.

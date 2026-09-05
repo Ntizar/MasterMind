@@ -1,78 +1,35 @@
 ---
 name: geodeep
-version: "1.0.0"
-description: "GeoDeep — librería Python para detección de objetos y segmentación semántica en rasters geoespaciales (GeoTIFFs) con modelos ONNX"
+description: "Usa a detectar objetos satelitales con GeoDeep."
+version: "2.0.0"
+tags: [geodeep, deteccion, satelite, onnx, rasterio, python, geo]
+related_skills: [geodeep, satellite-ai-vision, rs-change-detection-satellite]
 ---
 
-# GeoDeep — AI en Rasters Geoespaciales
+# GeoDeep — detección de objetos desde satélite (ONNX)
 
-## Descripción
+> ⚠️ Corrección 2026-09-05 (auditoría): los IDs de modelos `pools`/`solar-panels` **no existen**; los reales incluyen `cars`, `trees`, `trees_yolov9`, `birds`, `planes`, `aerovision`, `buildings`, `roads`, `utilities`, `waldo30_nano`. Stack es **ONNX Runtime + rasterio** (no PyTorch); export de mask vía `save_mask_to_raster` / CLI `-t mask`.
 
-Librería Python rápida y ligera para detección de objetos y segmentación semántica en rásters geoespaciales (GeoTIFFs), con modelos pre-construidos incluidos. Detecta coches, edificios y más desde ortofotos.
+**Repo:** `https://github.com/opengeos/geodeep` (Python, ~510⭐).
 
-## Por qué importa para David
+## When to Use
 
-- **AI + Geospatial**: Integración directa de IA con datos geográficos
-- **ONNX models**: Modelos ligeros y portables para deployment
-- **GeoTIFF input/output**: Formato estándar en GIS
-- **CLI + Python API**: Útil tanto para scripts como para integración en pipelines
+- Cuando pidas **detección/segmentación de objetos** sobre imágenes satelitales con modelos preentrenados.
 
-## Arquitectura
-
-```
-GeoTIFF / Orthophoto
-    ↓
-GeoDeep (ONNX models)
-    ├── Detección de objetos → GeoJSON (bounding boxes)
-    └── Segmentación semántica → GeoJSON (polygons) / raster mask
-```
-
-Stack: Python, ONNX Runtime, rasterio, PyTorch, GeoTIFF
-
-## Instalación
-
-```bash
-pip install -U geodeep
-```
-
-## Uso básico
+## Uso (API real)
 
 ```python
-# Detección de objetos (coches)
-from geodeep import detect
-bboxes, scores, classes = detect('orthophoto.tif', 'cars')
-geojson = detect('orthophoto.tif', 'cars', output_type="geojson")
-
-# Segmentación semántica (edificios)
-from geodeep import segment
-polygons = segment('orthophoto.tif', 'buildings')
-
-# Exportar mask georreferenciada
-segment('orthophoto.tif', 'buildings', output_type='mask')
-
-# Listar modelos disponibles
-# geodeep --list-models
+import geodeep
+result = geodeep.detect(..., model='cars', ...)   # IDs reales: cars, trees, buildings, roads, utilities...
+# export de mask: geodeep.save_mask_to_raster(...) o CLI -t mask
 ```
-
-Modelos disponibles: cars, buildings, trees, pools, solar-panels, y más
-
-## Integración con proyectos de David
-
-- **España Atlas**: Detección automática de edificios/coches desde ortofotos
-- **Satellite AI Vision**: Complemento a skills existentes de visión satelital
-- **Urban planning**: Análisis de cobertura de edificios, vehículos, infraestructura
-- **Change detection**: Comparar ortofotos temporales con detección de cambios
 
 ## Pitfalls
 
-- Precisión del modelo depende de resolución de la ortofoto
-- Modelos pre-construidos pueden no cubrir todos los escenarios de España
-- ONNX models requieren GPU para performance en imágenes grandes
-- GeoTIFFs grandes pueden consumir mucha RAM (considerar tile processing)
-- Solo soporta Python 3.6+
+- IDs de modelos reales: **cars / trees / birds / planes / buildings / roads / utilities / aerovision / waldo30_nano**, etc. — **no** `pools`/`solar-panels`.
+- Stack: **ONNX Runtime + rasterio**, no PyTorch.
+- Export de mask: `save_mask_to_raster` (o CLI `-t mask`), no `output_type='mask'`.
 
-## Referencias
+## Verificación
 
-- GitHub: https://github.com/uav4geo/GeoDeep
-- pypi: https://pypi.org/project/geodeep/
-- Homepage: https://uav4geo.github.io/GeoDeep/
+- Detectar sobre una imagen satelital con un ID válido y guardar el resultado.

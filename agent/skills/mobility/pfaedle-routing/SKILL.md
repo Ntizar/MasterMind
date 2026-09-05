@@ -1,54 +1,35 @@
 ---
 name: pfaedle-routing
-description: pfaedle — map-matching preciso para feeds GTFS. Genera shapes de alta calidad a partir de datos de tránsito.
+description: "Usa a map-matchear GTFS sobre OSM con pfaedle."
+version: "2.0.0"
+tags: [pfaedle, gtfs, osm, map-matching, routing, cpp]
+related_skills: [pfaedle-routing, valhalla-routing, gtfs-to-netex-conversion]
 ---
 
-# pfaedle — Map-Matching para GTFS
+# pfaedle — map-matching de GTFS sobre OpenStreetMap
 
-## Qué hace
+> ⚠️ Corrección 2026-09-05 (auditoría): el uso real es `pfaedle -x <osm.pbf> <feed_gtfs.zip>` (argumentos posicionales) con salida en **`./gtfs-out`**; **no** flags `--gtfs`/`--tracks`/`--output`/`--validate-shapes`. El concepto es **map-matching de GTFS sobre OSM** (no de tracks GPS). Importante `--recurse-submodules` en el clone.
 
-[pfaedle](https://github.com/ad-freiburg/pfaedle) es un motor de map-matching de alta precisión para feeds de transporte público. Genera shapes de ruta de alta calidad a partir de datos GPS de vehículos, ideal para corregir shapes GTFS incorrectos o incompletos.
+**Repo:** `https://github.com/ad-freiburg/pfaedle` (C++, ~290⭐).
 
-## Instalación
+## When to Use
 
-```bash
-# pfaedle es una herramienta C++ que se compila desde fuente
-git clone https://github.com/ad-freiburg/pfaedle.git
-cd pfaedle
-mkdir build && cd build
-cmake ..
-make -j$(nproc)
-sudo make install
-```
+- Cuando pidas **proyectar/fijar un feed GTFS a la red real de OSM** (map-matching preciso de rutas y paradas sobre las calles).
 
-## Uso básico
+## Uso (real)
 
 ```bash
-# Map-match tracks GPS a una ruta GTFS
-pfaedle --gtfs feed.zip --tracks tracks.csv --output matched.zip
-
-# Validar shapes existentes
-pfaedle --gtfs feed.zip --validate-shapes
-```
-
-## Integración con pipelines GTFS
-
-```python
-# Ejemplo de integración con node-gtfs o gtfstidy
-# 1. Validar con gtfstidy
-# 2. Corregir shapes con pfaedle
-# 3. Exportar resultado
+git clone --recurse-submodules https://github.com/ad-freiburg/pfaedle.git
+cd pfaedle && ./build.sh    # (build según README)
+pfaedle -x osm.pbf feed.zip      # OSM + GTFS; salida en ./gtfs-out
 ```
 
 ## Pitfalls
 
-- Requiere datos GPS de alta calidad (frecuencia ≥ 1 Hz)
-- Necesita un archivo OSM del área de interés para el map-matching
-- El rendimiento depende del tamaño del área y la cantidad de tracks
-- Compatible con Linux principalmente
+- CLI: `pfaedle -x <osm> <gtfs>` (posicional), salida en **`./gtfs-out`**; no `--gtfs`/`--output`/`--validate-shapes`.
+- Clone **`--recurse-submodules`** (si no, el build falla).
+- Concepto: **GTFS sobre OSM**, no map-matching de tracks GPS de vehículos.
 
-## Referencias
+## Verificación
 
-- Repo: https://github.com/ad-freiburg/pfaedle
-- Relacionado: `gtfs-tidy`, `node-gtfs`, `graphhopper-routing`, `valhalla-routing`
-- Paper: "pfaedle: Precise Map-Matching for Public Transit Feeds" (Freiburg University)
+- Correr con un OSM pbf y un feed, comprobar en `gtfs-out` que las rutas siguen la red.

@@ -1,74 +1,41 @@
 ---
 name: gtfs-to-html-timetables
-version: "1.0.0"
-description: "Generar horarios de tránsito legibles como HTML o PDF desde datos GTFS estáticos. Inspirado en BlinkTagInc/gtfs-to-html (⭐226)."
-tags: [gtfs, html, timetable, transit, pdf, schedule]
+description: "Usa a generar horarios HTML desde GTFS."
+version: "2.0.0"
+tags: [gtfs, horarios, html, blinktag, gtfs-to-html, timetable]
+related_skills: [gtfs-to-html-timetables, gtfs-to-chart, gtfs-to-blocks, gtfs-box]
 ---
 
-# GTFS a Horarios HTML
+# GTFS-to-HTML — horarios legibles desde GTFS
 
-## Resumen
+> ⚠️ Corrección 2026-09-05 (auditoría): claves de config correctas son **`agencies`** (array), **`outputFormat`** y **`outputPath`**; el flag CLI es **`--configPath`**. `routes:['1']` no es una opción documentada.
 
-Convierte feeds GTFS estáticos en horarios legibles para humanos en formato HTML o PDF. Genera tablas de horarios por ruta, parada y día de la semana.
+**Repo:** `https://github.com/BlinkTagInc/gtfs-to-html` (TypeScript, ~228⭐). Docs: `gtfstohtml.com/docs/configuration`.
 
-## Cuándo usar
+## When to Use
 
-- Generar horarios imprimibles desde GTFS
-- Mostrar tablas de horarios en web de transporte
-- Exportar PDF de horarios para impresión
+- Cuando pidas **generar horarios de transporte legibles en HTML** desde un feed GTFS.
 
-## Patrón de uso
+## Uso (API/cli real)
 
 ```bash
-# Instalar
-npm install gtfs-to-html
-
-# Configurar
-echo '{"sqlitePath": "/tmp/gtfs.db", "agency": "metro-madrid"}' > config.json
-
-# Importar GTFS y generar HTML
-gtfs-to-html --config config.json
+gtfs-to-html --configPath config.json
 ```
 
-```javascript
-// Generar horario para una ruta específica
-const gtfsToHtml = require('gtfs-to-html');
-
-await gtfsToHtml({
-  sqlitePath: '/tmp/gtfs.db',
-  agency: 'metro-madrid',
-  routes: ['1'], // Línea 1
-  output: './horarios/',
-  format: 'html' // o 'pdf'
-});
-```
-
-## Estructura de salida
-
-```
-horarios/
-├── index.html          # Listado de todas las rutas
-├── route-1/
-│   ├── timetable.html   # Tabla de horarios
-│   ├── schedule.html    # Horario por parada
-│   └── map.html         # Mapa de la ruta
-└── route-2/
-    └── ...
+```json
+{
+  "agencies": [ { "agency_key":"mi", "url":"http://.../google_transit.zip" } ],
+  "outputFormat": "html",        // antes 'format'
+  "outputPath": "output"         // antes 'output'
+}
 ```
 
 ## Pitfalls
 
-- **SQLite:** La herramienta importa GTFS a SQLite primero. Asegurar que hay espacio.
-- **Frequencies.txt:** Si el feed usa frequencies (headway) en vez de stop_times exactos, la tabla se genera diferente.
-- **Time format:** GTFS usa HH:MM:SS. Formatear a HH:MM para display.
-- **Multi-agency:** Si el feed tiene múltiples agencias, especificar cuál generar.
-- **PDF:** Requiere wkhtmltopdf o Chromium para generar PDF.
+- Config: **`agencies`** (array), **`outputFormat`**, **`outputPath`** — no `agency`/`format`/`output`.
+- CLI: **`--configPath`**, no `--config`.
+- `routes:['1']` no es opción documentada (mirar gtfstohtml.com/docs).
 
-## Referencias
+## Verificación
 
-- gtfs-to-html: https://github.com/BlinkTagInc/gtfs-to-html
-- GTFS Schedule spec: https://gtfs.org/schedule/
-
----
-
-**Hecho con ❤️ por David Antizar**
+- Correr con `--configPath` y abrir el HTML de ruta generado.

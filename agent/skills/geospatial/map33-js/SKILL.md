@@ -1,78 +1,38 @@
 ---
 name: map33-js
-description: Visualización 3D de mapas con Three.js — alternative a maptalks.three para mapas 3D interactivos.
-version: "1.0.0"
-tags: [three.js, 3D, maps, visualization, WebGL]
+description: "Usa a hacer mapas 3D con map33 (Three.js Pearson)."
+version: "2.0.0"
+tags: [mapa-3d, map33, threejs, terrain, tiles, geospatial, npm]
+related_skills: [map33-js, threejs-3d-maps, map3d-r3f]
 ---
 
-# map33.js — Mapas 3D con Three.js
+# map33 — mapa 3D desde tilesets XYZ (Three.js)
 
-## Resumen
+> ⚠️ Corrección 2026-09-05 (auditoría): el paquete npm es **`map33`** (no `map33.js`); la API es `import { Map, Source, MapPicker }` + `new Map(scene, camera, source, position, { nTiles, zoom })`. **No** inventar `new Map33({container})`/`addLayer()`/`setPitch/setBearing`.
 
-Visualización 3D de mapas con Three.js — alternativa ligera a maptalks.three. 500⭐.
+**Repo:** `https://github.com/jccf/map33` (JavaScript, ~505⭐, inactivo desde 2023).
 
-## Repo de referencia
+## When to Use
 
-- **GitHub:** `github.com/blaze33/map33.js`
-- **Lenguaje:** JavaScript/TypeScript
-- **Licencia:** MIT
+- Cuando pidas un **mapa 3D de terreno** construido desde tilesets XYZ/OGC en Three.js (alternativa a maptalks.three).
 
-## Instalación
+## Uso (API real)
 
 ```bash
-npm install map33.js
-# o CDN
-<script src="https://cdn.jsdelivr.net/npm/map33.js/dist/map33.min.js"></script>
+npm install map33
 ```
 
-## Uso Básico
-
-```javascript
-import Map33 from 'map33.js';
-
-const map = new Map33({
-  container: 'map-container',
-  center: [40.4168, -3.7038],  // Madrid
-  zoom: 12,
-  style: 'osm',  // 'osm', 'satellite', 'dark'
-});
-
-// Añadir capas
-map.addLayer({
-  type: 'circle',
-  coordinates: [[40.4168, -3.7038]],
-  radius: 500,
-  color: '#2563eb',
-  opacity: 0.3,
-});
-
-// Rotación 3D
-map.setPitch(60);  // Inclinación 60 grados
-map.setBearing(45);  // Rotación 45 grados
+```js
+import { Map, Source, MapPicker } from 'map33';
+const m = new Map(scene, camera, source, position, { nTiles: 3, zoom: 12 });
 ```
-
-## Patrones Clave
-
-1. **Estilos:** OSM, satellite, dark, custom tiles
-2. **Capas:** Círculos, líneas, polígonos, marcadores 3D
-3. **Interacción:** Zoom, rotación, inclinación, click events
-4. **GeoJSON:** Soporte nativo para GeoJSON features
-5. **Performance:** Web Workers para procesamiento pesado
-
-## Integración con Mastermind
-
-- Complementa `maptalks.three` — más ligero, menos dependencias
-- Ideal para `threejs-3d-maps` con enfoque en visualización
-- Útil para `map3d-r3f` — alternativa vanilla a React
-- Perfecto para dashboards con mapas 3D interactivos
 
 ## Pitfalls
 
-- **Comunidad:** Menos comunidad que maptalks.three
-- **Documentación:** Docs limitados, hay que leer el código
-- **Extensiones:** Menos plugins disponibles
-- **WebGL:** Requiere soporte WebGL en el navegador
+- Paquete: **`map33`**, no `map33.js`.
+- API: `new Map(scene, camera, source, position, opts)`; no `new Map33({container})`/`addLayer`/`setPitch`/`setBearing`.
+- No es un drop-in de maptalks.three (construye terreno 3D desde tilesets XYZ).
 
-## Referencias
+## Verificación
 
-- [GitHub: blaze33/map33.js](https://github.com/blaze33/map33.js)
+- Instalar `map33`, crear un `Map` con scene+camera+source y ver el terreno.

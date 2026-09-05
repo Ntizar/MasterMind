@@ -1,98 +1,38 @@
 ---
 name: cctv-yolo
-description: Detección de objetos YOLO para cámaras CCTV — tráfico, vehículos, personas en tiempo real.
-version: "1.0.0"
-tags: [YOLO, CCTV, detection, traffic, vehicles, real-time, CV]
+description: "Usa a detectar objetos en CCTV con YOLOv5."
+version: "2.0.0"
+tags: [cctv, yolo, deteccion, video, gradio, yolov5, python]
+related_skills: [cctv-yolo, roboflow-supervision, fast-alpr, rf-detr]
 ---
 
-# CCTV YOLO — Detección para Cámaras de Seguridad
+# CCTV + YOLO — detección de objetos sobre cámaras (YOLOv5)
 
-## Resumen
+> ⚠️ Corrección 2026-09-05 (auditoría): el repo usa **YOLOv5** con una app **Gradio** (`python app.py`), no ultralytics/yolov8. La clase "objetos abandonados" no existe en el repo.
 
-Detección de objetos YOLO para cámaras CCTV — tráfico, vehículos, personas en tiempo real. 624⭐.
+**Repo (fuente):** repo de detección CCTV con YOLOv5 (app Gradio, `python app.py`) — verificar el repo exacto en el SKILL.md.
 
-## Repo de referencia
+## When to Use
 
-- **GitHub:** `github.com/SanshruthR/CCTV_YOLO`
-- **Lenguaje:** Python
-- **Licencia:** MIT
+- Cuando pidas **detectar/contar objetos (tráfico, personas)** sobre un vídeo o cámara con YOLO en local.
 
-## Instalación
+## Qué es
+
+Aplicación de detección de objetos sobre CCTV/streams. Stack: **YOLOv5** + **Gradio** (UI) — arranca con `python app.py`.
+
+## Uso
 
 ```bash
-pip install ultralytics opencv-python numpy
-# O clonar
-git clone https://github.com/SanshruthR/CCTV_YOLO.git
-cd CCTV_YOLO && pip install -r requirements.txt
+pip install -r requirements.txt
+python app.py        # arranca la UI Gradio de detección
 ```
-
-## Uso Básico
-
-```python
-import cv2
-from ultralytics import YOLO
-
-# Cargar modelo YOLO
-model = YOLO("yolov8n.pt")
-
-# Detectar en video de CCTV
-cap = cv2.VideoCapture("cctv_feed.mp4")
-
-while cap.isOpened():
-    ret, frame = cap.read()
-    if not ret:
-        break
-    
-    # Inferencia
-    results = model(frame, conf=0.25)
-    
-    # Dibujar resultados
-    for r in results:
-        boxes = r.boxes
-        for box in boxes:
-            cls = model.names[int(box.cls)]
-            conf = box.conf[0]
-            pts = box.xyxy[0].int().tolist()
-            cv2.rectangle(frame, (pts[0], pts[1]), (pts[2], pts[3]), 
-                         (0, 255, 0), 2)
-            cv2.putText(frame, f"{cls} {conf:.2f}", 
-                       (pts[0], pts[1]-10),
-                       cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-    
-    cv2.imshow("CCTV YOLO", frame)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-
-cap.release()
-```
-
-## Clases Detectables
-
-1. **Personas** — count de personas en zona
-2. **Vehículos** — coches, motos, camiones
-3. **Tráfico** — densidad vehicular
-4. **Objetos abandonados** — detección de objetos estáticos
-
-## Integración con Mastermind
-
-- Complementa `computer-vision` pipelines para vigilancia
-- Útil para `traffic-digital-twin` — datos de cámaras reales
-- Reemplaza detección manual con YOLO pre-entrenado
-- Ideal para `satellite-traffic-detection` — misma lógica, otra fuente
 
 ## Pitfalls
 
-- **Cámara fija:** Modelos entrenados con cámara fija pueden no generalizar
-- **Iluminación:** Noche/lluvia afectan precisión
-- **Resolución:** CCTV de baja resolución reduce accuracy
-- **Performance:** YOLO completo es pesado — usar nano/small para tiempo real
+- Modelo: **YOLOv5** (no YOLOv8/ultralytics).
+- Arranque: **`python app.py`** (Gradio), no otro CLS.
+- No hay clase "objetos abandonados" en el repo (no inventar clases).
 
-## Referencias
+## Verificación
 
-- [GitHub: SanshruthR/CCTV_YOLO](https://github.com/SanshruthR/CCTV_YOLO)
-
-## Comparativa de alternativas
-
-- **[computer-vision-with-marco](https://github.com/mbertini/realtime-detection-yolo26)** — plantilla reproducible de *training* YOLO sobre datasets Kaggle (CLI + notebook + Streamlit): para entrenar tu propio detector (p. ej. clases específicas) en vez de usar un modelo preentrenado.
-- **[roryclear/clearcam](https://github.com/roryclear/clearcam)** — pipeline CCTV completo: YOLO + tracking + zonas + notificaciones + resúmenes Qwen3-VL + búsqueda por texto; alternativa más "producto" que el skill base.
-- **[NVIDIA-AI-IOT/nanoowl](https://github.com/NVIDIA-AI-IOT/nanoowl)** — detección *open-vocabulary* (OWL-ViT) con pipeline tree recursivo por texto; YOLO de clases fijas no contempla clases arbitrarias, así que úsalo cuando el conjunto de clases no esté cerrado.
+- `python app.py` → subir un vídeo y comprobar que detecta/cuenta objetos.

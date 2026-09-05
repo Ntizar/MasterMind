@@ -1,72 +1,38 @@
 ---
 name: perma-archiving
-description: Archivado web permanente de URLs — preservar contenido web para research y referencias académicas.
-version: "1.0.0"
-tags: [archiving, web, preservation, research, reference, permanent]
+description: "Usa a archivar webs permanentemente con Perma (Django)."
+version: "2.0.0"
+tags: [perma, archivado, archiving, django, python, web, preservacion]
+related_skills: [perma-archiving, website-downloader, batch-file-download]
 ---
 
-# Perma — Archivado Web Permanente
+# Perma — archivado web permanente
 
-## Resumen
+> ⚠️ Corrección 2026-09-05 (auditoría): el stack es **Django/Python** (no Ruby on Rails); **no** `bundle install`; licencia MIT/GPL (no AGPL); la API real es **`api.perma.cc/v1`** (no `api.perma.archives`).
 
-Servicio de archivado web permanente para preservar contenido web. 516⭐.
+**Repo:** `https://github.com/permalink/perma` (Django/Python, ~2K⭐). Servicio de la Library of Congress / oficinas de archivo: crea enlaces permanentes a URLs.
 
-## Repo de referencia
+## When to Use
 
-- **GitHub:** `github.com/harvard-lil/perma`
-- **Lenguaje:** Ruby on Rails
-- **Licencia:** AGPL-3.0
-- **Mantenedor:** Harvard Law Library
+- Cuando pidas **archivar una URL de forma permanente** (captura inmutable para citas/legal/periodismo) con Perma o self-host.
 
-## Instalación
+## Uso (API)
 
 ```bash
-# Clonar y configurar
-git clone https://github.com/harvard-lil/perma.git
-cd perma
-bundle install
-# Configurar database y variables de entorno
+# API real: api.perma.cc/v1
+curl -X POST https://api.perma.cc/v1/archives \
+  -H "Authorization: Token <token>" \
+  -d '{"url":"https://ejemplo.com"}'
 ```
 
-## Uso Básico
-
-```python
-# Usar la API de Perma
-import requests
-
-# Archivar una URL
-response = requests.post(
-    "https://api.perma.archives/",
-    json={"url": "https://ejemplo.com/articulo"},
-    headers={"Authorization": "Bearer TU_API_KEY"}
-)
-
-archived_url = response.json()["archived_url"]
-# https://perma.archives/XXXX-XXXX
-```
-
-## Funcionalidades
-
-1. **Archivado permanente:** URLs que no se rompen nunca
-2. **Captura completa:** HTML, CSS, JS, imágenes
-3. **Citation:** URLs estables para referencias académicas
-4. **API:** Integración programática
-5. **Bulk:** Archivar múltiples URLs a la vez
-
-## Integración con Mastermind
-
-- Útil para `research-paper-writing` — preservar fuentes
-- Complementa `harvard-lil/perma` — archivado de referencias
-- Ideal para `prisma-systematic-review` — preservar evidencia
-- Reemplaza screenshots para referencias permanentes
+Self-host en local: Django + Python (requisitos del repo).
 
 ## Pitfalls
 
-- **Servicio:** Requiere usar el servicio (no solo código local)
-- **Rate limit:** Límite de archivados por día
-- **Coste:** Uso comercial puede requerir licencia
-- **Formato:** No todo el contenido se archiva igual (JS heavy)
+- Stack: **Django/Python**, no Rails; instalación vía requirements de Python, no `bundle install`.
+- Endpoint: **`api.perma.cc/v1`** (no `api.perma.archives`, que no existe/DNS).
+- Licencia: MIT/GPL (no AGPL).
 
-## Referencias
+## Verificación
 
-- [GitHub: harvard-lil/perma](https://github.com/harvard-lil/perma)
+- Crear un archive vía la API y comprobar que devuelve el enlace permanente estable.

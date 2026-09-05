@@ -1,82 +1,37 @@
 ---
 name: ecctrl
-description: Epic Controls for Three.js — sistema de controles FPS/TPS para Three.js con movimiento, cámara y físicas.
-version: "1.0.0"
-tags: [three.js, controls, FPS, TPS, game, movement, camera]
+description: "Usa a controlar personajes con Epic Controls (Three.js)."
+version: "2.0.0"
+tags: [ecctrl, threejs, controles, fps, character, character-controller, mocap]
+related_skills: [ecctrl, threejs-3d-maps, seed-three]
 ---
 
-# ECCTRL — Epic Controls for Three.js
+# Ecctrl — controles de personaje para Three.js
 
-## Resumen
+> ⚠️ Corrección 2026-09-05 (auditoría): el paquete npm es **`ecctrl`** (no `@ecctrl/core`) y la export es **`Ecctrl`** (no `EcctrlControls`).
 
-Sistema de controles FPS/TPS para Three.js con movimiento, cámara y físicas. 741⭐.
+**Repo:** `https://github.com/pmndrs/ecctrl` (TypeScript, ~1.5K⭐). Controles FPS/TPS para Rapier + React Three Fiber.
 
-## Repo de referencia
+## When to Use
 
-- **GitHub:** `github.com/pmndrs/ecctrl`
-- **Lenguaje:** TypeScript
-- **Licencia:** MIT
-- **Ecosistema:** pmndrs (React Three Fiber)
+- Cuando pidas **controlar un personaje** (movimiento, salto, sprint) en una escena Three.js / R3F con física Rapier.
 
-## Instalación
+## Uso (API real)
 
 ```bash
-npm install @ecctrl/core
-# o
-yarn add @ecctrl/core
+npm install ecctrl rapier2d-compat    # paquete 'ecctrl' (no @ecctrl/core)
 ```
 
-## Uso Básico
-
-```javascript
-import { EcctrlControls } from '@ecctrl/core';
-
-// Crear controles
-const controls = new EcctrlControls(camera, domElement);
-
-// Configuración
-controls.set({
-  speed: 5,
-  jumpForce: 8,
-  friction: 0.8,
-  camera: {
-    mode: 'fps',  // 'fps' | 'tps'
-    distance: 5,
-    minPolarAngle: 0,
-    maxPolarAngle: Math.PI,
-  }
-});
-
-// Loop de animación
-function animate() {
-  controls.update(delta);
-  renderer.render(scene, camera);
-  requestAnimationFrame(animate);
-}
+```jsx
+import { Ecctrl } from 'ecctrl';      // componente/export Ecctrl (no EcctrlControls)
+<Ecctrl />                             // (default export o named, según docs)
 ```
-
-## Patrones Clave
-
-1. **FPS mode:** Cámara en primera persona con WASD + ratón
-2. **TPS mode:** Cámara en tercera persona con seguimiento
-3. **Físicas:** Gravedad, saltos, fricción, colisiones
-4. **Rigging:** Integración con modelos 3D animados
-5. **State machine:** Transiciones entre caminar, correr, saltar
-
-## Integración con Mastermind
-
-- Complementa `three.js` para experiencias interactivas 3D
-- Ideal para visores de mapas en 3D estilo "exploración"
-- Útil para `threejs-3d-maps` con navegación peatonal
-- Reemplaza controles manuales de cámara
 
 ## Pitfalls
 
-- **React:** Diseñado para React Three Fiber, uso vanilla requiere adaptación
-- **Dependencias:** Requiere Three.js y React
-- **Documentación:** Docs limitados, hay que leer el código fuente
-- **Performance:** Puede ser pesado en móviles
+- Paquete: **`ecctrl`**, no `@ecctrl/core`.
+- Export: **`Ecctrl`**, no `EcctrlControls`.
 
-## Referencias
+## Verificación
 
-- [GitHub: pmndrs/ecctrl](https://github.com/pmndrs/ecctrl)
+- Montar `<Ecctrl />` en una escena R3F y comprobar que el personaje se mueve con física.

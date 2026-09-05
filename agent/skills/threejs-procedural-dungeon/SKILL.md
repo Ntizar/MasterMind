@@ -1,42 +1,35 @@
 ---
 name: threejs-procedural-dungeon
-description: Three.js Procedural Dungeon — generación procedural de dungeons/interiores 3D con Three.js.
-category: creative
+description: "Usa a generar mazmorras 3D procedurales en Three.js."
+version: "2.0.0"
+tags: [threejs, dungeon, procedural, generacion, dungeon-generator, 3d]
+related_skills: [threejs-procedural-dungeon, seed-three, ecctrl]
 ---
 
-# Three.js Procedural Dungeon — Generación Procedural 3D
+# Three.js Procedural Dungeon — mazmorras 3D procedurales
 
-## Qué es
+> ⚠️ Corrección 2026-09-05 (auditoría): el comando es `npm run dev` (no `npm start`) y es **pan/orbit** (no first-person). Stars ~495.
 
-Three.js Procedural Dungeon es un generador de dungeons/interiores 3D que usa:
-- **Three.js** — renderizado 3D en navegador
-- **Procedural generation** — algoritmos para generar layouts
-- **First-person** — navegación en primera persona
-- **Lighting** — iluminación dinámica y sombras
+**Repo:** `https://github.com/.../threejs-procedural-dungeon` (TypeScript, ~495⭐).
 
-## Instalación
+## When to Use
+
+- Cuando pidas **generar una mazmorra 3D procedural** (salas, pasillos, mapa aleatorio) en Three.js.
+
+## Uso
 
 ```bash
-git clone https://github.com/majidmanzarpour/threejs-procedural-dungeon.git
-cd threejs-procedural-dungeon
 npm install
-npm start
+npm run dev        # (no npm start) — abre el viewer
 ```
 
-## Casos de uso para David
-
-- **Pattern learning** — aprender patrones de generación procedural
-- **Interior visualization** — visualizar interiores de edificios
-- **Three.js techniques** — técnicas avanzadas de Three.js
-- **Navigation patterns** — patrones de navegación FPS
+- Navegación: **pan/orbit** de la escena, no first-person.
 
 ## Pitfalls
 
-- Enfocado en dungeons/interiores, no en terrenos geoespaciales
-- No incluye datos reales — solo generación procedural
-- Depende de Three.js version específica
-- No optimizado para datasets grandes
+- Comando de desarrollo: **`npm run dev`**, no `npm start`.
+- Cámara: **pan/orbit**, no first-person.
 
-## Referencias
+## Verificación
 
-- Repo: `github.com/majidmanzarpour/threejs-procedural-dungeon` (345⭐)
+- `npm run dev` y comprobar que genera una mazmorra distinta en cada reload.

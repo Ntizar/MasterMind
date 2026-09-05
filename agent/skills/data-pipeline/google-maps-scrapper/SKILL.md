@@ -1,88 +1,37 @@
 ---
 name: google-maps-scrapper
-description: Scraping de datos de Google Maps — negocios, reviews, ubicaciones, coordenadas, horarios.
-version: "1.0.0"
-tags: [scraping, google-maps, business, reviews, geolocation]
+description: "Usa a scrapear negocios y reviews de Google Maps."
+version: "2.0.0"
+tags: [google-maps, scraping, negocios, reviews, playwight, python]
+related_skills: [google-maps-scrapper, adaptive-web-scraping, scrapers]
 ---
 
-# Google Maps Scraper
+# Google Maps Scrapper — negocios, reviews y ubicaciones
 
-## Resumen
+> ⚠️ Corrección 2026-09-05 (auditoría): hay **dos proyectos**: el repo `zohaibbashir` es un **script CLI con Playwright**; la librería Python `pip install google-maps-scraper` con clase `GoogleMapsScraper` es de **`noworneverev/google-maps-scraper`**. No mezclarlos.
 
-Scraping de datos de Google Maps — negocios, reviews, ubicaciones, coordenadas, horarios. 1k⭐.
+## When to Use
 
-## Repo de referencia
+- Cuando pidas **extraer negocios, reviews, coordenadas y horarios de Google Maps** para un análisis de mercado.
 
-- **GitHub:** `github.com/zohaibbashir/Google-Maps-Scrapper`
-- **Lenguaje:** Python
-- **Licencia:** MIT
+## Opciones (distingue cuál usas)
 
-## Instalación
+- **Script CLI (Playwright)** — repo zohaibbashir: ejecuta un script que abre Google Maps en un navegador (Playwright) y extrae los resultados.
+- **Librería Python** — `pip install google-maps-scraper` + `from google_maps_scraper import GoogleMapsScraper` (repo noworneverev).
 
-```bash
-pip install google-maps-scraper
-# o clonar
-git clone https://github.com/zohaibbashir/Google-Maps-Scrapper.git
-cd Google-Maps-Scrapper && pip install -r requirements.txt
-```
-
-## Uso Básico
+## Uso (librería Python)
 
 ```python
 from google_maps_scraper import GoogleMapsScraper
-
-scraper = GoogleMapsScraper()
-
-# Buscar negocios
-results = scraper.search(
-    query="restaurantes Madrid",
-    limit=50,
-    output_format="csv"
-)
-
-# Extraer detalles
-for business in results:
-    print(f"{business['name']}")
-    print(f"  Rating: {business['rating']}")
-    print(f"  Reviews: {business['reviews']}")
-    print(f"  Location: {business['latitude']}, {business['longitude']}")
-    print(f"  Address: {business['address']}")
-    print(f"  Phone: {business['phone']}")
-    print(f"  Website: {business['website']}")
-    print(f"  Hours: {business['hours']}")
+scraper = GoogleMapsScraper(...)
+results = scraper.scrape(...)     # ejemplos por el README del repo
 ```
-
-## Datos Extraíbles
-
-1. **Nombre** del negocio
-2. **Rating** y número de reviews
-3. **Categoría** (restaurante, tienda, etc.)
-4. **Dirección** completa
-5. **Coordenadas** (lat/lng)
-6. **Teléfono** y website
-7. **Horarios** de apertura
-8. **Reviews** con texto y puntuación
-9. **Fotos** del lugar
-
-## Integración con Mastermind
-
-- Útil para análisis de datos geoespaciales de negocios
-- Complementa `osm-infrastructure-mapping` con datos de Google
-- Ideal para `competitive-intelligence` — mapear competencia
-- Útil para `business-intelligence` con datos reales
 
 ## Pitfalls
 
-- **Rate limiting:** Google bloquea rápidamente — usar proxies y delays
-- **Legal:** Términos de servicio de Google prohíben scraping
-- **CAPTCHA:** Puede aparecer CAPTCHA tras varias búsquedas
-- **Inestable:** Cambios en la UI de Google Maps rompen el scraper
-- **Geo-restrictions:** Resultados varían por ubicación
+- **No** confundir los dos proyectos (Playwright CLI vs librería Python).
+- Verificar el repo exacto que quieres usar antes de elegir el import.
 
-## Referencias
+## Verificación
 
-- [GitHub: zohaibbashir/Google-Maps-Scrapper](https://github.com/zohaibbashir/Google-Maps-Scrapper)
-
-## Comparativa de alternativas
-
-- **[gosom/google-maps-scraper](https://github.com/gosom/google-maps-scraper)** — implementación en Go que escala el scraping de negocios de Google Maps (CLI + Web + REST): una alternativa robusta y de alto rendimiento al scraper Python de este skill.
+- Extraer reviews/negocios de una zona y comprobar que los campos (nombre, rating, coord) salen.

@@ -1,93 +1,39 @@
 ---
 name: gtfs-manager
-description: Gestor estático de feeds GTFS — crear, editar y validar feeds de transporte público.
-version: "1.0.0"
-tags: [GTFS, transport, editor, validator, mobility]
+description: "Usa a editar y validar feeds GTFS con GTFS Manager."
+version: "2.0.0"
+tags: [gtfs, manager, gui, editor, validacion, web]
+related_skills: [gtfs-manager, gtfs-tidy, gtfs-to-html-timetables, transit-data-pipelines]
 ---
 
-# GTFS Manager — Gestor de Feeds GTFS
+# GTFS Manager — gestor gráfico de feeds GTFS (GUI)
 
-## Resumen
+> ⚠️ Corrección 2026-09-05 (auditoría): **NO** es una librería Python (`from gtfs_manager import GTFSManager`). Es una **app web GUI** que se ejecuta con `GTFSManager.exe` o Docker; licencia **GPL-3.0** (no Apache 2.0).
 
-Gestor estático de feeds GTFS para crear, editar y validar feeds de transporte público. 159⭐.
+**Repo:** `https://github.com/WRI-Cities/static-GTFS-manager` (JavaScript/GUI, ~159⭐). Licencia: **GPL-3.0**.
 
-## Repo de referencia
+## When to Use
 
-- **GitHub:** `github.com/WRI-Cities/static-GTFS-manager`
-- **Lenguaje:** Python/JavaScript
-- **Licencia:** Apache 2.0
-- **Mantenedor:** World Resources Institute (WRI)
+- Cuando pidas **crear/editar y validar feeds GTFS** desde una interfaz gráfica (subir, editar agencias/rutas/paradas, validar), sin tocar el JSON/SQLite a mano.
 
-## Instalación
+## Qué es
+
+Editor gráfico web (GUI) para feeds GTFS estáticos. Modelo de datos basado en **gtfs-validator** y el esquema oficial.
+
+## Uso
 
 ```bash
-git clone https://github.com/WRI-Cities/static-GTFS-manager.git
-cd static-GTFS-manager && pip install -r requirements.txt
+# App de escritorio (Windows): ejecutar GTFSManager.exe
+# o Docker:
+docker run -p 8080:8080 gtfsmanager
+# (abrir la UI web y cargar un feed .zip)
 ```
-
-## Uso Básico
-
-```python
-# Crear feed GTFS desde cero
-from gtfs_manager import GTFSManager
-
-manager = GTFSManager()
-
-# Añadir rutas
-manager.add_route(
-    route_id="R1",
-    agency_id="AG1",
-    route_short_name="1",
-    route_long_name="Centro → Universidad",
-    route_type=3,  # Bus
-)
-
-# Añadir paradas
-manager.add_stop(
-    stop_id="S1",
-    stop_name="Plaza Mayor",
-    stop_lat=40.4154,
-    stop_lon=-3.7074,
-)
-
-# Añadir frecuencias
-manager.add_frequency(
-    route_id="R1",
-    start_time="06:00:00",
-    end_time="22:00:00",
-    headway_secs=300,  # cada 5 minutos
-)
-
-# Exportar
-manager.export("mi_feed_gtfs.zip")
-```
-
-## Funcionalidades
-
-1. **Crear:** Generar feeds GTFS desde cero o templates
-2. **Editar:** Modificar rutas, paradas, horarios existentes
-3. **Validar:** Verificar compliance con especificación GTFS
-4. **Converter:** GTFS ↔ CSV, GTFS ↔ GeoJSON
-5. **Visualizar:** Mapa de rutas y paradas
-
-## Integración con Mastermind
-
-- Complementa `gtfs-tidy` — creación vs limpieza
-- Útil para `gtfs-to-blocks` — generar feeds para planificación
-- Fuente para `opentripplanner-otp` — feeds custom
-- Reemplaza edición manual de CSVs de GTFS
 
 ## Pitfalls
 
-- **Especificación:** GTFS tiene muchas reglas — validar siempre
-- **Zona horaria:** Los horarios usan zona horaria del feed
-- **Calidad:** Los feeds generados pueden no ser realistas
-- **Mantenimiento:** Proyecto pequeño, actualizar con cuidado
+- **No** `from gtfs_manager import GTFSManager` — es GUI, no librería Python.
+- Licencia: **GPL-3.0**.
 
-## Referencias
+## Verificación
 
-- [GitHub: WRI-Cities/static-GTFS-manager](https://github.com/WRI-Cities/static-GTFS-manager)
-
-## Comparativa de alternativas
-
-- **[julian-city/croquis](https://github.com/julian-city/croquis)** — sketch-planning ágil de redes de transporte: crear/editar corredores y trazados para explorar alternativas antes de entrar en detalle; útil para la fase de diseño previa al editar GTFS.
+- Abrir la UI, cargar un feed y validarlo; comprobar que reporta errores del feed.

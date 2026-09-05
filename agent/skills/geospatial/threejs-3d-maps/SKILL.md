@@ -89,8 +89,8 @@ threeLayer.addTo(map);
 Librería ligera para mapas 3D con three.js. Enfoque minimalista.
 
 ```javascript
-import { Map33 } from 'map33.js';
-const map = new Map33({ container: 'map', tileProvider: 'osm' });
+import { Map, Source, MapPicker } from 'map33';   // API real (paquete 'map33', no 'map33.js')
+const map = new Map(scene, camera, source, position, { nTiles: 3, zoom: 12 });
 ```
 
 ## Patrón de uso — Visor geoespacial 3D

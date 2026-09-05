@@ -1,79 +1,35 @@
 ---
 name: three-scope-map
-description: Mapa 3D con Three.js — visualización de datos geoespaciales en tres dimensiones.
-version: "1.0.0"
-tags: [three.js, 3D, maps, geospatial, visualization, WebGL]
+description: "Usa a hacer un mapa 3D con scope en Three.js (Codex)."
+version: "2.0.0"
+tags: [threejs, mapa-3d, scope, vue, codex-skill, geospatial]
+related_skills: [three-scope-map, threejs-3d-maps, map33-js]
 ---
 
-# Three-Scope Map — Mapas 3D con Three.js
+# Three Scope Map — skill de Codex para mapa 3D (Three.js)
 
-## Resumen
+> ⚠️ Corrección 2026-09-05 (auditoría): stars ~531, licencia **GPL-3.0** (no MIT), lenguaje **Vue**, y es un **skill de Codex** (no un paquete npm).
 
-Mapa 3D con Three.js — visualización de datos geoespaciales en tres dimensiones. 145⭐.
+**Repo:** `https://github.com/songsummer920-dazzle/three-scope-map-skill` (Vue, ~531⭐). Licencia: GPL-3.0.
 
-## Repo de referencia
+## When to Use
 
-- **GitHub:** `github.com/songsummer920-dazzle/three-scope-map-skill`
-- **Lenguaje:** JavaScript/Three.js
-- **Licencia:** MIT
+- Cuando quieras un **skill/mapa 3D con scope** en Three.js desde Codex (patrón para agentes), o construir un mapa de scope.
 
-## Instalación
+## Qué es
 
-```bash
-npm install three-scope-map
-# o clonar
-git clone https://github.com/songsummer920-dazzle/three-scope-map-skill.git
-```
+Es un **skill (Codex)** que produce un mapa/scope 3D con Three.js; está escrito en Vue y se instala como skill de agente, no como librería npm.
 
-## Uso Básico
+## Uso
 
-```javascript
-import ThreeScopeMap from 'three-scope-map';
-
-const map = new ThreeScopeMap({
-  container: '#map',
-  center: [40.4168, -3.7038],  // Madrid
-  zoom: 12,
-  terrain: true,  // Terreno 3D
-  buildings: true,  // Edificios extruidos
-});
-
-// Añadir datos
-map.addPoints([
-  { lat: 40.4168, lng: -3.7038, value: 100, color: '#f97316' },
-  { lat: 40.4200, lng: -3.7100, value: 200, color: '#2563eb' },
-]);
-
-// Añadir rutas
-map.addRoute({
-  coordinates: [[40.4168, -3.7038], [40.4200, -3.7100]],
-  color: '#10b981',
-  width: 3,
-});
-```
-
-## Funcionalidades
-
-1. **Terreno 3D:** Topografía con elevación real
-2. **Edificios:** Extrusión de edificios desde datos OSM
-3. **Heatmaps:** Visualización de densidad con mapas de calor
-4. **Rutas 3D:** Líneas y rutas en 3D
-5. **Interacción:** Zoom, rotación, click, hover
-
-## Integración con Mastermind
-
-- Complementa `map3d-r3f` — Three.js vanilla vs React
-- Útil para `threejs-3d-maps` — visualización geoespacial
-- Ideal para `transit-3d-realtime` — rutas de transporte en 3D
-- Reemplaza Cesium.js para setups más ligeros
+- Instalar/activar el skill de Codex (no `npm install three-scope-map`).
+- El agente genera la escena Three.js de scope según la instrucción.
 
 ## Pitfalls
 
-- **Performance:** Terreno 3D + edificios puede ser pesado
-- **Datos:** Necesita datos OSM/terrain para edificios y topografía
-- **Mobile:** Puede no funcionar bien en dispositivos móviles
-- **Dependencias:** Three.js + loaders adicionales
+- Licencia: **GPL-3.0**.
+- Lenguaje: **Vue**; es skill de Codex, no paquete npm.
 
-## Referencias
+## Verificación
 
-- [GitHub: songsummer920-dazzle/three-scope-map-skill](https://github.com/songsummer920-dazzle/three-scope-map-skill)
+- Activar el skill y pedir un mapa de scope 3D; comprobar que lo genera.

@@ -1,73 +1,39 @@
 ---
 name: simsat
-description: Simulador de datos satelitales — generación de datos Sentinel/Landsat sintéticos para ML y testing.
-version: "1.0.0"
-tags: [satellite, simulation, ML, testing, Sentinel, Landsat, synthetic]
+description: "Usa a simular la órbita/accesos de un satélite (SimSat)."
+version: "2.0.0"
+tags: [simsat, satelite, orbita, simulador, docker, dashboard, api]
+related_skills: [simsat, satellite-ai-vision, aws-dem-terrain-tiles]
 ---
 
-# SimSat — Simulador de Datos Satelitales
+# SimSat — simulador orbital de satélite (Docker + dashboard)
 
-## Resumen
+> ⚠️ Corrección 2026-09-05 (auditoría): licencia **AGPL-3.0** (no MIT). **No** es una librería pip (`from simsat import SimSat` / `.generate()` no existe). Es un **simulador Docker/orbital** con dashboard web (localhost:8000) y API REST (localhost:9005), que sirve imágenes (Sentinel/Mapbox) según la órbita/accesibilidad del satélite.
 
-Simulador de datos satelitales — generación de datos Sentinel/Landsat sintéticos para ML y testing. 62⭐.
+**Repo:** `https://github.com/DPhi-Space/SimSat` (Python, ~62⭐) · Licencia: **AGPL-3.0**.
 
-## Repo de referencia
+## When to Use
 
-- **GitHub:** `github.com/DPhi-Space/SimSat`
-- **Lenguaje:** Python
-- **Licencia:** MIT
+- Cuando pidas **simular la órbita/accesos de un satélite** (qué zonas ve, cuándo pasa) y servir esas imágenes por API.
 
-## Instalación
+## Qué es
+
+Simulador de **accesibilidad orbital** de un satélite: calcula la trayectoria/campos de vista y sirve imágenes (Sentinel/Mapbox) de las zonas cubiertas vía dashboard + API REST.
+
+## Uso
 
 ```bash
-git clone https://github.com/DPhi-Space/SimSat.git
-cd SimSat && pip install -r requirements.txt
+docker compose up
+# dashboard web: http://localhost:8000
+# API REST: http://localhost:9005
 ```
-
-## Uso Básico
-
-```python
-from simsat import SimSat
-
-# Generar datos satelitales sintéticos
-simulator = SimSat(
-    region="Madrid",
-    resolution=10,  # metros
-    bands=["B02", "B03", "B04", "B08"],  # Sentinel-2
-    dates=["2024-01-01", "2024-06-01", "2024-12-01"]
-)
-
-# Generar imágenes
-images = simulator.generate()
-
-# Añadir ruido realista
-images.noisy = simulator.add_noise(images, level=0.1)
-
-# Exportar
-simulator.export(images, "sentinel_synth.tif")
-```
-
-## Funcionalidades
-
-1. **Bandas:** Soporte para Sentinel-2, Landsat-8, MODIS
-2. **Resolución:** Configuración de resolución espacial
-3. **Temporal:** Series temporales con variación estacional
-4. **Ruido:** Simulación de nubes, atmósfera, sensor
-5. **Export:** GeoTIFF, NetCDF, PNG
-
-## Integración con Mastermind
-
-- Complementa `rs-change-detection-satellite` — datos sintéticos para training
-- Útil para `satellite-ai-vision` — datasets de prueba
-- Ideal para `geodeep` — datos de entrenamiento sintéticos
-- Reemplaza búsqueda de datos reales para prototipos
 
 ## Pitfalls
 
-- **Realismo:** Los datos sintéticos no capturan toda la variabilidad real
-- **Calibración:** Los parámetros deben calibrarse con datos reales
-- **Formato:** GeoTIFF puede requerir GDAL para procesamiento
+- Licencia: **AGPL-3.0**, no MIT.
+- Es un **simulador Docker/orbital**, no una librería Python; no hay clase `SimSat`/`.generate()`.
+- Describe **accesibilidad/órbita**, no "generación de datos Sentinel/Landsat sintéticos para ML".
 
-## Referencias
+## Verificación
 
-- [GitHub: DPhi-Space/SimSat](https://github.com/DPhi-Space/SimSat)
+- `docker compose up` y comprobar que el dashboard muestra la órbita/accesos y la API sirve imágenes.

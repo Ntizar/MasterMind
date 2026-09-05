@@ -160,23 +160,27 @@
     },
     "lhapaipai/three-mini-map": {
       "explored_at": "2026-06-18T16:12:46",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 15,
       "language": "JavaScript",
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "threejs-3d-maps",
-      "covered_by": "threejs-3d-maps"
+      "covered_by": "threejs-3d-maps",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "tentone/geo-three": {
       "explored_at": "2026-06-18T16:12:47",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 937,
       "language": "TypeScript",
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "threejs-3d-maps",
-      "covered_by": "threejs-3d-maps"
+      "covered_by": "threejs-3d-maps",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "blaze33/map33.js": {
       "explored_at": "2026-06-18T16:12:47",
@@ -192,13 +196,15 @@
     },
     "songsummer920-dazzle/three-scope-map-skill": {
       "explored_at": "2026-06-18T16:12:48",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 145,
       "language": "Vue",
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "three-scope-map",
-      "covered_by": "three-scope-map"
+      "covered_by": "three-scope-map",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "lacrimae0rerum/cronicas-barbaras": {
       "explored_at": "2026-06-18T16:12:49",
@@ -534,13 +540,15 @@
     },
     "pixelx-jp/plateau-creative-mcp": {
       "explored_at": "2026-06-18T16:13:14",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 30,
       "language": "TypeScript",
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "plateau-3d-city-mcp",
-      "covered_by": "plateau-3d-city-mcp"
+      "covered_by": "plateau-3d-city-mcp",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "MaxMiksa/Auto-Company": {
       "explored_at": "2026-06-18T16:13:14",
@@ -754,13 +762,15 @@
     },
     "WRI-Cities/static-GTFS-manager": {
       "explored_at": "2026-06-18T16:14:45",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 159,
       "language": "JavaScript",
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "gtfs-manager",
-      "covered_by": "gtfs-manager"
+      "covered_by": "gtfs-manager",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "WRI-Cities/payanam": {
       "explored_at": "2026-06-18T16:14:46",
@@ -966,13 +976,15 @@
     },
     "maptalks/maptalks.three": {
       "explored_at": "2026-06-18T16:15:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 645,
       "language": "HTML",
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "threejs-3d-maps",
-      "covered_by": "threejs-3d-maps"
+      "covered_by": "threejs-3d-maps",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "Blaizzy/mlx-vlm": {
       "explored_at": "2026-06-18T16:15:00",
@@ -1006,13 +1018,15 @@
     },
     "DPhi-Space/SimSat": {
       "explored_at": "2026-06-18T16:15:02",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 62,
       "language": "Python",
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "simsat",
-      "covered_by": "simsat"
+      "covered_by": "simsat",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "belubeluga/djturbo": {
       "explored_at": "2026-06-18T16:15:03",
@@ -3154,14 +3168,16 @@
     },
     "gozen3ji/consulting-pptx-skill": {
       "explored_at": "2026-09-03T04:00:33.155860+00:00",
-      "category": "pattern",
+      "category": "upgrade",
       "stars": 103,
       "language": "JavaScript",
       "skill_angles": [
         "pattern-pipeline"
       ],
       "skill_created": true,
-      "skill_name": "productivity/consulting-slide-rulebook"
+      "skill_name": "productivity/consulting-slide-rulebook",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "SantanderAI/linear-adapter-trainer": {
       "explored_at": "2026-09-03T04:00:39.394870+00:00",
@@ -3511,7 +3527,7 @@
     },
     "firmanhadi21/rs-change-detection": {
       "explored_at": "2026-09-04T08:44:48.808031+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 4,
       "language": "Python",
       "archived": false,
@@ -3519,7 +3535,9 @@
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "rs-change-detection-satellite",
-      "covered_by": "rs-change-detection-satellite"
+      "covered_by": "rs-change-detection-satellite",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "entur/antu": {
       "explored_at": "2026-09-04T08:44:48.808031+00:00",

@@ -1,88 +1,35 @@
 ---
 name: plateau-3d-city-mcp
-version: "1.0.0"
-description: "MCP server para datos 3D city de Project PLATEAU — scene-editing y glTF export de modelos 3D de ciudades japonesas. Inspirado en pixelx-jp/plateau-creative-mcp (⭐30)."
-tags: [mcp, 3d, city, plateau, gltf, scene-editing, japan]
+description: "Usa a conectar datos 3D city de PLATEAU vía MCP."
+version: "2.0.0"
+tags: [plateau, 3d-city, mcp, glb, modelos, japan, server]
+related_skills: [plateau-3d-city-mcp, native-mcp, cesium-3d-tiles-vector-data]
 ---
 
-# PLATEAU 3D City MCP
+# PLATEAU 3D City MCP — datos 3D urbanos vía MCP
 
-## Resumen
+> ⚠️ Corrección 2026-09-05 (auditoría): el paquete real es **`@yodolabs/plateau-creative-mcp`** (no `@pixelx/plateau-mcp`); las herramientas reales son `download_area`/`load_area`/`filter_buildings`/`delete_buildings`/`extrude_buildings`/`compose_scene`/`export_glb`/`link_buildings_to_pois`/`get_attribution`/`render_via_blender`; el export es **.glb** (no .gltf/.obj).
 
-MCP server que expone datos 3D city de [Project PLATEAU](https://www.mlit.go.jp/plateau/) (gobierno japonés) como herramientas para agentes IA. Permite scene-editing y export glTF de modelos 3D de ciudades.
+**Repo:** `https://github.com/pixelx-jp/plateau-creative-mcp` (TypeScript, ~31⭐).
 
-## Cuándo usar
+## When to Use
 
-- Integrar datos 3D de ciudades en un agente IA via MCP
-- Editar escenas 3D de ciudades con comandos naturales
-- Exportar modelos 3D de ciudades a glTF para three.js/WebGL
-- Análisis urbano con modelos 3D reales
+- Cuando quieras traer **datos 3D de ciudades (Project PLATEAU, Japón)** a tu agente/herramienta vía MCP y trabajar con buildings/escena.
 
-## Patrón de uso
+## Uso
 
-```python
-# Configurar MCP server en Hermes
-# config.yaml:
-# mcp:
-#   servers:
-#     plateau:
-#       command: npx
-#       args: ["-y", "@pixelx/plateau-mcp"]
-
-# Usar desde el agente
-# El agente puede usar las herramientas del MCP server:
-
-# 1. Load city model
-city = await mcp_plateau.load_city("Tokyo", area="Shibuya")
-
-# 2. Edit scene — añadir/editar edificios
-await mcp_plateau.add_building(
-    position=[139.7, 35.65],
-    height=50,
-    type="office"
-)
-
-# 3. Export to glTF
-gltf_data = await mcp_plateau.export_gltf(
-    area="Shibuya",
-    format="glTF",
-    draco_compression=True
-)
-
-# 4. Query city data
-buildings = await mcp_plateau.query_buildings(
-    bbox=[139.69, 35.65, 139.70, 35.66],
-    filter={"height_min": 30}
-)
+```bash
+npx -y @yodolabs/plateau-creative-mcp       # paquete real (no @pixelx/plateau-mcp)
 ```
 
-## Herramientas MCP del server
-
-| Herramienta | Función |
-|------------|---------|
-| `load_city` | Cargar modelo 3D de ciudad por nombre/área |
-| `query_buildings` | Consultar edificios por bbox, altura, tipo |
-| `add_building` | Añadir edificio a la escena |
-| `edit_building` | Editar propiedades de edificio |
-| `remove_building` | Eliminar edificio |
-| `export_gltf` | Exportar escena a glTF |
-| `export_obj` | Exportar escena a OBJ |
-| `get_terrain` | Obtener terreno 3D del área |
-| `get_roads` | Obtener red de carreteras 3D |
+Herramientas (reales): `download_area`, `load_area`, `filter_buildings`, `delete_buildings`, `extrude_buildings`, `compose_scene`, `export_glb`, `link_buildings_to_pois`, `get_attribution`, `render_via_blender`.
 
 ## Pitfalls
 
-- **Datos PLATEAU:** Solo cubre ciudades de Japón. Para otras ciudades, usar OSM Buildings.
-- **glTF size:** Modelos de ciudades completas pueden ser muy grandes. Usar Draco compression.
-- **MCP setup:** Configurar en config.yaml bajo `mcp.servers`. Requiere reinicio de Hermes.
-- **Coordinate system:** PLATEAU usa JGD2011 (sistema japonés). Convertir a WGS84 para interoperabilidad.
+- Paquete npx: **`@yodolabs/plateau-creative-mcp`** (no `@pixelx/plateau-mcp`).
+- Tools: las de arriba (no `load_city`/`query_buildings`/`export_gltf`/`export_obj`/`get_terrain`/`get_roads`).
+- Export: **.glb** (single_glb), no .gltf/.obj.
 
-## Referencias
+## Verificación
 
-- plateau-creative-mcp: https://github.com/pixelx-jp/plateau-creative-mcp
-- Project PLATEAU: https://www.mlit.go.jp/plateau/
-- MCP: https://modelcontextprotocol.io/
-
----
-
-**Hecho con ❤️ por David Antizar**
+- Conectar el server MCP y llamar `download_area`/`export_glb` sobre un area de PLATEAU.

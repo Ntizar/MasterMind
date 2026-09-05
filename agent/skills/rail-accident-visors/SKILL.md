@@ -22,7 +22,21 @@ específico del dominio ferroviario europeo y las preferencias de diseño del us
 6. `geocodificar_via.py` — PK+línea → punto SOBRE la vía (ver abajo).
 7. `revisar_localizacion.py` — auditoría: distancia al PK ADIF más cercano (bien <500m / duda <2km / mal) + provincia declarada vs INE del PK cercano. Salida `data/revision/`.
 8. `revisar_json.py` — revisor IA: revalida cada json contra su .md y corrige campos mal interpretados en sitio, con log de cambios. Determinista primero (fechas vacías, formatos), LLM después.
-9. `consolidar.py` — json/*→data/db/ con dedupe por expediente: **CIAF (verificado) gana, pero los campos v2 del LLM se FUSIONAN** si faltan en el CIAF. Propagar `metodo_geo` al registro final.
+9. `consolidar.py` — json/*→data/db/ con **dedupe BIDIRECCIONAL por expediente**: un solo
+   registro por expediente; gana quien tenga análisis (v3/hechos), empate → CIAF; el
+   perdedor aporta los campos que falten (lista amplia: v2, resumen, causa, tags, trenes,
+   entidades, geo...). El dedupe de un solo sentido ("CIAF gana si llega después") deja
+   duplicados cuando el orden de ficheros varía — 71 duplicados en producción.
+   Propagar `metodo_geo` al registro final. **CRÍTICO — orden de escritura:** cualquier
+   normalización de campos DEBE ejecutarse ANTES de `write_text(reports/XX.json)`;
+   normalizar después de escribir no cambia nada en disco (bug real que costó varias
+   rondas de debugging).
+   **Autoridad de campos:** las `consecuencias` del análisis v3 MANDAN sobre el JSON
+   base (`fallecidos`, `heridos_graves`, `heridos_leves`) para TODOS los registros —
+   la primera pasada sistemáticamente deja víctimas a 0 en informes recientes y el
+   usuario lo detecta en el gráfico de evolución ("seguro que no hay fallecidos desde
+   2014?"). Igual criterio: `fecha` = fecha del SUCESO, no del informe ni del
+   expediente ("lo importante de la fecha es cuando ocurre el siniestro").
 10. `extraer_completo.py` — **extracción v3 profunda** (ver `references/extraccion-v3.md`): análisis IA de TODO el informe → cronología minuto a minuto, infraestructura, personal, causas (directa/contribuyentes/sistémicas), lecciones, recomendaciones con destinatario, idioma_original. Antes: `limpiar_md()` elimina el índice del .md (líneas con puntos de relleno `..... 12`) — sin esto el índice acaba colado en el campo "descripción" y el usuario lo detecta al instante.
 
 ## Profundidad uniforme (feedback duro del usuario)
@@ -104,7 +118,9 @@ la API (formato vs llaves, tokens de razonamiento, parseo tolerante).
   compacta (labels 10-12px, valores 14-17px). SIN gradientes, SIN border-left en
   KPIs, SIN dark theme, SIN emojis grandes.
 - Paleta de charts unificada con el UI (#1e40af→#93c5fd, rojo #dc2626, ámbar #d97706).
-- Filtros de la taxonomía IA en el sidebar + búsqueda que cubra precursores
+- Filtros de la taxonomía IA en el sidebar + **filtro por entidad implicada** (ADIF,
+  Renfe, FEVE... — petición literal: "quiero que las entidades también sean un filtro";
+  select aparte que combina con el resto de filtros) + búsqueda que cubra precursores
   ("somnolencia", "alcoholemia") + export Excel siempre visible.
 - **Ficha de detalle v3**: organizar por bloques del schema profundo (cronología
   minuto a minuto, infraestructura, personal, causas en 3 niveles, lecciones) —
@@ -141,6 +157,40 @@ estática (`data/db/`, varios MB) se sirve tal cual por Pages.
   desplegada puede estar bien y ser caché del navegador (ver cache-busting arriba).
   Verificación: curl del JSON publicado + mirar el campo concreto — si el servidor
   ya lo trae bien, el fix es de cacheo, no de datos.
+- **Auditar los residuos ANTES de darlos por perdidos**: los registros "sin análisis"
+  resultaron ser 3 duplicados mal cruzados de un import viejo (títulos/resúmenes de
+  OTRO suceso: expediente 402/2013 con resumen de 2008), 1 fallo transitorio de API
+  (el HTTP 400 "persistente" pasó al reintentar con `--solo`), y 1 PDF no descargado
+  (re-scrape pendiente). Nunca borrarlos del repo: moverlos a `json/ES/_duplicados_descartados/`.
+  Para reintentar un único informe, flag `--solo <stem>` en extraer_completo (mejor que
+  hacks de `exec()` que rompen indentación).
+- Cuando los totales no cuadran con lo esperado (ej. 0 fallecidos post-2014 en un
+  gráfico), cruzar SIEMPRE el campo DB contra el texto fuente (hechos/resumen) con un
+  extractor determinista; si el texto dice una cifra y la DB otra, el análisis v3
+  profundo suele tener la razón — propagarlo, no re-extraer.
+- **"¿Y después de X no hay nada?" (vacíos en series temporales):** verificar contra
+  la FUENTE OFICIAL completa, no solo contra los informes que ya tienes. Las tablas
+  oficiales por año de la web del CIAF (`infofin-AAAA`) listan expediente/fecha/provincia/
+  tipo y son el listado maestro para cruzar cobertura: la DB debe tener EXACTAMENTE los
+  mismos expedientes que la web, ni uno menos (un faltante real ahí = PDF publicado
+  después del último scrape; su link directo está en la tabla oficial, no en el scrape
+  de ERA). La conclusión "0 fallecidos" puede ser verdad — demostrarla con el cruce,
+  no asumirla.
+- **Limpieza de la colección json/* (cuando el usuario pide "limpiar y quedarnos
+  con los buenos"):** clasificar por (a) con v3 = buenos, (b) sin v3 = candidatos a
+  residuo. Antes de archivar cualquier grupo, verificación programática de 0 pérdidas:
+  para cada candidato, contrastar TODOS sus campos no vacíos contra el registro DB de
+  su expediente y abortar si el ganador carece de alguno. Solo entonces mover a
+  `json/ES/_duplicados_descartados/` (NUNCA borrar). Resultado esperado: colección
+  base == nº de informes con v3 (uno a uno, sin humedad).
+- **Descarga de PDFs de transportes.gob.es:** el User-Agent simple tipo pipeline
+  recibe un HTML "Página web bloqueada" (200 + HTML, NO un PDF). Fix validado:
+  UA de navegador completo (`Mozilla/5.0 (Windows NT 10.0... Chrome/126.0 Safari/537.36`)
+  + header `Referer: https://www.transportes.gob.es/`. Verificar SIEMPRE el primer
+  byte (`%PDF-`) tras descargar: los bloqueos llegan con código 200.
+- **PDFs publicados tarde:** un suceso antiguo (2023) puede tener informe publicado
+  años después (114/2023 → 09/02/2026). Revisar las tablas `infofin-AAAA` oficiales
+  con fecha de publicación, no fiarse solo del año de suceso al buscar novedades.
 - **Derivar v2 desde v3 sin LLM** antes de relanzar enriquecedores: v3 ya lleva
   clima (`clima` → meteorologia) y `causas.contribuyentes` → precursores; con un
   script determinista 103 informes ganaron campos v2 en 0,3s y 0 tokens. El LLM

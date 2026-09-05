@@ -215,12 +215,14 @@
     },
     "google-research/timesfm": {
       "explored_at": "2026-06-18T16:12:50",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 22681,
       "language": "Python",
       "skill_angles": [],
       "skill_created": true,
-      "skill_name": "timesfm-forecast"
+      "skill_name": "timesfm-forecast",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "roboflow/rf-detr": {
       "explored_at": "2026-06-18T16:12:51",
@@ -280,12 +282,14 @@
     },
     "Panniantong/Agent-Reach": {
       "explored_at": "2026-06-18T16:12:55",
-      "category": "pattern",
+      "category": "upgrade",
       "stars": 34129,
       "language": "Python",
       "skill_angles": [],
       "skill_created": true,
-      "skill_name": "agent-reach"
+      "skill_name": "agent-reach",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "miguelfreb/ATOMCPDownloader": {
       "explored_at": "2026-06-18T16:12:56",
@@ -444,13 +448,15 @@
     },
     "roboflow/supervision": {
       "explored_at": "2026-06-18T16:13:09",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 44585,
       "language": "Python",
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "roboflow-supervision",
-      "covered_by": "roboflow-supervision"
+      "covered_by": "roboflow-supervision",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "Makisuo/maple": {
       "explored_at": "2026-06-18T16:13:09",
@@ -661,12 +667,14 @@
     },
     "run-llama/liteparse": {
       "explored_at": "2026-06-18T16:14:40",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 10172,
       "language": "Rust",
       "skill_angles": [],
       "skill_created": true,
-      "skill_name": "liteparse-document-ai-parsing"
+      "skill_name": "liteparse-document-ai-parsing",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "davidchicano/presuntamente": {
       "explored_at": "2026-06-18T16:14:41",
@@ -766,13 +774,15 @@
     },
     "NangoHQ/nango": {
       "explored_at": "2026-06-18T16:14:48",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 10642,
       "language": "TypeScript",
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "nango",
-      "covered_by": "nango"
+      "covered_by": "nango",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "google/eng-practices": {
       "explored_at": "2026-06-18T16:14:49",
@@ -1357,7 +1367,7 @@
     },
     "heygen-com/hyperframes": {
       "explored_at": "2026-08-28T16:00:41.144725+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 42964,
       "language": "TypeScript",
       "skill_angles": [
@@ -1366,7 +1376,9 @@
       ],
       "skill_created": true,
       "skill_name": "hyperframes-html-video",
-      "covered_by": "hyperframes-html-video"
+      "covered_by": "hyperframes-html-video",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "freeCodeCamp/devdocs": {
       "explored_at": "2026-08-28T16:00:47.491025+00:00",
@@ -1644,7 +1656,7 @@
     },
     "firecrawl/anydoc": {
       "explored_at": "2026-08-30T10:00:39.098037+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 19258,
       "language": "Rust",
       "skill_angles": [
@@ -1653,7 +1665,9 @@
       ],
       "skill_created": true,
       "skill_name": "document-conversion",
-      "covered_by": "document-conversion"
+      "covered_by": "document-conversion",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "pascalorg/editor": {
       "explored_at": "2026-08-30T16:00:32.092891+00:00",
@@ -1668,7 +1682,7 @@
     },
     "docusealco/docuseal": {
       "explored_at": "2026-08-30T16:00:38.045354+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 18405,
       "language": "Ruby",
       "skill_angles": [
@@ -1676,7 +1690,9 @@
       ],
       "skill_created": true,
       "skill_name": "docuseal",
-      "covered_by": "docuseal"
+      "covered_by": "docuseal",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "microsoft/SkillOpt": {
       "explored_at": "2026-08-30T16:00:44.542697+00:00",

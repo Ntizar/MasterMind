@@ -1,85 +1,44 @@
 ---
 name: document-conversion
-description: Convertir cualquier documento (PDF, DOCX, PPTX, HTML, imágenes, audio) a Markdown limpio con IA — ingestión de documentos para pipelines LLM.
-version: "1.0.0"
-tags: [document, pdf, docx, markdown, conversion, OCR, AI]
+description: "Usa a convertir muchos formatos con MarkItDown."
+version: "2.0.0"
+tags: [documentos, conversion, markitdown, pdf, docx, xlsx, python, llm]
+related_skills: [markitdown, document-conversion, pdf-processing, docx, xlsx]
 ---
 
-# Document Conversion — Microsoft MarkItDown
+# MarkItDown — conversión de documentos a markdown para LLM
 
-## Resumen
+> ⚠️ Corrección 2026-09-05 (auditoría): la fuente real es **`microsoft/markitdown`** (el manifest apuntaba a firecrawl/anydoc por error). MarkItDown **no convierte .mp4/.avi**: soporta PDF, Office, imágenes, audio, HTML, CSV/JSON/XML, ZIP, YouTube URLs y EPUB. No requiere poppler (usa pdfminer); solo Python 3.10+.
 
-Convierte cualquier documento (PDF, DOCX, PPTX, HTML, imágenes, audio, video) a Markdown limpio con IA. 154k⭐.
+**Repo:** `https://github.com/microsoft/markitdown` (Python, ~178K⭐).
 
-## Repo de referencia
+## When to Use
 
-- **GitHub:** `github.com/microsoft/markitdown`
-- **Lenguaje:** Python
-- **Licencia:** MIT
+- Cuando pidas **convertir documentos** (PDF, DOCX, PPTX, XLSX, imágenes, audio, HTML…) a **Markdown** para consumir con un LLM.
 
-## Instalación
+## Uso
 
 ```bash
-pip install markitdown
+pip install "markitdown[all]"        # extras: [pdf,docx,pptx,xlsx,audio-transcription,youtube-transcription]
 ```
 
-## Uso Básico
-
 ```python
-import markitdown
-
-converter = markitdown.MarkItDown()
-
-# PDF → Markdown
-result = converter.convert("documento.pdf")
+from markitdown import MarkItDown
+md = MarkItDown()
+result = md.convert("documento.pdf")   # también CLI: `markitdown archivo`
 print(result.text_content)
-
-# DOCX → Markdown
-result = converter.convert("informe.docx")
-
-# PPTX → Markdown
-result = converter.convert("presentacion.pptx")
-
-# Imagen → Markdown (con OCR)
-result = converter.convert("foto.png")
-
-# Audio → Transcripción
-result = converter.convert("grabacion.mp3")
 ```
 
-## Pipeline de Ingestión
+## Formatos soportados
 
-```python
-from pathlib import Path
-import markitdown
-
-converter = markitdown.MarkItDown()
-SUPPORTED = {'.pdf', '.docx', '.pptx', '.xlsx', '.html', '.htm',
-             '.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff',
-             '.mp3', '.wav', '.mp4', '.avi'}
-
-def process_document(filepath):
-    ext = Path(filepath).suffix.lower()
-    if ext not in SUPPORTED:
-        raise ValueError(f"Formato no soportado: {ext}")
-    result = converter.convert(filepath)
-    return result.text_content
-
-# Batch processing
-for doc in Path("/docs").glob("*"):
-    if doc.suffix.lower() in SUPPORTED:
-        md = process_document(doc)
-        # Guardar o insertar en vector DB
-```
+PDF, PPTX, DOCX, XLSX, imágenes, audio (transcripción), HTML, CSV/JSON/XML, ZIP, YouTube URLs y EPUB. *(NO vídeo raw .mp4/.avi.)*
 
 ## Pitfalls
 
-- **PDFs escaneados:** Requiere OCR. Las imágenes sin texto no se convierten bien.
-- **Tablas complejas:** Las tablas con celdas combinadas pueden perder estructura.
-- **Tamaño:** Documentos >50MB pueden consumir mucha memoria.
-- **Formatos antiguos:** `.doc` y `.ppt` pueden no soportarse.
-- **Dependencias:** Requiere `poppler-utils` para PDFs.
+- **No** convierte vídeo (.mp4/.avi).
+- **No** requiere poppler-utils (usa pdfminer); Python 3.10+.
+- Fuente: `microsoft/markitdown`.
 
-## Referencias
+## Verificación
 
-- [GitHub: microsoft/markitdown](https://github.com/microsoft/markitdown)
+- `md.convert(doc.pdf)` → `text_content`; probar con DOCX/XLSX.

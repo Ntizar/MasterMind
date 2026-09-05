@@ -1,70 +1,41 @@
 ---
 name: agent-reach
-version: "1.0.0"
-description: "Agent-Reach — herramienta para dar a los agentes IA acceso a 13+ plataformas web. Lectura y escritura en cualquier web (internet, APIs, redes sociales). 34K⭐."
-tags: [agents, ai, web, scraping, automation, multi-platform, internet]
+description: "Usa a dar acceso de plataformas a agentes con Agent-Reach."
+version: "2.0.0"
+tags: [agent-reach, cli, integration, agentes, plataformas, herramientas]
+related_skills: [agent-reach, mcp, hermes-agent, multi-agent]
 ---
 
-# Agent-Reach — Multi-Platform Agent Access
+# Agent-Reach — dar a los agentes acceso a plataformas (CLI)
 
-## Resumen
+> ⚠️ Corrección 2026-09-05 (auditoría): la v1 describía una SDK Python `from agent_reach import ReachClient` con `api_key` y `client.search()` — **no existe**. Agent-Reach es un **CLI** (`agent-reach install/doctor/uninstall`) que orquesta CLIs externas (twitter-cli, gh, bili-cli, OpenCLI, rdt-cli, MCP). El README advierte NO instalar el paquete PyPI homónimo (no es este proyecto).
 
-Agent-Reach permite a agentes IA **leer y escribir** en 13+ plataformas web como si fueran un navegador programático. Diseñado para agentes autónomos que necesitan interactuar con servicios web reales.
+**Repo:** `https://github.com/Panniantong/Agent-Reach` (Python, ~78K⭐).
 
-## Plataformas soportadas
+## When to Use
 
-- 🔍 **Google** — búsqueda y resultados
-- 🐦 **Twitter/X** — tweets, perfiles, timeline
-- 🐙 **Reddit** — posts, comentarios
-- 📧 **Gmail** — leer, buscar, filtrar correos
-- 📺 **YouTube** — búsqueda, canales, metadatos
-- 🛒 **Amazon** — productos, precios, reviews
-- 💼 **LinkedIn** — perfiles, búsqueda
-- 💬 **Discord** — mensajes, canales
-- 🐙 **GitHub** — issues, PRs, repos
-- 📝 **Notion** — páginas, bases de datos
-- 📰 **Wikipedia** — artículos, búsqueda
-- 🎵 **Spotify** — playlists, tracks
-- 🌐 **Any URL** — scraping genérico
+- Cuando quieras que un **agente IA acceda a plataformas** externas (redes, GitHub, búscadores…) mediante CLIs integradas.
 
-## Arquitectura
+## Uso (CLI real)
 
-```
-Agente IA
-   ↓ (API simple)
-Agent-Reach SDK
-   ↓
-┌──────┬──────┬──────┬──────┐
-│Google│Twitter│GitHub│ ... │
-└──────┴──────┴──────┴──────┘
-   ↓
-Respuesta estructurada (JSON)
+```bash
+agent-reach install      # instala las CLIs externas integradas
+agent-reach doctor       # diagnostica el estado
+# agent-reach uninstall también existe
 ```
 
-## Uso
+- Orquesta CLIs externas (twitter-cli, gh, bili-cli, OpenCLI, rdt-cli, MCP); **no hay API key propia ni tarifa**.
 
-```python
-from agent_reach import ReachClient
+## Plataformas soportadas (real)
 
-client = ReachClient(api_key="...")
+Web, YouTube, RSS, búsqueda web, GitHub, Twitter/X, Bilibili (B站), Reddit, Facebook, Instagram, Xiaohongshu (小红书), LinkedIn, V2EX. *(NO Google/Gmail/Amazon/Discord/Notion/Wikipedia/Spotify.)*
 
-# Buscar en Google
-results = client.search("latest AI news")
+## Pitfalls
 
-# Leer tweets de un usuario
-tweets = client.read_twitter("elonmusk", limit=20)
+- **No** `from agent_reach import ReachClient` ni `ReachClient(api_key=...)` — es un CLI, no una SDK Python.
+- **No** instalar el paquete `agent-reach` de PyPI (no es este proyecto).
+- Plataformas: la lista real es la de arriba, no la de la v1.
 
-# Buscar en GitHub
-repos = client.search_github("langchain")
-```
+## Verificación
 
-## Integración con Mastermind
-
-- **Web research:** Búsqueda y extracción multi-plataforma
-- **Social monitoring:** Seguimiento de tendencias
-- **Data collection:** Scraping estructurado de webs
-
-## Referencia
-
-- Repo: `Panniantong/Agent-Reach`
-- README incluye SKILL.md para uso como skill de agente
+- `agent-reach doctor` tras `install`; comprobar que las CLIs integradas aparecen listas.

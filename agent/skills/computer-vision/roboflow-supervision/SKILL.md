@@ -1,95 +1,42 @@
 ---
 name: roboflow-supervision
-version: "1.0.0"
-description: "Supervision — librería de visualización, post-procesamiento y utilidades para computer vision de Roboflow. Annotators, metrics, datasets, tracking. Complemento esencial de RF-DETR y otras CV libs."
-tags: [computer-vision, visualization, annotation, metrics, object-detection, segmentation, tracking, roboflow, post-processing]
+description: "Usa a post-procesar detecciones y anotar con Supervision."
+version: "2.0.0"
+tags: [supervision, deteccion, anotar, yolo, roboflow, vision, python]
+related_skills: [roboflow-supervision, cctv-yolo, fast-alpr, rf-detr]
 ---
 
-# Supervision — Computer Vision Utilities by Roboflow
+# Supervision — post-procesado y anotaciones de visión (API actual)
 
-## Resumen
+> ⚠️ Corrección 2026-09-05 (auditoría): `sv.Image`, `Detections.from_yolov8` y `Detections.from_coco_json` ya **no existen** en Supervision moderno. La API actual pasa numpy/PIL directo y usa `from_ultralytics` y helpers de `supervision.dataset`.
 
-**Supervision** es la librería de utilidades de Roboflow para **visualización, post-procesamiento y evaluación** de resultados de computer vision. Incluye annotators para bounding boxes, segment masks, keypoints; métricas COCO/mAP; manejo de datasets; y herramientas de tracking.
+**Repo:** `https://github.com/roboflow/supervision` (Python, ~50K⭐).
 
-## Funcionalidades principales
+## When to Use
 
-### Annotators (visualización)
-- `BoxAnnotator` — dibuja bounding boxes con color por clase
-- `LabelAnnotator` — añade labels textuales a las boxes
-- `MaskAnnotator` — visualiza segment masks con transparencia
-- `KeyPointAnnotator` — dibuja keypoints con líneas de esqueleto
-- `TriangleAnnotator`, `CircleAnnotator`, `ColorAnnotator` — formas alternativas
+- Cuando pidas **anotar/visualizar/dibujar cajas** de detecciones (YOLO, etc.) o filtros/post-procesado (zone, line, byte_tracker) sobre vídeo/imagen.
 
-### Detections y Metadata
-- `Detections` — clase central con boxes, masks, keypoints, confidences, class_ids
-- `Metadata` — metadatos asociados a detecciones
-- Conversión desde varios formatos: inference, coco, yolov5, yolov8, yolov11, detr
-
-### Datasets
-- Carga y export de datasets en múltiples formatos (COCO, YOLO, Roboflow)
-- Split train/val/test automático
-- Augmentation helpers
-
-### Metrics
-- Cálculo de mAP (COCO-style)
-- confusion matrices
-- Precision-recall curves
-
-## Instalación
-
-```bash
-pip install supervision
-```
-
-## Uso con RF-DETR (patrón estándar)
+## Uso (API real)
 
 ```python
 import supervision as sv
-from rfdetr import RFDETRMedium
-from rfdetr.assets.coco_classes import COCO_CLASSES
 
-# Cargar modelo
-model = RFDETRMedium()
+# Anotar con cajas: la imagen se pasa directa (numpy/PIL), sin sv.Image
+annotated = box_annotator.annotate(scene=image.copy(), detections=detections)
 
-# Inferencia
-detections = model.predict("image.jpg", threshold=0.5)
+# Detecciones desde Ultralytics YOLO:
+detections = sv.Detections.from_ultralytics(results)   # (ya no from_yolov8)
 
-# Preparar labels
-labels = [COCO_CLASSES[cid] for cid in detections.class_id]
-
-# Visualización
-annotated = sv.BoxAnnotator().annotate(sv.Image(image), detections)
-annotated = sv.LabelAnnotator().annotate(annotated, detections, labels)
-
-# Guardar resultado
-annotated.save("result.jpg")
+# Carga de datasets COCO: helpers de supervision.dataset
+from supervision.dataset import load_coco_annotations, coco_annotations_to_detections
 ```
 
-## Uso con otros modelos
+## Pitfalls
 
-```python
-# De inference API (Roboflow Inference)
-from inference import get_model
-model = get_model("rf-detr-medium")
-predictions = model.infer(image)
-detections = sv.Detections.from_inference(predictions)
+- **No** `sv.Image` — pasa la imagen numpy/PIL directamente a `annotate(scene=..., detections=...)`.
+- **No** `Detections.from_yolov8` → `from_ultralytics`; `from_yolov5` sí existe.
+- **No** `Detections.from_coco_json` → helpers `supervision.dataset`.
 
-# De COCO JSON
-detections = sv.Detections.from_coco_json(annotation_path, image_paths)
+## Verificación
 
-# De YOLO
-detections = sv.Detections.from_yolov8(output_file)
-```
-
-## Integración con Mastermind
-
-- **Pipeline de CV:** RF-DETR → Supervision para visualización en dashboards
-- **Visor de imágenes:** annotators para proyectos de geospatial (NAIP, Sentinel)
-- **Evaluación de modelos:** métricas COCO para comparar modelos en benchmarking
-- **Generación de datasets:** preparar datasets etiquetados para fine-tuning
-
-## Referencias
-
-- Repo: `roboflow/supervision`
-- Docs: https://supervision.roboflow.com
-- Complementa: `rf-detr` (detección), `vision/clip-multimodal` (embeddings)
+- `annotate(scene=image, detections=...)` y comprobar que las bboxes se dibujan; `from_ultralytics` con un modelo YOLO.

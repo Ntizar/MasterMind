@@ -1,108 +1,37 @@
 ---
 name: nango
-description: "Skill: Nango — plataforma open-source para construir integraciones de producto con 800+ APIs. Maneja OAuth, API keys, token refresh, proxy de requests y ejecución de funciones de integración."
-version: "1.0.0"
-tags: [devops, nango, API, integrations]
-
+description: "Usa a integrar APIs con Nango (900+ integraciones)."
+version: "2.0.0"
+tags: [nango, integracion, api, oauth, saas, sync, backend]
+related_skills: [nango, api-mega-catalog, postgres-mcp]
 ---
 
-# Skill de Nango
+# Nango — integración de APIs/SaaS y sync (900+)
 
-**Nango** es una plataforma open-source para construir **integraciones de producto** con 800+ APIs. Maneja OAuth, API keys, token refresh, proxy de requests, y ejecución de funciones de integración. Usado en producción por Replit, Ramp, Mercor y cientos más.
+> ⚠️ Corrección 2026-09-05 (auditoría): son **900+ APIs**, no 800+; licencia **Elastic License 2.0**; versiones de paquetes actuales 0.71.x.
 
-## Qué es
+**Repo:** `https://github.com/NangoHQ/nango` (TypeScript, ~11.7K⭐) · Licencia: **Elastic 2.0** (self-hostable open-source).
 
-Nango permite conectar tu producto con APIs externas escribiendo la lógica de integración como **funciones TypeScript** que se despliegan en un runtime de producción. Nango se encarga de:
+## When to Use
 
-- **Auth**: OAuth gestionado, API keys, token refresh, multi-tenant connections
-- **Proxy**: Requests autenticados con retry automático y límites de tasa
-- **Functions**: Lógica de integración como funciones TypeScript con acceso API integrado, retries, almacenamiento, y observabilidad
+- Cuando pidas **integrar muchas APIs/SaaS** en tu backend (OAuth, sync de datos, tokens) sin escribirlas a mano.
 
-## 3 Primitivas
-
-### 1. Auth
-OAuth gestionado, API keys, y token refresh para 800+ APIs. Incrusta un flujo de auth white-label en tu app con `nango.openConnectUI()`. Maneja credenciales, almacenamiento de tokens, y gestión de conexiones multi-tenant automáticamente.
-
-### 2. Proxy
-Realiza requests autenticados a APIs en nombre de tus usuarios. Nango resuelve el provider, inyecta credenciales, maneja retries y límites de tasa. Usa `nango.get()`, `nango.post()`, etc. con `providerConfigKey` y `connectionId`.
-
-### 3. Functions
-Escribe lógica de integración como funciones TypeScript usando `createSync()`, `createAction()`, o `createOnEvent()`. Se compilan con esbuild, se typecheck con TypeScript, y se despliegan al runtime de Nango con `nango deploy`.
-
-## Instalación
+## Uso
 
 ```bash
-# Instalar el CLI
-npm install -D nango
-
-# Inicializar proyecto de integraciones
-nango init
-
-# Crear una sync o action
-nango create --sync <integration> <name>
-nango create --action <integration> <name>
-
-# Compilar y typecheck
-nango compile
-
-# Deploy a producción
-nango deploy prod
-
-# Dry run para debugging
-nango dryrun <name> <connection_id>
+npm install nango            # CLI / orquestador
+npm install @nangohq/node    # SDK Node
+npm install @nangohq/runner-sdk
 ```
 
-## Variables de entorno
+- Flujo en vivo con `nango.openConnectUI()` para conectarse a proveedores; el paquete npm `nango` es la CLI.
 
-```bash
-NANGO_SECRET_KEY_DEV=sk_dev_xxxx
-NANGO_SECRET_KEY_PROD=sk_prod_xxxx
-NANGO_HOSTPORT=https://api.nango.dev
-```
+## Pitfalls
 
-## Cuándo usarlo
+- **900+** integraciones (no 800+).
+- Licencia **Elastic 2.0** (open-source self-hostable, pero no MIT).
+- Versiones: 0.71.x (nango, @nangohq/node, @nangohq/runner-sdk).
 
-- **AI tool calling & MCP**: Dar a agentes IA la capacidad de actuar sobre APIs externas
-- **Data syncing**: Sync one-way/two-way para RAG pipelines, indexing, triggers
-- **Webhook processing**: Recibir y procesar webhooks de APIs externas
-- **API unification**: Normalizar múltiples APIs a tu propio schema universal
-- **Actions**: Escribir data y ejecutar operaciones behalf de tus usuarios
-- **Per-customer config**: Customizar comportamiento de integración por cliente
+## Verificación
 
-## Cuándo NO usar
-
-- Solo necesitas hacer una llamada puntual a una API → un simple `fetch()` o `curl` es suficiente
-- Tu app no necesita integraciones con terceros → no hay valor añadido en montar Nango
-- Necesitas control total sobre la infraestructura de auth → implementa tu propio sistema OAuth
-
-## Estructura del proyecto
-
-```
-nango-integrations/
-├── package.json          # devDependencies: nango, zod
-├── tsconfig.json
-├── index.ts              # Exports todas las funciones
-├── .env                  # NANGO_SECRET_KEY_DEV/PROD
-└── <integration>/        # ej: github/
-    ├── syncs/
-    │   └: fetchIssues.ts  # createSync(...)
-    ├── actions/
-    │   └: createIssue.ts  # createAction(...)
-    └── on-events/
-        └: pre-connection-deletion.ts  # createOnEvent(...)
-```
-
-## Dependencias clave
-
-| Paquete | Versión | Uso |
-|---------|---------|-----|
-| `nango` | 0.70.4 | CLI + SDK (createSync, createAction, createOnEvent) |
-| `@nangohq/node` | 0.70.4 | SDK de cliente para Auth/Proxy desde tu backend |
-| `@nangohq/runner-sdk` | 0.70.4 | SDK para funciones (NangoActionBase, NangoSyncBase) |
-| `zod` | 4.3.6 | Validación de schemas para input/output/models |
-
-## Referencias
-
-- [Pattern: Auth](references/pattern-auth.md) — OAuth gestionado, flujo de auth white-label, multi-tenant
-- [Pattern: Proxy](references/pattern-proxy.md) — requests autenticados, retry, límites de tasa
-- [Pattern: Functions](references/pattern-functions.md) — funciones de integración TypeScript, constructor de IA, deploy
+- Registrar un proveedor, hacer OAuth y comprobar que los datos se sincronizan.

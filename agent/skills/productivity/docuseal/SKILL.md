@@ -1,77 +1,42 @@
 ---
 name: docuseal
-description: Generación de documentos con IA — crear PDFs, contratos, formularios desde templates con contenido generado por IA.
-version: "1.0.0"
-tags: [document, PDF, generation, AI, contract, form]
+description: "Usa a gestionar firmas electrónicas con DocuSeal."
+version: "2.0.0"
+tags: [docuseal, firma, e-signature, rubi, rails, documentos, self-host]
+related_skills: [docuseal, document-conversion, docx, xlsx]
 ---
 
-# Docuseal — Document Generation con IA
+# DocuSeal — plataforma de firma electrónica (self-host)
 
-## Resumen
+> ⚠️ Corrección 2026-09-05 (auditoría): es **Ruby (Rails)**, no TypeScript/Node; es una plataforma de **e-signature** (crear, rellenar y firmar documentos, alternativa a DocuSign) — no "generación de documentos con IA". No existe una librería JS `docuseal.createDocument()`/`doc.addSignature()`.
 
-Plataforma open-source para generación de documentos con IA — crear PDFs, contratos, formularios desde templates. 17k⭐.
+**Repo:** `https://github.com/docusealco/docuseal` (Ruby/Rails, ~18K⭐).
 
-## Repo de referencia
+## When to Use
 
-- **GitHub:** `github.com/docusealco/docuseal`
-- **Lenguaje:** TypeScript/Node.js
-- **Licencia:** AGPL-3.0
+- Cuando pidas **firma y gestión de documentos** (subir plantilla, rellenar campos, firmar, enviar a firmar) autoalojada o vía SaaS.
 
-## Instalación
+## Qué es
+
+Plataforma **de firma electrónica**: subes un documento/plantilla, defines campos-firma (field-tags) y los firmantes los rellenan y firman. Alternativa open-source a DocuSign.
+
+## Uso (API)
+
+- **API REST** + **HTML API** con field-tags para plantillas (define campos con etiquetas en el HTML del documento).
+- *(No hay librería JS oficial `docuseal`; se habla con la API REST o se usa la UI.)*
 
 ```bash
-# Docker (recomendado)
-docker compose up -d
-
-# O desde source
-git clone https://github.com/docusealco/docuseal.git
-cd docuseal && npm install && npm run build
+# self-host (Docker)
+docker run -e DATABASE_URL=... docuseal/docuseal
+# o vía su servicio cloud en docuseal.com
 ```
-
-## Uso Básico
-
-```javascript
-// Crear documento desde template
-const doc = await docuseal.createDocument({
-  template: "contrato-base",
-  data: {
-    nombre: "Juan Pérez",
-    fecha: "2026-07-13",
-    importe: 1500,
-    // ... campos dinámicos
-  }
-});
-
-// Generar PDF
-const pdf = await doc.generate();
-pdf.download("contrato.pdf");
-
-// Signatura electrónica
-const signature = await doc.addSignature("firmante@email.com");
-```
-
-## Patrones Clave
-
-1. **Templates:** Crear plantillas con campos dinámicos
-2. **Datos variables:** Insertar datos desde APIs o bases de datos
-3. **Signatura:** Flujo de signatura electrónica integrado
-4. **API REST:** Control programático completo
-5. **Multi-formato:** PDF, DOCX, XLSX
-
-## Integración con Mastermind
-
-- Útil para generar informes automáticos en PDF
-- Complementa `markdown` → PDF pipeline
-- Ideal para generation de contratos, facturas, reportes
-- Reemplaza `WeasyPrint` o `pdfkit` con template engine
 
 ## Pitfalls
 
-- **Licencia AGPL:** Uso comercial requiere abrir código
-- **Server-side:** Requiere servidor (no browser-only)
-- **Templates:** Curva de aprendizaje para crear templates complejos
-- **Memory:** Generación de PDFs grandes puede consumir memoria
+- Lenguaje: **Ruby (Rails)**, no TypeScript/Node.
+- Reencuadre: **firma electrónica**, no "generación de documentos con IA".
+- API: **REST + field-tags**; no hay `docuseal.createDocument()`/`doc.addSignature()` (inventado).
 
-## Referencias
+## Verificación
 
-- [GitHub: docusealco/docuseal](https://github.com/docusealco/docuseal)
+- Subir una plantilla con field-tags, crear un documento y enviarlo a firmar; comprobar que el firmante rellena y firma.

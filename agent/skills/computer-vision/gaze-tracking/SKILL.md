@@ -1,89 +1,38 @@
 ---
 name: gaze-tracking
-version: "1.0.0"
-description: >
-  GazeTracking — librería Python para eye tracking usando OpenCV. 
-  Implementa detección de ojos, seguimiento de mirada y mapeo de 
-  coordenadas. Útil para control hands-free, accesibilidad, UX research.
-license: MIT
-tags: [computer-vision, gaze, eye-tracking, MediaPipe]
-
+description: "Usa a hacer eye tracking con GazeTracking."
+version: "2.0.0"
+tags: [gaze, eye-tracking, opencv, dlib, python, vision]
+related_skills: [gaze-tracking, openpose-pose-estimation, fast-alpr]
 ---
 
-# GazeTracking — Eye Tracking Library
+# GazeTracking — eye tracking (OpenCV + dlib)
 
-## Visión General
+> ⚠️ Corrección 2026-09-05 (auditoría): los métodos `draw_base()`/`draw_pupil_left()`/`draw_pupil_right()`/`get_direction()` **no existen**. API real: `refresh()`, `pupil_left_coords()`, `pupil_right_coords()`, `horizontal_ratio()`/`vertical_ratio()`, `is_left()`/`is_right()`/`is_center()`/`is_blinking()`, `annotated_frame()`. Instalación: clonar + `pip install -e .`; tag MediaPipe incorrecto (usa OpenCV+dlib).
 
-[GazeTracking](https://github.com/antoinelame/GazeTracking) (2.6k⭐) es una librería Python para eye tracking fácilmente implementable en proyectos. Usa OpenCV para detección de ojos y seguimiento de mirada.
+**Repo:** `https://github.com/antoinelame/GazeTracking` (Python, ~2.6K⭐).
 
-## Instalación
+## When to Use
 
-```bash
-pip install gaze_tracking
-```
+- Cuando pidas **seguimiento de la mirada** (detectar pupilas, parpadeo, dirección) con OpenCV+dlib en una webcam.
 
-## Uso Básico
+## Uso (API real)
 
 ```python
 from gaze_tracking import GazeTracking
-
 gaze = GazeTracking()
-camera = cv2.VideoCapture(0)
-
-while True:
-    _, frame = camera.read()
-    gaze.refresh(frame)
-    
-    # Detectar si el usuario está mirando
-    if gaze.is_center():
-        print("Mirando al centro")
-    
-    # Obtener coordenadas de mirada
-    pupil_left = gaze.pupil_left_coords()
-    pupil_right = gaze.pupil_right_coords()
-    
-    # Dibujar overlay
-    gaze.draw_base(frame)
-    gaze.draw_pupil_left(frame)
-    gaze.draw_pupil_right(frame)
-    
-    cv2.imshow('Gaze Tracking', frame)
-    
-    if cv2.waitKey(1) == 27:  # ESC para salir
-        break
+gaze.refresh(frame)                     # procesa un frame
+ratio = gaze.horizontal_ratio()         # y vertical_ratio()
+gaze.is_blinking(), gaze.is_left(), gaze.is_right(), gaze.is_center()
+annotated = gaze.annotated_frame()      # frame con overlay (no draw_base)
 ```
 
-## Funcionalidades
+## Pitfalls
 
-### Detección de Ojos
-- Detección de región de ojos en tiempo real
-- Soporte para cámaras web estándar
-- Procesamiento a ~30 FPS
+- Métodos reales: `annotated_frame()`, `horizontal_ratio()`, `vertical_ratio()`, `is_*()`; **no** `draw_base`/`draw_pupil_left`/`draw_pupil_right`/`get_direction`.
+- Install: clonar + `pip install -e .` (el paquete PyPI `gaze-tracking` v0.0.1 es viejo/distinto).
+- Tag: usa **OpenCV + dlib**, no MediaPipe.
 
-### Seguimiento de Mirada
-- Coordenadas de pupilas izquierda y derecha
-- Punto central de mirada
-- Detección de dirección (arriba, abajo, izquierda, derecha)
+## Verificación
 
-### Indicadores
-- `is_blinking()` — ¿El usuario está parpadeando?
-- `is_center()` — ¿Mirando al centro?
-- `get_direction()` — Dirección de mirada
-- `pupil_left_coords()` — Coordenadas pupila izquierda
-- `pupil_right_coords()` — Coordenadas pupila derecha
-
-## Integración con Control Hands-Free
-
-```python
-# Ejemplo: Control por mirada
-if gaze.get_direction() == "left":
-    action("navigate_back")
-elif gaze.get_direction() == "right":
-    action("navigate_forward")
-elif gaze.is_blinking():
-    action("select")
-```
-
-## Referencias
-- [GazeTracking GitHub](https://github.com/antoinelame/GazeTracking)
-- [FreeHands](https://github.com/Ntizar/FreeHands) — Control hands-free con gaze + gestures + voice
+- `gaze.refresh(frame)` y `gaze.annotated_frame()`; probar `is_blinking()`.

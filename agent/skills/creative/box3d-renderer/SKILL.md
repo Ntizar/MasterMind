@@ -1,77 +1,36 @@
 ---
 name: box3d-renderer
-description: Box3D — motor de física 3D para juegos, renderizado de cajas y simulación de colisiones.
+description: "Usa a simular cajas 3D y física con Box3D (b3)."
+version: "2.0.0"
+tags: [box3d, fisica, 3d, cajas, c, wasm, simulacion]
+related_skills: [box3d-renderer, threejs-3d-maps, ecctrl]
 ---
 
-# Box3D — Motor de Física 3D
+# Box3D — motor de física de cajas 3D (API `b3*`)
 
-## Qué hace
+> ⚠️ Corrección 2026-09-05 (auditoría): el prefijo de API es **`b3*`** (`b3CreateWorld`, `b3WorldId`, `b3CreateBody`, `b3Vec3`); **no** `bd3d*` (`bd3dCreateWorld`... no existe ninguna función `bd3d`).
 
-[Box3D](https://github.com/erincatto/box3d) es un motor de física 3D para juegos, escrito en C. Ofrece detección de colisiones, simulación de cuerpos rígidos y restricciones. Alternativa ligera a PhysX o Bullet para proyectos que necesitan física 3D sin la complejidad de motores más grandes.
+**Repo:** `https://github.com/erincatto/box3d` (C, ~6.3K⭐). Hay wrapper wasm/npm (`box3d-wasm` / `@...`).
 
-## Instalación
+## When to Use
 
-```bash
-git clone https://github.com/erincatto/box3d.git
-cd box3d
-mkdir build && cd build
-cmake ..
-make -j$(nproc)
-```
+- Cuando pidas **simulación física de cajas/rigid bodies** en 3D (motor ligero de Box3D) desde C o desde el navegador vía wasm.
 
-## Uso básico
+## Uso (API real, C)
 
 ```c
-#include "box3d/box3d.h"
-
-// Crear mundo físico
-bd3dWorld* world = bd3dCreateWorld();
-
-// Añadir cuerpo rígido
-bd3dBody* body = bd3dCreateBoxBody(world, position, size, mass);
-
-// Simular paso de física
-bd3dStepWorld(world, timestep);
-
-// Obtener posición actual
-bd3dVec3 pos = bd3dGetBodyPosition(body);
+b3WorldId world = b3CreateWorld(bbox);      // NO bd3dCreateWorld
+b3BodyId body = b3CreateBody(world, ...);
+b3Vec3 v = b3Vec3(1, 2, 3);
 ```
 
-## Integración con Three.js
-
-```javascript
-// Ejemplo conceptual de integración con Three.js
-// Box3D calcula la física en C → se exporta a JavaScript vía WASM
-
-import * as THREE from 'three';
-import { Box3DPhysics } from 'box3d-wasm';
-
-const physics = new Box3DPhysics();
-const scene = new THREE.Scene();
-
-// Sincronizar física → renderizado
-function tick() {
-  physics.step(1/60);
-  
-  // Actualizar meshes según posiciones de física
-  for (const body of physics.getBodies()) {
-    body.mesh.position.set(...body.getPosition());
-    body.mesh.quaternion.set(...body.getOrientation());
-  }
-  
-  renderer.render(scene, camera);
-  requestAnimationFrame(tick);
-}
-```
+*(Comprobar los nombres exactos en el repo — el prefijo correcto es `b3`, nunca `bd3d`.)*
 
 ## Pitfalls
 
-- Motor en C puro — requiere bindings para JavaScript/TypeScript
-- No incluye rendering, solo física
-- Documentación limitada — consultar código fuente y tests
-- Mejor para simulaciones simples que para juegos complejos
+- Prefijo de API: **`b3*`**, no `bd3d*`.
+- No existe `bd3dCreateWorld`/`bd3dCreateBoxBody`.
 
-## Referencias
+## Verificación
 
-- Repo: https://github.com/erincatto/box3d
-- Relacionado: `threejs-3d-maps`, `fable5-webgpu-procedural`, `seed-three`
+- Enlazar la cabecera y crear un mundo + un body; comprobar que la simulación avanza con `b3`.

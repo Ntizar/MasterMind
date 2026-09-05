@@ -1,65 +1,42 @@
 ---
 name: maple-observability
-version: "1.0.0"
-description: "Maple — plataforma de observabilidad open-source con OpenTelemetry + ClickHouse, monorepo Effect + TanStack Router"
+description: "Usa a observar apps con Maple observability."
+version: "2.0.0"
+tags: [observabilidad, maple, open-source, logging, tracing, self-host]
+related_skills: [maple-observability, devops-operations]
 ---
 
-# Maple — Open-Source Observability Platform
+# Maple — observabilidad open-source (arquitectura real)
 
-## Descripción
+> ⚠️ Corrección 2026-09-05 (auditoría): el repo tiene `apps/ios` (SwiftUI nativo, Clerk + v2 API), no `apps/mobile` (Expo); además `apps/landing` (Astro) y `apps/electric-sync`. Comandos: `bun dev` y `docker compose -f docker-compose.yml up --build`.
 
-Plataforma de observabilidad open-source para traces, logs y métricas, construida sobre OpenTelemetry y ClickHouse. Monorepo con frontend SPA (TanStack Router + Vite), backend Effect, OTLP ingest gateway, y múltiples apps.
+**Repo:** `https://github.com/MapleTechLabs/maple` (TypeScript, ~1.8K⭐). (`Makisuo/maple` redirige aquí.)
 
-## Por qué importa para David
+## When to Use
 
-- **ClickHouse + OTel**: Patrón de almacenamiento de series temporales de alta performance
-- **Effect framework**: Patrón functional para backend robusto con manejo de errores
-- **Monorepo pattern**: Estructura de workspace con Bun para proyectos grandes
-- **Real-time dashboard**: Pattern de dashboard observable en tiempo real
+- Cuando pidas **observabilidad open-source** (logs, tracing, métricas) para una app, self-hosted.
 
-## Arquitectura
+## Qué es
 
-```
-apps/web       → TanStack Router SPA (Vite)
-apps/api       → Effect HTTP API + MCP server
-apps/ingest    → OTLP ingest gateway + collector forwarding
-apps/alerting  → Alert evaluation worker
-apps/cli       → CLI utilities
-apps/mobile    → Expo mobile app
-packages/domain → Shared Effect contracts
-packages/query-engine → Query & observability logic
-packages/ui     → Shared UI primitives
-```
+Plataforma de observabilidad open-source. Monorepo con apps web/mobile/nativo:
+- `apps/ios` — app nativa **SwiftUI** (Clerk + v2 API)
+- `apps/landing` — Astro
+- `apps/electric-sync` — sync
+- *(no hay `apps/mobile` Expo)*
 
-## Instalación local
+## Uso
 
 ```bash
-# Homebrew (recomendado)
-brew install Makisuo/tap/maple
-maple start
-
-# Manual con Bun
-bun install
-bun run dev
-
-# Docker
-docker compose up
+bun dev                                    # (no bun run dev)
+docker compose -f docker-compose.yml up --build
 ```
-
-## Integración con proyectos de David
-
-- **Control Center**: Usar ClickHouse como backend de métricas
-- **Dashboards**: Pattern de real-time observability reusable
-- **Alerting**: Worker pattern para evaluaciones de alertas
 
 ## Pitfalls
 
-- Requiere Bun runtime (no Node)
-- ClickHouse embedded consume RAM (mínimo 2-4GB)
-- Effect framework tiene curva de aprendizaje
-- No es trivial migrar de otro stack a Effect
+- App móvil: **`apps/ios` (SwiftUI)**, no Expo/mobile.
+- Dev: **`bun dev`**; Docker: **`docker compose -f docker-compose.yml up --build`**.
+- Repo real: **MapleTechLabs/maple**.
 
-## Referencias
+## Verificación
 
-- GitHub: https://github.com/MapleTechLabs/maple
-- Docs: Monorepo README con instrucciones detalladas
+- `bun dev` y abrir la UI; o `docker compose -f docker-compose.yml up --build`.

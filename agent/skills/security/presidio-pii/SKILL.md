@@ -1,65 +1,39 @@
 ---
 name: presidio-pii
-version: "1.0.0"
-description: "Presidio — framework de Microsoft para detección y anonimización de PII (datos personales) en texto e imágenes. 8.6K⭐. Análisis, redacción, masking."
-tags: [security, privacy, pii, data-protection, microsoft, ner, anonymization]
+description: "Usa a anonimizar PII con Presidio (texto e imágenes)."
+version: "2.0.0"
+tags: [presidio, pii, anonimizacion, privacidad, ner, imagen, python]
+related_skills: [presidio-pii, llm-guardrails-policy, security]
 ---
 
-# Presidio — PII Detection & Anonymization
+# Presidio — anonimización de PII (texto e imágenes)
 
-## Resumen
+> ⚠️ Corrección 2026-09-05 (auditoría): el repo se movió a **`data-privacy-stack/presidio`** (microsoft/presidio redirige; mismo proyecto, nuevo hogar). Presidio **NO es solo texto** — incluye **Image Redactor** (PII en imágenes vía OCR+NER). Stars ~10.7K.
 
-Presidio (de Microsoft) es un framework open-source para **detectar, redactar, enmascarar y anonimizar datos personales (PII)** en texto e imágenes.
+**Repo:** `https://github.com/data-privacy-stack/presidio` (Python, ~10.7K⭐).
 
-## Componentes
+## When to Use
 
-| Componente | Descripción |
-|------------|-------------|
-| **Analyzer** | Detecta PII (nombres, DNI, emails, teléfonos, IBAN, etc.) |
-| **Anonymizer** | Redacta/enmascara/sustituye las PII detectadas |
-| **Image Redactor** | Detecta y oculta PII en imágenes (OCR + NER) |
+- Cuando pidas **detectar y anonimizar PII** (NLP/NER + Image Redactor) en texto, imágenes o documentos.
 
-## Instalación
+## Qué es
 
-```bash
-pip install presidio-analyzer
-pip install presidio-anonymizer
-pip install presidio-image-redactor
-```
+Framework de Microsoft (ahora en data-privacy-stack) para **anonimización de datos personales**: análisis NER con `presidio-analyzer`, anonimización con `presidio-anonymizer`, y **presidio-image-redactor** para PII en imágenes.
 
-## Uso básico
+## Uso
 
 ```python
 from presidio_analyzer import AnalyzerEngine
 from presidio_anonymizer import AnonymizerEngine
-
-# Análisis
-analyzer = AnalyzerEngine()
-results = analyzer.analyze(text="Mi email es david@example.com y mi teléfono es +34 612345678", language="es")
-
-# Anonimización
-anonymizer = AnonymizerEngine()
-anonymized = anonymizer.anonymize(text="Mi email es david@example.com...", analyzer_results=results)
+results = AnalyzerEngine().analyze(text=text, language='es')
+anonymized = AnonymizerEngine().anonymize(text=text, analyzer_results=results)
 ```
 
-## Reconocedores disponibles
+## Pitfalls
 
-- DNI/NIE, NIF, NSS, Pasaporte, IBAN
-- Email, Teléfono, URL, IP
-- Nombre de persona (NER), Localización
-- Tarjetas de crédito, coordenadas bancarias
+- Repo actual: **data-privacy-stack/presidio** (no lo dupliques como "alternativa").
+- Cubre **texto E imágenes** (Image Redactor) — no solo texto.
 
-## Integración con Mastermind
+## Verificación
 
-- Para skills que procesen PDFs/documentos (liteparse, markitdown)
-- Proteger datos personales antes de logging
-- Anonimizar datasets de entrenamiento
-
-## Referencia
-
-- Repo: `microsoft/presidio`
-- Docs: https://microsoft.github.io/presidio/
-
-## Comparativa de alternativas
-
-- **[data-privacy-stack/presidio](https://github.com/data-privacy-stack/presidio)** — de-identificación PII multi-idioma tanto sobre texto como sobre imágenes con OCR (este skill solo cubre texto); extiende el caso de uso a documentos escaneados/imágenes.
+- Analizar/anonimizar un texto con NER y probar una imagen con `presidio-image-redactor`.

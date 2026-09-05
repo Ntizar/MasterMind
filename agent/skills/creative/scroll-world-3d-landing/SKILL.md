@@ -1,53 +1,33 @@
 ---
 name: scroll-world-3d-landing
-description: Scroll-scrubbed 3D fly-through landing pages — skill de agente que genera mundos inmersivos con scroll continuo, AI art y video generation.
-category: creative
+description: "Usa a crear landings 3D scroll-scrub con Video (Monid)."
+version: "2.0.0"
+tags: [scroll, 3d, landing, video, monid, threejs, secuencial]
+related_skills: [scroll-world-3d-landing, webgl-scene-wow, threejs-3d-maps]
 ---
 
-# Scroll World — Landing Pages 3D con Scroll-Scrubbing
+# Scroll World — landings 3D con scroll-scrubbed vídeo
 
-## Qué es
+> ⚠️ Corrección 2026-09-05 (auditoría): el backend por defecto real es **Monid CLI (Seedance 2.0)**; Higgsfield CLI es solo backend/fallback (kling3_0), y hay **Codex CLI** opcional para stills. Stars: ~9K (no 483).
 
-**scroll-world** (oso95/scroll-world, 483⭐) es un skill de agente (compatible con Claude Code, Codex, y cualquier agente que soporte SKILL.md) que genera **landing pages inmersivas 3D** donde la cámara "vuela" a través de escenas conectadas sin cortes, controlado por el scroll del usuario.
+**Repo:** `https://github.com/oso95/scroll-world` (JavaScript, ~9K⭐).
 
-## Cómo funciona
+## When to Use
 
-1. **Higgsfield CLI** genera el arte visual (escenas diorama isométricas + camera flights)
-2. **ffmpeg/ffprobe** extrae frames y codifica el video final
-3. **Python + Pillow** hace transparent-scene knockout (opcional)
-4. Resultado: landing page HTML con scroll-scrubbing que controla la reproducción del video
+- Cuando pidas una **landing 3D con scroll-scrub** (texto apareciendo con vídeo/fondos animados al hacer scroll).
 
-## Patrón arquitectónico — Scroll-Scrubbed Video
+## Requisitos (reales)
 
-```javascript
-// Sincronizar scroll del usuario con tiempo del video
-const video = document.querySelector('video');
-window.addEventListener('scroll', () => {
-  const progress = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-  video.currentTime = progress * video.duration;
-});
-```
-
-## Casos de uso para proyectos de David
-
-- Landing pages de proyectos (GTFSSpain, DataHubEspana) con intro 3D
-- Showcases de visualizaciones con fly-through de mapas
-- Storytelling geoespacial — volar sobre un mapa 3D mostrando datos
-
-## Requisitos
-
-- **Higgsfield CLI** autenticado con créditos
-- `ffmpeg` / `ffprobe`
-- Python 3 con Pillow (opcional)
+- **Monid CLI** — backend por defecto (Seedance 2.0)
+- **Higgsfield CLI** — backend/fallback (kling3_0) *(no es el principal)*
+- **Codex CLI** *(opcional)* — generar stills
+- ffmpeg / Pillow
 
 ## Pitfalls
 
-- Higgsfield requiere créditos — cada landing consume créditos de AI generation
-- El video puede ser pesado — optimizar con WebM/VP9
-- Scroll-scrubbing necesita RAF para suavizar
-- Mobile performance puede ser laggy
+- Backend por defecto: **Monid CLI**, no Higgsfield.
+- **No** omitir Monid/Codex en los requisitos.
 
-## Referencias
+## Verificación
 
-- Repo: https://github.com/oso95/scroll-world
-- Higgsfield: https://higgsfield.ai
+- Configurar Monid CLI como backend y comprobar que el scroll produce vídeo/landing correcto.

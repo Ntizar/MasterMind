@@ -1,66 +1,34 @@
 ---
 name: depth-anything-3
-description: Depth Anything V3 — estimación de profundidad de estado del arte, zero-shot, para cualquier imagen/video.
-category: computer-vision
+description: "Usa a estimar profundidad con Depth Anything V3."
+version: "2.0.0"
+tags: [profundidad, depth-anything, vision, monocular, transformers, v3]
+related_skills: [depth-anything-3, threejs-webgpu-relighting, mlx-vlm-inference]
 ---
 
-# Depth Anything V3 — Estimación de Profundidad SOTA
+# Depth Anything V3 — profundidad monocular
 
-## Qué es
+> ⚠️ Corrección 2026-09-05 (auditoría): la API real es `depth_anything_3.api.DepthAnything3` + `from_pretrained` + `model.inference()`; **no** `depth_anything_v3.dpt.DepthAnythingV3`/`predict()`. El checkpoint HF es el del repo (ByteDance-Seed).
 
-Depth Anything V3 de ByteDance es un modelo de estimación de profundidad que ofrece:
-- **Zero-shot** — funciona en cualquier imagen sin fine-tuning
-- **SOTA accuracy** — estado del arte en estimación de profundidad
-- **Multi-escala** — predice profundidad a diferentes resoluciones
-- **Rápido** — inference en tiempo real con GPU
+**Repo:** `https://github.com/ByteDance-Seed/Depth-Anything-3` (Python, ~6.3K⭐).
 
-## Instalación
+## When to Use
 
-```bash
-git clone https://github.com/ByteDance-Seed/Depth-Anything-3.git
-cd Depth-Anything-3
-pip install -e .
+- Cuando pidas **estimar profundidad monocolar** de una imagen (relieve, 3D, reframes) con el modelo V3 de ByteDance.
 
-# Descargar checkpoint
-# https://huggingface.co/depth-anything/Depth-Anything-V3
-```
-
-## Uso básico
+## Uso (API real)
 
 ```python
-from depth_anything_v3.dpt import DepthAnythingV3
-
-# Cargar modelo
-model_configs = {
-    'vits': {'encoder': 'vits', 'features': 64, 'out_channels': [48, 96, 192, 384]},
-    'vitb': {'encoder': 'vitb', 'features': 128, 'out_channels': [96, 192, 384, 768]},
-    'vitl': {'encoder': 'vitl', 'features': 256, 'out_channels': [256, 512, 1024, 1024]},
-}
-
-encoder = 'vitl'  # vits, vitb, or vitl
-model = DepthAnythingV3(**model_configs[encoder])
-model.load_state_dict(torch.load(f'depth_anything_v3_{encoder}.pth'))
-model.eval()
-
-# Predecir profundidad
-depth = model.predict(image)
+from depth_anything_3.api import DepthAnything3
+model = DepthAnything3.from_pretrained("ByteDance-Seed/Depth-Anything-3", device=...)
+depth = model.inference(image_path)   # método inference (no predict)
 ```
-
-## Casos de uso para David
-
-- **Mapas 3D** — generar altura/depth para visualizaciones geoespaciales
-- **Satélite** — estimar profundidad de terreno desde imágenes
-- **Three.js** — texturas de profundidad para escenas 3D
-- **Autoguardrails** — validación de profundidad para navegación
 
 ## Pitfalls
 
-- Modelo grande (~2GB para vitl)
-- Requiere GPU para inference rápida
-- Las imágenes de satélite pueden tener artefactos
-- No es modelo geométrico — la profundidad es relativa, no métrica
+- Import: **`depth_anything_3.api.DepthAnything3`**; no `depth_anything_v3.dpt.DepthAnythingV3`.
+- Método: **`model.inference(...)`**, no `predict()`.
 
-## Referencias
+## Verificación
 
-- Repo: `github.com/ByteDance-Seed/Depth-Anything-3` (5K⭐)
-- HuggingFace: `https://huggingface.co/depth-anything`
+- `DepthAnything3.from_pretrained(...)` → `model.inference(img)` y comprobar el mapa de profundidad.

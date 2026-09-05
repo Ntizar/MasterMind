@@ -205,13 +205,15 @@
     },
     "dgreenheck/ez-tree": {
       "explored_at": "2026-06-18T16:12:49",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 1421,
       "language": "JavaScript",
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "ez-tree",
-      "covered_by": "ez-tree"
+      "covered_by": "ez-tree",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "google-research/timesfm": {
       "explored_at": "2026-06-18T16:12:50",
@@ -226,13 +228,15 @@
     },
     "roboflow/rf-detr": {
       "explored_at": "2026-06-18T16:12:51",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 7974,
       "language": "Python",
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "rf-detr",
-      "covered_by": "rf-detr"
+      "covered_by": "rf-detr",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "MattLeho/Three.js-London-Tube-Train-Model-Viewer": {
       "explored_at": "2026-06-18T16:12:51",
@@ -357,12 +361,14 @@
     },
     "microsoft/presidio": {
       "explored_at": "2026-06-18T16:13:01",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 8678,
       "language": "Python",
       "skill_angles": [],
       "skill_created": true,
-      "skill_name": "presidio-pii"
+      "skill_name": "presidio-pii",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "queai-project/QueAI": {
       "explored_at": "2026-06-18T16:13:02",
@@ -460,13 +466,15 @@
     },
     "Makisuo/maple": {
       "explored_at": "2026-06-18T16:13:09",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 1451,
       "language": "TypeScript",
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "maple-observability",
-      "covered_by": "maple-observability"
+      "covered_by": "maple-observability",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "ni5arga/sightline": {
       "explored_at": "2026-06-18T16:13:10",
@@ -592,13 +600,15 @@
     },
     "NVIDIA/SkillSpector": {
       "explored_at": "2026-06-18T16:14:34",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 7828,
       "language": "Python",
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "skillspector",
-      "covered_by": "skillspector"
+      "covered_by": "skillspector",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "espocrm/espocrm": {
       "explored_at": "2026-06-18T16:14:35",
@@ -808,13 +818,15 @@
     },
     "PINTO0309/PINTO_model_zoo": {
       "explored_at": "2026-06-18T16:14:50",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 4445,
       "language": "Python",
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "pinto-model-zoo",
-      "covered_by": "pinto-model-zoo"
+      "covered_by": "pinto-model-zoo",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "acunap/praxis": {
       "explored_at": "2026-06-18T16:14:51",
@@ -854,13 +866,15 @@
     },
     "cporter202/API-mega-list": {
       "explored_at": "2026-06-18T16:14:53",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 6666,
       "language": "JavaScript",
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "api-mega-catalog",
-      "covered_by": "api-mega-catalog"
+      "covered_by": "api-mega-catalog",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "vasile/transit-map": {
       "explored_at": "2026-06-18T16:14:54",
@@ -874,13 +888,15 @@
     },
     "antoinelame/GazeTracking": {
       "explored_at": "2026-06-18T16:14:55",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 2593,
       "language": "Python",
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "gaze-tracking",
-      "covered_by": "gaze-tracking"
+      "covered_by": "gaze-tracking",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "duy-phamduc68/TrafficLab-3D": {
       "explored_at": "2026-06-18T16:14:56",
@@ -952,13 +968,15 @@
     },
     "Blaizzy/mlx-vlm": {
       "explored_at": "2026-06-18T16:15:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 5070,
       "language": "Python",
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "mlx-vlm-inference",
-      "covered_by": "mlx-vlm-inference"
+      "covered_by": "mlx-vlm-inference",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "ronvidev/modelo_lstm_lsp": {
       "explored_at": "2026-06-18T16:15:01",
@@ -1017,13 +1035,15 @@
     },
     "c2g-dev/city2graph": {
       "explored_at": "2026-06-18T16:15:05",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 1307,
       "language": "Python",
       "skill_angles": [],
       "skill_created": true,
       "skill_name": "geoai-city2graph-pattern",
-      "covered_by": "geoai-city2graph-pattern"
+      "covered_by": "geoai-city2graph-pattern",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "nagix/mini-tokyo-3d": {
       "explored_at": "2026-06-18T16:15:06",
@@ -1871,7 +1891,7 @@
     },
     "oso95/scroll-world": {
       "explored_at": "2026-08-31T23:25:56.981025+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 8848,
       "language": "JavaScript",
       "skill_angles": [
@@ -1880,7 +1900,9 @@
       ],
       "skill_created": true,
       "skill_name": "scroll-world-3d-landing",
-      "covered_by": "scroll-world-3d-landing"
+      "covered_by": "scroll-world-3d-landing",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "simplifaisoul/osiris": {
       "explored_at": "2026-08-31T23:26:02.823647+00:00",
@@ -1973,7 +1995,7 @@
     },
     "ByteDance-Seed/Depth-Anything-3": {
       "explored_at": "2026-09-01T00:00:46.154560+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 6239,
       "language": "Python",
       "skill_angles": [
@@ -1982,11 +2004,13 @@
       ],
       "skill_created": true,
       "skill_name": "depth-anything-3",
-      "covered_by": "depth-anything-3"
+      "covered_by": "depth-anything-3",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "erincatto/box3d": {
       "explored_at": "2026-09-01T00:00:52.420797+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 6223,
       "language": "C",
       "skill_angles": [
@@ -1995,7 +2019,9 @@
       ],
       "skill_created": true,
       "skill_name": "box3d-renderer",
-      "covered_by": "box3d-renderer"
+      "covered_by": "box3d-renderer",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "valhalla/valhalla": {
       "explored_at": "2026-09-01T00:00:58.737708+00:00",
@@ -2212,7 +2238,7 @@
     },
     "MapleTechLabs/maple": {
       "explored_at": "2026-09-01T01:25:42.638504+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 1741,
       "language": "TypeScript",
       "skill_angles": [
@@ -2221,7 +2247,9 @@
       ],
       "skill_created": true,
       "skill_name": "maple-observability",
-      "covered_by": "maple-observability"
+      "covered_by": "maple-observability",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "nasa-gibs/worldview": {
       "explored_at": "2026-09-01T01:25:48.914574+00:00",
@@ -2321,7 +2349,7 @@
     },
     "localai-org/depth-anything.cpp": {
       "explored_at": "2026-09-01T02:00:38.805247+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 1090,
       "language": "C++",
       "skill_angles": [
@@ -2332,7 +2360,9 @@
       ],
       "skill_created": true,
       "skill_name": "depth-anything-3",
-      "covered_by": "depth-anything-3"
+      "covered_by": "depth-anything-3",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "autowarefoundation/vision_pilot": {
       "explored_at": "2026-09-01T02:00:45.214846+00:00",

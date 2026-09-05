@@ -1,84 +1,43 @@
 ---
 name: ez-tree
-description: Visualización de árboles y grafos en 3D — útil para datos jerárquicos y mapas de decisión.
-version: "1.0.0"
-tags: [3D, trees, graphs, visualization, hierarchy, three.js]
+description: "Usa a generar árboles 3D procedurales con Three.js."
+version: "2.0.0"
+tags: [ez-tree, arboles, procedural, threejs, 3d, glb, png]
+related_skills: [threejs-3d-maps, ecctrl, seed-three, threejs-procedural-dungeon]
 ---
 
-# EZ-Tree — Visualización 3D de Árboles y Grafos
+# EzTree — generador procedural de árboles 3D (Three.js)
 
-## Resumen
+> ⚠️ Corrección 2026-09-05 (auditoría): la v1 lo describía como "visualizador de grafos" con `new EzTree({container, data, layout})`, `tree.render()` y export SVG — **no existe**. EzTree es un **generador procedural de árboles 3D** para Three.js (paquete `@dgreenheck/ez-tree`).
 
-Visualización de árboles y grafos en 3D — útil para datos jerárquicos y mapas de decisión. 1.4k⭐.
+**Repo:** `https://github.com/dgreenheck/ez-tree` (JavaScript, ~1.6K⭐).
 
-## Repo de referencia
+## When to Use
 
-- **GitHub:** `github.com/dgreenheck/ez-tree`
-- **Lenguaje:** JavaScript
-- **Licencia:** MIT
+- Cuando pidas **generar árboles 3D procedurales** (tronco, ramas, hojas) para una escena Three.js, con semilla reproducible y export.
 
-## Instalación
+## Uso (API real)
 
 ```bash
-npm install ez-tree
-# o
-git clone https://github.com/dgreenheck/ez-tree.git
-cd ez-tree && npm install
+npm install @dgreenheck/ez-tree
 ```
 
-## Uso Básico
+```js
+import * as THREE from 'three';
+import { Tree } from '@dgreenheck/ez-tree';   // clase Tree, no EzTree
 
-```javascript
-import EzTree from 'ez-tree';
-
-const tree = new EzTree({
-  container: '#tree-container',
-  data: {
-    name: 'Root',
-    children: [
-      { name: 'A', children: [
-        { name: 'A1' },
-        { name: 'A2' }
-      ]},
-      { name: 'B', children: [
-        { name: 'B1' }
-      ]}
-    ]
-  },
-  layout: 'radial',  // 'radial', 'hierarchical', 'force'
-  colors: ['#2563eb', '#f97316', '#10b981'],
-});
-
-tree.render();
-
-// Interacción
-tree.on('click', (node) => {
-  console.log('Clicked:', node.name);
-});
+const tree = new Tree();
+tree.options.seed = 42;                        // o tree.options.* (trunk, branch, leaves)
+tree.generate();                               // genera la geometría
+// export: PNG / GLB
 ```
-
-## Patrones Clave
-
-1. **Layouts:** Radial, hierárquico, force-directed
-2. **Interacción:** Click, hover, zoom, pan
-3. **Custom:** Colores, tamaños, formas personalizables
-4. **Animation:** Transiciones suaves entre layouts
-5. **Export:** PNG, SVG de la visualización
-
-## Integración con Mastermind
-
-- Complementa `threejs-3d-maps` — visualización jerárquica vs geoespacial
-- Útil para `competitive-intelligence` — mapas de competencia
-- Ideal para `dspy` — visualización de programas
-- Reemplaza D3.js trees para visualización 3D
 
 ## Pitfalls
 
-- **Tamaño:** Datos muy grandes (>1000 nodos) pueden ser lentos
-- **Layout:** El layout radial no siempre es el óptimo
-- **Dependencias:** Requiere Three.js
-- **Mobile:** Puede no funcionar bien en móviles
+- Paquete: **`@dgreenheck/ez-tree`**, no `ez-tree`; clase **`Tree`**, no `EzTree`.
+- Proposito: **árboles procedurales 3D**, no visualización de grafos/mapas de decisión.
+- **No** hay `tree.render()`, `tree.on('click')`, `layout` de grafo ni export SVG.
 
-## Referencias
+## Verificación
 
-- [GitHub: dgreenheck/ez-tree](https://github.com/dgreenheck/ez-tree)
+- `new Tree()` + `tree.generate()` y comprobar la geometría de árbol en la escena; exportar GLB.

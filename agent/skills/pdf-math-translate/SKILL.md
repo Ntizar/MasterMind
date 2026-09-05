@@ -1,41 +1,40 @@
 ---
 name: pdf-math-translate
-description: PDF Math Translate — traducción de PDFs matemáticos/académicos manteniendo fórmulas y formato.
-category: data-pipeline
+description: "Usa al traducir PDFs matemáticos con pdf2zh."
+version: "2.0.0"
+tags: [pdf, traduccion, matematicas, pdf2zh, latex, formula, cli]
+related_skills: [pdf-processing, pdf-math-translate, document-conversion, marker-pdf-conversion]
 ---
 
-# PDF Math Translate — Traducción de PDFs Académicos
+# PDF Math Translate (pdf2zh) — traducir PDFs matemáticos
 
-## Qué es
+> ⚠️ Corrección 2026-09-05 (auditoría stars-explorer): la v1 usaba `pip install PDFMathTranslate` y el comando `pdf-math-translate ... --lang`. **Falso:** el paquete PyPI es **`pdf2zh`** y el CLI es `pdf2zh`.
 
-PDF Math Translate es una herramienta para traducir PDFs académicos manteniendo fórmulas:
-- **Formula preservation** — las fórmulas matemáticas se mantienen intactas
-- **Layout preservation** — el formato original se conserva
-- **Academic-focused** — optimizado para papers académicos
-- **Multi-idioma** — traducción entre múltiples idiomas
+**Repo:** `https://github.com/PDFMathTranslate/PDFMathTranslate` (MIT, Python, ~37K⭐). Demo online: `pdf2zh.com`.
 
-## Instalación
+## When to Use
+
+- Cuando pidas **traducir un PDF manteniendo las fórmulas matemáticas** (LaTeX), el layout y las referencias entre páginas.
+- Para documentos científicos/matemáticos con ecuaciones.
+
+## Uso
 
 ```bash
-pip install PDFMathTranslate
-# O usar CLI
-pdf-math-translate input.pdf output.pdf --lang src->dst
+pip install pdf2zh
+# CLI: origen (-li) y destino (-lo) de idioma, salida (-o)
+pdf2zh document.pdf -li en -lo zh
+# GUI interactiva:
+pdf2zh -i
 ```
 
-## Casos de uso para David
-
-- **Paper translation** — traducir papers académicos
-- **Learning** — leer papers en otros idiomas
-- **Documentation** — traducir documentación técnica
-- **Research** — acceder a papers en chino/otros idiomas
+Servicios de traducción soportados: **Google, DeepL, Ollama, OpenAI, MiniMax, BabelDOC** (+ demodemo online). No se limita a Google/DeepL.
 
 ## Pitfalls
 
-- Lento para PDFs grandes
-- Requiere conexión a API de traducción (Google/DeepL)
-- Las fórmulas complejas pueden no traducirse bien
-- Output puede necesitar revisión manual
+- Instalar **`pdf2zh`**, nunca `PDFMathTranslate`. El comando es `pdf2zh`, no `pdf-math-translate`.
+- No hay un flag `--lang src->dst`; es `-li`/`-lo`.
+- La calidad de la traducción depende del servicio elegido (Ollama/OpenAI para local, Google/DeepL para cloud).
 
-## Referencias
+## Verificación
 
-- Repo: `github.com/PDFMathTranslate/PDFMathTranslate` (35K⭐)
+- Traducir un PDF con ecuaciones; comprobar que las fórmulas se conservan como LaTeX legible y el orden del documento no se rompe.

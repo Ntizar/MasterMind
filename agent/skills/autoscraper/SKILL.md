@@ -1,60 +1,48 @@
 ---
 name: autoscraper
-description: AutoScraper — scraping web automático con IA, aprende patrones de selección y extrae datos sin código.
-category: data-pipeline
+description: "Usa al scrapear con AutoScraper (aprende patrones)."
+version: "2.0.0"
+tags: [scraping, autoscraper, python, aprieta, ml, web, patrones]
+related_skills: [adaptive-web-scraping, scrapy-web-scraping, crawlee-web-scraping, google-maps-scrapper]
 ---
 
-# AutoScraper — Scraping Web con IA
+# AutoScraper — scraping que aprende patrones por ti
 
-## Qué es
+> ⚠️ Corrección 2026-09-05 (auditoría stars-explorer): la v1 usaba `scraper.run(texto)` — **inexistente**. La API real para re-extraer de una página nueva es `get_result_similar()`/`get_result()`.
 
-AutoScraper es una herramienta de scraping que usa patrones de aprendizaje para extraer datos:
-- **Pattern learning** — aprende patrones de selección de la página
-- **No code** — no requiere selectors CSS o XPath
-- **Adaptive** — se adapta a cambios en la estructura de la página
-- **Fast** — basado en requests + pattern matching
+**Repo upstream:** `https://github.com/alirezamika/autoscraper` (MIT, Python, ~7.9K⭐).
 
-## Instalación
+## When to Use
 
-```bash
-pip install autoscraper
-```
+- Cuando pidas **scrapear** una web sin escribir selectores a mano: le das ejemplos de lo que quieres y aprende el patrón.
+- Para sitios con estructura estable donde el selector cambia poco; ideal para prototipos rápidos.
 
-## Uso básico
+## Uso
 
 ```python
+import requests
 from autoscraper import AutoScraper
 
-# Crear scraper aprendiendo de ejemplos
-wanted_list = ['Price', 'Rating', 'Reviews']
-response = requests.get('https://example.com/product')
+url = 'https://ejemplo.com'
+# Pasas ejemplos de lo que quieres extraer y la página de donde aprender
+wanted_list = ['ejemplo de texto a extraer']
 scraper = AutoScraper()
-result = scraper.build(response.text, wanted_list)
+result = scraper.build(url, wanted_list)   # aprende el patrón
 
-# Extraer de nueva página
-new_response = requests.get('https://example.com/product2')
-new_result = scraper.run(new_response.text)
-print(new_result)
+# Re-extraer de una página nueva (misma estructura):
+req = requests.get('https://ejemplo.com/otra-pagina')
+scraper.get_result_similar(req.text)       # <- API real (NO scraper.run)
 ```
 
-## Casos de uso para David
-
-- **Web scraping** — extraer datos de sites sin API
-- **Data collection** — recoger datos estructurados de la web
-- **Integration** — usar con crawlee para scraping robusto
-- **Anti-detection** — usar con curl-impersonate
+- `build(url, wanted_list)` acepta el HTML/código de la página.
+- Para extracción exacta: `get_result()` / `get_result_exact()`.
 
 ## Pitfalls
 
-- No funciona bien con contenido JS-renderizado (usa requests, no browser)
-- Los patrones pueden romperse si la página cambia
-- No maneja autenticación/login
-- Combinar con Playwright/Selenium para JS sites
+- La API es **`get_result_similar()`** (o `get_result`/`get_result_exact`); **no existe `scraper.run()`**.
+- Importar `requests` al usar `requests.get(...)`.
+- Solo aprende patrones de sitios con estructura repetitiva; webs dinámicas (JS) necesitan browser automation.
 
-## Referencias
+## Verificación
 
-- Repo: `github.com/alirezamika/autoscraper` (7K⭐)
-
-## Comparativa de alternativas
-
-- **[alirezamika/autoscraper](https://github.com/alirezamika/autoscraper)** — la clase `AutoScraper` con `build/learn/get_result` infiere reglas de scraping desde datos de muestra; el mecanismo de auto-aprendizaje de este skill.
+- `scraper.build(url, wanted_list)` → `get_result_similar(req.text)` y comprobar que devuelve el mismo tipo de datos en una página distinta del mismo sitio.

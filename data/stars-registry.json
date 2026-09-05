@@ -1389,7 +1389,7 @@
     },
     "RVC-Project/Retrieval-based-Voice-Conversion-WebUI": {
       "explored_at": "2026-08-29T04:00:52.682179+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 37888,
       "language": "Python",
       "skill_angles": [
@@ -1397,11 +1397,13 @@
       ],
       "skill_created": true,
       "skill_name": "rvc-voice-conversion",
-      "covered_by": "rvc-voice-conversion"
+      "covered_by": "rvc-voice-conversion",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "myshell-ai/OpenVoice": {
       "explored_at": "2026-08-29T04:00:58.451128+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 37346,
       "language": "Python",
       "skill_angles": [
@@ -1409,7 +1411,9 @@
       ],
       "skill_created": true,
       "skill_name": "openvoice-voice-cloning",
-      "covered_by": "openvoice-voice-cloning"
+      "covered_by": "openvoice-voice-cloning",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "patchy631/ai-engineering-hub": {
       "explored_at": "2026-08-29T04:01:04.704621+00:00",
@@ -1429,7 +1433,7 @@
     },
     "PDFMathTranslate/PDFMathTranslate": {
       "explored_at": "2026-08-29T10:00:47.406841+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 36467,
       "language": "Python",
       "skill_angles": [
@@ -1437,7 +1441,9 @@
       ],
       "skill_created": true,
       "skill_name": "pdf-math-translate",
-      "covered_by": "pdf-math-translate"
+      "covered_by": "pdf-math-translate",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "CMU-Perceptual-Computing-Lab/openpose": {
       "explored_at": "2026-08-29T10:00:53.085879+00:00",
@@ -1536,7 +1542,7 @@
     },
     "resemble-ai/chatterbox": {
       "explored_at": "2026-08-30T04:00:36.383160+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 26201,
       "language": "Python",
       "skill_angles": [
@@ -1545,7 +1551,9 @@
       ],
       "skill_created": true,
       "skill_name": "chatterbox-tts",
-      "covered_by": "chatterbox-tts"
+      "covered_by": "chatterbox-tts",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "apify/crawlee": {
       "explored_at": "2026-08-30T04:00:43.053407+00:00",
@@ -1562,19 +1570,21 @@
     },
     "baidu/Unlimited-OCR": {
       "explored_at": "2026-08-30T04:00:48.618620+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 24756,
       "language": "Python",
       "skill_angles": [
         "pattern-ai/ml"
       ],
       "skill_created": true,
-      "skill_name": "infinite-ocr",
-      "covered_by": "infinite-ocr"
+      "skill_name": "baidu-unlimited-ocr",
+      "covered_by": "infinite-ocr",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "index-tts/index-tts": {
       "explored_at": "2026-08-30T10:00:27.276650+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 23589,
       "language": "Python",
       "skill_angles": [
@@ -1582,7 +1592,9 @@
       ],
       "skill_created": true,
       "skill_name": "index-tts",
-      "covered_by": "index-tts"
+      "covered_by": "index-tts",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "browser-use/video-use": {
       "explored_at": "2026-08-30T10:00:33.359764+00:00",
@@ -1646,11 +1658,14 @@
     },
     "SWivid/F5-TTS": {
       "explored_at": "2026-08-30T22:01:03+00:00",
-      "category": "skip",
+      "category": "upgrade",
       "stars": 15173,
       "language": "Python",
-      "skill_created": false,
-      "notes": "Ya existe skill f5-tts (dedup)"
+      "skill_created": true,
+      "notes": "Ya existe skill f5-tts (dedup)",
+      "skill_name": "f5-tts",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "liquidslr/system-design-notes": {
       "explored_at": "2026-08-30T22:01:03+00:00",
@@ -1834,14 +1849,17 @@
     },
     "alirezamika/autoscraper": {
       "explored_at": "2026-08-31T23:50:46.264135+00:00",
-      "category": "skip",
+      "category": "upgrade",
       "stars": 7924,
       "language": "Python",
       "skill_angles": [
         "pattern-real-time"
       ],
-      "skill_created": false,
-      "skip_reason": "dedup: skill autoscraper ya existe (score 0.93)"
+      "skill_created": true,
+      "skip_reason": "dedup: skill autoscraper ya existe (score 0.93)",
+      "skill_name": "autoscraper",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "meituan-longcat/LongCat-Video": {
       "explored_at": "2026-08-31T23:50:51.986232+00:00",
@@ -1856,15 +1874,18 @@
     },
     "lwthiker/curl-impersonate": {
       "explored_at": "2026-08-31T23:50:57.626910+00:00",
-      "category": "skip",
+      "category": "upgrade",
       "stars": 6917,
       "language": "Python",
       "skill_angles": [
         "ci-cd-pipeline-patterns",
         "crm-erp-patterns"
       ],
-      "skill_created": false,
-      "skip_reason": "dedup: skill curl-impersonate ya existe (0.85)"
+      "skill_created": true,
+      "skip_reason": "dedup: skill curl-impersonate ya existe (0.85)",
+      "skill_name": "curl-impersonate",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "LiamGvchi/gc-minimal-zine-poster": {
       "explored_at": "2026-08-31T23:51:03.264905+00:00",
@@ -1928,7 +1949,7 @@
     },
     "valhalla/valhalla": {
       "explored_at": "2026-09-01T00:00:58.737708+00:00",
-      "category": "domain",
+      "category": "upgrade",
       "stars": 6141,
       "language": "C++",
       "skill_angles": [
@@ -1936,7 +1957,9 @@
       ],
       "skill_created": true,
       "skill_name": "valhalla-routing",
-      "covered_by": "valhalla-routing"
+      "covered_by": "valhalla-routing",
+      "skill_audited": "2026-09-05",
+      "skill_version": "2.0.0"
     },
     "Gentleman-Programming/gentle-ai": {
       "explored_at": "2026-09-01T00:01:05.030389+00:00",

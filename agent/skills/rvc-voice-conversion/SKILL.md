@@ -1,54 +1,48 @@
 ---
 name: rvc-voice-conversion
-description: RVC (Retrieval-based Voice Conversion) — conversión de voz en tiempo real con cloning de baja latencia y alta calidad.
-category: media
+description: "Usa al convertir voz con RVC entrenando por voz."
+version: "2.0.0"
+tags: [rvc, voice-conversion, vc, voz, entrenamiento, webui, python]
+related_skills: [openvoice-voice-cloning, f5-tts, gpt-sovits-tts, rvc-voice-conversion]
 ---
 
-# RVC — Retrieval-based Voice Conversion
+# RVC — Conversión de voz (retrieval-based, por entrenamiento)
+
+> ⚠️ Corrección 2026-09-05 (auditoría stars-explorer): la v1 decía "zero-shot, clones de voz sin fine-tuning" y `python infer.py`. **Falso:** RVC requiere **entrenar un modelo por voz** y se lanza con `python webui.py`.
+
+**Repo:** `https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI` (MIT, Python, ~38K⭐).
+
+## When to Use
+
+- Cuando pidas **conversión de voz** (cambiar el timbre de un audio a otra voz) y dispongas de unos ~10 min de voz limpia para entrenar.
+- Para controlar el resultado (pitch, preservación del habla) de la voz objetivo.
 
 ## Qué es
 
-RVC es un sistema de conversión de voz (voice conversion) que permite:
-- **RVC v2** — última versión con mejor calidad y velocidad
-- **Inference en tiempo real** — latencia <500ms
-- **Zero-shot** — clones de voz sin fine-tuning
-- **Comunidad enorme** — miles de modelos pre-entrenados disponibles
+Conversor de voz **basado en recuperación/entrenamiento**: para cada voz objetivo hay que **entrenar un modelo** (el README abre con "Easily train a good VC model with voice data <= 10 mins!"). **No es zero-shot**: no clona sin datos.
 
-## Instalación
+## Uso
 
 ```bash
-# Clonar y usar el launcher
-git clone https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI.git
-cd Retrieval-based-Voice-Conversion-WebUI
-
-# Instalar dependencias
-pip install -r requirements.txt
-
-# Ejecutar WebUI
-python infer.py
+# 1) En el root del repo
+# 2) Instalar dependencias según hardware (NO existe requirements.txt genérico):
+#    CPU:
+pip install -r requirments_cpu_py312.txt        # (nombre tal cual en el repo)
+#    NVIDIA CUDA 11.8 / 12.x:
+#    pip install -r requirments_cu118_py312.txt
+#    pip install -r requirments_cu128_py312.txt
+# 3) Arrancar la web UI:
+python webui.py        # (o go-webui.bat en Windows)
 ```
 
-## Casos de uso para David
-
-- **Voice cloning** — clonar su voz para narraciones
-- **Doblaje** — mantener timbre consistente
-- **Accesibilidad** — TTS con su voz
-- **Streaming** — conversión en tiempo real para calls/live
+*(El nombre exacto de los ficheros de requisitos y de `webui.py` puede variar por versión — verificar en el README. `infer.py` NO existe.)*
 
 ## Pitfalls
 
-- **GPU recomendada** — corre en CPU pero es lento
-- Las muestras de referencia deben ser limpias
-- Modelos grandes (100MB-1GB cada uno)
-- La interfaz WebUI es la forma principal de uso
-- Versiones incompatibles entre v1 y v2
+- **No es zero-shot** — hay que entrenar un modelo por voz (muestra limpia). Cualquier afirmación de "clones sin fine-tuning" es falsa.
+- El lanzador es `python webui.py`, no `infer.py` (404 en el repo).
+- Los requisitos van por hardware, no un único `requirements.txt`.
 
-## Referencias
+## Verificación
 
-- Repo: `github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI` (36K⭐)
-- Docs: `https://github.com/RVC-Project`
-- Modelos HuggingFace: búsqueda "RVC model" en HF
-
-## Comparativa de alternativas
-
-- **[CorentinJ/Real-Time...](https://github.com/CorentinJ)** — SV2TTS en 3 etapas (speaker encoder GE2E + TTS + vocoder) con clonado *zero-shot* de pocos segundos; frente a RVC, clona sin entrenar una voz por modelo.
+- Entrenar con una muestra limpia (~10 min) y convertir un clip de prueba; comprobar que la voz resultante es consistente y no pierde nitidez.

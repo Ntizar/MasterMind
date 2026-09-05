@@ -1,52 +1,49 @@
 ---
 name: chatterbox-tts
-description: Chatterbox (Resemble AI) — TTS de alta calidad con clonación de voz y control emocional.
-category: media
+description: "Usa al clonar voz con Chatterbox Turbo de Resemble."
+version: "2.0.0"
+tags: [tts, chatterbox, clonacion-voz, open-source, local, resemble, turbo]
+related_skills: [f5-tts, index-tts, openvoice-voice-cloning, fish-speech-tts, gpt-sovits-tts]
 ---
 
-# Chatterbox — TTS de Resemble AI
+# Chatterbox (Resemble AI) — TTS open-source con clonado y emoción
 
-## Qué es
+> ⚠️ Corrección 2026-09-05 (auditoría stars-explorer): la v1 decía `pip install chatterbox` + `from chatterbox import TTS` (`load_voice`/`synthesize(emotion=...)`), "API REST" y "requiere API key de Resemble". **Falso.** El paquete PyPI es **`chatterbox-tts`**; la API real es `ChatterboxTurboTTS.generate(...)`; corre **100% en local, sin API key ni REST**.
 
-Chatterbox es un sistema TTS de Resemble AI que ofrece:
-- **Clonación de voz** — zero-shot cloning de alta fidelidad
-- **Control emocional** — ajustar tono emocional de la voz
-- **Alta calidad** — audio natural para producción
-- **API REST** — fácil integración
+**Repo:** `https://github.com/resemble-ai/chatterbox` (MIT, Python, ~26K⭐). El servicio comercial de resemble.ai es un producto aparte — el modelo open-source no lo necesita.
 
-## Instalación
+## When to Use
+
+- Cuando pidas **clonar una voz** con un TTS open-source de alta calidad que funcione local y produzca emociones/sonidos con tags de paralenguaje.
+- Como vía rápida de voz clonada **sin depender de ningún proveedor de pago**.
+
+## Uso
 
 ```bash
-pip install chatterbox
-# O usar directamente la API
+pip install chatterbox-tts
 ```
 
-## Uso básico
+El modelo Turbo (rápido, bueno) es el recomendado:
 
 ```python
-from chatterbox import TTS
-
-tts = TTS()
-
-# Clonar voz y sintetizar
-tts.load_voice("reference.wav")
-tts.synthesize("Texto a sintetizar", "output.wav", emotion="happy")
+from chatterbox.tts_turbo import ChatterboxTurboTTS
+model = ChatterboxTurboTTS.from_pretrained(device='cuda', nano=...)   # nano usaba modelo 134M
+# Generar con voz de referencia
+wav = model.generate(
+    text='Texto a decir',
+    audio_prompt_path='voz.wav',   # voz de referencia (clonado)
+)
 ```
 
-## Casos de uso
-
-- **Producción de audio** — contenido profesional
-- **Doblaje** — mantener voz consistente
-- **Accesibilidad** — TTS personalizado
+- **Emociones/sonidos** no van por un parámetro `emotion=`: se expresan con **tags de paralenguaje** en el texto (`[laugh]`, `[cough]`, etc.).
+- La doc real está en el README del repo, **no** en `docs.resemble.ai` (eso es la API comercial).
 
 ## Pitfalls
 
-- Requiere API key de Resemble AI para uso completo
-- Modelo grande, requiere buen hardware
-- La calidad del cloning depende de la referencia
-- Algunos features requieren plan de pago
+- Instalar **`chatterbox-tts`**, no `chatterbox`.
+- No hay API REST ni embargo de key: es un modelo local. Todo lo que hable de "API key de Resemble para uso completo" es inventado.
+- Metadatos/embeddings de voz: `from_pretrained` descarga los checkpoints; `nano` es una variante pequeña.
 
-## Referencias
+## Verificación
 
-- Repo: `github.com/resemble-ai/chatterbox` (25K⭐)
-- Docs: `https://docs.resemble.ai`
+- Cargar con `device='cuda'`, generar con `audio_prompt_path` de la voz de David y comprobar que el clon mantiene el timbre. Probar un tag `[laugh]` para ver la expresión.

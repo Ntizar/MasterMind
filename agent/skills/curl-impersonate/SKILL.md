@@ -1,68 +1,54 @@
 ---
 name: curl-impersonate
-description: curl-impersonate — librería para hacer requests que impersonan browsers reales, evitando detección anti-bot.
-category: data-pipeline
+description: "Usa al hacer requests impersonando navegadores (curl)."
+version: "2.0.0"
+tags: [curl, impersonate, fingerprint, antiscraping, http, cli, browsing]
+related_skills: [curl-impersonate, adaptive-web-scraping, browser-use-ai, firecrawl-web-scraping]
 ---
 
-# curl-impersonate — Impersonar Browsers para Scraping
+# curl-impersonate — requests que parecen de navegador real
+
+> ⚠️ Corrección 2026-09-05 (auditoría stars-explorer): la v1 documentaba build con CMake (`mkdir build && cmake ..`). El repo usa **autotools** (`./configure` + `make chrome-build`/`firefox-build`), y es principalmente un build/fork de curl para **CLI** (no solo "librería").
+
+**Repo:** `https://github.com/lwthiker/curl-impersonate` (fork de curl en C, ~7K⭐). Bindings Python: `lexiforest/curl_cffi` (targets válidos: `chrome120`, `safari15_5`).
+
+## When to Use
+
+- Cuando un sitio web **bloquee** requests por fingerprint de TLS/User-Agent y necesites que la petición parezca de un navegador real (Chrome, Edge, Safari, Firefox).
+- Para scraping de webs con protecciones anti-bot que no caen con un curl normal.
 
 ## Qué es
 
-curl-impersonate es una librería que modifica curl para impersonar fingerprints de browsers reales:
-- **TLS fingerprint** — TLS Client Hello idéntico a Chrome/Firefox/Safari
-- **HTTP/2 settings** — SETTINGS frame idéntico a browser real
-- **User-Agent spoofing** — headers completos de browser
-- **Anti-bot** — evade detección de Cloudflare, DataDome, etc.
+Un **build especial de curl**: fork parcheado para imitar el fingerprint TLS/HTTP2 de navegadores reales. Se usa principalmente como **CLI** (wrappers `curl_chrome*` / `curl_ff*`) y opcionalmente como libcurl enlazable. Impersona **Chrome, Edge, Safari y Firefox**.
 
-## Instalación
+## Uso (build autotools)
 
 ```bash
-# Clonar y compilar
-git clone https://github.com/lwthiker/curl-impersonate.git
-cd curl-impersonate
-mkdir build && cd build
-cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local
-make -j$(nproc)
-sudo make install
+./configure
+make chrome-build          # (o make firefox-build)
+sudo make chrome-install   # (o sudo make firefox-install)
+# Tras instalar, el acceso es via binarios tipo curl_chrome116, curl_ff117...
+```
 
-# O usar la librería Python
+*(NO usa CMake en la raíz — no hay CMakeLists.txt; el build es autotools, ver INSTALL.md.)*
+
+## Python (recomendado, simple)
+
+```bash
 pip install curl_cffi
 ```
 
-## Uso básico
-
 ```python
-from curl_cffi import requests
-
-# Impersonar Chrome 120
-response = requests.get(
-    'https://httpbin.org/headers',
-    impersonate='chrome120'
-)
-print(response.json())
-
-# Impersonar Safari
-response = requests.get(
-    'https://httpbin.org/headers',
-    impersonate='safari15_5'
-)
+from curl_cffi import requests as creq
+r = creq.get('https://web.com', impersonate='chrome120')   # o chromium/safari...
 ```
-
-## Casos de uso para David
-
-- **Web scraping** — scrapear sites con anti-bot
-- **API testing** — hacer requests que parecen de browser
-- **Data collection** — recoger datos de sites protegidos
-- **Integration** — usar con Crawlee/Firecrawl para scraping robusto
 
 ## Pitfalls
 
-- Requiere compilar curl custom (o usar curl_cffi)
-- Las fingerprints se actualizan con cada versión de browser
-- No es 100% indetectable — sites muy protectados pueden detectar
-- curl_cffi es la opción más fácil (no requiere compilar)
+- Build: `./configure` + `make chrome-build`/`firefox-build` + `install` — **no** `mkdir build && cmake ..`.
+- Es fork/build de curl orientado a **CLI**; describirlo solo como "librería" omite el rol central.
+- Cubre **Chrome, Edge, Safari y Firefox** (no solo los 3 de la v1).
 
-## Referencias
+## Verificación
 
-- Repo: `github.com/lwthiker/curl-impersonate` (6K⭐)
-- curl_cffi: `https://github.com/lexiforest/curl_cffi`
+- Build con autotools y hacer `curl_chrome116 https://ejemplo.com` (o `curl_cffi` con `impersonate='chrome120'`); comprobar que un WAF que bloquea curl normal deja pasar la petición.

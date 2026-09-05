@@ -1,70 +1,51 @@
 ---
 name: openvoice-voice-cloning
-description: OpenVoice — cloning de voz instantánea con transferencia de habla multi-idioma y control granular del estilo.
-category: media
+description: "Usa al clonar voz con OpenVoice V2 y tono color."
+version: "2.0.0"
+tags: [tts, openvoice, clonacion-voz, tone-color, melotts, voice, local]
+related_skills: [f5-tts, index-tts, chatterbox-tts, fish-speech-tts, gpt-sovits-tts, vibe-voice]
 ---
 
-# OpenVoice — Voice Cloning Instantáneo
+# OpenVoice (V2) — clonado por transferencia de timbre
+
+> ⚠️ Corrección 2026-09-05 (auditoría stars-explorer): stars y docs desfasadas, la afirmación "corre en CPU, sin GPU" era matizable y la firma del `ToneColorConverter` estaba imprecisa. Corregido.
+
+**Repo:** `https://github.com/myshell-ai/OpenVoice` (MIT, Python, ~37K⭐). Docs: `https://research.myshell.ai/open-voice`.
+
+## When to Use
+
+- Cuando pidas **clonar un timbre** ("tone color") sin entrenar: con OpenVoice transfieres el color de voz a un TTS base.
+- Para cambiar el timbre de un texto ya sintetizado sin re-entrenar.
 
 ## Qué es
 
-OpenVoice de MyShell es un sistema de voice cloning que permite:
-- **Clonación instantánea** — una muestra de audio de 3 segundos es suficiente
-- **Transferencia multi-idioma** — clonar voz y hablar en idiomas diferentes
-- **Control granular** — ajustar acento, entonación, estilo emocional
-- **Ligero** — corre en CPU, no necesita GPU
+Sistema de **conversión de color de voz** (V2): no genera el texto tú mismo, sino que re-colorea la voz de un TTS base. La cadena V2 usa **MeloTTS** como TTS base (instalar aparte) y el **tone-color converter** para el timbre.
 
-## Instalación
+- En la práctica el pipeline completo **se usa con GPU** (MeloTTS + converter); el converter en sí es ligero, pero no es estrictamente CPU-only para uso normal.
+- **No necesita API key** — es open-source local.
 
-```bash
-# Clonar y instalar
-git clone https://github.com/myshell-ai/OpenVoice.git
-cd OpenVoice
-pip install -e .
-
-# Descargar modelos de checkpoint
-# https://huggingface.co/myshell-audio/OpenVoice
-```
-
-## Uso básico
+## Uso
 
 ```python
-from openvoice import se_extractor
 from openvoice.api import ToneColorConverter
+from openvoice.se_extractor import se_extractor  # según versiones
 
-# 1. Extraer speaker embedding de la referencia
-se = se_extractor.get_se("reference.wav", save_path="embedded.pt")
-
-# 2. Convertir voz
-converter = ToneColorConverter('checkpoint_v1')
-converter.to("source.wav", "output.wav", se_path="embedded.pt")
+# Firma real del converter (checkpoints V2)
+converter = ToneColorConverter(
+    'checkpoints_v2/converter.pth',
+    config_path='checkpoints_v2/config.json'
+)
+# extraer embed de la voz de referencia y convertir
 ```
 
-## Control de estilo
-
-```python
-# Cambiar tono, velocidad, emoción
-# Usar tone color checkpoints predefinidos
-# https://github.com/myshell-ai/OpenVoice/tree/main/checkpoints_v2
-```
-
-## Casos de uso para David
-
-- **TTS personalizado** — clonar su propia voz para narraciones
-- **Accesibilidad** — generar voz con su timbre para contenido
-- **Doblaje** — mantener la voz del actor en traducciones
-- **Contenido multimodal** — audio + video con voz consistente
+*(Instalar MeloTTS aparte: `pip install -q MeloTTS` — es la dependencia base de V2.)*
 
 ## Pitfalls
 
-- La calidad depende de la muestra de referencia (audio limpio, sin ruido)
-- No funciona bien con voces con acento muy fuerte en la referencia
-- Los checkpoints v2 son mejores que v1
-- Requiere Python 3.9+
-- El proceso de clonación es ~10-30 segundos por muestra de 5 segundos
+- La doc NO está en `docs.myshell.com`; la referencia es `research.myshell.ai/open-voice`.
+- `ToneColorConverter('checkpoint_v1')` es impreciso: firma completa `('checkpoints_v2/converter.pth', config_path='checkpoints_v2/config.json')`.
+- No confundir con un TTS end-to-end: OpenVoice **recolorea** una voz; el texto lo sintetiza el TTS base.
 
-## Referencias
+## Verificación
 
-- Repo: `github.com/myshell-ai/OpenVoice` (36K⭐)
-- Docs: `https://docs.myshell.com`
-- Modelos: `https://huggingface.co/myshell-audio/OpenVoice`
+- Cargar `ToneColorConverter` con la ruta V2, extraer embed de una voz y convertir un clip; comprobar que el timbre cambia manteniendo texto y prosodia.

@@ -1,77 +1,56 @@
 ---
 name: valhalla-routing
-description: Valhalla — motor de routing open-source de Mapbox para isocronas, rutas multimodales y geocoding.
-category: routing-isochrones
+description: "Usa al enrutar e isócronas con Valhalla (org valhalla)."
+version: "2.0.0"
+tags: [routing, isocronas, valhalla, cpp, costing, contours, docker]
+related_skills: [graphhopper-routing, osrm-routing, routing-isochrones, openstreetmap]
 ---
 
-# Valhalla — Motor de Routing Open-Source
+# Valhalla — motor de routing e isócronas (corrige org y API)
 
-## Qué es
+> ⚠️ Corrección 2026-09-05 (auditoría stars-explorer): imagen Docker bajo org equivocada (`mapbox`), atribución a Mapbox obsoleta y payloads `mode`/`range`/`range_type` inválidos. El campo real es **`costing`** (routing) y **`contours`** (isócronas).
 
-Valhalla de Mapbox es un motor de routing open-source de alta calidad que ofrece:
-- **Routing multimodal** — coche, bici, peatón, moto, transporte público
-- **Isocronas** — polígonos de accesibilidad temporal
-- **Geocoding** — búsqueda de direcciones y POIs
-- **Traffic-aware** — routing considerando tráfico en tiempo real
-- **Tile generation** — generación de tiles vectoriales desde OSM
+**Repo:** `https://github.com/valhalla/valhalla` (C++, MIT, ~6.2K⭐). Demo público de [FOSSGIS e.V.](https://valhalla.openstreetmap.de) — es el proyecto de routing de la org **valhalla**, no de Mapbox (la org `mapbox` ya no lo publica).
 
-## Instalación
+## When to Use
 
-```bash
-# Docker (recomendado)
-docker pull ghcr.io/mapbox/valhalla:latest
+- Cuando pidas **rutas** o **isócronas** (áreas de tiempo/distancia) sobre OpenStreetMap en local.
+- Como motor de routing open-source autohosteado (alternativa a OSRM/graphhopper).
 
-# O compilar desde fuente
-git clone https://github.com/valhalla/valhalla.git
-cd valhalla
-mkdir build && cd build
-cmake ..
-make -j$(nproc)
-sudo make install
-```
-
-## Uso básico
+## Uso (Docker)
 
 ```bash
-# Routing simple
-curl -X POST 'http://localhost:8002/route' \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "locations": [
-      {"lat": 40.4168, "lon": -3.7038},
-      {"lat": 41.3874, "lon": 2.1686}
-    ],
-    "mode": "car"
-  }'
-
-# Isochrone
-curl -X POST 'http://localhost:8002/isochrone' \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "locations": [{"lat": 40.4168, "lon": -3.7038}],
-    "range": [300, 600, 900],
-    "range_type": "time",
-    "mode": "drive"
-  }'
+# Imagen correcta: bajo la org 'valhalla'
+docker pull ghcr.io/valhalla/valhalla:latest
+# (o ghcr.io/valhalla/valhalla-scripted para el setup con script)
 ```
 
-## Casos de uso para David
+## API (payloads válidos)
 
-- **Isocronas** — calcular accesibilidad temporal en España
-- **Routing multimodal** — coche + transporte público
-- **Traffic-aware** — routing considerando tráfico real
-- **Integración con Three.js** — visualizar rutas en 3D
+**Routing** — campo **`costing`** (auto, bicycle, pedestrian...), NO `mode`:
+
+```json
+{ "locations": [{"lat":40.0,"lon":-3.0},{"lat":40.5,"lon":-3.5}], "costing": "auto" }
+```
+
+**Isócrona** — campo **`contours`** (con `time`/`distance`) y `polygons`/`denoise`, NO `range`/`range_type`:
+
+```json
+{
+  "locations": [{"lat":40.0,"lon":-3.0}],
+  "costing": "auto",
+  "contours": [{ "time": 10 }]
+}
+```
+
+*(`mode`, `range`, `range_type` parecen copiados de OSRM/openrouteservice y NO funcionan en Valhalla.)*
 
 ## Pitfalls
 
-- Necesita datos OSM (download desde geofabrik.de)
-- La inicialización del motor es lenta (minutos)
-- Las isocronas pueden ser lentas para áreas grandes
-- Configurar traffic requiere datos adicionales
-- El motor consume ~2-4GB RAM
+- Imagen Docker: **`ghcr.io/valhalla/valhalla`** (o `-scripted`), no `ghcr.io/mapbox/valhalla` (no existe).
+- Atribución: hoy es org **valhalla** (demo FOSSGIS), ya no "Valhalla de Mapbox".
+- El request usa `costing` (routing) y `contours` (isócronas).
 
-## Referencias
+## Verificación
 
-- Repo: `github.com/valhalla/valhalla` (5K⭐)
-- Docs: `https://valhalla.readthedocs.io`
-- Datos OSM: `https://download.geofabrik.de`
+- Levantar con la imagen correcta y hacer un routing `costing:"auto"` + una isócrona `contours:[{time:10}]`; comprobar que devuelven geometría coherente.

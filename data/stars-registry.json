@@ -3956,13 +3956,38 @@
       "skill_version": "2.0.0",
       "skill_audited": "2026-09-07",
       "note": "Plugin Hermes: voz duplex tiempo real (OpenAI/Grok/Gemini), delegacion en fondo locutada, cascade ElevenLabs."
+    },
+    "carnot-tech/consulting-pptx-skill": {
+      "explored_at": "2026-09-07T10:01:33.139632+00:00",
+      "category": "upgrade",
+      "stars": 250,
+      "language": "JavaScript",
+      "skill_angles": [
+        "pattern-pipeline"
+      ],
+      "skill_created": true,
+      "skill_name": "productivity/consulting-slide-rulebook",
+      "skill_version": "2.1.0",
+      "skill_audited": "2026-09-07",
+      "note": "Repo renombrado gozen3ji->carnot-tech (redirect verificado via gh api, 2026-09-07). Dedupe por nombre fallo; dedupe por contenido lo pillo. Skill reescrito v2.1.0 con comandos verificados contra package.json real."
+    },
+    "jtydhr88/screenwriting-skills": {
+      "explored_at": "2026-09-07T10:01:38.874177+00:00",
+      "category": "skip",
+      "stars": 133,
+      "language": null,
+      "skill_angles": [
+        "pattern-pipeline"
+      ],
+      "skill_created": false,
+      "skip_reason": "12 md de dramaturgia/guion cinematrografico (19 libros, Chejov, Ozu), sin codigo, en chino, 133 stars. Fuera del stack de David (GIS/transporte/dashboards/CV/ML) y sin patrones tecnicos reutilizables."
     }
   },
-  "last_run": "2026-09-07T00:00:00+00:00",
+  "last_run": "2026-09-07T10:01:39.875076+00:00",
   "total_skills_created": 12,
   "stats": {
-    "runs": 59,
-    "repos_explored": 305,
+    "runs": 60,
+    "repos_explored": 307,
     "skills_generated": 9,
     "last_batch": 6
   },

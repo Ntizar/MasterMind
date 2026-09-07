@@ -3981,13 +3981,27 @@
       ],
       "skill_created": false,
       "skip_reason": "12 md de dramaturgia/guion cinematrografico (19 libros, Chejov, Ozu), sin codigo, en chino, 133 stars. Fuera del stack de David (GIS/transporte/dashboards/CV/ML) y sin patrones tecnicos reutilizables."
+    },
+    "gcjordi/aigraphstudio": {
+      "explored_at": "2026-09-07T16:00:29.492679+00:00",
+      "category": "domain",
+      "stars": 4,
+      "language": "JavaScript",
+      "skill_angles": [
+        "pattern-architecture"
+      ],
+      "skill_created": true,
+      "skill_name": "agent-graph-architecture",
+      "skill_path": "ai-patterns/agent-graph-architecture",
+      "skill_decision_at": "2026-09-07",
+      "decision_note": "Excepcion al umbral 1000* (4*, creado hoy): patrones sustanciales verificados en README+ARCHITECTURE.md (18 tipos nodo, estimador SCC de tokens/coste, simulacion estructural, app buildless IndexedDB). Dedup ChromaDB: mejor score 0.72 arquitecutra-diagrama, sin solapacion real."
     }
   },
-  "last_run": "2026-09-07T10:01:39.875076+00:00",
-  "total_skills_created": 12,
+  "last_run": "2026-09-07T16:00:30.493070+00:00",
+  "total_skills_created": 13,
   "stats": {
-    "runs": 60,
-    "repos_explored": 307,
+    "runs": 61,
+    "repos_explored": 308,
     "skills_generated": 9,
     "last_batch": 6
   },

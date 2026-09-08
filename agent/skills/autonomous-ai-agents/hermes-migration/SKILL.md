@@ -118,3 +118,6 @@ hermes gateway status    # verify "Gateway process running"
 - Repo conventions for the personal MasterMind repo: never delete from it (create/modify only), everything in Spanish, and never hard-code skill counts in docs/crons — they grow with every learning cycle; write "el número no es fijo" and point to the indexer command instead.
 - Skill counts / stats in any doc stay OPEN (no fixed numbers) by explicit user request.
 - SOUL.md of the backup repo, once cleaned (old agent names removed), becomes the live agent's SOUL.md — the user wants identity carried over "a tope", not kept as a reference copy.
+
+## References
+- `references/backup-repo-restore.md` — receta end-to-end de un restore real (paths, merge script, secuencia de reorg, notas de recreación de crons). Movido desde el skill duplicado `hermes-setup-migration` al consolidar (2026-09-08).

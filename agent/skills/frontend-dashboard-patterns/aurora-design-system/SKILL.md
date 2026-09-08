@@ -30,6 +30,7 @@ ntizar.ui.css         -> modal, drawer, tabs, accordion, dropdown, toast, toolti
 ntizar.patterns.css   -> app-shell, hero, pricing, features, faq, footer, auth-shell, empty/error
 ntizar.next.css       -> v5: liquid glass real, OKLCH, multi-axis theming, mesh, forced-colors, skin AAA
 ntizar.three.css      -> v6: contenedores .nz-three para escenas Three.js (hero/md/sm/glass-frame/interactive)
+ntizar.ai.css         -> v6.2: primitivas AI-native (loader, thinking, stream, approval, toolchips, taskrow, chat, promptbar, recommend, contextcard, difftable, recordtable, filtertable, sidenav, command, flow, insight, codeblock diff, finetune, selection). Estilo Núcleo limpio, monocromo azul, light por defecto.
 three-scenes.js       -> v6: librería ES de escenas (icosaedro · grafo · particulas · anillos), fallback sin WebGL
 aurora-live.js        -> v6: specular del liquid glass que sigue al cursor (.nz-glass-liquid-live)
 ```
@@ -545,6 +546,7 @@ El repo Ntizar-Aurora está clonado en `C:\Users\d_ant\Projects\Ntizar-Aurora\` 
 - `references/aurora-clean-style.md` — Patrón "Aurora limpio": fondo blanco, glass real 4 capas, mobile-first, números compactos (2026-06-22)
 - `references/shell-patterns.md` — 5 patrones de shell CSS (login, dashboard, landing, UI catalog, forms) para que los ejemplos nunca se vean "pelados" (2026-06-22)
 - `references/multi-project-audit-unification.md` — Procedimiento para auditar y unificar diseño de múltiples proyectos con Aurora (2026-06-23)
+- `references/ai-native-primitives.md` — Primitivas AI-native (pack `ntizar.ai.css` v6.2) adaptadas de Beautiful UI: 20 componentes (loader, thinking, stream, approval, toolchips, taskrow, chat, promptbar, recommend, contextcard, tables, sidenav, command, flow, insight, codeblock diff, finetune, selection), patrones de colapsable y verificación (2026-09-07)
 ### Scripts
 - `scripts/audit-aurora.py` — **v2**: auditoría automática con whitelist de prefijos de shell (patrón ERROR #13), inline styles con tokens no penalizan, componentes premium v6 (`nz-glass-liquid-live`, `nz-three`, `data-nz-three`) y perfil landing (umbral 60 clases). Uso: `python3 audit-aurora.py <archivo.html>` o `curl -s <url> | python3 audit-aurora.py -`. NO valida existencia de clases — una clase inventada en texto puede colarse; la verificación visual en preview es complementaria obligatoria.
 

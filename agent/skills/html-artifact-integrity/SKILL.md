@@ -85,6 +85,17 @@ Cuando el navegador de automatización no esté disponible (pide permiso de depu
 - Screenshot: **ruta absoluta con barras SIEMPRE** (`--screenshot=C:/Users/.../out.png --window-size=1440,2400`). Con ruta relativa (y sobre todo combinada con `--dump-dom` y redirecciones), Chrome la resuelve contra su propio cwd y falla `Failed to write file: Acceso denegado (0x5)` — verificar el PNG con `ls` después.
 - **Piezas canvas/generativas** (plexus, partículas, animación JS pura): el grep del dump NO dice nada del render. Flujo validado (2026-09-01, nantest): `--virtual-time-budget≥8000` + `--screenshot` absoluto → `vision_analyze` pidiendo defectos concretos (nodos huérfanos, zonas vacías, contraste de líneas/halos) → corregir → re-capturar → re-verificar. Esperar al menos una ronda de crítica visual; es normal que la primera versión se vea "apagada o a medio dibujar". Truco de densidad: enlaces **k-nearest** (cada nodo enlaza con sus K más cercanos, K≈3) eliminan los puntos huérfanos que el umbral de proximidad deja sueltos; halos con `createRadialGradient` en modo `lighter` para que los nodos brillen.
 - Deploy GitHub Pages desde repo nuevo: `gh repo create O/R --public` → push `main` → `gh api repos/O/R/pages -X POST -f "source[branch]=main" -f "source[path]=/"` → poll `curl -s -o /dev/null -w '%{http_code}' URL` cada ~20s (404 durante `building` es normal; ~40s hasta 200, confirmar tamaño con `curl -s URL | wc -c`). Repos ya publicados: `gh api repos/O/R/pages/builds/latest --jq '{status,commit}'` + byte-exactitud vs `wc -c fichero`. La caché de Pages puede tardar ~1 min extra tras `built`.
+- **Pitfalls de repo recién creado con `git init` (verificado 2026-09-06, bolo-palma):** (a) la rama por defecto de `git init` es **`master`**, así que `git push -u origin main` falla con `src refspec main does not match any` — hacer `git branch -m master main` ANTES de pushear. (b) Si el repo remoto NO existe, `git push` da `Repository not found`; crear con `gh repo create O/R --public --source . --remote origin --push`. (c) `gh repo create` puede devolver `X Unable to add remote "origin"` (el remote ya estaba) pero NO garantiza que el push se completara: **verificar SIEMPRE con `git ls-remote origin`** — si sale vacío, re-ejecutar `git push -u origin main`; solo cuando `refs/heads/main` aparece hay que activar Pages. Activar Pages vía API con `-f "source[branch]=main" -f "source[path]=/"`; si el repo ya tiene Pages activado la API devuelve 409 `GitHub Pages is already enabled` (no es error, solo consultar `pages/builds/latest`).
+
+## Pitfall: `vision_analyze` puede ALUCINAR el texto literal que "ve" (verificado 2026-09-06, bolo-palma)
+
+`vision_analyze` es fiable para **layout/composición/paleta** (alineación, desbordes, colores, "hay una tabla") pero **NO** para citar texto específico. En esta sesión afirmó que la página contenía las cadenas «TIPO, BOLO, BEBÉ», «la bolera se construye a lo ancho», «Hace 2 días» y «Escuelas de bolos (cabecera)» — **ninguna existe en el HTML real**. Si corriges contenido basándote en esos claims, rompes texto correcto y persigues fantasmas.
+
+Reglas:
+- **El source es la fuente de verdad, no la visión.** Para validar texto/estructura real, leer el archivo con `execute_code` (regex sobre el HTML) o el DOM del navegador. Ej.: contar `<h3>` de cards, extraer filas de `<tbody>`, listar fechas del blog — eso dice qué existe de verdad.
+- La visión **sí** confirma propiedades no-textuales con fiabilidad: paleta monocroma (0 elementos naranja/ámbar), ausencia de desbordes, secciones alineadas. Usarla para eso.
+- Cuando la visión cita un texto concreto que no escribiste, NO lo tomes como "corrección" — marca el claim como no verificado y contrasta contra el source antes de editar.
+- Detectar colores cálidos (naranja/ámbar) en el source con regex sobre los hex, no con la visión: `re.findall(r'#(?:e0a800|8a6d00|ff6|f60|...)', html)`.
 
 ## Piezas creativas «flipalo»: espectáculo primero, robustez como red de seguridad (2026-09-01, nantest)
 
@@ -111,6 +122,16 @@ Chrome headless con `--virtual-time-budget` congela las CSS animations en su pri
 - **Regla de diseño a prueba de captura:** la visibilidad base NUNCA depende del estado inicial de una animación. Escribir `opacity:.9` en la clase y que el keyframe solo module (`@keyframes respira{0%,100%{opacity:.9}50%{opacity:.4}}`), en vez de `opacity:0` + keyframe de entrada.
 - **Detección:** si dos screenshots con distinto `--virtual-time-budget` pesan exactamente igual, las animaciones están congeladas — juzgar composición estática, no presencia.
 - `prefers-reduced-motion` y `@media print` deben fijar `opacity` visible (`animation:none` + opacity explícita), mismo motivo.
+
+## Validar un pack CSS de design system por código (sin navegador) (2026-09-07)
+
+Cuando no se puede abrir el navegador (permiso de depuración remota no autorizado)
+y hay que verificar un HTML/CSS de Aurora, hacerlo por código con
+`python scripts/validate-aurora-css.py <archivo.html>` (o desde el repo, con el
+dir_repo por defecto). Comprueba balance de llaves, existencia de clases `nz-*`
+(caza typos/clases inventadas que el `audit-aurora.py` no ve) y existencia de
+tokens `var(--nz-*)`. Detalle y pitfall del regex BEM en
+`references/validar-pack-css-por-codigo.md`.
 
 ## Pitfall: `patch` difuso puede borrar el bloque equivocado
 

@@ -63,6 +63,12 @@ Síntoma del colapso: `hermes gateway status` = "No gateway process" y en `logs/
 Crear un job vía el tool `cronjob` (action=create) deja `model: null` → el run usa el default (glm5.3 → 402). `cronjob action=update` con solo `model` falla con "No updates provided" (no es un campo editable ahí). Fix SIEMPRE por CLI: `hermes cron edit <job_id> --model qwen3.8-flash --provider openai-api`. Tras crear cualquier cron, verificar `model` en `cronjob list` y re-anclar si sale null.
 **Cron "ahora mismo" (one-shot inmediato)**: `schedule` en ISO (`2026-09-01T00:17:00`) a 2-3 min vista + `repeat: 1`; reprogramar el fuego con `hermes cron edit <id> --schedule <ISO>`; confirmar arranque con `hermes cron runs <job_id>` (estado `running`).
 
+### PITFALL — sub-agentes hermes en paralelo dentro de un cron → 429 max_parallel_requests (verificado 2026-09-06)
+
+Los crons de Gobierno IA lanzan ministros con `hermes -p <perfil> chat -q "<instrucción>"` en background. La API de NaN limita a **max_parallel_requests = 5** por api_key: si un cron lanza 3+ sub-agentes a la vez, cada uno consume slots y se desborda el límite → `HTTP 429: Rate limit exceeded ... Limit type: max_parallel_requests. Current limit: 5, Remaining: 0`. Como los sub-agentes ocupan los 5 slots, **también tumba la LLAMADA DEL PROPIO COORDINADOR**, marcando el job entero como error (racha de fallos) aunque los sub-agentes escriban sus ficheros.
+
+**Fix:** en el prompt del cron, lanzar los sub-agentes **SECUENCIALMENTE** (uno tras otro, esperando a que cada uno termine) y añadir **reintento**: "si un ministro falla por 429 o transitorio 402/5xx, relánzalo UNA vez tras una breve espera". El cron de Hermes NO tiene knob de retry (verificado en `references/background-systems.md` de hermes-agent), así que la robustez se cuece en el prompt. Aplicado a "Pase de lista matinal" (7f86939758e2) y "Consejo de Ministros" (d8c606f0f8da) — ambos pasados a secuencial + reintento el 2026-09-06.
+
 ### Cron con ventana horaria (maratones de N batches en M horas)
 
 Pedido tipo "tira crons de aprendizaje durante 6 horas" → UN solo cron con expr de ventana + `repeat: N`: p.ej. `*/25 1-6 1 9 *` = cada 25 min entre 01:00-06:59 del 1 de septiembre, 18 fuegos. El prompt de cada batch debe ser autocontenido: dedup contra registry/estado persistente (así los batches no se pisan), commit+push por batch, append a un notes/ compartible (`### Batch — HH:MM`, nunca borrar secciones ajenas), y reporte final ≤5 líneas (llega de madrugada, el usuario duerme). `hermes cron edit <id> --repeat N` sí funciona para ajustar el número de batches tras crear el job.
@@ -186,6 +192,8 @@ empaquetada, bajo `%LOCALAPPDATA%\hermes\hermes-agent\apps\desktop\src`. En el b
 ## Simulación multiagente con perfiles Hermes (Bot Mode)
 
 Para agentes persistentes con personalidad/KPIs que conversan entre sí (Gobierno IA, etc.): setup de perfiles, conversación por rondas vía ficheros, auditor independiente, boletín público Pages. Ver `references/bots-multagente-persistentes.md` (probado 2026-08 en Ntizar/gobierno-ia). Incluye el retarget de modelo por capas + el tope `max_tokens` (v2.2).
+
+**Cron de contenido seriado que se repite** (p.ej. el *Café informal entre ministros*): ver `references/cron-contenido-evolucion.md` — estado de trama (`hilo.md`) + reglas anti-repetición + seguridad de fecha/archivo (`date +%F`, nunca pisar un archivo).
 
 ## Memoria por especialista
 

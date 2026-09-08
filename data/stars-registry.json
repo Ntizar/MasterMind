@@ -4004,13 +4004,25 @@
       "skill_angles": [],
       "skill_created": false,
       "skip_reason": "Dedup ChromaDB 0.84 vs creative/p5js; 131 stars, sin topics, repo diminuto (5 .js)"
+    },
+    "helmcode/helmcode-whisper": {
+      "explored_at": "2026-09-08T16:00:30.194160+00:00",
+      "category": "skip",
+      "stars": 3,
+      "language": "Python",
+      "skill_angles": [
+        "crm-erp-patterns",
+        "voice-ai-integration"
+      ],
+      "skill_created": false,
+      "skip_reason": "Dedup ChromaDB 0.84 vs productivity/meeting-action-items (+teams-meeting-pipeline); 3 stars, Whisper vía API Helmcode (no 100% local), nada nuevo para proyectos de David"
     }
   },
-  "last_run": "2026-09-07T22:00:37.710509+00:00",
+  "last_run": "2026-09-08T16:00:31.194953+00:00",
   "total_skills_created": 13,
   "stats": {
-    "runs": 62,
-    "repos_explored": 309,
+    "runs": 63,
+    "repos_explored": 310,
     "skills_generated": 9,
     "last_batch": 6
   },

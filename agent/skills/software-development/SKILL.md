@@ -1,7 +1,7 @@
 ---
 name: software-development
 version: "2.0.0"
-description: "Ecosistema completo de patrones de desarrollo de software: TDD, especificaciones, refactorización segura, code review, debugging sistemático, experimentos throwaway, documentación, optimización de datasets y patrones de código reutilizables."
+description: "Patrones de desarrollo de software: TDD, refactor, code review y debugging sistemático."
 tags: [software, development, tdd, refactoring, debugging, code-review, specification, spike, documentation, dataset]
 ---
 

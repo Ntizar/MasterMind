@@ -94,6 +94,26 @@ python scripts/test-doctor.py [--json]                  # tests del doctor (bug-
 bash scripts/run-stars-explorer.sh --batch 3 --json     # explorar stars manual
 ```
 
+### Descubrimiento de skills antes de cargar (RECALL)
+Para tareas NO triviales no basta con escanear el catálogo inyectado en el prompt (recorta las descripciones a 57 chars y puede ocultar skills relevantes). Ejecutar la búsqueda semántica y cargar el top de resultados ANTES de empezar:
+
+```bash
+# consulta descriptiva en castellano, no keywords sueltas
+python scripts/consultar-skills.py "<descripción de la tarea>" --json
+# cargar los 2-5 top por score (score > 0.25) con skill_view
+```
+
+Reglas:
+- Consulta descriptiva de la tarea, no palabras sueltas.
+- Cargar 2-5 top por score; no cargar 10 de golpe.
+- Complementa al catálogo, no lo sustituye: catálogo para triggers claros, búsqueda para temas transversales.
+- Si el top no incluye un skill que el catálogo sí sugiere, vale la pena cargarlo también.
+- Si un skill se carga y no aporta, es señal de descripción débil u obsoleto — revisar con las herramientas de abajo.
+
+Herramientas de este dominio (creadas 2026-09-08):
+- `scripts/registro-skills.py` — registro REAL de uso de skills leyendo `state.db` (llamadas a `skill_view`), por semana y por skill. `--weeks N`, `--skill X`, `--json`.
+- `scripts/auditar-descripciones-skills.py` — detecta descripciones cuyo trigger en la ventana de 57 chars es débil (pocas palabras de contenido específico). Parsear frontmatter con YAML, no con regex (los `description: >-` en bloque scalar cuelan el `>`).
+
 Tras tocar `doctor.py`, ejecutar SIEMPRE `test-doctor.py` (patrón bug-inyección:
 inyecta cada bug real en sandboxes bajo %TEMP% y verifica que el doctor lo detecta).
 Los overrides `MM_DOCTOR_REPO/HERMES/CHROMA/SANDBOX` permiten correr doctor.py
@@ -147,6 +167,28 @@ Pitfalls verificados (2026-09-01):
 - 429/concurrencia: `logs/errors.log` (grep fecha) y `sessions/request_dump_*.json` (reason='max_retries_exhausted', error 429 'qwen3.8-flash concurrency limit: max 5').
 - **Framing para David:** 10M tokens/día ≈ 4-5 € con flash — el problema real es cuota/concurrencia, no euros; decirlo siempre para no alarmar.
 - El log manual `tokens/tokens-log.json` vive en `~/Projects/MasterMind/tokens/` (el skill `token-tracking` dice `/hermes-home/tokens/` que no existe en Windows — ruta real verificada).
+
+## Registro de uso de skills (state.db)
+
+Método para responder "¿qué skills se cargan de verdad?" — MEDIR, no especular. Hermes guarda cada llamada a `skill_view` en la tabla `messages` (columna `tool_name='skill_view'`) y el RESULTADO (JSON con el campo `name`) en `content`. Extrayendo `name` de ahí se obtiene el uso real por skill, agrupable por semana (timestamp float unix → lunes de cada semana).
+
+**Script listo: `python scripts/registro-skills.py [--weeks N] [--skill x] [--json]`** (repo; solo stdlib — sqlite3/json/datetime/argparse, no necesita chromadb ni red). Fuente: `%LOCALAPPDATA%\hermes\state.db`.
+
+```python
+con = sqlite3.connect("file:"+db+"?mode=ro", uri=True)
+rows = con.execute("SELECT content, timestamp FROM messages WHERE tool_name='skill_view' AND content LIKE '%\"name\"%'").fetchall()
+# cada content es JSON con 'name' (skill) y opcionalmente 'file'/'file_path' (una carga de reference)
+```
+
+Pitfalls verificados (2026-09-08):
+- `skill_view` guarda el RESULTADO en `content` (la columna `tool_calls` queda vacía); `name` está al inicio del JSON result. `tool_name` distingue `skill_view` (cargas) de `skill_manage` (escrituras: 226 vs 346 en la DB) — solo las cargas cuentan como uso.
+- Una carga de `references/*.md` también lleva `name` → se cuenta como uso del skill (diferenciable por `file`/`file_path`).
+- Historial limitado por `retention_days` (60) → la ventana de datos real es de las últimas semanas; no es un bug si no hay semanas viejas.
+- El uso refleja SOLO llamadas de `skill_view`; los skills que se inyectan en el system-prompt sin `skill_view` no aparecen.
+
+**Preferencia de David (embedida):** en cada respuesta indicar qué skills guardados se cargaron y para qué — trazabilidad del uso real. Reportar los que se cargaron con `skill_view` en esa tarea, no enumerar de memoria.
+
+**Cron semanal: `skills-usage-report`** (id `14f02ac6746f`, `0 8 * * 1` lunes 08:00, `no_agent`, `--script registro-skills-cron.py` → llama al script del repo, entrega a `origin`). El wrapper vive en `~/.hermes/scripts/registro-skills-cron.py` (el `--script` del cron exige ruta relativa a `~/.hermes/scripts/`). Dato 2026-09-08: 472 skills, solo ~72 distintos cargados en 12 semanas → los no usados son candidatos a podar/fusionar.
 
 ## ¿Dónde están las conversaciones de cada plataforma? (verificado 2026-09-02)
 

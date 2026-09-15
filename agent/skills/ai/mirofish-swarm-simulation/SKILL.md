@@ -40,7 +40,7 @@ Configuración por `.env`: `LLM_API_KEY`, `LLM_BASE_URL`, `LLM_MODEL_NAME` (cual
 ## Pitfalls
 
 - **Consumo de LLM altísimo**: el propio README avisa de probar simulaciones de **<40 rondas** antes de escalar.
-- **Zep Cloud es remoto**: choca con el criterio de stacks 100% locales de David. Se puede apuntar `LLM_BASE_URL` a Ollama, pero la memoria GraphRAG sigue siendo del servicio.
+- **Zep Cloud es remoto**: choca con el criterio de stacks 100% locales de David. `LLM_BASE_URL` admite cualquier endpoint compatible con el SDK OpenAI (un servidor local tipo Ollama encajaría, aunque el README no lo menciona explícitamente), pero la memoria GraphRAG sigue siendo del servicio.
 - Licencia **AGPL-3.0**: revisar antes de incrustarlo en un producto.
 
 ## Encaje en Mastermind

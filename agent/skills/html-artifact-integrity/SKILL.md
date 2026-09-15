@@ -15,6 +15,8 @@ Al generar o entregar cualquier HTML >5 KB (informes, auditorías, dashboards, l
 
 Los writes de ficheros HTML grandes (>5 KB) con `write_file` pueden **corromperse a mitad de stream**: texto truncado, fragmentos absurdos insertados (`1</ bus`, `< doble tbody`), placeholders sin sentido. Ocurrió 2 veces en la misma sesión. El tool reporta `verified: true` aunque el contenido esté roto — la verificación del tool NO detecta corrupción semántica.
 
+**Reconfirmado 2026-09-09 (Ntizar-Aurora):** el truncado afecta TAMBIÉN a (a) `write_file` con CSS (~17 KB pedidos → 4,3 KB escritos, `verified:true`) y (b) al PROPIO script de `execute_code` (el payload llega cortado → `SyntaxError: unterminated string literal` en el script.py del sandbox). Método alternativo validado esta sesión: construir el fichero por Python en trozos pequeños (~1-3 KB) — `p.write_text(parte1)` y después `open(p,'a', encoding='utf-8')` + `write(parteN)` por cada trozo — verificando bytes (`wc -c`) y balance de etiquetas tras cada append. Los trozos pequeños pasaron limpios donde el payload grande se truncaba; equivale al flujo de `cat parteN` de abajo sin salir de execute_code. Tras cualquier write grande, verificar tamaño y estructura ANTES de continuar (el `verified:true` no protege).
+
 ## Flujo fiable (validado)
 
 1. **Partir en trozos de ~2-3 KB máximo.** Escribir el trozo 1 con `write_file` al destino (sobrescribe), y los siguientes a ficheros temporales (`$LOCALAPPDATA/Temp/parteN.html`).
@@ -132,6 +134,24 @@ dir_repo por defecto). Comprueba balance de llaves, existencia de clases `nz-*`
 (caza typos/clases inventadas que el `audit-aurora.py` no ve) y existencia de
 tokens `var(--nz-*)`. Detalle y pitfall del regex BEM en
 `references/validar-pack-css-por-codigo.md`.
+
+## Pitfall: `git checkout -- <file>` destruye trabajo de sesión no commiteado (2026-09-09, Ntizar-Aurora)
+
+Revertir un parche temporal con `git checkout -- gallery.html` machacó ~20
+parches de la sesión no commiteados (secciones insertadas, skins eliminadas,
+contadores corregidos) y costó reconstruirlos con un script de migración.
+`git checkout` no distingue "revertir mi último parche" de "borrar todo mi
+trabajo del día".
+
+Reglas:
+- NUNCA revertir con `git checkout --` un fichero que tenga cambios de sesión
+  sin commitear. Para deshacer UNA sustitución propia, re-aplicar la inversa
+  con el mismo método (sed/replace), no con git.
+- Red de seguridad de una línea antes de cualquier operación destructiva sobre
+  un fichero trabajado: `git stash` (recuperable con `git stash pop`).
+- Para auditar HTML con CSS local en vez de CDN: copiar a temporal con sed
+  (`sed 's|CDN-url|./|g' fichero.html > /tmp/audit.html`), auditar el temporal
+  y borrarlo — el original nunca se toca.
 
 ## Pitfall: `patch` difuso puede borrar el bloque equivocado
 

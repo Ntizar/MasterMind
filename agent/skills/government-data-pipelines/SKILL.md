@@ -942,3 +942,22 @@ console.log(entries);
 ## Comparativa de alternativas
 
 - **[Project-LINKS/LINKS-SOMA](https://github.com/Project-LINKS)** — plataforma no-code que cruza PLATEAU + registros para estimar vivienda vacía, con dashboard y métrica Precision@K; ejemplo de pipeline de datos gubernamentales enlazando fuentes.
+
+## Nueva plataforma datos.gob.es (CKAN + Drupal)
+
+`ctt-gob-es/datos.gob.es` (consultado 2026-09-15) es un repo de **gobernanza/documentación** (README, `docs/`, CHANGELOG, SECURITY; único commit de código "Liberación código nueva plataforma" el 2026-01-02). No contiene el código operativo: cada extensión CKAN y cada módulo/tema Drupal vive en **su propio repo** (`datosgobes/ckanext-*`), enlazado desde este índice.
+
+| Extensión | Función |
+|---|---|
+| `ckanext-comments` | hilos de comentarios |
+| `ckanext-dge` | tema/plantillas |
+| `ckanext-dge-brokenlinks` | auditoría de enlaces rotos |
+| `ckanext-dge-dashboard` | estadísticas |
+| `ckanext-dge-dataservice` | metadatos + API |
+| `ckanext-dge-drupal-users` | usuarios Drupal ↔ CKAN |
+| `ckanext-dge-ga` / `-ga-report` | Google Analytics + reporting |
+| `ckanext-dge-harvest` | cosechador/federador con validación **DCAT-AP-ES** |
+
+Documentación de las extensiones en `docs/202512_datosgobes-ckan-doc_es.pdf`. El estándar vive en `github.com/datosgobes/DCAT-AP-ES`.
+
+**Implicación práctica:** para reproducir/extender el portal hay que ir a los repos `ckanext-*` uno a uno; este índice solo mapea qué existe.

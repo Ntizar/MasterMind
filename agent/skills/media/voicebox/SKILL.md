@@ -100,3 +100,21 @@ Pitch Shift, Reverb, Delay, Chorus/Flanger, Compressor, Gain, High-Pass Filter, 
 - GitHub: https://github.com/jamiepine/voicebox
 - Docs: https://docs.voicebox.sh
 - Licencia: MIT
+
+## Comparativa de alternativas: VoiceStudio (debpalash/VoiceStudio)
+
+Alternativa local a ElevenLabs (~30.400 ⭐, AGPL-3.0, consultado 2026-09-15) que agrega **16 motores TTS + 11 ASR** bajo una sola API OpenAI-compatible, más MCP.
+
+```bash
+docker run -d -p 127.0.0.1:3900:3900 -v omnivoice-data:/app/omnivoice_data   --name voicestudio palashdeb/omnivoice-studio:stable     # imágenes linux/amd64
+```
+
+| | voicebox | VoiceStudio |
+|---|---|---|
+| Motores | 7 | 16 TTS + 11 ASR |
+| API | MCP en `:17493` | OpenAI-compatible en `:3900/v1` + MCP en `/mcp` |
+| Extras | — | doblaje con preservación de hablantes (Pyannote/WhisperX), audiolibros (EPUB/PDF → `.m4b`), Demucs, cola batch con watcher, marca de agua AudioSeal |
+
+Endpoints: `POST /v1/audio/speech` (mp3/opus/aac/flac/wav/pcm), `POST /v1/audio/transcriptions` (json/text/verbose_json/srt/vtt), `WS /v1/audio/transcriptions/stream`, `GET /v1/audio/voices`, descubrimiento en `GET /.well-known/voicestudio-speech`.
+
+**Clave:** al ser OpenAI-compatible, se puede sustituir un proveedor cloud por `http://localhost:3900/v1` **sin tocar el código cliente**. Desde repo: `bun install && bun run desktop`; diagnóstico `uv run python backend/main.py --diagnose --deep`.

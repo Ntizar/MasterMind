@@ -101,3 +101,19 @@ Optimizar un design system EXISTENTE para consumo por LLMs (reducir tokens, mejo
 - `references/css-houdini-property-pattern.md` — Patrón CSS Houdini @property
 - `references/css-only-dropdown-has-pattern.md` — Patrón dropdown CSS-only con :has()
 - `references/ntizar-projects-patterns.md` — Patrones de 6 proyectos Ntizar
+
+## Verificación de retícula y ritmo vertical (GridKit)
+
+`acrosa/GridKit` (~7 ⭐, consultado 2026-09-15) es un **overlay de retícula en tiempo de desarrollo** (SwiftUI iOS + `gridkit-react`) con catálogo de presets y JSON compartido. Cubre la fase de *verificación* de retícula/ritmo vertical que este ecosistema no cubría.
+
+```bash
+npm install --save-dev gridkit-react      # React 18+, 0 dependencias extra
+```
+
+`<GridKitOverlay />` junto a la app en el root; activación por `floatingButton`, hotkey (`alt+shift+g`, `⌥⇧G` en macOS), `?gridkit=1` o manual. Se compila a **no-op en producción** salvo `enabled={isStaging}`. Opciones: `activation`, `hotkey`, `initialPreset` (ej. `swissTwelveColumn`), `safeArea={{top:64}}` (se combina con `env(safe-area-inset-*)`), `compactBreakpoint={768}`, `anchor='viewport'|'document'`. Las líneas se pintan en `<canvas>` a resolución de dispositivo y **nunca interceptan clics**.
+
+**Presets (16-17 en 4 categorías):** columnas (`swissTwelveColumn`, `eightColumn`, `sixColumn`, `fourColumnMobile`, `singleColumnReader`), ritmo (`fourPointRhythm`, `eightPointRhythm`, `bodyDerivedRhythm`), editorial (`modular3x5`, `modular4x6`, `asymmetricEditorial`, `heroSplit`, `folioGrid`) y app (`iosStandard`, `cardFeed`, `dashboardModules`). Capas apilables: columnas, filas, baseline grid, módulos, márgenes/gutters, key lines y regla de espaciado.
+
+JSON compartido iOS↔web (`Examples/brand-grid.json`, `GridConfiguration` Codable): se commitea la retícula de marca y se carga en runtime.
+
+**Nota para los dashboards vanilla JS:** `gridkit-react` es solo React → portar el overlay canvas o usar el JSON de presets como referencia de medidas.

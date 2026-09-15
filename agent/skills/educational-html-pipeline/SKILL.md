@@ -170,3 +170,14 @@ Cuando el usuario pide completar y desplegar un proyecto HTML:
 - `references/dibujotecnico-ronda2-patterns.md` — Diferencias DibujoTecnico vs DeSumarIntegrar
 - `references/naming-mismatch-progress-json.md` — Nombres de archivo mismatch
 - `references/quality-gates-checklist.md` — Checklist visual quality gates
+
+## Comparativa de alternativas: OpenMAIC (THU-MAIC)
+
+Plataforma multiagente de generación de clases (Next.js 16 / React 19 / LangGraph 1.1, ~37.000 ⭐, consultado 2026-09-15) que compite directamente con este pipeline: produce **.pptx editable, .html interactivo y MP4** one-click.
+
+- Self-host: Node >=22.19 y pnpm >=10; `pnpm install` + `cp .env.example .env.local` con una clave de proveedor (OpenAI, Azure, Anthropic, Bedrock, Gemini, DeepSeek, Qwen, **Ollama/Lemonade local** o cualquier API OpenAI-compatible).
+- MP4 con `docker compose --profile video-export up --build` (render en contenedor aislado Chromium+FFmpeg sobre **Hyperframes**, el mismo motor de `hyperframes-html-to-video`).
+- Genera slides, quizzes, simulaciones HTML interactivas y actividades PBL con multiagente (profesor IA + compañeros IA con TTS y pizarra) y 20 skills internas (planificación curricular, deep research, slide craft, import de .pptx).
+- Persistencia server-backed con Postgres (`DATABASE_URL`) y botón "Deploy with Vercel".
+
+**Cuándo usar cada uno:** OpenMAIC cuando quieras un curso completo desde un documento en un clic (multiagente, export pptx/MP4); este pipeline cuando necesites control fino del template, gates de calidad nocturnos y deploy estático a GitHub Pages.

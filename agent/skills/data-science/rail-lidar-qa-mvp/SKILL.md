@@ -103,3 +103,16 @@ Creates `docs/` with Three.js viewer, preprocessed `sample_analysis.json`, and H
 - Track detection may be manual or configurable in v1
 - Precision depends on sensor, GNSS, IMU, calibration, and pass geometry
 - Tool does NOT certify railway safety
+
+## Datasets de referencia: SOSDaR24
+
+`Vicomtech/SOSDaR24` (Synthetic Open Sensor Dataset for Rail 2024; solo README + assets, consultado 2026-09-15) es el dataset sintético de referencia para validar QA de LiDAR ferroviario. Generado con el **simulador CARLA**: 100 escenas y 22.208 ficheros por sensor, con obstáculos estáticos y dinámicos (cajas, peatones, coches) sobre vía.
+
+- Nomenclatura de carpeta `ID_map_path_static_dynamic` (id de escena, id de mapa, id de camino, nº de obstáculos estáticos y dinámicos).
+- Dentro: anotación **OpenLABEL** (JSON con etiquetas, calibración de sensores y odometría), recording CARLA `.log` y `streams/` con PNG + nubes `.pcd` por sensor (`camera`, `pandar64`, `tele15`).
+- Los `.pcd` son binarios con 5 campos: `x, y, z, object_id, object_tag` → permite evaluar detección/seguimiento directamente sobre el point cloud etiquetado (clave para QA de cobertura/densidad).
+- `info/` incluye `.npy` con la **trayectoria del tren** de cada simulación: útil para validar estrategias de pasada tipo P1/P2/P3.
+
+**Licencia:** descarga solo por formulario (`opendatasets.vicomtech.org/di21-sosdar24/59e9a716`), **CC BY-NC-ND 4.0** — atribución obligatoria, sin uso comercial y sin redistribuir versiones modificadas.
+
+Paper: *Interpretable Railway Track and Obstacle Detection using On-board LiDAR*, IEEE Sensors Journal 2026, DOI `10.1109/JSEN.2026.3730546`.

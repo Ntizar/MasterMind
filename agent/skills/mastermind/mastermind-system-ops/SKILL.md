@@ -69,6 +69,25 @@ Los crons de Gobierno IA lanzan ministros con `hermes -p <perfil> chat -q "<inst
 
 **Fix:** en el prompt del cron, lanzar los sub-agentes **SECUENCIALMENTE** (uno tras otro, esperando a que cada uno termine) y añadir **reintento**: "si un ministro falla por 429 o transitorio 402/5xx, relánzalo UNA vez tras una breve espera". El cron de Hermes NO tiene knob de retry (verificado en `references/background-systems.md` de hermes-agent), así que la robustez se cuece en el prompt. Aplicado a "Pase de lista matinal" (7f86939758e2) y "Consejo de Ministros" (d8c606f0f8da) — ambos pasados a secuencial + reintento el 2026-09-06.
 
+### PITFALL — avalancha de catch-up tras días con el PC apagado → 429 EN MASA (verificado 2026-09-15)
+
+Síntoma: el PC/gateway lleva días apagado y al arrancar **fallan casi todos los crons LLM a la vez** (mismo minuto, `last_status: error`). En `logs/agent.log` aparecen las líneas `Job '<x>' missed its scheduled time (... grace=7200s). Running now; re-anchored on completion`. El scheduler lanza TODOS los jobs vencidos **en paralelo y sin límite** por defecto → con 9+ jobs LLM se desbordan los 5 slots de NaN → `RuntimeError: HTTP 429 ... Limit type: max_parallel_requests. Current limit: 5, Remaining: 0` en cada uno. Los jobs `no_agent` (script) pasan sin problema porque no llaman al LLM. **No son N errores distintos: es 1 causa con N víctimas** — diagnosticar por causa, no job a job.
+
+**Fix de raíz (persistente):**
+```bash
+hermes config set cron.max_parallel_jobs 1
+```
+Clave real leída en `hermes-agent/cron/scheduler.py` (`cron_cfg.get("max_parallel_jobs")`; env equivalente `HERMES_CRON_MAX_PARALLEL=1`; **por defecto: unbounded**). Se aplica en el siguiente tick, sin reiniciar el gateway. Con 1 worker desaparecen de golpe las DOS clases de fallo de arranque: el 429 por saturación de NaN y el `TimeoutError: TERMINAL_CWD write lock` (jobs con `workdir` corriendo a la vez — el fallo del *Café informal* del 2026-09-09). Ponerlo a 1 es preferible a 2: los crons de Gobierno IA ya lanzan sub-agentes hermes propios que consumen slots.
+
+**Diagnóstico en 3 lecturas** (el `last_status` de `cron/jobs.json` solo dice `error`, sin detalle):
+1. Script Python sobre `%LOCALAPPDATA%\hermes\cron\jobs.json`: listar jobs con `last_status` no-ok (`id`, `name`, `schedule.expr`, `model`, `deliver`, `last_run_at`).
+2. El error REAL está en el último fichero de `%LOCALAPPDATA%\hermes\cron\output\<job_id>\*.md`, sección `## Error`.
+3. `grep 'missed its scheduled time' logs/agent.log` confirma la avalancha de catch-up y da las horas originales perdidas.
+
+Tras el catch-up los jobs ya quedan **re-anclados** a su siguiente hora: el fallo es histórico y NO se reintenta solo. Para recuperar un run concreto, relanzarlo con el tool `cronjob(action='run', job_id=...)` (dispara en background), **no** con `hermes cron run <id>` por CLI (se queda esperando la ejecución y agota el timeout del terminal). No relanzar de golpe los jobs de contenido seriado (Gobierno IA): duplicaría sesiones del serial — dejar que reanuden en su horario.
+
+Detalle del incidente y lista de víctimas: `references/cron-catchup-429.md`.
+
 ### Cron con ventana horaria (maratones de N batches en M horas)
 
 Pedido tipo "tira crons de aprendizaje durante 6 horas" → UN solo cron con expr de ventana + `repeat: N`: p.ej. `*/25 1-6 1 9 *` = cada 25 min entre 01:00-06:59 del 1 de septiembre, 18 fuegos. El prompt de cada batch debe ser autocontenido: dedup contra registry/estado persistente (así los batches no se pisan), commit+push por batch, append a un notes/ compartible (`### Batch — HH:MM`, nunca borrar secciones ajenas), y reporte final ≤5 líneas (llega de madrugada, el usuario duerme). `hermes cron edit <id> --repeat N` sí funciona para ajustar el número de batches tras crear el job.
@@ -103,6 +122,13 @@ python scripts/consultar-skills.py "<descripción de la tarea>" --json
 # cargar los 2-5 top por score (score > 0.25) con skill_view
 ```
 
+**Formato de `--json` (verificado 2026-09-15):** devuelve una **LISTA plana**
+`[{"name": "...", "path": "media/voicebox", "distance": 0.1102, "score": 0.8898, "relevant": true}, ...]`
+— NO un dict con `resultados`/`results`. Un script que asuma dict saca `None=None` para todos los
+repos y parece que el dedup no encuentra nada. `score` = similitud (1 = idéntico); ≥0.8 suele ser
+"ya cubierto". Para barridos masivos (dedup de un backlog de stars, p.ej. 30+ repos), ver
+`references/bulk-backlog-stars.md`.
+
 Reglas:
 - Consulta descriptiva de la tarea, no palabras sueltas.
 - Cargar 2-5 top por score; no cargar 10 de golpe.
@@ -113,6 +139,14 @@ Reglas:
 Herramientas de este dominio (creadas 2026-09-08):
 - `scripts/registro-skills.py` — registro REAL de uso de skills leyendo `state.db` (llamadas a `skill_view`), por semana y por skill. `--weeks N`, `--skill X`, `--json`.
 - `scripts/auditar-descripciones-skills.py` — detecta descripciones cuyo trigger en la ventana de 57 chars es débil (pocas palabras de contenido específico). Parsear frontmatter con YAML, no con regex (los `description: >-` en bloque scalar cuelan el `>`).
+- `scripts/skills-nunca-usados.py` — skills NO cargados en la ventana de `state.db` + clusters de casi-duplicados por similitud Jaccard de tokens de descripción. `--sim N` (umbral, def 0.4), `--json`.
+
+### Consolidar skills duplicados (fusión)
+Cuando el reporte marca clusters casi-duplicados, y David pide fusionar:
+1. **Leer cada SKILL.md del cluster** y decidir si son duplicados REALES o solo comparten tema. El detector Jaccard da **falsos positivos**: `agent-browser` (CLI Rust de Vercel) y `page-agent-browser-automation` (librería PageAgent de Alibaba) se clusterizan pero son herramientas distintas — NO fusionar.
+2. Elegir un **canónico** (el más completo/nuevo) y mover al canónico las **refs/scripts únicos** de los duplicados (`shutil.move` a `references/`/`scripts/`, saltando los ya existentes). Fusionar lo mejor del cuerpo en el SKILL.md del canónico antes de borrar nada (contenido primero, borrado después).
+3. **PITFALL CRÍTICO:** `sincronizar-skills.py` es *unión, nunca borra* → si borras el duplicado solo de la instalación, el sync lo copia de VUELTA desde el repo (repo→instalación) y la fusión no fija. Para que FIJE: hacer `git rm -r agent/skills/<cat>/<dupe>/` en el repo ANTES del sync, y solo después re-indexar con `--reset` (ChromaDB debe olvidar los eliminados; el conteo de docs baja). Tras el merge: `git add -A && git commit && git push` (con `pull --rebase`).
+4. La sesión actual mantiene el catálogo de skills **cacheado** al arrancar — los cambios se ven en la próxima sesión, no es un bug.
 
 Tras tocar `doctor.py`, ejecutar SIEMPRE `test-doctor.py` (patrón bug-inyección:
 inyecta cada bug real en sandboxes bajo %TEMP% y verifica que el doctor lo detecta).

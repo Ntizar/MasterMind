@@ -81,3 +81,16 @@ with open("frame.png", "wb") as f:
 
 - [GitHub: microsoft/AirSim](https://github.com/microsoft/AirSim)
 - [Docs](https://microsoft.github.io/AirSim)
+
+## Comparativa de alternativas: CARLA (UE5)
+
+CARLA (`carla-simulator/carla`, ~14.400 ⭐, MIT + assets CC-BY, consultado 2026-09-15) es el simulador de conducción autónoma de referencia frente a AirSim (Microsoft, UE4, drones/robots, sin desarrollo activo).
+
+- Rama por defecto **`ue5-dev`** (Unreal Engine 5.5); existe `ue4-dev` (UE 4.26) con diferencias significativas.
+- Sistemas soportados: **Ubuntu 22.04/24.04 o Windows 11** (no arranca en Ubuntu 20.04 ni Windows 10 o inferior).
+- Hardware recomendado: i7/i9 gen 9-11 o Ryzen 7/9, **+32 GB RAM** y RTX 3070/3080/3090/4090 con 16 GB+ de VRAM → **inviable en portátil**, dato clave antes de plantear despliegue local.
+- Build: `./CarlaSetup.sh --interactive` (Linux; `--python-root=PATH`, modo desatendido con `GIT_LOCAL_CREDENTIALS`) o `CarlaSetup.bat` (Windows). Requiere vincular la cuenta de GitHub a Epic Games para el fork privado de UE 5.5.
+- Reconstrucción: `cmake -G Ninja -S . -B Build --toolchain=$PWD/CMake/Toolchain.cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_ROS2=ON` → `cmake --build Build` → `carla-python-api-install` / `launch`.
+- Ecosistema: `scenario_runner`, `ros-bridge`, `driving-benchmarks` y el leaderboard `leaderboard.carla.org`.
+
+**Cuándo usar cada uno:** AirSim para drones/robots y setups ligeros; CARLA UE5 para conducción urbana, ROS2 y assets abiertos (con el coste de hardware descrito).

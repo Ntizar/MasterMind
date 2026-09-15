@@ -1224,3 +1224,16 @@ Motor de simulación multicapa para cuando ORS no está disponible:
 - Elevación simulada solo para bici: 5 capas de ruido orográfico
 - Suavizado Gaussiano de 3 puntos
 - Prioridad: ORS real → simulación multicapa → clipeo costero
+
+## Comparativa de motores (ampliación)
+
+| Motor | Qué responde | Cuándo usarlo |
+|---|---|---|
+| ORS / OTP / NAP | isocronas por perfil; routing TP one-to-one | servir isócronas a una web, consultas puntuales |
+| **R5** (`conveyal/r5`, Java, MIT, ~403 ⭐, push 2026-09-14) | **indicadores de accesibilidad de oportunidades acumuladas** (one-to-many / many-to-many) | evaluar escenarios de plan de movilidad a escala |
+
+R5 planifica viajes puerta-a-puerta **a muchas horas de salida dentro de una ventana temporal** (no una hora exacta) y soporta líneas por **frecuencia (headway)** además de horario GTFS. Su producto no es una ruta sino métricas de oportunidades alcanzadas, con parches ligeros sobre la red OSM+GTFS para comparar escenarios sin reconstruir la red.
+
+Build local: copiar `analysis.properties.tmp` → `analysis.properties`, arrancar MongoDB (base `analysis`) y `gradle runBackend`; JAR autocontenido con `gradle shadowJar`. `offline=true` lo deja sin servicios cloud/BD/autenticación; el frontend es otro repo (`conveyal/analysis-ui`).
+
+**Caveats (del propio README):** NO hay interfaz programática estable (API/SDK) ni soporte de Conveyal para despliegues de terceros; el proyecto se abre sobre todo por transparencia/reproducibilidad. Para servir isócronas a una web sigue ganando ORS/OTP; R5 es para **análisis de escenarios**.

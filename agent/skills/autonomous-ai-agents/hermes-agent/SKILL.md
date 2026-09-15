@@ -215,3 +215,9 @@ terminal(command="tmux new-session -d -s resumed 'hermes --resume 20260225_14305
 ## Comparativa de alternativas
 
 - **[cursor/plugins](https://github.com/cursor/plugins)** — *continual-learning* con memoria incremental por transcripción a `AGENTS.md` + manifiesto de plugin; un patrón de memoria persistente para el agente, complementario al pipeline de explotación de skills/plugins de Hermes.
+- **[deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness)** (`dsh`, MIT, ~225.000 ⭐, consultado 2026-09-15) — harness TypeScript *"everything is a plugin"* sobre **Cordis**: adaptador de modelo, registro de herramientas, session log y agent loop son plugins reemplazables desde configuración; no hay core privilegiado que parchear.
+  - Arranque: `npx @deepseek-ai/dsh web` (Web UI en `http://127.0.0.1:3080`, `--no-open` para no abrir navegador); desde fuente `pnpm install && pnpm run build && pnpm dsh web` (Node 22.19+, pnpm 11.7.0 vía corepack).
+  - Composición inspeccionable: `dsh --profile web --dump-config` imprime el árbol de plugins y cualquier fila se sustituye con un patch (`cordis.patch.yml` del perfil / de home / `--patch`). Perfiles que shippean: `web`, `headless`, `sdk`, `sdk-minimal`, `acp`.
+  - Distribución propia: un paquete se declara en el campo `dsh` de su `package.json` (`dsh.profile` lista bundles, `dsh.bundle` apunta al patch file); plugins externos con `dsh plugin` (topic `dsh-plugin`).
+  - **Modelo mental frente a Hermes:** dsh = *perfil como capas ordenadas + patch por id*; Hermes = *plugins + skills instalables* (`hermes plugins install …`). Útil como referencia de arquitectura cuando un plugin de Hermes no llega a sustituir una pieza interna.
+  - **Riesgos:** *developer preview* con breaking changes anunciados; APIs pre-estables y formato de sesión versionado con `SCHEMA_VERSION` monotónico en SQLite (las generaciones commiteadas nunca se mueven ni se borran).

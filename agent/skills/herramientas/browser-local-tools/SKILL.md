@@ -497,3 +497,20 @@ Para el futuro: si la herramienta necesitaba Python, considerar si se puede reso
 ## Comparativa de alternativas
 
 - **[anthropics/html-effectiveness](https://github.com/anthropics/html-effective)** — HTML como formato de salida flexible: artefactos .html autocontenidos sin build; refuerza la filosofía de este skill de herramientas que funcionan 100% en el navegador.
+
+## Garantía de privacidad impuesta por CSP (patrón SafeDocument)
+
+`IngenieroSeed/SafeDocument` (CC0-1.0, ~78 ⭐, HTML de ~860 líneas sin dependencias, consultado 2026-09-15) convierte una copia de DNI/pasaporte/factura en un documento atado a un propósito declarado con los píxeles degradados de forma irreversible.
+
+**El patrón clave para cualquier herramienta local: imponer la promesa "no sale de tu equipo" con el navegador, no con una frase en la UI.** CSP declarada en la primera línea del documento:
+
+```
+default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline';
+img-src data: blob:; font-src data:; connect-src 'none'; form-action 'none'; base-uri 'none'
+```
+
+Con `connect-src 'none'` son imposibles `fetch`/XHR/WebSocket/EventSource/sendBeacon, incluso por error o por una dependencia comprometida.
+
+Pipeline: `createImageBitmap()` → Canvas 2D / `ImageData` → procesado en JS puro → descarga local (Blob). La marca **sustituye** los píxeles originales (no se superpone): quitarla produce un documento inventado → disuasión semántica/legal, no criptografía.
+
+**Verificación replicable en cualquier tool local:** abrir con el WiFi apagado (la cabecera muestra "sin conexión") y comprobar en DevTools → Red que la lista de peticiones está vacía.

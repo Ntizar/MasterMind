@@ -35,3 +35,33 @@ results = scraper.scrape(...)     # ejemplos por el README del repo
 ## Verificación
 
 - Extraer reviews/negocios de una zona y comprobar que los campos (nombre, rating, coord) salen.
+
+## Tercera opción: py-lead-generation (Madi-S/Lead-Generation)
+
+Paquete en PyPI (~383 ⭐, consultado 2026-09-15) con API asíncrona y dos motores: Google Maps y **Yelp** (combinación que los otros proyectos de esta sección no ofrecen).
+
+```bash
+pip install py-lead-generation
+```
+
+```python
+import asyncio
+from py_lead_generation import GoogleMapsEngine, YelpEngine
+
+async def main():
+    eng = GoogleMapsEngine("pizzerias", "Madrid, España", 12)   # zoom = partición del área
+    await eng.run()
+    eng.save_to_csv()
+
+    y = YelpEngine("Pizza", "Madrid, España")
+    await y.run()
+    y.save_to_csv("pizza_leads.csv")
+
+asyncio.run(main())
+```
+
+Versión antigua archivada dentro del repo: `cd archived/google-maps && python extractor.py` (el README la describe como *dirty/clumsy*).
+
+**Caveats:** pieza patrocinada (CoreClaw) para captar leads; el TODO del repo confirma que **no hay tests, ni CLI/GUI, ni MCP, ni envío de emails/SMS**. Salida solo CSV.
+
+**Patrón reutilizable (independiente de la fuente):** una clase *engine* por plataforma con la misma interfaz (`run()` async + `save_to_csv()`), y el **zoom de Google Maps como parámetro de partición espacial** del área de búsqueda.

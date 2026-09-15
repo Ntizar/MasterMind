@@ -149,3 +149,25 @@ terminal(command="gh pr comment 86 --body '<review>'", workdir="~/project")
 5. **Background for long tasks** — use `background=true` and monitor with `process` tool
 6. **Don't interfere** — monitor with `poll`/`log`, be patient with long-running tasks
 7. **Parallel is fine** — run multiple Codex processes at once for batch work
+
+## Minimalismo de código: ponytail (DietrichGebert/ponytail)
+
+Ruleset de minimalismo para agentes de código (~139.000 ⭐, consultado 2026-09-15). Escalera de 7 peldaños que el agente sube **antes** de escribir código:
+
+1. ¿Necesita existir? (YAGNI) · 2. ¿Ya está en este repo? · 3. ¿Lo hace la stdlib? · 4. ¿Feature nativa de plataforma? · 5. ¿Dependencia ya instalada? · 6. ¿Una línea? · 7. Solo entonces, el mínimo que funciona.
+
+La validación de frontera de confianza, seguridad, manejo de errores y accesibilidad **nunca** se recorta.
+
+```bash
+codex plugin marketplace add DietrichGebert/ponytail
+codex plugin add ponytail@ponytail          # revisar los 2 lifecycle hooks con /hooks
+hermes plugins install DietrichGebert/ponytail --enable   # equivalente en Hermes
+```
+
+Niveles: `/ponytail lite|full|ultra|off`; apoyo: `/ponytail-review`, `/ponytail-audit`, `/ponytail-debt`, `/ponytail-gain`.
+
+**Benchmark reproducible:** `npx promptfoo eval -c benchmarks/promptfooconfig.yaml` (single-shot) y suite agéntica headless sobre `tiangolo/full-stack-fastapi-template` midiendo el `git diff` (12 tareas, n=4, Haiku 4.5) → **-54 % LOC, -22 % tokens, -20 % coste, -27 % tiempo, 100 % safety**.
+
+**Lección metodológica:** el baseline "un prompt, un completion" inflaba el ahorro (80-94 % publicado frente al 54 % real). Medir siempre con un agente real editando un repo y puntuar el **diff**, no la longitud de la respuesta.
+
+**Pitfall:** el plugin necesita `node` en el PATH del shell **no interactivo** (Nix/nvm); si falta, las skills funcionan pero la activación siempre-on queda muda.

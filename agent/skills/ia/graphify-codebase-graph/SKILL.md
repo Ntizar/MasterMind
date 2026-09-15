@@ -87,6 +87,14 @@ Herramientas MCP: `query_graph`, `get_node`, `get_neighbors`, `shortest_path`, `
 - Alimentar un pipeline de conocimiento de proyecto sin coste de embeddings.
 - Comparativa: `semantica` (grafo contexto+provenance general) y `rag-knowledge-base` (RAG vectorial) — graphify es específico de **inteligencia sobre código**, local y determinista.
 
+## Comparativa de alternativas (actualizada 2026-09-16)
+
+**DeusData/codebase-memory-mcp** (43.406⭐, C puro, verificado 2026-09-16 — skill dedicado `ia/codebase-memory-mcp`): binario nativo MCP-first que indexa a SQLite con 162 lenguajes + Hybrid LSP, UI 3D, auto-watch, Cypher subset, `detect_changes` (diff→blast radius) y enlaces cross-repo/cross-service.
+
+- **Usar CBM** cuando el grafo vive EN el bucle del agente de código: consultas sub-ms por MCP, re-indexado por watcher, impacto de diffs y detección de código muerto en sesiones interactivas, con 10× menos tokens.
+- **Usar graphify** cuando hace falta un artefacto portable (graph.json/HTML/wiki/markdown), meter **docs, PDFs y media en el mismo grafo**, compartir con el equipo vía HTTP+API key, o trabajar sin instalar un binario nativo (pip/uvx). El tagging `EXTRACTED/INFERRED` por arista y el work-memory (`save-result`/`reflect`) no los tiene CBM.
+- graphify (115K⭐) sigue como referencia principal por amplitud (código+docs) y ser Python hacking-friendly; CBM gana en latencia, lenguajes y modo agente.
+
 ## Verificación
 
 `graphify . --no-viz` sobre una carpeta pequeña → comprobar `graphify-out/graph.json` + `GRAPH_REPORT.md`; luego `graphify explain "<nodo>"` responde con conexiones taggeadas.

@@ -4452,13 +4452,28 @@
       "skill_angles": [],
       "skill_created": false,
       "skip_reason": "Plugin para Mattermost, plataforma que David no usa"
+    },
+    "DeusData/codebase-memory-mcp": {
+      "explored_at": "2026-09-15T22:01:22.898341+00:00",
+      "category": "tool",
+      "stars": 43406,
+      "language": "C",
+      "skill_angles": [
+        "ai-cv-pipeline",
+        "ci-cd-pipeline-patterns"
+      ],
+      "skill_created": true,
+      "skill_name": "ia/codebase-memory-mcp",
+      "skill_action": "create",
+      "skip_reason": null,
+      "notes": "43406 stars, MCP server code-intelligence (C, tree-sitter, SQLite). Dedup ChromaDB: graphify 0.76 -> comparativa aadida a graphify + skill nuevo. skill_angles del script (ai-cv) FALSO otra vez."
     }
   },
-  "last_run": "2026-09-15T15:45:32.946955+00:00",
+  "last_run": "2026-09-15T22:01:23.899388+00:00",
   "total_skills_created": 24,
   "stats": {
-    "runs": 63,
-    "repos_explored": 310,
+    "runs": 64,
+    "repos_explored": 311,
     "skills_generated": 9,
     "last_batch": 6
   },

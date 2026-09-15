@@ -24,7 +24,7 @@ Proyecto de formación completo: **pretrain → SFT → LoRA → DPO → PPO/GRP
 
 - **MiniMind-3**: 64M denso · **minimind-3-moe**: 198M con 64M activos, alineados con el ecosistema Qwen3/Qwen3-MoE.
 - Tokenizer BPE + ByteLevel con marcas propias para `<tool_call>`, `<tool_response>` y tokens de pensamiento.
-- Datasets "mini" (`pretrain_t2t_mini.jsonl`, `sft_t2t_mini.jsonl`) permiten reproducir **MiniMind Zero en ~2 h en una RTX 3090** (≈3 € de GPU alquilada).
+- Datasets "mini" (`pretrain_t2t_mini.jsonl`, `sft_t2t_mini.jsonl`) permiten reproducir **MiniMind Zero en ~2,31 h en una RTX 3090** (≈3,0 ¥ ≈ 0,4 $ de GPU alquilada — el README estima 3,0 律 a ~1,3 ¥/h, con 7 ¥ ≈ 1 $).
 
 ## Comandos verificados
 
@@ -52,7 +52,7 @@ Utilidades: `scripts/convert_model.py` (torch↔transformers y fusión de LoRA),
 
 - Los scripts asumen **estructura de directorios del repo** (`trainer/`, `dataset/`): no copiar solo un fichero.
 - `--from_resume 1` es la vía para continuar tras un corte, pero el estado se guarda por script: no mezcles checkpoints de `train_full_sft.py` en `train_lora.py`.
-- Extrapolación de contexto con **YaRN**: hay que reentrenar, no basta cambiar el config.
+- Extrapolación de contexto con **YaRN**: se activa **en inferencia, sin reentrenar** — `python eval_llm.py --weight full_sft --inference_rope_scaling` (modelo PyTorch nativo) o añadiendo `"rope_scaling": {"type": "yarn", "factor": 16.0, "original_max_position_embeddings": 2048}` al `config.json` de los modelos Transformers.
 
 ## Referencia
 

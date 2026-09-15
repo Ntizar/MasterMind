@@ -22,7 +22,7 @@ Metodología y scripts para medir si un dataset sintético **sirve** (utilidad) 
 
 ## Estructura del repo
 
-10 scripts Python bajo `EVALUATION FUNCTIONS/` (RESEMBLANCE, UTILITY, PRIVACY) + `PREPROCESSING/`, con >30 notebooks y >6 datasets reales de ejemplo.
+10 scripts Python bajo `EVALUATION FUNCTIONS/` (RESEMBLANCE, UTILITY, PRIVACY) + `PREPROCESSING/`, con **108 notebooks** y **6 datasets reales** de ejemplo (uno por caso A–F: diabetes, cardio, obesity, contraceptive, Pima Indians, liver patient).
 
 - **Resemblance**: `compute_mra_score(real, synthetic)` con `get_numerical_correlations` / `get_categorical_correlations`; `dra_distance(real, synthetic)` con `pca_transform` / `isomap_transform`; `mix_data()` / `split_data()` para *Data Labelling Analysis* (DLA).
 - **Utility**: `train_evaluate_model(model_name, x_train, y_train, x_test, y_test)` + `initialize_model()` → comparar **TRTR** (train/test real) vs **TSTR** (entrenar con sintético, testar con real).

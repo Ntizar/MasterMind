@@ -500,9 +500,9 @@ Para el futuro: si la herramienta necesitaba Python, considerar si se puede reso
 
 ## Garantía de privacidad impuesta por CSP (patrón SafeDocument)
 
-`IngenieroSeed/SafeDocument` (CC0-1.0, ~78 ⭐, HTML de ~860 líneas sin dependencias, consultado 2026-09-15) convierte una copia de DNI/pasaporte/factura en un documento atado a un propósito declarado con los píxeles degradados de forma irreversible.
+`IngenieroSeed/SafeDocument` (CC0-1.0, ~78 ⭐, HTML de ~1.180 líneas / 55 KB sin dependencias, consultado 2026-09-15) convierte una copia de DNI/pasaporte/factura en un documento atado a un propósito declarado con los píxeles degradados de forma irreversible.
 
-**El patrón clave para cualquier herramienta local: imponer la promesa "no sale de tu equipo" con el navegador, no con una frase en la UI.** CSP declarada en la primera línea del documento:
+**El patrón clave para cualquier herramienta local: imponer la promesa "no sale de tu equipo" con el navegador, no con una frase en la UI.** CSP declarada en la propia cabecera del documento (línea 4 de `SafeDocument.html`):
 
 ```
 default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline';

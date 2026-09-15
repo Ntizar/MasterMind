@@ -28,14 +28,17 @@ PLACSP nacional 8,7 M (2012-2026) · Catalunya 20,6 M · València 8,5 M · Madr
 
 Los `.parquet`/`.csv` están en **Git LFS**: un `git clone` normal devuelve punteros de ~130 bytes. Hacer `git lfs pull` o descargar los ZIP de GitHub Releases (`nacional.zip` 1,34 GB, `borme.zip` 750 MB).
 
-## Matching PLACSP ↔ TED (secuencial)
+## Matching PLACSP ↔ TED (secuencial, 5 estrategias)
 
-1. **E1** NIF adjudicatario + importe ±10 % + año ±1 → 43.063 casos.
-2. **E2** nº de expediente + importe ±10 % → 7.891.
-3. **E3** NIF del órgano contratante + importe → 77.816.
-4. **E4** lotes agrupados (suma de importes).
+1. **E1** NIF adjudicatario + importe ±10 % + año ±1 → 43.063 (9,7 %).
+2. **E2** nº de expediente + importe ±10 % → 7.891 (1,8 %).
+3. **E3** NIF del órgano contratante + importe → 77.816 (17,6 %) ← **la más potente**.
+4. **E4** lotes agrupados (suma de importes mismo órgano + año) → 31.365 (7,1 %).
+5. **E5** nombre del órgano normalizado + importe → 17.757 (4,0 %).
 
-Resultado publicado: 442.835 contratos SARA identificados, solo **177.892 (40,2 %)** localizados en TED → 202.383 *missing* de alta confianza.
+Resultado publicado: 442.835 contratos SARA identificados, solo **177.892 (40,2 %)** localizados en TED → 257.258 missing (202.383 de alta confianza). Ajustando por lotes, la cobertura real es **~54 %**.
+
+Detalle completo (umbrales por bienio, validación año a año, ficheros del pipeline) en `references/umbrales-sara.md`.
 
 ## Umbrales SARA (no son un importe fijo)
 

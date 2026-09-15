@@ -4027,7 +4027,10 @@
       "skill_name": "mirofish-swarm-simulation",
       "skill_path": "ai/mirofish-swarm-simulation",
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Batch backlog 2026-09-15 (33 stars nuevas tras 6 dias sin scout). Creado tras leer README real + dedup ChromaDB."
+      "decision_note": "Batch backlog 2026-09-15 (33 stars nuevas tras 6 dias sin scout). Creado tras leer README real + dedup ChromaDB.",
+      "skill_audited": "2026-09-15",
+      "audit_fixes": 0,
+      "audit_note": "Auditoria contra README real: sin discrepancias"
     },
     "jingyaogong/minimind": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4039,7 +4042,10 @@
       "skill_name": "minimind-tiny-llm-training",
       "skill_path": "mlops/minimind-tiny-llm-training",
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Batch backlog 2026-09-15 (33 stars nuevas tras 6 dias sin scout). Creado tras leer README real + dedup ChromaDB."
+      "decision_note": "Batch backlog 2026-09-15 (33 stars nuevas tras 6 dias sin scout). Creado tras leer README real + dedup ChromaDB.",
+      "skill_audited": "2026-09-15",
+      "audit_fixes": 2,
+      "audit_note": "Auditoria contra README real (3 subagentes): 2 discrepancia(s) corregidas"
     },
     "fleetbase/fleetbase": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4051,7 +4057,10 @@
       "skill_name": "fleetbase-logistics-os",
       "skill_path": "mobility/fleetbase-logistics-os",
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Batch backlog 2026-09-15 (33 stars nuevas tras 6 dias sin scout). Creado tras leer README real + dedup ChromaDB."
+      "decision_note": "Batch backlog 2026-09-15 (33 stars nuevas tras 6 dias sin scout). Creado tras leer README real + dedup ChromaDB.",
+      "skill_audited": "2026-09-15",
+      "audit_fixes": 0,
+      "audit_note": "Auditoria contra README real: sin discrepancias"
     },
     "jnz/INSLIB": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4063,7 +4072,10 @@
       "skill_name": "inertial-navigation-inslib",
       "skill_path": "geospatial/inertial-navigation-inslib",
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Batch backlog 2026-09-15 (33 stars nuevas tras 6 dias sin scout). Creado tras leer README real + dedup ChromaDB."
+      "decision_note": "Batch backlog 2026-09-15 (33 stars nuevas tras 6 dias sin scout). Creado tras leer README real + dedup ChromaDB.",
+      "skill_audited": "2026-09-15",
+      "audit_fixes": 0,
+      "audit_note": "Auditoria contra README real: sin discrepancias"
     },
     "BquantFinance/licitaciones-espana": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4075,7 +4087,10 @@
       "skill_name": "spain-public-procurement",
       "skill_path": "government-data/spain-public-procurement",
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Batch backlog 2026-09-15 (33 stars nuevas tras 6 dias sin scout). Creado tras leer README real + dedup ChromaDB."
+      "decision_note": "Batch backlog 2026-09-15 (33 stars nuevas tras 6 dias sin scout). Creado tras leer README real + dedup ChromaDB.",
+      "skill_audited": "2026-09-15",
+      "audit_fixes": 0,
+      "audit_note": "Auditoria contra README real: sin discrepancias"
     },
     "microsoft/Planetary-Explorer": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4087,7 +4102,10 @@
       "skill_name": "geospatial-ai-agents",
       "skill_path": "geospatial/geospatial-ai-agents",
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Batch backlog 2026-09-15 (33 stars nuevas tras 6 dias sin scout). Creado tras leer README real + dedup ChromaDB."
+      "decision_note": "Batch backlog 2026-09-15 (33 stars nuevas tras 6 dias sin scout). Creado tras leer README real + dedup ChromaDB.",
+      "skill_audited": "2026-09-15",
+      "audit_fixes": 1,
+      "audit_note": "Auditoria contra README real (3 subagentes): 1 discrepancia(s) corregidas"
     },
     "JaimeObregon/infoelectoral": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4099,7 +4117,10 @@
       "skill_name": "spanish-electoral-microdata",
       "skill_path": "government-data/spanish-electoral-microdata",
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Batch backlog 2026-09-15 (33 stars nuevas tras 6 dias sin scout). Creado tras leer README real + dedup ChromaDB."
+      "decision_note": "Batch backlog 2026-09-15 (33 stars nuevas tras 6 dias sin scout). Creado tras leer README real + dedup ChromaDB.",
+      "skill_audited": "2026-09-15",
+      "audit_fixes": 0,
+      "audit_note": "Auditoria contra README real: sin discrepancias"
     },
     "ai4up/eubucco": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4111,7 +4132,10 @@
       "skill_name": "eubucco-building-stock",
       "skill_path": "geospatial/eubucco-building-stock",
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Batch backlog 2026-09-15 (33 stars nuevas tras 6 dias sin scout). Creado tras leer README real + dedup ChromaDB."
+      "decision_note": "Batch backlog 2026-09-15 (33 stars nuevas tras 6 dias sin scout). Creado tras leer README real + dedup ChromaDB.",
+      "skill_audited": "2026-09-15",
+      "audit_fixes": 2,
+      "audit_note": "Auditoria contra README real (3 subagentes): 2 discrepancia(s) corregidas"
     },
     "localai-org/sam3d.cpp": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4123,7 +4147,10 @@
       "skill_name": "sam3d-cpp-body-objects",
       "skill_path": "computer-vision/sam3d-cpp-body-objects",
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Batch backlog 2026-09-15 (33 stars nuevas tras 6 dias sin scout). Creado tras leer README real + dedup ChromaDB."
+      "decision_note": "Batch backlog 2026-09-15 (33 stars nuevas tras 6 dias sin scout). Creado tras leer README real + dedup ChromaDB.",
+      "skill_audited": "2026-09-15",
+      "audit_fixes": 0,
+      "audit_note": "Auditoria contra README real: sin discrepancias"
     },
     "Vicomtech/STDG-evaluation-metrics": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4135,7 +4162,10 @@
       "skill_name": "synthetic-tabular-data-evaluation",
       "skill_path": "data-science/synthetic-tabular-data-evaluation",
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Batch backlog 2026-09-15 (33 stars nuevas tras 6 dias sin scout). Creado tras leer README real + dedup ChromaDB."
+      "decision_note": "Batch backlog 2026-09-15 (33 stars nuevas tras 6 dias sin scout). Creado tras leer README real + dedup ChromaDB.",
+      "skill_audited": "2026-09-15",
+      "audit_fixes": 1,
+      "audit_note": "Auditoria contra README real (3 subagentes): 1 discrepancia(s) corregidas"
     },
     "aws-samples/sample-geospatial-kiro-power-pack": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4147,7 +4177,10 @@
       "skill_name": "geospatial-mcp-power-pack",
       "skill_path": "geospatial/geospatial-mcp-power-pack",
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Batch backlog 2026-09-15 (33 stars nuevas tras 6 dias sin scout). Creado tras leer README real + dedup ChromaDB."
+      "decision_note": "Batch backlog 2026-09-15 (33 stars nuevas tras 6 dias sin scout). Creado tras leer README real + dedup ChromaDB.",
+      "skill_audited": "2026-09-15",
+      "audit_fixes": 2,
+      "audit_note": "Auditoria contra README real (3 subagentes): 2 discrepancia(s) corregidas"
     },
     "deepseek-ai/deepseek-harness": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4159,7 +4192,10 @@
       "skill_name": "hermes-agent",
       "skill_path": "autonomous-ai-agents/hermes-agent",
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Batch backlog 2026-09-15: no merece skill propio; anadida seccion comparativa/patron al skill existente autonomous-ai-agents/hermes-agent"
+      "decision_note": "Batch backlog 2026-09-15: no merece skill propio; anadida seccion comparativa/patron al skill existente autonomous-ai-agents/hermes-agent",
+      "skill_audited": "2026-09-15",
+      "audit_fixes": 0,
+      "audit_note": "Auditoria contra README real: sin discrepancias"
     },
     "DietrichGebert/ponytail": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4171,7 +4207,10 @@
       "skill_name": "codex",
       "skill_path": "autonomous-ai-agents/codex",
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Batch backlog 2026-09-15: no merece skill propio; anadida seccion comparativa/patron al skill existente autonomous-ai-agents/codex"
+      "decision_note": "Batch backlog 2026-09-15: no merece skill propio; anadida seccion comparativa/patron al skill existente autonomous-ai-agents/codex",
+      "skill_audited": "2026-09-15",
+      "audit_fixes": 0,
+      "audit_note": "Auditoria contra README real: sin discrepancias"
     },
     "THU-MAIC/OpenMAIC": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4183,7 +4222,10 @@
       "skill_name": "educational-html-pipeline",
       "skill_path": "educational-html-pipeline",
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Batch backlog 2026-09-15: no merece skill propio; anadida seccion comparativa/patron al skill existente educational-html-pipeline"
+      "decision_note": "Batch backlog 2026-09-15: no merece skill propio; anadida seccion comparativa/patron al skill existente educational-html-pipeline",
+      "skill_audited": "2026-09-15",
+      "audit_fixes": 0,
+      "audit_note": "Auditoria contra README real: sin discrepancias"
     },
     "debpalash/VoiceStudio": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4195,7 +4237,10 @@
       "skill_name": "voicebox",
       "skill_path": "media/voicebox",
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Batch backlog 2026-09-15: no merece skill propio; anadida seccion comparativa/patron al skill existente media/voicebox"
+      "decision_note": "Batch backlog 2026-09-15: no merece skill propio; anadida seccion comparativa/patron al skill existente media/voicebox",
+      "skill_audited": "2026-09-15",
+      "audit_fixes": 0,
+      "audit_note": "Auditoria contra README real: sin discrepancias"
     },
     "carla-simulator/carla": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4207,7 +4252,10 @@
       "skill_name": "airsim-simulation",
       "skill_path": "geospatial/airsim-simulation",
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Batch backlog 2026-09-15: no merece skill propio; anadida seccion comparativa/patron al skill existente geospatial/airsim-simulation"
+      "decision_note": "Batch backlog 2026-09-15: no merece skill propio; anadida seccion comparativa/patron al skill existente geospatial/airsim-simulation",
+      "skill_audited": "2026-09-15",
+      "audit_fixes": 0,
+      "audit_note": "Auditoria contra README real: sin discrepancias"
     },
     "conveyal/r5": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4219,7 +4267,10 @@
       "skill_name": "routing-isochrones",
       "skill_path": "routing-isochrones",
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Batch backlog 2026-09-15: no merece skill propio; anadida seccion comparativa/patron al skill existente routing-isochrones"
+      "decision_note": "Batch backlog 2026-09-15: no merece skill propio; anadida seccion comparativa/patron al skill existente routing-isochrones",
+      "skill_audited": "2026-09-15",
+      "audit_fixes": 0,
+      "audit_note": "Auditoria contra README real: sin discrepancias"
     },
     "Madi-S/Lead-Generation": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4231,7 +4282,10 @@
       "skill_name": "google-maps-scrapper",
       "skill_path": "data-pipeline/google-maps-scrapper",
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Batch backlog 2026-09-15: no merece skill propio; anadida seccion comparativa/patron al skill existente data-pipeline/google-maps-scrapper"
+      "decision_note": "Batch backlog 2026-09-15: no merece skill propio; anadida seccion comparativa/patron al skill existente data-pipeline/google-maps-scrapper",
+      "skill_audited": "2026-09-15",
+      "audit_fixes": 2,
+      "audit_note": "Auditoria contra README real (3 subagentes): 2 discrepancia(s) corregidas"
     },
     "IngenieroSeed/SafeDocument": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4243,7 +4297,10 @@
       "skill_name": "browser-local-tools",
       "skill_path": "herramientas/browser-local-tools",
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Batch backlog 2026-09-15: no merece skill propio; anadida seccion comparativa/patron al skill existente herramientas/browser-local-tools"
+      "decision_note": "Batch backlog 2026-09-15: no merece skill propio; anadida seccion comparativa/patron al skill existente herramientas/browser-local-tools",
+      "skill_audited": "2026-09-15",
+      "audit_fixes": 2,
+      "audit_note": "Auditoria contra README real (3 subagentes): 2 discrepancia(s) corregidas"
     },
     "ctt-gob-es/datos.gob.es": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4255,7 +4312,10 @@
       "skill_name": "government-data-pipelines",
       "skill_path": "government-data-pipelines",
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Batch backlog 2026-09-15: no merece skill propio; anadida seccion comparativa/patron al skill existente government-data-pipelines"
+      "decision_note": "Batch backlog 2026-09-15: no merece skill propio; anadida seccion comparativa/patron al skill existente government-data-pipelines",
+      "skill_audited": "2026-09-15",
+      "audit_fixes": 2,
+      "audit_note": "Auditoria contra README real (3 subagentes): 2 discrepancia(s) corregidas"
     },
     "Vicomtech/SOSDaR24": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4267,7 +4327,10 @@
       "skill_name": "rail-lidar-qa-mvp",
       "skill_path": "data-science/rail-lidar-qa-mvp",
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Batch backlog 2026-09-15: no merece skill propio; anadida seccion comparativa/patron al skill existente data-science/rail-lidar-qa-mvp"
+      "decision_note": "Batch backlog 2026-09-15: no merece skill propio; anadida seccion comparativa/patron al skill existente data-science/rail-lidar-qa-mvp",
+      "skill_audited": "2026-09-15",
+      "audit_fixes": 0,
+      "audit_note": "Auditoria contra README real: sin discrepancias"
     },
     "acrosa/GridKit": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4279,7 +4342,10 @@
       "skill_name": "design-systems-ecosystem",
       "skill_path": "design-systems-ecosystem",
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Batch backlog 2026-09-15: no merece skill propio; anadida seccion comparativa/patron al skill existente design-systems-ecosystem"
+      "decision_note": "Batch backlog 2026-09-15: no merece skill propio; anadida seccion comparativa/patron al skill existente design-systems-ecosystem",
+      "skill_audited": "2026-09-15",
+      "audit_fixes": 0,
+      "audit_note": "Auditoria contra README real: sin discrepancias"
     },
     "Foadsf/vintage-latex": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4299,7 +4365,7 @@
       "skill_angles": [],
       "skill_created": false,
       "skill_decision_at": "2026-09-15",
-      "decision_note": "ABM config-driven en PyPI (pip install archABM; Engine(config).run()); util como patron de simulacion de ocupacion/aerosoles, pero ultimo push 2023 y modelos no validados"
+      "decision_note": "DESCARTADO el 2026-09-15 por la auditoria de referencias: simulador ABM en R estancado (push 2023-01) con modelos no validados; no compensa skill"
     },
     "Vicomtech/dardcollect": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4323,13 +4389,15 @@
     },
     "GeiserX/awesome-spain": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
-      "category": "reference",
+      "category": "domain",
       "stars": 339,
       "language": "Python",
       "skill_angles": [],
-      "skill_created": false,
+      "skill_created": true,
       "skill_decision_at": "2026-09-15",
-      "decision_note": "Awesome-list de software open source para Espana: sin codigo reutilizable propio, solo scripts de mantenimiento de la lista"
+      "decision_note": "SUBIDO A SKILL el 2026-09-15 tras auditoria: catalogo CC0 con 37 categorias de software open source espanol (Cartografia/Catastro, Datos Abiertos, DGT, AEAT, energia...); valor alto cruzado con los proyectos de datos de Espana",
+      "skill_name": "software-open-source-espana",
+      "skill_path": "reference/software-open-source-espana"
     },
     "JuliaLang/julia": {
       "explored_at": "2026-09-15T15:19:55.137096+00:00",
@@ -4386,7 +4454,7 @@
       "skip_reason": "Plugin para Mattermost, plataforma que David no usa"
     }
   },
-  "last_run": "2026-09-15T15:19:55.137096+00:00",
+  "last_run": "2026-09-15T15:45:32.946955+00:00",
   "total_skills_created": 24,
   "stats": {
     "runs": 63,

@@ -53,10 +53,10 @@ Cada atributo lleva su origen: **Ground Truth / Merged / ML Estimated**.
 | Atributo | Cobertura | Ground truth |
 |---|---|---|
 | type | 100 % | 38,1 % |
-| subtype | 100 % | — |
+| subtype | 100 % | 17,3 % |
 | height | 100 % | 43,2 % |
 | floors | 100 % | 16,6 % |
-| construction year | 15,9 % | — |
+| construction year | 15,9 % | 15,6 % |
 
 **No tratar los atributos ML-estimated como datos reales**: etiquetarlos o filtrarlos según el uso.
 

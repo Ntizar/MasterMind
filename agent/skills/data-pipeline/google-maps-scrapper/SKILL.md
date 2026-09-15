@@ -38,7 +38,7 @@ results = scraper.scrape(...)     # ejemplos por el README del repo
 
 ## Tercera opción: py-lead-generation (Madi-S/Lead-Generation)
 
-Paquete en PyPI (~383 ⭐, consultado 2026-09-15) con API asíncrona y dos motores: Google Maps y **Yelp** (combinación que los otros proyectos de esta sección no ofrecen).
+Paquete en PyPI (**386 ⭐** a 2026-09-15) con API asíncrona y dos motores: Google Maps y **Yelp** (combinación que los otros proyectos de esta sección no ofrecen).
 
 ```bash
 pip install py-lead-generation
@@ -64,4 +64,4 @@ Versión antigua archivada dentro del repo: `cd archived/google-maps && python e
 
 **Caveats:** pieza patrocinada (CoreClaw) para captar leads; el TODO del repo confirma que **no hay tests, ni CLI/GUI, ni MCP, ni envío de emails/SMS**. Salida solo CSV.
 
-**Patrón reutilizable (independiente de la fuente):** una clase *engine* por plataforma con la misma interfaz (`run()` async + `save_to_csv()`), y el **zoom de Google Maps como parámetro de partición espacial** del área de búsqueda.
+**Patrón reutilizable (independiente de la fuente):** una clase *engine* por plataforma con la misma interfaz (`run()` async + `save_to_csv()`), y el **zoom de Google Maps como parámetro del engine** que fija el área de búsqueda (el troceado fino en rejilla sigue en el TODO del README, **no implementado**).

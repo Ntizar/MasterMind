@@ -12,7 +12,7 @@ metadata:
 
 # Power-pack de MCP geoespaciales
 
-Pack de **21 servidores MCP geoespaciales** independientes, instalables à la carte con `uvx`, sobre una base compartida (`geo-common`) y con un **router de orquestación** discover → process → analyze con degradación elegante.
+Pack de **21 paquetes** Python: el Power Hub (`kiro-geospatial`), la base compartida (`geo-common`) y **19 servidores MCP** (56 herramientas), instalables à la carte con `uvx`, con un **router de orquestación** discover → process → analyze con degradación elegante.
 
 ## When to Use (cuándo usarlo)
 
@@ -38,7 +38,12 @@ uvx geo-foundation-models
 uvx geo-embedding-search
 uvx geo-warehouse
 uvx aws-geo-compute
-# 21 paquetes en total (packages/)
+uvx geo-formats            # conversión de formatos
+uvx geo-query              # consultas espaciales
+uvx geo-commercial-imagery # imagery comercial
+uvx geo-ogc                # servicios OGC
+uvx geo-3d                 # datos 3D
+# + geo-common (base compartida, no se lanza solo) = 21 paquetes en packages/
 ```
 
 ## Arquitectura en 3 pilares (regla de diseño explícita)
@@ -66,7 +71,7 @@ Incluye `skills/` listos para copiar como skills de agente: `stac-metadata.md`, 
 ## Pitfalls
 
 - Instalar los 21 servidores satura el contexto del agente: **activar solo los que se usen** (à la carte es el diseño).
-- `aws-geo-compute` y `geo-warehouse` asumen servicios AWS/warehouse; el resto es local/abierto.
+- `aws-geo-compute` y `geo-warehouse` (AWS/warehouse) y `geo-commercial-imagery` (Maxar vía Sentinel Hub TPDI, Planet Data/Orders: propietario/licenciado) asumen servicios externos de pago; el resto es local/abierto.
 - Es material de `aws-samples` (repo de ejemplo): verificar mantenimiento antes de depender de un paquete concreto.
 
 ## Referencia

@@ -54,3 +54,29 @@ El PC/gateway estuvo apagado del **2026-09-09 17:42 al 2026-09-15 16:30**. Al ar
 - **El dedup semántico sólo orienta; el README decide.** Scores como `sam3d.cpp → trellis2-img-to-3d 0.747` parecían cobertura y no lo eran (imagen→3D ≠ recuperación de cuerpo/objetos desde vídeo).
 - **Los veredictos automáticos se pasan de generosos**: de 15 CREATE propuestos, 4 se degradaron a referencia (repos de 3-17 stars o colecciones de ejemplos). El orquestador filtra; el criterio es "¿lo usaría David en 3 meses?".
 - **Un job con workdir + otro job en paralelo = `TERMINAL_CWD write lock`.** Serializar el cron (max_parallel_jobs=1) mata dos bugs con un cambio.
+
+---
+
+## Auditoría posterior (misma sesión, 15/09 noche)
+
+Segundo pase de control de calidad sobre **22 textos** (11 skills nuevos + 11 secciones comparativas) con 3 subagentes, cada afirmación contrastada contra el README real (`gh api .../readme`, `POWER.md`, árbol de ficheros y, cuando hizo falta, el propio HTML del repo).
+
+**Resultado: 14 OK · 8 con errores corregidos.**
+
+| Item | Error detectado | Corrección |
+|---|---|---|
+| `minimind-tiny-llm-training` | "≈3 € de GPU" y "YaRN exige reentrenar" | ≈3 ¥ ≈ 0,4 $ (2,31 h a ~1,3 ¥/h); YaRN se activa **en inferencia** (`--inference_rope_scaling` / `rope_scaling` en `config.json`) |
+| `eubucco-building-stock` | `subtype` y `construction year` sin ground truth | GT real: 17,3 % y 15,6 % |
+| `geospatial-ai-agents` | "frontend autorizado Esri ArcGIS" | frontal React propio; ArcGIS es integración **opcional** |
+| `geospatial-mcp-power-pack` | "21 servidores MCP" | 21 **paquetes**: hub + `geo-common` + 19 servidores MCP; `geo-commercial-imagery` es de pago (Maxar/Planet) |
+| `google-maps-scrapper` (sección py-lead-generation) | 383 ⭐; troceado por rejilla como feature | 386 ⭐; el troceado está en el **TODO**, no implementado |
+| `browser-local-tools` (sección SafeDocument) | 860 líneas; CSP "en la primera línea" | 1.180 líneas/55 KB; CSP en la línea 4 |
+| `synthetic-tabular-data-evaluation` | ">30 notebooks, >6 datasets" | **108 notebooks y 6 datasets** |
+| `government-data-pipelines` (sección datos.gob.es) | "único commit de código"; 8 extensiones | CHANGELOG con v0.1.0/2017, v0.2.0/2019, v1.0.0/2022 y v2.0.0/2026; faltaba `ckanext-dge-scheming` (9 extensiones) |
+
+**Referencias reevaluadas:** `vintage-latex`, `dardcollect` y `rasuwa-flood` se mantienen como referencia; `ArchABM` se descarta (estancado en 2023, modelos no validados); **`GeiserX/awesome-spain` se eleva a skill** → `reference/software-open-source-espana` (catálogo CC0 con 37 categorías de software open source español, con la selección verificada de Cartografía/Catastro y Datos Abiertos).
+
+**Enriquecimiento:** `spain-public-procurement/references/umbrales-sara.md` (tabla SARA 2016-2025, estrategias E1-E5, validación anual) y `minimind-tiny-llm-training/references/entrenamiento-detallado.md` (checkpoints, criterio MoE, datasets); además el skill de licitaciones recuperó la estrategia **E5** que faltaba.
+
+**Lección:** incluso un texto redactado a partir de resúmenes verificados contiene derivas (cifras heredadas del README antiguo, matices invertidos como el YaRN). Auditar contra la fuente primaria no es opcional: el 36 % de los textos tenía al menos un error.
+

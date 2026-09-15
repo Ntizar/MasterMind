@@ -945,7 +945,7 @@ console.log(entries);
 
 ## Nueva plataforma datos.gob.es (CKAN + Drupal)
 
-`ctt-gob-es/datos.gob.es` (consultado 2026-09-15) es un repo de **gobernanza/documentación** (README, `docs/`, CHANGELOG, SECURITY; único commit de código "Liberación código nueva plataforma" el 2026-01-02). No contiene el código operativo: cada extensión CKAN y cada módulo/tema Drupal vive en **su propio repo** (`datosgobes/ckanext-*`), enlazado desde este índice.
+`ctt-gob-es/datos.gob.es` (consultado 2026-09-15) es un repo de **gobernanza/documentación** (README, `docs/`, CHANGELOG, SECURITY). Su último hito («Liberación código nueva plataforma», 2026-01-02) lo convierte en base de documentación; según el CHANGELOG, los commits de 2017 (v0.1.0), 2019 (v0.2.0) y 2022 (v1.0.0) sí agrupaban código CKAN/Drupal. No contiene el código operativo: cada extensión CKAN y cada módulo/tema Drupal vive en **su propio repo** (`datosgobes/ckanext-*`), enlazado desde este índice.
 
 | Extensión | Función |
 |---|---|
@@ -954,6 +954,7 @@ console.log(entries);
 | `ckanext-dge-brokenlinks` | auditoría de enlaces rotos |
 | `ckanext-dge-dashboard` | estadísticas |
 | `ckanext-dge-dataservice` | metadatos + API |
+| `ckanext-dge-scheming` | esquemas de datasets/dataservices (`metadatos`, `dcat-ap-es`, `nti-risp`) |
 | `ckanext-dge-drupal-users` | usuarios Drupal ↔ CKAN |
 | `ckanext-dge-ga` / `-ga-report` | Google Analytics + reporting |
 | `ckanext-dge-harvest` | cosechador/federador con validación **DCAT-AP-ES** |

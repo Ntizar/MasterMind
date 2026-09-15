@@ -47,7 +47,7 @@ Toggles por entorno: `MPC_PRO`, `PRIVATE`, `FABRIC`, `WEATHER_MODELS`, `LOCATION
 
 - La pila completa es **Azure de pago** (AI Foundry, Agent Service, Azure Maps, AI Search, Container Apps, Key Vault) — el valor gratis está en las **APIs STAC**, no en el despliegue.
 - El README avisa: **no es un producto soportado** por Microsoft, es un patrón de referencia.
-- El frontend autorizado es Esri ArcGIS (opcional).
+- El frontend propio es una **app React con mapa** (además del bot de Teams y el agente declarativo de M365 Copilot); **Esri ArcGIS es una integración opcional** para flujos GIS de empresa (junto a conectores de Copilot Studio), no el frontend autorizado.
 
 ## Referencia
 

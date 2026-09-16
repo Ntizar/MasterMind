@@ -4467,13 +4467,59 @@
       "skill_action": "create",
       "skip_reason": null,
       "notes": "43406 stars, MCP server code-intelligence (C, tree-sitter, SQLite). Dedup ChromaDB: graphify 0.76 -> comparativa aadida a graphify + skill nuevo. skill_angles del script (ai-cv) FALSO otra vez."
+    },
+    "mourner/suncalc": {
+      "explored_at": "2026-09-16T14:06:38.605912+00:00",
+      "category": "upgrade",
+      "stars": 3471,
+      "language": "JavaScript",
+      "skill_angles": [
+        "pattern-pipeline"
+      ],
+      "skill_created": false,
+      "skill_name": "solar-shadows-web-workers",
+      "skill_action": "upgrade",
+      "skip_reason": null,
+      "skill_version": "1.1.0",
+      "skill_decision_at": "2026-09-16",
+      "notes": "Dedup ChromaDB 0.63 solar-shadow-computation + ya citado en 3 skills solares propios -> sin skill nuevo. UPGRADE: seccion 'SunCalc v2' en solar-shadows-web-workers (breaking v1->v2: radianes->grados, azimut sur->norte [critico: SolMAD pin v1.9 con +180 propio, migrar sin quitar la conversion = sombras 180 grados opuestas], ESM-first, null->eventos inexistentes, altitud aparente refraccion). Fuente: README + release notes v2.0.0 via gh api."
+    },
+    "jeremyipark/vision-demos": {
+      "explored_at": "2026-09-16T14:06:44.867714+00:00",
+      "category": "tool",
+      "stars": 266,
+      "language": "Python",
+      "skill_angles": [
+        "ai-cv-pipeline"
+      ],
+      "skill_created": true,
+      "skill_name": "computer-vision/pose-based-motion-metrics",
+      "skill_action": "create",
+      "skip_reason": null,
+      "skill_decision_at": "2026-09-16",
+      "notes": "266* pero READMEs + guias rep-counting/cadence-explained con patrones reutilizables (senal relativa al cuerpo, histereis doble umbral, calibracion por clip, aspecto-ratio x/y). Dedup ChromaDB: openpose 0.68/0.69 = deteccion de pose, NO metricas temporales desde keypoints -> skill nuevo. Verificado contra READMEs reales gh api."
+    },
+    "Maelic/RelateAnything": {
+      "explored_at": "2026-09-16T14:06:51.400823+00:00",
+      "category": "tool",
+      "stars": 112,
+      "language": "Python",
+      "skill_angles": [
+        "ci-cd-pipeline-patterns"
+      ],
+      "skill_created": true,
+      "skill_name": "computer-vision/relateanything-open-vocab-sgg",
+      "skill_action": "create",
+      "skip_reason": null,
+      "skill_decision_at": "2026-09-16",
+      "notes": "112* pero 3 patrones unicos (vocabulario de predicados en inferencia sin reentrenar, sin etiquetas de objeto, ONNX navegador) + docs/pitfalls.md verificado. Dedup: moondream 0.71 = VLM texto libre, no SGG estructurado con scores calibrados. skill_angles del script (ci-cd) FALSO otra vez - decidido con README real. Estabilizacion temporal (IoU+EMA+histereis+fades) reutilizable en CCTV."
     }
   },
-  "last_run": "2026-09-15T22:01:23.899388+00:00",
+  "last_run": "2026-09-16T14:06:52.401215+00:00",
   "total_skills_created": 24,
   "stats": {
-    "runs": 64,
-    "repos_explored": 311,
+    "runs": 65,
+    "repos_explored": 314,
     "skills_generated": 9,
     "last_batch": 6
   },
